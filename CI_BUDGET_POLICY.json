@@ -1,0 +1,25 @@
+{
+  "version": "1.0",
+  "effective_date": "2026-09-18",
+  "owner": "Terminator364",
+  "scope": "all current and future ChatGPT-managed repositories",
+  "mode": "ULTRA_LOW_ACTIONS_BUDGET",
+  "normal_daily_target_runner_minutes": 0,
+  "global_monthly_target_runner_minutes": 30,
+  "automatic_push_pr_schedule_actions_default": false,
+  "existing_allocations_minutes_per_month": {
+    "PhoneMouse": 15,
+    "P2PCR95": 9,
+    "ChatGPT-PC": 6,
+    "PROJECT-DRAFTS": 0
+  },
+  "future_repository_default_minutes_per_month": 0,
+  "future_repository_rule": "Copy root AGENTS.md before enabling GitHub Actions; no automatic hosted-runner triggers without explicit owner approval.",
+  "remote_run_gate": [
+    "necessary_remote_evidence",
+    "batched_changes",
+    "material_fix_since_failure",
+    "smallest_targeted_job",
+    "value_exceeds_actions_cost"
+  ]
+}
