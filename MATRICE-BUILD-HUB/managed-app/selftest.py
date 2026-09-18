@@ -32,9 +32,11 @@ for name in ("bridge.py","build2_core.py","build2_worker.py"):
             fail("FORBIDDEN_"+name+":"+forbidden)
 
 bridge=(HERE/"bridge.py").read_text(encoding="utf-8")
-for op in ("doctor","build_phonemouse","build_p2pcr95","build_chatgpt_pc","last_build_status","cancel_build","get_receipt"):
+for op in ("doctor","last_build_status","cancel_build","get_receipt"):
     if f'"{op}"' not in bridge:
-        fail("BRIDGE_OPERATION_"+op)
+        fail("BRIDGE_SYSTEM_OPERATION_"+op)
+if "lane_config_for_operation" not in bridge:
+    fail("BRIDGE_NOT_REGISTRY_DRIVEN")
 
 worker=(HERE/"build2_worker.py").read_text(encoding="utf-8")
 for token in (
@@ -57,6 +59,8 @@ lanes=reg.get("lanes",{})
 for lane in ("phonemouse","p2pcr95","chatgpt_pc"):
     if lane not in lanes:
         fail("LANE_"+lane)
+    if not lanes[lane].get("project") or not lanes[lane].get("operation"):
+        fail("LANE_CONTRACT_"+lane)
 pm=lanes["phonemouse"]
 if pm.get("resource_profile",{}).get("max_workers")!=1:
     fail("PHONEMOUSE_MAX_WORKERS")
@@ -82,6 +86,8 @@ with tempfile.TemporaryDirectory(prefix="mbh-build2-selftest-") as td:
         fail("CORE_IMPORT_SPEC")
     core=importlib.util.module_from_spec(spec)
     spec.loader.exec_module(core)
+    if core.lane_name("Fresh App 01")!="fresh_app_01":
+        fail("GENERIC_LANE_NAMING")
     contract={"repo":"example/test","branch":"main","source_sha":"0"*40}
     a=core.new_run("P2PCR95","build_p2pcr95",contract,idempotency_key="selftest-key")
     if a.get("status")!="QUEUED":
@@ -112,6 +118,6 @@ print(json.dumps({
     "checks":{
         "syntax":"PASS","no_arbitrary_shell":"PASS","local_first":"PASS",
         "p2pcr95_exact_candidate":"PASS","phonemouse_low_ram_contract":"PASS",
-        "run_id_idempotence":"PASS","heartbeat_receipt":"PASS"
+        "run_id_idempotence":"PASS","heartbeat_receipt":"PASS","generic_lane_onboarding":"PASS"
     }
 },ensure_ascii=False))
