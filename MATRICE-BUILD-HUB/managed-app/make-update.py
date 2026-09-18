@@ -71,7 +71,10 @@ def build(sequence:int, source_sha:str, output:Path):
         hub_text.count("BUILD_HUB_DOCTOR_PASS")!=1 or
         hub_text.count("param(")!=1 or hub_text.count("finally{")>2 or
         hub_text.count("MACHINE_QUERY_FAILED")!=1 or
-        hub_text.count("INVALID_EXPECTED_SHA")!=1):
+        hub_text.count("INVALID_EXPECTED_SHA")!=1 or
+        "APK_INSTALL_PASS" not in hub_text or
+        "RELEASE_ASSET_DIGESTS_PASS" not in hub_text or
+        "CODESPACE_DELETE_FAILED" not in hub_text):
         raise SystemExit("HUB_ENGINE_STRUCTURE_INVALID")
     # Comments may document why this probe is forbidden; reject executable code only.
     hub_code="\n".join(line for line in hub_text.splitlines() if not line.lstrip().startswith("#"))
@@ -102,7 +105,7 @@ def build(sequence:int, source_sha:str, output:Path):
         "package_type":"managed_app_update",
         "target_app":"matrice-build-hub",
         "sequence":sequence,
-        "update_id":f"mbh-build2-v054-supervisor-hardening-seq{sequence}",
+        "update_id":f"mbh-build2-v055-auto-install-readback-seq{sequence}",
         "version":str(reg.get("version") or ""),
         "build2_source_sha":source_sha,
         "build2_version":str(reg.get("version") or ""),
