@@ -52,18 +52,24 @@ def build(sequence:int, source_sha:str, output:Path):
         operations[op]=["{python}","{app_root}/bridge.py",op]
         buttons.append({"id":lane_id,"label":"Build "+project,"operation":op})
 
+    hub_bytes=(HERE.parent/"hub.ps1").read_bytes()
+    hub_text=hub_bytes.decode("utf-8-sig")
+    if hub_text.count("function VerifyReleaseAssets")!=1 or hub_text.count("BUILD_HUB_DOCTOR_PASS")!=1 or hub_text.count("param(")!=1 or hub_text.count("finally{")>2:
+        raise SystemExit("HUB_ENGINE_STRUCTURE_INVALID")
+    if "gh auth status" in hub_text:
+        raise SystemExit("HUB_ENGINE_UNBOUNDED_GH_AUTH")
     authority={
         "schema":"build2.source_authority/1",
         "status":"PINNED",
         "repo":"Terminator364/PROJECT-DRAFTS",
         "branch":"buildhub-v0.5-unified-lanes-20260918",
         "source_sha":source_sha,
-        "promotion_mode":"TRANSACTIONAL_EXACT_SHA"
+        "promotion_mode":"TRANSACTIONAL_EXACT_SHA",
+        "hub_sha256":sha256_bytes(hub_bytes)
     }
     payload={}
     for name in ("bridge.py","selftest.py","build2_core.py","build2_worker.py","build2_registry.json"):
         payload[name]=(HERE/name).read_bytes()
-    payload["hub_engine_snapshot.ps1"]=(HERE.parent/"hub.ps1").read_bytes()
     payload["build2_source_authority.json"]=stable_json(authority)
 
     manifest={
