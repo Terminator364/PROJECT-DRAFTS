@@ -134,7 +134,7 @@ Countermeasure:
 Impact: temporary inability to build.
 Countermeasure:
 - Codespaces primary;
-- local low-RAM builder remains planned fallback;
+- the existing local PhoneMouse builder is retained as an emergency fallback, but is not the primary V0.2 path;
 - GitHub Actions remains exceptional recovery after quota reset;
 - adapter contract is portable Linux shell, avoiding lock-in to Actions YAML.
 
@@ -159,6 +159,28 @@ Countermeasure:
 - export always deletes the plaintext bundle from a finally block;
 - restore test validates manifest hashes and canonical certificates with keytool;
 - restore PASS marker uses the v2 functional contract and is required before signed production.
+
+### R19 — incremental patch corrupts the central orchestrator
+Impact: a patch can duplicate or truncate hub.ps1 while still leaving expected keywords present.
+Countermeasure:
+- restore from a known-good blob when structural corruption is detected;
+- self-test requires exactly one runtime entry, one release verifier and one recovery verifier;
+- all PowerShell files are parsed with System.Management.Automation.Language.Parser before a real build;
+- static keyword counts are treated only as one oracle, not as syntax proof.
+
+### R20 — quota cap checked only before machine/time selection
+Impact: a build can start just below the cap and exceed the internal reserve.
+Countermeasure:
+- select machine and project timeout first;
+- reserve worst-case core-hours including a startup allowance;
+- refuse builder creation when the projected total exceeds the internal cap.
+
+### R21 — Codespace created but not discovered by the first polling loop
+Impact: an orphan builder can remain after a discovery failure.
+Countermeasure:
+- finally block re-discovers by the unique BuildId;
+- stop/delete is retried;
+- a successful job is not certified if deletion cannot be confirmed.
 
 ## Included-quota model
 GitHub Free currently includes 120 Codespaces core-hours and 15 GB-month storage.
