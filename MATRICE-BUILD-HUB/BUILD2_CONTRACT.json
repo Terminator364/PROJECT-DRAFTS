@@ -1,0 +1,55 @@
+{
+  "schema": "build2.contract/1",
+  "continuation_code": "BUILD2 CONTINUE",
+  "status": "ENGINEERING_ACTIVE_NOT_FIELD_PROMOTED",
+  "shared_core": true,
+  "normal_flow_zero_manual": true,
+  "arbitrary_shell": false,
+  "heavy_build_parallelism": 1,
+  "terminal_states": ["COMPLETE", "FAILED_SAFE", "HOLD", "CANCELLED"],
+  "stages": ["ACCEPTED","SOURCE_SYNC","PREFLIGHT","BUILDER_PROVISION","BUILD","SIGN","VERIFY","PUBLISH","READBACK","COMPLETE"],
+  "lanes": {
+    "phonemouse": {
+      "operation": "build_phonemouse",
+      "low_ram_profile": true,
+      "cache_first": true,
+      "single_flight": true,
+      "preflight_required": "tools/beta11_preflight.py",
+      "canonical_patch": "beta11-overrides/canonical",
+      "forbidden_patch": "beta11-overrides/visual",
+      "atomic_publish": true,
+      "signing_continuity": true
+    },
+    "p2pcr95": {
+      "operation": "build_p2pcr95",
+      "branch": "beta03-field-socket-fallback-20260918",
+      "source_sha": "c673f2a9f36477c35c65e9d87dec04590ef9551c",
+      "marker": "release/BUILD_READY_BUILD1.json",
+      "single_flight": true,
+      "atomic_publish": true,
+      "worker_argument_regression_required": true
+    },
+    "chatgpt_pc": {
+      "operation": "build_chatgpt_pc",
+      "formal_recommendation_packet": "PENDING_INGESTION"
+    }
+  },
+  "run_contract": {
+    "required": ["run_id","project","operation","idempotency_key","repo","branch","source_sha","recipe","expected_artifacts"],
+    "heartbeat_required": ["run_id","project","operation","stage","status","timestamp_utc","pid","progress_pct","last_event","error_class","requires_user_action"],
+    "receipt_required": ["run_id","project","status","source_sha","buildhub_version","worker_version","toolchain","artifacts","hashes","started_at","finished_at"]
+  },
+  "exit_gate": {
+    "doctor_field_pass": true,
+    "p2pcr95_e2e_twice": true,
+    "phonemouse_e2e_twice": true,
+    "control_bus_heartbeat_readback": true,
+    "fresh_android_project_onboarding_build_sign_verify_readback": true,
+    "controlled_failure_no_partial_publish": true
+  },
+  "feedback_sources": [
+    "PROJECT-DRAFTS issue #1 P2PCR95 body",
+    "PROJECT-DRAFTS issue #1 PhoneMouse addendum comment",
+    "PROJECT-DRAFTS issue #2 BUILD 2 convergence authority"
+  ]
+}
