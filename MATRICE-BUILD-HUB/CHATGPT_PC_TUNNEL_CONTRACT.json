@@ -1,0 +1,73 @@
+{
+  "schema": "mbh-chatgpt-pc-tunnel-contract-v1",
+  "version": "0.3-prefield",
+  "status": "PREFIELD_NOT_DEPLOYED",
+  "normal_entrypoint": "CHATGPT_PC_CONTROL_BUS",
+  "managed_app_id": "matrice-build-hub",
+  "manual_launchers": "BREAK_GLASS_ONLY",
+  "user_contract": {
+    "technical_operator_required": false,
+    "forbidden_normal_user_steps": [
+      "move_build_files_between_drive_and_pc",
+      "send_terminal_screenshots_for_routine_diagnostics",
+      "type_powershell_cmd_git_gradle_java_or_gh_commands",
+      "manually_download_build_toolchains",
+      "launch_cmd_bat_ps1_for_normal_builds",
+      "repeat_same_scope_r2_2003_approval"
+    ],
+    "permitted_human_boundaries": [
+      "windows_uac_when_os_requires_it",
+      "oauth_or_third_party_consent_when_provider_requires_it",
+      "r3_or_r4_when_separately_required",
+      "android_system_install_permission_when_os_requires_it",
+      "human_ux_evaluation"
+    ]
+  },
+  "security": {
+    "arbitrary_remote_shell": false,
+    "authorization": "MISSION_SCOPED_R2_2003",
+    "package_sha256_pinning": true,
+    "app_id_pinning": true,
+    "named_operation_pinning": true,
+    "rollback_required": true,
+    "receipt_readback_required": true
+  },
+  "operations": {
+    "doctor": {
+      "risk": "R0_OR_R1_AFTER_INSTALL",
+      "interactive": false
+    },
+    "build_phonemouse": {
+      "risk": "R2",
+      "project": "PhoneMouse",
+      "branch": "beta11-visual-20260918"
+    },
+    "build_p2pcr95": {
+      "risk": "R2",
+      "project": "P2PCR95",
+      "branch": "beta03-native-updater-20260918"
+    },
+    "build_chatgpt_pc": {
+      "risk": "R2",
+      "project": "ChatGPT-PC",
+      "branch": "work/worker-v024-local-heartbeat-spool"
+    },
+    "last_build_status": {
+      "risk": "R0",
+      "interactive": false
+    }
+  },
+  "phonemouse": {
+    "installed_field_version": "0.1.0-beta10",
+    "candidate_version": "0.1.0-beta11",
+    "candidate_version_code": 17,
+    "candidate_branch": "beta11-visual-20260918",
+    "local_builder_role": "BREAK_GLASS_ONLY"
+  },
+  "reality_gap": {
+    "chatgpt_pc_bridge_branch": "Terminator364/ChatGPT-PC@work/buildhub-managed-r2-bridge-20260918",
+    "bridge_field_deployed": false,
+    "g6_p0_freeze_respected": true,
+    "buildhub_operational_via_tunnel": false
+  }
+}
