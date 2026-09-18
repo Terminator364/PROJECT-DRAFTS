@@ -1,6 +1,6 @@
 {
   "schema": "build2.registry/1",
-  "version": "0.5.2-p2pcr95-beta04",
+  "version": "0.5.2-recovery-unblock",
   "global_policy": {
     "max_heavy_builds": 1,
     "max_queue_depth": 8,
@@ -54,9 +54,11 @@
         "certificate_sha256": "bf7d4ec266affef98756dadeebf1a71991d14738fe66b2f985752be0bf78f895",
         "artifacts": [
           "P2PCR95-Agent-BETA04.exe",
+          "P2PCR95-Agent-BETA04.exe.sha256",
           "P2PCR95-BETA04.apk",
           "BUILD_PROVENANCE.json",
-          "BETA04_CONTRACT.json"
+          "BETA04_CONTRACT.json",
+          "result.json"
         ]
       }
     },
