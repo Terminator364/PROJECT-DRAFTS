@@ -38,7 +38,7 @@ P0 ne devient `P0_FIELD_PASS` qu’après exécution réelle sur le PC cible ave
 - `RUNTIME_PROBE_PASS` dans le journal ;
 - rendu visible du WebView2 ;
 - navigation externe réussie ;
-- 10 minutes de télémétrie sans fuite monotone évidente à page stable ;
+- 10 minutes de télémétrie hôte + processus WebView2 exposés par `GetProcessInfos` sans fuite monotone évidente à page stable ;
 - un redémarrage de l’app avec runtime inchangé ;
 - vérification qu’un runtime différent déclenche à nouveau le probe lors d’une future mise à jour réelle.
 
