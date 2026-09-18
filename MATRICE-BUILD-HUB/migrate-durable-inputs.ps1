@@ -8,6 +8,34 @@ $AssetName="P2PCR95-Agent-BETA02.1.exe"
 $ExpectedSha="ce658b5d07abddd620802752cbfd00a38e60353852e736949102439e0134211c"
 
 function Fail($Code,$Message){throw "[$Code] $Message"}
+function Invoke-RestWithRetry([string]$Uri,[hashtable]$Headers){
+  $last=$null
+  for($attempt=1;$attempt -le 3;$attempt++){
+    try{return Invoke-RestMethod -UseBasicParsing -Headers $Headers -Uri $Uri -Method Get -TimeoutSec 45}
+    catch{$last=$_;if($attempt -lt 3){Start-Sleep -Seconds (2*$attempt)}}
+  }
+  throw $last
+}
+function Download-WithRetry([string]$Uri,[hashtable]$Headers,[string]$OutFile){
+  $last=$null
+  for($attempt=1;$attempt -le 3;$attempt++){
+    try{
+      Remove-Item $OutFile -Force -ErrorAction SilentlyContinue
+      Invoke-WebRequest -UseBasicParsing -Headers $Headers -Uri $Uri -OutFile $OutFile -TimeoutSec 90
+      if((Test-Path $OutFile) -and (Get-Item $OutFile).Length -gt 0){return}
+      throw "Downloaded file is empty."
+    }catch{$last=$_;if($attempt -lt 3){Start-Sleep -Seconds (2*$attempt)}}
+  }
+  throw $last
+}
+function Gh-ReleaseDownloadWithRetry([string]$Tag,[string]$Repo,[string]$Pattern,[string]$Destination){
+  for($attempt=1;$attempt -le 3;$attempt++){
+    & gh release download $Tag -R $Repo -p $Pattern -D $Destination --clobber
+    if($LASTEXITCODE -eq 0){return}
+    if($attempt -lt 3){Start-Sleep -Seconds (2*$attempt)}
+  }
+  Fail "GH_RELEASE_DOWNLOAD" ("Failed to download "+$Pattern+" from "+$Tag)
+}
 
 if(-not(Get-Command gh -ErrorAction SilentlyContinue)){Fail "GH_MISSING" "GitHub CLI is missing."}
 & gh auth status -h github.com *> $null
@@ -22,7 +50,7 @@ try{
   & gh release view $ReleaseTag -R $Repo *> $null
   if($LASTEXITCODE -eq 0){
     try{
-      & gh release download $ReleaseTag -R $Repo -p $AssetName -D $temp --clobber
+      Gh-ReleaseDownloadWithRetry $ReleaseTag $Repo $AssetName $temp
       if($LASTEXITCODE -eq 0 -and (Test-Path $asset)){
         $sha=(Get-FileHash -Algorithm SHA256 $asset).Hash.ToLowerInvariant()
         if($sha -eq $ExpectedSha){
@@ -43,12 +71,12 @@ try{
   }
 
   $api="https://api.github.com/repos/$Repo/actions/artifacts?name=$ArtifactName&per_page=100"
-  $listing=Invoke-RestMethod -UseBasicParsing -Headers $headers -Uri $api -Method Get
+  $listing=Invoke-RestWithRetry $api $headers
   $artifact=@($listing.artifacts|Where-Object{-not $_.expired}|Sort-Object created_at|Select-Object -Last 1)[0]
   if(-not $artifact){Fail "SOURCE_ARTIFACT_MISSING" "No non-expired $ArtifactName artifact exists."}
 
   $zip=Join-Path $temp "source.zip"
-  Invoke-WebRequest -UseBasicParsing -Headers $headers -Uri $artifact.archive_download_url -OutFile $zip
+  Download-WithRetry ([string]$artifact.archive_download_url) $headers $zip
 
   $extract=Join-Path $temp "extract"
   Expand-Archive -Path $zip -DestinationPath $extract -Force
