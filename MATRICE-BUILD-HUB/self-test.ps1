@@ -151,15 +151,25 @@ if(-not $bash){
   }
 }
 
-$python=Get-Command python -ErrorAction SilentlyContinue
-if(-not $python){$python=Get-Command py -ErrorAction SilentlyContinue}
-if($python){
-  $script=Join-Path $Root ".ax15go\buildhub_static_harness.py"
-  if($python.Name -eq "py.exe"){
-    & $python.Source -3 $script
+$pythonExe=$null
+$pythonArgs=@()
+if($env:MBH_PYTHON_EXE -and (Test-Path $env:MBH_PYTHON_EXE -PathType Leaf)){
+  $pythonExe=$env:MBH_PYTHON_EXE
+}else{
+  $python=Get-Command py -ErrorAction SilentlyContinue
+  if($python){
+    $pythonExe=$python.Source
+    $pythonArgs=@("-3")
   }else{
-    & $python.Source $script
+    $python=Get-Command python -ErrorAction SilentlyContinue
+    if($python -and $python.Source -and $python.Source -notmatch "WindowsApps"){
+      $pythonExe=$python.Source
+    }
   }
+}
+if($pythonExe){
+  $script=Join-Path $Root ".ax15go\buildhub_static_harness.py"
+  & $pythonExe @pythonArgs $script
   if($LASTEXITCODE -ne 0){FailCheck "AX150K_STATIC_HARNESS_FAILED"}else{Pass "AX150K independent Python harness"}
 }else{
   Write-Host "Python independent harness unavailable locally; PowerShell structural gates remain authoritative for bootstrap." -ForegroundColor Yellow
