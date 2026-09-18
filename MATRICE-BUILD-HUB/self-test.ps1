@@ -12,7 +12,7 @@ function Require-Token([string]$File,[string]$Token,[string]$Code){
   if($text.Contains($Token)){Pass ($Code+": "+$File)}else{FailCheck ($Code+": "+$File+" missing token "+$Token)}
 }
 
-Write-Host "MATRICE BUILD HUB V0.5.2 - STATIC SELF TEST" -ForegroundColor Cyan
+Write-Host "MATRICE BUILD HUB V0.5.5 - STATIC SELF TEST" -ForegroundColor Cyan
 
 $requiredFiles=@(
   "hub.ps1","launcher.ps1","bootstrap-pc.ps1","remote-runner.sh",
@@ -99,6 +99,9 @@ Require-Token "hub.ps1" "RELEASE_ASSET_DIGESTS_PASS" "RELEASE_DIGEST_GATE"
 Require-Token "hub.ps1" "AssertRecoveryMarker" "RECOVERY_MARKER_VALIDATION"
 Require-Token "hub.ps1" "INTERNAL_BUDGET_RESERVATION" "PROJECTED_BUDGET_GUARD"
 Require-Token "hub.ps1" "CODESPACE_DELETE_FAILED" "CLEANUP_CERTIFICATION_GUARD"
+Require-Token "hub.ps1" "APK_INSTALL_PASS" "ANDROID_AUTO_INSTALL_GATE"
+Require-Token "hub.ps1" "install -r $ApkPath" "ANDROID_PRESERVE_DATA_INSTALL"
+Require-Token "hub.ps1" "APK_VERSION_READBACK_MISMATCH" "ANDROID_INSTALL_VERSION_READBACK"
 Require-Token "remote-runner.sh" 'bash -n "$SCRIPT"' "SELECTED_RECIPE_PARSE"
 Require-Token "setup-local-signing-tools.ps1" "SDKMANAGER_TIMEOUT" "SDKMANAGER_TIMEOUT_GUARD"
 Require-Token "launcher.ps1" "HUB_UPDATE_FAILED" "STALE_LAUNCHER_GUARD"
@@ -111,8 +114,9 @@ Require-Token "verify-disaster-recovery.ps1" "mbh-disaster-recovery-restore-test
 Require-Token "verify-disaster-recovery.ps1" "RECOVERY_CERT_MISMATCH" "RECOVERY_CERT_GUARD"
 Require-Token "verify-disaster-recovery.ps1" "RECOVERY_KEYSTORE_OPEN_FAILED" "RECOVERY_KEYSTORE_GUARD"
 Require-Token "export-disaster-recovery.ps1" 'if($plainBundle -and (Test-Path $plainBundle))' "RECOVERY_PLAINTEXT_CLEANUP"
-Require-Token "managed-app\\bridge.py" "OPERATIONS={" "MANAGED_FIXED_OPERATIONS"
-Require-Token "managed-app\\bridge.py" "shell=False" "MANAGED_NO_SHELL"
+Require-Token "managed-app\\bridge.py" "lane_config_for_operation" "MANAGED_REGISTRY_ROUTING"
+Require-Token "managed-app\\build2_worker.py" "shell=False" "MANAGED_NO_SHELL"
+Require-Token "managed-app\\build2_worker.py" "INSTALL_READBACK_MISSING" "MANAGED_INSTALL_READBACK"
 Require-Token "managed-app\\manifest.template.json" "R2_MISSION_SCOPED_ZERO_CLICK" "MANAGED_R2_ACTIVATION"
 Require-Token "CHATGPT_PC_TUNNEL_CONTRACT.json" "CHATGPT_PC_CONTROL_BUS" "TUNNEL_NORMAL_ENTRYPOINT"
 Require-Token "CHATGPT_PC_TUNNEL_CONTRACT.json" "BREAK_GLASS_ONLY" "MANUAL_BREAK_GLASS_ONLY"
