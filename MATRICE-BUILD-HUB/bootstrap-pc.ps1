@@ -61,6 +61,10 @@ if(Test-Path (Join-Path $Source ".git")){
 $Hub=Join-Path $Source "MATRICE-BUILD-HUB"
 if(-not(Test-Path (Join-Path $Hub "hub.ps1"))){Fail "HUB_MISSING" "MATRICE-BUILD-HUB was not found in the canonical clone."}
 
+Write-Host "Running BuildHub static self-test..." -ForegroundColor Cyan
+& powershell.exe -NoProfile -ExecutionPolicy Bypass -File (Join-Path $Hub "self-test.ps1")
+if($LASTEXITCODE -ne 0){Fail "STATIC_SELF_TEST" "BuildHub static self-test failed."}
+
 Write-Host "Checking Codespaces access..." -ForegroundColor Cyan
 & gh codespace list --limit 1 *> $null
 if($LASTEXITCODE -ne 0){Fail "CODESPACES_ACCESS" "GitHub Codespaces is not available to this authenticated account."}
