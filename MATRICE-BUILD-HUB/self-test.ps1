@@ -89,6 +89,7 @@ Require-Token "local-sign-apk.ps1" "CERT_MISMATCH" "APK_CERT_GUARD"
 Require-Token "verify-disaster-recovery.ps1" "mbh-disaster-recovery-restore-test-v2" "RECOVERY_V2"
 Require-Token "verify-disaster-recovery.ps1" "RECOVERY_CERT_MISMATCH" "RECOVERY_CERT_GUARD"
 Require-Token "verify-disaster-recovery.ps1" "RECOVERY_KEYSTORE_OPEN_FAILED" "RECOVERY_KEYSTORE_GUARD"
+Require-Token "export-disaster-recovery.ps1" 'if($plainBundle -and (Test-Path $plainBundle))' "RECOVERY_PLAINTEXT_CLEANUP"
 
 $hubText=Get-Content (Join-Path $Root "hub.ps1") -Raw
 if($hubText.ToLowerInvariant().Contains("workflow run") -or $hubText.ToLowerInvariant().Contains("actions/workflows")){
