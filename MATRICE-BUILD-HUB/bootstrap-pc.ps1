@@ -75,7 +75,7 @@ try{
   Write-Host ("Signing migration warning: "+$_.Exception.Message) -ForegroundColor Yellow
 }
 
-Write-Host "Running local doctor..." -ForegroundColor Cyan
+Write-Host "Preserving durable non-secret build inputs..." -ForegroundColor Cyan\r\ntry{\r\n  & powershell.exe -NoProfile -ExecutionPolicy Bypass -File (Join-Path $Hub "migrate-durable-inputs.ps1")\r\n  if($LASTEXITCODE -ne 0){ Write-Host "Durable input migration needs attention before P2PCR95 BETA03." -ForegroundColor Yellow }\r\n}catch{\r\n  Write-Host ("Durable input migration warning: "+$_.Exception.Message) -ForegroundColor Yellow\r\n}\r\n\r\nWrite-Host "Running local doctor..." -ForegroundColor Cyan
 & powershell.exe -NoProfile -ExecutionPolicy Bypass -File (Join-Path $Hub "hub.ps1") -Mode Doctor
 if($LASTEXITCODE -ne 0){Fail "DOCTOR_FAILED" "BuildHub local doctor failed."}
 
