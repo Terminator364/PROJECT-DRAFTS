@@ -76,6 +76,8 @@ if($json.ContainsKey("projects.json")){
     if([string]$browser.builder_kind -eq "LOCAL_WINDOWS"){Pass "BROWSER4G local Windows builder"}else{FailCheck "BROWSER4G_BUILDER_KIND"}
     if([string]$browser.recipe_path -eq "BROWSER4G/.matrix-build/build.ps1"){Pass "BROWSER4G source-owned Windows recipe"}else{FailCheck "BROWSER4G_RECIPE_PATH"}
     if([string]$browser.publish_gate -eq "FIELD_PASS_REQUIRED"){Pass "BROWSER4G field publish gate"}else{FailCheck "BROWSER4G_PUBLISH_GATE"}
+    if([int]$browser.build_timeout_minutes -ge 60){Pass "BROWSER4G first-build timeout"}else{FailCheck "BROWSER4G_BUILD_TIMEOUT"}
+    if(@($browser.local_sparse_paths) -contains "BROWSER4G"){Pass "BROWSER4G sparse checkout"}else{FailCheck "BROWSER4G_SPARSE_PATH"}
   }
 }
 
@@ -116,6 +118,7 @@ Require-Token "hub.ps1" "InvokeLocalWindowsProject" "LOCAL_WINDOWS_BUILDER"
 Require-Token "hub.ps1" "LOCAL_SOURCE_MISMATCH" "LOCAL_WINDOWS_SOURCE_SHA_GUARD"
 Require-Token "hub.ps1" "FIELD_GATE_BYPASS" "LOCAL_WINDOWS_FIELD_GATE"
 Require-Token "hub.ps1" "LOCAL_ARTIFACT_HASH_MISMATCH" "LOCAL_WINDOWS_HASH_GUARD"
+Require-Token "hub.ps1" "LOCAL_SPARSE_PATH_UNSAFE" "LOCAL_WINDOWS_SPARSE_GUARD"
 $browserBuild=Join-Path $RepoRoot "BROWSER4G\build.ps1"
 if(Test-Path $browserBuild){
   $browserBuildText=Get-Content $browserBuild -Raw
