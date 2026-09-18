@@ -17,7 +17,7 @@ def fail(code:str)->None:
 
 required_files=[
     "bridge.py","build2_core.py","build2_worker.py",
-    "build2_registry.json","build2_source_authority.json"
+    "build2_registry.json","build2_source_authority.json","hub_engine_snapshot.ps1"
 ]
 for name in required_files:
     if not (HERE/name).is_file():
@@ -33,7 +33,7 @@ for name in ("bridge.py","build2_core.py","build2_worker.py"):
         if forbidden in text:
             fail("FORBIDDEN_"+name+":"+forbidden)
 
-hub=HERE.parent/"hub.ps1"
+hub=HERE/"hub_engine_snapshot.ps1"
 if not hub.is_file():
     fail("MISSING_hub.ps1")
 hub_text=hub.read_text(encoding="utf-8-sig",errors="strict")
