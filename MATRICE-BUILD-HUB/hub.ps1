@@ -232,6 +232,10 @@ try{
       $signedPath=Join-Path $ResultDir $signedName
       if(-not(Test-Path $unsignedPath -PathType Leaf)){Fail "UNSIGNED_APK_MISSING" "Cloud build did not return the unsigned APK."}
 
+      $RecoveryMarker=Join-Path $DataRoot "vault\DISASTER_RECOVERY_RESTORE_TEST_PASS.json"
+      if(-not(Test-Path $RecoveryMarker)){
+        Fail "DISASTER_RECOVERY_NOT_VERIFIED" "Signed APK production is blocked until the encrypted signing backup has passed a restore test."
+      }
       $Signer=Join-Path $Root "local-sign-apk.ps1"
       if(-not(Test-Path $Signer)){Fail "LOCAL_SIGNER_MISSING" "local-sign-apk.ps1 is missing."}
 
