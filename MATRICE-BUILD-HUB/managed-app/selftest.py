@@ -78,7 +78,8 @@ for token in (
     "PROJECT_SOURCE_SHA_MISMATCH","process_doctor","CODESPACES_UNAVAILABLE",
     "acquire_heavy_lock","request_cancel","FAILED_SAFE",
     "ensure_persistent_supervisor","EXTERNAL_TERMINATION_CTRL_EVENT","terminate_tree",
-    '"-Branch",str(lane_cfg["branch"]),"-ExpectedSha",project_sha'
+    '"-Branch",str(lane_cfg["branch"]),"-ExpectedSha",project_sha',
+    "CREATE_NO_WINDOW","supervisor.last_launch.json"
 ):
     if token not in worker:
         fail("WORKER_TOKEN_"+token)
@@ -87,7 +88,7 @@ if 'gh,"auth","status"' in worker or '"auth","status"' in worker:
 
 reg=json.loads((HERE/"build2_registry.json").read_text(encoding="utf-8"))
 version=str(reg.get("version") or "")
-if not version.startswith("0.5.3"):
+if not version.startswith("0.5.4"):
     fail("REGISTRY_VERSION")
 gp=reg.get("global_policy",{})
 if gp.get("max_heavy_builds")!=1 or gp.get("zero_manual_normal_flow") is not True:
