@@ -52,4 +52,5 @@ Le launcher exécute le self-test avant toute construction et bloque en cas d'in
 
 ## Statut
 
-V0.2 hardening. Ne pas déclarer **OPERATIONAL** avant les campagnes réelles prévues dans `CONTINUATION_BUILDHUB_AX15.md`.
+V0.2 **field candidate** promu sur `main` le 2026-09-18 après `STATIC_AUDIT_PASS`.
+Ne pas déclarer **OPERATIONAL** avant les campagnes réelles prévues dans `CONTINUATION_BUILDHUB_AX15.md`.
