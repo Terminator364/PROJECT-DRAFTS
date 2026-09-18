@@ -97,7 +97,8 @@ $env:ANDROID_SDK_ROOT = $AndroidHome
 $env:Path = (Join-Path $AndroidHome "platform-tools") + ";" + (Join-Path $AndroidHome "build-tools\36.0.0") + ";" + $env:Path
 
 Say "Verification Android SDK..."
-cmd /c "echo y| \"$SdkManager\" --licenses >nul 2>&1"
+$licenseCmd = "(for /L %i in (1,1,50) do @echo y) | `"$SdkManager`" --licenses >nul 2>&1"
+cmd /c $licenseCmd
 & $SdkManager "platform-tools" "platforms;android-36" "build-tools;36.0.0"
 if ($LASTEXITCODE -ne 0) { throw "Installation des composants Android echouee." }
 
@@ -220,7 +221,8 @@ try {
   Apply (Join-Path $tmp "beta10-keyboard.patch")
 
   $mainJava = "source\android\app\src\main\java\com\blessing\phonemouse\MainActivity.java"
-  (Get-Content $mainJava) | Where-Object { $_ -notmatch 'b\.setTextAllCaps\(false\);' } | Set-Content -Encoding UTF8 $mainJava
+  $mainLines = (Get-Content $mainJava) | Where-Object { $_ -notmatch 'b\.setTextAllCaps\(false\);' }
+  [IO.File]::WriteAllLines($mainJava,$mainLines,[Text.UTF8Encoding]::new($false))
 
   Decode-GzipBase64 (Get-ChildItem "beta11-overrides\canonical\part*.b64" | Sort-Object Name | ForEach-Object FullName) (Join-Path $tmp "beta11.patch")
   Rewrite (Join-Path $tmp "beta11.patch") @{
@@ -293,6 +295,13 @@ try {
   if ($LASTEXITCODE -ne 0) { throw "Verification signature FAIL." }
   & $aapt dump badging $finalApk | Tee-Object (Join-Path $out "COMPILED-IDENTITY.txt")
   & $aapt dump permissions $finalApk | Tee-Object (Join-Path $out "COMPILED-PERMISSIONS.txt")
+  $identity = Get-Content (Join-Path $out "COMPILED-IDENTITY.txt") -Raw
+  if ($identity -notmatch ("package: name='" + [regex]::Escape([string]$Contract.application_id) + "' versionCode='" + [regex]::Escape([string]$Contract.version_code) + "' versionName='" + [regex]::Escape([string]$Contract.version_name) + "'")) {
+    throw "Identite APK compilee incoherente."
+  }
+  if ($identity -notmatch ("application-label:'" + [regex]::Escape([string]$Contract.candidate_label) + "'")) {
+    throw "Label APK compile incorrect."
+  }
 
   $hash = (Get-FileHash $finalApk -Algorithm SHA256).Hash.ToLowerInvariant()
   Set-Content (Join-Path $out "PhoneMouse-BETA11.apk.sha256") "$hash  PhoneMouse-BETA11.apk"
