@@ -30,7 +30,7 @@
     },
     "P2PCR95": {
       "repo": "Terminator364/P2PCR95",
-      "default_branch": "beta03-native-updater-20260918",
+      "default_branch": "beta03-field-socket-fallback-20260918",
       "fallback_adapter": "adapters/p2pcr95.sh",
       "build_timeout_minutes": 45,
       "recipe_path": ".matrix-build/build.sh",
