@@ -65,6 +65,10 @@ Write-Host "Checking Codespaces access..." -ForegroundColor Cyan
 & gh codespace list --limit 1 *> $null
 if($LASTEXITCODE -ne 0){Fail "CODESPACES_ACCESS" "GitHub Codespaces is not available to this authenticated account."}
 
+Write-Host "Preparing lightweight local Android signing tools..." -ForegroundColor Cyan
+& powershell.exe -NoProfile -ExecutionPolicy Bypass -File (Join-Path $Hub "setup-local-signing-tools.ps1")
+if($LASTEXITCODE -ne 0){Fail "LOCAL_SIGNING_TOOLS" "Could not prepare local Android signing tools."}
+
 Write-Host "Securing Android signing identities..." -ForegroundColor Cyan
 $signingOk=$true
 try{
