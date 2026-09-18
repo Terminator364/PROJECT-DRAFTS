@@ -1,6 +1,6 @@
 {
   "schema": "build2.registry/1",
-  "version": "0.5.0-unified-lanes",
+  "version": "0.5.1-lifetime-supervisor",
   "global_policy": {
     "max_heavy_builds": 1,
     "max_queue_depth": 8,
