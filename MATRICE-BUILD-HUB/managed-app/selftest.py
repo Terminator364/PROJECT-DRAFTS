@@ -17,7 +17,7 @@ def fail(code:str)->None:
 
 required_files=[
     "bridge.py","selftest.py","build2_core.py","build2_worker.py","build2_supervisor.py",
-    "build2_registry.json","build2_source_authority.json","AUTHORIZED_PROJECT_SCOPE.md"
+    "build2_registry.json","build2_source_authority.json"
 ]
 for name in required_files:
     if not (HERE/name).is_file():
@@ -136,7 +136,12 @@ hub_sha=str(authority.get("hub_sha256") or "").lower()
 if len(hub_sha)!=64 or any(c not in "0123456789abcdef" for c in hub_sha):
     fail("HUB_SHA_AUTHORITY")
 
-scope=(HERE/"AUTHORIZED_PROJECT_SCOPE.md").read_text(encoding="utf-8")
+scope_path=HERE/"AUTHORIZED_PROJECT_SCOPE.md"
+if not scope_path.is_file():
+    scope_path=HERE.parent/"AUTHORIZED_PROJECT_SCOPE.md"
+if not scope_path.is_file():
+    fail("MISSING_AUTHORIZED_PROJECT_SCOPE")
+scope=scope_path.read_text(encoding="utf-8")
 for token in (
     "controlled/authorized test environments",
     "No arbitrary remote shell",
