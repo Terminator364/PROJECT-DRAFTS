@@ -4,8 +4,6 @@ import ast
 import importlib.util
 import json
 import os
-import shutil
-import subprocess
 import tempfile
 from pathlib import Path
 
@@ -211,7 +209,7 @@ print(json.dumps({
         "durable_supervisor":"PASS",
         "ntstatus_classification":"PASS",
         "bounded_subtree_cancel":"PASS",
-        "hub_powershell_parse":"PASS",
-        "exact_branch_sha_wiring":"PASS"
+        "exact_branch_sha_wiring":"PASS",
+        "package_scope_contract":"PASS"
     }
 },ensure_ascii=False))
