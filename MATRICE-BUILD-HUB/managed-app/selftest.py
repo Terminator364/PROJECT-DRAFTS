@@ -40,6 +40,11 @@ for op in ("doctor","last_build_status","cancel_build","get_receipt"):
 if "lane_config_for_operation" not in bridge:
     fail("BRIDGE_NOT_REGISTRY_DRIVEN")
 
+hub=(HERE.parent/"hub.ps1").read_text(encoding="utf-8-sig")
+for token in ('[string]$ExpectedSha','SOURCE_SHA_GUARD','INVALID_EXPECTED_SHA'):
+    if token not in hub:
+        fail("HUB_EXACT_SHA_"+token)
+
 worker=(HERE/"build2_worker.py").read_text(encoding="utf-8")
 for token in (
     'cat-file","-e"', '"fetch","origin",expected,"--depth=1"',
@@ -53,7 +58,7 @@ if 'gh,"auth","status"' in worker or '"auth","status"' in worker:
     fail("GH_AUTH_EVERY_OPERATION_REGRESSION")
 
 reg=json.loads((HERE/"build2_registry.json").read_text(encoding="utf-8"))
-if reg.get("version")!="0.5.1-lifetime-supervisor":
+if reg.get("version")!="0.5.2-p2pcr95-beta04":
     fail("REGISTRY_VERSION")
 gp=reg.get("global_policy",{})
 if gp.get("max_heavy_builds")!=1 or gp.get("zero_manual_normal_flow") is not True:
@@ -70,10 +75,14 @@ if pm.get("resource_profile",{}).get("max_workers")!=1:
 if pm.get("gates",{}).get("canonical_patch")!="beta11-overrides/canonical":
     fail("PHONEMOUSE_CANONICAL_PATCH")
 p2=lanes["p2pcr95"]
-if p2.get("source_sha")!="c673f2a9f36477c35c65e9d87dec04590ef9551c":
+if p2.get("source_sha")!="58d81c88b3fea4e16c35a008a7b417f939f50488":
     fail("P2PCR95_SHA")
-if p2.get("expected",{}).get("version_code")!=5:
+if p2.get("expected",{}).get("version_code")!=6:
     fail("P2PCR95_VERSION_CODE")
+if p2.get("expected",{}).get("version_name")!="0.1.0-beta04":
+    fail("P2PCR95_VERSION_NAME")
+if p2.get("branch")!="beta04-runtime-control-integration-20260918":
+    fail("P2PCR95_BRANCH")
 
 authority=json.loads((HERE/"build2_source_authority.json").read_text(encoding="utf-8"))
 sha=authority.get("source_sha","")
@@ -122,7 +131,7 @@ with tempfile.TemporaryDirectory(prefix="mbh-build2-selftest-") as td:
 print(json.dumps({
     "schema":"build2.selftest/1",
     "status":"PASS",
-    "version":"0.5.1-lifetime-supervisor",
+    "version":"0.5.2-p2pcr95-beta04",
     "lanes":["phonemouse","p2pcr95","chatgpt_pc"],
     "checks":{
         "syntax":"PASS","no_arbitrary_shell":"PASS","local_first":"PASS",
