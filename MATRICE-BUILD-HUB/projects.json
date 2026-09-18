@@ -1,5 +1,5 @@
 {
-  "version": "0.3-browser4g",
+  "version": "0.3",
   "policy": {
     "actions_hosted_default_minutes_per_day": 0,
     "codespaces_prebuilds": false,
