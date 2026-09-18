@@ -27,6 +27,9 @@ mkdir -p .matrix-build-output
 if [ "$MODE" = "Smoke" ]; then
   test "${CODESPACES:-}" = "true"
   test "${GITHUB_REPOSITORY:-}" = "$MATRIX_REPO"
+  test -f "$RECIPE_PATH"
+  bash -n "$RECIPE_PATH"
+  bash -n /tmp/matrix-build-fallback.sh
   free -h
   df -h /workspaces
   curl --retry 2 --retry-all-errors -fsSIL --max-time 20 https://github.com >/dev/null
