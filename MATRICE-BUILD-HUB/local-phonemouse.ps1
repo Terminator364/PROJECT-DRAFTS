@@ -32,11 +32,28 @@ function Ensure-WingetCommand([string]$Command,[string]$PackageId) {
 Ensure-WingetCommand "git" "Git.Git"
 Ensure-WingetCommand "gh" "GitHub.cli"
 
-& gh auth status -h github.com *> $null
-if ($LASTEXITCODE -ne 0) {
+# PowerShell 5.1 can promote GitHub CLI stderr from 'gh auth status' to a
+# terminating NativeCommandError when ErrorActionPreference=Stop. Probe auth in
+# a bounded Continue scope, then restore strict error handling.
+$PreviousErrorActionPreference = $ErrorActionPreference
+try {
+  $ErrorActionPreference = "Continue"
+  & gh auth status -h github.com *> $null
+  $GhAuthStatus = $LASTEXITCODE
+} finally {
+  $ErrorActionPreference = $PreviousErrorActionPreference
+}
+if ($GhAuthStatus -ne 0) {
   Say "Connexion GitHub requise une seule fois..."
-  & gh auth login -h github.com -p https -w
-  if ($LASTEXITCODE -ne 0) { throw "Authentification GitHub echouee." }
+  $PreviousErrorActionPreference = $ErrorActionPreference
+  try {
+    $ErrorActionPreference = "Continue"
+    & gh auth login -h github.com -p https -w
+    $GhAuthLogin = $LASTEXITCODE
+  } finally {
+    $ErrorActionPreference = $PreviousErrorActionPreference
+  }
+  if ($GhAuthLogin -ne 0) { throw "Authentification GitHub echouee." }
 }
 
 # Python is required by the historical PhoneMouse reconstruction scripts.
