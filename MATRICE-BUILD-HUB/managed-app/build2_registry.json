@@ -1,6 +1,6 @@
 {
   "schema": "build2.registry/1",
-  "version": "0.5.4-supervisor-hardening",
+  "version": "0.5.5-auto-install-readback",
   "context_contract": "MATRICE-BUILD-HUB/AUTHORIZED_PROJECT_SCOPE.md",
   "global_policy": {
     "max_heavy_builds": 1,
@@ -41,7 +41,14 @@
         "eol_normalization": "LF_BEFORE_EACH_PATCH_REPLAY",
         "gradle_max_workers": 1
       },
-      "source_sha": "729313bacf1a4c8c281fedb35d43373e4b7555c6"
+      "source_sha": "729313bacf1a4c8c281fedb35d43373e4b7555c6",
+      "install": {
+        "auto_install": true,
+        "required_for_complete": true,
+        "preserve_app_data": true,
+        "allow_version_downgrade": false,
+        "target_policy": "single_authorized_adb_device"
+      }
     },
     "p2pcr95": {
       "project": "P2PCR95",
@@ -66,6 +73,13 @@
           "BETA04_CONTRACT.json",
           "result.json"
         ]
+      },
+      "install": {
+        "auto_install": true,
+        "required_for_complete": true,
+        "preserve_app_data": true,
+        "allow_version_downgrade": false,
+        "target_policy": "single_authorized_adb_device"
       }
     },
     "chatgpt_pc": {
@@ -87,6 +101,7 @@
     "SIGN",
     "VERIFY",
     "PUBLISH",
+    "INSTALL",
     "READBACK",
     "COMPLETE"
   ],
