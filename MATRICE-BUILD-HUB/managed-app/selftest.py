@@ -105,6 +105,9 @@ with tempfile.TemporaryDirectory(prefix="mbh-build2-selftest-") as td:
     got=core.get_receipt("P2PCR95",rid)
     if got.get("run_id")!=rid:
         fail("RECEIPT_READBACK")
+    c2=core.new_run("P2PCR95","build_p2pcr95",contract,idempotency_key="selftest-key")
+    if c2.get("status")!="QUEUED" or c2.get("run_id")==rid:
+        fail("POST_COMPLETE_REPRO_RUN")
     if old is None:
         os.environ.pop("LOCALAPPDATA",None)
     else:
@@ -118,6 +121,6 @@ print(json.dumps({
     "checks":{
         "syntax":"PASS","no_arbitrary_shell":"PASS","local_first":"PASS",
         "p2pcr95_exact_candidate":"PASS","phonemouse_low_ram_contract":"PASS",
-        "run_id_idempotence":"PASS","heartbeat_receipt":"PASS","generic_lane_onboarding":"PASS"
+        "run_id_idempotence":"PASS","heartbeat_receipt":"PASS","generic_lane_onboarding":"PASS","post_complete_repro_run":"PASS"
     }
 },ensure_ascii=False))
