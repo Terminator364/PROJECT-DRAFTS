@@ -18,7 +18,7 @@ LATEST = GLOBAL / "latest.json"
 
 TERMINAL = {"COMPLETE", "FAILED_SAFE", "HOLD", "CANCELLED"}
 SAFE_RESUME_STAGES = {"ACCEPTED","SOURCE_SYNC","PREFLIGHT","BUILDER_PROVISION","BUILD","SIGN","VERIFY"}
-LANE_NAMES = {"PhoneMouse":"phonemouse","P2PCR95":"p2pcr95","ChatGPT-PC":"chatgpt_pc"}
+LANE_NAMES = {"BuildHub":"system","PhoneMouse":"phonemouse","P2PCR95":"p2pcr95","ChatGPT-PC":"chatgpt_pc"}
 
 def utc() -> str:
     import datetime
@@ -89,6 +89,9 @@ def heartbeat(project: str, run_id: str, stage: str, status: str, *,
 def new_run(project: str, operation: str, contract: dict[str,Any], *,
             idempotency_key: str|None=None, priority: int=50) -> dict[str,Any]:
     lane=lane_root(project)
+    queued=list_queue()
+    if len(queued) >= 8:
+        return {"status":"HOLD","code":"QUEUE_FULL","queue_depth":len(queued)}
     material={"project":project,"operation":operation,"contract":contract}
     key=idempotency_key or canonical_hash(material)
     idx=lane/"idempotency"/f"{key}.json"
