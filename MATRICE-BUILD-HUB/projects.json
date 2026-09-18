@@ -1,8 +1,39 @@
 {
-  "version": "0.1",
+  "version": "0.2",
+  "policy": {
+    "actions_hosted_default_minutes_per_day": 0,
+    "codespaces_prebuilds": false,
+    "preferred_machine_cores": 2,
+    "internal_monthly_core_hour_cap": 90,
+    "github_free_reference_core_hours": 120,
+    "cleanup_stale_hub_codespaces_after_hours": 6,
+    "default_build_timeout_minutes": 45,
+    "publish_prerelease": true
+  },
   "projects": {
-    "PhoneMouse": {"repo":"Terminator364/PhoneMouse","default_branch":"beta11-visual-20260918","adapter":"adapters/phonemouse.sh"},
-    "P2PCR95": {"repo":"Terminator364/P2PCR95","default_branch":"beta03-native-updater-20260918","adapter":"adapters/p2pcr95.sh"},
-    "ChatGPT-PC": {"repo":"Terminator364/ChatGPT-PC","default_branch":"work/worker-v024-local-heartbeat-spool","adapter":"adapters/chatgpt-pc.sh"}
+    "PhoneMouse": {
+      "repo": "Terminator364/PhoneMouse",
+      "default_branch": "beta11-visual-20260918",
+      "fallback_adapter": "adapters/phonemouse.sh",
+      "build_timeout_minutes": 35,
+      "recipe_path": ".matrix-build/build.sh",
+      "signing_profile": "phonemouse"
+    },
+    "P2PCR95": {
+      "repo": "Terminator364/P2PCR95",
+      "default_branch": "beta03-native-updater-20260918",
+      "fallback_adapter": "adapters/p2pcr95.sh",
+      "build_timeout_minutes": 45,
+      "recipe_path": ".matrix-build/build.sh",
+      "signing_profile": "p2pcr95"
+    },
+    "ChatGPT-PC": {
+      "repo": "Terminator364/ChatGPT-PC",
+      "default_branch": "work/worker-v024-local-heartbeat-spool",
+      "fallback_adapter": "adapters/chatgpt-pc.sh",
+      "build_timeout_minutes": 30,
+      "recipe_path": ".matrix-build/build.sh",
+      "signing_profile": null
+    }
   }
 }
