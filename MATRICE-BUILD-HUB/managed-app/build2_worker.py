@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import hashlib
 import os
 import shutil
 import subprocess
@@ -23,6 +24,24 @@ REGISTRY_FILE=APP_ROOT / "build2_registry.json"
 AUTHORITY_FILE=APP_ROOT / "build2_source_authority.json"
 SCHEDULER_PID=GLOBAL / "scheduler.pid.json"
 REPO_URL="https://github.com/Terminator364/PROJECT-DRAFTS.git"
+
+def file_sha256(path:Path) -> str:
+    h=hashlib.sha256()
+    with path.open("rb") as fp:
+        for chunk in iter(lambda:fp.read(1024*1024),b""):
+            h.update(chunk)
+    return h.hexdigest()
+
+def verify_hub_engine() -> str:
+    a=authority()
+    expected=str(a.get("hub_sha256") or "").lower()
+    hub=HUB_ROOT/"hub.ps1"
+    if not hub.is_file():
+        raise RuntimeError("HUB_ENGINE_MISSING")
+    got=file_sha256(hub).lower()
+    if not expected or got!=expected:
+        raise RuntimeError(f"HUB_ENGINE_SHA_MISMATCH expected={expected} got={got}")
+    return got
 
 def registry() -> dict:
     return json.loads(REGISTRY_FILE.read_text(encoding="utf-8"))
@@ -63,19 +82,19 @@ def ensure_buildhub_source() -> str:
     if (SOURCE_ROOT/".git").is_dir():
         got=run([git,"-C",str(SOURCE_ROOT),"rev-parse","HEAD"],timeout=20)
         if got.returncode==0 and got.stdout.strip().lower()==expected:
-            return expected
+            verify_hub_engine(); return expected
         has=run([git,"-C",str(SOURCE_ROOT),"cat-file","-e",expected+"^{commit}"],timeout=20)
         if has.returncode==0:
             reset=run([git,"-C",str(SOURCE_ROOT),"reset","--hard",expected],timeout=60)
             if reset.returncode==0:
-                return expected
+                verify_hub_engine(); return expected
         fetch=run([git,"-C",str(SOURCE_ROOT),"fetch","origin",expected,"--depth=1"],timeout=120)
         if fetch.returncode!=0:
             raise RuntimeError("SOURCE_FETCH_FAILED:"+fetch.stderr[-2000:])
         reset=run([git,"-C",str(SOURCE_ROOT),"reset","--hard",expected],timeout=60)
         if reset.returncode!=0:
             raise RuntimeError("SOURCE_RESET_FAILED:"+reset.stderr[-2000:])
-        return expected
+        verify_hub_engine(); return expected
     if SOURCE_ROOT.exists():
         shutil.rmtree(SOURCE_ROOT)
     clone=run([git,"clone","--no-checkout",REPO_URL,str(SOURCE_ROOT)],timeout=180)
@@ -92,7 +111,7 @@ def ensure_buildhub_source() -> str:
     reset=run([git,"-C",str(SOURCE_ROOT),"reset","--hard",expected],timeout=60)
     if reset.returncode!=0:
         raise RuntimeError("SOURCE_RESET_FAILED:"+reset.stderr[-2000:])
-    return expected
+    verify_hub_engine(); return expected
 
 def resolve_project_sha(project:str, lane:dict) -> str:
     pinned=(lane.get("source_sha") or "").strip().lower()
@@ -133,9 +152,22 @@ def process_doctor(run_id:str) -> None:
     try:
         heartbeat(project,run_id,"PREFLIGHT","RUNNING",detail="BUILD 2 doctor probes",progress_pct=20)
         a=authority(); evidence.append({"kind":"source_authority","value":a})
+        evidence.append({"kind":"build2_version","value":BUILD2_VERSION})
+        evidence.append({"kind":"python","executable":sys.executable,"version":sys.version.split()[0]})
+        for name in ("bridge.py","build2_worker.py","build2_core.py","selftest.py","build2_registry.json"):
+            p=APP_ROOT/name
+            evidence.append({"kind":"managed_component","name":name,"sha256":file_sha256(p) if p.is_file() else None})
+        evidence.append({"kind":"control_bus","configured":bool(str(os.environ.get("PCA_CONTROL_FOLDER") or "").strip())})
         reg=registry(); evidence.append({"kind":"registry_version","value":reg.get("version")})
         git=which("git"); evidence.append({"kind":"git","value":git})
+        gv=run([git,"--version"],timeout=10)
+        evidence.append({"kind":"git_version","value":(gv.stdout or gv.stderr).strip()})
         ps=powershell(); evidence.append({"kind":"powershell","value":ps})
+        pv=run([ps,"-NoProfile","-Command","$PSVersionTable.PSVersion.ToString()"],timeout=10)
+        evidence.append({"kind":"powershell_version","value":(pv.stdout or pv.stderr).strip()})
+        source_sha=ensure_buildhub_source()
+        evidence.append({"kind":"buildhub_source_sha","value":source_sha})
+        evidence.append({"kind":"hub_engine_sha256","value":verify_hub_engine()})
         usage=shutil.disk_usage(str(STATE_ROOT))
         evidence.append({"kind":"disk_free_bytes","value":usage.free})
         if os.name=="nt":
