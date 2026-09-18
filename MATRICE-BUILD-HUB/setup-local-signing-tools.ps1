@@ -22,6 +22,11 @@ if(-not(Get-Command java -ErrorAction SilentlyContinue)){
   Refresh-Path
 }
 if(-not(Get-Command java -ErrorAction SilentlyContinue)){Fail "JAVA_MISSING" "Java is unavailable after installation."}
+$javaExe=(Get-Command java).Source
+$env:JAVA_HOME=Split-Path -Parent (Split-Path -Parent $javaExe)
+$StateDir=Join-Path $Base "state"
+New-Item -ItemType Directory -Force -Path $StateDir|Out-Null
+Set-Content -Encoding UTF8 -Path (Join-Path $StateDir "java-home.txt") -Value $env:JAVA_HOME
 
 $Cmd=Join-Path $Sdk "cmdline-tools\$CmdRev\bin\sdkmanager.bat"
 if(-not(Test-Path $Cmd)){
