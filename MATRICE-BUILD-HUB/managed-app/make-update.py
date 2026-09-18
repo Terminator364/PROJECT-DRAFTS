@@ -102,7 +102,7 @@ def build(sequence:int, source_sha:str, output:Path):
         "package_type":"managed_app_update",
         "target_app":"matrice-build-hub",
         "sequence":sequence,
-        "update_id":f"mbh-build2-v053-recovery-unblock-context-seq{sequence}",
+        "update_id":f"mbh-build2-v054-supervisor-hardening-seq{sequence}",
         "version":str(reg.get("version") or ""),
         "build2_source_sha":source_sha,
         "build2_version":str(reg.get("version") or ""),
