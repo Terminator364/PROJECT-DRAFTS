@@ -138,6 +138,7 @@ def stage_from_log(text:str, current:str) -> str:
     if "sign" in low: return "SIGN"
     if "verify" in low or "badging" in low or "certificate" in low: return "VERIFY"
     if "release create" in low or "release upload" in low or "publish" in low: return "PUBLISH"
+    if "apk_install_pass" in low or "install:" in low: return "INSTALL"
     if "digest" in low or "readback" in low: return "READBACK"
     if "codespace" in low or "sdkmanager" in low or "gradle" in low: return "BUILDER_PROVISION"
     if "build" in low or "compile" in low: return "BUILD"
@@ -293,7 +294,7 @@ def process_run(project:str,run_id:str) -> None:
                 ns=stage_from_log(tail,stage)
                 if ns!=stage:
                     stage=ns
-                    pct={"BUILDER_PROVISION":25,"BUILD":45,"SIGN":65,"VERIFY":78,"PUBLISH":88,"READBACK":95}.get(stage,40)
+                    pct={"BUILDER_PROVISION":25,"BUILD":45,"SIGN":65,"VERIFY":78,"PUBLISH":86,"INSTALL":93,"READBACK":97}.get(stage,40)
                     heartbeat(project,run_id,stage,"RUNNING",detail=f"Observed stage {stage}",progress_pct=pct,pid=proc.pid)
             except Exception:
                 pass
@@ -314,7 +315,14 @@ def process_run(project:str,run_id:str) -> None:
             {"kind":"project_source_sha","value":project_sha},
             {"kind":"log","path":str(log)}
         ]
-        write_receipt(project,run_id,"COMPLETE",stage="COMPLETE",evidence=evidence,detail="Unified BuildHub operation completed; project-specific artifact gates remain encoded in hub/recipe.")
+        install_cfg=lane_cfg.get("install",{}) if isinstance(lane_cfg,dict) else {}
+        if install_cfg.get("required_for_complete") is True:
+            proof=STATE_ROOT/"LAST_INSTALL.txt"
+            lines=proof.read_text(encoding="utf-8",errors="replace").splitlines() if proof.is_file() else []
+            if len(lines)<6 or lines[0]!=project or lines[1]!=str(lane_cfg.get("branch")) or lines[2].lower()!=project_sha.lower():
+                write_receipt(project,run_id,"FAILED_SAFE",stage="INSTALL",evidence=evidence,error_class="INSTALL_READBACK_MISSING",detail="Automatic Android install did not produce a run-correlated LAST_INSTALL proof."); return
+            evidence.append({"kind":"android_install_readback","project":lines[0],"branch":lines[1],"source_sha":lines[2],"application_id":lines[3],"device_serial":lines[4],"version_code":lines[5],"proof":str(proof)})
+        write_receipt(project,run_id,"COMPLETE",stage="COMPLETE",evidence=evidence,detail="Unified BuildHub operation completed with required project gates and correlated readback.")
     except Exception as e:
         write_receipt(project,run_id,"FAILED_SAFE",stage=(read_json(state_path,{}) or {}).get("stage","ACCEPTED"),error_class=type(e).__name__,detail=str(e)[:4000])
 
