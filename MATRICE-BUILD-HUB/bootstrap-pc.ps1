@@ -91,6 +91,23 @@ try{
   Write-Host ("Durable input migration warning: "+$_.Exception.Message) -ForegroundColor Yellow
 }
 
+$recoveryOk=$false
+if($signingOk){
+  Write-Host ""
+  Write-Host "Creation de la sauvegarde catastrophe chiffree des cles Android." -ForegroundColor Cyan
+  Write-Host "Choisis un support externe ou un dossier synchronise hors de ce PC." -ForegroundColor Yellow
+  try{
+    & powershell.exe -NoProfile -ExecutionPolicy Bypass -File (Join-Path $Hub "export-disaster-recovery.ps1")
+    if($LASTEXITCODE -eq 0){
+      Write-Host "Verification independante de restauration..." -ForegroundColor Cyan
+      & powershell.exe -NoProfile -ExecutionPolicy Bypass -File (Join-Path $Hub "verify-disaster-recovery.ps1")
+      if($LASTEXITCODE -eq 0){$recoveryOk=$true}
+    }
+  }catch{
+    Write-Host ("Disaster recovery remains required: "+$_.Exception.Message) -ForegroundColor Yellow
+  }
+}
+
 Write-Host "Running local doctor..." -ForegroundColor Cyan
 & powershell.exe -NoProfile -ExecutionPolicy Bypass -File (Join-Path $Hub "hub.ps1") -Mode Doctor
 if($LASTEXITCODE -ne 0){Fail "DOCTOR_FAILED" "BuildHub local doctor failed."}
@@ -110,6 +127,11 @@ Write-Host "BUILD_HUB_BOOTSTRAP_PASS" -ForegroundColor Green
 Write-Host ("Shortcut: "+$ShortcutPath)
 if($signingOk){
   Write-Host "Android signing migration: PASS" -ForegroundColor Green
+  if($recoveryOk){
+    Write-Host "Disaster-recovery restore test: PASS" -ForegroundColor Green
+  }else{
+    Write-Host "Disaster-recovery restore test: REQUIRED before signed APK production." -ForegroundColor Yellow
+  }
 }else{
   Write-Host "Android signing migration: NEEDS ATTENTION before a signed APK build." -ForegroundColor Yellow
 }
