@@ -2,7 +2,7 @@
 
 Exact continuation code:
 
-`BUILDHUB AX15GO CONTINUE`
+`BUILDHUB AX15 RECOVER`
 
 ## Meaning
 When this code is entered in a new ChatGPT conversation:
@@ -89,7 +89,7 @@ Field gates still required:
 9. Install/update BETA11 over the existing PhoneMouse beta WITHOUT uninstalling.
 10. Repeat with a second independent build.
 11. Then validate P2PCR95 BETA03.
-12. Promote V0.2 hardening branch to main only after the required gates pass.
+12. Keep main as the V0.2 field-candidate source after static promotion; do not call it OPERATIONAL until the required runtime gates pass.
 
 ## First action on recovery
 Re-audit the current branch head for unexpected drift, run/inspect static self-test readiness, and prepare the one-time Windows bootstrap. Do not claim OPERATIONAL before real PC/Codespaces/Android evidence exists.
