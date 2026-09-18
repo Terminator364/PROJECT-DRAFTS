@@ -194,6 +194,11 @@ try{
   $Recipe=[string]$Cfg.recipe_path
   $Timeout=[int]$Cfg.build_timeout_minutes
 
+  $projectedWorst=[double]$usage.Data.estimated_core_hours+([double]$Cores*(($Timeout+10.0)/60.0))
+  if($projectedWorst -gt $cap){
+    Fail "INTERNAL_BUDGET_RESERVATION" ("Worst-case projected BuildHub use would reach "+[math]::Round($projectedWorst,2)+" core-hours, above the internal cap "+$cap+".")
+  }
+
   Write-Host ""
   Write-Host ("Project : "+$Project) -ForegroundColor Green
   Write-Host ("Branch  : "+$Branch)
@@ -204,6 +209,7 @@ try{
 
   $CS=$null
   $Started=$null
+  $JobSucceeded=$false
   try{
     $Started=Get-Date
     & gh codespace create -R $Repo -b $Branch -d $BuildId -m $Machine --idle-timeout 10m --retention-period 1h --default-permissions|Out-Host
@@ -333,7 +339,7 @@ try{
 
       & gh release view $Tag -R $Repo *> $null
       if($LASTEXITCODE -eq 0){
-        $existing=& gh release view $Tag -R $Repo --json url,targetCommitish,assets,isDraft,isPrerelease|ConvertFrom-Json
+        $existing=& gh release view $Tag -R $Repo --json url,targetCommitish,assets,isDraft,isPrerelease,isImmutable|ConvertFrom-Json
         if($existing.targetCommitish -and [string]$existing.targetCommitish -ne $Sha){
           Fail "RELEASE_TARGET_MISMATCH" "Existing release tag points at a different source."
         }
@@ -343,7 +349,11 @@ try{
         $remoteNames=@($existing.assets|ForEach-Object{[string]$_.name})
         $missing=@($expectedNames|Where-Object{$remoteNames -notcontains $_})
         if($missing.Count -gt 0){
-          Fail "RELEASE_ASSET_MISMATCH" ("Existing release is missing assets: "+($missing -join ", "))
+          if($existing.isImmutable -eq $true){
+            Fail "RELEASE_ASSET_MISMATCH" ("Immutable existing release is missing assets: "+($missing -join ", "))
+          }
+          & gh release upload $Tag @files -R $Repo --clobber|Out-Host
+          if($LASTEXITCODE -ne 0){Fail "RELEASE_UPLOAD_FAILED" "Existing prerelease could not be refreshed with the newly verified artifacts."}
         }
         $Url=[string]$existing.url
       }else{
@@ -353,9 +363,12 @@ try{
         $Url=[string]((& gh release view $Tag -R $Repo --json url|ConvertFrom-Json).url)
       }
 
+      [void](VerifyReleaseAssets $Repo $Tag $files)
+      Write-Host "RELEASE_ASSET_DIGESTS_PASS" -ForegroundColor Green
       Write-Host ("LINK: "+$Url) -ForegroundColor Cyan
       [IO.File]::WriteAllLines((Join-Path $DataRoot "LAST_BUILD.txt"),@($Project,$Branch,$Sha,$Url,$ResultDir))
     }
+    $JobSucceeded=$true
   }
   finally{
     if($CS){
@@ -365,7 +378,11 @@ try{
         & gh codespace delete -c $CS --force *> $null
         if($LASTEXITCODE -eq 0){$deleted=$true}else{Start-Sleep -Seconds 3}
       }
-      if(-not $deleted){Write-Host "WARNING: builder stopped but deletion was not confirmed." -ForegroundColor Red}
+      if(-not $deleted){
+        [IO.File]::WriteAllLines((Join-Path $DataRoot "LAST_CLEANUP_FAILURE.txt"),@($Project,$Branch,$Sha,$BuildId,$CS))
+        if($JobSucceeded){Fail "CODESPACE_DELETE_FAILED" "Build completed but builder deletion could not be confirmed; certification is blocked."}
+        Write-Host "WARNING: builder stopped but deletion was not confirmed." -ForegroundColor Red
+      }
     }
     if($Started -and $Cores -gt 0){
       AddUsage (((Get-Date)-$Started).TotalHours*[double]$Cores)
