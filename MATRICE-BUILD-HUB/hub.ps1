@@ -6,7 +6,7 @@ param(
 )
 
 $ErrorActionPreference="Stop"
-$HubVersion="0.2"
+$HubVersion="0.3"
 $Root=Split-Path -Parent $MyInvocation.MyCommand.Path
 $Registry=Get-Content (Join-Path $Root "projects.json") -Raw | ConvertFrom-Json
 $DataRoot=Join-Path $env:LOCALAPPDATA "MatriceBuildHub"
