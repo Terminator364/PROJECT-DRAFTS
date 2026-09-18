@@ -1,0 +1,89 @@
+{
+  "schema": "AX150K_ADAPTER-1",
+  "project": "MATRICE BUILD HUB",
+  "mission": "Centralized zero-cost build orchestration for APK/EXE artifacts without routine GitHub-hosted Actions.",
+  "evidence_classes": [
+    "STATIC",
+    "GITHUB_REPOSITORY",
+    "LOCAL_WINDOWS",
+    "CODESPACE_RUNTIME",
+    "REAL_ANDROID_DEVICE",
+    "HUMAN"
+  ],
+  "reality_gap": {
+    "requires_real_windows_dpapi": true,
+    "requires_real_codespace_creation": true,
+    "requires_real_android_install_update": true,
+    "requires_real_network": true,
+    "generic_static_pass_cannot_certify_operational": true
+  },
+  "strong_causal_boundaries": [
+    [
+      "bootstrap-pc.ps1",
+      "launcher.ps1"
+    ],
+    [
+      "launcher.ps1",
+      "hub.ps1"
+    ],
+    [
+      "hub.ps1",
+      "remote-runner.sh"
+    ],
+    [
+      "hub.ps1",
+      "projects.json"
+    ],
+    [
+      "hub.ps1",
+      "local-sign-apk.ps1"
+    ],
+    [
+      "migrate-signing.ps1",
+      "local-sign-apk.ps1"
+    ],
+    [
+      "setup-local-signing-tools.ps1",
+      "local-sign-apk.ps1"
+    ],
+    [
+      "hub.ps1",
+      "project .matrix-build/build.sh"
+    ],
+    [
+      "project .matrix-build/build.sh",
+      "unsigned APK"
+    ],
+    [
+      "unsigned APK",
+      "local-sign-apk.ps1"
+    ],
+    [
+      "local-sign-apk.ps1",
+      "GitHub prerelease"
+    ]
+  ],
+  "critical_invariants": [
+    "ordinary_build_uses_zero_github_hosted_actions_minutes",
+    "prebuilds_rejected",
+    "source_sha_exactly_bound_to_result_and_release",
+    "android_signing_key_never_enters_codespace",
+    "canonical_certificate_must_match_after_local_sign",
+    "package_id_and_version_checked_before_signing",
+    "codespace_stopped_and_deleted_after_job",
+    "no_publish_before_all_verification_gates",
+    "project_build_recipe_is_source_owned",
+    "future_runtime_evidence_invalidates_stale_static_certification"
+  ],
+  "certification_gates": [
+    "STATIC_AUDIT_PASS",
+    "ZERO_AUTO_ACTIONS_ACTIVE_BRANCHES",
+    "LOCAL_BOOTSTRAP_PASS",
+    "LOCAL_SIGNING_VAULT_PASS",
+    "CLOUD_SMOKE_PASS",
+    "ANDROID_CLOUD_BUILD_PASS",
+    "LOCAL_SIGNATURE_PASS",
+    "UPDATE_OVER_EXISTING_APP_PASS",
+    "SECOND_INDEPENDENT_BUILD_PASS"
+  ]
+}
