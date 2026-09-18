@@ -1,4 +1,4 @@
-# MATRICE BUILD HUB — V0.2 HARDENED
+# MATRICE BUILD HUB — V0.3 BROWSER4G CANDIDATE
 
 Usine centrale de production pour les projets Terminator364.
 
@@ -33,6 +33,7 @@ L'utilisateur n'a pas à apprendre Gradle, Android SDK, SSH, Codespaces ou GitHu
 - PhoneMouse
 - P2PCR95
 - ChatGPT-PC
+- BROWSER4G — moteur local Windows exact-SHA, publication bloquée jusqu’au FIELD_PASS
 
 Voir `projects.json` pour les branches de production et les contrats de build.
 
@@ -52,5 +53,6 @@ Le launcher exécute le self-test avant toute construction et bloque en cas d'in
 
 ## Statut
 
-V0.2 **field candidate** promu sur `main` le 2026-09-18 après `STATIC_AUDIT_PASS`.
+V0.2 **field candidate** reste la baseline actuellement promue sur `main`.
+V0.3 ajoute le moteur `LOCAL_WINDOWS` requis par BROWSER4G et reste **candidate tant que son audit statique et son essai réel Windows ne sont pas passés**.
 Ne pas déclarer **OPERATIONAL** avant les campagnes réelles prévues dans `CONTINUATION_BUILDHUB_AX15.md`.
