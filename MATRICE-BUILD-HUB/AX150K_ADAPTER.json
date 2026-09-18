@@ -15,7 +15,9 @@
     "requires_real_codespace_creation": true,
     "requires_real_android_install_update": true,
     "requires_real_network": true,
-    "generic_static_pass_cannot_certify_operational": true
+    "generic_static_pass_cannot_certify_operational": true,
+    "requires_real_chatgpt_pc_control_bus_build": true,
+    "control_bus_observed_but_build_not_exercised": true
   },
   "strong_causal_boundaries": [
     [
@@ -61,6 +63,30 @@
     [
       "local-sign-apk.ps1",
       "GitHub prerelease"
+    ],
+    [
+      "ChatGPT conversation",
+      "ChatGPT-PC Control Bus"
+    ],
+    [
+      "ChatGPT-PC Control Bus",
+      "mission-scoped R2/2003"
+    ],
+    [
+      "mission-scoped R2/2003",
+      "managed matrice-build-hub app"
+    ],
+    [
+      "managed matrice-build-hub app",
+      "named build operation"
+    ],
+    [
+      "named build operation",
+      "hub.ps1"
+    ],
+    [
+      "hub.ps1",
+      "machine receipt/readback"
     ]
   ],
   "critical_invariants": [
@@ -76,7 +102,12 @@
     "future_runtime_evidence_invalidates_stale_static_certification",
     "disaster_recovery_export_is_not_restore_proof",
     "release_assets_must_match_local_sha256_after_publication",
-    "windows_to_linux_shell_scripts_require_lf_line_endings"
+    "windows_to_linux_shell_scripts_require_lf_line_endings",
+    "normal_user_is_not_technical_build_operator",
+    "manual_launchers_are_break_glass_only",
+    "managed_operations_are_manifest_bound_not_free_form_shell",
+    "r2_run_operation_requires_explicit_app_id_and_operation_scope",
+    "routine_state_evidence_comes_from_machine_receipts_not_screenshots"
   ],
   "certification_gates": [
     "STATIC_AUDIT_PASS",
@@ -90,6 +121,11 @@
     "SECOND_INDEPENDENT_BUILD_PASS",
     "DISASTER_RECOVERY_EXPORT_PASS",
     "DISASTER_RECOVERY_RESTORE_TEST_PASS",
-    "RELEASE_ASSET_DIGESTS_PASS"
+    "RELEASE_ASSET_DIGESTS_PASS",
+    "CHATGPT_PC_TUNNEL_DEPLOYMENT_PASS",
+    "R2_ZERO_CLICK_MANAGED_ACTIVATION_PASS",
+    "MANAGED_OPERATION_SCOPE_NEGATIVE_TEST_PASS",
+    "CONTROL_BUS_RECEIPT_READBACK_PASS",
+    "PHONEMOUSE_BETA11_TUNNEL_BUILD_PASS"
   ]
 }
