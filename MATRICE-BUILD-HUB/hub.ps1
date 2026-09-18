@@ -96,6 +96,19 @@ function InvokeLocalWindowsProject($Project,$Cfg,$Repo,$Branch,$Sha,$BuildId,$De
     & gh repo clone $Repo $SourceDir -- --filter=blob:none --no-checkout
     if($LASTEXITCODE -ne 0){Fail "LOCAL_CLONE_FAILED" "Cannot clone the exact source for the Windows build."}
 
+    $SparsePaths=@($Cfg.local_sparse_paths)
+    if($SparsePaths.Count -gt 0){
+      foreach($sp in $SparsePaths){
+        if([string]::IsNullOrWhiteSpace([string]$sp) -or [IO.Path]::IsPathRooted([string]$sp) -or ([string]$sp).Contains("..")){
+          Fail "LOCAL_SPARSE_PATH_UNSAFE" ("Unsafe sparse path: "+$sp)
+        }
+      }
+      & git -C $SourceDir sparse-checkout init --cone
+      if($LASTEXITCODE -ne 0){Fail "LOCAL_SPARSE_INIT_FAILED" "Cannot initialize sparse checkout."}
+      & git -C $SourceDir sparse-checkout set -- $SparsePaths
+      if($LASTEXITCODE -ne 0){Fail "LOCAL_SPARSE_SET_FAILED" "Cannot configure sparse checkout."}
+    }
+
     & git -C $SourceDir checkout --detach $Sha
     if($LASTEXITCODE -ne 0){Fail "LOCAL_CHECKOUT_FAILED" "Cannot checkout the requested source SHA."}
     $Actual=([string](& git -C $SourceDir rev-parse HEAD)).Trim()
