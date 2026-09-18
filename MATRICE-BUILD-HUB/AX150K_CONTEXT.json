@@ -28,19 +28,22 @@
       "id": "github_phonemouse_beta11",
       "kind": "github_repo_branch",
       "location": "Terminator364/PhoneMouse@beta11-visual-20260918",
-      "status": "materialized"
+      "status": "referenced",
+      "evidence_note": "Remote GitHub branch; selected files and branch heads were inspected during the batch, but the full branch is not materialized inside the BuildHub evidence set."
     },
     {
       "id": "github_p2pcr95_beta03",
       "kind": "github_repo_branch",
       "location": "Terminator364/P2PCR95@beta03-native-updater-20260918",
-      "status": "materialized"
+      "status": "referenced",
+      "evidence_note": "Remote GitHub branch; selected files and branch heads were inspected during the batch, but the full branch is not materialized inside the BuildHub evidence set."
     },
     {
       "id": "github_chatgpt_pc_active",
       "kind": "github_repo_branch",
       "location": "Terminator364/ChatGPT-PC@work/worker-v024-local-heartbeat-spool",
-      "status": "materialized"
+      "status": "referenced",
+      "evidence_note": "Remote GitHub branch; selected files and branch heads were inspected during the batch, but the full branch is not materialized inside the BuildHub evidence set."
     },
     {
       "id": "ax150k_v13_library",
