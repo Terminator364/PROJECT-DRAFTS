@@ -1,7 +1,7 @@
 {
   "schema": "build2.source_authority/1",
   "status": "PINNED",
-  "build2_version": "0.5.2-recovery-unblock",
+  "build2_version": "0.5.4-supervisor-hardening",
   "repository": "Terminator364/PROJECT-DRAFTS",
   "branch": "buildhub-v0.5-unified-lanes-20260918",
   "source_sha": "52014dde1002fdea2cc7e0840d65749350733859",
