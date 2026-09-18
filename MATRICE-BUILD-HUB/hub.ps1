@@ -7,7 +7,7 @@ param(
 )
 
 $ErrorActionPreference="Stop"
-$HubVersion="0.5.2-p2pcr95-beta04"
+$HubVersion="0.5.3-recovery-unblock-context"
 $Root=Split-Path -Parent $MyInvocation.MyCommand.Path
 $Registry=Get-Content (Join-Path $Root "projects.json") -Raw | ConvertFrom-Json
 $DataRoot=Join-Path $env:LOCALAPPDATA "MatriceBuildHub"
