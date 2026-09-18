@@ -1,5 +1,5 @@
 param(
-  [ValidateSet("PhoneMouse","P2PCR95","ChatGPT-PC")][string]$Project,
+  [ValidateSet("PhoneMouse","P2PCR95","ChatGPT-PC","BROWSER4G")][string]$Project,
   [string]$Branch,
   [ValidateSet("Build","Smoke","Doctor")][string]$Mode="Build",
   [switch]$NoPublish
@@ -61,16 +61,121 @@ function Pick(){
   Write-Host "1. PhoneMouse"
   Write-Host "2. P2PCR95"
   Write-Host "3. ChatGPT-PC"
-  Write-Host "4. Diagnostic cloud seulement"
+  Write-Host "4. BROWSER4G (build Windows local)"
+  Write-Host "5. Diagnostic cloud seulement"
   $x=Read-Host "Choix"
   switch($x){
     "1"{return @("PhoneMouse","Build")}
     "2"{return @("P2PCR95","Build")}
     "3"{return @("ChatGPT-PC","Build")}
-    "4"{return @("PhoneMouse","Smoke")}
+    "4"{return @("BROWSER4G","Build")}
+    "5"{return @("PhoneMouse","Smoke")}
     default{Fail "INVALID_CHOICE" "Choix invalide."}
   }
 }
+
+function InvokeLocalWindowsProject($Project,$Cfg,$Repo,$Branch,$Sha,$BuildId,$Dest,$Mode){
+  if($env:OS -ne "Windows_NT"){Fail "LOCAL_WINDOWS_REQUIRED" "This project requires a real Windows builder."}
+  $Timeout=[int]$Cfg.build_timeout_minutes
+  if($Timeout -lt 1){$Timeout=20}
+
+  $WorkRoot=Join-Path $DataRoot "work"
+  $SourceDir=Join-Path $WorkRoot $BuildId
+  $ResultDir=Join-Path $Dest ".matrix-build-output"
+  New-Item -ItemType Directory -Force -Path $WorkRoot,$ResultDir|Out-Null
+  if(Test-Path $SourceDir){Remove-Item -Recurse -Force $SourceDir}
+
+  Write-Host ""
+  Write-Host ("Project : "+$Project) -ForegroundColor Green
+  Write-Host ("Branch  : "+$Branch)
+  Write-Host ("SHA     : "+$Sha)
+  Write-Host "Builder : LOCAL_WINDOWS"
+  Write-Host ("Mode    : "+$Mode)
+
+  try{
+    & gh repo clone $Repo $SourceDir -- --filter=blob:none --no-checkout
+    if($LASTEXITCODE -ne 0){Fail "LOCAL_CLONE_FAILED" "Cannot clone the exact source for the Windows build."}
+
+    & git -C $SourceDir checkout --detach $Sha
+    if($LASTEXITCODE -ne 0){Fail "LOCAL_CHECKOUT_FAILED" "Cannot checkout the requested source SHA."}
+    $Actual=([string](& git -C $SourceDir rev-parse HEAD)).Trim()
+    if($LASTEXITCODE -ne 0 -or $Actual -ne $Sha){Fail "LOCAL_SOURCE_MISMATCH" "Local Windows source SHA differs from the requested SHA."}
+
+    $RecipeRel=[string]$Cfg.recipe_path
+    if([string]::IsNullOrWhiteSpace($RecipeRel) -or [IO.Path]::IsPathRooted($RecipeRel)){
+      Fail "LOCAL_RECIPE_PATH" "Local Windows recipe must be a repository-relative path."
+    }
+    $SourcePrefix=[IO.Path]::GetFullPath($SourceDir+[IO.Path]::DirectorySeparatorChar)
+    $RecipePath=[IO.Path]::GetFullPath((Join-Path $SourceDir $RecipeRel))
+    if(-not $RecipePath.StartsWith($SourcePrefix,[StringComparison]::OrdinalIgnoreCase)){
+      Fail "LOCAL_RECIPE_ESCAPE" "Local Windows recipe escapes the exact-SHA source root."
+    }
+    if(-not(Test-Path $RecipePath -PathType Leaf)){Fail "LOCAL_RECIPE_MISSING" ("Missing local Windows recipe: "+$RecipeRel)}
+
+    $Job=Start-Job -ScriptBlock {
+      param($RecipePath,$Mode,$ResultDir,$Sha)
+      & powershell.exe -NoProfile -ExecutionPolicy Bypass -File $RecipePath -Mode $Mode -OutputDir $ResultDir -SourceSha $Sha
+      if($LASTEXITCODE -ne 0){throw ("recipe exit code "+$LASTEXITCODE)}
+    } -ArgumentList $RecipePath,$Mode,$ResultDir,$Sha
+
+    $Done=Wait-Job -Job $Job -Timeout ($Timeout*60)
+    if(-not $Done){
+      Stop-Job -Job $Job -ErrorAction SilentlyContinue
+      Remove-Job -Job $Job -Force -ErrorAction SilentlyContinue
+      Fail "LOCAL_BUILD_TIMEOUT" ("Local Windows build exceeded "+$Timeout+" minutes.")
+    }
+    $JobOutput=Receive-Job -Job $Job -ErrorAction SilentlyContinue
+    $State=[string]$Job.State
+    $JobOutput|ForEach-Object{Write-Host $_}
+    $Reason=$null
+    if($Job.ChildJobs.Count -gt 0){$Reason=$Job.ChildJobs[0].JobStateInfo.Reason}
+    Remove-Job -Job $Job -Force -ErrorAction SilentlyContinue
+    if($State -ne "Completed"){
+      $detail=if($Reason){[string]$Reason.Message}else{"recipe job failed"}
+      Fail "LOCAL_BUILD_FAILED" $detail
+    }
+
+    $ResultFile=Join-Path $ResultDir "result.json"
+    if(-not(Test-Path $ResultFile -PathType Leaf)){Fail "RESULT_MISSING" "Local Windows result.json missing."}
+    try{$Result=Get-Content $ResultFile -Raw|ConvertFrom-Json}catch{Fail "RESULT_JSON_INVALID" "Local Windows result.json is invalid."}
+    if([string]$Result.schema -ne "mbh-result-v1"){Fail "RESULT_SCHEMA" "Unsupported result schema."}
+    if([string]$Result.source_sha -ne $Sha){Fail "SOURCE_MISMATCH" "Built SHA differs from requested SHA."}
+    if($Cfg.publish_gate -eq "FIELD_PASS_REQUIRED" -and $Result.publish -eq $true){
+      Fail "FIELD_GATE_BYPASS" "Project cannot publish before the field-validation gate passes."
+    }
+
+    $Files=@()
+    foreach($name in @($Result.deliverables)){
+      if([string]::IsNullOrWhiteSpace([string]$name)){continue}
+      if([string]$name -match "[\\/]"){Fail "UNSAFE_DELIVERABLE" "Deliverables must be root filenames."}
+      $p=Join-Path $ResultDir ([string]$name)
+      if(-not(Test-Path $p -PathType Leaf)){Fail "DELIVERABLE_MISSING" ("Missing: "+$name)}
+      $Files+=$p
+    }
+    if($Files.Count -eq 0){Fail "NO_DELIVERABLES" "No local Windows deliverables declared."}
+
+    $Exe=@($Files|Where-Object{$_ -like "*.exe"}|Select-Object -First 1)
+    if($Exe.Count -eq 1){
+      $Sidecar=$Exe[0]+".sha256"
+      if(Test-Path $Sidecar -PathType Leaf){
+        $Expected=((Get-Content $Sidecar -Raw).Trim() -split "\s+")[0].ToLowerInvariant()
+        $ActualHash=(Get-FileHash -Algorithm SHA256 $Exe[0]).Hash.ToLowerInvariant()
+        if($Expected -ne $ActualHash){Fail "LOCAL_ARTIFACT_HASH_MISMATCH" "Windows executable SHA-256 differs from its sidecar."}
+      }
+    }
+
+    $Evidence=Join-Path $Dest ("MBH-EVIDENCE-"+$Project+"-"+$Sha.Substring(0,12)+".zip")
+    Compress-Archive -Path (Join-Path $ResultDir "*") -DestinationPath $Evidence -Force
+    Write-Host "LOCAL_WINDOWS_BUILD_VERIFIED" -ForegroundColor Green
+    Write-Host ("OUTPUT: "+$ResultDir) -ForegroundColor Cyan
+    [IO.File]::WriteAllLines((Join-Path $DataRoot "LAST_BUILD.txt"),@($Project,$Branch,$Sha,"LOCAL_WINDOWS",$ResultDir))
+    return $ResultDir
+  }
+  finally{
+    if(Test-Path $SourceDir){Remove-Item -Recurse -Force $SourceDir -ErrorAction SilentlyContinue}
+  }
+}
+
 function FailureClass($Text){
   $t=$Text.ToLowerInvariant()
   if($t -match "quota|spending limit|included usage|billing|payment method"){return "QUOTA_BLOCKED"}
@@ -161,13 +266,10 @@ try{
   $RepoName=($Repo -split "/")[-1]
   if(-not $Branch){$Branch=[string]$Cfg.default_branch}
   SafeBranch $Branch
-  CleanupStale
 
-  $usage=Ledger
-  $cap=[double]$Registry.policy.internal_monthly_core_hour_cap
-  if([double]$usage.Data.estimated_core_hours -ge $cap){
-    Fail "INTERNAL_BUDGET_GUARD" ("Estimated BuildHub use is "+$usage.Data.estimated_core_hours+" core-hours; internal cap is "+$cap+".")
-  }
+  $BuilderKind=[string]$Cfg.builder_kind
+  if([string]::IsNullOrWhiteSpace($BuilderKind)){$BuilderKind="CODESPACES_LINUX"}
+  if($BuilderKind -notin @("CODESPACES_LINUX","LOCAL_WINDOWS")){Fail "BUILDER_KIND_UNKNOWN" ("Unsupported builder kind: "+$BuilderKind)}
 
   $Sha=ResolveSha $Repo $Branch
   $Short=$Sha.Substring(0,12)
@@ -176,6 +278,18 @@ try{
   if($BuildId.Length -gt 48){$BuildId=$BuildId.Substring(0,48)}
   $Dest=Join-Path $OutputRoot $BuildId
   New-Item -ItemType Directory -Force -Path $Dest|Out-Null
+
+  if($BuilderKind -eq "LOCAL_WINDOWS"){
+    InvokeLocalWindowsProject $Project $Cfg $Repo $Branch $Sha $BuildId $Dest $Mode|Out-Null
+    return
+  }
+
+  CleanupStale
+  $usage=Ledger
+  $cap=[double]$Registry.policy.internal_monthly_core_hour_cap
+  if([double]$usage.Data.estimated_core_hours -ge $cap){
+    Fail "INTERNAL_BUDGET_GUARD" ("Estimated BuildHub use is "+$usage.Data.estimated_core_hours+" core-hours; internal cap is "+$cap+".")
+  }
 
   $raw=& gh api ("repos/"+$Repo+"/codespaces/machines")
   if($LASTEXITCODE -ne 0){Fail "MACHINE_QUERY_FAILED" "Cannot query Codespaces machines."}
