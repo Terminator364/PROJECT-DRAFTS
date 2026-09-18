@@ -155,73 +155,74 @@ def monitor(worker_path: str) -> int:
     except FileNotFoundError:
         pass
 
-    with SUPERVISOR_LOG.open("a", encoding="utf-8", errors="replace") as lf:
-        proc = subprocess.Popen(
-            [sys.executable, str(Path(worker_path).resolve()), "scheduler", str(gate)],
-            stdin=subprocess.DEVNULL,
-            stdout=lf,
-            stderr=subprocess.STDOUT,
-            cwd=str(Path(worker_path).resolve().parent),
-            shell=False,
-            close_fds=True,
-            creationflags=(getattr(subprocess, "CREATE_NEW_PROCESS_GROUP", 0) if os.name == "nt" else 0),
-        )
-        job_handle = _open_kill_job_for_process(proc)
-        atomic_json(SCHEDULER_PID, {
-            "pid": proc.pid,
-            "supervisor_pid": os.getpid(),
-            "started_at": utc(),
-            "build2_version": BUILD2_VERSION,
-            "job_object": bool(job_handle),
-        })
-        gate.write_text("GO\n", encoding="ascii")
-        _write_heartbeat("RUNNING", "scheduler started", scheduler_pid=proc.pid)
+    try:
+        with SUPERVISOR_LOG.open("a", encoding="utf-8", errors="replace") as lf:
+            proc = subprocess.Popen(
+                [sys.executable, str(Path(worker_path).resolve()), "scheduler", str(gate)],
+                stdin=subprocess.DEVNULL,
+                stdout=lf,
+                stderr=subprocess.STDOUT,
+                cwd=str(Path(worker_path).resolve().parent),
+                shell=False,
+                close_fds=True,
+                creationflags=(getattr(subprocess, "CREATE_NEW_PROCESS_GROUP", 0) if os.name == "nt" else 0),
+            )
+            job_handle = _open_kill_job_for_process(proc)
+            atomic_json(SCHEDULER_PID, {
+                "pid": proc.pid,
+                "supervisor_pid": os.getpid(),
+                "started_at": utc(),
+                "build2_version": BUILD2_VERSION,
+                "job_object": bool(job_handle),
+            })
+            gate.write_text("GO\n", encoding="ascii")
+            _write_heartbeat("RUNNING", "scheduler started", scheduler_pid=proc.pid)
 
-        while proc.poll() is None:
-            _write_heartbeat("RUNNING", "scheduler alive", scheduler_pid=proc.pid)
-            time.sleep(2)
+            while proc.poll() is None:
+                _write_heartbeat("RUNNING", "scheduler alive", scheduler_pid=proc.pid)
+                time.sleep(2)
 
-        rc = int(proc.returncode or 0)
-        err_class, hx = _exit_class(rc) if rc != 0 else (None, "0x00000000")
-        payload = {
-            "schema": "build2.supervisor_exit/1",
-            "build2_version": BUILD2_VERSION,
-            "timestamp_utc": utc(),
-            "supervisor_pid": os.getpid(),
-            "scheduler_pid": proc.pid,
-            "return_code": rc,
-            "return_code_unsigned": rc & 0xFFFFFFFF,
-            "return_code_hex": hx,
-            "error_class": err_class,
-            "job_object": bool(job_handle),
-        }
-        atomic_json(SUPERVISOR_EXIT, payload)
+            rc = int(proc.returncode or 0)
+            err_class, hx = _exit_class(rc) if rc != 0 else (None, "0x00000000")
+            payload = {
+                "schema": "build2.supervisor_exit/1",
+                "build2_version": BUILD2_VERSION,
+                "timestamp_utc": utc(),
+                "supervisor_pid": os.getpid(),
+                "scheduler_pid": proc.pid,
+                "return_code": rc,
+                "return_code_unsigned": rc & 0xFFFFFFFF,
+                "return_code_hex": hx,
+                "error_class": err_class,
+                "job_object": bool(job_handle),
+            }
+            atomic_json(SUPERVISOR_EXIT, payload)
 
-        if rc != 0:
-            project, run_id = _active_run()
-            if project and run_id:
-                lane = lane_root(str(project))
-                st = read_json(lane / "runs" / str(run_id) / "state.json", {}) or {}
-                stage = str(st.get("stage") or "ACCEPTED")
-                write_receipt(
-                    str(project),
-                    str(run_id),
-                    "FAILED_SAFE",
-                    stage=stage,
-                    error_class=err_class,
-                    evidence=[{
-                        "kind": "supervisor_child_exit",
-                        "return_code": rc,
-                        "return_code_unsigned": rc & 0xFFFFFFFF,
-                        "return_code_hex": hx,
-                        "job_object": bool(job_handle),
-                        "log": str(SUPERVISOR_LOG),
-                    }],
-                    detail=f"Scheduler exited abnormally with {hx}; see supervisor log.",
-                )
-        _write_heartbeat("COMPLETE" if rc == 0 else "FAILED_SAFE", f"scheduler exit {hx}", scheduler_pid=proc.pid)
-        _close_handle(job_handle)
-        return rc
+            if rc != 0:
+                project, run_id = _active_run()
+                if project and run_id:
+                    lane = lane_root(str(project))
+                    st = read_json(lane / "runs" / str(run_id) / "state.json", {}) or {}
+                    stage = str(st.get("stage") or "ACCEPTED")
+                    write_receipt(
+                        str(project),
+                        str(run_id),
+                        "FAILED_SAFE",
+                        stage=stage,
+                        error_class=err_class,
+                        evidence=[{
+                            "kind": "supervisor_child_exit",
+                            "return_code": rc,
+                            "return_code_unsigned": rc & 0xFFFFFFFF,
+                            "return_code_hex": hx,
+                            "job_object": bool(job_handle),
+                            "log": str(SUPERVISOR_LOG),
+                        }],
+                        detail=f"Scheduler exited abnormally with {hx}; see supervisor log.",
+                    )
+            _write_heartbeat("COMPLETE" if rc == 0 else "FAILED_SAFE", f"scheduler exit {hx}", scheduler_pid=proc.pid)
+            _close_handle(job_handle)
+            return rc
     finally:
         try:
             gate.unlink()
