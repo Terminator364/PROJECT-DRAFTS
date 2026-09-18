@@ -6,6 +6,8 @@ import json
 import os
 import sys
 import tempfile
+import shutil
+import subprocess
 from pathlib import Path
 
 HERE=Path(__file__).resolve().parent
@@ -30,6 +32,35 @@ for name in ("bridge.py","build2_core.py","build2_worker.py"):
     for forbidden in ("shell=True","os.system(","subprocess.call(","cmd.exe /c","powershell -Command"):
         if forbidden in text:
             fail("FORBIDDEN_"+name+":"+forbidden)
+
+hub=HERE.parent/"hub.ps1"
+if not hub.is_file():
+    fail("MISSING_hub.ps1")
+hub_text=hub.read_text(encoding="utf-8-sig",errors="strict")
+if hub_text.count("function VerifyReleaseAssets")!=1:
+    fail("HUB_VERIFY_RELEASE_DUPLICATED")
+if hub_text.count("BUILD_HUB_DOCTOR_PASS")!=1:
+    fail("HUB_DOCTOR_DUPLICATED")
+if hub_text.count("param(")!=1:
+    fail("HUB_PARAM_DUPLICATED")
+if hub_text.count("finally{")>2:
+    fail("HUB_FINALLY_STRUCTURE")
+if "gh auth status" in hub_text:
+    fail("HUB_UNBOUNDED_GH_AUTH_PREFLIGHT")
+if os.name=="nt":
+    ps=shutil.which("powershell.exe")
+    if not ps:
+        fail("POWERSHELL_MISSING_FOR_PARSE")
+    parse_cmd=(
+        "$e=$null;$t=$null;"
+        "[System.Management.Automation.Language.Parser]::ParseFile('"
+        +str(hub).replace("'","''")
+        +"',[ref]$t,[ref]$e)|Out-Null;"
+        "if($e.Count -gt 0){$e|ForEach-Object{$_.ToString()};exit 1}"
+    )
+    cp=subprocess.run([ps,"-NoProfile","-Command",parse_cmd],capture_output=True,text=True,shell=False,timeout=30)
+    if cp.returncode!=0:
+        fail("HUB_POWERSHELL_PARSE:"+((cp.stdout or "")+(cp.stderr or ""))[-500:])
 
 bridge=(HERE/"bridge.py").read_text(encoding="utf-8")
 for op in ("doctor","last_build_status","cancel_build","get_receipt"):
