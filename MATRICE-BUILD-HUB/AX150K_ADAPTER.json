@@ -73,7 +73,10 @@
     "codespace_stopped_and_deleted_after_job",
     "no_publish_before_all_verification_gates",
     "project_build_recipe_is_source_owned",
-    "future_runtime_evidence_invalidates_stale_static_certification"
+    "future_runtime_evidence_invalidates_stale_static_certification",
+    "disaster_recovery_export_is_not_restore_proof",
+    "release_assets_must_match_local_sha256_after_publication",
+    "windows_to_linux_shell_scripts_require_lf_line_endings"
   ],
   "certification_gates": [
     "STATIC_AUDIT_PASS",
@@ -84,6 +87,9 @@
     "ANDROID_CLOUD_BUILD_PASS",
     "LOCAL_SIGNATURE_PASS",
     "UPDATE_OVER_EXISTING_APP_PASS",
-    "SECOND_INDEPENDENT_BUILD_PASS"
+    "SECOND_INDEPENDENT_BUILD_PASS",
+    "DISASTER_RECOVERY_EXPORT_PASS",
+    "DISASTER_RECOVERY_RESTORE_TEST_PASS",
+    "RELEASE_ASSET_DIGESTS_PASS"
   ]
 }
