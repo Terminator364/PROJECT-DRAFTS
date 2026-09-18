@@ -2,167 +2,170 @@
 
 Continuation code:
 
-BUILDHUB AX15 RECOVER
+`BUILDHUB AX15 RECOVER`
 
 Date: 2026-09-18
 Canonical repository: Terminator364/PROJECT-DRAFTS
-Hardening branch: buildhub-v0.2-hardening-20260918
-Checkpoint head SHA: 7cecb187a845f311dc0ba193946603c0b2dff5a4
+V0.2 hardening branch: buildhub-v0.2-hardening-20260918
+Static-audit report: MATRICE-BUILD-HUB/STATIC_AUDIT_REPORT_20260918.md
+State recorded through parent snapshot: 4acb15c0f76ec8b21f9a6c5b8f893486c50c71d8
 
-## Meaning of the continuation code
+## Recovery behavior
 
-When the user types exactly:
+When the user types `BUILDHUB AX15 RECOVER`, recover GitHub first. Do not restart V0.1 or repeat already-proven design work.
 
-BUILDHUB AX15 RECOVER
+After V0.2 static promotion, inspect `main` first and use the hardening branch only as audit/history reference.
 
-in a new ChatGPT conversation, immediately recover the latest BuildHub state from GitHub and continue the AX15GO hardening batch. Do not restart design from zero.
+## Mission
 
-## Project mission
+Preserve this user workflow:
 
-MATRICE BUILD HUB is the centralized zero-cost production system intended to preserve the user's simple workflow:
+feedback/bug in ChatGPT -> repository correction -> deliberate BuildHub run -> exact-SHA cloud build -> local Android signing when required -> verification -> GitHub prerelease -> usable link.
 
-user reports bug/improvement -> ChatGPT updates repository -> BuildHub creates cloud builder -> build -> local Android signing -> verified artifact -> GitHub prerelease -> usable link.
+No manual Gradle/SSH/Codespaces developer workflow should be pushed onto the user.
 
-The user is non-technical. Do not replace this with a manual Gradle/SSH/PowerShell workflow.
+## Frozen AX baseline
+
+- AX150K V1.3 Operational
+- reference date: 2026-09-17
+- supplemental development guards:
+  - anti-Goodhart / TARGET_COUNT_NOT_SUFFICIENT
+  - causal novelty / salami-slicing control
+  - independent oracles
+  - bounded causal-neighborhood interactions
+  - reality-gap contract
+  - version-specific evidence and stale-proof invalidation
+
+Do not treat AX150K target counts as proof by themselves.
 
 ## Active architecture
 
-- GitHub = canonical source.
-- GitHub Actions hosted runners = manual-only / exceptional.
-- Codespaces = primary cloud compiler while included quota is available.
-- Smallest suitable Codespace first.
-- No Codespaces prebuilds.
-- Android signing private keys stay LOCAL on Windows under DPAPI.
-- Cloud produces unsigned APK.
-- Windows performs zipalign + apksigner + certificate/package/version verification.
-- Project build recipes are source-owned under .matrix-build/build.sh.
-- Exact source SHA is bound to build result and GitHub prerelease.
-- Codespace is stopped/deleted after job.
-- BuildHub maintains a local estimated Codespaces core-hour ledger.
-- Internal BuildHub cap currently 90 core-hours/month, below the GitHub Free reference allowance.
+- GitHub is canonical source.
+- Normal GitHub Actions hosted-runner usage: zero; active production workflows are manual-only.
+- GitHub Codespaces is the primary remote compiler while included quota is available.
+- no Codespaces prebuilds.
+- smallest suitable machine first.
+- project recipe is source-owned: `.matrix-build/build.sh`.
+- branch resolves to one exact source SHA before builder creation.
+- selected remote recipe is parsed before build execution.
+- Android cloud output is unsigned.
+- Android signing keys remain on Windows in DPAPI CurrentUser vault.
+- local signer verifies package, version and canonical certificate.
+- encrypted disaster-recovery export + functional restore proof are mandatory before signed APK production.
+- published release assets are verified against GitHub SHA-256 digest + size.
+- Codespace cleanup is mandatory; successful certification fails if deletion is not confirmed.
+- internal quota guard reserves worst-case project timeout + startup allowance.
+- shell files use LF across Windows -> Linux.
+- launcher/bootstrap fail closed if canonical source cannot refresh.
+- existing local PhoneMouse builder is retained only as an emergency fallback.
 
-## Active production branches
+## Production branches
 
 PhoneMouse:
-- repo: Terminator364/PhoneMouse
-- branch: beta11-visual-20260918
-- recipe: .matrix-build/build.sh
+- Terminator364/PhoneMouse
+- beta11-visual-20260918
+- active head observed: 868afa5488ce722f80c9ee9d9a42b7078722a0a8
 
 P2PCR95:
-- repo: Terminator364/P2PCR95
-- branch: beta03-native-updater-20260918
-- recipe: .matrix-build/build.sh
+- Terminator364/P2PCR95
+- beta03-native-updater-20260918
+- active head observed: 4d3974119e77d115e02226d341aaf875ba72a2d0
 
 ChatGPT-PC:
-- repo: Terminator364/ChatGPT-PC
-- branch: work/worker-v024-local-heartbeat-spool
-- recipe: .matrix-build/build.sh
+- Terminator364/ChatGPT-PC
+- work/worker-v024-local-heartbeat-spool
+- active head observed: aab3138237c31ac8171fb0e883a6a901a4fec371
 
-## AX15GO batch
+These observed heads contain the manual-only workflow changes. Previous evidence remains 14 + 6 + 3 = 23 active workflows checked manual-only.
 
-Frozen operational reference:
-- AX150K V1.3 Operational
-- date: 2026-09-17
-- status: operational reference with explicit evidence limits
+## Major V0.2 hardening now integrated
 
-Supplemental development guards in use:
-- anti-Goodhart / TARGET_COUNT_NOT_SUFFICIENT
-- causal novelty / salami-slicing controls
-- independent oracle requirement
-- bounded causal-neighborhood interactions
-- reality-gap contract
-- version-specific evidence / stale-proof invalidation
-
-BuildHub files include:
-- AX150K_CONTEXT.json
-- AX150K_ADAPTER.json
-- AX150K_HARNESS.json
-- .ax15go/buildhub_static_harness.py
-- self-test.ps1
-
-## Important fixes already integrated
-
-- source-owned build recipes for all 3 active projects
-- active-branch automatic workflows neutralized
-- PhoneMouse active branch: 14/14 workflows manual-only
-- P2PCR95 active branch: 6/6 workflows manual-only
-- ChatGPT-PC active branch: 3/3 workflows manual-only
-- SHA pinning before remote build
-- release target pinned to exact source SHA
-- prebuild detection/refusal
-- local named mutex preventing concurrent builds
-- stale BuildHub Codespace cleanup
-- stop/delete cleanup in finally
-- bounded remote build timeout
-- network/toolchain failure classification
-- BuildHub estimated quota ledger
+- exact-SHA source/result/release binding
+- source-owned recipes
+- no hosted Actions dispatch in normal BuildHub
+- local named build mutex
+- prebuild refusal
+- bounded remote build
+- failure classification
+- estimated Codespaces ledger + projected budget reservation
+- stale/orphan Codespace cleanup and certification block on failed deletion
 - Android toolchain pinning
-- local signing instead of cloud signing
-- DPAPI local signing vault
-- signing certificate verification planned/in hardening
-- P2PCR95 BETA02.1 transition EXE durable-input migration
-- portable encrypted disaster-recovery export
-- separate disaster-recovery restore verification
-- PowerShell syntax self-test
-- Python independent static harness
-- launcher self-update check
-- bootstrap installation path
-- fixed bootstrap literal \r\n defect
-- added repo + codespace GitHub auth scopes
-- mitigated sdkmanager license-pipe deadlock
-- persisted JDK path for cross-process reliability
+- Windows-only DPAPI signing vault
+- canonical cert check during signing migration
+- complete signing-credential validation
+- locale-stable keytool parsing
+- portable age-encrypted disaster-recovery export
+- plaintext recovery cleanup on all exits
+- functional recovery restore test: decrypt + hash + open keystore + cert match
+- recovery marker V2 semantic validation before signed production
+- release-asset SHA-256 + size verification after publication
+- LF shell portability contract
+- selected recipe `bash -n` gate
+- bounded Windows sdkmanager operations
+- stale launcher/build bootstrap fail-closed
+- AX evidence classification fixed: remote branches are referenced, not materialized
+- anti-duplication guards for central hub structure
+- main-only local PhoneMouse fallback reconciled via two-parent merge without force-push
 
-## Current certification state
+## Important counter-audit incident
 
-DESIGN_READY: advanced
-STATIC_AUDIT_PASS: pending final full rerun
-ZERO_AUTO_ACTIONS_ACTIVE_BRANCHES: PASS
-LOCAL_BOOTSTRAP_PASS: not yet observed on real user PC
-LOCAL_SIGNING_VAULT_PASS: not yet observed on real user PC
-DISASTER_RECOVERY_EXPORT_PASS: not yet observed
-DISASTER_RECOVERY_RESTORE_TEST_PASS: not yet observed
-CLOUD_SMOKE_PASS: not yet observed
-ANDROID_CLOUD_BUILD_PASS: not yet observed
-LOCAL_SIGNATURE_PASS: not yet observed
-UPDATE_OVER_EXISTING_APP_PASS: not yet observed
-SECOND_INDEPENDENT_BUILD_PASS: not yet observed
-OPERATIONAL: NO
+A release-integrity incremental patch accidentally duplicated part of `hub.ps1`.
 
-Do not claim runtime PASS without real evidence.
+The defect was detected before promotion or execution.
 
-## Next atomic actions after recovery
+Response:
+1. promotion was stopped;
+2. `hub.ps1` was restored from the known-good V0.2 blob at checkpoint `b06291d117d8997365076d6c5b3773ddcdbdc89a`;
+3. all intended hardening was reapplied from the clean source;
+4. singleton guards were added for runtime entry, release verifier, and recovery verifier;
+5. repository deterministic audit was rerun.
 
-1. Verify whether the latest migrate-signing.ps1 certificate-validation patch was committed successfully; user interrupted immediately after that tool call.
-2. Re-read bootstrap-pc.ps1, launcher.ps1, hub.ps1, setup-local-signing-tools.ps1, migrate-signing.ps1, local-sign-apk.ps1, remote-runner.sh.
-3. Run/perform full static audit:
-   - PowerShell syntax
-   - JSON contracts
-   - shell syntax
-   - no cloud signing secrets
-   - no hosted Actions dispatch from BuildHub
-   - exact SHA/release invariants
-   - fail-closed behavior
-4. Audit the 3 project .matrix-build/build.sh recipes again after all changes.
-5. Finish the disaster-recovery workflow and ensure it is not falsely counted as restored until verify-disaster-recovery.ps1 PASS.
-6. Update README/installation instructions to V0.2 architecture.
-7. Only if static gates pass, promote BuildHub hardening branch toward main.
-8. On the user's real PC:
-   - run bootstrap once
-   - run option 4 cloud smoke
-   - then PhoneMouse BETA11 real build
-   - local-sign it
-   - verify certificate/package/version
-   - install over BETA10 without uninstall
-   - verify update behavior
-   - perform second independent build before OPERATIONAL certification
+This incident must remain in the evidence trail; do not erase it from future summaries.
+
+## Current certification
+
+- DESIGN_READY: PASS
+- STATIC_AUDIT_PASS: PASS — deterministic repository audit 70/70
+- ZERO_AUTO_ACTIONS_ACTIVE_BRANCHES: PASS
+- LOCAL_BOOTSTRAP_PASS: PENDING real Windows PC
+- LOCAL_SIGNING_VAULT_PASS: PENDING real Windows PC
+- DISASTER_RECOVERY_EXPORT_PASS: PENDING
+- DISASTER_RECOVERY_RESTORE_TEST_PASS: PENDING
+- CLOUD_SMOKE_PASS: PENDING
+- ANDROID_CLOUD_BUILD_PASS: PENDING
+- LOCAL_SIGNATURE_PASS: PENDING
+- RELEASE_ASSET_DIGESTS_PASS: PENDING real publication
+- UPDATE_OVER_EXISTING_APP_PASS: PENDING real Android device
+- SECOND_INDEPENDENT_BUILD_PASS: PENDING
+- OPERATIONAL: NO
+
+A static PASS is not field evidence.
+
+## Next atomic actions
+
+1. Confirm `main` is still an ancestor of the hardening head.
+2. Fast-forward `main` to the V0.2 field-candidate head; never force.
+3. On the user's real Windows PC, run the one-time `bootstrap-pc.ps1`.
+   - The bootstrap runs PowerShell `Parser.ParseFile` over all BuildHub PS1 files before any build.
+   - Complete GitHub/Codespaces authorization if prompted.
+   - Migrate PhoneMouse + P2PCR95 signing identities to local DPAPI vault.
+   - Export encrypted disaster-recovery backup.
+   - Select it again and complete the functional restore test.
+4. Launch BuildHub and choose option 4: cloud smoke only.
+5. If smoke PASS, run a real PhoneMouse BETA11 build.
+6. Verify local canonical signature/package/version and GitHub release digests.
+7. Install BETA11 over the existing beta WITHOUT uninstalling.
+8. Repeat an independent build.
+9. Then qualify P2PCR95 BETA03.
+10. Only after the runtime gates pass may OPERATIONAL become YES.
 
 ## Absolute rules
 
-- Do not reactivate automatic GitHub Actions.
-- Do not burn Actions minutes during BuildHub hardening.
-- Do not move Android signing keys into Codespaces.
-- Do not generate replacement signing keys.
-- Do not call static checks equivalent to real field evidence.
-- Do not restart from V0.1.
-- Do not weaken the user experience into a manual developer workflow.
-- Keep the user-facing production flow centralized and simple.
+- No automatic GitHub Actions.
+- No Android signing key in Codespaces.
+- No replacement signing key.
+- No force-push to promote BuildHub.
+- No claiming runtime PASS from static evidence.
+- No hiding failed/corrupted intermediate attempts.
+- No manual-developer workflow imposed on the user.
+- Keep `BUILDHUB AX15 RECOVER` as the canonical continuation command.
