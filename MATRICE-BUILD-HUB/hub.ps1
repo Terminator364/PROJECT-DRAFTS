@@ -80,6 +80,8 @@ function FailureClass($Text){
   if($t -match "sdkmanager|android sdk|gradle|java_home|jdk"){return "TOOLCHAIN_FAILURE"}
   return "BUILD_FAILED"
 }
+
+
 function VerifyReleaseAssets($Repo,$Tag,$Files){
   $encoded=[uri]::EscapeDataString($Tag)
   $raw=& gh api ("repos/"+$Repo+"/releases/tags/"+$encoded) 2>$null
@@ -95,7 +97,6 @@ function VerifyReleaseAssets($Repo,$Tag,$Files){
     if([string]$asset.state -ne "uploaded"){Fail "RELEASE_ASSET_STATE" ("Release asset is not fully uploaded: "+$name)}
     $digest=[string]$asset.digest
     if([string]::IsNullOrWhiteSpace($digest) -or $digest -notmatch '^sha256:[0-9A-Fa-f]{64}
-Need "gh" "GH_MISSING"
 Need "git" "GIT_MISSING"
 & gh auth status -h github.com *> $null
 if($LASTEXITCODE -ne 0){Fail "GH_AUTH" "GitHub CLI is not authenticated."}
@@ -158,6 +159,11 @@ try{
   $Recipe=[string]$Cfg.recipe_path
   $Timeout=[int]$Cfg.build_timeout_minutes
 
+  $projectedWorst=[double]$usage.Data.estimated_core_hours+([double]$Cores*(($Timeout+10.0)/60.0))
+  if($projectedWorst -gt $cap){
+    Fail "INTERNAL_BUDGET_RESERVATION" ("Worst-case projected BuildHub use would reach "+[math]::Round($projectedWorst,2)+" core-hours, above the internal cap "+$cap+".")
+  }
+
   Write-Host ""
   Write-Host ("Project : "+$Project) -ForegroundColor Green
   Write-Host ("Branch  : "+$Branch)
@@ -168,6 +174,7 @@ try{
 
   $CS=$null
   $Started=$null
+  $JobSucceeded=$false
   try{
     $Started=Get-Date
     & gh codespace create -R $Repo -b $Branch -d $BuildId -m $Machine --idle-timeout 10m --retention-period 1h --default-permissions|Out-Host
@@ -224,6 +231,7 @@ try{
     if($Mode -eq "Smoke"){
       Write-Host "CLOUD_SMOKE_PASS" -ForegroundColor Green
       [IO.File]::WriteAllLines((Join-Path $DataRoot "LAST_SMOKE.txt"),@($Project,$Branch,$Sha,$ResultDir))
+      $JobSucceeded=$true
       return
     }
 
@@ -246,10 +254,7 @@ try{
       $signedPath=Join-Path $ResultDir $signedName
       if(-not(Test-Path $unsignedPath -PathType Leaf)){Fail "UNSIGNED_APK_MISSING" "Cloud build did not return the unsigned APK."}
 
-      $RecoveryMarker=Join-Path $DataRoot "vault\DISASTER_RECOVERY_RESTORE_TEST_PASS.json"
-      if(-not(Test-Path $RecoveryMarker)){
-        Fail "DISASTER_RECOVERY_NOT_VERIFIED" "Signed APK production is blocked until the encrypted signing backup has passed a restore test."
-      }
+      [void](AssertRecoveryMarker)
       $Signer=Join-Path $Root "local-sign-apk.ps1"
       if(-not(Test-Path $Signer)){Fail "LOCAL_SIGNER_MISSING" "local-sign-apk.ps1 is missing."}
 
@@ -320,8 +325,15 @@ try{
       Write-Host ("LINK: "+$Url) -ForegroundColor Cyan
       [IO.File]::WriteAllLines((Join-Path $DataRoot "LAST_BUILD.txt"),@($Project,$Branch,$Sha,$Url,$ResultDir))
     }
+    $JobSucceeded=$true
   }
   finally{
+    if(-not $CS -and $BuildId){
+      try{
+        $cleanupList=& gh codespace list -R $Repo --limit 100 --json name,displayName,createdAt|ConvertFrom-Json
+        $CS=($cleanupList|Where-Object{$_.displayName -eq $BuildId}|Sort-Object createdAt -Descending|Select-Object -First 1).name
+      }catch{}
+    }
     if($CS){
       & gh codespace stop -c $CS *> $null
       $deleted=$false
@@ -329,7 +341,11 @@ try{
         & gh codespace delete -c $CS --force *> $null
         if($LASTEXITCODE -eq 0){$deleted=$true}else{Start-Sleep -Seconds 3}
       }
-      if(-not $deleted){Write-Host "WARNING: builder stopped but deletion was not confirmed." -ForegroundColor Red}
+      if(-not $deleted){
+        [IO.File]::WriteAllLines((Join-Path $DataRoot "LAST_CLEANUP_FAILURE.txt"),@($Project,$Branch,$Sha,$BuildId,$CS))
+        if($JobSucceeded){Fail "CODESPACE_DELETE_FAILED" "Build completed but builder deletion could not be confirmed; certification is blocked."}
+        Write-Host "WARNING: builder stopped but deletion was not confirmed." -ForegroundColor Red
+      }
     }
     if($Started -and $Cores -gt 0){
       AddUsage (((Get-Date)-$Started).TotalHours*[double]$Cores)
@@ -349,6 +365,29 @@ finally{
     if([long]$asset.size -ne [long](Get-Item $local).Length){Fail "RELEASE_SIZE_MISMATCH" ("Published asset size differs from local artifact: "+$name)}
   }
   return $release
+}
+function AssertRecoveryMarker(){
+  $path=Join-Path $DataRoot "vault\DISASTER_RECOVERY_RESTORE_TEST_PASS.json"
+  if(-not(Test-Path $path -PathType Leaf)){
+    Fail "DISASTER_RECOVERY_NOT_VERIFIED" "Signed APK production is blocked until the encrypted signing backup has passed a functional restore test."
+  }
+  try{$marker=Get-Content $path -Raw|ConvertFrom-Json}catch{Fail "DISASTER_RECOVERY_MARKER_INVALID" "The recovery PASS marker is unreadable."}
+  if([string]$marker.schema -ne "mbh-disaster-recovery-restore-test-v2" -or [string]$marker.result -ne "PASS"){
+    Fail "DISASTER_RECOVERY_MARKER_STALE" "The recovery PASS marker is not the required V0.2 functional proof."
+  }
+  $profiles=@($marker.profiles)
+  $evidence=@($marker.certificate_evidence)
+  foreach($name in @("PhoneMouse","P2PCR95")){
+    if($profiles -notcontains $name){Fail "DISASTER_RECOVERY_PROFILE_MISSING" ("Recovery proof is missing "+$name+".")}
+    $expected=[string]$Registry.projects.$name.signing.certificate_sha256
+    $found=@($evidence|Where-Object{[string]$_.profile -eq $name})
+    if($found.Count -ne 1){Fail "DISASTER_RECOVERY_CERT_EVIDENCE" ("Recovery certificate evidence cardinality is invalid for "+$name+".")}
+    if($found[0].keystore_opened -ne $true){Fail "DISASTER_RECOVERY_KEYSTORE_EVIDENCE" ("Recovery proof did not open the "+$name+" keystore.")}
+    if(([string]$found[0].certificate_sha256).ToLowerInvariant() -ne $expected){
+      Fail "DISASTER_RECOVERY_CERT_MISMATCH" ("Recovery proof certificate does not match the canonical "+$name+" identity.")
+    }
+  }
+  return $marker
 }
 
 Need "gh" "GH_MISSING"
