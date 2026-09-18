@@ -1,0 +1,17 @@
+{
+  "trusted": true,
+  "schema": "AX150K_HARNESS-1",
+  "commands": [
+    {
+      "name": "buildhub-static-harness",
+      "argv": [
+        "python",
+        ".ax15go/buildhub_static_harness.py"
+      ],
+      "timeout": 60,
+      "oracle": "exit_code_zero_and_json_summary_pass",
+      "evidence_class": "STATIC"
+    }
+  ],
+  "note": "Runtime PC/Codespaces/Android gates are intentionally excluded from static harness and remain INCONCLUSIVE until real execution."
+}
