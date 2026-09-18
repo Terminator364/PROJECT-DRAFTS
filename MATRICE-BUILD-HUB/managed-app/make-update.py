@@ -79,8 +79,8 @@ def build(sequence:int, source_sha:str, output:Path):
         "package_type":"managed_app_update",
         "target_app":"matrice-build-hub",
         "sequence":sequence,
-        "update_id":f"mbh-build2-v051-lifetime-supervisor-seq{sequence}",
-        "version":"0.5.1-lifetime-supervisor",
+        "update_id":f"mbh-build2-v052-p2pcr95-beta04-seq{sequence}",
+        "version":"0.5.2-p2pcr95-beta04",
         "build2_source_sha":source_sha,
         "files":[{"path":n,"sha256":sha256_bytes(d)} for n,d in sorted(payload.items())],
         "manifest_patch":{
