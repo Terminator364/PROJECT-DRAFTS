@@ -12,7 +12,7 @@ function Require-Token([string]$File,[string]$Token,[string]$Code){
   if($text.Contains($Token)){Pass ($Code+": "+$File)}else{FailCheck ($Code+": "+$File+" missing token "+$Token)}
 }
 
-Write-Host "MATRICE BUILD HUB V0.2 - STATIC SELF TEST" -ForegroundColor Cyan
+Write-Host "MATRICE BUILD HUB V0.5.2 - STATIC SELF TEST" -ForegroundColor Cyan
 
 $requiredFiles=@(
   "hub.ps1","launcher.ps1","bootstrap-pc.ps1","remote-runner.sh",
@@ -90,6 +90,9 @@ if($json.ContainsKey("AX150K_ADAPTER.json")){
 Require-Token "hub.ps1" "Local\MatriceBuildHub.SingleBuild" "MUTEX"
 Require-Token "hub.ps1" "PREBUILD_DETECTED" "PREBUILD_GUARD"
 Require-Token "hub.ps1" "SOURCE_MISMATCH" "SOURCE_SHA_GUARD"
+Require-Token "hub.ps1" "[string]$ExpectedSha" "EXPECTED_SHA_PARAMETER"
+Require-Token "hub.ps1" "SOURCE_SHA_GUARD" "EXPECTED_SHA_DRIFT_GUARD"
+Require-Token "hub.ps1" "INVALID_EXPECTED_SHA" "EXPECTED_SHA_FORMAT_GUARD"
 Require-Token "hub.ps1" '--target $Sha' "RELEASE_TARGET_SHA"
 Require-Token "hub.ps1" "RELEASE_DIGEST_MISMATCH" "RELEASE_DIGEST_GUARD"
 Require-Token "hub.ps1" "RELEASE_ASSET_DIGESTS_PASS" "RELEASE_DIGEST_GATE"
