@@ -35,6 +35,18 @@ def authority() -> dict:
         raise RuntimeError("BUILD2_SOURCE_SHA_MISSING")
     return x
 
+def lane_config_for_project(project:str) -> tuple[str,dict]:
+    for lname,cfg in registry().get("lanes",{}).items():
+        if cfg.get("project")==project:
+            return lname,cfg
+    raise RuntimeError("PROJECT_NOT_REGISTERED:"+project)
+
+def lane_config_for_operation(operation:str) -> tuple[str,dict]:
+    for lname,cfg in registry().get("lanes",{}).items():
+        if cfg.get("operation")==operation:
+            return lname,cfg
+    raise RuntimeError("OPERATION_NOT_REGISTERED:"+operation)
+
 def which(name: str) -> str:
     p=shutil.which(name)
     if not p:
@@ -163,7 +175,7 @@ def process_doctor(run_id:str) -> None:
 def process_run(project:str,run_id:str) -> None:
     if project=="BuildHub":
         process_doctor(run_id); return
-    lane_cfg=registry()["lanes"][{"PhoneMouse":"phonemouse","P2PCR95":"p2pcr95","ChatGPT-PC":"chatgpt_pc"}[project]]
+    _,lane_cfg=lane_config_for_project(project)
     lane=lane_root(project)
     state_path=lane/"runs"/run_id/"state.json"
     st=read_json(state_path,{}) or {}
@@ -274,9 +286,8 @@ def enqueue(project:str,operation:str) -> dict:
         if result.get("status") in {"QUEUED","IDEMPOTENT_REUSE"}:
             result["scheduler"]=ensure_scheduler()
         return result
-    lanes=registry()["lanes"]
-    lname={"PhoneMouse":"phonemouse","P2PCR95":"p2pcr95","ChatGPT-PC":"chatgpt_pc"}[project]
-    contract=dict(lanes[lname])
+    _,cfg=lane_config_for_project(project)
+    contract=dict(cfg)
     result=new_run(project,operation,contract)
     if result.get("status") in {"QUEUED","IDEMPOTENT_REUSE"}:
         result["scheduler"]=ensure_scheduler()
