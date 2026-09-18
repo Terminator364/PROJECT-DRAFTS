@@ -1,0 +1,12 @@
+{
+  "schema": "build2.source_authority/1",
+  "status": "PINNED",
+  "build2_version": "0.5.2-recovery-unblock",
+  "repository": "Terminator364/PROJECT-DRAFTS",
+  "branch": "buildhub-v0.5-unified-lanes-20260918",
+  "source_sha": "52014dde1002fdea2cc7e0840d65749350733859",
+  "hub_path": "MATRICE-BUILD-HUB/hub.ps1",
+  "hub_sha256": "d43dbad6194aab00454992d3408082d7c55f0d030ce17873b317f0e1113131bd",
+  "promotion_reason": "P0 repair: remove corrupted duplicated hub tail, enforce exact lane branch/SHA, align P2PCR95 BETA04, retain lifetime supervisor",
+  "rollback_authority": "BUILD1 until BUILD2 doctor and E2E field gates pass"
+}
