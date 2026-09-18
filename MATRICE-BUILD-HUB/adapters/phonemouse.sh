@@ -71,8 +71,8 @@ cat beta10-overrides/keyboard-split/part*.b64 | tr -d '\n\r ' | base64 -d | gzip
 sed -i 's#pm_beta10_before_keyboard/#source/#g; s#pm_beta10_work/#source/#g' /tmp/beta10-keyboard.patch
 patch -p0 < /tmp/beta10-keyboard.patch
 sed -i '/b\.setTextAllCaps(false);/d' source/android/app/src/main/java/com/blessing/phonemouse/MainActivity.java
-cat beta11-overrides/visual/part*.b64 | tr -d '\n\r ' | base64 -d | gzip -d > /tmp/beta11.patch
-sed -i 's#pm_beta10_work/android/app/src/main/#source/android/app/src/main/#g; s#pm_beta11_work/android/app/src/main/#source/android/app/src/main/#g' /tmp/beta11.patch
+cat beta11-overrides/canonical/part*.b64 | tr -d '\n\r ' | base64 -d | gzip -d > /tmp/beta11.patch
+sed -i 's#pm_beta10_work/android/app/src/main/#source/android/app/src/main/#g; s#pm_beta11_work/android/app/src/main/#source/android/app/src/main/#g; s#pm_beta11_canonical/android/app/src/main/#source/android/app/src/main/#g' /tmp/beta11.patch
 patch -p0 < /tmp/beta11.patch
 python3 tools/beta11_preflight.py source
 echo "[MBH] Restoring canonical signing identity"
