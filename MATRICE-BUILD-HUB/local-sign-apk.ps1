@@ -16,6 +16,12 @@ $Base=Join-Path $env:LOCALAPPDATA "MatriceBuildHub"
 $Vault=Join-Path $Base "vault"
 $Sdk=Join-Path $Base "android-sdk"
 $BuildTools=[string]$Registry.policy.android_build_tools
+$JavaState=Join-Path $Base "state\java-home.txt"
+if(Test-Path $JavaState){
+  $env:JAVA_HOME=(Get-Content $JavaState -Raw).Trim()
+  $javaBin=Join-Path $env:JAVA_HOME "bin"
+  if(Test-Path $javaBin){ $env:Path=$javaBin+";"+$env:Path }
+}
 $BT=Join-Path $Sdk ("build-tools\"+$BuildTools)
 $ZipAlign=Join-Path $BT "zipalign.exe"
 $ApkSigner=Join-Path $BT "apksigner.bat"
@@ -107,7 +113,10 @@ try{
   if($LASTEXITCODE -ne 0){throw "[AAPT_SIGNED] Cannot inspect signed APK."}
   $post=Get-Content $postBadging -Raw
   if($post -notmatch ("package: name='"+[regex]::Escape($app)+"'")){throw "[POSTSIGN_APP_ID] Package ID changed after signing."}
+  if($post -notmatch ("versionCode='"+[regex]::Escape($ExpectedVersionCode)+"'")){throw "[POSTSIGN_VERSION_CODE] versionCode changed after signing."}
+  if($post -notmatch ("versionName='"+[regex]::Escape($ExpectedVersionName)+"'")){throw "[POSTSIGN_VERSION_NAME] versionName changed after signing."}
 
+  if((Get-Item $SignedApk).Length -le 0){throw "[SIGNED_APK_EMPTY] Signed APK is empty."}
   $hash=(Get-FileHash -Algorithm SHA256 $SignedApk).Hash.ToLowerInvariant()
   Set-Content -Encoding ASCII -Path ($SignedApk+".sha256") -Value ($hash+"  "+(Split-Path $SignedApk -Leaf))
   Copy-Item $verify ($SignedApk+".signature.txt") -Force
