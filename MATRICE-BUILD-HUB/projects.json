@@ -7,6 +7,7 @@
     "internal_monthly_core_hour_cap": 90,
     "github_free_reference_core_hours": 120,
     "cleanup_stale_hub_codespaces_after_hours": 6,
+    "codespace_startup_reserve_minutes": 15,
     "default_build_timeout_minutes": 45,
     "publish_prerelease": true,
     "signing_mode": "LOCAL_WINDOWS_DPAPI",
