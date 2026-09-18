@@ -30,16 +30,19 @@
     },
     "P2PCR95": {
       "repo": "Terminator364/P2PCR95",
-      "default_branch": "beta03-field-socket-fallback-20260918",
+      "default_branch": "beta04-runtime-control-integration-20260918",
       "fallback_adapter": "adapters/p2pcr95.sh",
-      "build_timeout_minutes": 45,
+      "build_timeout_minutes": 60,
       "recipe_path": ".matrix-build/build.sh",
       "signing_profile": "p2pcr95",
       "signing": {
         "profile": "P2PCR95",
         "application_id": "com.p2pcr95.remote",
         "certificate_sha256": "bf7d4ec266affef98756dadeebf1a71991d14738fe66b2f985752be0bf78f895"
-      }
+      },
+      "candidate": "BETA04",
+      "version_code": 6,
+      "version_name": "0.1.0-beta04"
     },
     "ChatGPT-PC": {
       "repo": "Terminator364/ChatGPT-PC",
