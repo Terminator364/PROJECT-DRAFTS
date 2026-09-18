@@ -1,0 +1,75 @@
+{
+  "schema": "build2.registry/1",
+  "version": "0.5.0-unified-lanes",
+  "global_policy": {
+    "max_heavy_builds": 1,
+    "max_queue_depth": 8,
+    "zero_manual_normal_flow": true,
+    "arbitrary_shell": false,
+    "atomic_publish_required": true,
+    "receipt_readback_required": true,
+    "second_run_reproducibility_required": true,
+    "controlled_failure_required_before_promotion": true
+  },
+  "lanes": {
+    "phonemouse": {
+      "project": "PhoneMouse",
+      "operation": "build_phonemouse",
+      "repo": "Terminator364/PhoneMouse",
+      "branch": "beta11-visual-20260918",
+      "recipe": ".matrix-build/build.sh",
+      "build_timeout_minutes": 35,
+      "resource_profile": {
+        "gradle_no_daemon": true,
+        "max_workers": 1,
+        "cache_first": true,
+        "adaptive_resource_gate": true
+      },
+      "gates": {
+        "preflight": "tools/beta11_preflight.py",
+        "canonical_patch": "beta11-overrides/canonical",
+        "forbidden_patch": "beta11-overrides/visual",
+        "application_id": "com.blessing.phonemouse",
+        "certificate_sha256": "ed109d1d2bd21f60f78212fe7b016d005dea2bb43e18f0eccaa383646cb37aac",
+        "canonical_publish_name": "PhoneMouse-LATEST.apk",
+        "version_code_monotonic": true
+      }
+    },
+    "p2pcr95": {
+      "project": "P2PCR95",
+      "operation": "build_p2pcr95",
+      "repo": "Terminator364/P2PCR95",
+      "branch": "beta03-field-socket-fallback-20260918",
+      "source_sha": "c673f2a9f36477c35c65e9d87dec04590ef9551c",
+      "build_ready_marker": "release/BUILD_READY_BUILD1.json",
+      "recipe": ".matrix-build/build.sh",
+      "build_timeout_minutes": 45,
+      "expected": {
+        "version_code": 5,
+        "version_name": "0.1.0-beta03.1",
+        "application_id": "com.p2pcr95.remote",
+        "certificate_sha256": "bf7d4ec266affef98756dadeebf1a71991d14738fe66b2f985752be0bf78f895",
+        "artifacts": [
+          "P2PCR95-Agent-BETA03.1.exe",
+          "P2PCR95-BETA03.1.apk",
+          "BUILD_PROVENANCE.json",
+          "BETA03_CONTRACT.json"
+        ]
+      }
+    },
+    "chatgpt_pc": {
+      "project": "ChatGPT-PC",
+      "operation": "build_chatgpt_pc",
+      "repo": "Terminator364/ChatGPT-PC",
+      "branch": "work/worker-v024-local-heartbeat-spool",
+      "recipe": ".matrix-build/build.sh",
+      "build_timeout_minutes": 30,
+      "formal_recommendation_packet": "PENDING"
+    }
+  },
+  "standard_stages": [
+    "ACCEPTED","SOURCE_SYNC","PREFLIGHT","BUILDER_PROVISION","BUILD",
+    "SIGN","VERIFY","PUBLISH","READBACK","COMPLETE"
+  ],
+  "terminal_states": ["HOLD","FAILED_SAFE","CANCELLED"]
+}
