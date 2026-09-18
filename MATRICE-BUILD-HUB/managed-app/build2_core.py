@@ -173,7 +173,7 @@ def write_receipt(project: str, run_id: str, result: str, *,
     }
     atomic_json(lane/"receipts"/f"{run_id}.json",rec)
     heartbeat(project,run_id,stage,result,detail=detail,error_class=error_class,
-              progress_pct=100 if result=="COMPLETE" else None,artifacts=artifacts)
+              progress_pct=100 if result=="COMPLETE" else None,artifact=(artifacts or [None])[0])
     return rec
 
 def _pid_alive(pid: int) -> bool:
