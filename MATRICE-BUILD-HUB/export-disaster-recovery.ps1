@@ -39,6 +39,7 @@ if($confirm -ne "OUI"){throw "[BACKUP_LOCATION_UNCONFIRMED] Disaster-recovery de
 
 $profiles=@("PhoneMouse","P2PCR95")
 $temp=Join-Path $env:TEMP ("mbh-recovery-"+[guid]::NewGuid().ToString("N"))
+$plainBundle=$null
 New-Item -ItemType Directory -Force -Path $temp|Out-Null
 try{
   $manifest=@{schema="mbh-disaster-recovery-v1";created_at=(Get-Date).ToString("o");profiles=@()}
@@ -87,5 +88,6 @@ try{
   Write-Host ("SHA256: "+$encHash)
   Write-Host "Le gate de restauration complete restera a tester lors d un controle separe." -ForegroundColor Yellow
 }finally{
+  if($plainBundle -and (Test-Path $plainBundle)){Remove-Item $plainBundle -Force -ErrorAction SilentlyContinue}
   if(Test-Path $temp){Remove-Item $temp -Recurse -Force -ErrorAction SilentlyContinue}
 }
