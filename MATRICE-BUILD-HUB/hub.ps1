@@ -7,7 +7,7 @@ param(
 )
 
 $ErrorActionPreference="Stop"
-$HubVersion="0.5.3-recovery-unblock-context"
+$HubVersion="0.5.5-auto-install-readback"
 $Root=Split-Path -Parent $MyInvocation.MyCommand.Path
 $Registry=Get-Content (Join-Path $Root "projects.json") -Raw | ConvertFrom-Json
 $DataRoot=Join-Path $env:LOCALAPPDATA "MatriceBuildHub"
@@ -80,6 +80,62 @@ function FailureClass($Text){
   if($t -match "could not resolve|connection reset|network is unreachable|temporary failure"){return "NETWORK_TRANSIENT"}
   if($t -match "sdkmanager|android sdk|gradle|java_home|jdk"){return "TOOLCHAIN_FAILURE"}
   return "BUILD_FAILED"
+}
+
+function ResolveAdb(){
+  $candidates=@()
+  $cmd=Get-Command adb.exe -ErrorAction SilentlyContinue
+  if($cmd){$candidates+=[string]$cmd.Source}
+  foreach($root in @($env:ANDROID_SDK_ROOT,$env:ANDROID_HOME,(Join-Path $env:LOCALAPPDATA "Android\\Sdk"))){
+    if(-not [string]::IsNullOrWhiteSpace([string]$root)){
+      $candidates+=(Join-Path ([string]$root) "platform-tools\\adb.exe")
+    }
+  }
+  foreach($p in @($candidates|Select-Object -Unique)){
+    if($p -and (Test-Path $p -PathType Leaf)){return [string]$p}
+  }
+  Fail "ADB_MISSING" "Android platform-tools adb is unavailable; automatic APK installation cannot be certified."
+}
+function GetSingleAndroidDevice($Adb){
+  $raw=& $Adb devices
+  if($LASTEXITCODE -ne 0){Fail "ADB_DEVICES_FAILED" "adb devices failed."}
+  $lines=@($raw|Select-Object -Skip 1|Where-Object{$_ -and $_.Trim().Length -gt 0})
+  $unauthorized=@($lines|Where-Object{$_ -match "\\tunauthorized$"})
+  if($unauthorized.Count -gt 0){Fail "ANDROID_DEVICE_UNAUTHORIZED" "An Android device is connected but has not authorized this PC for adb."}
+  $offline=@($lines|Where-Object{$_ -match "\\toffline$"})
+  if($offline.Count -gt 0){Fail "ANDROID_DEVICE_OFFLINE" "An Android device is connected but adb reports it offline."}
+  $ready=@($lines|Where-Object{$_ -match "\\tdevice$"})
+  if($ready.Count -eq 0){Fail "ANDROID_DEVICE_NOT_CONNECTED" "No authorized Android device is connected for automatic APK installation."}
+  if($ready.Count -gt 1){Fail "MULTIPLE_ANDROID_DEVICES" "More than one adb device is connected; refusing to choose a target automatically."}
+  return [string](($ready[0] -split "\\s+")[0])
+}
+function InstallVerifiedApk($ApkPath,$ApplicationId,$ExpectedVersionCode){
+  if(-not(Test-Path $ApkPath -PathType Leaf)){Fail "INSTALL_APK_MISSING" ("APK to install is missing: "+$ApkPath)}
+  if([string]::IsNullOrWhiteSpace([string]$ApplicationId)){Fail "INSTALL_APP_ID_MISSING" "Application id is required for install readback."}
+  $adb=ResolveAdb
+  $serial=GetSingleAndroidDevice $adb
+  Write-Host ("INSTALL: "+$ApplicationId+" -> "+$serial) -ForegroundColor Cyan
+  $install=& $adb -s $serial install -r $ApkPath 2>&1
+  $installText=$install|Out-String
+  if($LASTEXITCODE -ne 0 -or $installText -notmatch "(?m)^Success\\s*$"){
+    Fail "APK_INSTALL_FAILED" ($installText.Trim())
+  }
+  $pm=& $adb -s $serial shell pm path $ApplicationId 2>&1
+  $pmText=$pm|Out-String
+  if($LASTEXITCODE -ne 0 -or $pmText -notmatch "(?m)^package:"){
+    Fail "APK_INSTALL_READBACK_FAILED" ("Package path readback failed for "+$ApplicationId)
+  }
+  if(-not [string]::IsNullOrWhiteSpace([string]$ExpectedVersionCode)){
+    $dump=& $adb -s $serial shell dumpsys package $ApplicationId 2>&1
+    if($LASTEXITCODE -ne 0){Fail "APK_VERSION_READBACK_FAILED" "dumpsys package failed after install."}
+    $m=[regex]::Match(($dump|Out-String),"versionCode=(\\d+)")
+    if(-not $m.Success){Fail "APK_VERSION_READBACK_MISSING" "Installed versionCode could not be read back."}
+    if([string]$m.Groups[1].Value -ne [string]$ExpectedVersionCode){
+      Fail "APK_VERSION_READBACK_MISMATCH" ("expected="+$ExpectedVersionCode+" actual="+$m.Groups[1].Value)
+    }
+  }
+  Write-Host "APK_INSTALL_PASS" -ForegroundColor Green
+  return [pscustomobject]@{serial=$serial;application_id=$ApplicationId;apk=$ApkPath;version_code=[string]$ExpectedVersionCode}
 }
 
 
@@ -203,6 +259,12 @@ try{
   if(-not(Test-Path $Runner)){Fail "RUNNER_MISSING" "Missing remote-runner.sh."}
   $Recipe=[string]$Cfg.recipe_path
   $Timeout=[int]$Cfg.build_timeout_minutes
+  $StartupReserveMinutes=15
+  if($Registry.policy.codespace_startup_reserve_minutes){$StartupReserveMinutes=[int]$Registry.policy.codespace_startup_reserve_minutes}
+  $ProjectedCoreHours=[math]::Round((([double]$Timeout/60.0)+([double]$StartupReserveMinutes/60.0))*[double]$Cores,4)
+  if(([double]$usage.Data.estimated_core_hours+$ProjectedCoreHours) -gt $cap){
+    Fail "INTERNAL_BUDGET_RESERVATION" ("Current estimate "+$usage.Data.estimated_core_hours+" + reserved "+$ProjectedCoreHours+" core-hours would exceed cap "+$cap+".")
+  }
 
   Write-Host ""
   Write-Host ("Project : "+$Project) -ForegroundColor Green
@@ -273,6 +335,8 @@ try{
       return
     }
 
+    $InstallApk=$null
+    $InstallVersionCode=$null
     $localSignedFiles=@()
     if($Result.local_signing -and $Result.local_signing.required -eq $true){
       if(-not $Cfg.signing){Fail "LOCAL_SIGN_CONFIG" "Repository requested local signing but registry has no signing profile."}
@@ -292,10 +356,7 @@ try{
       $signedPath=Join-Path $ResultDir $signedName
       if(-not(Test-Path $unsignedPath -PathType Leaf)){Fail "UNSIGNED_APK_MISSING" "Cloud build did not return the unsigned APK."}
 
-      $RecoveryMarker=Join-Path $DataRoot "vault\DISASTER_RECOVERY_RESTORE_TEST_PASS.json"
-      if(-not(Test-Path $RecoveryMarker)){
-        Fail "DISASTER_RECOVERY_NOT_VERIFIED" "Signed APK production is blocked until the encrypted signing backup has passed a restore test."
-      }
+      $null=AssertRecoveryMarker
       $Signer=Join-Path $Root "local-sign-apk.ps1"
       if(-not(Test-Path $Signer)){Fail "LOCAL_SIGNER_MISSING" "local-sign-apk.ps1 is missing."}
 
@@ -314,6 +375,8 @@ try{
       Remove-Item $unsignedPath -Force
       if(Test-Path ($unsignedPath+".sha256")){Remove-Item ($unsignedPath+".sha256") -Force}
       if(Test-Path $unsignedPath){Fail "UNSIGNED_APK_CLEANUP" "Unsigned APK could not be removed after successful local signing."}
+      $InstallApk=$signedPath
+      $InstallVersionCode=[string]$Result.local_signing.version_code
     }
 
     $files=@()
@@ -363,11 +426,21 @@ try{
         $Url=[string]((& gh release view $Tag -R $Repo --json url|ConvertFrom-Json).url)
       }
 
+      $null=VerifyReleaseAssets $Repo $Tag $files
+      Write-Host "RELEASE_ASSET_DIGESTS_PASS" -ForegroundColor Green
       Write-Host ("LINK: "+$Url) -ForegroundColor Cyan
       [IO.File]::WriteAllLines((Join-Path $DataRoot "LAST_BUILD.txt"),@($Project,$Branch,$Sha,$Url,$ResultDir))
     }
+
+    if($InstallApk -and $Cfg.signing){
+      $installProof=InstallVerifiedApk $InstallApk ([string]$Cfg.signing.application_id) $InstallVersionCode
+      [IO.File]::WriteAllLines((Join-Path $DataRoot "LAST_INSTALL.txt"),@(
+        $Project,$Branch,$Sha,[string]$installProof.application_id,[string]$installProof.serial,[string]$installProof.version_code,$InstallApk
+      ))
+    }
   }
   finally{
+    $cleanupFailure=$null
     if($CS){
       & gh codespace stop -c $CS *> $null
       $deleted=$false
@@ -375,11 +448,12 @@ try{
         & gh codespace delete -c $CS --force *> $null
         if($LASTEXITCODE -eq 0){$deleted=$true}else{Start-Sleep -Seconds 3}
       }
-      if(-not $deleted){Write-Host "WARNING: builder stopped but deletion was not confirmed." -ForegroundColor Red}
+      if(-not $deleted){$cleanupFailure="Codespace builder deletion was not confirmed after three attempts."}
     }
     if($Started -and $Cores -gt 0){
       AddUsage (((Get-Date)-$Started).TotalHours*[double]$Cores)
     }
+    if($cleanupFailure){Fail "CODESPACE_DELETE_FAILED" $cleanupFailure}
   }
 }
 finally{
