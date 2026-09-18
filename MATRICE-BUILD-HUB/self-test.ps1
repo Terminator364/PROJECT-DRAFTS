@@ -63,6 +63,17 @@ if($json.ContainsKey("projects.json")){
   }
 }
 
+if($json.ContainsKey("AX150K_CONTEXT.json")){
+  $status=@{}
+  foreach($source in @($json["AX150K_CONTEXT.json"].sources)){$status[[string]$source.id]=[string]$source.status}
+  foreach($remoteId in @("github_phonemouse_beta11","github_p2pcr95_beta03","github_chatgpt_pc_active")){
+    if($status[$remoteId] -eq "referenced"){Pass ("AX15 remote source referenced: "+$remoteId)}
+    else{FailCheck ("AX15_REMOTE_SOURCE_FALSE_MATERIALIZATION: "+$remoteId+"="+$status[$remoteId])}
+  }
+  if($status["user_pc_runtime"] -eq "inaccessible_until_field_run"){Pass "AX15 real PC evidence pending honestly"}else{FailCheck "AX15_PC_EVIDENCE_STATUS"}
+  if($status["github_codespaces_runtime"] -eq "inaccessible_until_field_run"){Pass "AX15 Codespaces evidence pending honestly"}else{FailCheck "AX15_CODESPACE_EVIDENCE_STATUS"}
+}
+
 if($json.ContainsKey("AX150K_ADAPTER.json")){
   $gates=@($json["AX150K_ADAPTER.json"].certification_gates)
   foreach($gate in @(
