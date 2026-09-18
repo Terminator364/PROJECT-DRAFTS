@@ -27,8 +27,10 @@ The user must not need to learn Gradle, Android SDK, Codespaces, SSH, signing, o
 ### R1 — signing identity stored only in expiring Actions artifacts
 Impact: catastrophic. Future APK updates become impossible with the existing Android install identity.
 Countermeasure:
-- one-time migration of signing material into repository-scoped Codespaces development secrets;
-- encrypted Windows DPAPI recovery backup stored outside the Git clone;
+- one-time migration of the canonical signing archive into a Windows-only DPAPI CurrentUser vault;
+- signing material never enters Codespaces and is never committed to Git;
+- encrypted disaster-recovery export stored separately from the PC;
+- restoration must be functionally tested by decrypting the backup, validating its hashes, opening each keystore and matching the canonical certificate;
 - old Actions artifact is transition-only, never the durable authority.
 
 ### R2 — central adapter can drift away from the project
@@ -136,6 +138,28 @@ Countermeasure:
 - GitHub Actions remains exceptional recovery after quota reset;
 - adapter contract is portable Linux shell, avoiding lock-in to Actions YAML.
 
+### R16 — stale or corrupted prerelease asset accepted by filename
+Impact: the link exists but points to bytes different from the locally verified artifact.
+Countermeasure:
+- source-SHA-scoped release tags;
+- refresh mutable existing prerelease assets with --clobber;
+- query the GitHub release asset API after publication;
+- require exactly one asset per expected filename;
+- compare local SHA-256 and size with GitHub's release-asset digest before emitting the final delivery link.
+
+### R17 — Windows CRLF breaks Linux remote runner
+Impact: BuildHub passes local checks but the script copied to Codespaces fails before the recipe starts.
+Countermeasure:
+- repository .gitattributes forces *.sh to LF;
+- Windows self-test locates Git Bash and runs bash -n on the remote runner and all fallback adapters.
+
+### R18 — disaster-recovery false PASS or plaintext residue
+Impact: unusable backup is trusted, or cleartext signing material remains in TEMP after encryption failure.
+Countermeasure:
+- export always deletes the plaintext bundle from a finally block;
+- restore test validates manifest hashes and canonical certificates with keytool;
+- restore PASS marker uses the v2 functional contract and is required before signed production.
+
 ## Included-quota model
 GitHub Free currently includes 120 Codespaces core-hours and 15 GB-month storage.
 A 2-core machine consumes 2 core-hours per wall-clock hour.
@@ -147,7 +171,11 @@ This is an internal guard, not a substitute for GitHub billing data.
 - BOOTSTRAP_READY: PC bootstrap/self-test paths implemented.
 - CLOUD_SMOKE_PASS: can create a Codespace, run a no-build diagnostic, copy output, and delete it.
 - ANDROID_BUILD_PASS: a real APK built.
+- SIGNING_VAULT_PASS: canonical Android signing identity migrated and certificate-bound locally.
+- RECOVERY_EXPORT_PASS: encrypted off-PC disaster-recovery bundle created.
+- RECOVERY_RESTORE_PASS: selected backup decrypted, hashes verified, keystores opened, certificates matched.
 - SIGNATURE_PASS: APK certificate/package/version gates pass.
+- RELEASE_INTEGRITY_PASS: published assets match local SHA-256 digests.
 - UPDATE_PASS: APK installs over previous beta without uninstall.
 - OPERATIONAL: at least two consecutive independent builds succeed with no manual shell work.
 
