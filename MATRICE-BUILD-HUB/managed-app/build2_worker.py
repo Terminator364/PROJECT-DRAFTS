@@ -9,6 +9,7 @@ import sys
 import time
 from pathlib import Path
 
+from build2_supervisor import ensure_persistent_supervisor
 from build2_core import (
     ROOT, GLOBAL, BUILD2_VERSION, acquire_heavy_lock, release_heavy_lock,
     heartbeat, lane_root, new_run, next_queue_entry, remove_queue_entry,
@@ -146,6 +147,41 @@ def cancelled(project:str,run_id:str) -> bool:
     st=read_json(lane_root(project)/"runs"/run_id/"state.json",{}) or {}
     return bool(st.get("cancel_requested"))
 
+def terminate_tree(proc:subprocess.Popen, *, grace_seconds:int=3) -> None:
+    if proc.poll() is not None:
+        return
+    try:
+        proc.terminate()
+    except Exception:
+        pass
+    deadline=time.time()+max(0,grace_seconds)
+    while proc.poll() is None and time.time()<deadline:
+        time.sleep(0.2)
+    if proc.poll() is not None:
+        return
+    if os.name=="nt":
+        taskkill=shutil.which("taskkill")
+        if taskkill:
+            try:
+                subprocess.run([taskkill,"/PID",str(proc.pid),"/T","/F"],
+                               capture_output=True,text=True,shell=False,timeout=15)
+            except Exception:
+                pass
+    if proc.poll() is None:
+        try:
+            proc.kill()
+        except Exception:
+            pass
+
+def classify_process_exit(rc:int) -> tuple[str,str]:
+    raw=int(rc) & 0xFFFFFFFF
+    hx=f"0x{raw:08X}"
+    if raw==0xC000013A:
+        return "EXTERNAL_TERMINATION_CTRL_EVENT",hx
+    if raw>=0xC0000000:
+        return "EXTERNAL_TERMINATION_NTSTATUS",hx
+    return "BUILD_PROCESS_FAILED",hx
+
 def process_doctor(run_id:str) -> None:
     project="BuildHub"
     evidence=[]
@@ -242,17 +278,11 @@ def process_run(project:str,run_id:str) -> None:
         timeout=int(lane_cfg.get("build_timeout_minutes",45))*60 + 900
         while proc.poll() is None:
             if cancelled(project,run_id):
-                try: proc.terminate()
-                except Exception: pass
-                time.sleep(3)
-                if proc.poll() is None:
-                    try: proc.kill()
-                    except Exception: pass
-                write_receipt(project,run_id,"CANCELLED",stage=stage,detail="Cancellation executed safely"); return
+                terminate_tree(proc)
+                write_receipt(project,run_id,"CANCELLED",stage=stage,detail="Cancellation executed against the run process subtree"); return
             if time.time()-started>timeout:
-                try: proc.kill()
-                except Exception: pass
-                write_receipt(project,run_id,"FAILED_SAFE",stage=stage,error_class="OPERATION_TIMEOUT",detail="Build exceeded bounded timeout"); return
+                terminate_tree(proc)
+                write_receipt(project,run_id,"FAILED_SAFE",stage=stage,error_class="OPERATION_TIMEOUT",detail="Build exceeded bounded timeout; run subtree terminated"); return
             try:
                 txt=log.read_text(encoding="utf-8",errors="replace")
                 tail=txt[last_pos:]; last_pos=len(txt)
@@ -267,7 +297,13 @@ def process_run(project:str,run_id:str) -> None:
         rc=proc.returncode
         tail=log.read_text(encoding="utf-8",errors="replace")[-12000:] if log.is_file() else ""
         if rc!=0:
-            write_receipt(project,run_id,"FAILED_SAFE",stage=stage,error_class="BUILD_PROCESS_FAILED",detail=tail[-4000:]); return
+            err_class,rc_hex=classify_process_exit(rc)
+            evidence=[
+                {"kind":"process_exit","return_code":int(rc),"return_code_unsigned":int(rc)&0xFFFFFFFF,"return_code_hex":rc_hex},
+                {"kind":"log","path":str(log),"bytes":log.stat().st_size if log.is_file() else 0}
+            ]
+            detail=tail[-4000:] if tail else f"Build process exited with {rc_hex} and produced no diagnostic output."
+            write_receipt(project,run_id,"FAILED_SAFE",stage=stage,evidence=evidence,error_class=err_class,detail=detail); return
         heartbeat(project,run_id,"READBACK","RUNNING",detail="Build process passed; collecting durable proof",progress_pct=96)
         evidence=[
             {"kind":"buildhub_source_sha","value":buildhub_sha},
@@ -278,7 +314,14 @@ def process_run(project:str,run_id:str) -> None:
     except Exception as e:
         write_receipt(project,run_id,"FAILED_SAFE",stage=(read_json(state_path,{}) or {}).get("stage","ACCEPTED"),error_class=type(e).__name__,detail=str(e)[:4000])
 
-def scheduler() -> int:
+def scheduler(gate_path:str|None=None) -> int:
+    if gate_path:
+        gate=Path(gate_path)
+        deadline=time.time()+30
+        while not gate.is_file() and time.time()<deadline:
+            time.sleep(0.1)
+        if not gate.is_file():
+            return 75
     recover_interrupted_runs()
     while True:
         nxt=next_queue_entry()
@@ -302,15 +345,10 @@ def scheduler_alive() -> bool:
     except Exception: return False
 
 def ensure_scheduler() -> dict:
-    if scheduler_alive():
-        return {"status":"ALREADY_RUNNING","pid":read_json(SCHEDULER_PID,{})["pid"]}
-    flags=0
-    if os.name=="nt":
-        flags=getattr(subprocess,"CREATE_NEW_PROCESS_GROUP",0)|getattr(subprocess,"DETACHED_PROCESS",0)
-    p=subprocess.Popen([sys.executable,str(Path(__file__).resolve()),"scheduler"],stdin=subprocess.DEVNULL,stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL,close_fds=True,creationflags=flags)
-    from build2_core import atomic_json, utc
-    atomic_json(SCHEDULER_PID,{"pid":p.pid,"started_at":utc(),"build2_version":BUILD2_VERSION})
-    return {"status":"STARTED","pid":p.pid}
+    # The supervisor is the durable owner. It is launched outside a transient
+    # command-handler job when necessary and owns the scheduler's kill-on-close
+    # Windows Job Object.
+    return ensure_persistent_supervisor(str(Path(__file__).resolve()))
 
 def enqueue(project:str,operation:str) -> dict:
     if project=="BuildHub":
@@ -332,7 +370,7 @@ def latest_status() -> dict:
 if __name__=="__main__":
     cmd=sys.argv[1] if len(sys.argv)>1 else ""
     if cmd=="scheduler":
-        raise SystemExit(scheduler())
+        raise SystemExit(scheduler(sys.argv[2] if len(sys.argv)>2 else None))
     if cmd=="enqueue" and len(sys.argv)==4:
         print(json.dumps(enqueue(sys.argv[2],sys.argv[3]),ensure_ascii=False)); raise SystemExit(0)
     if cmd=="status":
