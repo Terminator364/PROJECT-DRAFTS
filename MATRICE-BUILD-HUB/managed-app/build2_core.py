@@ -9,7 +9,7 @@ import uuid
 from pathlib import Path
 from typing import Any
 
-BUILD2_VERSION = "0.5.0-unified-lanes"
+BUILD2_VERSION = "0.5.1-lifetime-supervisor"
 ROOT = Path(os.environ.get("LOCALAPPDATA", str(Path.home()))) / "MatriceBuildHub" / "build2"
 LANES = ROOT / "lanes"
 GLOBAL = ROOT / "global"
