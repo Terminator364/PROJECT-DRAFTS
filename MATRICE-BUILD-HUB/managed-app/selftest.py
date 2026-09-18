@@ -56,6 +56,9 @@ if HUB is not None:
     for token in ("[string]$ExpectedSha","SOURCE_SHA_GUARD","INVALID_EXPECTED_SHA"):
         if token not in hub_text:
             fail("HUB_EXACT_SHA_"+token)
+    for token in ("APK_INSTALL_PASS","INTERNAL_BUDGET_RESERVATION","RELEASE_ASSET_DIGESTS_PASS","CODESPACE_DELETE_FAILED","AssertRecoveryMarker"):
+        if token not in hub_text:
+            fail("HUB_RUNTIME_GATE_"+token)
 
     if os.name=="nt":
         ps=shutil.which("powershell.exe")
@@ -79,7 +82,7 @@ for token in (
     "acquire_heavy_lock","request_cancel","FAILED_SAFE",
     "ensure_persistent_supervisor","EXTERNAL_TERMINATION_CTRL_EVENT","terminate_tree",
     '"-Branch",str(lane_cfg["branch"]),"-ExpectedSha",project_sha',
-    "CREATE_NO_WINDOW"
+    "CREATE_NO_WINDOW","INSTALL_READBACK_MISSING","LAST_INSTALL.txt"
 ):
     if token not in worker:
         fail("WORKER_TOKEN_"+token)
@@ -96,7 +99,7 @@ for token in (
 
 reg=json.loads((HERE/"build2_registry.json").read_text(encoding="utf-8"))
 version=str(reg.get("version") or "")
-if not version.startswith("0.5.4"):
+if not version.startswith("0.5.5"):
     fail("REGISTRY_VERSION")
 gp=reg.get("global_policy",{})
 if gp.get("max_heavy_builds")!=1 or gp.get("zero_manual_normal_flow") is not True:
@@ -126,6 +129,11 @@ for lane in ("phonemouse","p2pcr95"):
         fail("LANE_SOURCE_SHA_"+lane)
     if cfg.get("authorized_project_scope")!="AUTHORIZED_PROJECT_SCOPE.md":
         fail("LANE_AUTHORIZED_SCOPE_"+lane)
+    install=cfg.get("install",{})
+    if install.get("auto_install") is not True or install.get("required_for_complete") is not True:
+        fail("LANE_AUTO_INSTALL_"+lane)
+    if install.get("preserve_app_data") is not True or install.get("allow_version_downgrade") is not False:
+        fail("LANE_INSTALL_POLICY_"+lane)
 
 pm=lanes["phonemouse"]
 if pm.get("resource_profile",{}).get("max_workers")!=1:
@@ -223,6 +231,8 @@ print(json.dumps({
         "ntstatus_classification":"PASS",
         "bounded_subtree_cancel":"PASS",
         "exact_branch_sha_wiring":"PASS",
-        "package_scope_contract":"PASS"
+        "package_scope_contract":"PASS",
+        "automatic_apk_install":"PASS",
+        "install_sha_readback":"PASS"
     }
 },ensure_ascii=False))
