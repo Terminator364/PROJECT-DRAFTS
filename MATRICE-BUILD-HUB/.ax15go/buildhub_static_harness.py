@@ -45,6 +45,17 @@ required = [
 ]
 texts = {name: read(name) for name in required}
 
+browser_root = REPO_ROOT / "BROWSER4G"
+browser_files = {
+    "build": browser_root / "build.ps1",
+    "toolchain": browser_root / "ensure-toolchain.ps1",
+    "recipe": browser_root / ".matrix-build" / "build.ps1",
+}
+browser_text = {}
+for key, path in browser_files.items():
+    ok(f"exists:BROWSER4G:{key}", path.is_file(), str(path))
+    browser_text[key] = path.read_text(encoding="utf-8") if path.is_file() else ""
+
 ok("registry-version-0.3", projects.get("version") == "0.3", str(projects.get("version")))
 policy = projects.get("policy", {})
 ok("hosted-actions-default-zero", policy.get("actions_hosted_default_minutes_per_day") == 0)
@@ -103,6 +114,20 @@ ok("hub-single-recovery-verifier", hub.count("function AssertRecoveryMarker") ==
 
 ok("hub-no-actions-dispatch", "workflow run" not in hub.lower() and "actions/workflows" not in hub.lower())
 ok("hub-no-signing-secret-cloud", "KEYSTORE_B64" not in hub and "gh secret set" not in hub)
+
+for token in [
+    "1.0.4191.47",
+    "7.9.0",
+    "992D70CAC5B06C38EFEC91806CABA64CDCC07E6D963A0959DBBBAF264D33B800",
+    "Microsoft.VisualStudio.Component.VC.Tools.x86.x64",
+    "https://api.nuget.org/v3/index.json",
+    "/m:1",
+]:
+    ok(f"BROWSER4G-build:{token}", token in browser_text.get("build", ""))
+for token in ["Microsoft.VisualStudio.2022.BuildTools", "Microsoft.VisualStudio.Workload.VCTools", "LOW_DISK_FOR_TOOLCHAIN"]:
+    ok(f"BROWSER4G-toolchain:{token}", token in browser_text.get("toolchain", ""))
+for token in ["mbh-result-v1", "FIELD_PASS_REQUIRED", "BROWSER4G-P0.exe"]:
+    ok(f"BROWSER4G-recipe:{token}", token in browser_text.get("recipe", ""))
 
 local_sign = texts.get("local-sign-apk.ps1", "")
 for token in ["zipalign.exe", "apksigner.bat", "APP_ID_MISMATCH", "CERT_MISMATCH"]:
