@@ -213,6 +213,40 @@ try{
       return
     }
 
+    $localSignedFiles=@()
+    if($Result.local_signing -and $Result.local_signing.required -eq $true){
+      if(-not $Cfg.signing){Fail "LOCAL_SIGN_CONFIG" "Repository requested local signing but registry has no signing profile."}
+      if([string]$Result.local_signing.profile -ne [string]$Cfg.signing.profile){
+        Fail "LOCAL_SIGN_PROFILE_MISMATCH" "Build result requested an unexpected signing profile."
+      }
+
+      $unsignedName=[string]$Result.local_signing.unsigned_apk
+      $signedName=[string]$Result.local_signing.signed_apk
+      foreach($name in @($unsignedName,$signedName)){
+        if([string]::IsNullOrWhiteSpace($name) -or $name -match "[\\/]"){
+          Fail "LOCAL_SIGN_PATH_UNSAFE" "APK filenames must be root filenames."
+        }
+      }
+
+      $unsignedPath=Join-Path $ResultDir $unsignedName
+      $signedPath=Join-Path $ResultDir $signedName
+      if(-not(Test-Path $unsignedPath -PathType Leaf)){Fail "UNSIGNED_APK_MISSING" "Cloud build did not return the unsigned APK."}
+
+      $Signer=Join-Path $Root "local-sign-apk.ps1"
+      if(-not(Test-Path $Signer)){Fail "LOCAL_SIGNER_MISSING" "local-sign-apk.ps1 is missing."}
+
+      Write-Host "Cloud build verified. Performing lightweight local APK signing..." -ForegroundColor Cyan
+      & powershell.exe -NoProfile -ExecutionPolicy Bypass -File $Signer -Project $Project -UnsignedApk $unsignedPath -SignedApk $signedPath -ExpectedVersionCode ([string]$Result.local_signing.version_code) -ExpectedVersionName ([string]$Result.local_signing.version_name)
+      if($LASTEXITCODE -ne 0){Fail "LOCAL_SIGNING_FAILED" "Local APK signing or identity verification failed."}
+
+      foreach($p in @($signedPath,$signedPath+".sha256",$signedPath+".signature.txt",$signedPath+".identity.txt")){
+        if(-not(Test-Path $p -PathType Leaf)){Fail "LOCAL_SIGN_EVIDENCE_MISSING" "Local signing evidence is missing: $p"}
+        $localSignedFiles+=$p
+      }
+
+      Set-Content -Encoding ASCII -Path (Join-Path $ResultDir "LOCAL_SIGNING_PASS.txt") -Value ("profile="+$Result.local_signing.profile+"; source_sha="+$Sha)
+    }
+
     $files=@()
     foreach($name in @($Result.deliverables)){
       if([string]::IsNullOrWhiteSpace([string]$name)){continue}
@@ -222,6 +256,8 @@ try{
       $files+=$f
     }
     if($files.Count -eq 0){Fail "NO_DELIVERABLES" "No deliverables declared."}
+    $files+=@($localSignedFiles)
+    if($files.Count -eq 0){Fail "NO_FINAL_ARTIFACTS" "No final artifacts are available after local signing."}
 
     $evidence=Join-Path $Dest ("MBH-EVIDENCE-"+$Project+"-"+$Short+".zip")
     Compress-Archive -Path (Join-Path $ResultDir "*") -DestinationPath $evidence -Force
