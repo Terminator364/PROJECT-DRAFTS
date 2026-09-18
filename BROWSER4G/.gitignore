@@ -1,0 +1,8 @@
+packages/
+.tools/
+out/
+obj/
+*.user
+*.suo
+*.VC.db
+.vs/
