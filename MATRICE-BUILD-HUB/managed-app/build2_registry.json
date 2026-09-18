@@ -32,8 +32,11 @@
         "application_id": "com.blessing.phonemouse",
         "certificate_sha256": "ed109d1d2bd21f60f78212fe7b016d005dea2bb43e18f0eccaa383646cb37aac",
         "canonical_publish_name": "PhoneMouse-LATEST.apk",
-        "version_code_monotonic": true
-      }
+        "version_code_monotonic": true,
+        "eol_normalization": "LF_BEFORE_EACH_PATCH_REPLAY",
+        "gradle_max_workers": 1
+      },
+      "source_sha": "abe1029db9914b9ce1da4af839a10928fb17a45c"
     },
     "p2pcr95": {
       "project": "P2PCR95",
@@ -68,8 +71,20 @@
     }
   },
   "standard_stages": [
-    "ACCEPTED","SOURCE_SYNC","PREFLIGHT","BUILDER_PROVISION","BUILD",
-    "SIGN","VERIFY","PUBLISH","READBACK","COMPLETE"
+    "ACCEPTED",
+    "SOURCE_SYNC",
+    "PREFLIGHT",
+    "BUILDER_PROVISION",
+    "BUILD",
+    "SIGN",
+    "VERIFY",
+    "PUBLISH",
+    "READBACK",
+    "COMPLETE"
   ],
-  "terminal_states": ["HOLD","FAILED_SAFE","CANCELLED"]
+  "terminal_states": [
+    "HOLD",
+    "FAILED_SAFE",
+    "CANCELLED"
+  ]
 }
