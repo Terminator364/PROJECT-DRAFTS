@@ -80,6 +80,8 @@ for name, cfg in projects.get("projects", {}).items():
     if name == "BROWSER4G":
         ok("BROWSER4G:builder-local-windows", cfg.get("builder_kind") == "LOCAL_WINDOWS", str(cfg.get("builder_kind")))
         ok("BROWSER4G:field-publish-gate", cfg.get("publish_gate") == "FIELD_PASS_REQUIRED", str(cfg.get("publish_gate")))
+        ok("BROWSER4G:first-build-timeout", isinstance(cfg.get("build_timeout_minutes"), int) and cfg.get("build_timeout_minutes") >= 60, str(cfg.get("build_timeout_minutes")))
+        ok("BROWSER4G:sparse-checkout", cfg.get("local_sparse_paths") == ["BROWSER4G"], repr(cfg.get("local_sparse_paths")))
     if name in {"PhoneMouse", "P2PCR95"}:
         sign = cfg.get("signing")
         ok(f"{name}:signing-config-present", isinstance(sign, dict))
@@ -105,6 +107,7 @@ for token in [
     "LOCAL_SOURCE_MISMATCH",
     "FIELD_GATE_BYPASS",
     "LOCAL_ARTIFACT_HASH_MISMATCH",
+    "LOCAL_SPARSE_PATH_UNSAFE",
 ]:
     ok(f"hub-invariant:{token}", token in hub)
 
