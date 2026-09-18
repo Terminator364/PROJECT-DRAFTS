@@ -30,6 +30,20 @@ def atomic_json(path: Path, data: dict[str, Any]) -> None:
     tmp.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     os.replace(tmp, path)
 
+def control_root() -> Path|None:
+    raw=str(os.environ.get("PCA_CONTROL_FOLDER") or "").strip()
+    return Path(raw) if raw else None
+
+def spool_json(rel: str, data: dict[str,Any]) -> None:
+    root=control_root()
+    if not root:
+        return
+    try:
+        atomic_json(root/rel,data)
+    except Exception:
+        # Local run state remains authoritative if Drive is temporarily unavailable.
+        pass
+
 def read_json(path: Path, default: Any=None) -> Any:
     try:
         return json.loads(path.read_text(encoding="utf-8"))
@@ -86,7 +100,11 @@ def heartbeat(project: str, run_id: str, stage: str, status: str, *,
     state={**old,**payload,"updated_at":payload["timestamp_utc"]}
     atomic_json(state_path,state)
     atomic_json(hb_path,payload)
-    atomic_json(LATEST,{"project":project,"run_id":run_id,"stage":stage,"status":status,"timestamp_utc":payload["timestamp_utc"]})
+    latest={"project":project,"run_id":run_id,"stage":stage,"status":status,"timestamp_utc":payload["timestamp_utc"]}
+    atomic_json(LATEST,latest)
+    lane=lane_name(project)
+    spool_json(f"11_PROJECTS/BUILD2/{lane}/heartbeat.json",payload)
+    spool_json("00_CONTEXT/BUILD2_LIVE.json",{**latest,"build2_version":BUILD2_VERSION})
     return payload
 
 def new_run(project: str, operation: str, contract: dict[str,Any], *,
@@ -178,6 +196,7 @@ def write_receipt(project: str, run_id: str, result: str, *,
         "requires_user_action":False,
     }
     atomic_json(lane/"receipts"/f"{run_id}.json",rec)
+    spool_json(f"11_PROJECTS/BUILD2/{lane_name(project)}/receipts/{run_id}.json",rec)
     heartbeat(project,run_id,stage,result,detail=detail,error_class=error_class,
               progress_pct=100 if result=="COMPLETE" else None,artifact=(artifacts or [None])[0])
     return rec
