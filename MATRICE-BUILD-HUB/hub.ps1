@@ -156,7 +156,7 @@ try{
   $Started=$null
   try{
     $Started=Get-Date
-    & gh codespace create -R $Repo -b $Branch -d $BuildId -m $Machine --idle-timeout 10m --default-permissions|Out-Host
+    & gh codespace create -R $Repo -b $Branch -d $BuildId -m $Machine --idle-timeout 10m --retention-period 1h --default-permissions|Out-Host
     if($LASTEXITCODE -ne 0){Fail "CODESPACE_CREATE_FAILED" "Codespace creation failed; quota or permissions may be blocking it."}
 
     for($i=0;$i -lt 45 -and -not $CS;$i++){
