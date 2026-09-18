@@ -1,0 +1,21 @@
+{
+  "schema_version": "1.0",
+  "updated_utc": "2026-09-18T16:58:00Z",
+  "projects": {
+    "PhoneMouse": {
+      "ledger": "Terminator364/PhoneMouse:.project-memory/ERROR_LEDGER.jsonl@beta11-visual-20260918",
+      "index": "Terminator364/PhoneMouse:.project-memory/ERROR_INDEX.md@beta11-visual-20260918",
+      "events": 5
+    },
+    "BuildHub": {
+      "ledger": "Terminator364/PROJECT-DRAFTS:MATRICE-BUILD-HUB/.project-memory/ERROR_LEDGER.jsonl@buildhub-v0.5-unified-lanes-20260918",
+      "index": "Terminator364/PROJECT-DRAFTS:MATRICE-BUILD-HUB/.project-memory/ERROR_INDEX.md@buildhub-v0.5-unified-lanes-20260918",
+      "events": 10
+    },
+    "ChatGPT-PC": {
+      "ledger": "Terminator364/ChatGPT-PC:.project-memory/ERROR_LEDGER.jsonl@work/worker-v024-local-heartbeat-spool",
+      "index": "Terminator364/ChatGPT-PC:.project-memory/ERROR_INDEX.md@work/worker-v024-local-heartbeat-spool",
+      "events": 3
+    }
+  }
+}
