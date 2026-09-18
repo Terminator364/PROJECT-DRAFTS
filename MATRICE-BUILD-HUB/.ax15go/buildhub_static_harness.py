@@ -45,7 +45,7 @@ required = [
 ]
 texts = {name: read(name) for name in required}
 
-ok("registry-version-0.2", projects.get("version") == "0.2", str(projects.get("version")))
+ok("registry-version-0.3", projects.get("version") == "0.3", str(projects.get("version")))
 policy = projects.get("policy", {})
 ok("hosted-actions-default-zero", policy.get("actions_hosted_default_minutes_per_day") == 0)
 ok("codespaces-prebuilds-disabled", policy.get("codespaces_prebuilds") is False)
@@ -57,14 +57,18 @@ ok(
     str(cap),
 )
 
-expected_projects = {"PhoneMouse", "P2PCR95", "ChatGPT-PC"}
+expected_projects = {"PhoneMouse", "P2PCR95", "ChatGPT-PC", "BROWSER4G"}
 actual_projects = set(projects.get("projects", {}))
 ok("registry-project-set", actual_projects == expected_projects, repr(actual_projects))
 
 for name, cfg in projects.get("projects", {}).items():
-    ok(f"{name}:source-owned-recipe", cfg.get("recipe_path") == ".matrix-build/build.sh", str(cfg.get("recipe_path")))
+    expected_recipe = "BROWSER4G/.matrix-build/build.ps1" if name == "BROWSER4G" else ".matrix-build/build.sh"
+    ok(f"{name}:source-owned-recipe", cfg.get("recipe_path") == expected_recipe, str(cfg.get("recipe_path")))
     ok(f"{name}:branch-set", bool(cfg.get("default_branch")), str(cfg.get("default_branch")))
     ok(f"{name}:repo-set", bool(re.fullmatch(r"Terminator364/[A-Za-z0-9_.-]+", str(cfg.get("repo", "")))), str(cfg.get("repo")))
+    if name == "BROWSER4G":
+        ok("BROWSER4G:builder-local-windows", cfg.get("builder_kind") == "LOCAL_WINDOWS", str(cfg.get("builder_kind")))
+        ok("BROWSER4G:field-publish-gate", cfg.get("publish_gate") == "FIELD_PASS_REQUIRED", str(cfg.get("publish_gate")))
     if name in {"PhoneMouse", "P2PCR95"}:
         sign = cfg.get("signing")
         ok(f"{name}:signing-config-present", isinstance(sign, dict))
@@ -86,6 +90,10 @@ for token in [
     "AssertRecoveryMarker",
     "INTERNAL_BUDGET_RESERVATION",
     "CODESPACE_DELETE_FAILED",
+    "InvokeLocalWindowsProject",
+    "LOCAL_SOURCE_MISMATCH",
+    "FIELD_GATE_BYPASS",
+    "LOCAL_ARTIFACT_HASH_MISMATCH",
 ]:
     ok(f"hub-invariant:{token}", token in hub)
 
