@@ -23,6 +23,19 @@ def add_bytes(z:zipfile.ZipFile,name:str,data:bytes)->None:
     i.external_attr=0o644<<16
     z.writestr(i,data,compress_type=zipfile.ZIP_DEFLATED,compresslevel=9)
 
+def require_payload(payload:dict[str,bytes])->None:
+    required={
+        "bridge.py","selftest.py","build2_core.py","build2_worker.py",
+        "build2_supervisor.py","build2_registry.json",
+        "build2_source_authority.json","AUTHORIZED_PROJECT_SCOPE.md"
+    }
+    missing=sorted(required-set(payload))
+    if missing:
+        raise SystemExit("UPDATE_REQUIRED_FILES_MISSING:"+",".join(missing))
+    empty=sorted(name for name,data in payload.items() if not data)
+    if empty:
+        raise SystemExit("UPDATE_EMPTY_FILES:"+",".join(empty))
+
 def build(sequence:int, source_sha:str, output:Path):
     if sequence<1:
         raise SystemExit("INVALID_SEQUENCE")
@@ -54,7 +67,11 @@ def build(sequence:int, source_sha:str, output:Path):
 
     hub_bytes=(HERE.parent/"hub.ps1").read_bytes()
     hub_text=hub_bytes.decode("utf-8-sig")
-    if hub_text.count("function VerifyReleaseAssets")!=1 or hub_text.count("BUILD_HUB_DOCTOR_PASS")!=1 or hub_text.count("param(")!=1 or hub_text.count("finally{")>2:
+    if (hub_text.count("function VerifyReleaseAssets")!=1 or
+        hub_text.count("BUILD_HUB_DOCTOR_PASS")!=1 or
+        hub_text.count("param(")!=1 or hub_text.count("finally{")>2 or
+        hub_text.count("MACHINE_QUERY_FAILED")!=1 or
+        hub_text.count("INVALID_EXPECTED_SHA")!=1):
         raise SystemExit("HUB_ENGINE_STRUCTURE_INVALID")
     # Comments may document why this probe is forbidden; reject executable code only.
     hub_code="\n".join(line for line in hub_text.splitlines() if not line.lstrip().startswith("#"))
@@ -63,6 +80,7 @@ def build(sequence:int, source_sha:str, output:Path):
     authority={
         "schema":"build2.source_authority/1",
         "status":"PINNED",
+        "build2_version":str(reg.get("version") or ""),
         "repo":"Terminator364/PROJECT-DRAFTS",
         "branch":"buildhub-v0.5-unified-lanes-20260918",
         "source_sha":source_sha,
@@ -72,16 +90,23 @@ def build(sequence:int, source_sha:str, output:Path):
     payload={}
     for name in ("bridge.py","selftest.py","build2_core.py","build2_worker.py","build2_supervisor.py","build2_registry.json"):
         payload[name]=(HERE/name).read_bytes()
+    scope=HERE.parent/"AUTHORIZED_PROJECT_SCOPE.md"
+    if not scope.is_file():
+        raise SystemExit("UPDATE_SOURCE_FILE_MISSING:AUTHORIZED_PROJECT_SCOPE.md")
+    payload["AUTHORIZED_PROJECT_SCOPE.md"]=scope.read_bytes()
     payload["build2_source_authority.json"]=stable_json(authority)
+    require_payload(payload)
 
     manifest={
         "schema":1,
         "package_type":"managed_app_update",
         "target_app":"matrice-build-hub",
         "sequence":sequence,
-        "update_id":f"mbh-build2-v052-p2pcr95-beta04-seq{sequence}",
-        "version":"0.5.2-p2pcr95-beta04",
+        "update_id":f"mbh-build2-v053-recovery-unblock-context-seq{sequence}",
+        "version":str(reg.get("version") or ""),
         "build2_source_sha":source_sha,
+        "build2_version":str(reg.get("version") or ""),
+        "authorized_project_scope":"AUTHORIZED_PROJECT_SCOPE.md",
         "files":[{"path":n,"sha256":sha256_bytes(d)} for n,d in sorted(payload.items())],
         "manifest_patch":{
             "display_name":"MATRICE BUILD HUB — BUILD 2",
@@ -103,6 +128,14 @@ def build(sequence:int, source_sha:str, output:Path):
         add_bytes(z,"manifest.json",stable_json(manifest))
         for name,data in sorted(payload.items()):
             add_bytes(z,"payload/"+name,data)
+    with zipfile.ZipFile(output,"r") as z:
+        expected={"manifest.json"}|{"payload/"+name for name in payload}
+        missing=sorted(expected-set(z.namelist()))
+        if missing:
+            raise SystemExit("UPDATE_ZIP_READBACK_MISSING:"+",".join(missing))
+        for name,data in payload.items():
+            if z.read("payload/"+name)!=data:
+                raise SystemExit("UPDATE_ZIP_READBACK_MISMATCH:"+name)
     print(json.dumps({
         "schema":"build2.update_package/1","status":"PASS",
         "target_app":"matrice-build-hub","sequence":sequence,
