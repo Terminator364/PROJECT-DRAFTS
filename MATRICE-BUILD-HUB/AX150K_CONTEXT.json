@@ -1,0 +1,64 @@
+{
+  "schema": "AX150K_CONTEXT-1",
+  "project": "MATRICE BUILD HUB",
+  "batch_id": "BUILDHUB-AX15GO-20260918-01",
+  "ax150k_baseline": {
+    "name": "AX150K V1.3 Operational",
+    "date": "2026-09-17",
+    "status": "operational_reference",
+    "verification": "Library validation report: 12/12 regression tests PASS; explicit evidence limits",
+    "baseline_bytes": "referenced_not_materialized"
+  },
+  "supplemental_dev_guards": [
+    "anti_goodhart_target_count_not_sufficient",
+    "causal_novelty_and_salami_slicing_detection",
+    "independent_oracle_metadata",
+    "bounded_causal_neighborhood_interactions",
+    "reality_gap_contract",
+    "version_specific_evidence_and_stale_proof_invalidation"
+  ],
+  "sources": [
+    {
+      "id": "github_buildhub_branch",
+      "kind": "github_repo_branch",
+      "location": "Terminator364/PROJECT-DRAFTS@buildhub-v0.2-hardening-20260918",
+      "status": "materialized"
+    },
+    {
+      "id": "github_phonemouse_beta11",
+      "kind": "github_repo_branch",
+      "location": "Terminator364/PhoneMouse@beta11-visual-20260918",
+      "status": "materialized"
+    },
+    {
+      "id": "github_p2pcr95_beta03",
+      "kind": "github_repo_branch",
+      "location": "Terminator364/P2PCR95@beta03-native-updater-20260918",
+      "status": "materialized"
+    },
+    {
+      "id": "github_chatgpt_pc_active",
+      "kind": "github_repo_branch",
+      "location": "Terminator364/ChatGPT-PC@work/worker-v024-local-heartbeat-spool",
+      "status": "materialized"
+    },
+    {
+      "id": "ax150k_v13_library",
+      "kind": "chatgpt_library",
+      "location": "VALIDATION_REPORT.md / CHATGPT_TRIGGER.md / README.md",
+      "status": "referenced"
+    },
+    {
+      "id": "user_pc_runtime",
+      "kind": "real_windows_pc",
+      "location": "user PC, 4 GB RAM",
+      "status": "inaccessible_until_field_run"
+    },
+    {
+      "id": "github_codespaces_runtime",
+      "kind": "cloud_runtime",
+      "location": "future BuildHub Codespace",
+      "status": "inaccessible_until_field_run"
+    }
+  ]
+}
