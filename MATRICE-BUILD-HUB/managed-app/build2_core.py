@@ -3,6 +3,7 @@ from __future__ import annotations
 import hashlib
 import json
 import os
+import re
 import time
 import uuid
 from pathlib import Path
@@ -18,7 +19,6 @@ LATEST = GLOBAL / "latest.json"
 
 TERMINAL = {"COMPLETE", "FAILED_SAFE", "HOLD", "CANCELLED"}
 SAFE_RESUME_STAGES = {"ACCEPTED","SOURCE_SYNC","PREFLIGHT","BUILDER_PROVISION","BUILD","SIGN","VERIFY"}
-LANE_NAMES = {"BuildHub":"system","PhoneMouse":"phonemouse","P2PCR95":"p2pcr95","ChatGPT-PC":"chatgpt_pc"}
 
 def utc() -> str:
     import datetime
@@ -37,9 +37,12 @@ def read_json(path: Path, default: Any=None) -> Any:
         return default
 
 def lane_name(project: str) -> str:
-    if project not in LANE_NAMES:
-        raise ValueError(f"UNREGISTERED_PROJECT:{project}")
-    return LANE_NAMES[project]
+    if project=="BuildHub":
+        return "system"
+    lane=re.sub(r"[^a-z0-9]+","_",project.strip().lower()).strip("_")
+    if not lane or len(lane)>80:
+        raise ValueError(f"BAD_PROJECT_LANE:{project}")
+    return lane
 
 def lane_root(project: str) -> Path:
     p = LANES / lane_name(project)
