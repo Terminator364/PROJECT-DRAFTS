@@ -79,12 +79,20 @@ for token in (
     "acquire_heavy_lock","request_cancel","FAILED_SAFE",
     "ensure_persistent_supervisor","EXTERNAL_TERMINATION_CTRL_EVENT","terminate_tree",
     '"-Branch",str(lane_cfg["branch"]),"-ExpectedSha",project_sha',
-    "CREATE_NO_WINDOW","supervisor.last_launch.json"
+    "CREATE_NO_WINDOW"
 ):
     if token not in worker:
         fail("WORKER_TOKEN_"+token)
 if 'gh,"auth","status"' in worker or '"auth","status"' in worker:
     fail("GH_AUTH_EVERY_OPERATION_REGRESSION")
+
+supervisor=(HERE/"build2_supervisor.py").read_text(encoding="utf-8")
+for token in (
+    "supervisor.last_launch.json","WIN32_PROCESS_CIM","DETACHED_BREAKAWAY",
+    "CREATE_NO_WINDOW","EXTERNAL_TERMINATION_CTRL_EVENT"
+):
+    if token not in supervisor:
+        fail("SUPERVISOR_TOKEN_"+token)
 
 reg=json.loads((HERE/"build2_registry.json").read_text(encoding="utf-8"))
 version=str(reg.get("version") or "")
