@@ -1,0 +1,43 @@
+{
+  "schema": 1,
+  "package_type": "managed_app_deploy",
+  "app_id": "matrice-build-hub",
+  "display_name": "MATRICE BUILD HUB",
+  "activation_mode": "R2_MISSION_SCOPED_ZERO_CLICK",
+  "activation_mission_id": "__MISSION_ID__",
+  "resource_profile": {
+    "class": "INTERACTIVE_ON_DEMAND",
+    "memory_limit_mb": 384,
+    "background_qos": "ECO",
+    "battery_policy": "DEFER_WHEN_LOW"
+  },
+  "operations": {
+    "doctor": [
+      "{python}",
+      "{app_root}/bridge.py",
+      "doctor"
+    ],
+    "build_phonemouse": [
+      "{python}",
+      "{app_root}/bridge.py",
+      "build_phonemouse"
+    ],
+    "build_p2pcr95": [
+      "{python}",
+      "{app_root}/bridge.py",
+      "build_p2pcr95"
+    ],
+    "build_chatgpt_pc": [
+      "{python}",
+      "{app_root}/bridge.py",
+      "build_chatgpt_pc"
+    ],
+    "last_build_status": [
+      "{python}",
+      "{app_root}/bridge.py",
+      "last_build_status"
+    ]
+  },
+  "files": [],
+  "note": "Template only. Package builder must replace __MISSION_ID__ and populate exact payload SHA-256 entries."
+}
