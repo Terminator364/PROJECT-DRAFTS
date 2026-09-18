@@ -141,23 +141,27 @@ This incident must remain in the evidence trail; do not erase it from future sum
 
 A static PASS is not field evidence.
 
+## Static promotion completed
+
+- `main` was fast-forwarded without force to field-candidate snapshot `6a634255724f609988a546e7051ca0c4b060fc28`.
+- Post-promotion verification confirmed one runtime entry, one release verifier, one recovery verifier, and the digest/budget/cleanup/recovery guards on `main`.
+- Subsequent documentation-only commits may advance the exact main SHA; code qualification remains tied to the static-audit report and the code snapshot it records.
+
 ## Next atomic actions
 
-1. Confirm `main` is still an ancestor of the hardening head.
-2. Fast-forward `main` to the V0.2 field-candidate head; never force.
-3. On the user's real Windows PC, run the one-time `bootstrap-pc.ps1`.
+1. On the user's real Windows PC, run the one-time `bootstrap-pc.ps1`.
    - The bootstrap runs PowerShell `Parser.ParseFile` over all BuildHub PS1 files before any build.
    - Complete GitHub/Codespaces authorization if prompted.
    - Migrate PhoneMouse + P2PCR95 signing identities to local DPAPI vault.
    - Export encrypted disaster-recovery backup.
    - Select it again and complete the functional restore test.
-4. Launch BuildHub and choose option 4: cloud smoke only.
-5. If smoke PASS, run a real PhoneMouse BETA11 build.
-6. Verify local canonical signature/package/version and GitHub release digests.
-7. Install BETA11 over the existing beta WITHOUT uninstalling.
-8. Repeat an independent build.
-9. Then qualify P2PCR95 BETA03.
-10. Only after the runtime gates pass may OPERATIONAL become YES.
+2. Launch BuildHub and choose option 4: cloud smoke only.
+3. If smoke PASS, run a real PhoneMouse BETA11 build.
+4. Verify local canonical signature/package/version and GitHub release digests.
+5. Install BETA11 over the existing beta WITHOUT uninstalling.
+6. Repeat an independent build.
+7. Then qualify P2PCR95 BETA03.
+8. Only after the runtime gates pass may OPERATIONAL become YES.
 
 ## Absolute rules
 
