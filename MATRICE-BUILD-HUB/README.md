@@ -1,4 +1,4 @@
-# MATRICE BUILD HUB — V0.2 HARDENED
+# MATRICE BUILD HUB — V0.3 TUNNEL-FIRST (PREFIELD)
 
 Usine centrale de production pour les projets Terminator364.
 
@@ -6,7 +6,7 @@ Usine centrale de production pour les projets Terminator364.
 
 Le flux normal doit rester simple:
 
-**bug/amélioration dans ChatGPT → source GitHub corrigée → MATRICE BUILD HUB → build cloud → vérifications locales → prerelease GitHub → lien utilisable.**
+**bug/amélioration dans ChatGPT → couloir ChatGPT-PC → BuildHub géré → build cloud → vérifications locales automatiques → publication → reçu machine → réponse ChatGPT.**
 
 L'utilisateur n'a pas à apprendre Gradle, Android SDK, SSH, Codespaces ou GitHub Actions.
 
@@ -44,13 +44,12 @@ Gates principaux: `STATIC_AUDIT_PASS`, `ZERO_AUTO_ACTIONS_ACTIVE_BRANCHES`, `LOC
 
 ## Point d'entrée
 
-Après l'installation unique, utiliser simplement:
+Le **point d'entrée normal cible est `CHATGPT_PC_CONTROL_BUS`**, via l'application gérée `matrice-build-hub` et des opérations nommées/figées.
 
-`hub.cmd`
+`hub.cmd`, `INSTALL-BUILDHUB.cmd`, `local-phonemouse.cmd` et les scripts PowerShell directs restent disponibles uniquement comme **BREAK_GLASS / RECOVERY**. Ils ne doivent pas être imposés à l'utilisateur dans le flux normal.
 
-Le launcher exécute le self-test avant toute construction et bloque en cas d'incohérence.
+Le tunnel-first est encore PREFIELD: la branche ChatGPT-PC correspondante n'est pas déployée tant que le gel P0 de G6 6.0.22 n'autorise pas la promotion.
 
 ## Statut
 
-V0.2 **field candidate** promu sur `main` le 2026-09-18 après `STATIC_AUDIT_PASS`.
-Ne pas déclarer **OPERATIONAL** avant les campagnes réelles prévues dans `CONTINUATION_BUILDHUB_AX15.md`.
+V0.2 reste la base field-candidate sur `main`. V0.3 tunnel-first est développé sur une branche dédiée et reste **PREFIELD / NOT DEPLOYED**. Ne pas déclarer l'automatisation tunnel **OPERATIONAL** avant ses gates réels.
