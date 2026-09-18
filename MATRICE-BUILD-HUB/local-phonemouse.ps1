@@ -12,11 +12,45 @@ $RepoDir = Join-Path $StateRoot "repo"
 $ToolRoot = Join-Path $env:LOCALAPPDATA "MatriceBuildHub\tools"
 $OutRoot = Join-Path $env:USERPROFILE "Downloads\PhoneMouse-Builds"
 $Repo = "Terminator364/PhoneMouse"
+$HeartbeatPath = Join-Path $StateRoot "heartbeat.json"
+$script:BuildStage = "BOOTSTRAP"
 
 New-Item -ItemType Directory -Force -Path $StateRoot,$ToolRoot,$OutRoot | Out-Null
 
 function Say([string]$m) { Write-Host "[PhoneMouse local] $m" -ForegroundColor Cyan }
 function Ok([string]$m) { Write-Host "[OK] $m" -ForegroundColor Green }
+
+function Write-BuildHeartbeat(
+  [string]$Stage,
+  [string]$Status = "RUNNING",
+  [string]$Detail = "",
+  [bool]$RequiresUserAction = $false,
+  [int]$ProgressPct = -1
+) {
+  $script:BuildStage = $Stage
+  $payload = [ordered]@{
+    schema = "phonemouse-build-heartbeat-v1"
+    project = "PhoneMouse"
+    branch = $Branch
+    stage = $Stage
+    status = $Status
+    updated_at = [DateTime]::UtcNow.ToString("o")
+    pid = $PID
+    requires_user_action = $RequiresUserAction
+    detail = $Detail
+  }
+  if ($ProgressPct -ge 0) { $payload.progress_pct = $ProgressPct }
+  $tmp = "$HeartbeatPath.tmp-$PID"
+  [IO.File]::WriteAllText($tmp, ($payload | ConvertTo-Json -Depth 6 -Compress), [Text.UTF8Encoding]::new($false))
+  Move-Item -Force $tmp $HeartbeatPath
+}
+
+trap {
+  try { Write-BuildHeartbeat $script:BuildStage "FAILED" ([string]$_.Exception.Message) $true } catch { }
+  throw
+}
+
+Write-BuildHeartbeat "BOOTSTRAP" "RUNNING" "builder_started" $false 1
 
 function Ensure-WingetCommand([string]$Command,[string]$PackageId) {
   if (Get-Command $Command -ErrorAction SilentlyContinue) { return }
@@ -113,11 +147,13 @@ $env:ANDROID_HOME = $AndroidHome
 $env:ANDROID_SDK_ROOT = $AndroidHome
 $env:Path = (Join-Path $AndroidHome "platform-tools") + ";" + (Join-Path $AndroidHome "build-tools\36.0.0") + ";" + $env:Path
 
+Write-BuildHeartbeat "ANDROID_SDK_VERIFY" "RUNNING" "sdkmanager_verify_and_install" $false 10
 Say "Verification Android SDK..."
 $licenseCmd = "(for /L %i in (1,1,50) do @echo y) | `"$SdkManager`" --licenses >nul 2>&1"
 cmd /c $licenseCmd
 & $SdkManager "platform-tools" "platforms;android-36" "build-tools;36.0.0"
 if ($LASTEXITCODE -ne 0) { throw "Installation des composants Android echouee." }
+Write-BuildHeartbeat "ANDROID_SDK_READY" "RUNNING" "android_36_build_tools_ready" $false 18
 
 # Portable Gradle 9.6, cached.
 $GradleRoot = Join-Path $ToolRoot "gradle-9.6.0"
@@ -129,6 +165,7 @@ if (-not (Test-Path $GradleBat)) {
   Expand-Archive $zip $ToolRoot -Force
 }
 if (-not (Test-Path $GradleBat)) { throw "Gradle portable introuvable." }
+Write-BuildHeartbeat "GRADLE_READY" "RUNNING" "gradle_9_6_ready" $false 25
 
 # Clone/update repository.
 if (-not (Test-Path (Join-Path $RepoDir ".git"))) {
@@ -138,6 +175,7 @@ if (-not (Test-Path (Join-Path $RepoDir ".git"))) {
 }
 Push-Location $RepoDir
 try {
+  Write-BuildHeartbeat "REPO_SYNC" "RUNNING" "fetch_checkout_reset" $false 32
   Say "Synchronisation branche $Branch..."
   & git fetch origin $Branch
   & git checkout -B $Branch "origin/$Branch"
@@ -199,6 +237,7 @@ try {
     if ($LASTEXITCODE -ne 0) { throw "Patch echoue: $PatchPath" }
   }
 
+  Write-BuildHeartbeat "RECONSTRUCT_BETA11" "RUNNING" "historical_patch_replay_with_lf_guard" $false 42
   Say "Reconstruction BETA11 canonique..."
   & tar.exe -xzf "ci\PhoneMouse_Android_BETA01.tar.gz" -C $Source
   if ($LASTEXITCODE -ne 0) { throw "Extraction BETA01 echouee." }
@@ -274,8 +313,10 @@ try {
   & $Python "tools\beta11_preflight.py" source
   if ($LASTEXITCODE -ne 0) { throw "BETA11 preflight FAIL." }
   Ok "Preflight BETA11 PASS"
+  Write-BuildHeartbeat "PREFLIGHT_PASS" "RUNNING" "beta11_preflight_pass" $false 62
 
   # Restore canonical signing identity without running Actions.
+  Write-BuildHeartbeat "SIGNING_IDENTITY" "RUNNING" "retrieve_canonical_signing_identity" $false 70
   Say "Recuperation de la signature canonique PhoneMouse..."
   $token = (& gh auth token).Trim()
   $artifacts = (& gh api "repos/$Repo/actions/artifacts?name=PhoneMouse-SIGNING-IDENTITY-CANONICAL&per_page=100" | ConvertFrom-Json).artifacts
@@ -311,6 +352,7 @@ try {
 
   # Low-RAM build profile: no daemon, one worker, conservative heap.
   $env:GRADLE_OPTS = "-Dorg.gradle.jvmargs=-Xmx768m -Dorg.gradle.workers.max=1 -Dkotlin.daemon.jvm.options=-Xmx256m"
+  Write-BuildHeartbeat "GRADLE_BUILD" "RUNNING" "assemble_release_low_ram" $false 78
   Say "Compilation locale faible RAM..."
   Push-Location "source\android"
   try {
@@ -318,6 +360,7 @@ try {
     if ($LASTEXITCODE -ne 0) { throw "Gradle build FAIL." }
   } finally { Pop-Location }
 
+  Write-BuildHeartbeat "APK_VERIFY" "RUNNING" "verify_identity_certificate_permissions_sha256" $false 92
   $apk = Join-Path $RepoDir "source\android\app\build\outputs\apk\release\app-release.apk"
   if (-not (Test-Path $apk)) { throw "APK finale absente." }
 
@@ -351,6 +394,7 @@ try {
   }
 
   Ok "APK locale signee et verifiee"
+  Write-BuildHeartbeat "COMPLETE" "PASS" ("apk=" + $finalApk + ";sha256=" + $hash) $false 100
   Write-Host ""
   Write-Host "APK: $finalApk" -ForegroundColor Green
   Write-Host "SHA-256: $hash"
