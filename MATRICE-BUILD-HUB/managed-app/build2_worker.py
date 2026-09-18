@@ -270,7 +270,7 @@ def process_run(project:str,run_id:str) -> None:
             write_receipt(project,run_id,"FAILED_SAFE",stage="PREFLIGHT",error_class="SELFTEST_FAILED",detail=(pre.stdout+pre.stderr)[-4000:]); return
 
         heartbeat(project,run_id,"BUILDER_PROVISION","RUNNING",detail="Starting bounded shared builder",progress_pct=25)
-        cmd=[ps,"-NoProfile","-ExecutionPolicy","Bypass","-File",str(HUB_ROOT/"hub.ps1"),"-Project",project,"-ExpectedSha",project_sha,"-Mode","Build"]
+        cmd=[ps,"-NoProfile","-ExecutionPolicy","Bypass","-File",str(HUB_ROOT/"hub.ps1"),"-Project",project,"-Branch",str(lane_cfg["branch"]),"-ExpectedSha",project_sha,"-Mode","Build"]
         log.parent.mkdir(parents=True,exist_ok=True)
         with log.open("w",encoding="utf-8",errors="replace") as lf:
             proc=subprocess.Popen(cmd,cwd=str(HUB_ROOT),stdout=lf,stderr=subprocess.STDOUT,text=True,shell=False)
