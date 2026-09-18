@@ -1,5 +1,5 @@
 {
-  "schema": 2,
+  "schema": 1,
   "package_type": "managed_app_deploy",
   "app_id": "matrice-build-hub",
   "display_name": "MATRICE BUILD HUB — BUILD 2",
