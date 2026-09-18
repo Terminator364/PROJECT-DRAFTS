@@ -273,7 +273,11 @@ def process_run(project:str,run_id:str) -> None:
         cmd=[ps,"-NoProfile","-ExecutionPolicy","Bypass","-File",str(HUB_ROOT/"hub.ps1"),"-Project",project,"-Branch",str(lane_cfg["branch"]),"-ExpectedSha",project_sha,"-Mode","Build"]
         log.parent.mkdir(parents=True,exist_ok=True)
         with log.open("w",encoding="utf-8",errors="replace") as lf:
-            proc=subprocess.Popen(cmd,cwd=str(HUB_ROOT),stdout=lf,stderr=subprocess.STDOUT,text=True,shell=False)
+            proc=subprocess.Popen(
+                cmd,cwd=str(HUB_ROOT),stdout=lf,stderr=subprocess.STDOUT,
+                text=True,shell=False,
+                creationflags=(getattr(subprocess,"CREATE_NO_WINDOW",0) if os.name=="nt" else 0)
+            )
         last_pos=0; stage="BUILDER_PROVISION"; started=time.time()
         timeout=int(lane_cfg.get("build_timeout_minutes",45))*60 + 900
         while proc.poll() is None:
