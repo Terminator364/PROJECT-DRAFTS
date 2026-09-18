@@ -63,6 +63,7 @@ def build(sequence:int, source_sha:str, output:Path):
     payload={}
     for name in ("bridge.py","selftest.py","build2_core.py","build2_worker.py","build2_registry.json"):
         payload[name]=(HERE/name).read_bytes()
+    payload["hub_engine_snapshot.ps1"]=(HERE.parent/"hub.ps1").read_bytes()
     payload["build2_source_authority.json"]=stable_json(authority)
 
     manifest={
