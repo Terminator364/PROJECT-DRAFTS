@@ -50,7 +50,9 @@ New-Item -ItemType Directory -Force -Path $Base|Out-Null
 if(Test-Path (Join-Path $Source ".git")){
   Write-Host "Updating canonical BuildHub source..." -ForegroundColor Cyan
   & git -C $Source fetch origin main
+  if($LASTEXITCODE -ne 0){Fail "HUB_FETCH_FAILED" "Could not refresh the canonical BuildHub source."}
   & git -C $Source reset --hard origin/main
+  if($LASTEXITCODE -ne 0){Fail "HUB_RESET_FAILED" "Could not align the local BuildHub copy with origin/main."}
 }else{
   if(Test-Path $Source){Remove-Item $Source -Recurse -Force}
   Write-Host "Installing canonical BuildHub source..." -ForegroundColor Cyan
