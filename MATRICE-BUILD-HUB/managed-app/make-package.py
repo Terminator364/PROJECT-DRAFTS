@@ -67,7 +67,10 @@ def build(mission_id:str,source_sha:str,output:Path):
     hub_text=hub_bytes.decode("utf-8-sig")
     if (hub_text.count("function VerifyReleaseAssets")!=1 or
         hub_text.count("BUILD_HUB_DOCTOR_PASS")!=1 or
-        hub_text.count("param(")!=1 or hub_text.count("finally{")>2):
+        hub_text.count("param(")!=1 or hub_text.count("finally{")>2 or
+        "APK_INSTALL_PASS" not in hub_text or
+        "RELEASE_ASSET_DIGESTS_PASS" not in hub_text or
+        "CODESPACE_DELETE_FAILED" not in hub_text):
         raise SystemExit("HUB_ENGINE_STRUCTURE_INVALID")
     hub_code="\n".join(line for line in hub_text.splitlines()
                        if not line.lstrip().startswith("#"))
