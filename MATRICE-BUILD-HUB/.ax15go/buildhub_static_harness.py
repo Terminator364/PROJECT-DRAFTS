@@ -126,6 +126,8 @@ ok("ax-harness-trusted", harness.get("trusted") is True)
 src_status = {s.get("id"): s.get("status") for s in context.get("sources", [])}
 ok("ax-real-pc-not-falsely-materialized", src_status.get("user_pc_runtime") == "inaccessible_until_field_run")
 ok("ax-codespace-not-falsely-materialized", src_status.get("github_codespaces_runtime") == "inaccessible_until_field_run")
+for remote_id in ["github_phonemouse_beta11", "github_p2pcr95_beta03", "github_chatgpt_pc_active"]:
+    ok(f"ax-remote-source-referenced:{remote_id}", src_status.get(remote_id) == "referenced", str(src_status.get(remote_id)))
 
 gates = adapter.get("certification_gates", [])
 ok("certification-is-multigate", isinstance(gates, list) and len(gates) >= 12)
