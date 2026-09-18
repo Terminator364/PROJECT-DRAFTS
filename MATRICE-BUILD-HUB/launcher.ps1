@@ -7,11 +7,11 @@ $RepoRoot=Split-Path -Parent $Hub
 if(Test-Path (Join-Path $RepoRoot ".git")){
   try{
     & git -C $RepoRoot fetch origin main --quiet
-    if($LASTEXITCODE -eq 0){
-      & git -C $RepoRoot reset --hard origin/main --quiet
-    }
+    if($LASTEXITCODE -ne 0){throw "git fetch origin main failed."}
+    & git -C $RepoRoot reset --hard origin/main --quiet
+    if($LASTEXITCODE -ne 0){throw "git reset --hard origin/main failed."}
   }catch{
-    Write-Host "BuildHub update check failed; continuing with installed version." -ForegroundColor Yellow
+    throw ("[HUB_UPDATE_FAILED] Refusing to build with a potentially stale orchestrator. "+$_.Exception.Message)
   }
 }
 
