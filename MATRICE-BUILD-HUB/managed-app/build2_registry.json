@@ -1,6 +1,7 @@
 {
   "schema": "build2.registry/1",
-  "version": "0.5.2-recovery-unblock",
+  "version": "0.5.3-recovery-unblock-context",
+  "context_contract": "MATRICE-BUILD-HUB/AUTHORIZED_PROJECT_SCOPE.md",
   "global_policy": {
     "max_heavy_builds": 1,
     "max_queue_depth": 8,
@@ -9,7 +10,10 @@
     "atomic_publish_required": true,
     "receipt_readback_required": true,
     "second_run_reproducibility_required": true,
-    "controlled_failure_required_before_promotion": true
+    "controlled_failure_required_before_promotion": true,
+    "authorization_context_persistent": true,
+    "authorization_reconfirmation_when_scope_unchanged": false,
+    "unrelated_third_party_scope_expansion": false
   },
   "lanes": {
     "phonemouse": {
@@ -18,6 +22,7 @@
       "repo": "Terminator364/PhoneMouse",
       "branch": "beta11-visual-20260918",
       "recipe": ".matrix-build/build.sh",
+      "authorized_project_scope": "AUTHORIZED_PROJECT_SCOPE.md",
       "build_timeout_minutes": 35,
       "resource_profile": {
         "gradle_no_daemon": true,
@@ -36,16 +41,17 @@
         "eol_normalization": "LF_BEFORE_EACH_PATCH_REPLAY",
         "gradle_max_workers": 1
       },
-      "source_sha": "abe1029db9914b9ce1da4af839a10928fb17a45c"
+      "source_sha": "729313bacf1a4c8c281fedb35d43373e4b7555c6"
     },
     "p2pcr95": {
       "project": "P2PCR95",
       "operation": "build_p2pcr95",
       "repo": "Terminator364/P2PCR95",
       "branch": "beta04-runtime-control-integration-20260918",
-      "source_sha": "58d81c88b3fea4e16c35a008a7b417f939f50488",
+      "source_sha": "0735c80741485edcb88288b0d6cbfadbd41ac7b8",
       "build_ready_marker": "release/BUILD_READY_BUILD1.json",
       "recipe": ".matrix-build/build.sh",
+      "authorized_project_scope": "AUTHORIZED_PROJECT_SCOPE.md",
       "build_timeout_minutes": 60,
       "expected": {
         "version_code": 6,
