@@ -10,7 +10,9 @@ import tempfile
 from pathlib import Path
 
 HERE=Path(__file__).resolve().parent
-HUB=HERE.parent/"hub.ps1"
+SOURCE_HUB=HERE.parent/"hub.ps1"
+RUNTIME_HUB=Path(os.environ.get("LOCALAPPDATA",str(Path.home())))/"MatriceBuildHub"/"PROJECT-DRAFTS"/"MATRICE-BUILD-HUB"/"hub.ps1"
+HUB=SOURCE_HUB if SOURCE_HUB.is_file() else (RUNTIME_HUB if RUNTIME_HUB.is_file() else None)
 
 def fail(code:str)->None:
     raise SystemExit("BUILD2_SELFTEST_FAIL:"+code)
@@ -40,33 +42,35 @@ for op in ("doctor","last_build_status","cancel_build","get_receipt"):
 if "lane_config_for_operation" not in bridge:
     fail("BRIDGE_NOT_REGISTRY_DRIVEN")
 
-if not HUB.is_file():
-    fail("MISSING_HUB_PS1")
-hub_text=HUB.read_text(encoding="utf-8-sig")
-if hub_text.count("MACHINE_QUERY_FAILED")!=1:
-    fail("HUB_DUPLICATED_EXECUTION_TAIL")
-if hub_text.count("INVALID_EXPECTED_SHA")!=1:
-    fail("HUB_EXPECTED_SHA_GUARD_CARDINALITY")
-if "if($ExpectedSha -notmatch '^[0-9a-f]{40}$')" not in hub_text:
-    fail("HUB_EXPECTED_SHA_GUARD_MALFORMED")
-for token in ("[string]$ExpectedSha","SOURCE_SHA_GUARD","INVALID_EXPECTED_SHA"):
-    if token not in hub_text:
-        fail("HUB_EXACT_SHA_"+token)
+# Package install does not require a source checkout beside the managed app.
+# If a source hub is already available, validate it here; worker.verify_hub_engine()
+# remains fail-closed and verifies the pinned SHA before doctor/build execution.
+if HUB is not None:
+    hub_text=HUB.read_text(encoding="utf-8-sig")
+    if hub_text.count("MACHINE_QUERY_FAILED")!=1:
+        fail("HUB_DUPLICATED_EXECUTION_TAIL")
+    if hub_text.count("INVALID_EXPECTED_SHA")!=1:
+        fail("HUB_EXPECTED_SHA_GUARD_CARDINALITY")
+    if "if($ExpectedSha -notmatch '^[0-9a-f]{40}$')" not in hub_text:
+        fail("HUB_EXPECTED_SHA_GUARD_MALFORMED")
+    for token in ("[string]$ExpectedSha","SOURCE_SHA_GUARD","INVALID_EXPECTED_SHA"):
+        if token not in hub_text:
+            fail("HUB_EXACT_SHA_"+token)
 
-if os.name=="nt":
-    ps=shutil.which("powershell.exe")
-    if not ps:
-        fail("POWERSHELL_PARSER_MISSING")
-    parser=(
-        "$e=$null;$t=$null;"
-        "[System.Management.Automation.Language.Parser]::ParseFile($args[0],[ref]$t,[ref]$e)|Out-Null;"
-        "if($e.Count -gt 0){$e|ForEach-Object{$_.Message}|Out-String|Write-Error;exit 1}"
-    )
-    cp=subprocess.run(
-        [ps,"-NoProfile","-NonInteractive","-Command",parser,str(HUB)],
-        capture_output=True,text=True,shell=False,timeout=30)
-    if cp.returncode!=0:
-        fail("HUB_POWERSHELL_PARSE:"+((cp.stderr or cp.stdout)[-500:]))
+    if os.name=="nt":
+        ps=shutil.which("powershell.exe")
+        if not ps:
+            fail("POWERSHELL_PARSER_MISSING")
+        parser=(
+            "$e=$null;$t=$null;"
+            "[System.Management.Automation.Language.Parser]::ParseFile($args[0],[ref]$t,[ref]$e)|Out-Null;"
+            "if($e.Count -gt 0){$e|ForEach-Object{$_.Message}|Out-String|Write-Error;exit 1}"
+        )
+        cp=subprocess.run(
+            [ps,"-NoProfile","-NonInteractive","-Command",parser,str(HUB)],
+            capture_output=True,text=True,shell=False,timeout=30)
+        if cp.returncode!=0:
+            fail("HUB_POWERSHELL_PARSE:"+((cp.stderr or cp.stdout)[-500:]))
 
 worker=(HERE/"build2_worker.py").read_text(encoding="utf-8")
 for token in (
