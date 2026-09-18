@@ -1,6 +1,6 @@
 # BROWSER4G — P0 minimal instrumenté
 
-État : **SOURCE_READY / BUILD_UNVERIFIED / FIELD_UNVERIFIED**
+État : **P0.1_SOURCE_READY / BUILD_UNVERIFIED / FIELD_UNVERIFIED**
 
 Ce P0 est volontairement petit. Son but n’est pas encore de livrer le navigateur complet, mais de vérifier sur le PC réel que le socle choisi tient avant d’ajouter les onglets et la gouvernance HOT/WARM/COLD/PROTECTED.
 
@@ -13,14 +13,14 @@ Ce P0 est volontairement petit. Son but n’est pas encore de livrer le navigate
 - User Data Folder explicite sous `%LOCALAPPDATA%\BROWSER4G\P0\UserData`.
 - Runtime Health Guard :
   - lecture de la version WebView2 réellement disponible ;
-  - comparaison avec le dernier runtime ayant passé le probe ;
-  - micro-probe local sans réseau au premier lancement ou après changement du runtime ;
+  - comparaison avec la dernière signature de santé validée (`build + SDK + runtime`) ;
+  - micro-probe local sans réseau au premier lancement ou après changement du build, du SDK ou du runtime ;
   - test DOM + JavaScript via `NavigateToString` puis `ExecuteScript`;
   - aucun downgrade automatique ;
   - navigation externe bloquée si le probe échoue.
 - Télémétrie toutes les 15 secondes :
   - Working Set + Private Usage du processus hôte ;
-  - liste des processus WebView2 du même User Data Folder via `ICoreWebView2Environment8::GetProcessInfos` ;
+  - liste des processus WebView2 du même User Data Folder via `ICoreWebView2Environment8::GetProcessInfos` (hors crashpad, conformément au contrat de l’API) ;
   - Working Set + Private Usage agrégés WebView2 ;
   - totaux hôte + WebView2 ;
   - charge RAM système ;
@@ -31,7 +31,7 @@ Ce P0 est volontairement petit. Son but n’est pas encore de livrer le navigate
 
 ## Build local
 
-Pré-requis : Windows 10/11 x64 et Visual Studio 2022 Build Tools avec **Desktop development with C++**.
+Pré-requis : Windows 10/11 x64. Si MSVC C++ Build Tools manque, le script tente de le provisionner via `winget` ; aucune licence payante n’est requise.
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File .\build.ps1 -Configuration Release
@@ -63,6 +63,7 @@ Sortie attendue :
 - pas encore de SQLite historique/favoris/recovery ;
 - pas de gouverneur mémoire adaptatif actif ;
 - pas de BITS/download manager custom ;
-- pas de CI distante.
+- pas de CI distante ;
+- pas encore d’installation/réparation automatique du WebView2 Evergreen Runtime si celui-ci est absent.
 
 Ces éléments ne seront ajoutés qu’après preuve terrain du socle P0.
