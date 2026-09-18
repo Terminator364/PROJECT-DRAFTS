@@ -1,0 +1,8 @@
+{
+  "version": "0.1",
+  "projects": {
+    "PhoneMouse": {"repo":"Terminator364/PhoneMouse","default_branch":"beta11-visual-20260918","adapter":"adapters/phonemouse.sh"},
+    "P2PCR95": {"repo":"Terminator364/P2PCR95","default_branch":"beta03-native-updater-20260918","adapter":"adapters/p2pcr95.sh"},
+    "ChatGPT-PC": {"repo":"Terminator364/ChatGPT-PC","default_branch":"work/worker-v024-local-heartbeat-spool","adapter":"adapters/chatgpt-pc.sh"}
+  }
+}
