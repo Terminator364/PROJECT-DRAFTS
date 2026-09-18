@@ -32,11 +32,11 @@ if(-not(Get-Command gh -ErrorAction SilentlyContinue)){Fail "GH_MISSING" "GitHub
 & gh auth status -h github.com *> $null
 if($LASTEXITCODE -ne 0){
   Write-Host "GitHub sign-in will open in your browser." -ForegroundColor Yellow
-  & gh auth login -h github.com -p https -w -s codespace
+  & gh auth login -h github.com -p https -w -s repo -s codespace
   if($LASTEXITCODE -ne 0){Fail "GH_AUTH" "GitHub authentication failed."}
 }else{
   Write-Host "Refreshing GitHub permission for Codespaces..." -ForegroundColor Cyan
-  & gh auth refresh -h github.com -s codespace
+  & gh auth refresh -h github.com -s repo -s codespace
   if($LASTEXITCODE -ne 0){Fail "GH_SCOPE" "Could not authorize the Codespaces scope."}
 }
 
@@ -83,7 +83,15 @@ try{
   Write-Host ("Signing migration warning: "+$_.Exception.Message) -ForegroundColor Yellow
 }
 
-Write-Host "Preserving durable non-secret build inputs..." -ForegroundColor Cyan\r\ntry{\r\n  & powershell.exe -NoProfile -ExecutionPolicy Bypass -File (Join-Path $Hub "migrate-durable-inputs.ps1")\r\n  if($LASTEXITCODE -ne 0){ Write-Host "Durable input migration needs attention before P2PCR95 BETA03." -ForegroundColor Yellow }\r\n}catch{\r\n  Write-Host ("Durable input migration warning: "+$_.Exception.Message) -ForegroundColor Yellow\r\n}\r\n\r\nWrite-Host "Running local doctor..." -ForegroundColor Cyan
+Write-Host "Preserving durable non-secret build inputs..." -ForegroundColor Cyan
+try{
+  & powershell.exe -NoProfile -ExecutionPolicy Bypass -File (Join-Path $Hub "migrate-durable-inputs.ps1")
+  if($LASTEXITCODE -ne 0){ Write-Host "Durable input migration needs attention before P2PCR95 BETA03." -ForegroundColor Yellow }
+}catch{
+  Write-Host ("Durable input migration warning: "+$_.Exception.Message) -ForegroundColor Yellow
+}
+
+Write-Host "Running local doctor..." -ForegroundColor Cyan
 & powershell.exe -NoProfile -ExecutionPolicy Bypass -File (Join-Path $Hub "hub.ps1") -Mode Doctor
 if($LASTEXITCODE -ne 0){Fail "DOCTOR_FAILED" "BuildHub local doctor failed."}
 
