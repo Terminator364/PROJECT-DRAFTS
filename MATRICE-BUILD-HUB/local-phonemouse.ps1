@@ -173,8 +173,29 @@ try {
     [IO.File]::WriteAllText($Path,$txt,[Text.UTF8Encoding]::new($false))
   }
 
+  function Normalize-LfTextFile([string]$Path) {
+    if (-not (Test-Path $Path)) { return }
+    $txt = [IO.File]::ReadAllText($Path)
+    $normalized = $txt.Replace("`r`n","`n").Replace("`r","`n")
+    if ($normalized -ne $txt) {
+      [IO.File]::WriteAllText($Path,$normalized,[Text.UTF8Encoding]::new($false))
+    }
+  }
+
+  function Normalize-LfTree([string]$Root) {
+    $extensions = @(".java",".kt",".kts",".xml",".gradle",".properties",".txt",".json",".md",".pro")
+    Get-ChildItem $Root -Recurse -File -ErrorAction SilentlyContinue |
+      Where-Object { $extensions -contains $_.Extension.ToLowerInvariant() } |
+      ForEach-Object { Normalize-LfTextFile $_.FullName }
+  }
+
   function Apply([string]$PatchPath) {
-    & $PatchExe -p0 -i $PatchPath
+    # Historical patches were produced on Linux/LF. Windows checkout and Python
+    # rewrite steps can materialize CRLF, which makes GNU patch reject valid
+    # context hunks. Normalize only text sources + the patch before each apply.
+    Normalize-LfTree $Source
+    Normalize-LfTextFile $PatchPath
+    & $PatchExe --binary -p0 -i $PatchPath
     if ($LASTEXITCODE -ne 0) { throw "Patch echoue: $PatchPath" }
   }
 
