@@ -54,11 +54,14 @@
       "repo": "Terminator364/PROJECT-DRAFTS",
       "default_branch": "browser4g-p0-20260918",
       "builder_kind": "LOCAL_WINDOWS",
-      "build_timeout_minutes": 20,
+      "build_timeout_minutes": 60,
       "recipe_path": "BROWSER4G/.matrix-build/build.ps1",
       "signing_profile": null,
       "signing": null,
-      "publish_gate": "FIELD_PASS_REQUIRED"
+      "publish_gate": "FIELD_PASS_REQUIRED",
+      "local_sparse_paths": [
+        "BROWSER4G"
+      ]
     }
   }
 }
