@@ -53,6 +53,6 @@ Le launcher exécute le self-test avant toute construction et bloque en cas d'in
 
 ## Statut
 
-V0.2 **field candidate** reste la baseline actuellement promue sur `main`.
-V0.3 ajoute le moteur `LOCAL_WINDOWS` requis par BROWSER4G et reste **candidate tant que son audit statique et son essai réel Windows ne sont pas passés**.
+V0.3 avec le moteur `LOCAL_WINDOWS` requis par BROWSER4G est **STATIC_QUALIFIED / FIELD_UNVERIFIED**.
+Sa présence sur `main` comme field-candidate ne constitue pas un PASS Windows réel et ne change pas les gates terrain des projets existants.
 Ne pas déclarer **OPERATIONAL** avant les campagnes réelles prévues dans `CONTINUATION_BUILDHUB_AX15.md`.
