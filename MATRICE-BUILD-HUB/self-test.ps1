@@ -40,7 +40,7 @@ foreach($f in $psFiles){
   }
 }
 
-$jsonFiles=@("projects.json","AX150K_CONTEXT.json","AX150K_ADAPTER.json","AX150K_HARNESS.json")
+$jsonFiles=@("projects.json","AX150K_CONTEXT.json","AX150K_ADAPTER.json","AX150K_HARNESS.json","CHATGPT_PC_TUNNEL_CONTRACT.json","managed-app\\manifest.template.json")
 $json=@{}
 foreach($name in $jsonFiles){
   $p=Join-Path $Root $name
@@ -108,6 +108,11 @@ Require-Token "verify-disaster-recovery.ps1" "mbh-disaster-recovery-restore-test
 Require-Token "verify-disaster-recovery.ps1" "RECOVERY_CERT_MISMATCH" "RECOVERY_CERT_GUARD"
 Require-Token "verify-disaster-recovery.ps1" "RECOVERY_KEYSTORE_OPEN_FAILED" "RECOVERY_KEYSTORE_GUARD"
 Require-Token "export-disaster-recovery.ps1" 'if($plainBundle -and (Test-Path $plainBundle))' "RECOVERY_PLAINTEXT_CLEANUP"
+Require-Token "managed-app\\bridge.py" "OPERATIONS={" "MANAGED_FIXED_OPERATIONS"
+Require-Token "managed-app\\bridge.py" "shell=False" "MANAGED_NO_SHELL"
+Require-Token "managed-app\\manifest.template.json" "R2_MISSION_SCOPED_ZERO_CLICK" "MANAGED_R2_ACTIVATION"
+Require-Token "CHATGPT_PC_TUNNEL_CONTRACT.json" "CHATGPT_PC_CONTROL_BUS" "TUNNEL_NORMAL_ENTRYPOINT"
+Require-Token "CHATGPT_PC_TUNNEL_CONTRACT.json" "BREAK_GLASS_ONLY" "MANUAL_BREAK_GLASS_ONLY"
 
 $hubText=Get-Content (Join-Path $Root "hub.ps1") -Raw
 $runtimeEntryCount=[regex]::Matches($hubText,'Need "gh" "GH_MISSING"').Count
@@ -161,6 +166,15 @@ if($python){
     & $python.Source $script
   }
   if($LASTEXITCODE -ne 0){FailCheck "AX150K_STATIC_HARNESS_FAILED"}else{Pass "AX150K independent Python harness"}
+  foreach($managed in @("managed-app\\bridge.py","managed-app\\selftest.py","managed-app\\make-package.py")){
+    $mp=Join-Path $Root $managed
+    if($python.Name -eq "py.exe"){
+      & $python.Source -3 -m py_compile $mp
+    }else{
+      & $python.Source -m py_compile $mp
+    }
+    if($LASTEXITCODE -ne 0){FailCheck ("MANAGED_PYTHON_PARSE: "+$managed)}else{Pass ("managed Python parse: "+$managed)}
+  }
 }else{
   Write-Host "Python independent harness unavailable locally; PowerShell structural gates remain authoritative for bootstrap." -ForegroundColor Yellow
 }
