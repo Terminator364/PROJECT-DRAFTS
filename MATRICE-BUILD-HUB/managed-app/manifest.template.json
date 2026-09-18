@@ -1,15 +1,16 @@
 {
-  "schema": 1,
+  "schema": 2,
   "package_type": "managed_app_deploy",
   "app_id": "matrice-build-hub",
-  "display_name": "MATRICE BUILD HUB",
+  "display_name": "MATRICE BUILD HUB — BUILD 2",
   "activation_mode": "R2_MISSION_SCOPED_ZERO_CLICK",
   "activation_mission_id": "__MISSION_ID__",
   "resource_profile": {
     "class": "INTERACTIVE_ON_DEMAND",
-    "memory_limit_mb": 384,
+    "memory_limit_mb": 192,
     "background_qos": "ECO",
-    "battery_policy": "DEFER_WHEN_LOW"
+    "battery_policy": "DEFER_WHEN_LOW",
+    "resident_ui": false
   },
   "operations": {
     "doctor": [
@@ -36,8 +37,58 @@
       "{python}",
       "{app_root}/bridge.py",
       "last_build_status"
+    ],
+    "cancel_build": [
+      "{python}",
+      "{app_root}/bridge.py",
+      "cancel_build"
+    ],
+    "get_receipt": [
+      "{python}",
+      "{app_root}/bridge.py",
+      "get_receipt"
     ]
   },
   "files": [],
-  "note": "Template only. Package builder must replace __MISSION_ID__ and populate exact payload SHA-256 entries."
+  "note": "BUILD 2 unified multi-project managed app. Package builder injects exact mission + BuildHub source SHA and hashes every payload file.",
+  "ui_contract": {
+    "mode": "NATIVE_ON_DEMAND",
+    "buttons": [
+      {
+        "id": "doctor",
+        "label": "Doctor",
+        "operation": "doctor"
+      },
+      {
+        "id": "phonemouse",
+        "label": "Build PhoneMouse",
+        "operation": "build_phonemouse"
+      },
+      {
+        "id": "p2pcr95",
+        "label": "Build P2PCR95",
+        "operation": "build_p2pcr95"
+      },
+      {
+        "id": "chatgpt_pc",
+        "label": "Build ChatGPT-PC",
+        "operation": "build_chatgpt_pc"
+      },
+      {
+        "id": "status",
+        "label": "État",
+        "operation": "last_build_status"
+      },
+      {
+        "id": "cancel",
+        "label": "Annuler",
+        "operation": "cancel_build"
+      },
+      {
+        "id": "receipt",
+        "label": "Reçu",
+        "operation": "get_receipt"
+      }
+    ]
+  }
 }
