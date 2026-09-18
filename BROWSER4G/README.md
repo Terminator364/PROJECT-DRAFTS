@@ -7,6 +7,7 @@ Ce P0 est volontairement petit. Son but n’est pas encore de livrer le navigate
 ## Inclus dans P0
 
 - Win32 / C++17 / x64.
+- WebView2Loader lié statiquement : artefact P0 = **un seul EXE**.
 - Un seul WebView2 actif : **SLOT A**.
 - WebView2 SDK stable épinglé : `Microsoft.Web.WebView2 1.0.4191.47`.
 - User Data Folder explicite sous `%LOCALAPPDATA%\BROWSER4G\P0\UserData`.
@@ -18,8 +19,10 @@ Ce P0 est volontairement petit. Son but n’est pas encore de livrer le navigate
   - aucun downgrade automatique ;
   - navigation externe bloquée si le probe échoue.
 - Télémétrie toutes les 15 secondes :
-  - Working Set du processus ;
-  - Private Usage ;
+  - Working Set + Private Usage du processus hôte ;
+  - liste des processus WebView2 du même User Data Folder via `ICoreWebView2Environment8::GetProcessInfos` ;
+  - Working Set + Private Usage agrégés WebView2 ;
+  - totaux hôte + WebView2 ;
   - charge RAM système ;
   - RAM physique disponible ;
   - commit total / limite / pourcentage.
@@ -35,11 +38,12 @@ powershell -ExecutionPolicy Bypass -File .\build.ps1 -Configuration Release
 ```
 
 Le script :
-1. télécharge `nuget.exe` uniquement s’il manque ;
-2. restaure le SDK WebView2 épinglé ;
-3. trouve MSBuild via `vswhere`;
-4. compile en x64 avec un seul worker MSBuild (`/m:1`) pour limiter les pics RAM ;
-5. affiche le SHA-256 de l’EXE.
+1. vérifie/provisionne conditionnellement MSVC C++ Build Tools ;
+2. télécharge **NuGet 7.9.0 figé** uniquement s’il manque et vérifie son SHA-256 ;
+3. restaure WebView2 1.0.4191.47 uniquement depuis nuget.org ;
+4. trouve MSBuild/MSVC x64 via `vswhere`;
+5. compile en x64 avec un seul worker MSBuild (`/m:1`) pour limiter les pics RAM ;
+6. affiche le SHA-256 de l’EXE.
 
 Sortie attendue :
 
@@ -49,7 +53,7 @@ Sortie attendue :
 
 - `%LOCALAPPDATA%\BROWSER4G\P0\logs\p0.log`
 - `%LOCALAPPDATA%\BROWSER4G\P0\state\last_seen_runtime.txt`
-- `%LOCALAPPDATA%\BROWSER4G\P0\state\last_good_runtime.txt`
+- `%LOCALAPPDATA%\BROWSER4G\P0\state\last_good_health.txt` (signature build + SDK + runtime)
 
 ## Ce que P0 ne fait volontairement pas encore
 
