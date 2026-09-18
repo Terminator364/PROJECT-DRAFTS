@@ -101,7 +101,7 @@ def new_run(project: str, operation: str, contract: dict[str,Any], *,
     prior=read_json(idx)
     if prior:
         st=read_json(lane/"runs"/prior["run_id"]/"state.json",{})
-        if st and st.get("status") not in {"FAILED_SAFE","HOLD","CANCELLED"}:
+        if st and st.get("status") in {"QUEUED","RUNNING"}:
             return {"status":"IDEMPOTENT_REUSE","run_id":prior["run_id"],"state":st}
     run_id=time.strftime("%Y%m%dT%H%M%SZ",time.gmtime())+"-"+uuid.uuid4().hex[:12]
     run,state_path,_=_run_paths(project,run_id)
