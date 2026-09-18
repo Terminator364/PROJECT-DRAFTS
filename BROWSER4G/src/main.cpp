@@ -23,6 +23,7 @@ namespace {
 constexpr wchar_t kWindowClass[] = L"BROWSER4G_P0_WINDOW";
 constexpr wchar_t kAppName[] = L"BROWSER4G P0";
 constexpr wchar_t kSdkVersion[] = L"1.0.4191.47";
+constexpr wchar_t kAppBuild[] = L"P0.1";
 constexpr UINT_PTR kTelemetryTimer = 1;
 constexpr UINT kTelemetryIntervalMs = 15000;
 constexpr int kAddressId = 1001;
@@ -42,7 +43,7 @@ ComPtr<ICoreWebView2> g_webView;
 
 std::filesystem::path g_appRoot;
 std::wstring g_runtimeVersion;
-std::wstring g_lastGoodRuntime;
+std::wstring g_lastGoodHealth;
 bool g_probeRequired = true;
 bool g_probeRunning = false;
 bool g_probePassed = false;
@@ -117,8 +118,13 @@ std::wstring HrString(HRESULT hr)
 }
 
 struct MemorySnapshot {
-    double workingSetMb = 0.0;
-    double privateMb = 0.0;
+    double hostWorkingSetMb = 0.0;
+    double hostPrivateMb = 0.0;
+    double webViewWorkingSetMb = 0.0;
+    double webViewPrivateMb = 0.0;
+    UINT webViewProcessCount = 0;
+    double totalWorkingSetMb = 0.0;
+    double totalPrivateMb = 0.0;
     DWORD systemLoadPct = 0;
     double availablePhysicalMb = 0.0;
     double commitTotalMb = 0.0;
@@ -126,14 +132,64 @@ struct MemorySnapshot {
     double commitPct = 0.0;
 };
 
+bool ReadProcessMemory(HANDLE process, double& workingSetMb, double& privateMb)
+{
+    PROCESS_MEMORY_COUNTERS_EX pmc{};
+    if (!GetProcessMemoryInfo(process, reinterpret_cast<PROCESS_MEMORY_COUNTERS*>(&pmc), sizeof(pmc)))
+        return false;
+    workingSetMb = static_cast<double>(pmc.WorkingSetSize) / (1024.0 * 1024.0);
+    privateMb = static_cast<double>(pmc.PrivateUsage) / (1024.0 * 1024.0);
+    return true;
+}
+
+void SampleWebViewProcessMemory(MemorySnapshot& s)
+{
+    if (!g_environment)
+        return;
+
+    ComPtr<ICoreWebView2Environment8> environment8;
+    if (FAILED(g_environment.As(&environment8)) || !environment8)
+        return;
+
+    ComPtr<ICoreWebView2ProcessInfoCollection> processInfos;
+    if (FAILED(environment8->GetProcessInfos(&processInfos)) || !processInfos)
+        return;
+
+    UINT count = 0;
+    if (FAILED(processInfos->get_Count(&count)))
+        return;
+
+    for (UINT i = 0; i < count; ++i) {
+        ComPtr<ICoreWebView2ProcessInfo> info;
+        if (FAILED(processInfos->GetValueAtIndex(i, &info)) || !info)
+            continue;
+
+        INT32 processId = 0;
+        if (FAILED(info->get_ProcessId(&processId)) || processId <= 0)
+            continue;
+
+        HANDLE process = OpenProcess(PROCESS_QUERY_LIMITED_INFORMATION, FALSE, static_cast<DWORD>(processId));
+        if (!process)
+            continue;
+
+        double wsMb = 0.0;
+        double privateMb = 0.0;
+        if (ReadProcessMemory(process, wsMb, privateMb)) {
+            s.webViewWorkingSetMb += wsMb;
+            s.webViewPrivateMb += privateMb;
+            ++s.webViewProcessCount;
+        }
+        CloseHandle(process);
+    }
+}
+
 MemorySnapshot SampleMemory()
 {
     MemorySnapshot s{};
-    PROCESS_MEMORY_COUNTERS_EX pmc{};
-    if (GetProcessMemoryInfo(GetCurrentProcess(), reinterpret_cast<PROCESS_MEMORY_COUNTERS*>(&pmc), sizeof(pmc))) {
-        s.workingSetMb = static_cast<double>(pmc.WorkingSetSize) / (1024.0 * 1024.0);
-        s.privateMb = static_cast<double>(pmc.PrivateUsage) / (1024.0 * 1024.0);
-    }
+    ReadProcessMemory(GetCurrentProcess(), s.hostWorkingSetMb, s.hostPrivateMb);
+    SampleWebViewProcessMemory(s);
+    s.totalWorkingSetMb = s.hostWorkingSetMb + s.webViewWorkingSetMb;
+    s.totalPrivateMb = s.hostPrivateMb + s.webViewPrivateMb;
 
     MEMORYSTATUSEX ms{};
     ms.dwLength = sizeof(ms);
@@ -157,8 +213,13 @@ std::wstring MemoryLine(const MemorySnapshot& s)
 {
     std::wostringstream os;
     os << std::fixed << std::setprecision(1)
-       << L"proc_ws_mb=" << s.workingSetMb
-       << L" proc_private_mb=" << s.privateMb
+       << L"host_ws_mb=" << s.hostWorkingSetMb
+       << L" host_private_mb=" << s.hostPrivateMb
+       << L" wv2_processes=" << s.webViewProcessCount
+       << L" wv2_ws_mb=" << s.webViewWorkingSetMb
+       << L" wv2_private_mb=" << s.webViewPrivateMb
+       << L" total_ws_mb=" << s.totalWorkingSetMb
+       << L" total_private_mb=" << s.totalPrivateMb
        << L" sys_mem_load_pct=" << s.systemLoadPct
        << L" avail_phys_mb=" << s.availablePhysicalMb
        << L" commit_total_mb=" << s.commitTotalMb
@@ -178,7 +239,8 @@ void UpdateTelemetry(bool writeLog)
     const auto s = SampleMemory();
     std::wostringstream title;
     title << kAppName
-          << L" | WS " << std::fixed << std::setprecision(0) << s.workingSetMb << L" MB"
+          << L" | TotalWS " << std::fixed << std::setprecision(0) << s.totalWorkingSetMb << L" MB"
+          << L" | WV2 " << s.webViewProcessCount << L"p/" << s.webViewPrivateMb << L" MB"
           << L" | RAM " << s.systemLoadPct << L"%"
           << L" | Commit " << std::setprecision(0) << s.commitPct << L"%";
     if (!g_runtimeVersion.empty())
@@ -292,9 +354,11 @@ void MarkProbeSuccess()
     g_probePassed = true;
     EnableWindow(g_go, TRUE);
     SetStatus(L"Runtime Health Guard: PASS");
-    if (!WriteTextAtomic(g_appRoot / L"state" / L"last_good_runtime.txt", g_runtimeVersion))
-        Log(L"STATE_WRITE_WARN last_good_runtime");
-    Log(L"RUNTIME_PROBE_PASS runtime=" + g_runtimeVersion);
+    const std::wstring healthSignature =
+        std::wstring(kAppBuild) + L"|sdk=" + kSdkVersion + L"|runtime=" + g_runtimeVersion;
+    if (!WriteTextAtomic(g_appRoot / L"state" / L"last_good_health.txt", healthSignature))
+        Log(L"STATE_WRITE_WARN last_good_health");
+    Log(L"RUNTIME_PROBE_PASS build=" + std::wstring(kAppBuild) + L" runtime=" + g_runtimeVersion);
     ShowWelcome();
 }
 
@@ -445,13 +509,16 @@ bool RuntimePreflight()
     g_runtimeVersion = version;
     CoTaskMemFree(version);
     g_runtimeReady = true;
-    g_lastGoodRuntime = ReadText(g_appRoot / L"state" / L"last_good_runtime.txt");
-    g_probeRequired = g_lastGoodRuntime.empty() || g_lastGoodRuntime != g_runtimeVersion;
+    const std::wstring healthSignature =
+        std::wstring(kAppBuild) + L"|sdk=" + kSdkVersion + L"|runtime=" + g_runtimeVersion;
+    g_lastGoodHealth = ReadText(g_appRoot / L"state" / L"last_good_health.txt");
+    g_probeRequired = g_lastGoodHealth.empty() || g_lastGoodHealth != healthSignature;
     WriteTextAtomic(g_appRoot / L"state" / L"last_seen_runtime.txt", g_runtimeVersion);
 
-    Log(L"START sdk=" + std::wstring(kSdkVersion) +
+    Log(L"START build=" + std::wstring(kAppBuild) +
+        L" sdk=" + std::wstring(kSdkVersion) +
         L" runtime=" + g_runtimeVersion +
-        L" last_good=" + (g_lastGoodRuntime.empty() ? L"<none>" : g_lastGoodRuntime) +
+        L" last_good_health=" + (g_lastGoodHealth.empty() ? L"<none>" : g_lastGoodHealth) +
         L" probe_required=" + (g_probeRequired ? L"true" : L"false"));
     return true;
 }
