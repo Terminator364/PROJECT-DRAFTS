@@ -28,6 +28,38 @@ function Download-WithRetry([string]$Uri,[string]$OutFile){
   throw $last
 }
 
+function Invoke-BatchBounded([string]$BatchPath,[string[]]$Arguments,[int]$TimeoutSeconds,[string]$StandardInput=""){
+  $comspec=$env:ComSpec
+  if([string]::IsNullOrWhiteSpace($comspec)){$comspec="cmd.exe"}
+  $quoted=@($Arguments|ForEach-Object{'"'+([string]$_).Replace('"','""')+'"'})
+  $cmdLine='"'+$BatchPath+'"'
+  if($quoted.Count -gt 0){$cmdLine+=" "+($quoted -join " ")}
+  $psi=New-Object System.Diagnostics.ProcessStartInfo
+  $psi.FileName=$comspec
+  $psi.Arguments='/d /s /c "'+$cmdLine+'"'
+  $psi.UseShellExecute=$false
+  $psi.RedirectStandardInput=(-not [string]::IsNullOrEmpty($StandardInput))
+  $psi.CreateNoWindow=$false
+  $p=New-Object System.Diagnostics.Process
+  $p.StartInfo=$psi
+  [void]$p.Start()
+  try{
+    if($psi.RedirectStandardInput){
+      $p.StandardInput.Write($StandardInput)
+      $p.StandardInput.Close()
+    }
+    if(-not $p.WaitForExit($TimeoutSeconds*1000)){
+      & taskkill.exe /PID $p.Id /T /F *> $null
+      Fail "SDKMANAGER_TIMEOUT" ("Timed out after "+$TimeoutSeconds+" seconds: "+($Arguments -join " "))
+    }
+    if($p.ExitCode -ne 0){
+      Fail "SDKMANAGER_EXIT" ("sdkmanager exited with code "+$p.ExitCode+": "+($Arguments -join " "))
+    }
+  }finally{
+    $p.Dispose()
+  }
+}
+
 if(-not(Get-Command winget -ErrorAction SilentlyContinue)){Fail "WINGET_MISSING" "winget is required."}
 
 if(-not(Get-Command java -ErrorAction SilentlyContinue)){
@@ -64,24 +96,9 @@ $env:ANDROID_HOME=$Sdk
 $env:ANDROID_SDK_ROOT=$Sdk
 
 Write-Host "Installing Android Build Tools $BuildTools for lightweight local signing..." -ForegroundColor Cyan
-$licenses=("y"+[Environment]::NewLine)*20
-$psi=New-Object System.Diagnostics.ProcessStartInfo
-$psi.FileName=$Cmd
-$psi.Arguments="--licenses"
-$psi.UseShellExecute=$false
-$psi.RedirectStandardInput=$true
-$psi.RedirectStandardOutput=$true
-$psi.RedirectStandardError=$true
-$psi.CreateNoWindow=$true
-$p=New-Object System.Diagnostics.Process
-$p.StartInfo=$psi
-[void]$p.Start()
-$p.StandardInput.Write($licenses)
-$p.StandardInput.Close()
-$p.WaitForExit()
-
-& $Cmd "build-tools;$BuildTools" "platform-tools"
-if($LASTEXITCODE -ne 0){Fail "BUILD_TOOLS_INSTALL" "Android Build Tools installation failed."}
+$licenses=("y"+[Environment]::NewLine)*40
+Invoke-BatchBounded $Cmd @("--licenses") 120 $licenses
+Invoke-BatchBounded $Cmd @("build-tools;$BuildTools","platform-tools") 300
 
 $BT=Join-Path $Sdk "build-tools\$BuildTools"
 foreach($tool in @("apksigner.bat","zipalign.exe","aapt.exe")){
