@@ -45,7 +45,7 @@
     "build_p2pcr95": {
       "risk": "R2",
       "project": "P2PCR95",
-      "branch": "beta03-native-updater-20260918"
+      "branch": "beta03-field-socket-fallback-20260918"
     },
     "build_chatgpt_pc": {
       "risk": "R2",
@@ -68,6 +68,8 @@
     "chatgpt_pc_bridge_branch": "Terminator364/ChatGPT-PC@work/buildhub-managed-r2-bridge-20260918",
     "bridge_field_deployed": false,
     "g6_p0_freeze_respected": true,
-    "buildhub_operational_via_tunnel": false
-  }
+    "buildhub_operational_via_tunnel": false,
+    "buildhub_registry_main_observed_sha": "bf636a219e0fbeb766fe1156c099340a4e3dd649"
+  },
+  "dynamic_registry_rule": "Before every managed build operation, reload current MATRICE-BUILD-HUB/projects.json from canonical main and resolve the exact project branch/SHA; do not rely on a stale conversational snapshot."
 }
