@@ -17,7 +17,7 @@ def fail(code:str)->None:
 
 required_files=[
     "bridge.py","build2_core.py","build2_worker.py",
-    "build2_registry.json","build2_source_authority.json","hub_engine_snapshot.ps1"
+    "build2_registry.json","build2_source_authority.json"
 ]
 for name in required_files:
     if not (HERE/name).is_file():
@@ -32,35 +32,6 @@ for name in ("bridge.py","build2_core.py","build2_worker.py"):
     for forbidden in ("shell=True","os.system(","subprocess.call(","cmd.exe /c","powershell -Command"):
         if forbidden in text:
             fail("FORBIDDEN_"+name+":"+forbidden)
-
-hub=HERE/"hub_engine_snapshot.ps1"
-if not hub.is_file():
-    fail("MISSING_hub.ps1")
-hub_text=hub.read_text(encoding="utf-8-sig",errors="strict")
-if hub_text.count("function VerifyReleaseAssets")!=1:
-    fail("HUB_VERIFY_RELEASE_DUPLICATED")
-if hub_text.count("BUILD_HUB_DOCTOR_PASS")!=1:
-    fail("HUB_DOCTOR_DUPLICATED")
-if hub_text.count("param(")!=1:
-    fail("HUB_PARAM_DUPLICATED")
-if hub_text.count("finally{")>2:
-    fail("HUB_FINALLY_STRUCTURE")
-if "gh auth status" in hub_text:
-    fail("HUB_UNBOUNDED_GH_AUTH_PREFLIGHT")
-if os.name=="nt":
-    ps=shutil.which("powershell.exe")
-    if not ps:
-        fail("POWERSHELL_MISSING_FOR_PARSE")
-    parse_cmd=(
-        "$e=$null;$t=$null;"
-        "[System.Management.Automation.Language.Parser]::ParseFile('"
-        +str(hub).replace("'","''")
-        +"',[ref]$t,[ref]$e)|Out-Null;"
-        "if($e.Count -gt 0){$e|ForEach-Object{$_.ToString()};exit 1}"
-    )
-    cp=subprocess.run([ps,"-NoProfile","-Command",parse_cmd],capture_output=True,text=True,shell=False,timeout=30)
-    if cp.returncode!=0:
-        fail("HUB_POWERSHELL_PARSE:"+((cp.stdout or "")+(cp.stderr or ""))[-500:])
 
 bridge=(HERE/"bridge.py").read_text(encoding="utf-8")
 for op in ("doctor","last_build_status","cancel_build","get_receipt"):
@@ -107,6 +78,9 @@ authority=json.loads((HERE/"build2_source_authority.json").read_text(encoding="u
 sha=authority.get("source_sha","")
 if authority.get("status")!="PINNED" or len(sha)!=40:
     fail("SOURCE_AUTHORITY")
+hub_sha=str(authority.get("hub_sha256") or "")
+if len(hub_sha)!=64 or any(c not in "0123456789abcdef" for c in hub_sha.lower()):
+    fail("HUB_SHA_AUTHORITY")
 
 # Functional state-machine smoke in an isolated LOCALAPPDATA.
 with tempfile.TemporaryDirectory(prefix="mbh-build2-selftest-") as td:
