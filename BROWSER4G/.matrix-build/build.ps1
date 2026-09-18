@@ -35,7 +35,7 @@ $Result = [ordered]@{
   publish = $false
   publish_gate = "FIELD_PASS_REQUIRED"
   tag = "browser4g-p0"
-  title = "BROWSER4G P0"
+  title = "BROWSER4G P0.1"
   deliverables = @($ExeName,$ShaName)
   local_signing = @{
     required = $false
@@ -44,6 +44,9 @@ $Result = [ordered]@{
     sdk_pin = "Microsoft.Web.WebView2 1.0.4191.47"
     target = "win-x64"
     runtime_health_guard = $true
+    full_webview_process_memory = $true
+    static_webview2_loader = $true
+    nuget_version = "7.9.0"
     field_validation_required = $true
   }
 }
