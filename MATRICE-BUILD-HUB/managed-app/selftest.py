@@ -145,6 +145,8 @@ authority=json.loads((HERE/"build2_source_authority.json").read_text(encoding="u
 sha=str(authority.get("source_sha") or "")
 if authority.get("status")!="PINNED" or len(sha)!=40:
     fail("SOURCE_AUTHORITY")
+if str(authority.get("build2_version") or "")!=version:
+    fail("SOURCE_AUTHORITY_VERSION_MISMATCH")
 hub_sha=str(authority.get("hub_sha256") or "").lower()
 if len(hub_sha)!=64 or any(c not in "0123456789abcdef" for c in hub_sha):
     fail("HUB_SHA_AUTHORITY")
