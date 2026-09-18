@@ -175,8 +175,9 @@ foreach($cfg in $profiles){
     $vars=Parse-Credentials $cred.FullName
     $storeKey=$cfg.Prefix+"_KEYSTORE_PASSWORD"
     $aliasKey=$cfg.Prefix+"_KEY_ALIAS"
+    $keyKey=$cfg.Prefix+"_KEY_PASSWORD"
 
-    foreach($required in @($storeKey,$aliasKey)){
+    foreach($required in @($storeKey,$aliasKey,$keyKey)){
       if(-not $vars.ContainsKey($required) -or [string]::IsNullOrEmpty([string]$vars[$required])){
         Fail "CREDENTIAL_MISSING" ($required+" missing.")
       }
@@ -194,7 +195,7 @@ foreach($cfg in $profiles){
 
     $env:MBH_MIGRATE_STOREPASS=[string]$vars[$storeKey]
     try{
-      $keytoolOutput=& $keytool -list -v -keystore $jks.FullName -storepass:env MBH_MIGRATE_STOREPASS -alias ([string]$vars[$aliasKey]) 2>&1 | Out-String
+      $keytoolOutput=& $keytool -J-Duser.language=en -J-Duser.country=US -list -v -keystore $jks.FullName -storepass:env MBH_MIGRATE_STOREPASS -alias ([string]$vars[$aliasKey]) 2>&1 | Out-String
       if($LASTEXITCODE -ne 0){ Fail "KEYSTORE_VALIDATE" ("keytool failed for "+$cfg.Name) }
     }finally{
       Remove-Item Env:MBH_MIGRATE_STOREPASS -ErrorAction SilentlyContinue
