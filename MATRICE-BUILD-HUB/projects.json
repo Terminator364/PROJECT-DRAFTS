@@ -1,5 +1,5 @@
 {
-  "version": "0.2",
+  "version": "0.3-browser4g",
   "policy": {
     "actions_hosted_default_minutes_per_day": 0,
     "codespaces_prebuilds": false,
@@ -49,6 +49,16 @@
       "recipe_path": ".matrix-build/build.sh",
       "signing_profile": null,
       "signing": null
+    },
+    "BROWSER4G": {
+      "repo": "Terminator364/PROJECT-DRAFTS",
+      "default_branch": "browser4g-p0-20260918",
+      "builder_kind": "LOCAL_WINDOWS",
+      "build_timeout_minutes": 20,
+      "recipe_path": "BROWSER4G/.matrix-build/build.ps1",
+      "signing_profile": null,
+      "signing": null,
+      "publish_gate": "FIELD_PASS_REQUIRED"
     }
   }
 }
