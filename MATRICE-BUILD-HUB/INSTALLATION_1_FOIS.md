@@ -3,7 +3,7 @@
 Cette procédure est volontairement courte. Les détails techniques sont automatisés.
 
 1. Depuis GitHub, récupérer une seule fois le dépôt privé `PROJECT-DRAFTS` puis ouvrir le dossier `MATRICE-BUILD-HUB`.
-2. Clic droit sur `bootstrap-pc.ps1` → **Exécuter avec PowerShell**.
+2. Double-cliquer sur **`INSTALL-BUILDHUB.cmd`**. Si Windows refuse exceptionnellement le fichier `.cmd`, utiliser le secours: clic droit sur `bootstrap-pc.ps1` → **Exécuter avec PowerShell**.
 3. Le bootstrap installe ou vérifie Git, GitHub CLI, JDK 17 et les outils Android locaux nécessaires à la signature.
 4. Lors de la première exécution, GitHub peut ouvrir le navigateur pour l'authentification et l'autorisation Codespaces.
 5. Le bootstrap installe ensuite sa copie canonique sous `%LOCALAPPDATA%\MatriceBuildHub\PROJECT-DRAFTS` et exécute le self-test.
