@@ -30,8 +30,21 @@ def build(mission_id:str,source_sha:str,output:Path):
     if len(source_sha)!=40 or any(c not in "0123456789abcdef" for c in source_sha):
         raise SystemExit("INVALID_SOURCE_SHA")
     mf=json.loads((HERE/"manifest.template.json").read_text(encoding="utf-8"))
+    reg=json.loads((HERE/"build2_registry.json").read_text(encoding="utf-8"))
     mf["activation_mission_id"]=mission_id
     mf["build2_source_sha"]=source_sha
+    operations=mf.setdefault("operations",{})
+    ui=mf.setdefault("ui_contract",{}).setdefault("buttons",[])
+    known_buttons={str(x.get("operation")) for x in ui if isinstance(x,dict)}
+    for lane_id,cfg in sorted(reg.get("lanes",{}).items()):
+        op=str(cfg.get("operation") or "")
+        project=str(cfg.get("project") or "")
+        if not op or not project:
+            raise SystemExit("INVALID_LANE_CONTRACT:"+lane_id)
+        operations[op]=["{python}","{app_root}/bridge.py",op]
+        if op not in known_buttons:
+            ui.append({"id":lane_id,"label":"Build "+project,"operation":op})
+            known_buttons.add(op)
     source_authority={
         "schema":"build2.source_authority/1",
         "status":"PINNED",
