@@ -18,16 +18,17 @@ Date : 2026-09-18
 
 ## Étape courante
 
-`P0_SOURCE_READY`
+`P0.1_SOURCE_READY`
 
 Le code source du P0 minimal est maintenant matérialisé. Il vise à fournir la première preuve terrain :
 
 1. fenêtre Win32 stable ;
 2. création d’un unique WebView2 ;
 3. version runtime exacte journalisée ;
-4. micro-probe local après changement runtime ;
-5. télémétrie RAM/commit réelle ;
-6. navigation manuelle seulement après probe PASS.
+4. micro-probe local après changement **runtime ou signature build/SDK** ;
+5. télémétrie RAM/commit réelle, incluant les processus WebView2 et non seulement l’hôte ;
+6. navigation manuelle seulement après probe PASS ;
+7. artefact mono-EXE grâce au WebView2Loader statique.
 
 ## Gates de sortie P0
 
