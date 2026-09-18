@@ -1,7 +1,7 @@
 # MATRICE BUILD HUB V0.2 — HARDENING DESIGN
 
 Date: 2026-09-18
-Status: hardening branch, not yet promoted to main.
+Status: static-audit PASS; field candidate promoted to main on 2026-09-18; runtime qualification pending.
 
 ## Mission
 Preserve the user's simple workflow:
