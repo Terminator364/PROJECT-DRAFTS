@@ -115,7 +115,54 @@ def cancelled(project:str,run_id:str) -> bool:
     st=read_json(lane_root(project)/"runs"/run_id/"state.json",{}) or {}
     return bool(st.get("cancel_requested"))
 
+def process_doctor(run_id:str) -> None:
+    project="BuildHub"
+    evidence=[]
+    try:
+        heartbeat(project,run_id,"PREFLIGHT","RUNNING",detail="BUILD 2 doctor probes",progress_pct=20)
+        a=authority(); evidence.append({"kind":"source_authority","value":a})
+        reg=registry(); evidence.append({"kind":"registry_version","value":reg.get("version")})
+        git=which("git"); evidence.append({"kind":"git","value":git})
+        ps=powershell(); evidence.append({"kind":"powershell","value":ps})
+        usage=shutil.disk_usage(str(STATE_ROOT))
+        evidence.append({"kind":"disk_free_bytes","value":usage.free})
+        if os.name=="nt":
+            try:
+                import ctypes
+                class MS(ctypes.Structure):
+                    _fields_=[("dwLength",ctypes.c_ulong),("dwMemoryLoad",ctypes.c_ulong),
+                              ("ullTotalPhys",ctypes.c_ulonglong),("ullAvailPhys",ctypes.c_ulonglong),
+                              ("ullTotalPageFile",ctypes.c_ulonglong),("ullAvailPageFile",ctypes.c_ulonglong),
+                              ("ullTotalVirtual",ctypes.c_ulonglong),("ullAvailVirtual",ctypes.c_ulonglong),
+                              ("ullAvailExtendedVirtual",ctypes.c_ulonglong)]
+                m=MS(); m.dwLength=ctypes.sizeof(MS)
+                ctypes.windll.kernel32.GlobalMemoryStatusEx(ctypes.byref(m))
+                evidence.append({"kind":"memory","load_pct":m.dwMemoryLoad,"avail_phys":m.ullAvailPhys,"avail_commit":m.ullAvailPageFile})
+                if m.dwMemoryLoad>=97:
+                    write_receipt(project,run_id,"HOLD",stage="PREFLIGHT",evidence=evidence,error_class="MEMORY_CRITICAL",detail="Memory pressure too high for safe heavy build"); return
+            except Exception as e:
+                evidence.append({"kind":"memory_probe","status":"UNAVAILABLE","detail":str(e)[:200]})
+        expected=a.get("source_sha","").lower()
+        if (SOURCE_ROOT/".git").is_dir():
+            got=run([git,"-C",str(SOURCE_ROOT),"rev-parse","HEAD"],timeout=15)
+            evidence.append({"kind":"local_source_head","value":got.stdout.strip().lower() if got.returncode==0 else None})
+        gh=shutil.which("gh")
+        if gh:
+            probe=run([gh,"codespace","list","--limit","1"],timeout=20)
+            evidence.append({"kind":"codespaces_probe","status":"PASS" if probe.returncode==0 else "HOLD","stderr":probe.stderr[-500:]})
+            if probe.returncode!=0:
+                write_receipt(project,run_id,"HOLD",stage="PREFLIGHT",evidence=evidence,error_class="CODESPACES_UNAVAILABLE",detail="Codespaces probe did not pass within bounded doctor"); return
+        else:
+            write_receipt(project,run_id,"HOLD",stage="PREFLIGHT",evidence=evidence,error_class="GH_MISSING",detail="GitHub CLI unavailable"); return
+        write_receipt(project,run_id,"COMPLETE",stage="COMPLETE",evidence=evidence,detail="BUILD 2 doctor PASS")
+    except subprocess.TimeoutExpired:
+        write_receipt(project,run_id,"HOLD",stage="PREFLIGHT",evidence=evidence,error_class="DOCTOR_TIMEOUT",detail="External doctor probe timed out safely")
+    except Exception as e:
+        write_receipt(project,run_id,"FAILED_SAFE",stage="PREFLIGHT",evidence=evidence,error_class=type(e).__name__,detail=str(e)[:4000])
+
 def process_run(project:str,run_id:str) -> None:
+    if project=="BuildHub":
+        process_doctor(run_id); return
     lane_cfg=registry()["lanes"][{"PhoneMouse":"phonemouse","P2PCR95":"p2pcr95","ChatGPT-PC":"chatgpt_pc"}[project]]
     lane=lane_root(project)
     state_path=lane/"runs"/run_id/"state.json"
@@ -222,6 +269,11 @@ def ensure_scheduler() -> dict:
     return {"status":"STARTED","pid":p.pid}
 
 def enqueue(project:str,operation:str) -> dict:
+    if project=="BuildHub":
+        result=new_run("BuildHub","doctor",{"build2_version":BUILD2_VERSION,"kind":"system_doctor"},priority=90)
+        if result.get("status") in {"QUEUED","IDEMPOTENT_REUSE"}:
+            result["scheduler"]=ensure_scheduler()
+        return result
     lanes=registry()["lanes"]
     lname={"PhoneMouse":"phonemouse","P2PCR95":"p2pcr95","ChatGPT-PC":"chatgpt_pc"}[project]
     contract=dict(lanes[lname])
