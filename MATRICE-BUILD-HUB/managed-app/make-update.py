@@ -56,7 +56,9 @@ def build(sequence:int, source_sha:str, output:Path):
     hub_text=hub_bytes.decode("utf-8-sig")
     if hub_text.count("function VerifyReleaseAssets")!=1 or hub_text.count("BUILD_HUB_DOCTOR_PASS")!=1 or hub_text.count("param(")!=1 or hub_text.count("finally{")>2:
         raise SystemExit("HUB_ENGINE_STRUCTURE_INVALID")
-    if "gh auth status" in hub_text:
+    # Comments may document why this probe is forbidden; reject executable code only.
+    hub_code="\n".join(line for line in hub_text.splitlines() if not line.lstrip().startswith("#"))
+    if "gh auth status" in hub_code:
         raise SystemExit("HUB_ENGINE_UNBOUNDED_GH_AUTH")
     authority={
         "schema":"build2.source_authority/1",
