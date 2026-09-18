@@ -274,9 +274,17 @@ try{
 
       & gh release view $Tag -R $Repo *> $null
       if($LASTEXITCODE -eq 0){
-        $existing=& gh release view $Tag -R $Repo --json url,targetCommitish|ConvertFrom-Json
+        $existing=& gh release view $Tag -R $Repo --json url,targetCommitish,assets,isDraft,isPrerelease|ConvertFrom-Json
         if($existing.targetCommitish -and [string]$existing.targetCommitish -ne $Sha){
           Fail "RELEASE_TARGET_MISMATCH" "Existing release tag points at a different source."
+        }
+        if($existing.isDraft -eq $true){Fail "RELEASE_INCOMPLETE" "Existing release is still a draft."}
+        if($existing.isPrerelease -ne $true){Fail "RELEASE_MODE_MISMATCH" "BuildHub release must remain a prerelease."}
+        $expectedNames=@($files|ForEach-Object{Split-Path $_ -Leaf}|Sort-Object -Unique)
+        $remoteNames=@($existing.assets|ForEach-Object{[string]$_.name})
+        $missing=@($expectedNames|Where-Object{$remoteNames -notcontains $_})
+        if($missing.Count -gt 0){
+          Fail "RELEASE_ASSET_MISMATCH" ("Existing release is missing assets: "+($missing -join ", "))
         }
         $Url=[string]$existing.url
       }else{
