@@ -83,8 +83,15 @@ for token in [
     "RELEASE_DIGEST_MISMATCH",
     "RELEASE_ASSET_DIGESTS_PASS",
     "isImmutable",
+    "AssertRecoveryMarker",
+    "INTERNAL_BUDGET_RESERVATION",
+    "CODESPACE_DELETE_FAILED",
 ]:
     ok(f"hub-invariant:{token}", token in hub)
+
+ok("hub-single-runtime-entry", hub.count('Need "gh" "GH_MISSING"') == 1, str(hub.count('Need "gh" "GH_MISSING"')))
+ok("hub-single-release-verifier", hub.count("function VerifyReleaseAssets") == 1, str(hub.count("function VerifyReleaseAssets")))
+ok("hub-single-recovery-verifier", hub.count("function AssertRecoveryMarker") == 1, str(hub.count("function AssertRecoveryMarker")))
 
 ok("hub-no-actions-dispatch", "workflow run" not in hub.lower() and "actions/workflows" not in hub.lower())
 ok("hub-no-signing-secret-cloud", "KEYSTORE_B64" not in hub and "gh secret set" not in hub)
@@ -112,8 +119,17 @@ for token in [
     ok(f"recovery:{token}", token in recovery)
 
 runner = texts.get("remote-runner.sh", "")
-for token in ["git checkout --detach", "MATRIX_SOURCE_SHA", "timeout", ".matrix-build-output"]:
+for token in ["git checkout --detach", "MATRIX_SOURCE_SHA", "timeout", ".matrix-build-output", 'bash -n "$SCRIPT"']:
     ok(f"remote-runner:{token}", token in runner)
+
+setup = texts.get("setup-local-signing-tools.ps1", "")
+ok("sdkmanager-bounded", "SDKMANAGER_TIMEOUT" in setup and "WaitForExit($TimeoutSeconds*1000)" in setup)
+
+launcher = texts.get("launcher.ps1", "")
+ok("launcher-fails-stale", "HUB_UPDATE_FAILED" in launcher and "continuing with installed version" not in launcher)
+
+bootstrap = texts.get("bootstrap-pc.ps1", "")
+ok("bootstrap-refresh-fail-closed", "HUB_FETCH_FAILED" in bootstrap and "HUB_RESET_FAILED" in bootstrap)
 
 attrs = REPO_ROOT / ".gitattributes"
 ok("gitattributes-present", attrs.is_file(), str(attrs))
