@@ -93,6 +93,13 @@ Require-Token "hub.ps1" "SOURCE_MISMATCH" "SOURCE_SHA_GUARD"
 Require-Token "hub.ps1" '--target $Sha' "RELEASE_TARGET_SHA"
 Require-Token "hub.ps1" "RELEASE_DIGEST_MISMATCH" "RELEASE_DIGEST_GUARD"
 Require-Token "hub.ps1" "RELEASE_ASSET_DIGESTS_PASS" "RELEASE_DIGEST_GATE"
+Require-Token "hub.ps1" "AssertRecoveryMarker" "RECOVERY_MARKER_VALIDATION"
+Require-Token "hub.ps1" "INTERNAL_BUDGET_RESERVATION" "PROJECTED_BUDGET_GUARD"
+Require-Token "hub.ps1" "CODESPACE_DELETE_FAILED" "CLEANUP_CERTIFICATION_GUARD"
+Require-Token "remote-runner.sh" 'bash -n "$SCRIPT"' "SELECTED_RECIPE_PARSE"
+Require-Token "setup-local-signing-tools.ps1" "SDKMANAGER_TIMEOUT" "SDKMANAGER_TIMEOUT_GUARD"
+Require-Token "launcher.ps1" "HUB_UPDATE_FAILED" "STALE_LAUNCHER_GUARD"
+Require-Token "bootstrap-pc.ps1" "HUB_FETCH_FAILED" "BOOTSTRAP_REFRESH_GUARD"
 Require-Token "migrate-signing.ps1" "CERT_MISMATCH" "MIGRATION_CERT_GUARD"
 Require-Token "migrate-signing.ps1" "ProtectedData" "DPAPI_GUARD"
 Require-Token "local-sign-apk.ps1" "APP_ID_MISMATCH" "APK_PACKAGE_GUARD"
@@ -103,6 +110,13 @@ Require-Token "verify-disaster-recovery.ps1" "RECOVERY_KEYSTORE_OPEN_FAILED" "RE
 Require-Token "export-disaster-recovery.ps1" 'if($plainBundle -and (Test-Path $plainBundle))' "RECOVERY_PLAINTEXT_CLEANUP"
 
 $hubText=Get-Content (Join-Path $Root "hub.ps1") -Raw
+$runtimeEntryCount=[regex]::Matches($hubText,'Need "gh" "GH_MISSING"').Count
+$releaseVerifierCount=[regex]::Matches($hubText,'function VerifyReleaseAssets').Count
+$recoveryVerifierCount=[regex]::Matches($hubText,'function AssertRecoveryMarker').Count
+if($runtimeEntryCount -ne 1 -or $releaseVerifierCount -ne 1 -or $recoveryVerifierCount -ne 1){
+  FailCheck ("HUB_DUPLICATION_GUARD: runtime="+$runtimeEntryCount+" release="+$releaseVerifierCount+" recovery="+$recoveryVerifierCount)
+}else{Pass "hub duplication guard"}
+
 if($hubText.ToLowerInvariant().Contains("workflow run") -or $hubText.ToLowerInvariant().Contains("actions/workflows")){
   FailCheck "HOSTED_ACTIONS_DISPATCH_PRESENT"
 }else{Pass "no hosted Actions dispatch in hub"}
