@@ -99,6 +99,9 @@ ok("migrate-no-codespaces-secret-upload", "secret set" not in migrate and "KEYST
 for token in ["CERT_MISMATCH", "CERT_EXPECTED_INVALID", "disaster_recovery_backup"]:
     ok(f"migrate:{token}", token in migrate)
 
+export_recovery = texts.get("export-disaster-recovery.ps1", "")
+ok("recovery-export-plaintext-finally-cleanup", 'if($plainBundle -and (Test-Path $plainBundle))' in export_recovery)
+
 recovery = texts.get("verify-disaster-recovery.ps1", "")
 for token in [
     "mbh-disaster-recovery-restore-test-v2",
