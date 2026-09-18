@@ -79,7 +79,7 @@ if($json.ContainsKey("AX150K_ADAPTER.json")){
 Require-Token "hub.ps1" "Local\MatriceBuildHub.SingleBuild" "MUTEX"
 Require-Token "hub.ps1" "PREBUILD_DETECTED" "PREBUILD_GUARD"
 Require-Token "hub.ps1" "SOURCE_MISMATCH" "SOURCE_SHA_GUARD"
-Require-Token "hub.ps1" "--target $Sha" "RELEASE_TARGET_SHA"
+Require-Token "hub.ps1" '--target $Sha' "RELEASE_TARGET_SHA"
 Require-Token "hub.ps1" "RELEASE_DIGEST_MISMATCH" "RELEASE_DIGEST_GUARD"
 Require-Token "hub.ps1" "RELEASE_ASSET_DIGESTS_PASS" "RELEASE_DIGEST_GATE"
 Require-Token "migrate-signing.ps1" "CERT_MISMATCH" "MIGRATION_CERT_GUARD"
