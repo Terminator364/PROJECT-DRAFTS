@@ -28,7 +28,17 @@ foreach($name in $requiredFiles){
   else{FailCheck ("MISSING_FILE: "+$name)}
 }
 
-$psFiles=Get-ChildItem $Root -File -Filter "*.ps1"
+$browserPs=@(
+  (Join-Path $RepoRoot "BROWSER4G\build.ps1"),
+  (Join-Path $RepoRoot "BROWSER4G\ensure-toolchain.ps1"),
+  (Join-Path $RepoRoot "BROWSER4G\.matrix-build\build.ps1")
+)
+foreach($p in $browserPs){
+  if(Test-Path $p -PathType Leaf){Pass ("exists: "+$p)}else{FailCheck ("MISSING_BROWSER4G_FILE: "+$p)}
+}
+
+$psFiles=@(Get-ChildItem $Root -File -Filter "*.ps1")
+$psFiles+=@($browserPs|Where-Object{Test-Path $_ -PathType Leaf}|ForEach-Object{Get-Item $_})
 foreach($f in $psFiles){
   $tokens=$null
   $parseErrors=$null
@@ -106,6 +116,27 @@ Require-Token "hub.ps1" "InvokeLocalWindowsProject" "LOCAL_WINDOWS_BUILDER"
 Require-Token "hub.ps1" "LOCAL_SOURCE_MISMATCH" "LOCAL_WINDOWS_SOURCE_SHA_GUARD"
 Require-Token "hub.ps1" "FIELD_GATE_BYPASS" "LOCAL_WINDOWS_FIELD_GATE"
 Require-Token "hub.ps1" "LOCAL_ARTIFACT_HASH_MISMATCH" "LOCAL_WINDOWS_HASH_GUARD"
+$browserBuild=Join-Path $RepoRoot "BROWSER4G\build.ps1"
+if(Test-Path $browserBuild){
+  $browserBuildText=Get-Content $browserBuild -Raw
+  foreach($token in @(
+    "1.0.4191.47",
+    "7.9.0",
+    "992D70CAC5B06C38EFEC91806CABA64CDCC07E6D963A0959DBBBAF264D33B800",
+    "Microsoft.VisualStudio.Component.VC.Tools.x86.x64",
+    "https://api.nuget.org/v3/index.json",
+    "/m:1"
+  )){
+    if($browserBuildText.Contains($token)){Pass ("BROWSER4G build invariant: "+$token)}else{FailCheck ("BROWSER4G_BUILD_INVARIANT: "+$token)}
+  }
+}
+$browserToolchain=Join-Path $RepoRoot "BROWSER4G\ensure-toolchain.ps1"
+if(Test-Path $browserToolchain){
+  $browserToolchainText=Get-Content $browserToolchain -Raw
+  foreach($token in @("Microsoft.VisualStudio.2022.BuildTools","Microsoft.VisualStudio.Workload.VCTools","LOW_DISK_FOR_TOOLCHAIN")){
+    if($browserToolchainText.Contains($token)){Pass ("BROWSER4G toolchain invariant: "+$token)}else{FailCheck ("BROWSER4G_TOOLCHAIN_INVARIANT: "+$token)}
+  }
+}
 Require-Token "remote-runner.sh" 'bash -n "$SCRIPT"' "SELECTED_RECIPE_PARSE"
 Require-Token "setup-local-signing-tools.ps1" "SDKMANAGER_TIMEOUT" "SDKMANAGER_TIMEOUT_GUARD"
 Require-Token "launcher.ps1" "HUB_UPDATE_FAILED" "STALE_LAUNCHER_GUARD"
