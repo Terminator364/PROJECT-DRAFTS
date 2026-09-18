@@ -16,14 +16,14 @@ def fail(code:str)->None:
     raise SystemExit("BUILD2_SELFTEST_FAIL:"+code)
 
 required_files=[
-    "bridge.py","build2_core.py","build2_worker.py",
+    "bridge.py","build2_core.py","build2_worker.py","build2_supervisor.py",
     "build2_registry.json","build2_source_authority.json"
 ]
 for name in required_files:
     if not (HERE/name).is_file():
         fail("MISSING_"+name)
 
-for name in ("bridge.py","build2_core.py","build2_worker.py"):
+for name in ("bridge.py","build2_core.py","build2_worker.py","build2_supervisor.py"):
     text=(HERE/name).read_text(encoding="utf-8")
     try:
         ast.parse(text,filename=name)
@@ -44,7 +44,8 @@ worker=(HERE/"build2_worker.py").read_text(encoding="utf-8")
 for token in (
     'cat-file","-e"', '"fetch","origin",expected,"--depth=1"',
     'PROJECT_SOURCE_SHA_MISMATCH','process_doctor','CODESPACES_UNAVAILABLE',
-    'acquire_heavy_lock','request_cancel','FAILED_SAFE'
+    'acquire_heavy_lock','request_cancel','FAILED_SAFE',
+    'ensure_persistent_supervisor','EXTERNAL_TERMINATION_CTRL_EVENT','terminate_tree'
 ):
     if token not in worker:
         fail("WORKER_TOKEN_"+token)
@@ -52,7 +53,7 @@ if 'gh,"auth","status"' in worker or '"auth","status"' in worker:
     fail("GH_AUTH_EVERY_OPERATION_REGRESSION")
 
 reg=json.loads((HERE/"build2_registry.json").read_text(encoding="utf-8"))
-if reg.get("version")!="0.5.0-unified-lanes":
+if reg.get("version")!="0.5.1-lifetime-supervisor":
     fail("REGISTRY_VERSION")
 gp=reg.get("global_policy",{})
 if gp.get("max_heavy_builds")!=1 or gp.get("zero_manual_normal_flow") is not True:
@@ -121,11 +122,12 @@ with tempfile.TemporaryDirectory(prefix="mbh-build2-selftest-") as td:
 print(json.dumps({
     "schema":"build2.selftest/1",
     "status":"PASS",
-    "version":"0.5.0-unified-lanes",
+    "version":"0.5.1-lifetime-supervisor",
     "lanes":["phonemouse","p2pcr95","chatgpt_pc"],
     "checks":{
         "syntax":"PASS","no_arbitrary_shell":"PASS","local_first":"PASS",
         "p2pcr95_exact_candidate":"PASS","phonemouse_low_ram_contract":"PASS",
-        "run_id_idempotence":"PASS","heartbeat_receipt":"PASS","generic_lane_onboarding":"PASS","post_complete_repro_run":"PASS"
+        "run_id_idempotence":"PASS","heartbeat_receipt":"PASS","generic_lane_onboarding":"PASS","post_complete_repro_run":"PASS",
+        "durable_supervisor":"PASS","ntstatus_classification":"PASS","bounded_subtree_cancel":"PASS"
     }
 },ensure_ascii=False))
