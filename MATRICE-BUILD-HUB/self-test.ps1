@@ -12,7 +12,7 @@ function Require-Token([string]$File,[string]$Token,[string]$Code){
   if($text.Contains($Token)){Pass ($Code+": "+$File)}else{FailCheck ($Code+": "+$File+" missing token "+$Token)}
 }
 
-Write-Host "MATRICE BUILD HUB V0.2 - STATIC SELF TEST" -ForegroundColor Cyan
+Write-Host "MATRICE BUILD HUB V0.3 - STATIC SELF TEST" -ForegroundColor Cyan
 
 $requiredFiles=@(
   "hub.ps1","launcher.ps1","bootstrap-pc.ps1","remote-runner.sh",
@@ -52,7 +52,7 @@ foreach($name in $jsonFiles){
 
 if($json.ContainsKey("projects.json")){
   $registry=$json["projects.json"]
-  if([string]$registry.version -eq "0.2"){Pass "registry version 0.2"}else{FailCheck "REGISTRY_VERSION"}
+  if([string]$registry.version -eq "0.3"){Pass "registry version 0.3"}else{FailCheck "REGISTRY_VERSION"}
   if([int]$registry.policy.actions_hosted_default_minutes_per_day -eq 0){Pass "hosted Actions default 0"}else{FailCheck "HOSTED_ACTIONS_POLICY"}
   if($registry.policy.codespaces_prebuilds -eq $false){Pass "Codespaces prebuilds disabled"}else{FailCheck "PREBUILD_POLICY"}
   if([string]$registry.policy.signing_mode -eq "LOCAL_WINDOWS_DPAPI"){Pass "local DPAPI signing mode"}else{FailCheck "SIGNING_MODE"}
@@ -60,6 +60,12 @@ if($json.ContainsKey("projects.json")){
     $cfg=$registry.projects.$name
     if(-not $cfg){FailCheck ("REGISTRY_PROJECT_MISSING: "+$name);continue}
     if([string]$cfg.recipe_path -eq ".matrix-build/build.sh"){Pass ("source-owned recipe: "+$name)}else{FailCheck ("RECIPE_PATH: "+$name)}
+  }
+  $browser=$registry.projects.BROWSER4G
+  if(-not $browser){FailCheck "REGISTRY_PROJECT_MISSING: BROWSER4G"}else{
+    if([string]$browser.builder_kind -eq "LOCAL_WINDOWS"){Pass "BROWSER4G local Windows builder"}else{FailCheck "BROWSER4G_BUILDER_KIND"}
+    if([string]$browser.recipe_path -eq "BROWSER4G/.matrix-build/build.ps1"){Pass "BROWSER4G source-owned Windows recipe"}else{FailCheck "BROWSER4G_RECIPE_PATH"}
+    if([string]$browser.publish_gate -eq "FIELD_PASS_REQUIRED"){Pass "BROWSER4G field publish gate"}else{FailCheck "BROWSER4G_PUBLISH_GATE"}
   }
 }
 
@@ -96,6 +102,10 @@ Require-Token "hub.ps1" "RELEASE_ASSET_DIGESTS_PASS" "RELEASE_DIGEST_GATE"
 Require-Token "hub.ps1" "AssertRecoveryMarker" "RECOVERY_MARKER_VALIDATION"
 Require-Token "hub.ps1" "INTERNAL_BUDGET_RESERVATION" "PROJECTED_BUDGET_GUARD"
 Require-Token "hub.ps1" "CODESPACE_DELETE_FAILED" "CLEANUP_CERTIFICATION_GUARD"
+Require-Token "hub.ps1" "InvokeLocalWindowsProject" "LOCAL_WINDOWS_BUILDER"
+Require-Token "hub.ps1" "LOCAL_SOURCE_MISMATCH" "LOCAL_WINDOWS_SOURCE_SHA_GUARD"
+Require-Token "hub.ps1" "FIELD_GATE_BYPASS" "LOCAL_WINDOWS_FIELD_GATE"
+Require-Token "hub.ps1" "LOCAL_ARTIFACT_HASH_MISMATCH" "LOCAL_WINDOWS_HASH_GUARD"
 Require-Token "remote-runner.sh" 'bash -n "$SCRIPT"' "SELECTED_RECIPE_PARSE"
 Require-Token "setup-local-signing-tools.ps1" "SDKMANAGER_TIMEOUT" "SDKMANAGER_TIMEOUT_GUARD"
 Require-Token "launcher.ps1" "HUB_UPDATE_FAILED" "STALE_LAUNCHER_GUARD"
