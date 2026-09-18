@@ -12,6 +12,21 @@ function Refresh-Path{
   $user=[Environment]::GetEnvironmentVariable("Path","User")
   $env:Path=$machine+";"+$user
 }
+function Download-WithRetry([string]$Uri,[string]$OutFile){
+  $last=$null
+  for($attempt=1;$attempt -le 3;$attempt++){
+    try{
+      Remove-Item $OutFile -Force -ErrorAction SilentlyContinue
+      Invoke-WebRequest -UseBasicParsing -Uri $Uri -OutFile $OutFile -TimeoutSec 120
+      if((Test-Path $OutFile) -and (Get-Item $OutFile).Length -gt 0){return}
+      throw "Downloaded file is empty."
+    }catch{
+      $last=$_
+      if($attempt -lt 3){Start-Sleep -Seconds (2*$attempt)}
+    }
+  }
+  throw $last
+}
 
 if(-not(Get-Command winget -ErrorAction SilentlyContinue)){Fail "WINGET_MISSING" "winget is required."}
 
@@ -33,7 +48,7 @@ if(-not(Test-Path $Cmd)){
   New-Item -ItemType Directory -Force -Path (Join-Path $Sdk "cmdline-tools")|Out-Null
   $zip=Join-Path $env:TEMP "commandlinetools-win-$CmdRev.zip"
   Write-Host "Downloading pinned Android command-line tools..." -ForegroundColor Cyan
-  Invoke-WebRequest -UseBasicParsing -Uri "https://dl.google.com/android/repository/commandlinetools-win-${CmdRev}_latest.zip" -OutFile $zip
+  Download-WithRetry "https://dl.google.com/android/repository/commandlinetools-win-${CmdRev}_latest.zip" $zip
   $sha=(Get-FileHash -Algorithm SHA256 $zip).Hash.ToLowerInvariant()
   if($sha -ne $CmdSha){Fail "CMDTOOLS_HASH" "Android command-line tools checksum mismatch."}
   $tmp=Join-Path $env:TEMP ("mbh-cmdtools-"+[guid]::NewGuid().ToString("N"))
