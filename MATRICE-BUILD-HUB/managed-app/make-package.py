@@ -2,35 +2,69 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
-import tempfile
 import zipfile
 from pathlib import Path
 
 HERE=Path(__file__).resolve().parent
+FIXED_DT=(2026,9,18,0,0,0)
+
+def sha256_bytes(data:bytes)->str:
+    return hashlib.sha256(data).hexdigest()
 
 def sha256(path:Path)->str:
-    h=hashlib.sha256()
-    with path.open("rb") as f:
-        for chunk in iter(lambda:f.read(1024*1024),b""): h.update(chunk)
-    return h.hexdigest()
+    return sha256_bytes(path.read_bytes())
 
-def build(mission_id:str,output:Path):
-    if not mission_id or len(mission_id)>160: raise SystemExit("INVALID_MISSION_ID")
+def stable_json(obj:dict)->bytes:
+    return (json.dumps(obj,ensure_ascii=False,sort_keys=True,indent=2)+"\n").encode("utf-8")
+
+def add_bytes(z:zipfile.ZipFile,name:str,data:bytes)->None:
+    info=zipfile.ZipInfo(name,FIXED_DT)
+    info.compress_type=zipfile.ZIP_DEFLATED
+    info.external_attr=0o644<<16
+    z.writestr(info,data,compress_type=zipfile.ZIP_DEFLATED,compresslevel=9)
+
+def build(mission_id:str,source_sha:str,output:Path):
+    if not mission_id or len(mission_id)>160:
+        raise SystemExit("INVALID_MISSION_ID")
+    source_sha=source_sha.strip().lower()
+    if len(source_sha)!=40 or any(c not in "0123456789abcdef" for c in source_sha):
+        raise SystemExit("INVALID_SOURCE_SHA")
     mf=json.loads((HERE/"manifest.template.json").read_text(encoding="utf-8"))
     mf["activation_mission_id"]=mission_id
-    payload_files=[HERE/"bridge.py",HERE/"selftest.py"]
-    mf["files"]=[{"path":p.name,"sha256":sha256(p)} for p in payload_files]
-    with tempfile.TemporaryDirectory(prefix="mbh-managed-package-") as td:
-        stage=Path(td); (stage/"payload").mkdir()
-        (stage/"manifest.json").write_text(json.dumps(mf,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
-        for p in payload_files: (stage/"payload"/p.name).write_bytes(p.read_bytes())
-        output.parent.mkdir(parents=True,exist_ok=True)
-        if output.exists(): output.unlink()
-        with zipfile.ZipFile(output,"w",compression=zipfile.ZIP_DEFLATED,compresslevel=9) as z:
-            z.write(stage/"manifest.json","manifest.json")
-            for p in payload_files: z.write(stage/"payload"/p.name,"payload/"+p.name)
-    print(json.dumps({"schema":"mbh-managed-package-build-v2","status":"PASS","app_id":mf["app_id"],"mission_id":mission_id,"output":str(output),"package_sha256":sha256(output),"file_count":len(mf["files"])},ensure_ascii=False))
+    mf["build2_source_sha"]=source_sha
+    source_authority={
+        "schema":"build2.source_authority/1",
+        "status":"PINNED",
+        "repo":"Terminator364/PROJECT-DRAFTS",
+        "branch":"buildhub-v0.5-unified-lanes-20260918",
+        "source_sha":source_sha,
+        "promotion_mode":"TRANSACTIONAL_EXACT_SHA"
+    }
+    payload:dict[str,bytes]={}
+    for name in ("bridge.py","selftest.py","build2_core.py","build2_worker.py","build2_registry.json"):
+        payload[name]=(HERE/name).read_bytes()
+    payload["build2_source_authority.json"]=stable_json(source_authority)
+    mf["files"]=[{"path":name,"sha256":sha256_bytes(data)} for name,data in sorted(payload.items())]
+    manifest=stable_json(mf)
+    output.parent.mkdir(parents=True,exist_ok=True)
+    if output.exists():
+        output.unlink()
+    with zipfile.ZipFile(output,"w") as z:
+        add_bytes(z,"manifest.json",manifest)
+        for name,data in sorted(payload.items()):
+            add_bytes(z,"payload/"+name,data)
+    print(json.dumps({
+        "schema":"mbh-managed-package-build-v3",
+        "status":"PASS","app_id":mf["app_id"],"mission_id":mission_id,
+        "source_sha":source_sha,"output":str(output),
+        "package_sha256":sha256(output),"file_count":len(payload),
+        "deterministic_zip":True
+    },ensure_ascii=False))
 
 if __name__=="__main__":
-    ap=argparse.ArgumentParser(); ap.add_argument("--mission-id",required=True); ap.add_argument("--output",required=True,type=Path)
-    args=ap.parse_args(); build(args.mission_id,args.output)
+    ap=argparse.ArgumentParser()
+    ap.add_argument("--mission-id",required=True)
+    ap.add_argument("--source-sha",required=True)
+    ap.add_argument("--output",required=True,type=Path)
+    args=ap.parse_args()
+    build(args.mission_id,args.source_sha,args.output)
