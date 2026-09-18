@@ -18,6 +18,7 @@ SUPERVISOR_PID = GLOBAL / "supervisor.pid.json"
 SCHEDULER_PID = GLOBAL / "scheduler.pid.json"
 SUPERVISOR_HEARTBEAT = GLOBAL / "supervisor.heartbeat.json"
 SUPERVISOR_EXIT = GLOBAL / "supervisor.last_exit.json"
+SUPERVISOR_LAUNCH = GLOBAL / "supervisor.last_launch.json"
 SUPERVISOR_LOG = GLOBAL / "supervisor.log"
 
 NTSTATUS_CTRL_C_EXIT = 0xC000013A
@@ -165,7 +166,7 @@ def monitor(worker_path: str) -> int:
                 cwd=str(Path(worker_path).resolve().parent),
                 shell=False,
                 close_fds=True,
-                creationflags=(getattr(subprocess, "CREATE_NEW_PROCESS_GROUP", 0) if os.name == "nt" else 0),
+                creationflags=((getattr(subprocess, "CREATE_NEW_PROCESS_GROUP", 0) | getattr(subprocess, "CREATE_NO_WINDOW", 0)) if os.name == "nt" else 0),
             )
             job_handle = _open_kill_job_for_process(proc)
             atomic_json(SCHEDULER_PID, {
@@ -264,7 +265,7 @@ def _spawn_via_cim(worker_path: str) -> dict:
         "[Console]::Out.Write([string]$r.ProcessId)"
     )
     cp = subprocess.run(
-        [ps, "-NoProfile", "-NonInteractive", "-ExecutionPolicy", "Bypass", "-Command", script],
+        [ps, "-NoProfile", "-NonInteractive", "-Command", script],
         capture_output=True, text=True, shell=False, timeout=25, env=env
     )
     if cp.returncode != 0 or not cp.stdout.strip().isdigit():
@@ -290,17 +291,62 @@ def _spawn_direct(worker_path: str) -> dict:
     )
     return {"status": "STARTED", "pid": p.pid, "launcher": "DETACHED_BREAKAWAY" if os.name == "nt" else "DETACHED"}
 
+def _record_launch(result: dict, *, reason: str, fallback_error: str | None = None) -> dict:
+    payload = {
+        "schema": "build2.supervisor_launch/1",
+        "build2_version": BUILD2_VERSION,
+        "timestamp_utc": utc(),
+        "reason": reason,
+        **result,
+    }
+    if fallback_error:
+        payload["fallback_error"] = fallback_error[-1200:]
+    atomic_json(SUPERVISOR_LAUNCH, payload)
+    return result
+
 def ensure_persistent_supervisor(worker_path: str) -> dict:
     cur = read_json(SUPERVISOR_PID, {}) or {}
     pid = int(cur.get("pid") or 0)
     if _pid_alive(pid):
-        return {"status": "ALREADY_RUNNING", "pid": pid, "launcher": "EXISTING"}
+        return _record_launch(
+            {"status": "ALREADY_RUNNING", "pid": pid, "launcher": "EXISTING"},
+            reason="existing durable supervisor"
+        )
+
     if os.name == "nt":
+        # A managed-app handler may itself be inside a short-lived Windows Job.
+        # In that case prefer Win32_Process/CIM so the durable supervisor is
+        # created by the OS management service rather than inheriting the
+        # transient handler lifetime. This avoids the observed 0xC000013A class.
+        if _current_process_in_job():
+            try:
+                return _record_launch(
+                    _spawn_via_cim(worker_path),
+                    reason="handler is inside a Windows Job; use OS-owned launch"
+                )
+            except Exception as cim_error:
+                try:
+                    return _record_launch(
+                        _spawn_direct(worker_path),
+                        reason="CIM unavailable; detached breakaway fallback",
+                        fallback_error=repr(cim_error)
+                    )
+                except Exception:
+                    raise cim_error
+
         try:
-            return _spawn_direct(worker_path)
-        except OSError:
-            return _spawn_via_cim(worker_path)
-    return _spawn_direct(worker_path)
+            return _record_launch(
+                _spawn_direct(worker_path),
+                reason="handler is not in a Windows Job; detached launch is sufficient"
+            )
+        except OSError as direct_error:
+            return _record_launch(
+                _spawn_via_cim(worker_path),
+                reason="detached launch unavailable; OS-owned CIM fallback",
+                fallback_error=repr(direct_error)
+            )
+
+    return _record_launch(_spawn_direct(worker_path), reason="non-Windows detached launch")
 
 if __name__ == "__main__":
     if len(sys.argv) == 3 and sys.argv[1] == "monitor":
