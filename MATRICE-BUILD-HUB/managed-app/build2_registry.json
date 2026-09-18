@@ -1,6 +1,6 @@
 {
   "schema": "build2.registry/1",
-  "version": "0.5.1-lifetime-supervisor",
+  "version": "0.5.2-p2pcr95-beta04",
   "global_policy": {
     "max_heavy_builds": 1,
     "max_queue_depth": 8,
@@ -42,21 +42,21 @@
       "project": "P2PCR95",
       "operation": "build_p2pcr95",
       "repo": "Terminator364/P2PCR95",
-      "branch": "beta03-field-socket-fallback-20260918",
-      "source_sha": "c673f2a9f36477c35c65e9d87dec04590ef9551c",
+      "branch": "beta04-runtime-control-integration-20260918",
+      "source_sha": "58d81c88b3fea4e16c35a008a7b417f939f50488",
       "build_ready_marker": "release/BUILD_READY_BUILD1.json",
       "recipe": ".matrix-build/build.sh",
-      "build_timeout_minutes": 45,
+      "build_timeout_minutes": 60,
       "expected": {
-        "version_code": 5,
-        "version_name": "0.1.0-beta03.1",
+        "version_code": 6,
+        "version_name": "0.1.0-beta04",
         "application_id": "com.p2pcr95.remote",
         "certificate_sha256": "bf7d4ec266affef98756dadeebf1a71991d14738fe66b2f985752be0bf78f895",
         "artifacts": [
-          "P2PCR95-Agent-BETA03.1.exe",
-          "P2PCR95-BETA03.1.apk",
+          "P2PCR95-Agent-BETA04.exe",
+          "P2PCR95-BETA04.apk",
           "BUILD_PROVENANCE.json",
-          "BETA03_CONTRACT.json"
+          "BETA04_CONTRACT.json"
         ]
       }
     },
