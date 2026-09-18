@@ -1,6 +1,6 @@
 {
   "schema": "build2.registry/1",
-  "version": "0.5.3-recovery-unblock-context",
+  "version": "0.5.4-supervisor-hardening",
   "context_contract": "MATRICE-BUILD-HUB/AUTHORIZED_PROJECT_SCOPE.md",
   "global_policy": {
     "max_heavy_builds": 1,
