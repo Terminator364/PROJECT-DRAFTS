@@ -47,6 +47,9 @@ else
   echo "MBH_RECIPE=central-fallback"
 fi
 
+# Parse the exact selected recipe before executing any project build logic.
+# This catches truncated/CRLF-corrupted/otherwise invalid shell before expensive toolchain work.
+bash -n "$SCRIPT"
 chmod +x "$SCRIPT"
 rm -f /tmp/mbh-build.log
 set +e
