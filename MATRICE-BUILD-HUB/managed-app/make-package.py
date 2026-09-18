@@ -56,6 +56,7 @@ def build(mission_id:str,source_sha:str,output:Path):
     payload:dict[str,bytes]={}
     for name in ("bridge.py","selftest.py","build2_core.py","build2_worker.py","build2_registry.json"):
         payload[name]=(HERE/name).read_bytes()
+    payload["hub_engine_snapshot.ps1"]=(HERE.parent/"hub.ps1").read_bytes()
     payload["build2_source_authority.json"]=stable_json(source_authority)
     mf["files"]=[{"path":name,"sha256":sha256_bytes(data)} for name,data in sorted(payload.items())]
     manifest=stable_json(mf)
