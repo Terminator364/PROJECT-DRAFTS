@@ -245,6 +245,11 @@ try{
       }
 
       Set-Content -Encoding ASCII -Path (Join-Path $ResultDir "LOCAL_SIGNING_PASS.txt") -Value ("profile="+$Result.local_signing.profile+"; source_sha="+$Sha)
+      $unsignedHash=(Get-FileHash -Algorithm SHA256 $unsignedPath).Hash.ToLowerInvariant()
+      Set-Content -Encoding ASCII -Path (Join-Path $ResultDir "CLOUD_UNSIGNED_APK_SHA256.txt") -Value ($unsignedHash+"  "+$unsignedName)
+      Remove-Item $unsignedPath -Force
+      if(Test-Path ($unsignedPath+".sha256")){Remove-Item ($unsignedPath+".sha256") -Force}
+      if(Test-Path $unsignedPath){Fail "UNSIGNED_APK_CLEANUP" "Unsigned APK could not be removed after successful local signing."}
     }
 
     $files=@()
