@@ -19,7 +19,9 @@
     "process_alive_is_not_navigation_health": true,
     "generic_navigation_is_not_google_auth_health": true,
     "single_signal_cannot_promote_healthy": true,
-    "unknown_is_not_healthy": true
+    "unknown_is_not_healthy": true,
+    "capability_scoped_health_required": true,
+    "optional_dimension_failure_degrades_only_relevant_capability": true
   },
   "gray_failures": [
     "placeholder_repo_looks_complete_but_source_authority_not_migrated",
@@ -27,5 +29,26 @@
     "navigation_works_but_udf_is_read_only_or_corrupt",
     "page_load_works_but_download_history_state_fails",
     "stale_runtime_probe_masks_new_webview_runtime_regression"
-  ]
+  ],
+  "capability_scopes": {
+    "AUTHORITY_PROMOTION": [
+      "SOURCE_AUTHORITY_VALID",
+      "DESTINATION_MIGRATION_STATE",
+      "SINGLE_WRITER_PROVEN",
+      "EVIDENCE_FRESH"
+    ],
+    "GENERIC_NAVIGATION": [
+      "RUNTIME_PROCESS_ALIVE",
+      "NAVIGATION_PATH_USABLE",
+      "USER_DATA_FOLDER_WRITABLE",
+      "EVIDENCE_FRESH"
+    ],
+    "GOOGLE_AUTH": [
+      "RUNTIME_PROCESS_ALIVE",
+      "NAVIGATION_PATH_USABLE",
+      "AUTH_CRITICAL_PATH_USABLE",
+      "USER_DATA_FOLDER_WRITABLE",
+      "EVIDENCE_FRESH"
+    ]
+  }
 }
