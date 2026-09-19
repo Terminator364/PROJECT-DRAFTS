@@ -172,3 +172,5 @@ Only then may `BUILD_UNVERIFIED` advance.
 - Dedicated-repository existence, WebView2 process liveness, generic page load and Google authentication are independent signals.
 - No single green signal may promote BROWSER4G to field healthy or migrate source authority.
 - Authority migration remains separately fenced and requires exact source inventory/hash/readback plus one writable authority.
+
+- Capability-scoped health is mandatory: generic navigation, Google authentication and source-authority promotion have separate required dimensions; one failing capability must not falsely declare unrelated capabilities dead.
