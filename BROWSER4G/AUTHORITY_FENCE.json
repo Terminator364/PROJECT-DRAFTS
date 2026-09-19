@@ -26,5 +26,10 @@
     "bootstrap_policy_inherited": true,
     "verified_at": "2026-09-19",
     "promotion_effect": "NONE"
+  },
+  "health_vector_contract": {
+    "path": "BROWSER4G/AX15GO_GRAY_HEALTH_R4.json",
+    "required_before_authority_promotion": true,
+    "field_proof": false
   }
 }
