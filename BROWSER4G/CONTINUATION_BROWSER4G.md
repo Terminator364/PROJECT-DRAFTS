@@ -174,3 +174,10 @@ Only then may `BUILD_UNVERIFIED` advance.
 - Authority migration remains separately fenced and requires exact source inventory/hash/readback plus one writable authority.
 
 - Capability-scoped health is mandatory: generic navigation, Google authentication and source-authority promotion have separate required dimensions; one failing capability must not falsely declare unrelated capabilities dead.
+
+
+## AX15GO R5 — generation-bound evidence lease
+- Contract: `BROWSER4G/AX15GO_EVIDENCE_LEASE_R5.json`.
+- A successful navigation/auth/authority probe is not reusable after WebView runtime, UDF, controller, source tree or writer-fence generation changes.
+- Generic navigation must not run a full health scan on every request; targeted requalification occurs only when the relevant lease is stale/unknown.
+- Canonical mutations remain protected by exact source inventory/hash/readback and writer fencing at the effect boundary.
