@@ -17,5 +17,14 @@
     "continuation checkpoint update",
     "no simultaneous writable authorities"
   ],
-  "failure_mode_prevented": "EMPTY_DEDICATED_REPO_MISTAKEN_FOR_CANONICAL_SOURCE"
+  "failure_mode_prevented": "EMPTY_OR_PARTIAL_DEDICATED_REPO_MISTAKEN_FOR_CANONICAL_SOURCE",
+  "reserved_destination_evidence": {
+    "repository": "Terminator364/BROWSER4G",
+    "main_commit": "31b8fed7cf7833562ca61cf46ccf19308f2d04b0",
+    "status": "PLACEHOLDER_NOT_CANONICAL",
+    "machine_fence_path": "AUTHORITY_FENCE.json",
+    "bootstrap_policy_inherited": true,
+    "verified_at": "2026-09-19",
+    "promotion_effect": "NONE"
+  }
 }
