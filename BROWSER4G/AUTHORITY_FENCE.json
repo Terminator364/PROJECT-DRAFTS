@@ -1,0 +1,21 @@
+{
+  "schema": "project-drafts.authority-fence/1",
+  "project": "BROWSER4G",
+  "status": "DEDICATED_REPO_PLACEHOLDER_NOT_AUTHORITY",
+  "current_authority": {
+    "repository": "Terminator364/PROJECT-DRAFTS",
+    "path": "BROWSER4G",
+    "continuation": "BROWSER4G/CONTINUATION_BROWSER4G.md"
+  },
+  "reserved_destination": "Terminator364/BROWSER4G",
+  "promotion_requires": [
+    "explicit migration decision",
+    "source inventory",
+    "exact source commit SHA",
+    "file/content hashes or equivalent manifest",
+    "destination readback",
+    "continuation checkpoint update",
+    "no simultaneous writable authorities"
+  ],
+  "failure_mode_prevented": "EMPTY_DEDICATED_REPO_MISTAKEN_FOR_CANONICAL_SOURCE"
+}
