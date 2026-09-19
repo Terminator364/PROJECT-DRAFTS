@@ -165,3 +165,10 @@ Only then may `BUILD_UNVERIFIED` advance.
 - No promise of full DOM/form/travel-log restoration for COLD tabs.
 - No automatic downgrade of a UDF to an older WebView2 runtime.
 - Preserve the 0 USD architecture whenever technically possible.
+
+
+## AX15GO R4 — gray-failure health gate
+- Contract: `BROWSER4G/AX15GO_GRAY_HEALTH_R4.json`.
+- Dedicated-repository existence, WebView2 process liveness, generic page load and Google authentication are independent signals.
+- No single green signal may promote BROWSER4G to field healthy or migrate source authority.
+- Authority migration remains separately fenced and requires exact source inventory/hash/readback plus one writable authority.
