@@ -29,5 +29,6 @@ Voir aussi `NEW_PROJECT_BOOTSTRAP.md`.
 - `Terminator364/PhoneMouse` → PhoneMouse.
 - `Terminator364/P2PCR95` → P2PCR95.
 - `Terminator364/ChatGPT-PC` → ChatGPT-PC / 2003 / G6.
+- `Terminator364/BROWSER4G` → dépôt dédié réservé/placeholder ; **pas encore autorité**. La source canonique reste `PROJECT-DRAFTS/BROWSER4G` jusqu'à une migration explicite avec inventaire, SHA-256, readback et mise à jour du checkpoint de continuité.
 
 Cette règle sert de continuité externe afin que le choix du dépôt et la politique CI ne dépendent pas uniquement d'une conversation ou de la mémoire ChatGPT.
