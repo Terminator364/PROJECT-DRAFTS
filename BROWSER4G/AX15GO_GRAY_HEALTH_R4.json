@@ -1,0 +1,54 @@
+{
+  "schema": "ax15go.gray_health/1",
+  "project": "BROWSER4G",
+  "authority_repository": "Terminator364/PROJECT-DRAFTS",
+  "status": "CANONICAL_SOURCE_DESIGN_CONTRACT_NOT_FIELD_PROOF",
+  "purpose": "Preserve canonical source truth while separating repository authority, browser runtime liveness, navigation usability, authentication usability, storage writeability and evidence freshness.",
+  "required_dimensions": [
+    "SOURCE_AUTHORITY_VALID",
+    "DESTINATION_MIGRATION_STATE",
+    "SINGLE_WRITER_PROVEN",
+    "RUNTIME_PROCESS_ALIVE",
+    "NAVIGATION_PATH_USABLE",
+    "AUTH_CRITICAL_PATH_USABLE",
+    "USER_DATA_FOLDER_WRITABLE",
+    "EVIDENCE_FRESH"
+  ],
+  "rules": {
+    "dedicated_repo_existence_does_not_change_authority": true,
+    "process_alive_is_not_navigation_health": true,
+    "generic_navigation_is_not_google_auth_health": true,
+    "single_signal_cannot_promote_healthy": true,
+    "unknown_is_not_healthy": true,
+    "capability_scoped_health_required": true,
+    "optional_dimension_failure_degrades_only_relevant_capability": true
+  },
+  "gray_failures": [
+    "placeholder_repo_looks_complete_but_source_authority_not_migrated",
+    "webview_runtime_healthy_but_google_login_rejects_webview",
+    "navigation_works_but_udf_is_read_only_or_corrupt",
+    "page_load_works_but_download_history_state_fails",
+    "stale_runtime_probe_masks_new_webview_runtime_regression"
+  ],
+  "capability_scopes": {
+    "AUTHORITY_PROMOTION": [
+      "SOURCE_AUTHORITY_VALID",
+      "DESTINATION_MIGRATION_STATE",
+      "SINGLE_WRITER_PROVEN",
+      "EVIDENCE_FRESH"
+    ],
+    "GENERIC_NAVIGATION": [
+      "RUNTIME_PROCESS_ALIVE",
+      "NAVIGATION_PATH_USABLE",
+      "USER_DATA_FOLDER_WRITABLE",
+      "EVIDENCE_FRESH"
+    ],
+    "GOOGLE_AUTH": [
+      "RUNTIME_PROCESS_ALIVE",
+      "NAVIGATION_PATH_USABLE",
+      "AUTH_CRITICAL_PATH_USABLE",
+      "USER_DATA_FOLDER_WRITABLE",
+      "EVIDENCE_FRESH"
+    ]
+  }
+}
