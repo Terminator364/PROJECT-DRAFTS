@@ -31,5 +31,10 @@
     "path": "BROWSER4G/AX15GO_GRAY_HEALTH_R4.json",
     "required_before_authority_promotion": true,
     "field_proof": false
+  },
+  "evidence_lease_contract": {
+    "path": "BROWSER4G/AX15GO_EVIDENCE_LEASE_R5.json",
+    "required_before_runtime_promotion": true,
+    "field_proof": false
   }
 }
