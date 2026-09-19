@@ -23,6 +23,8 @@ When the user types `BROWSER4G CONTINUE`, recover this repository state first. D
 - BuildHub V0.3 BROWSER4G integration: **STATIC_QUALIFIED / FIELD_UNVERIFIED**
 - GitHub-hosted Actions used by this work: **0**
 - Software budget target: **0 USD**
+- Dedicated repository `Terminator364/BROWSER4G`: **PLACEHOLDER_NOT_CANONICAL**, machine-fenced at `31b8fed7cf7833562ca61cf46ccf19308f2d04b0`
+- Dedicated placeholder already inherits `AGENTS.md` and `CI_BUDGET_POLICY.json`; this does **not** promote source authority.
 
 No static result may be restated as a real Windows build or field PASS.
 
