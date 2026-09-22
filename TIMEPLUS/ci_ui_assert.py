@@ -19,10 +19,20 @@ for node in root.iter("node"):
     if not m:
         continue
     x1, y1, x2, y2 = map(int, m.groups())
-    if x1 < 0 or y1 < 0 or x2 > width or y2 > height or x2 <= x1 or y2 <= y1:
-        violations.append(f"out-of-bounds {bounds} text={node.attrib.get('text','')!r}")
+    semantic_label = node.attrib.get("text","") or node.attrib.get("content-desc","")
+    clickable = node.attrib.get("clickable") == "true"
 
-    if node.attrib.get("clickable") == "true":
+    # Compose/UIAutomator can expose invisible semantics placeholders at [0,0][0,0].
+    # Ignore those only when they carry no user-visible or actionable semantics.
+    if x2 <= x1 or y2 <= y1:
+        if semantic_label or clickable:
+            violations.append(f"zero-size-action {bounds} label={semantic_label!r}")
+        continue
+
+    if x1 < 0 or y1 < 0 or x2 > width or y2 > height:
+        violations.append(f"out-of-bounds {bounds} label={semantic_label!r}")
+
+    if clickable:
         clickables += 1
         # Material3 TimePicker clock-face semantics expose nested virtual nodes
         # smaller than the real touch target. Do not flag those as app regressions.
