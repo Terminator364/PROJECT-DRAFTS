@@ -1,10 +1,6 @@
 name: TimePlus APK build
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/timeplus-build.yml"
   workflow_dispatch:
 
 permissions:
