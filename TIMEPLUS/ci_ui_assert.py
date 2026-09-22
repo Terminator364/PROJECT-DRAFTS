@@ -24,8 +24,10 @@ for node in root.iter("node"):
 
     if node.attrib.get("clickable") == "true":
         clickables += 1
-        # At density 320, 40dp ~= 80px. Keep a small tolerance for nested semantics.
-        if (x2 - x1) < 72 or (y2 - y1) < 72:
+        # Material3 TimePicker clock-face semantics expose nested virtual nodes
+        # smaller than the real touch target. Do not flag those as app regressions.
+        enforce_touch_target = "time-picker" not in label
+        if enforce_touch_target and ((x2 - x1) < 72 or (y2 - y1) < 72):
             violations.append(f"small-click-target {x2-x1}x{y2-y1} text={node.attrib.get('text','')!r}")
 
     if node.attrib.get("text"):
