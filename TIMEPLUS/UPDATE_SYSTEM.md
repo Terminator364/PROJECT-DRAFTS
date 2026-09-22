@@ -7,23 +7,31 @@
 
 ## Règles obligatoires pour chaque mise à jour
 1. conserver exactement le même `applicationId` ;
-2. augmenter `versionCode` à chaque version ;
-3. compiler un APK release non signé ;
-4. signer l'APK avec la clé permanente TimePlus ;
-5. vérifier les signatures APK v1 + v2 + v3 et l'empreinte du certificat ;
-6. déposer seulement l'APK signé dans le dossier Drive `TimePlus/Installé`.
+2. augmenter `versionCode` ;
+3. compiler debug + release non signé ;
+4. exécuter le gate visuel Android Emulator (Maintenant, Heure de départ, Paramètres) ;
+5. corriger tout clipping, chevauchement ou rendu anormal avant livraison ;
+6. signer avec la clé permanente TimePlus ;
+7. vérifier signatures APK et empreinte du certificat ;
+8. publier l'APK signé dans Drive `TimePlus/Installé`.
 
-## État C3
-- versionName : `1.1.0-c3`
-- versionCode : `2`
-- prochain versionCode minimum : `3`
-- APK C3 : signé avec la clé permanente.
+## Version courante
+- versionName : `1.2.0`
+- versionCode : `3`
+- prochain versionCode minimum : `4`
+- APK : `TimePlus-v1.2.0-FINAL.apk`
+- visual gate : PASS, Android API 34, 720x1600
+- mise à jour directe depuis C3 : compatible (même package + même certificat + versionCode supérieur)
 
-## Transition depuis la première v1.0.0 debug
-La première v1.0.0 avait été signée automatiquement par une clé debug éphémère d'un runner GitHub.
-Son certificat SHA-256 était :
-`2D:80:61:0B:F6:F9:F6:1B:5B:AA:92:FF:B7:C6:0F:E0:2A:D3:AB:0A:4A:2F:30:1C:48:F5:DB:D0:EF:41:41:0D`.
+## Fonctionnalités 1.2.0
+- mode `Maintenant` : lit l'heure courante automatiquement ;
+- mode `Heure de départ` : saisie HH:mm ou sélecteur horaire ;
+- calcul propre avec passage au jour suivant ;
+- durées rapides +10 min, +30 min, +1 h ;
+- durée personnalisée avec boutons -/+, slider et saisie numérique ;
+- écran Paramètres ;
+- notification, son, vibration et alarmes Android.
 
-Cette clé privée n'existe plus sur le runner. Android ne peut donc pas accepter C3 par-dessus une v1.0.0 déjà installée.
-Si v1.0.0 a été installée, C3 est l'unique transition nécessitant désinstallation/réinstallation.
-À partir de C3, les mises à jour suivantes doivent s'installer directement par-dessus.
+## Transition historique v1.0.0
+La v1.0.0 debug utilisait une clé éphémère. C3 a établi la clé permanente.
+À partir de C3 (versionCode 2), les mises à jour signées par cette clé s'installent par-dessus.
