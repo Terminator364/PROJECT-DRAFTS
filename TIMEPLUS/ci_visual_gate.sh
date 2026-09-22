@@ -8,13 +8,37 @@ mkdir -p ui-evidence
 adb install -r "$APK"
 adb shell pm grant "$PKG" android.permission.POST_NOTIFICATIONS 2>/dev/null || true
 
+dump_ui_retry () {
+  local OUT="$1"
+  local OK=0
+  for ATTEMPT in 1 2 3 4 5 6 7 8; do
+    adb shell rm -f /sdcard/timeplus-ui.xml >/dev/null 2>&1 || true
+    if adb shell uiautomator dump /sdcard/timeplus-ui.xml >/dev/null 2>&1; then
+      if adb pull /sdcard/timeplus-ui.xml "$OUT" >/dev/null 2>&1; then
+        if python3 - "$OUT" <<'PY'
+import sys, xml.etree.ElementTree as ET
+root=ET.parse(sys.argv[1]).getroot()
+if root is None:
+    raise SystemExit(1)
+PY
+        then
+          OK=1
+          break
+        fi
+      fi
+    fi
+    sleep 1.25
+  done
+  test "$OK" -eq 1
+}
+
 capture () {
   local NAME="$1"
   local WIDTH="$2"
   local HEIGHT="$3"
+  sleep 0.75
   adb exec-out screencap -p > "ui-evidence/${NAME}.png"
-  adb shell uiautomator dump /sdcard/timeplus-ui.xml >/dev/null
-  adb pull /sdcard/timeplus-ui.xml "ui-evidence/${NAME}.xml" >/dev/null
+  dump_ui_retry "ui-evidence/${NAME}.xml"
   python3 TIMEPLUS/ci_ui_assert.py "ui-evidence/${NAME}.xml" "$WIDTH" "$HEIGHT" "$NAME"
 }
 
