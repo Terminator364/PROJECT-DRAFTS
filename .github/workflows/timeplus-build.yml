@@ -1,4 +1,4 @@
-name: TimePlus build + hardened visual gate
+name: TimePlus V2 build + product gate
 
 on:
   push:
@@ -14,16 +14,16 @@ permissions:
 jobs:
   logic-matrix:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 8
     steps:
       - uses: actions/checkout@v4
-      - name: Validate 100k+ time calculations
+      - name: Validate temporal engine matrix
         run: python3 TIMEPLUS/ci_logic_matrix.py
 
   build-apk:
     needs: logic-matrix
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-java@v4
@@ -33,7 +33,7 @@ jobs:
       - uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: "8.9"
-      - name: Build debug + unsigned release
+      - name: Build V2 debug + unsigned release
         run: gradle -p TIMEPLUS --no-daemon assembleDebug assembleRelease
       - name: Verify outputs
         run: |
@@ -49,12 +49,12 @@ jobs:
           tar -C /tmp -czf /tmp/timeplus-signing-tools-linux.tgz timeplus-signing-tools
       - uses: actions/upload-artifact@v4
         with:
-          name: TimePlus-1.2.1-debug
+          name: TimePlus-2.0.0-debug
           path: TIMEPLUS/app/build/outputs/apk/debug/app-debug.apk
           retention-days: 7
       - uses: actions/upload-artifact@v4
         with:
-          name: TimePlus-1.2.1-unsigned-release
+          name: TimePlus-2.0.0-unsigned-release
           path: TIMEPLUS/app/build/outputs/apk/release/app-release-unsigned.apk
           retention-days: 7
       - uses: actions/upload-artifact@v4
@@ -66,31 +66,31 @@ jobs:
   ui-emulator:
     needs: build-apk
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 35
     steps:
       - uses: actions/checkout@v4
       - uses: actions/download-artifact@v4
         with:
-          name: TimePlus-1.2.1-debug
+          name: TimePlus-2.0.0-debug
           path: ci-apk
       - name: Enable KVM
         run: |
           echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
           sudo udevadm control --reload-rules
           sudo udevadm trigger --name-match=kvm
-      - name: Multi-screen visual gate
+      - name: V2 multi-state visual + interaction gate
         uses: reactivecircus/android-emulator-runner@v2
         with:
-          api-level: 34
+          api-level: 35
           arch: x86_64
           profile: pixel_4
           disable-animations: true
           emulator-options: -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim
           script: bash TIMEPLUS/ci_visual_gate.sh
-      - name: Upload visual evidence
+      - name: Upload V2 evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: TimePlus-1.2.1-ui-evidence
-          path: ui-screenshots
+          name: TimePlus-2.0.0-ui-evidence
+          path: ui-evidence
           retention-days: 7
