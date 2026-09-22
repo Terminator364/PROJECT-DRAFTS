@@ -1,5 +1,8 @@
 package com.terminator364.timeplus
 
+import android.os.Build
+import android.graphics.Paint
+import android.widget.EditText
 import android.widget.NumberPicker
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -96,12 +99,15 @@ internal fun DurationWheelSheet(
 
     ModalBottomSheet(onDismissRequest = onDismiss) {
         Column(
-            modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp, vertical = 8.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .navigationBarsPadding()
+                .padding(horizontal = 20.dp, vertical = 6.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text("Choisir une durée", style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.Bold)
-            Text("Fais glisser les roues", color = MaterialTheme.colorScheme.onSurfaceVariant)
-            Spacer(Modifier.height(12.dp))
+            Text("Choisir une durée", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
+            Text("Fais glisser les roues", style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
+            Spacer(Modifier.height(8.dp))
 
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -114,14 +120,14 @@ internal fun DurationWheelSheet(
                 Text("min", style = MaterialTheme.typography.titleLarge)
             }
 
-            Spacer(Modifier.height(12.dp))
+            Spacer(Modifier.height(8.dp))
             Button(
                 onClick = { onConfirm((hours * 60 + minutes).coerceAtLeast(1)) },
                 modifier = Modifier.fillMaxWidth()
             ) {
                 Text("Utiliser " + TimeEngine.formatDuration((hours * 60 + minutes).coerceAtLeast(1)))
             }
-            Spacer(Modifier.height(24.dp))
+            Spacer(Modifier.height(10.dp))
         }
     }
 }
@@ -135,7 +141,7 @@ private fun WheelNumberPicker(
     modifier: Modifier = Modifier
 ) {
     AndroidView(
-        modifier = modifier.height(170.dp),
+        modifier = modifier.height(132.dp),
         factory = { context ->
             NumberPicker(context).apply {
                 minValue = min
@@ -143,12 +149,31 @@ private fun WheelNumberPicker(
                 wrapSelectorWheel = true
                 descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS
                 setOnValueChangedListener { _, _, newVal -> onValueChange(newVal) }
+                applyReadableNumberPickerStyle(this)
             }
         },
         update = { picker ->
+            applyReadableNumberPickerStyle(picker)
             if (picker.value != value) picker.value = value.coerceIn(min, max)
         }
     )
+}
+
+private fun applyReadableNumberPickerStyle(picker: NumberPicker) {
+    val textColor = android.graphics.Color.rgb(24, 28, 38)
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+        picker.textColor = textColor
+    } else {
+        runCatching {
+            val field = NumberPicker::class.java.getDeclaredField("mSelectorWheelPaint")
+            field.isAccessible = true
+            (field.get(picker) as? Paint)?.color = textColor
+        }
+    }
+    for (i in 0 until picker.childCount) {
+        (picker.getChildAt(i) as? EditText)?.setTextColor(textColor)
+    }
+    picker.invalidate()
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
