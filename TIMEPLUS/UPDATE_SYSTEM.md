@@ -35,3 +35,13 @@
 ## Transition historique v1.0.0
 La v1.0.0 debug utilisait une clé éphémère. C3 a établi la clé permanente.
 À partir de C3 (versionCode 2), les mises à jour signées par cette clé s'installent par-dessus.
+
+
+## État v1.2.1
+- versionName : `1.2.1`
+- versionCode : `4`
+- prochain versionCode minimum : `5`
+- SHA-256 APK : `e4821866b434128f35aa26ba8462693c5d08dcb9b82a53b9f7b35fd0b6a21436`
+- gate logique : 270720 cas PASS
+- gate visuel : 16 captures émulateur PASS
+- certificat de signature : inchangé, clé permanente TimePlus.
