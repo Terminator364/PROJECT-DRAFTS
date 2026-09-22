@@ -2,9 +2,9 @@
   "schema_version": 1,
   "app_name": "TimePlus",
   "application_id": "com.terminator364.timeplus",
-  "current_version_name": "1.2.0",
-  "current_version_code": 3,
-  "next_version_code_minimum": 4,
+  "current_version_name": "1.2.1",
+  "current_version_code": 4,
+  "next_version_code_minimum": 5,
   "update_channel": "permanent_signed_release",
   "signing_certificate_sha256": "0B:6B:F4:59:81:75:11:EB:8E:FB:EC:13:F8:FA:AA:34:84:F6:59:05:53:BA:BB:4B:20:49:ED:20:F8:C4:31:C1",
   "private_key_in_public_repository": false,
@@ -19,8 +19,27 @@
     "status": "PASS",
     "commit": "6bdb04b2c6aa5f7a8503e08129f3fefdf14261b0",
     "workflow_run_id": 35729386436,
-    "screens": ["home-now", "home-manual", "settings"],
+    "screens": [
+      "home-now",
+      "home-manual",
+      "settings"
+    ],
     "emulator_api": 34,
     "viewport": "720x1600"
+  },
+  "latest_release_sha256": "e4821866b434128f35aa26ba8462693c5d08dcb9b82a53b9f7b35fd0b6a21436",
+  "latest_release_drive_file_id": "12l_rpyFKpUKQtu5K1jsjpKc84EGWPejM",
+  "visual_gate": {
+    "calculation_cases": 270720,
+    "screenshots": 16,
+    "viewports": [
+      "360x800dp-equivalent",
+      "412x915dp-equivalent"
+    ],
+    "font_scales": [
+      1,
+      1.25
+    ],
+    "status": "PASS"
   }
 }
