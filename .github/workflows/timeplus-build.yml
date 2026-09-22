@@ -1,6 +1,11 @@
 name: TimePlus APK build
 
 on:
+  push:
+    branches: [main]
+    paths:
+      - "TIMEPLUS/**"
+      - ".github/workflows/timeplus-build.yml"
   workflow_dispatch:
 
 permissions:
@@ -25,16 +30,41 @@ jobs:
         with:
           gradle-version: "8.9"
 
-      - name: Build debug APK
-        run: gradle -p TIMEPLUS --no-daemon assembleDebug
+      - name: Build C3 debug and unsigned release
+        run: gradle -p TIMEPLUS --no-daemon assembleDebug assembleRelease
 
-      - name: Verify APK
-        run: test -s TIMEPLUS/app/build/outputs/apk/debug/app-debug.apk
+      - name: Verify outputs
+        run: |
+          test -s TIMEPLUS/app/build/outputs/apk/debug/app-debug.apk
+          test -s TIMEPLUS/app/build/outputs/apk/release/app-release-unsigned.apk
 
-      - name: Upload APK
+      - name: Bundle Android signing tools
+        run: |
+          BT="$(ls -d "$ANDROID_HOME"/build-tools/35.* | sort -V | tail -1)"
+          test -x "$BT/apksigner"
+          test -x "$BT/zipalign"
+          mkdir -p /tmp/timeplus-signing-tools/lib
+          cp "$BT/apksigner" "$BT/zipalign" /tmp/timeplus-signing-tools/
+          cp "$BT/lib/apksigner.jar" /tmp/timeplus-signing-tools/lib/
+          tar -C /tmp -czf /tmp/timeplus-signing-tools-linux.tgz timeplus-signing-tools
+
+      - name: Upload debug APK
         uses: actions/upload-artifact@v4
         with:
-          name: TimePlus-v1.0.0-debug-apk
+          name: TimePlus-v1.1.0-c3-debug
           path: TIMEPLUS/app/build/outputs/apk/debug/app-debug.apk
-          if-no-files-found: error
+          retention-days: 7
+
+      - name: Upload unsigned release APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: TimePlus-v1.1.0-c3-unsigned-release
+          path: TIMEPLUS/app/build/outputs/apk/release/app-release-unsigned.apk
+          retention-days: 7
+
+      - name: Upload signing tools
+        uses: actions/upload-artifact@v4
+        with:
+          name: TimePlus-android-signing-tools
+          path: /tmp/timeplus-signing-tools-linux.tgz
           retention-days: 7

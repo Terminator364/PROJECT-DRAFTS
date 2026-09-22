@@ -1,19 +1,12 @@
-# Delivery status — TimePlus 1.0.0
+# Delivery status — TimePlus C3 / 1.1.0
 
-- Source Android : COMPLETE
-- UI : COMPLETE
-- Calcul +10 / +30 / +60 / custom : COMPLETE
-- Notification : COMPLETE
-- Son configurable : COMPLETE
-- Vibration configurable : COMPLETE
-- Exact alarm permission handling : COMPLETE with best-effort fallback
-- Internet permission : NOT REQUESTED
-- Third-party runtime libraries : NONE
-- GitHub Actions workflow : NONE
-- Hosted-runner minutes consumed : 0
-- Local APK build in ChatGPT runtime : NOT AVAILABLE (Android SDK/build-tools absent)
-
-Static validation performed before commit:
-- XML parse check
-- project path / manifest / source consistency
-- no automatic CI introduced
+- applicationId: com.terminator364.timeplus
+- versionCode: 2
+- versionName: 1.1.0-c3
+- custom launcher icon: INTEGRATED
+- calculation presets/custom duration: COMPLETE
+- notifications/sound/vibration: COMPLETE
+- exact alarm handling: COMPLETE
+- Internet permission: NOT REQUESTED
+- permanent update-signing pipeline: IN PROGRESS
+- public repo private signing key: NOT STORED
