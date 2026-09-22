@@ -79,8 +79,7 @@ jobs:
           emulator-options: -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim
           script: |
             set -e
-            APK="$(find ci-apk -name '*.apk' | head -1)"
-            adb install -r "$APK"
+            adb install -r ci-apk/app-debug.apk
             adb shell wm size 720x1600
             adb shell wm density 320
             adb shell am start -n com.terminator364.timeplus/.MainActivity
