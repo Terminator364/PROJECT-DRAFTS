@@ -269,7 +269,6 @@ public class TimePlusActivity extends Activity {
         addQuick(chips, "+10 min", 10);
         addQuick(chips, "+30 min", 30);
         addQuick(chips, "+1 h", 60);
-        addQuick(chips, "+2 h", 120);
         section.addView(scroller, matchWrap());
         return section;
     }

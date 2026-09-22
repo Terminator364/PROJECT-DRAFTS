@@ -26,6 +26,9 @@ public class SettingsActivity extends Activity {
     @Override protected void onCreate(Bundle state) {
         super.onCreate(state);
         getWindow().setStatusBarColor(BG);
+        if (android.os.Build.VERSION.SDK_INT >= 23) {
+            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        }
         setContentView(buildUi());
         SharedPreferences p = prefs();
         alert.setChecked(p.getBoolean("default_alert", false));
