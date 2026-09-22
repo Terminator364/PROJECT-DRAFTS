@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "app_name": "TimePlus",
+  "application_id": "com.terminator364.timeplus",
+  "current_version_name": "1.1.0-c3",
+  "current_version_code": 2,
+  "next_version_code_minimum": 3,
+  "update_channel": "permanent_signed_release",
+  "signing_certificate_sha256": "0B:6B:F4:59:81:75:11:EB:8E:FB:EC:13:F8:FA:AA:34:84:F6:59:05:53:BA:BB:4B:20:49:ED:20:F8:C4:31:C1",
+  "private_key_in_public_repository": false,
+  "drive_install_folder": "TimePlus/Installé",
+  "drive_install_folder_id": "1fbOm6G9Cj3hwHNr04A9Jp9ZNrdiPElSm",
+  "legacy_v1_debug_certificate_sha256": "2D:80:61:0B:F6:F9:F6:1B:5B:AA:92:FF:B7:C6:0F:E0:2A:D3:AB:0A:4A:2F:30:1C:48:F5:DB:D0:EF:41:41:0D",
+  "legacy_transition_requires_reinstall_if_installed": true,
+  "direct_in_place_updates_guaranteed_from_version_code": 2
+}

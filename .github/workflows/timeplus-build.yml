@@ -1,11 +1,6 @@
 name: TimePlus APK build
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - "TIMEPLUS/**"
-      - ".github/workflows/timeplus-build.yml"
   workflow_dispatch:
 
 permissions:
@@ -30,7 +25,7 @@ jobs:
         with:
           gradle-version: "8.9"
 
-      - name: Build C3 debug and unsigned release
+      - name: Build debug and unsigned release
         run: gradle -p TIMEPLUS --no-daemon assembleDebug assembleRelease
 
       - name: Verify outputs
@@ -42,23 +37,22 @@ jobs:
         run: |
           BT="$(ls -d "$ANDROID_HOME"/build-tools/35.* | sort -V | tail -1)"
           test -x "$BT/apksigner"
-          test -x "$BT/zipalign"
           mkdir -p /tmp/timeplus-signing-tools/lib
-          cp "$BT/apksigner" "$BT/zipalign" /tmp/timeplus-signing-tools/
+          cp "$BT/apksigner" /tmp/timeplus-signing-tools/
           cp "$BT/lib/apksigner.jar" /tmp/timeplus-signing-tools/lib/
           tar -C /tmp -czf /tmp/timeplus-signing-tools-linux.tgz timeplus-signing-tools
 
       - name: Upload debug APK
         uses: actions/upload-artifact@v4
         with:
-          name: TimePlus-v1.1.0-c3-debug
+          name: TimePlus-debug
           path: TIMEPLUS/app/build/outputs/apk/debug/app-debug.apk
           retention-days: 7
 
       - name: Upload unsigned release APK
         uses: actions/upload-artifact@v4
         with:
-          name: TimePlus-v1.1.0-c3-unsigned-release
+          name: TimePlus-unsigned-release
           path: TIMEPLUS/app/build/outputs/apk/release/app-release-unsigned.apk
           retention-days: 7
 

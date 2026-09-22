@@ -8,5 +8,8 @@
 - notifications/sound/vibration: COMPLETE
 - exact alarm handling: COMPLETE
 - Internet permission: NOT REQUESTED
-- permanent update-signing pipeline: IN PROGRESS
+- permanent signing certificate: ESTABLISHED
+- APK signature schemes verified: v1=true, v2=true, v3=true
 - public repo private signing key: NOT STORED
+- future in-place update system: READY FROM C3
+- next minimum versionCode: 3
