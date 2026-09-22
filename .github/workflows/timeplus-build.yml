@@ -1,6 +1,11 @@
-name: TimePlus APK build
+name: TimePlus build + visual emulator
 
 on:
+  push:
+    branches: [main]
+    paths:
+      - "TIMEPLUS/**"
+      - ".github/workflows/timeplus-build.yml"
   workflow_dispatch:
 
 permissions:
@@ -11,29 +16,21 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Set up JDK 17
-        uses: actions/setup-java@v4
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: "17"
-
-      - name: Set up Gradle 8.9
-        uses: gradle/actions/setup-gradle@v4
+      - uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: "8.9"
-
-      - name: Build debug and unsigned release
+      - name: Build debug + unsigned release
         run: gradle -p TIMEPLUS --no-daemon assembleDebug assembleRelease
-
       - name: Verify outputs
         run: |
           test -s TIMEPLUS/app/build/outputs/apk/debug/app-debug.apk
           test -s TIMEPLUS/app/build/outputs/apk/release/app-release-unsigned.apk
-
-      - name: Bundle Android signing tools
+      - name: Bundle apksigner
         run: |
           BT="$(ls -d "$ANDROID_HOME"/build-tools/35.* | sort -V | tail -1)"
           test -x "$BT/apksigner"
@@ -41,24 +38,84 @@ jobs:
           cp "$BT/apksigner" /tmp/timeplus-signing-tools/
           cp "$BT/lib/apksigner.jar" /tmp/timeplus-signing-tools/lib/
           tar -C /tmp -czf /tmp/timeplus-signing-tools-linux.tgz timeplus-signing-tools
-
-      - name: Upload debug APK
-        uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v4
         with:
-          name: TimePlus-debug
+          name: TimePlus-1.2.0-debug
           path: TIMEPLUS/app/build/outputs/apk/debug/app-debug.apk
           retention-days: 7
-
-      - name: Upload unsigned release APK
-        uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v4
         with:
-          name: TimePlus-unsigned-release
+          name: TimePlus-1.2.0-unsigned-release
           path: TIMEPLUS/app/build/outputs/apk/release/app-release-unsigned.apk
           retention-days: 7
-
-      - name: Upload signing tools
-        uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v4
         with:
           name: TimePlus-android-signing-tools
           path: /tmp/timeplus-signing-tools-linux.tgz
+          retention-days: 7
+
+  ui-emulator:
+    needs: build-apk
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: TimePlus-1.2.0-debug
+          path: ci-apk
+      - name: Enable KVM
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
+      - name: Boot emulator, install and capture UI
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 34
+          arch: x86_64
+          profile: pixel_4
+          disable-animations: true
+          emulator-options: -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim
+          script: |
+            set -e
+            APK="$(find ci-apk -name '*.apk' | head -1)"
+            adb install -r "$APK"
+            adb shell wm size 720x1600
+            adb shell wm density 320
+            adb shell am start -n com.terminator364.timeplus/.MainActivity
+            sleep 3
+            mkdir -p ui-screenshots
+            adb exec-out screencap -p > ui-screenshots/home-now.png
+
+            click_text () {
+              TARGET="$1"
+              adb shell uiautomator dump /sdcard/ui.xml >/dev/null
+              adb pull /sdcard/ui.xml /tmp/ui.xml >/dev/null
+              COORD="$(python3 - "$TARGET" <<'PY'
+import re, sys, xml.etree.ElementTree as ET
+target=sys.argv[1]
+root=ET.parse('/tmp/ui.xml').getroot()
+for n in root.iter('node'):
+    if n.attrib.get('text') == target or n.attrib.get('content-desc') == target:
+        m=re.match(r'\[(\d+),(\d+)\]\[(\d+),(\d+)\]', n.attrib.get('bounds',''))
+        if m:
+            x1,y1,x2,y2=map(int,m.groups())
+            print((x1+x2)//2, (y1+y2)//2)
+            break
+PY
+)"
+              if [ -n "$COORD" ]; then adb shell input tap $COORD; sleep 2; fi
+            }
+
+            click_text "Heure de départ"
+            adb exec-out screencap -p > ui-screenshots/home-manual.png
+            click_text "Paramètres"
+            adb exec-out screencap -p > ui-screenshots/settings.png
+      - name: Upload UI screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: TimePlus-1.2.0-ui-screenshots
+          path: ui-screenshots
           retention-days: 7
