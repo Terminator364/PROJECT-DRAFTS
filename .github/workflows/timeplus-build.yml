@@ -87,30 +87,9 @@ jobs:
             sleep 3
             mkdir -p ui-screenshots
             adb exec-out screencap -p > ui-screenshots/home-now.png
-
-            click_text () {
-              TARGET="$1"
-              adb shell uiautomator dump /sdcard/ui.xml >/dev/null
-              adb pull /sdcard/ui.xml /tmp/ui.xml >/dev/null
-              COORD="$(python3 - "$TARGET" <<'PY'
-import re, sys, xml.etree.ElementTree as ET
-target=sys.argv[1]
-root=ET.parse('/tmp/ui.xml').getroot()
-for n in root.iter('node'):
-    if n.attrib.get('text') == target or n.attrib.get('content-desc') == target:
-        m=re.match(r'\[(\d+),(\d+)\]\[(\d+),(\d+)\]', n.attrib.get('bounds',''))
-        if m:
-            x1,y1,x2,y2=map(int,m.groups())
-            print((x1+x2)//2, (y1+y2)//2)
-            break
-PY
-)"
-              if [ -n "$COORD" ]; then adb shell input tap $COORD; sleep 2; fi
-            }
-
-            click_text "Heure de départ"
+            python3 TIMEPLUS/ci_click.py "Heure de départ"
             adb exec-out screencap -p > ui-screenshots/home-manual.png
-            click_text "Paramètres"
+            python3 TIMEPLUS/ci_click.py "Paramètres"
             adb exec-out screencap -p > ui-screenshots/settings.png
       - name: Upload UI screenshots
         if: always()
