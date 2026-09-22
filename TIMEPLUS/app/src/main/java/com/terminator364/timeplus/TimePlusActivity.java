@@ -122,7 +122,7 @@ public class TimePlusActivity extends Activity {
         scroll.setBackgroundColor(BG);
 
         LinearLayout root = column();
-        root.setPadding(dp(16), dp(14), dp(16), dp(28));
+        root.setPadding(dp(16), statusBarInset() + dp(10), dp(16), navBarInset() + dp(28));
         scroll.addView(root, new ScrollView.LayoutParams(-1, -2));
 
         root.addView(header());
@@ -147,20 +147,19 @@ public class TimePlusActivity extends Activity {
         ImageView logo = new ImageView(this);
         logo.setImageResource(getApplicationInfo().icon);
         logo.setScaleType(ImageView.ScaleType.CENTER_CROP);
-        row.addView(logo, new LinearLayout.LayoutParams(dp(48), dp(48)));
+        row.addView(logo, new LinearLayout.LayoutParams(dp(44), dp(44)));
 
         LinearLayout titles = column();
         LinearLayout.LayoutParams titlesLp = new LinearLayout.LayoutParams(0, -2, 1f);
-        titlesLp.setMargins(dp(12), 0, dp(8), 0);
+        titlesLp.setMargins(dp(12), 0, dp(10), 0);
         row.addView(titles, titlesLp);
-        titles.addView(text("TimePlus", 27, TEXT, true));
-        titles.addView(text("Calcule ton heure cible, simplement.", 13, MUTED, false));
+        titles.addView(text("TimePlus", 24, TEXT, true));
+        titles.addView(text("Calcule ton heure cible, simplement.", 12, MUTED, false));
 
-        Button settings = button("⚙", false);
-        settings.setTextSize(20);
+        Button settings = iconButton("⚙");
         settings.setContentDescription("Paramètres");
         settings.setOnClickListener(v -> startActivity(new Intent(this, SettingsActivity.class)));
-        row.addView(settings, new LinearLayout.LayoutParams(dp(48), dp(48)));
+        row.addView(settings, new LinearLayout.LayoutParams(dp(44), dp(44)));
         return row;
     }
 
@@ -171,7 +170,7 @@ public class TimePlusActivity extends Activity {
         LinearLayout tabs = new LinearLayout(this);
         tabs.setOrientation(LinearLayout.HORIZONTAL);
         nowMode = button("Maintenant", true);
-        manualMode = button("Heure de départ", false);
+        manualMode = button("Départ", false);
         tabs.addView(nowMode, new LinearLayout.LayoutParams(0, dp(46), 1f));
         tabs.addView(space(dp(8), 1));
         tabs.addView(manualMode, new LinearLayout.LayoutParams(0, dp(46), 1f));
@@ -216,49 +215,36 @@ public class TimePlusActivity extends Activity {
         LinearLayout card = card();
         card.setPadding(dp(16), dp(16), dp(16), dp(16));
 
-        LinearLayout row = new LinearLayout(this);
-        row.setOrientation(LinearLayout.HORIZONTAL);
-
-        LinearLayout left = column();
-        baseLabel = label("MAINTENANT");
-        baseTime = text("--:--:--", 24, TEXT, true);
-        baseMeta = text("", 12, MUTED, false);
-        baseMeta.setPadding(0, dp(6), 0, 0);
-        left.addView(baseLabel);
-        left.addView(baseTime);
-        left.addView(baseMeta);
-        row.addView(left, new LinearLayout.LayoutParams(0, -2, 1f));
+        LinearLayout startBlock = infoBlock("MAINTENANT", "--:--:--", "");
+        baseLabel = (TextView) startBlock.getChildAt(0);
+        baseTime = (TextView) startBlock.getChildAt(1);
+        baseMeta = (TextView) startBlock.getChildAt(2);
+        card.addView(startBlock, matchWrap());
 
         View divider = new View(this);
         divider.setBackgroundColor(BORDER);
-        LinearLayout.LayoutParams dividerLp = new LinearLayout.LayoutParams(dp(1), -1);
-        dividerLp.setMargins(dp(10), 0, dp(10), 0);
-        row.addView(divider, dividerLp);
+        LinearLayout.LayoutParams dividerLp = new LinearLayout.LayoutParams(-1, dp(1));
+        dividerLp.setMargins(0, dp(12), 0, dp(12));
+        card.addView(divider, dividerLp);
 
-        LinearLayout right = column();
-        right.addView(label("HEURE CIBLE"));
-        targetTime = text("--:--", 34, BLUE, true);
-        targetMeta = text("", 12, MUTED, false);
-        targetMeta.setPadding(0, dp(6), 0, 0);
-        right.addView(targetTime);
-        right.addView(targetMeta);
-        row.addView(right, new LinearLayout.LayoutParams(0, -2, 1f));
-        card.addView(row, matchWrap());
+        LinearLayout targetBlock = infoBlock("HEURE CIBLE", "--:--", "");
+        targetTime = (TextView) targetBlock.getChildAt(1);
+        targetTime.setTextColor(BLUE);
+        targetTime.setTextSize(32);
+        targetMeta = (TextView) targetBlock.getChildAt(2);
+        card.addView(targetBlock, matchWrap());
 
-        summaryHint = text("", 14, BLUE_DARK, true);
+        summaryHint = text("", 15, BLUE_DARK, true);
         summaryHint.setBackground(roundRect(SOFT_BLUE, 14, Color.rgb(220, 231, 255)));
-        summaryHint.setPadding(dp(12), dp(10), dp(12), dp(10));
+        summaryHint.setPadding(dp(14), dp(12), dp(14), dp(12));
         card.addView(summaryHint, marginTop(14));
         return card;
     }
 
     private View quickSection() {
         LinearLayout section = column();
-        LinearLayout titleRow = new LinearLayout(this);
-        titleRow.setGravity(Gravity.CENTER_VERTICAL);
-        titleRow.addView(text("Durée rapide", 17, TEXT, true), new LinearLayout.LayoutParams(0, -2, 1f));
-        titleRow.addView(text("Choisis une durée", 12, MUTED, false));
-        section.addView(titleRow);
+        section.addView(text("Durée rapide", 17, TEXT, true));
+        section.addView(text("Raccourcis pour les valeurs les plus courantes.", 12, MUTED, false), marginTop(4));
 
         HorizontalScrollView scroller = new HorizontalScrollView(this);
         scroller.setHorizontalScrollBarEnabled(false);
@@ -344,13 +330,16 @@ public class TimePlusActivity extends Activity {
 
     private View actionRow() {
         LinearLayout block = column();
-        LinearLayout row = new LinearLayout(this);
+
         Button calculate = button("Calculer", true);
+        LinearLayout.LayoutParams calcLp = matchWrap();
+        calcLp.height = dp(54);
+        block.addView(calculate, calcLp);
+
         Button schedule = button("Programmer l’alerte", false);
-        row.addView(calculate, new LinearLayout.LayoutParams(0, dp(54), 1f));
-        row.addView(space(dp(10), 1));
-        row.addView(schedule, new LinearLayout.LayoutParams(0, dp(54), 1f));
-        block.addView(row, matchWrap());
+        LinearLayout.LayoutParams schedLp = marginTop(10);
+        schedLp.height = dp(54);
+        block.addView(schedule, schedLp);
 
         cancelAlarm = new Button(this);
         cancelAlarm.setText("Annuler l’alerte programmée");
@@ -358,7 +347,7 @@ public class TimePlusActivity extends Activity {
         cancelAlarm.setTextColor(MUTED);
         cancelAlarm.setBackgroundColor(Color.TRANSPARENT);
         cancelAlarm.setVisibility(View.GONE);
-        block.addView(cancelAlarm, matchWrap());
+        block.addView(cancelAlarm, marginTop(4));
 
         calculate.setOnClickListener(v -> {
             if (!readDurationInput()) return;
@@ -583,6 +572,39 @@ public class TimePlusActivity extends Activity {
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         if (imm != null) imm.hideSoftInputFromWindow(focused.getWindowToken(), 0);
         focused.clearFocus();
+    }
+
+    private int statusBarInset() {
+        int id = getResources().getIdentifier("status_bar_height", "dimen", "android");
+        return id > 0 ? getResources().getDimensionPixelSize(id) : dp(24);
+    }
+
+    private int navBarInset() {
+        int id = getResources().getIdentifier("navigation_bar_height", "dimen", "android");
+        return id > 0 ? getResources().getDimensionPixelSize(id) : dp(10);
+    }
+
+    private LinearLayout infoBlock(String title, String value, String meta) {
+        LinearLayout block = column();
+        TextView t1 = label(title);
+        TextView t2 = text(value, 28, TEXT, true);
+        TextView t3 = text(meta, 13, MUTED, false);
+        t3.setPadding(0, dp(6), 0, 0);
+        block.addView(t1);
+        block.addView(t2);
+        block.addView(t3);
+        return block;
+    }
+
+    private Button iconButton(String value) {
+        Button b = new Button(this);
+        b.setText(value);
+        b.setAllCaps(false);
+        b.setTextSize(18);
+        b.setTypeface(Typeface.DEFAULT, Typeface.BOLD);
+        b.setTextColor(BLUE_DARK);
+        b.setBackground(roundRect(Color.WHITE, 14, Color.rgb(190, 204, 244)));
+        return b;
     }
 
     private LinearLayout column() {

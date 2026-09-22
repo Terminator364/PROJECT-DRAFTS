@@ -41,7 +41,7 @@ public class SettingsActivity extends Activity {
         ScrollView scroll = new ScrollView(this);
         scroll.setBackgroundColor(BG);
         LinearLayout root = column();
-        root.setPadding(dp(16), dp(16), dp(16), dp(24));
+        root.setPadding(dp(16), statusBarInset() + dp(10), dp(16), navBarInset() + dp(24));
         scroll.addView(root, new ScrollView.LayoutParams(-1, -2));
 
         LinearLayout header = new LinearLayout(this);
@@ -49,7 +49,7 @@ public class SettingsActivity extends Activity {
         Button back = button("←", false);
         back.setOnClickListener(v -> finish());
         header.addView(back, new LinearLayout.LayoutParams(dp(48), dp(48)));
-        TextView title = text("Paramètres", 25, TEXT, true);
+        TextView title = text("Paramètres", 24, TEXT, true);
         LinearLayout.LayoutParams titleLp = new LinearLayout.LayoutParams(0, -2, 1f);
         titleLp.setMargins(dp(10), 0, 0, 0);
         header.addView(title, titleLp);
@@ -67,9 +67,9 @@ public class SettingsActivity extends Activity {
         alert.setOnCheckedChangeListener((v, checked) -> updateEnabled());
 
         LinearLayout appCard = card("Application", "Informations de cette version.");
-        appCard.addView(info("Version", "1.2.0"), marginTop(12));
-        appCard.addView(info("Mise à jour", "Installation par-dessus C3"), marginTop(8));
-        appCard.addView(info("Mode hors ligne", "Oui"), marginTop(8));
+        appCard.addView(infoBlock("Version", "1.2.1"), marginTop(12));
+        appCard.addView(infoBlock("Mise à jour", "Installation par-dessus C3"), marginTop(10));
+        appCard.addView(infoBlock("Mode hors ligne", "Oui"), marginTop(10));
         root.addView(appCard, marginTop(16));
 
         Button save = button("Enregistrer", true);
@@ -106,12 +106,11 @@ public class SettingsActivity extends Activity {
         return c;
     }
 
-    private View info(String left, String right) {
-        LinearLayout row = new LinearLayout(this);
-        row.setGravity(Gravity.CENTER_VERTICAL);
-        row.addView(text(left, 15, TEXT, true), new LinearLayout.LayoutParams(0, -2, 1f));
-        row.addView(text(right, 13, MUTED, false));
-        return row;
+    private View infoBlock(String left, String right) {
+        LinearLayout block = column();
+        block.addView(text(left, 14, MUTED, true));
+        block.addView(text(right, 17, TEXT, true), marginTop(4));
+        return block;
     }
 
     private Switch switchRow(String label, boolean checked) {
@@ -161,6 +160,16 @@ public class SettingsActivity extends Activity {
         LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(-1, -2);
         p.setMargins(0, dp(top), 0, 0);
         return p;
+    }
+
+    private int statusBarInset() {
+        int id = getResources().getIdentifier("status_bar_height", "dimen", "android");
+        return id > 0 ? getResources().getDimensionPixelSize(id) : dp(24);
+    }
+
+    private int navBarInset() {
+        int id = getResources().getIdentifier("navigation_bar_height", "dimen", "android");
+        return id > 0 ? getResources().getDimensionPixelSize(id) : dp(10);
     }
 
     private int dp(int v) { return Math.round(v * getResources().getDisplayMetrics().density); }

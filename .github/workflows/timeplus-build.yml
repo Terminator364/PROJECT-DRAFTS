@@ -1,4 +1,4 @@
-name: TimePlus build + visual emulator
+name: TimePlus build + hardened visual gate
 
 on:
   push:
@@ -12,7 +12,16 @@ permissions:
   contents: read
 
 jobs:
+  logic-matrix:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate 100k+ time calculations
+        run: python3 TIMEPLUS/ci_logic_matrix.py
+
   build-apk:
+    needs: logic-matrix
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
@@ -40,12 +49,12 @@ jobs:
           tar -C /tmp -czf /tmp/timeplus-signing-tools-linux.tgz timeplus-signing-tools
       - uses: actions/upload-artifact@v4
         with:
-          name: TimePlus-1.2.0-debug
+          name: TimePlus-1.2.1-debug
           path: TIMEPLUS/app/build/outputs/apk/debug/app-debug.apk
           retention-days: 7
       - uses: actions/upload-artifact@v4
         with:
-          name: TimePlus-1.2.0-unsigned-release
+          name: TimePlus-1.2.1-unsigned-release
           path: TIMEPLUS/app/build/outputs/apk/release/app-release-unsigned.apk
           retention-days: 7
       - uses: actions/upload-artifact@v4
@@ -57,19 +66,19 @@ jobs:
   ui-emulator:
     needs: build-apk
     runs-on: ubuntu-latest
-    timeout-minutes: 25
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
       - uses: actions/download-artifact@v4
         with:
-          name: TimePlus-1.2.0-debug
+          name: TimePlus-1.2.1-debug
           path: ci-apk
       - name: Enable KVM
         run: |
           echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
           sudo udevadm control --reload-rules
           sudo udevadm trigger --name-match=kvm
-      - name: Boot emulator, install and capture UI
+      - name: Multi-screen visual gate
         uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: 34
@@ -77,23 +86,11 @@ jobs:
           profile: pixel_4
           disable-animations: true
           emulator-options: -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim
-          script: |
-            set -e
-            adb install -r ci-apk/app-debug.apk
-            adb shell wm size 720x1600
-            adb shell wm density 320
-            adb shell am start -n com.terminator364.timeplus/.MainActivity
-            sleep 3
-            mkdir -p ui-screenshots
-            adb exec-out screencap -p > ui-screenshots/home-now.png
-            python3 TIMEPLUS/ci_click.py "Heure de départ"
-            adb exec-out screencap -p > ui-screenshots/home-manual.png
-            python3 TIMEPLUS/ci_click.py "Paramètres"
-            adb exec-out screencap -p > ui-screenshots/settings.png
-      - name: Upload UI screenshots
+          script: bash TIMEPLUS/ci_visual_gate.sh
+      - name: Upload visual evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: TimePlus-1.2.0-ui-screenshots
+          name: TimePlus-1.2.1-ui-evidence
           path: ui-screenshots
           retention-days: 7
