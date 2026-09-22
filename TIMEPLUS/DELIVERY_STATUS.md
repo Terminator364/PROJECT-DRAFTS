@@ -1,15 +1,29 @@
-# Delivery status — TimePlus C3 / 1.1.0
+# Delivery status — TimePlus V2 / 2.0.0
 
 - applicationId: com.terminator364.timeplus
-- versionCode: 2
-- versionName: 1.1.0-c3
-- custom launcher icon: INTEGRATED
-- calculation presets/custom duration: COMPLETE
-- notifications/sound/vibration: COMPLETE
-- exact alarm handling: COMPLETE
+- versionCode: 5
+- versionName: 2.0.0
+- UI stack: Jetpack Compose + Material 3
+- current-time and custom reference-time modes: COMPLETE
+- addition and subtraction of durations: COMPLETE
+- quick presets: COMPLETE
+- duration wheel picker: COMPLETE
+- difference between two times: COMPLETE
+- midnight rollover handling: COMPLETE
+- calculation history/reuse/copy: COMPLETE
+- alarm scheduling + sound/vibration: COMPLETE
+- exact-alarm capability handling: COMPLETE
+- boot rescheduling of active alarm: COMPLETE
+- offline/local operation: COMPLETE
 - Internet permission: NOT REQUESTED
-- permanent signing certificate: ESTABLISHED
+- permanent signing certificate: PRESERVED
 - APK signature schemes verified: v1=true, v2=true, v3=true
-- public repo private signing key: NOT STORED
-- future in-place update system: READY FROM C3
-- next minimum versionCode: 3
+- logic matrix: 5,561,287 cases PASS
+- visual gate: 36 screenshots / 6 configurations PASS
+- UI configurations: 3 viewport classes × 2 font scales
+- interaction/crash smoke: 500 Monkey events PASS
+- GitHub workflow run: 35745381101
+- release commit: 32529881d468eb9271872128412164d65caf9e4a
+- release SHA-256: 6d7a90b701232fd23968547959867a8f223566216a4b9213e9d81635959080c3
+- Drive APK file ID: 1Fa8BdRACKuPgv1l3QDrXx71go8s5mbe3
+- next minimum versionCode: 6
