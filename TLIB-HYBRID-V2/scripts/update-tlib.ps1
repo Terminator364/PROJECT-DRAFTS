@@ -161,6 +161,11 @@ function Apply-Pending {
       Git reset --hard $current | Out-Null
       $old=Start-Worker $current
       Write-UpdateLog "ROLLBACK_PASS" "commit=$current; build=$($old.build)" "PASS"
+      if(Test-Path $PendingFile){
+        $failed=Join-Path $DataDir ("failed-update-"+(Get-Date -Format "yyyyMMdd-HHmmss")+".json")
+        Move-Item $PendingFile $failed -Force
+        Write-UpdateLog "FAILED_UPDATE_QUARANTINED" $failed "PASS"
+      }
     }catch{
       Write-UpdateLog "ROLLBACK_FAILED" $_.Exception.Message "CRITICAL"
     }
