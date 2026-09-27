@@ -162,7 +162,13 @@ async function stage(){
 }
 async function apply(){
   const freeMB=Math.round(freemem()/1048576);
-  if(!FORCE && freeMB<500){log('APPLY_DEFERRED','SKIP','free_mb='+freeMB);return {ok:true,deferred:true,reason:'LOW_MEMORY',free_mb:freeMB}}
+  const totalMB=Math.round(totalmem()/1048576);
+  const lowRamProfile=totalMB<=6144;
+  const activationFloor=lowRamProfile?80:220;
+  if(!FORCE && freeMB<activationFloor){
+    log('APPLY_DEFERRED','SKIP','free_mb='+freeMB+' floor='+activationFloor+' profile='+(lowRamProfile?'LOW_RAM_4_6GB':'STANDARD'));
+    return {ok:true,deferred:true,reason:'ACTIVATION_MEMORY_FLOOR',free_mb:freeMB,total_mb:totalMB,activation_floor_mb:activationFloor};
+  }
   const pending=readJson(PENDING,null);
   if(!pending?.verified||!pending?.commit||!pending?.path)throw new Error('NO_VERIFIED_PENDING_SLOT');
   const slot=verifiedSlot(pending.commit);
@@ -193,7 +199,13 @@ async function apply(){
 }
 async function repair(){
   const freeMB=Math.round(freemem()/1048576);
-  if(!FORCE && freeMB<450){log('REPAIR_DEFERRED','SKIP','free_mb='+freeMB);return {ok:true,deferred:true,reason:'LOW_MEMORY',free_mb:freeMB}}
+  const totalMB=Math.round(totalmem()/1048576);
+  const lowRamProfile=totalMB<=6144;
+  const repairFloor=lowRamProfile?60:180;
+  if(!FORCE && freeMB<repairFloor){
+    log('REPAIR_DEFERRED','SKIP','free_mb='+freeMB+' floor='+repairFloor+' profile='+(lowRamProfile?'LOW_RAM_4_6GB':'STANDARD'));
+    return {ok:true,deferred:true,reason:'REPAIR_MEMORY_FLOOR',free_mb:freeMB,total_mb:totalMB,repair_floor_mb:repairFloor};
+  }
   const cur=readJson(CURRENT,null);
   if(!cur?.commit||!cur?.path)throw new Error('NO_CURRENT_SLOT');
   const h=await health(8787,1500);
