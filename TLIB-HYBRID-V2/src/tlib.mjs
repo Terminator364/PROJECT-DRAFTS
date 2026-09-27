@@ -1,5 +1,5 @@
 import http from 'node:http';
-import { mkdirSync, readFileSync } from 'node:fs';
+import { mkdirSync, readFileSync, readdirSync } from 'node:fs';
 import { homedir } from 'node:os';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -73,6 +73,16 @@ ensureResultColumn('content_mode','TEXT');
 ensureResultColumn('activity_status','TEXT');
 ensureResultColumn('activity_days','INTEGER');
 ensureResultColumn('l1_quality','TEXT');
+ensureResultColumn('homepage','TEXT');
+ensureResultColumn('forks_count','INTEGER');
+ensureResultColumn('watchers_count','INTEGER');
+ensureResultColumn('created_at_github','TEXT');
+ensureResultColumn('visibility','TEXT');
+ensureResultColumn('disabled','INTEGER');
+ensureResultColumn('has_wiki','INTEGER');
+ensureResultColumn('has_pages','INTEGER');
+ensureResultColumn('has_discussions','INTEGER');
+ensureResultColumn('l1_score','INTEGER');
 
 const now = () => new Date().toISOString();
 const event = (level, name, detail='') => {
@@ -117,7 +127,17 @@ function classifyL1(x) {
       activityDays <= 730 ? 'Activité modérée' : 'Peu actif / ancien';
   }
   const quality = x.id && full ? 'Identité GitHub vérifiée' : 'Vérification partielle';
-  return {kind, technology, contentMode, activityStatus, activityDays, quality};
+  let score = 35;
+  if (x.id && full) score += 20;
+  if (x.description) score += 8;
+  if (Array.isArray(x.topics) && x.topics.length) score += 8;
+  if (x.license) score += 7;
+  if (x.pushed_at) score += 7;
+  if (x.default_branch) score += 5;
+  if (technology) score += 5;
+  if (kind) score += 5;
+  score = Math.min(100, score);
+  return {kind, technology, contentMode, activityStatus, activityDays, quality, score};
 }
 
 function seed() {
@@ -226,38 +246,77 @@ async function canary(limit=10) {
   console.log(JSON.stringify({ ok: !paused, paused, processed: jobs.length, done, missing, errors, summary }, null, 2));
 }
 
-function fixtureCanary() {
-  seed();
-  const files = ['l1-fixture-10.json','l1-batch-a.json','l1-batch-b.json','l1-batch-c.json','l1-batch-d.json','l1-batch-e.json'];
+function fixtureFiles() {
+  try {
+    return readdirSync(join(ROOT,'config')).filter(n => /^l1-(fixture|batch).*\.json$/i.test(n)).sort();
+  } catch { return []; }
+}
+
+function fixtureCorpus() {
   const byName = new Map();
-  for (const file of files) {
+  for (const file of fixtureFiles()) {
     try {
-      const rows = JSON.parse(readFileSync(join(ROOT, 'config', file), 'utf8'));
+      const rows = JSON.parse(readFileSync(join(ROOT,'config',file),'utf8'));
       for (const x of rows) if (x && x.full_name) byName.set(String(x.full_name).toLowerCase(), x);
     } catch {}
   }
-  const fixture = [...byName.values()];
+  return [...byName.values()];
+}
+
+function stageFixtureJobs() {
+  const rows = fixtureCorpus();
+  const stmt = db.prepare(`INSERT OR IGNORE INTO jobs(entity_id,full_name,status,attempts,updated_at)
+                           VALUES(?,?,'PENDING',0,?)`);
+  let added=0;
+  for (const x of rows) added += Number(stmt.run(entityId(x.full_name),String(x.full_name),now()).changes||0);
+  if (added) event('INFO','L1_STAGE','added='+added+'; staged='+rows.length);
+  return {added,staged:rows.length};
+}
+
+function upsertFixtureResult(x) {
+  const fullName=String(x.full_name||''); if(!fullName) return false;
+  const id=entityId(fullName), topics=Array.isArray(x.topics)?x.topics:[], q=classifyL1(x);
+  db.prepare(`INSERT OR REPLACE INTO results(
+    entity_id,full_name,http_status,github_id,node_id,description,archived,fork,stars,language,license,
+    topics_json,updated_at_github,pushed_at,default_branch,size_kb,open_issues,rate_remaining,fetched_at,raw_json,
+    resource_kind,technology,content_mode,activity_status,activity_days,l1_quality,homepage,forks_count,watchers_count,
+    created_at_github,visibility,disabled,has_wiki,has_pages,has_discussions,l1_score
+  ) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`).run(
+    id,fullName,200,String(x.id??''),String(x.node_id??''),String(x.description??''),x.archived?1:0,x.fork?1:0,
+    Number(x.stargazers_count??0),String(x.language??''),String(x.license?.spdx_id??x.license?.name??''),JSON.stringify(topics),
+    String(x.updated_at??''),String(x.pushed_at??''),String(x.default_branch??''),Number(x.size??0),Number(x.open_issues_count??0),
+    -1,now(),JSON.stringify(x),q.kind,q.technology,q.contentMode,q.activityStatus,q.activityDays,q.quality,
+    String(x.homepage??''),Number(x.forks_count??0),Number(x.watchers_count??0),String(x.created_at??''),String(x.visibility??''),
+    x.disabled?1:0,x.has_wiki?1:0,x.has_pages?1:0,x.has_discussions?1:0,q.score
+  );
+  db.prepare(`UPDATE jobs SET status='DONE', last_error=NULL, updated_at=? WHERE entity_id=?`).run(now(),id);
+  return true;
+}
+
+function autopilotFixtureStep(limit=2) {
+  const corpus=fixtureCorpus(), pending=[];
+  for(const x of corpus){
+    const id=entityId(x.full_name);
+    const done=db.prepare('SELECT 1 AS ok FROM results WHERE entity_id=?').get(id);
+    if(!done) pending.push(x);
+    if(pending.length>=limit) break;
+  }
+  let done=0; for(const x of pending) if(upsertFixtureResult(x)) done++;
+  if(done) event('INFO','L1_AUTOPILOT','+'+done+' fiche(s); total='+db.prepare('SELECT COUNT(*) AS n FROM results').get().n);
+  return done;
+}
+
+function fixtureCanary() {
+  seed();
+  stageFixtureJobs();
+  const fixture = fixtureCorpus();
   let done = 0;
   for (const x of fixture) {
     const fullName = String(x.full_name || '');
     const id = entityId(fullName);
     db.prepare(`INSERT OR IGNORE INTO jobs(entity_id,full_name,status,attempts,updated_at)
                 VALUES(?,?,'PENDING',0,?)`).run(id, fullName, now());
-    const topics = Array.isArray(x.topics) ? x.topics : [];
-    const q = classifyL1(x);
-    db.prepare(`INSERT OR REPLACE INTO results(
-      entity_id,full_name,http_status,github_id,node_id,description,archived,fork,stars,language,license,
-      topics_json,updated_at_github,pushed_at,default_branch,size_kb,open_issues,rate_remaining,fetched_at,raw_json,
-      resource_kind,technology,content_mode,activity_status,activity_days,l1_quality
-    ) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`).run(
-      id, fullName, 200, String(x.id ?? ''), String(x.node_id ?? ''), String(x.description ?? ''),
-      x.archived ? 1 : 0, x.fork ? 1 : 0, Number(x.stargazers_count ?? 0), String(x.language ?? ''),
-      String(x.license?.spdx_id ?? x.license?.name ?? ''), JSON.stringify(topics), String(x.updated_at ?? ''),
-      String(x.pushed_at ?? ''), String(x.default_branch ?? ''), Number(x.size ?? 0), Number(x.open_issues_count ?? 0),
-      -1, now(), JSON.stringify(x), q.kind, q.technology, q.contentMode, q.activityStatus, q.activityDays, q.quality
-    );
-    db.prepare(`UPDATE jobs SET status='DONE', last_error=NULL, updated_at=? WHERE entity_id=?`).run(now(), id);
-    done++;
+    if (upsertFixtureResult(x)) done++;
   }
   event('INFO','FIXTURE_CANARY_PASS','done=' + done + '; corpus=' + fixture.length);
   console.log(JSON.stringify({ ok:true, mode:'fixture', done, summary:statusSnapshot() }, null, 2));
@@ -339,7 +398,8 @@ function statusSnapshot() {
   return {
     product: 'TLIB',
     mode: 'HYBRID_V2_LAB',
-    pc_worker: { online:true, database:dbPath, local_l1_results:totalResults, local_l2_profiles:l2Count, queue:counts },
+    pc_worker: { online:true, database:dbPath, local_l1_results:totalResults, local_l2_profiles:l2Count, queue:counts,
+      staged_l1:fixtureCorpus().length, autopilot:true },
     apps_script: control.engine || {},
     levels,
     recent,
@@ -407,7 +467,16 @@ async function main() {
   if (cmd === 'agent') {
     selftest();
     seed();
+    stageFixtureJobs();
     startDashboard();
+    let running=false;
+    setInterval(() => {
+      if (running) return;
+      running=true;
+      try { autopilotFixtureStep(Number(process.env.TLIB_STAGE_STEP || 2)); }
+      catch(e){ event('ERROR','L1_AUTOPILOT_ERROR',e.message||String(e)); }
+      finally { running=false; }
+    }, Number(process.env.TLIB_STAGE_INTERVAL_MS || 5000));
     if (process.env.TLIB_AUTO_WORK === '1') await canary(Number(process.env.TLIB_AUTO_LIMIT || 10));
     return;
   }
