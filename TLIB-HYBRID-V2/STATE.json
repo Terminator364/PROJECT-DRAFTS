@@ -1,100 +1,124 @@
 {
   "project": "TLIB-HYBRID-V2",
   "branch": "lab/tlib-hybrid-v2",
-  "mode": "CANARY_LOCAL_GITHUB",
+  "checkpoint": "UPDATE_SAFE_ECO_GOVERNOR_DESIGNED_AND_MANIFEST_VERIFIED",
+  "build_target": "2026.09.27-v0.6.2-adaptive-4gb",
+  "updated_at_utc": "2026-09-27T19:38:52.595Z",
   "production_l1_enabled": false,
   "apps_script_bridge_enabled": false,
   "github_actions_expected_minutes": 0,
-  "dashboard_bind": "127.0.0.1",
-  "dashboard_port": 8787,
-  "source_engine": {
-    "version_observed": "1.1.1-fast-ingest-r1",
-    "entity_count_observed": 120694,
-    "pending_source_count_observed": 0
+  "dashboard": {
+    "bind": "127.0.0.1",
+    "port": 8787
   },
-  "gates": [
-    "local_selftest",
-    "live_public_canary",
-    "pc_ram_observation",
-    "lease_bridge_design",
-    "secure_github_auth",
-    "authenticated_100_item_canary"
-  ],
-  "updated_at_utc": "2026-09-27T15:03:10Z",
-  "pc": {
-    "device": "MBMPC",
-    "node_version": "24.21.0",
-    "sqlite_selftest": "PASS",
-    "local_fixture_canary": {
-      "status": "PASS",
-      "input_repositories": 10,
-      "results_written": 10,
-      "pending_after_fixture": 10,
-      "evidence": "SQLite readback + dashboard data"
-    },
-    "dashboard": {
-      "status": "RUNNING",
-      "bind": "127.0.0.1",
-      "port": 8787,
-      "desktop_shortcut": "TLIB Cockpit.url"
-    },
-    "local_l2_canary": {
-      "status": "PASS",
-      "profiles_written": 10
-    },
-    "autostart": {
-      "scheduled_task": "UNAVAILABLE",
-      "startup_fallback": "INSTALLED_PER_USER"
-    },
-    "local_l1_canary": {
-      "status": "RUNNING_AUTOPILOT",
-      "verified_results_observed": 89,
-      "staged_fixture_metadata": 86,
-      "staged_queue_names": 1000,
-      "pending_observed": 911,
-      "public_mode": "PUBLIC_SLOW",
-      "public_rate_remaining_observed": 56,
-      "evidence": "localhost /api/status on MBMPC"
+  "source_engine": {
+    "entity_count": 120694,
+    "l0_status": "DRAINED",
+    "sources": 1811,
+    "sources_done": 1746,
+    "sources_failed": 65
+  },
+  "last_known_pc_state": {
+    "note": "Last verified before device disconnect / worker protection stop; do not treat as current without fresh /api/status.",
+    "local_l1_results": 1769,
+    "l1_complete": 1064,
+    "deep_done": 483,
+    "deep_pending": 611,
+    "scheduler_mode": "DEEP_CATCHUP"
+  },
+  "update_system": {
+    "scheme": "SLOT_V1",
+    "active_pc_migration": "PENDING_DEVICE_RECONNECT",
+    "manifest_files": 25,
+    "manifest_integrity_last_check": "PASS_0_MISMATCH",
+    "principles": [
+      "active version is never overwritten in place",
+      "download into immutable deployment slot",
+      "verify Git blob SHA for every manifest file",
+      "verify Node syntax, UI JavaScript, views, subpages, controls, slot updater and PowerShell scripts",
+      "preflight on temporary port before activation",
+      "health check exact build+commit after activation",
+      "rollback to last-good slot on failure",
+      "manual TLIB launch never checks or activates updates",
+      "automatic discovery only at Windows logon and at most every 6 hours",
+      "single stable bootstrap outside deployment slots",
+      "duplicate workers prohibited"
+    ],
+    "files": {
+      "manifest": "deploy-manifest.json",
+      "slot_updater": "scripts/slot-update.mjs",
+      "bootstrap": "scripts/bootstrap-tlib.ps1",
+      "verifier": "scripts/verify-build.mjs",
+      "wrapper": "scripts/update-tlib.ps1"
     }
   },
-  "live_pc_github_canary": {
-    "status": "NOT_EXECUTED_BY_ASSISTANT",
-    "reason": "Remote execution of the outbound-network canary command was blocked by platform safety controls; connector-backed live GitHub metadata was used as the fixture instead."
+  "resource_governor": {
+    "profile_for_4gb": "LOW_RAM_4_6GB",
+    "invariant": "80-95% system RAM usage is normal and is never a fault by itself",
+    "signals": [
+      "TLIB RSS",
+      "sustained CPU",
+      "combined low free memory + TLIB pressure",
+      "foreground interaction",
+      "pressure persistence"
+    ],
+    "modes": [
+      "NORMAL",
+      "USER_ACTIVE",
+      "THROTTLED",
+      "PAUSED"
+    ],
+    "sqlite": [
+      "WAL",
+      "synchronous=NORMAL",
+      "cache_size≈4MB"
+    ],
+    "worker_priority": "BELOW_NORMAL_WHEN_SUPPORTED"
   },
-  "humanized_ui": {
-    "status": "RUNNING",
-    "version": "v0.4",
-    "changes": [
-      "clickable tags and technology filters",
-      "dynamic live facets with counts",
-      "search-as-you-type",
-      "interactive L0/L1/L2/L3 cards",
-      "L1 staged progress bar",
-      "human resource cards with technical details collapsed"
-    ]
+  "ui": {
+    "background_sync": "COUNTERS_ONLY_NO_FULL_RERENDER",
+    "command_palette": true,
+    "back_navigation": true,
+    "interaction_auditor": true,
+    "workspaces": {
+      "l0": [
+        "overview",
+        "sources",
+        "depth",
+        "failures"
+      ],
+      "l1": [
+        "overview",
+        "metadata",
+        "themes",
+        "insights",
+        "deep",
+        "recent"
+      ],
+      "l2": [
+        "overview",
+        "profiles",
+        "gate",
+        "design"
+      ],
+      "manager": [
+        "overview",
+        "pipeline",
+        "workers",
+        "queue",
+        "reports",
+        "updates",
+        "maintenance"
+      ],
+      "technical": [
+        "runtime",
+        "queue",
+        "events",
+        "storage",
+        "ui",
+        "raw"
+      ]
+    }
   },
-  "apps_script_lease_bridge": {
-    "status": "CODED_LAB_NOT_DEPLOYED",
-    "path": "TLIB-HYBRID-V2/apps-script/TLIB_PC_BRIDGE_V2.gs"
-  },
-  "l1_model": {
-    "status": "V2_ACTIVE_IN_LAB",
-    "fields": [
-      "identity",
-      "resource_kind",
-      "technology",
-      "content_mode",
-      "activity_status",
-      "license",
-      "topics",
-      "homepage",
-      "forks",
-      "watchers",
-      "created_at",
-      "visibility",
-      "wiki/pages/discussions flags",
-      "L1 completeness score",
-      "raw GitHub metadata"
-    ]
-  }
+  "next_gate": "When MBMPC reconnects: copy latest slot-update.mjs only, run stage, verify pending slot, run apply, confirm /api/health build+commit and resource_governor."
 }
