@@ -9,15 +9,15 @@
     },
     {
       "path": "RESOURCE_POLICY.md",
-      "git_blob_sha": "2f3d46782bface7565d7b1077aa2e333fb0fd754"
+      "git_blob_sha": "b6f4664811f7ca3268de8a40f943974ae4552033"
     },
     {
       "path": "src/tlib.mjs",
-      "git_blob_sha": "f85b469f89e9787c83d7f916caec2bd82df5c747"
+      "git_blob_sha": "e077fab40b2f541648b221869b3497d56deb2c3d"
     },
     {
       "path": "public/index.html",
-      "git_blob_sha": "2851dd65822ec863a104f355d100d949bdfb8eab"
+      "git_blob_sha": "6a65b7125ebfae0f6d6980d1659a43417b146d0a"
     },
     {
       "path": "scripts/install-windows.ps1",
@@ -97,12 +97,12 @@
     },
     {
       "path": "scripts/slot-update.mjs",
-      "git_blob_sha": "b4a2367793c78f7477fa58e67a407ae6a02186ee"
+      "git_blob_sha": "1601b8d0993ea85a1f4ed5fdb2f2a8d2de8bc008"
     },
     {
       "path": "scripts/bootstrap-tlib.ps1",
       "git_blob_sha": "8c3e65e7b4751b5d8685eda38a50ae4f743ac239"
     }
   ],
-  "updated_at": "2026-09-27T19:28:34.871Z"
+  "updated_at": "2026-09-27T19:31:05.845Z"
 }
