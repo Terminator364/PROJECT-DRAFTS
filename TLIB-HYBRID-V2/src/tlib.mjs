@@ -4,7 +4,7 @@ import { homedir } from 'node:os';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { DatabaseSync } from 'node:sqlite';
-import { execFileSync, execFile } from 'node:child_process';
+import { execFileSync, execFile, spawn } from 'node:child_process';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(HERE, '..');
@@ -930,6 +930,39 @@ function resourceById(id) {
   return {...r, topics, l2};
 }
 
+function readJsonSafe(path, fallback=null) {
+  try { return JSON.parse(readFileSync(path,'utf8')); } catch { return fallback; }
+}
+function updateStatusSnapshot() {
+  const pending=readJsonSafe(join(dataDir,'pending-update.json'),null);
+  const lastGood=readJsonSafe(join(dataDir,'last-good.json'),null);
+  const runtime=readJsonSafe(join(dataDir,'runtime.json'),null);
+  let audit=[];
+  try{
+    const lines=readFileSync(join(dataDir,'update-audit.jsonl'),'utf8').split(/\r?\n/).filter(Boolean).slice(-25);
+    audit=lines.map(x=>{try{return JSON.parse(x)}catch{return {at:'',event:'UNPARSEABLE',status:'WARN',detail:x.slice(0,300)}}});
+  }catch{}
+  return {
+    active:{build:APP_BUILD,commit:APP_COMMIT,pid:process.pid,started_at:STARTED_AT},
+    runtime,
+    pending,
+    last_good:lastGood,
+    pending_available:!!(pending&&pending.verified),
+    audit
+  };
+}
+function spawnUpdater(mode) {
+  const allowed=new Set(['Stage','Apply','Repair']);
+  if(!allowed.has(mode)) throw new Error('INVALID_UPDATE_MODE');
+  const script=join(ROOT,'scripts','update-tlib.ps1');
+  const ps=spawn('powershell.exe',['-NoProfile','-ExecutionPolicy','Bypass','-WindowStyle','Hidden','-File',script,'-Mode',mode],{
+    windowsHide:true,detached:true,stdio:'ignore'
+  });
+  ps.unref();
+  event('INFO','UPDATE_TRIGGERED',mode);
+  return true;
+}
+
 function statusSnapshot() {
   const counts = {};
   for (const r of db.prepare('SELECT status, COUNT(*) AS n FROM jobs GROUP BY status').all()) counts[r.status] = Number(r.n);
@@ -1095,6 +1128,14 @@ async function startDashboard() {
         const q=u.searchParams.get('q')||'', limit=u.searchParams.get('limit')||100,
               offset=u.searchParams.get('offset')||0, sort=u.searchParams.get('sort')||'stars';
         return sendJson(res,200,{items:libraryRows(q,limit,offset,sort),total:libraryCount(q),limit:Number(limit),offset:Number(offset),sort});
+      }
+      if (u.pathname === '/api/update/status' && req.method === 'GET') return sendJson(res,200,updateStatusSnapshot());
+      if (u.pathname === '/api/update/action' && req.method === 'POST') {
+        const requested=String(u.searchParams.get('mode')||'Stage');
+        if(!['Stage','Apply','Repair'].includes(requested)) return sendJson(res,400,{ok:false,error:'INVALID_UPDATE_MODE'});
+        sendJson(res,202,{ok:true,accepted:requested});
+        setTimeout(()=>{try{spawnUpdater(requested)}catch(e){event('ERROR','UPDATE_TRIGGER_FAILED',String(e.message||e))}},250);
+        return;
       }
       if (u.pathname === '/api/l0/sources') return sendJson(res,200,l0SourcesSnapshot({
         q:u.searchParams.get('q')||'', status:u.searchParams.get('status')||'', depth:u.searchParams.get('depth')??'',
