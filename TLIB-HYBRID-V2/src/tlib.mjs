@@ -290,19 +290,23 @@ function libraryRows(q='', limit=100) {
   q = String(q || '').trim().toLowerCase();
   limit = Math.max(1, Math.min(Number(limit || 100), 500));
   if (!q) {
-    return db.prepare(`SELECT entity_id,full_name,description,stars,language,license,topics_json,archived,fork,
-                              updated_at_github,pushed_at,default_branch,size_kb,open_issues,fetched_at,
-                              resource_kind,technology,content_mode,activity_status,activity_days,l1_quality
-                       FROM results ORDER BY stars DESC LIMIT ?`).all(limit);
+    return db.prepare(`SELECT r.entity_id,r.full_name,r.description,r.stars,r.language,r.license,r.topics_json,r.archived,r.fork,
+                              r.updated_at_github,r.pushed_at,r.default_branch,r.size_kb,r.open_issues,r.fetched_at,
+                              r.resource_kind,r.technology,r.content_mode,r.activity_status,r.activity_days,r.l1_quality,
+                              l.human_summary
+                       FROM results r LEFT JOIN l2_profiles l ON l.entity_id=r.entity_id
+                       ORDER BY r.stars DESC LIMIT ?`).all(limit);
   }
   const like = '%' + q + '%';
-  return db.prepare(`SELECT entity_id,full_name,description,stars,language,license,topics_json,archived,fork,
-                            updated_at_github,pushed_at,default_branch,size_kb,open_issues,fetched_at,
-                            resource_kind,technology,content_mode,activity_status,activity_days,l1_quality
-                     FROM results
-                     WHERE lower(full_name) LIKE ? OR lower(description) LIKE ? OR lower(language) LIKE ?
-                        OR lower(license) LIKE ? OR lower(topics_json) LIKE ?
-                     ORDER BY stars DESC LIMIT ?`).all(like,like,like,like,like,limit);
+  return db.prepare(`SELECT r.entity_id,r.full_name,r.description,r.stars,r.language,r.license,r.topics_json,r.archived,r.fork,
+                            r.updated_at_github,r.pushed_at,r.default_branch,r.size_kb,r.open_issues,r.fetched_at,
+                            r.resource_kind,r.technology,r.content_mode,r.activity_status,r.activity_days,r.l1_quality,
+                            l.human_summary
+                     FROM results r LEFT JOIN l2_profiles l ON l.entity_id=r.entity_id
+                     WHERE lower(r.full_name) LIKE ? OR lower(r.description) LIKE ? OR lower(r.language) LIKE ?
+                        OR lower(r.license) LIKE ? OR lower(r.topics_json) LIKE ? OR lower(coalesce(l.human_summary,'')) LIKE ?
+                        OR lower(coalesce(r.technology,'')) LIKE ? OR lower(coalesce(r.resource_kind,'')) LIKE ?
+                     ORDER BY r.stars DESC LIMIT ?`).all(like,like,like,like,like,like,like,like,limit);
 }
 
 function resourceById(id) {
@@ -323,9 +327,10 @@ function statusSnapshot() {
   for (const r of db.prepare('SELECT status, COUNT(*) AS n FROM jobs GROUP BY status').all()) counts[r.status] = Number(r.n);
   const totalResults = Number(db.prepare('SELECT COUNT(*) AS n FROM results').get().n);
   const l2Count = Number(db.prepare('SELECT COUNT(*) AS n FROM l2_profiles').get().n);
-  const recent = db.prepare(`SELECT full_name,description,stars,language,archived,fork,rate_remaining,fetched_at,
-                                    resource_kind,technology,content_mode,activity_status,l1_quality
-                             FROM results ORDER BY fetched_at DESC LIMIT 12`).all();
+  const recent = db.prepare(`SELECT r.full_name,r.description,r.stars,r.language,r.archived,r.fork,r.rate_remaining,r.fetched_at,
+                                    r.resource_kind,r.technology,r.content_mode,r.activity_status,r.l1_quality,l.human_summary
+                             FROM results r LEFT JOIN l2_profiles l ON l.entity_id=r.entity_id
+                             ORDER BY r.fetched_at DESC LIMIT 12`).all();
   const events = db.prepare('SELECT at,level,event,detail FROM events ORDER BY id DESC LIMIT 12').all();
   const control = loadControlSnapshot();
   const levels = JSON.parse(JSON.stringify(control.product || {}));
