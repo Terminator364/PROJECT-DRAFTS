@@ -5,49 +5,67 @@ param(
 $ErrorActionPreference = "Stop"
 $node = (Get-Command node -ErrorAction Stop).Source
 $entry = Join-Path $RepoDir "src\tlib.mjs"
+$verify = Join-Path $RepoDir "scripts\verify-build.mjs"
+$launcher = Join-Path $RepoDir "scripts\launch-tlib.ps1"
+$desktop = [Environment]::GetFolderPath("Desktop")
+$dataDir = Join-Path $env:LOCALAPPDATA "TLIB-PC"
+New-Item -ItemType Directory -Force -Path $dataDir | Out-Null
 
-Write-Host "TLIB-PC: running self-test..."
-& $node $entry selftest
-if ($LASTEXITCODE -ne 0) { throw "TLIB self-test failed" }
+Write-Host "TLIB-PC: verification du build..."
+& $node --check $entry
+if ($LASTEXITCODE -ne 0) { throw "TLIB Node syntax check failed" }
+& $node $verify
+if ($LASTEXITCODE -ne 0) { throw "TLIB build verification failed" }
+
+# Retire les anciens points d'entree qui contournaient le launcher.
+Remove-Item (Join-Path $desktop "TLIB Cockpit.url") -Force -ErrorAction SilentlyContinue
+$startup = [Environment]::GetFolderPath("Startup")
+Remove-Item (Join-Path $startup "TLIB-PC-Agent.vbs") -Force -ErrorAction SilentlyContinue
 
 $startupInstalled = $false
 $taskName = "TLIB-PC-Agent"
 try {
-  $action = New-ScheduledTaskAction -Execute $node -Argument ('"' + $entry + '" agent') -WorkingDirectory $RepoDir
+  $ps = "$env:SystemRoot\System32\WindowsPowerShell\v1.0\powershell.exe"
+  $args = '-NoProfile -ExecutionPolicy Bypass -WindowStyle Hidden -File "' + $launcher + '" -NoOpen'
+  $action = New-ScheduledTaskAction -Execute $ps -Argument $args -WorkingDirectory $RepoDir
   $trigger = New-ScheduledTaskTrigger -AtLogOn
   $settings = New-ScheduledTaskSettingsSet -StartWhenAvailable -ExecutionTimeLimit (New-TimeSpan -Hours 0)
   Unregister-ScheduledTask -TaskName $taskName -Confirm:$false -ErrorAction SilentlyContinue
-  Register-ScheduledTask -TaskName $taskName -Action $action -Trigger $trigger -Settings $settings -Description "TLIB lightweight local worker and cockpit" | Out-Null
+  Register-ScheduledTask -TaskName $taskName -Action $action -Trigger $trigger -Settings $settings -Description "TLIB self-healing launcher" | Out-Null
   Write-Host "TLIB-PC: startup task installed."
   $startupInstalled = $true
 } catch {
-  Write-Warning "Scheduled Task unavailable; installing per-user Startup fallback."
+  Write-Warning "Scheduled Task unavailable; installation du fallback utilisateur."
 }
 
 if (-not $startupInstalled) {
-  $startup = [Environment]::GetFolderPath("Startup")
   $vbs = Join-Path $startup "TLIB-PC-Agent.vbs"
   $vbsContent = @(
     'Set sh = CreateObject("WScript.Shell")',
-    'node = sh.ExpandEnvironmentStrings("%ProgramFiles%\nodejs\node.exe")',
-    'entry = sh.ExpandEnvironmentStrings("%LOCALAPPDATA%\TLIB-PC-LAB\TLIB-HYBRID-V2\src\tlib.mjs")',
-    'sh.Run Chr(34) & node & Chr(34) & " " & Chr(34) & entry & Chr(34) & " agent", 0, False'
+    'ps = sh.ExpandEnvironmentStrings("%SystemRoot%\System32\WindowsPowerShell\v1.0\powershell.exe")',
+    'launcher = sh.ExpandEnvironmentStrings("%LOCALAPPDATA%\TLIB-PC-LAB\TLIB-HYBRID-V2\scripts\launch-tlib.ps1")',
+    'sh.Run Chr(34) & ps & Chr(34) & " -NoProfile -ExecutionPolicy Bypass -WindowStyle Hidden -File " & Chr(34) & launcher & Chr(34) & " -NoOpen", 0, False'
   )
   Set-Content -Path $vbs -Value $vbsContent -Encoding ASCII
   Write-Host "TLIB-PC: per-user Startup fallback installed."
 }
 
-$desktop = [Environment]::GetFolderPath("Desktop")
-$urlFile = Join-Path $desktop "TLIB Cockpit.url"
-@"
-[InternetShortcut]
-URL=http://127.0.0.1:8787
-IconFile=$env:SystemRoot\System32\SHELL32.dll
-IconIndex=220
-"@ | Set-Content -Encoding ASCII $urlFile
+# Raccourci unique vers le launcher versionne.
+$shortcut = Join-Path $desktop "TLIB.lnk"
+$ws = New-Object -ComObject WScript.Shell
+$lnk = $ws.CreateShortcut($shortcut)
+$lnk.TargetPath = "$env:SystemRoot\System32\WindowsPowerShell\v1.0\powershell.exe"
+$lnk.Arguments = '-NoProfile -ExecutionPolicy Bypass -WindowStyle Hidden -File "' + $launcher + '"'
+$lnk.WorkingDirectory = $RepoDir
+$customIcon = Join-Path $dataDir "TLIB.ico"
+if (Test-Path $customIcon) { $lnk.IconLocation = $customIcon + ",0" }
+else { $lnk.IconLocation = "$env:SystemRoot\System32\SHELL32.dll,220" }
+$lnk.Description = "TLIB - Bibliotheque intelligente"
+$lnk.Save()
 
-Write-Host "TLIB-PC: desktop cockpit shortcut created."
-Write-Host "TLIB-PC: starting agent now..."
-Start-Process -FilePath $node -ArgumentList ('"' + $entry + '" agent') -WorkingDirectory $RepoDir -WindowStyle Hidden
-Start-Sleep -Seconds 2
-Write-Host "Open: http://127.0.0.1:8787"
+Write-Host "TLIB-PC: launcher desktop installe."
+Write-Host "TLIB-PC: verification/reparation du moteur..."
+& "$env:SystemRoot\System32\WindowsPowerShell\v1.0\powershell.exe" -NoProfile -ExecutionPolicy Bypass -File $launcher -NoOpen
+if ($LASTEXITCODE -ne 0) { throw "TLIB launcher repair/start failed" }
+
+Write-Host "TLIB-PC: installation terminee."
