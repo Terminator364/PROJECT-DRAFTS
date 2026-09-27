@@ -106,8 +106,8 @@ function classifyL1(x) {
   if (!technology && candidates.length && !candidates.includes('unicorns')) technology = candidates[0];
   if (!technology && x.language) technology = String(x.language);
 
-  const contentMode = isList && !x.language ? 'Documentation / liens' :
-    (x.language ? 'Code + documentation (' + x.language + ')' : 'Contenu à préciser');
+  const contentMode = isList ? 'Catalogue / documentation / liens' :
+    (x.language ? 'Projet logiciel (' + x.language + ')' : 'Contenu à préciser');
 
   let activityDays = null, activityStatus = 'Activité inconnue';
   const pushed = Date.parse(String(x.pushed_at || ''));
