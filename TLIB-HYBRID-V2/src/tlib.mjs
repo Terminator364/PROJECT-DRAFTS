@@ -1,0 +1,238 @@
+import http from 'node:http';
+import { mkdirSync, readFileSync } from 'node:fs';
+import { homedir } from 'node:os';
+import { dirname, join, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { DatabaseSync } from 'node:sqlite';
+
+const HERE = dirname(fileURLToPath(import.meta.url));
+const ROOT = resolve(HERE, '..');
+const dataDir = process.env.TLIB_DATA_DIR || join(process.env.LOCALAPPDATA || homedir(), 'TLIB-PC');
+mkdirSync(dataDir, { recursive: true });
+const dbPath = join(dataDir, 'tlib-worker.sqlite3');
+const db = new DatabaseSync(dbPath);
+db.exec(`
+PRAGMA journal_mode=WAL;
+PRAGMA synchronous=NORMAL;
+CREATE TABLE IF NOT EXISTS jobs(
+  entity_id TEXT PRIMARY KEY,
+  full_name TEXT NOT NULL UNIQUE,
+  status TEXT NOT NULL DEFAULT 'PENDING',
+  attempts INTEGER NOT NULL DEFAULT 0,
+  last_error TEXT,
+  updated_at TEXT NOT NULL
+);
+CREATE TABLE IF NOT EXISTS results(
+  entity_id TEXT PRIMARY KEY,
+  full_name TEXT NOT NULL,
+  http_status INTEGER,
+  github_id TEXT,
+  node_id TEXT,
+  description TEXT,
+  archived INTEGER,
+  fork INTEGER,
+  stars INTEGER,
+  language TEXT,
+  license TEXT,
+  topics_json TEXT,
+  updated_at_github TEXT,
+  pushed_at TEXT,
+  default_branch TEXT,
+  size_kb INTEGER,
+  open_issues INTEGER,
+  rate_remaining INTEGER,
+  fetched_at TEXT NOT NULL,
+  raw_json TEXT NOT NULL
+);
+CREATE TABLE IF NOT EXISTS events(
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  at TEXT NOT NULL,
+  level TEXT NOT NULL,
+  event TEXT NOT NULL,
+  detail TEXT
+);
+`);
+
+const now = () => new Date().toISOString();
+const event = (level, name, detail='') => {
+  db.prepare('INSERT INTO events(at,level,event,detail) VALUES(?,?,?,?)').run(now(), level, name, String(detail).slice(0,2000));
+};
+
+function argValue(prefix, fallback) {
+  const a = process.argv.find(x => x.startsWith(prefix + '='));
+  return a ? a.slice(prefix.length + 1) : fallback;
+}
+
+function entityId(fullName) {
+  return 'ghpath:' + fullName.toLowerCase();
+}
+
+function seed() {
+  const seeds = JSON.parse(readFileSync(join(ROOT, 'config', 'canary-seeds.json'), 'utf8'));
+  const stmt = db.prepare(`INSERT OR IGNORE INTO jobs(entity_id,full_name,status,attempts,updated_at)
+                           VALUES(?,?,'PENDING',0,?)`);
+  let added = 0;
+  for (const fullName of seeds) {
+    const r = stmt.run(entityId(fullName), fullName, now());
+    added += Number(r.changes || 0);
+  }
+  event('INFO', 'SEED', `added=${added}; total=${seeds.length}`);
+  console.log(JSON.stringify({ ok: true, added, configured: seeds.length, dbPath }, null, 2));
+}
+
+function selftest() {
+  const ver = process.versions.node.split('.').map(Number);
+  if (ver[0] < 24) throw new Error('NODE_24_REQUIRED');
+  const testName = 'selftest/example';
+  db.prepare(`INSERT OR REPLACE INTO jobs(entity_id,full_name,status,attempts,updated_at)
+              VALUES(?,?,'TEST',0,?)`).run(entityId(testName), testName, now());
+  const row = db.prepare('SELECT full_name FROM jobs WHERE entity_id=?').get(entityId(testName));
+  db.prepare('DELETE FROM jobs WHERE entity_id=?').run(entityId(testName));
+  if (!row || row.full_name !== testName) throw new Error('SQLITE_READBACK_FAILED');
+  event('INFO', 'SELFTEST_PASS', `node=${process.versions.node}`);
+  console.log(JSON.stringify({ ok: true, node: process.versions.node, sqlite: true, dbPath }, null, 2));
+}
+
+async function fetchRepo(fullName) {
+  const headers = {
+    'Accept': 'application/vnd.github+json',
+    'User-Agent': 'TLIB-PC-Agent/0.1'
+  };
+  if (process.env.GH_TOKEN) headers.Authorization = 'Bearer ' + process.env.GH_TOKEN;
+  const url = 'https://api.github.com/repos/' + fullName;
+  const res = await fetch(url, { headers, signal: AbortSignal.timeout(15000) });
+  const text = await res.text();
+  let body = {};
+  try { body = text ? JSON.parse(text) : {}; } catch { body = { message: text.slice(0,500) }; }
+  const remaining = Number(res.headers.get('x-ratelimit-remaining') || -1);
+  const reset = Number(res.headers.get('x-ratelimit-reset') || 0);
+
+  if (res.status === 403 && remaining === 0) {
+    const e = new Error('GITHUB_RATE_LIMIT');
+    e.code = 'RATE_LIMIT';
+    e.reset = reset;
+    throw e;
+  }
+  if (res.status === 404) return { status: 404, body, remaining };
+  if (!res.ok) {
+    const e = new Error('GITHUB_HTTP_' + res.status + ' ' + String(body.message || '').slice(0,300));
+    e.code = res.status >= 500 ? 'RETRY' : 'HTTP';
+    throw e;
+  }
+  return { status: res.status, body, remaining };
+}
+
+async function canary(limit=10) {
+  seed();
+  const jobs = db.prepare(`SELECT entity_id,full_name,attempts FROM jobs
+                           WHERE status IN ('PENDING','RETRY')
+                           ORDER BY rowid LIMIT ?`).all(limit);
+  let done=0, missing=0, errors=0, paused=false;
+  for (const job of jobs) {
+    db.prepare(`UPDATE jobs SET status='RUNNING', attempts=attempts+1, updated_at=? WHERE entity_id=?`).run(now(), job.entity_id);
+    try {
+      const r = await fetchRepo(job.full_name);
+      if (r.status === 404) {
+        db.prepare(`UPDATE jobs SET status='NOT_FOUND', last_error='HTTP_404', updated_at=? WHERE entity_id=?`).run(now(), job.entity_id);
+        event('WARN','NOT_FOUND',job.full_name);
+        missing++;
+        continue;
+      }
+      const x = r.body;
+      const topics = Array.isArray(x.topics) ? x.topics : [];
+      db.prepare(`INSERT OR REPLACE INTO results(
+        entity_id,full_name,http_status,github_id,node_id,description,archived,fork,stars,language,license,
+        topics_json,updated_at_github,pushed_at,default_branch,size_kb,open_issues,rate_remaining,fetched_at,raw_json
+      ) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`).run(
+        job.entity_id, job.full_name, r.status, String(x.id ?? ''), String(x.node_id ?? ''), String(x.description ?? ''),
+        x.archived ? 1 : 0, x.fork ? 1 : 0, Number(x.stargazers_count ?? 0), String(x.language ?? ''),
+        String(x.license?.spdx_id ?? x.license?.name ?? ''), JSON.stringify(topics), String(x.updated_at ?? ''),
+        String(x.pushed_at ?? ''), String(x.default_branch ?? ''), Number(x.size ?? 0), Number(x.open_issues_count ?? 0),
+        r.remaining, now(), JSON.stringify(x)
+      );
+      db.prepare(`UPDATE jobs SET status='DONE', last_error=NULL, updated_at=? WHERE entity_id=?`).run(now(), job.entity_id);
+      event('INFO','L1_OK',job.full_name);
+      done++;
+    } catch (e) {
+      if (e.code === 'RATE_LIMIT') {
+        db.prepare(`UPDATE jobs SET status='RETRY', last_error=?, updated_at=? WHERE entity_id=?`).run(String(e.message), now(), job.entity_id);
+        event('WARN','RATE_LIMIT',`reset=${e.reset || 0}`);
+        paused=true;
+        break;
+      }
+      const attempts = Number(job.attempts || 0) + 1;
+      const retry = attempts < 3;
+      db.prepare(`UPDATE jobs SET status=?, last_error=?, updated_at=? WHERE entity_id=?`).run(retry?'RETRY':'FAILED', String(e.message).slice(0,500), now(), job.entity_id);
+      event('ERROR','L1_ERROR',job.full_name + ' :: ' + e.message);
+      errors++;
+    }
+  }
+  const summary = statusSnapshot();
+  console.log(JSON.stringify({ ok: !paused, paused, processed: jobs.length, done, missing, errors, summary }, null, 2));
+}
+
+function statusSnapshot() {
+  const counts = {};
+  for (const r of db.prepare('SELECT status, COUNT(*) AS n FROM jobs GROUP BY status').all()) counts[r.status] = Number(r.n);
+  const totalResults = Number(db.prepare('SELECT COUNT(*) AS n FROM results').get().n);
+  const recent = db.prepare(`SELECT full_name,stars,language,archived,fork,rate_remaining,fetched_at
+                             FROM results ORDER BY fetched_at DESC LIMIT 12`).all();
+  return { counts, totalResults, recent, dbPath };
+}
+
+function html() {
+  const s = statusSnapshot();
+  const rows = s.recent.map(r => `<tr><td>${esc(r.full_name)}</td><td>${r.stars}</td><td>${esc(r.language||'')}</td><td>${r.archived?'yes':'no'}</td><td>${r.fork?'yes':'no'}</td><td>${r.rate_remaining}</td></tr>`).join('');
+  return `<!doctype html><html><head><meta charset="utf-8"><meta http-equiv="refresh" content="5">
+<title>TLIB PC Cockpit</title><style>
+body{font-family:Segoe UI,Arial,sans-serif;margin:24px;background:#101318;color:#eef2f7} .card{background:#1b2230;padding:16px;border-radius:12px;margin:10px 0}
+code{color:#9ddcff} table{width:100%;border-collapse:collapse} td,th{padding:8px;border-bottom:1px solid #333;text-align:left}
+.good{color:#76e39a}.muted{color:#aab4c3}
+</style></head><body><h1>TLIB PC Cockpit</h1>
+<div class="card"><b>Mode:</b> LAB / L1 canary <span class="good">local worker</span><br>
+<b>Database:</b> <code>${esc(s.dbPath)}</code><br><b>Results:</b> ${s.totalResults}<br>
+<b>Queue:</b> <code>${esc(JSON.stringify(s.counts))}</code></div>
+<div class="card"><h2>Recent L1 results</h2><table><tr><th>Repo</th><th>Stars</th><th>Language</th><th>Archived</th><th>Fork</th><th>Rate left</th></tr>${rows}</table></div>
+<div class="muted">Refresh every 5 seconds. Bound to localhost only.</div></body></html>`;
+}
+
+function esc(v){ return String(v).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+function startDashboard() {
+  const port = Number(process.env.TLIB_DASHBOARD_PORT || 8787);
+  const server = http.createServer((req,res) => {
+    if (req.url === '/api/status') {
+      res.writeHead(200, {'content-type':'application/json; charset=utf-8'});
+      return res.end(JSON.stringify(statusSnapshot()));
+    }
+    res.writeHead(200, {'content-type':'text/html; charset=utf-8'});
+    res.end(html());
+  });
+  server.listen(port, '127.0.0.1', () => {
+    event('INFO','DASHBOARD_STARTED','127.0.0.1:' + port);
+    console.log('TLIB dashboard: http://127.0.0.1:' + port);
+  });
+  return server;
+}
+
+async function main() {
+  const cmd = process.argv[2] || 'selftest';
+  if (cmd === 'selftest') return selftest();
+  if (cmd === 'seed') return seed();
+  if (cmd === 'canary') return canary(Number(argValue('--limit', '10')));
+  if (cmd === 'dashboard') return startDashboard();
+  if (cmd === 'agent') {
+    selftest();
+    seed();
+    startDashboard();
+    if (process.env.TLIB_AUTO_WORK === '1') await canary(Number(process.env.TLIB_AUTO_LIMIT || 10));
+    return;
+  }
+  throw new Error('UNKNOWN_COMMAND ' + cmd);
+}
+
+main().catch(e => {
+  try { event('FATAL','PROCESS_ERROR',e.stack || e.message); } catch {}
+  console.error(e.stack || e.message);
+  process.exitCode = 1;
+});
