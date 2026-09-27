@@ -166,7 +166,7 @@ function classifyL1(x) {
   const bag = [name, desc, ...topics].join(' ');
 
   const isCatalogue = name.startsWith('awesome') || topics.includes('awesome-list') || topics.includes('list') ||
-    /curated list|collection of (useful |awesome |interesting )?(resources|tools|projects|libraries|packages)|awesome resources/.test(desc);
+    /curated list|collection of (useful |awesome |interesting )?(resources|tools|projects|libraries|packages)|awesome resources|aggregation of tooling|aggregation of tools|list of .*tools/.test(desc);
   const isGuide = /(^|[-_])(tips?|guides?|tutorials?|learning|books?|courses?|roadmaps?|cheat[-_]?sheet|references?|papers?|docs?|documentation)([-_]|$)/.test(name) ||
     /tips|tutorial|learning material|learning resources|guide|reference|documentation|bookmarks|must[- ]watch/.test(desc);
   const isDataset = /dataset|data set|public data/.test(bag);
@@ -194,7 +194,24 @@ function classifyL1(x) {
     ['machine learning / AI', /machine learning|deep learning|artificial intelligence|generative ai|\bai\b/]
   ];
   let technology = '';
-  for (const [label, rx] of techRules) if (rx.test(bag)) { technology = label; break; }
+  if (name.startsWith('awesome-')) {
+    const suffix=name.slice(8).replace(/-/g,' ').trim();
+    const aliases={
+      'fsharp':'F#','f sharp':'F#','cpp':'C++','c plus plus':'C++','dotnet':'.NET','dotnet core':'.NET',
+      'cl':'Common Lisp','common lisp':'Common Lisp','d':'D','r':'R','go':'Go','golang':'Go','java':'Java',
+      'rxjava':'RxJava / Java','python':'Python','nodejs':'Node.js','node js':'Node.js','swift':'Swift',
+      'rust':'Rust','haskell':'Haskell','purescript':'PureScript','scala':'Scala','scala native':'Scala Native',
+      'ruby':'Ruby','clojure':'Clojure','clojurescript':'ClojureScript','elixir':'Elixir','elm':'Elm',
+      'erlang':'Erlang','lua':'Lua','kotlin':'Kotlin','dart':'Dart','groovy':'Groovy','perl':'Perl',
+      'vba':'VBA','autohotkey':'AutoHotkey','autoit':'AutoIt','cmake':'CMake','ada':'Ada','coq':'Coq'
+    };
+    if(suffix && !/^(list|resources?|things)$/.test(suffix)) technology=aliases[suffix]||suffix;
+  }
+  if (!technology) {
+    const topicBag=[name,...topics].join(' ');
+    for (const [label, rx] of techRules) if (rx.test(topicBag)) { technology = label; break; }
+  }
+  if (!technology) for (const [label, rx] of techRules) if (rx.test(desc)) { technology = label; break; }
 
   const genericTopics = new Set([
     'awesome','awesome-list','list','lists','resources','resource','open-source','opensource','github',
