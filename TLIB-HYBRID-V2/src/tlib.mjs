@@ -453,6 +453,19 @@ function libraryRows(q='', limit=100) {
                      ORDER BY r.stars DESC LIMIT ?`).all(like,like,like,like,like,like,like,like,like,like,limit);
 }
 
+function facetsSnapshot() {
+  const technologies=db.prepare(`SELECT technology AS value, COUNT(*) AS n FROM results
+                                 WHERE coalesce(technology,'')<>'' GROUP BY technology
+                                 ORDER BY n DESC, value ASC LIMIT 30`).all();
+  const types=db.prepare(`SELECT resource_kind AS value, COUNT(*) AS n FROM results
+                          WHERE coalesce(resource_kind,'')<>'' GROUP BY resource_kind
+                          ORDER BY n DESC, value ASC`).all();
+  const activities=db.prepare(`SELECT activity_status AS value, COUNT(*) AS n FROM results
+                               WHERE coalesce(activity_status,'')<>'' GROUP BY activity_status
+                               ORDER BY n DESC, value ASC`).all();
+  return {technologies,types,activities};
+}
+
 function resourceById(id) {
   const r = db.prepare(`SELECT * FROM results WHERE entity_id=? OR lower(full_name)=lower(?)`).get(String(id||''), String(id||''));
   if (!r) return null;
@@ -508,6 +521,7 @@ async function startDashboard() {
     try {
       if (u.pathname === '/api/status') return sendJson(res,200,statusSnapshot());
       if (u.pathname === '/api/library') return sendJson(res,200,{items:libraryRows(u.searchParams.get('q')||'',u.searchParams.get('limit')||100)});
+      if (u.pathname === '/api/facets') return sendJson(res,200,facetsSnapshot());
       if (u.pathname === '/api/resource') {
         const item=resourceById(u.searchParams.get('id')||'');
         return item ? sendJson(res,200,item) : sendJson(res,404,{error:'NOT_FOUND'});
