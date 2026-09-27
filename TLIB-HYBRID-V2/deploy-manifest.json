@@ -97,12 +97,12 @@
     },
     {
       "path": "scripts/slot-update.mjs",
-      "git_blob_sha": "96ee829b6766670ac538ddafa1bb1cc9d08b17a2"
+      "git_blob_sha": "b4a2367793c78f7477fa58e67a407ae6a02186ee"
     },
     {
       "path": "scripts/bootstrap-tlib.ps1",
       "git_blob_sha": "8c3e65e7b4751b5d8685eda38a50ae4f743ac239"
     }
   ],
-  "updated_at": "2026-09-27T19:13:40.418Z"
+  "updated_at": "2026-09-27T19:28:34.871Z"
 }
