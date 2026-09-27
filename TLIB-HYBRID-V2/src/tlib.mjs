@@ -228,7 +228,15 @@ async function canary(limit=10) {
 
 function fixtureCanary() {
   seed();
-  const fixture = JSON.parse(readFileSync(join(ROOT, 'config', 'l1-fixture-10.json'), 'utf8'));
+  const files = ['l1-fixture-10.json','l1-batch-a.json','l1-batch-b.json','l1-batch-c.json','l1-batch-d.json','l1-batch-e.json'];
+  const byName = new Map();
+  for (const file of files) {
+    try {
+      const rows = JSON.parse(readFileSync(join(ROOT, 'config', file), 'utf8'));
+      for (const x of rows) if (x && x.full_name) byName.set(String(x.full_name).toLowerCase(), x);
+    } catch {}
+  }
+  const fixture = [...byName.values()];
   let done = 0;
   for (const x of fixture) {
     const fullName = String(x.full_name || '');
@@ -251,7 +259,7 @@ function fixtureCanary() {
     db.prepare(`UPDATE jobs SET status='DONE', last_error=NULL, updated_at=? WHERE entity_id=?`).run(now(), id);
     done++;
   }
-  event('INFO','FIXTURE_CANARY_PASS','done=' + done);
+  event('INFO','FIXTURE_CANARY_PASS','done=' + done + '; corpus=' + fixture.length);
   console.log(JSON.stringify({ ok:true, mode:'fixture', done, summary:statusSnapshot() }, null, 2));
 }
 
