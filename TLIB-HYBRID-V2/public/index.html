@@ -58,8 +58,8 @@ pre{white-space:pre-wrap;word-break:break-word;background:#0a1120;border:1px sol
 </section>
 
 <section id="explore" class="section">
-<div class="card"><h2 style="margin-top:0">Explorer TLIB</h2><div class="muted">Recherche en langage simple par nom, domaine, technologie, description ou thème. Clique aussi sur n'importe quel tag pour explorer immédiatement ce thème.</div><div class="searchbar"><input id="librarySearch" placeholder="Que cherches-tu ?"><button class="btn primary" id="librarySearchBtn">Chercher</button></div><div class="meta" id="quickFilters"><button class="pill" data-filter="">Tout</button></div><div id="libraryCount" class="small muted" style="margin-top:10px"></div></div>
-<div id="libraryResults" class="results" style="margin-top:16px"></div><div id="resourceDetail" class="card" style="display:none;margin-top:16px"></div>
+<div class="card"><h2 style="margin-top:0">Explorer TLIB</h2><div class="muted">Recherche en langage simple par nom, domaine, technologie, description ou thème. Clique aussi sur n'importe quel tag pour explorer immédiatement ce thème.</div><div class="searchbar"><input id="librarySearch" placeholder="Que cherches-tu ?"><button class="btn primary" id="librarySearchBtn">Chercher</button></div><div class="meta" id="quickFilters"><button class="pill" data-filter="">Tout</button></div><div style="display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin-top:12px"><div id="libraryCount" class="small muted"></div><label class="small muted">Trier&nbsp; <select id="librarySort" style="background:#0b1325;color:#fff;border:1px solid var(--line);border-radius:8px;padding:7px"><option value="stars">Popularité</option><option value="recent">Activité récente</option><option value="verified">Vérifiées récemment</option><option value="complete">Complétude L1</option><option value="name">Nom A→Z</option></select></label></div></div>
+<div id="libraryResults" class="results" style="margin-top:16px"></div><div style="text-align:center;margin-top:14px"><button class="btn" id="libraryMore" style="display:none">Afficher plus</button></div><div id="resourceDetail" class="card" style="display:none;margin-top:16px"></div>
 </section>
 
 <section id="l1" class="section">
@@ -138,7 +138,7 @@ pre{white-space:pre-wrap;word-break:break-word;background:#0a1120;border:1px sol
 </section>
 </main></div>
 <script>
-var STATUS=null,FIRST_L1=null,LAST_L1=null;
+var STATUS=null,FIRST_L1=null,LAST_L1=null,LIB_OFFSET=0,LIB_QUERY='',LIB_TOTAL=0,LIB_LIMIT=60;
 function el(s){return document.querySelector(s)} function els(s){return Array.from(document.querySelectorAll(s))}
 function fmt(n){return Number(n||0).toLocaleString('fr-FR')}
 function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
@@ -150,8 +150,21 @@ els('.nav button').forEach(function(b){b.onclick=function(){show(b.dataset.view)
 function tagButton(v,label){return '<button class="pill tag-filter" data-tag="'+esc(v)+'">'+esc(label||v)+'</button>'}
 function toolCard(x){var type=x.resource_kind||'Ressource GitHub';var tech=x.technology||x.language||'';var activity=x.activity_status||'';var d=String(x.human_summary||'').trim();if(!d){d=type+(tech?' consacré à '+tech:'')+'. '+(activity?activity+'.':'Fiche L1 vérifiée.')}return '<div class="card tool" data-id="'+esc(x.entity_id)+'"><div class="small muted">'+esc(type)+'</div><h3>'+esc(x.full_name)+'</h3><p>'+esc(d.slice(0,180))+'</p><div class="meta"><span class="pill">✓ L1 vérifié</span>'+(x.human_summary?'<span class="pill">🧠 L2 compris</span>':'')+(tech?tagButton(tech,tech):'')+(activity?tagButton(activity,activity):'')+'</div></div>'}
 function bindTagFilters(root){(root||document).querySelectorAll('.tag-filter').forEach(function(b){b.onclick=function(e){e.stopPropagation();filterByTag(b.dataset.tag)}})}
-async function filterByTag(tag){show('explore');el('#librarySearch').value=tag||'';await loadLibrary(tag||'')}
-async function loadLibrary(q){q=q||'';var j=await api('/api/library?q='+encodeURIComponent(q)+'&limit=100');el('#libraryCount').textContent=j.items.length+' affichée(s) sur '+fmt(j.total||j.items.length)+' fiche(s) L1 correspondante(s).';el('#libraryResults').innerHTML=j.items.length?j.items.map(toolCard).join(''):'<div class="card muted">Aucun résultat local.</div>';els('#libraryResults .tool').forEach(function(x){x.onclick=function(){loadResource(x.dataset.id)}});bindTagFilters(el('#libraryResults'));return j.items}
+async function filterByTag(tag){show('explore');el('#librarySearch').value=tag||'';await loadLibrary(tag||'',false)}
+async function loadLibrary(q,append){
+  q=q||'';append=Boolean(append);
+  if(!append){LIB_OFFSET=0;LIB_QUERY=q;el('#libraryResults').innerHTML='';}
+  var sort=el('#librarySort')?el('#librarySort').value:'stars';
+  var j=await api('/api/library?q='+encodeURIComponent(q)+'&limit='+LIB_LIMIT+'&offset='+LIB_OFFSET+'&sort='+encodeURIComponent(sort));
+  LIB_TOTAL=Number(j.total||0);
+  if(!append&&j.items.length===0)el('#libraryResults').innerHTML='<div class="card muted">Aucun résultat local.</div>';
+  else el('#libraryResults').insertAdjacentHTML('beforeend',j.items.map(toolCard).join(''));
+  LIB_OFFSET+=j.items.length;
+  el('#libraryCount').textContent=fmt(LIB_OFFSET)+' affichée(s) sur '+fmt(LIB_TOTAL)+' fiche(s) L1 correspondante(s).';
+  el('#libraryMore').style.display=LIB_OFFSET<LIB_TOTAL?'inline-block':'none';
+  els('#libraryResults .tool').forEach(function(x){if(!x.dataset.bound){x.dataset.bound='1';x.onclick=function(){loadResource(x.dataset.id)}}});
+  bindTagFilters(el('#libraryResults'));return j.items
+}
 async function loadFacets(){
   try{
     var f=await api('/api/facets');
@@ -214,10 +227,12 @@ function renderTechEvents(filter){
   el('#techEvents').innerHTML='<table><thead><tr><th>Heure</th><th>Niveau</th><th>Événement</th><th>Détail</th></tr></thead><tbody>'+rows.map(function(e){return '<tr><td>'+esc(new Date(e.at).toLocaleTimeString('fr-FR'))+'</td><td>'+esc(e.level)+'</td><td><b>'+esc(e.event)+'</b></td><td>'+esc(e.detail||'')+'</td></tr>'}).join('')+'</tbody></table>';
 }
 async function refresh(){try{renderStatus(await api('/api/status'))}catch(e){el('#sideWorker').textContent='Worker indisponible'}}
-el('#homeSearchBtn').onclick=async function(){show('explore');el('#librarySearch').value=el('#homeSearch').value;await loadLibrary(el('#homeSearch').value)}
+el('#homeSearchBtn').onclick=async function(){show('explore');el('#librarySearch').value=el('#homeSearch').value;await loadLibrary(el('#homeSearch').value,false)}
 el('#homeSearch').addEventListener('keydown',function(e){if(e.key==='Enter')el('#homeSearchBtn').click()})
-el('#librarySearchBtn').onclick=function(){loadLibrary(el('#librarySearch').value)}
-el('#librarySearch').addEventListener('keydown',function(e){if(e.key==='Enter')loadLibrary(e.target.value)})
+el('#librarySearchBtn').onclick=function(){loadLibrary(el('#librarySearch').value,false)}
+el('#librarySearch').addEventListener('keydown',function(e){if(e.key==='Enter')loadLibrary(e.target.value,false)})
+el('#librarySort').onchange=function(){loadLibrary(LIB_QUERY||el('#librarySearch').value,false)}
+el('#libraryMore').onclick=function(){loadLibrary(LIB_QUERY,true)}
 var searchTimer=null;el('#librarySearch').addEventListener('input',function(e){clearTimeout(searchTimer);searchTimer=setTimeout(function(){loadLibrary(e.target.value)},350)})
 el('#refreshManager').onclick=refresh
 el('#runFixture').onclick=async function(){var b=el('#runFixture'),m=el('#actionMessage');b.disabled=true;m.textContent='Test L1 local en cours…';try{var j=await api('/api/action/fixture-canary',{method:'POST'});m.textContent=j.message||'Terminé.';renderStatus(j.status)}catch(e){m.textContent='Erreur : '+e.message}finally{b.disabled=false}}
