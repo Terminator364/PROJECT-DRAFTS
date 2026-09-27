@@ -20,7 +20,7 @@
     "secure_github_auth",
     "authenticated_100_item_canary"
   ],
-  "updated_at_utc": "2026-09-27T14:43:00Z",
+  "updated_at_utc": "2026-09-27T15:03:10Z",
   "pc": {
     "device": "MBMPC",
     "node_version": "24.21.0",
@@ -47,9 +47,14 @@
       "startup_fallback": "INSTALLED_PER_USER"
     },
     "local_l1_canary": {
-      "status": "PASS",
-      "verified_results": 48,
-      "model": "semantic-L1"
+      "status": "RUNNING_AUTOPILOT",
+      "verified_results_observed": 89,
+      "staged_fixture_metadata": 86,
+      "staged_queue_names": 1000,
+      "pending_observed": 911,
+      "public_mode": "PUBLIC_SLOW",
+      "public_rate_remaining_observed": 56,
+      "evidence": "localhost /api/status on MBMPC"
     }
   },
   "live_pc_github_canary": {
@@ -58,12 +63,14 @@
   },
   "humanized_ui": {
     "status": "RUNNING",
-    "version": "v0.3",
+    "version": "v0.4",
     "changes": [
-      "L1 cards humanized",
-      "L2 summaries prioritized",
-      "raw GitHub fields moved to technical details",
-      "search extended to technology/type/L2 summary"
+      "clickable tags and technology filters",
+      "dynamic live facets with counts",
+      "search-as-you-type",
+      "interactive L0/L1/L2/L3 cards",
+      "L1 staged progress bar",
+      "human resource cards with technical details collapsed"
     ]
   },
   "apps_script_lease_bridge": {
@@ -80,7 +87,14 @@
       "activity_status",
       "license",
       "topics",
-      "github_technical_metadata"
+      "homepage",
+      "forks",
+      "watchers",
+      "created_at",
+      "visibility",
+      "wiki/pages/discussions flags",
+      "L1 completeness score",
+      "raw GitHub metadata"
     ]
   }
 }
