@@ -21,11 +21,11 @@
     },
     {
       "path": "scripts/install-windows.ps1",
-      "git_blob_sha": "769750264a7b1070337d141fd0dd521207bacb64"
+      "git_blob_sha": "7327fb80f96ff9c36e76a2d81af906726ef06491"
     },
     {
       "path": "scripts/launch-tlib.ps1",
-      "git_blob_sha": "d498755c30641f7e92e9375411c3900e0eb0957f"
+      "git_blob_sha": "f991b8ddb2df22054ae2038d2becc6fc4cf7fe80"
     },
     {
       "path": "scripts/uninstall-windows.ps1",
@@ -98,7 +98,11 @@
     {
       "path": "scripts/slot-update.mjs",
       "git_blob_sha": "8df5690e203c07f0b5fa0cf2a16b58d921241ae1"
+    },
+    {
+      "path": "scripts/bootstrap-tlib.ps1",
+      "git_blob_sha": "288f9bd50a18898e347f87da8b025805fab7eeed"
     }
   ],
-  "updated_at": "2026-09-27T19:03:59.674Z"
+  "updated_at": "2026-09-27T19:08:19.926Z"
 }
