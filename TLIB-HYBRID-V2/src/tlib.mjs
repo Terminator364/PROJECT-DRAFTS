@@ -263,6 +263,32 @@ function fixtureCorpus() {
   return [...byName.values()];
 }
 
+function stagedNames() {
+  const out=[], seen=new Set();
+  try {
+    for(const file of readdirSync(join(ROOT,'config')).filter(n=>/^l1-names-.*\.json$/i.test(n)).sort()){
+      try{
+        const rows=JSON.parse(readFileSync(join(ROOT,'config',file),'utf8'));
+        for(const n of rows){
+          const full=String(n||'').trim();
+          if(full && !seen.has(full.toLowerCase())){seen.add(full.toLowerCase());out.push(full);}
+        }
+      }catch{}
+    }
+  }catch{}
+  return out;
+}
+
+function stageNamedQueue() {
+  const rows=stagedNames();
+  const stmt=db.prepare(`INSERT OR IGNORE INTO jobs(entity_id,full_name,status,attempts,updated_at)
+                         VALUES(?,?,'PENDING',0,?)`);
+  let added=0;
+  for(const fullName of rows) added += Number(stmt.run(entityId(fullName),fullName,now()).changes||0);
+  if(added) event('INFO','L1_NAME_STAGE','added='+added+'; staged_names='+rows.length);
+  return {added,staged:rows.length};
+}
+
 function stageFixtureJobs() {
   const rows = fixtureCorpus();
   const stmt = db.prepare(`INSERT OR IGNORE INTO jobs(entity_id,full_name,status,attempts,updated_at)
@@ -304,6 +330,64 @@ function autopilotFixtureStep(limit=2) {
   let done=0; for(const x of pending) if(upsertFixtureResult(x)) done++;
   if(done) event('INFO','L1_AUTOPILOT','+'+done+' fiche(s); total='+db.prepare('SELECT COUNT(*) AS n FROM results').get().n);
   return done;
+}
+
+let publicNextAttemptAt = 0;
+let publicRateRemaining = null;
+let publicRateReset = null;
+
+function saveLiveResult(job, r) {
+  const x=r.body, topics=Array.isArray(x.topics)?x.topics:[], q=classifyL1(x);
+  db.prepare(`INSERT OR REPLACE INTO results(
+    entity_id,full_name,http_status,github_id,node_id,description,archived,fork,stars,language,license,
+    topics_json,updated_at_github,pushed_at,default_branch,size_kb,open_issues,rate_remaining,fetched_at,raw_json,
+    resource_kind,technology,content_mode,activity_status,activity_days,l1_quality,homepage,forks_count,watchers_count,
+    created_at_github,visibility,disabled,has_wiki,has_pages,has_discussions,l1_score
+  ) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`).run(
+    job.entity_id,job.full_name,r.status,String(x.id??''),String(x.node_id??''),String(x.description??''),x.archived?1:0,x.fork?1:0,
+    Number(x.stargazers_count??0),String(x.language??''),String(x.license?.spdx_id??x.license?.name??''),JSON.stringify(topics),
+    String(x.updated_at??''),String(x.pushed_at??''),String(x.default_branch??''),Number(x.size??0),Number(x.open_issues_count??0),
+    Number(r.remaining??-1),now(),JSON.stringify(x),q.kind,q.technology,q.contentMode,q.activityStatus,q.activityDays,q.quality,
+    String(x.homepage??''),Number(x.forks_count??0),Number(x.watchers_count??0),String(x.created_at??''),String(x.visibility??''),
+    x.disabled?1:0,x.has_wiki?1:0,x.has_pages?1:0,x.has_discussions?1:0,q.score
+  );
+  db.prepare(`UPDATE jobs SET status='DONE', last_error=NULL, updated_at=? WHERE entity_id=?`).run(now(),job.entity_id);
+}
+
+async function autopilotPublicStep() {
+  if (Date.now() < publicNextAttemptAt) return {done:0,state:'WAIT'};
+  const job=db.prepare(`SELECT j.entity_id,j.full_name,j.attempts
+                        FROM jobs j LEFT JOIN results r ON r.entity_id=j.entity_id
+                        WHERE r.entity_id IS NULL AND j.status IN ('PENDING','RETRY')
+                        ORDER BY j.rowid LIMIT 1`).get();
+  if(!job) return {done:0,state:'EMPTY'};
+  db.prepare(`UPDATE jobs SET status='RUNNING',attempts=attempts+1,updated_at=? WHERE entity_id=?`).run(now(),job.entity_id);
+  try{
+    const r=await fetchRepo(job.full_name);
+    publicRateRemaining=Number(r.remaining??-1);
+    if(r.status===404){
+      db.prepare(`UPDATE jobs SET status='NOT_FOUND',last_error='HTTP_404',updated_at=? WHERE entity_id=?`).run(now(),job.entity_id);
+      event('WARN','L1_PUBLIC_NOT_FOUND',job.full_name);
+    }else{
+      saveLiveResult(job,r);
+      event('INFO','L1_PUBLIC_OK',job.full_name+'; remaining='+publicRateRemaining);
+    }
+    publicNextAttemptAt=Date.now()+(process.env.GH_TOKEN?5000:75000);
+    return {done:r.status===404?0:1,state:'OK'};
+  }catch(e){
+    if(e.code==='RATE_LIMIT'){
+      publicRateReset=Number(e.reset||0);
+      publicNextAttemptAt=Math.max(Date.now()+60000,(publicRateReset*1000)+15000);
+      db.prepare(`UPDATE jobs SET status='RETRY',last_error=?,updated_at=? WHERE entity_id=?`).run('GITHUB_RATE_LIMIT',now(),job.entity_id);
+      event('WARN','L1_PUBLIC_RATE_LIMIT','reset='+publicRateReset);
+      return {done:0,state:'RATE_LIMIT'};
+    }
+    const attempts=Number(job.attempts||0)+1,retry=attempts<3;
+    db.prepare(`UPDATE jobs SET status=?,last_error=?,updated_at=? WHERE entity_id=?`).run(retry?'RETRY':'FAILED',String(e.message||e).slice(0,500),now(),job.entity_id);
+    publicNextAttemptAt=Date.now()+120000;
+    event('ERROR','L1_PUBLIC_ERROR',job.full_name+' :: '+String(e.message||e));
+    return {done:0,state:'ERROR'};
+  }
 }
 
 function fixtureCanary() {
@@ -399,7 +483,10 @@ function statusSnapshot() {
     product: 'TLIB',
     mode: 'HYBRID_V2_LAB',
     pc_worker: { online:true, database:dbPath, local_l1_results:totalResults, local_l2_profiles:l2Count, queue:counts,
-      staged_l1:fixtureCorpus().length, autopilot:true },
+      staged_l1:fixtureCorpus().length, staged_names:stagedNames().length, autopilot:true,
+      public_mode: process.env.GH_TOKEN ? 'AUTHENTICATED' : 'PUBLIC_SLOW',
+      public_next_attempt_at: publicNextAttemptAt ? new Date(publicNextAttemptAt).toISOString() : null,
+      public_rate_remaining: publicRateRemaining, public_rate_reset: publicRateReset },
     apps_script: control.engine || {},
     levels,
     recent,
@@ -468,12 +555,16 @@ async function main() {
     selftest();
     seed();
     stageFixtureJobs();
+    stageNamedQueue();
     startDashboard();
     let running=false;
-    setInterval(() => {
+    setInterval(async () => {
       if (running) return;
       running=true;
-      try { autopilotFixtureStep(Number(process.env.TLIB_STAGE_STEP || 2)); }
+      try {
+        const stagedDone=autopilotFixtureStep(Number(process.env.TLIB_STAGE_STEP || 2));
+        if(!stagedDone) await autopilotPublicStep();
+      }
       catch(e){ event('ERROR','L1_AUTOPILOT_ERROR',e.message||String(e)); }
       finally { running=false; }
     }, Number(process.env.TLIB_STAGE_INTERVAL_MS || 5000));
