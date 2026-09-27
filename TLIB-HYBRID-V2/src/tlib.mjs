@@ -447,6 +447,11 @@ let stagedNameCount = 0;
 function stageNamedQueue() {
   const rows=stagedNames();
   stagedNameCount=rows.length;
+  const existing=Number(db.prepare('SELECT COUNT(*) AS n FROM jobs').get().n);
+  if(existing>=rows.length){
+    event('INFO','L1_NAME_STAGE_SKIP','existing='+existing+'; staged_names='+rows.length);
+    return {added:0,staged:rows.length,skipped:true};
+  }
   const stmt=db.prepare(`INSERT OR IGNORE INTO jobs(entity_id,full_name,status,attempts,updated_at)
                          VALUES(?,?,'PENDING',0,?)`);
   let added=0;
@@ -460,7 +465,7 @@ function stageNamedQueue() {
     throw e;
   }
   if(added) event('INFO','L1_NAME_STAGE','added='+added+'; staged_names='+rows.length);
-  return {added,staged:rows.length};
+  return {added,staged:rows.length,skipped:false};
 }
 
 function stageFixtureJobs() {
