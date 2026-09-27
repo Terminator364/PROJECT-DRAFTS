@@ -1,6 +1,6 @@
 import http from 'node:http';
 import { mkdirSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
-import { homedir } from 'node:os';
+import { homedir, freemem, totalmem, cpus, setPriority, constants as osConstants } from 'node:os';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { DatabaseSync } from 'node:sqlite';
@@ -10,7 +10,7 @@ const HERE = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(HERE, '..');
 const dataDir = process.env.TLIB_DATA_DIR || join(process.env.LOCALAPPDATA || homedir(), 'TLIB-PC');
 mkdirSync(dataDir, { recursive: true });
-const APP_BUILD = '2026.09.27-v0.6.0-update-safe';
+const APP_BUILD = '2026.09.27-v0.6.1-eco-governor';
 const STARTED_AT = new Date().toISOString();
 function gitHead() {
   try { return String(execFileSync('git',['rev-parse','HEAD'],{cwd:ROOT,encoding:'utf8',windowsHide:true,stdio:['ignore','pipe','ignore'],timeout:3000})||'').trim(); }
@@ -29,6 +29,8 @@ const db = new DatabaseSync(dbPath);
 db.exec(`
 PRAGMA journal_mode=WAL;
 PRAGMA synchronous=NORMAL;
+PRAGMA cache_size=-4096;
+PRAGMA busy_timeout=3000;
 CREATE TABLE IF NOT EXISTS jobs(
   entity_id TEXT PRIMARY KEY,
   full_name TEXT NOT NULL UNIQUE,
@@ -629,6 +631,48 @@ async function githubGet(path, allow404=false) {
   return {status:res.status,body,remaining,reset};
 }
 
+let lastCpuTimes=null;
+let lastInteractiveRequestAt=0;
+let governorState={mode:'STARTING',delay_ms:2500,free_mb:0,free_pct:0,cpu_pct:null,rss_mb:0,reason:'boot'};
+
+function systemCpuPercent() {
+  try{
+    const list=cpus();
+    let idle=0,total=0;
+    for(const cpu of list){
+      idle+=cpu.times.idle;
+      total+=cpu.times.user+cpu.times.nice+cpu.times.sys+cpu.times.idle+cpu.times.irq;
+    }
+    const cur={idle,total};
+    if(!lastCpuTimes){lastCpuTimes=cur;return null}
+    const dIdle=cur.idle-lastCpuTimes.idle,dTotal=cur.total-lastCpuTimes.total;
+    lastCpuTimes=cur;
+    if(dTotal<=0)return null;
+    return Math.max(0,Math.min(100,100*(1-dIdle/dTotal)));
+  }catch{return null}
+}
+function resourceGovernor() {
+  const free=freemem(), total=totalmem();
+  const freeMB=Math.round(free/1048576), freePct=total?100*free/total:0;
+  const rssMB=Math.round(process.memoryUsage().rss/1048576);
+  const cpu=systemCpuPercent();
+  const userActive=(Date.now()-lastInteractiveRequestAt)<20000;
+  let mode='NORMAL',delay=1800,reason='resources-ok';
+  if(freeMB<350 || freePct<9 || rssMB>220 || (cpu!==null && cpu>92)){
+    mode='PAUSED'; delay=15000; reason=freeMB<350?'low-memory':rssMB>220?'worker-memory':cpu!==null&&cpu>92?'high-cpu':'memory-pressure';
+  }else if(userActive){
+    mode='USER_ACTIVE'; delay=5000; reason='interactive-use';
+  }else if(freeMB<650 || freePct<16 || rssMB>160 || (cpu!==null && cpu>78)){
+    mode='THROTTLED'; delay=6000; reason=freeMB<650?'memory-headroom':rssMB>160?'worker-memory':cpu!==null&&cpu>78?'cpu-headroom':'resource-headroom';
+  }
+  governorState={mode,delay_ms:delay,free_mb:freeMB,free_pct:Number(freePct.toFixed(1)),cpu_pct:cpu===null?null:Number(cpu.toFixed(1)),rss_mb:rssMB,reason};
+  return governorState;
+}
+function markInteractiveRequest(pathname) {
+  const quiet=new Set(['/api/status','/api/health','/api/version','/api/update/status']);
+  if(!quiet.has(pathname)) lastInteractiveRequestAt=Date.now();
+}
+
 function deepBacklogCount() {
   return Number(db.prepare(`SELECT COUNT(*) AS n FROM results
                             WHERE resource_kind='Projet logiciel'
@@ -989,7 +1033,7 @@ function statusSnapshot() {
       github_auth_mode: githubAuthMode, l1_stats:l1Stats(),
       public_next_attempt_at: publicNextAttemptAt ? new Date(publicNextAttemptAt).toISOString() : null,
       public_rate_remaining: publicRateRemaining, public_rate_reset: publicRateReset,
-      scheduler_mode:schedulerMode(), deep_backlog:deepBacklogCount() },
+      scheduler_mode:schedulerMode(), deep_backlog:deepBacklogCount(), resource_governor:governorState },
     apps_script: control.engine || {},
     levels,
     recent,
@@ -1121,6 +1165,7 @@ async function startDashboard() {
   let busy = false;
   const server = http.createServer(async (req,res) => {
     const u = new URL(req.url || '/', 'http://127.0.0.1');
+    markInteractiveRequest(u.pathname);
     try {
       if (u.pathname === '/api/status') return sendJson(res,200,statusSnapshot());
       if (u.pathname === '/api/version') return sendJson(res,200,{product:'TLIB',build:APP_BUILD,pid:process.pid,node:process.versions.node});
@@ -1205,6 +1250,7 @@ async function main() {
   if (cmd === 'fixture-l2') return fixtureL2Canary();
   if (cmd === 'dashboard') return startDashboard();
   if (cmd === 'agent') {
+    try { setPriority(process.pid, osConstants.priority?.PRIORITY_BELOW_NORMAL ?? 10); } catch {}
     selftest();
     seed();
     startDashboard();
@@ -1217,13 +1263,20 @@ async function main() {
       } catch(e) {
         event('ERROR','BOOTSTRAP_ERROR',e.message||String(e));
       }
-    }, 150);
-    let running=false;
-    setInterval(async () => {
-      if (running) return;
+    }, 800);
+    let running=false, timer=null;
+    const schedule=(ms)=>{ clearTimeout(timer); timer=setTimeout(tick,Math.max(750,Number(ms||2500))); };
+    const tick=async()=>{
+      if(running){schedule(2500);return}
+      const guard=resourceGovernor();
+      if(guard.mode==='PAUSED'){
+        event('INFO','ECO_PAUSE',guard.reason+'; free='+guard.free_mb+'MB; cpu='+(guard.cpu_pct??'n/a'));
+        schedule(guard.delay_ms);
+        return;
+      }
       running=true;
       try {
-        const stagedDone=autopilotFixtureStep(Number(process.env.TLIB_STAGE_STEP || 2));
+        const stagedDone=autopilotFixtureStep(Number(process.env.TLIB_STAGE_STEP || 1));
         if(!stagedDone) {
           const mode=schedulerMode();
           if(mode==='DEEP_CATCHUP'){
@@ -1244,8 +1297,14 @@ async function main() {
         }
       }
       catch(e){ event('ERROR','L1_AUTOPILOT_ERROR',e.message||String(e)); }
-      finally { running=false; }
-    }, Number(process.env.TLIB_STAGE_INTERVAL_MS || 150));
+      finally {
+        running=false;
+        const next=resourceGovernor();
+        schedule(Number(process.env.TLIB_STAGE_INTERVAL_MS || next.delay_ms));
+      }
+    };
+    resourceGovernor();
+    schedule(2500);
     if (process.env.TLIB_AUTO_WORK === '1') await canary(Number(process.env.TLIB_AUTO_LIMIT || 10));
     return;
   }
