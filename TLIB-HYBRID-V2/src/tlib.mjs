@@ -10,7 +10,7 @@ const HERE = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(HERE, '..');
 const dataDir = process.env.TLIB_DATA_DIR || join(process.env.LOCALAPPDATA || homedir(), 'TLIB-PC');
 mkdirSync(dataDir, { recursive: true });
-const APP_BUILD = '2026.09.27-v0.6.1-eco-governor';
+const APP_BUILD = '2026.09.27-v0.6.2-adaptive-4gb';
 const STARTED_AT = new Date().toISOString();
 function deploymentCommit() {
   try {
@@ -659,21 +659,65 @@ function systemCpuPercent() {
     return Math.max(0,Math.min(100,100*(1-dIdle/dTotal)));
   }catch{return null}
 }
+let pressureStreak=0;
+let reliefStreak=0;
 function resourceGovernor() {
   const free=freemem(), total=totalmem();
-  const freeMB=Math.round(free/1048576), freePct=total?100*free/total:0;
+  const totalMB=Math.round(total/1048576), freeMB=Math.round(free/1048576), freePct=total?100*free/total:0;
+  const usedPct=100-freePct;
   const rssMB=Math.round(process.memoryUsage().rss/1048576);
   const cpu=systemCpuPercent();
   const userActive=(Date.now()-lastInteractiveRequestAt)<20000;
-  let mode='NORMAL',delay=1800,reason='resources-ok';
-  if(freeMB<350 || freePct<9 || rssMB>220 || (cpu!==null && cpu>92)){
-    mode='PAUSED'; delay=15000; reason=freeMB<350?'low-memory':rssMB>220?'worker-memory':cpu!==null&&cpu>92?'high-cpu':'memory-pressure';
+
+  // 4–6 Go : 80–95 % de RAM utilisée est un état courant sous Windows.
+  // On ne pénalise donc jamais TLIB sur la seule RAM système utilisée.
+  const lowRamProfile=totalMB<=6144;
+  const profile=lowRamProfile?'LOW_RAM_4_6GB':'STANDARD';
+
+  const workerSoft=lowRamProfile?110:180;
+  const workerHard=lowRamProfile?180:260;
+  const freeCritical=lowRamProfile?70:220;
+  const freeSoft=lowRamProfile?110:420;
+  const cpuSoft=lowRamProfile?88:82;
+  const cpuHard=lowRamProfile?97:95;
+
+  const memoryCritical=(freeMB<freeCritical && rssMB>workerSoft) || rssMB>workerHard;
+  const memorySoft=(freeMB<freeSoft && rssMB>workerSoft) || rssMB>workerSoft;
+  const cpuCritical=cpu!==null && cpu>cpuHard;
+  const cpuSoftHit=cpu!==null && cpu>cpuSoft;
+  const pressureHit=memoryCritical || cpuCritical || (memorySoft && cpuSoftHit);
+
+  if(pressureHit){pressureStreak=Math.min(20,pressureStreak+1);reliefStreak=0}
+  else {reliefStreak=Math.min(20,reliefStreak+1);if(reliefStreak>=2)pressureStreak=Math.max(0,pressureStreak-1)}
+
+  let mode='NORMAL',delay=lowRamProfile?2200:1800,reason='resources-ok';
+  if(pressureStreak>=3 && (memoryCritical || cpuCritical)){
+    mode='PAUSED'; delay=12000;
+    reason=memoryCritical?'combined-memory-pressure':'sustained-high-cpu';
+  }else if(pressureStreak>=2 && (memorySoft || cpuSoftHit)){
+    mode='THROTTLED'; delay=lowRamProfile?5500:4500;
+    reason=memorySoft?'combined-memory-headroom':'cpu-headroom';
   }else if(userActive){
-    mode='USER_ACTIVE'; delay=5000; reason='interactive-use';
-  }else if(freeMB<650 || freePct<16 || rssMB>160 || (cpu!==null && cpu>78)){
-    mode='THROTTLED'; delay=6000; reason=freeMB<650?'memory-headroom':rssMB>160?'worker-memory':cpu!==null&&cpu>78?'cpu-headroom':'resource-headroom';
+    mode='USER_ACTIVE'; delay=lowRamProfile?3800:3000;
+    reason='interactive-use';
   }
-  governorState={mode,delay_ms:delay,free_mb:freeMB,free_pct:Number(freePct.toFixed(1)),cpu_pct:cpu===null?null:Number(cpu.toFixed(1)),rss_mb:rssMB,reason};
+
+  const pressureScore=Math.min(100,
+    Math.round(
+      (rssMB/Math.max(1,workerHard))*45 +
+      (cpu===null?0:(cpu/100)*35) +
+      (freeMB<freeCritical?20:freeMB<freeSoft?10:0)
+    )
+  );
+
+  governorState={
+    mode,profile,delay_ms:delay,total_mb:totalMB,free_mb:freeMB,
+    used_pct:Number(usedPct.toFixed(1)),free_pct:Number(freePct.toFixed(1)),
+    cpu_pct:cpu===null?null:Number(cpu.toFixed(1)),rss_mb:rssMB,
+    pressure_score:pressureScore,pressure_streak:pressureStreak,
+    reason,
+    note:lowRamProfile?'80–95% system RAM usage is treated as normal unless TLIB itself adds measurable pressure':'standard memory profile'
+  };
   return governorState;
 }
 function markInteractiveRequest(pathname) {
