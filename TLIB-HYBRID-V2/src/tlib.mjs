@@ -63,6 +63,17 @@ CREATE TABLE IF NOT EXISTS l2_profiles(
 );
 `);
 
+function ensureResultColumn(name, type) {
+  const cols = db.prepare('PRAGMA table_info(results)').all().map(r => String(r.name));
+  if (!cols.includes(name)) db.exec('ALTER TABLE results ADD COLUMN ' + name + ' ' + type);
+}
+ensureResultColumn('resource_kind','TEXT');
+ensureResultColumn('technology','TEXT');
+ensureResultColumn('content_mode','TEXT');
+ensureResultColumn('activity_status','TEXT');
+ensureResultColumn('activity_days','INTEGER');
+ensureResultColumn('l1_quality','TEXT');
+
 const now = () => new Date().toISOString();
 const event = (level, name, detail='') => {
   db.prepare('INSERT INTO events(at,level,event,detail) VALUES(?,?,?,?)').run(now(), level, name, String(detail).slice(0,2000));
@@ -75,6 +86,37 @@ function argValue(prefix, fallback) {
 
 function entityId(fullName) {
   return 'ghpath:' + fullName.toLowerCase();
+}
+
+function classifyL1(x) {
+  const full = String(x.full_name || '');
+  const name = String(x.name || full.split('/').pop() || '').toLowerCase();
+  const desc = String(x.description || '').toLowerCase();
+  const topics = Array.isArray(x.topics) ? x.topics.map(v => String(v).toLowerCase()) : [];
+  const isList = name.startsWith('awesome') || topics.includes('awesome-list') || topics.includes('list') ||
+    /curated list|collection of resources|resources for|bookmarks/.test(desc);
+  let kind = isList ? 'Catalogue de ressources' : (x.fork ? 'Fork de projet' : 'Projet logiciel');
+
+  const candidates = topics.filter(t => !['awesome','awesome-list','list','lists','resources'].includes(t));
+  let technology = '';
+  const preferred = ['electron','android-development','android-library','android','ios','react-native','react','nodejs','node','cordova','frontend','iot','swift'];
+  for (const p of preferred) if (candidates.includes(p)) { technology = p; break; }
+  if (!technology && name.startsWith('awesome-')) technology = name.slice(8).replace(/-/g,' ');
+  if (!technology && candidates.length) technology = candidates[0];
+  if (!technology && x.language) technology = String(x.language);
+
+  const contentMode = isList && !x.language ? 'Documentation / liens' :
+    (x.language ? 'Code + documentation (' + x.language + ')' : 'Contenu à préciser');
+
+  let activityDays = null, activityStatus = 'Activité inconnue';
+  const pushed = Date.parse(String(x.pushed_at || ''));
+  if (Number.isFinite(pushed)) {
+    activityDays = Math.max(0, Math.floor((Date.now() - pushed) / 86400000));
+    activityStatus = activityDays <= 180 ? 'Actif récemment' :
+      activityDays <= 730 ? 'Activité modérée' : 'Peu actif / ancien';
+  }
+  const quality = x.id && full ? 'Identité GitHub vérifiée' : 'Vérification partielle';
+  return {kind, technology, contentMode, activityStatus, activityDays, quality};
 }
 
 function seed() {
@@ -150,15 +192,17 @@ async function canary(limit=10) {
       }
       const x = r.body;
       const topics = Array.isArray(x.topics) ? x.topics : [];
+      const q = classifyL1(x);
       db.prepare(`INSERT OR REPLACE INTO results(
         entity_id,full_name,http_status,github_id,node_id,description,archived,fork,stars,language,license,
-        topics_json,updated_at_github,pushed_at,default_branch,size_kb,open_issues,rate_remaining,fetched_at,raw_json
-      ) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`).run(
+        topics_json,updated_at_github,pushed_at,default_branch,size_kb,open_issues,rate_remaining,fetched_at,raw_json,
+        resource_kind,technology,content_mode,activity_status,activity_days,l1_quality
+      ) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`).run(
         job.entity_id, job.full_name, r.status, String(x.id ?? ''), String(x.node_id ?? ''), String(x.description ?? ''),
         x.archived ? 1 : 0, x.fork ? 1 : 0, Number(x.stargazers_count ?? 0), String(x.language ?? ''),
         String(x.license?.spdx_id ?? x.license?.name ?? ''), JSON.stringify(topics), String(x.updated_at ?? ''),
         String(x.pushed_at ?? ''), String(x.default_branch ?? ''), Number(x.size ?? 0), Number(x.open_issues_count ?? 0),
-        r.remaining, now(), JSON.stringify(x)
+        r.remaining, now(), JSON.stringify(x), q.kind, q.technology, q.contentMode, q.activityStatus, q.activityDays, q.quality
       );
       db.prepare(`UPDATE jobs SET status='DONE', last_error=NULL, updated_at=? WHERE entity_id=?`).run(now(), job.entity_id);
       event('INFO','L1_OK',job.full_name);
@@ -191,15 +235,17 @@ function fixtureCanary() {
     db.prepare(`INSERT OR IGNORE INTO jobs(entity_id,full_name,status,attempts,updated_at)
                 VALUES(?,?,'PENDING',0,?)`).run(id, fullName, now());
     const topics = Array.isArray(x.topics) ? x.topics : [];
+    const q = classifyL1(x);
     db.prepare(`INSERT OR REPLACE INTO results(
       entity_id,full_name,http_status,github_id,node_id,description,archived,fork,stars,language,license,
-      topics_json,updated_at_github,pushed_at,default_branch,size_kb,open_issues,rate_remaining,fetched_at,raw_json
-    ) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`).run(
+      topics_json,updated_at_github,pushed_at,default_branch,size_kb,open_issues,rate_remaining,fetched_at,raw_json,
+      resource_kind,technology,content_mode,activity_status,activity_days,l1_quality
+    ) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`).run(
       id, fullName, 200, String(x.id ?? ''), String(x.node_id ?? ''), String(x.description ?? ''),
       x.archived ? 1 : 0, x.fork ? 1 : 0, Number(x.stargazers_count ?? 0), String(x.language ?? ''),
       String(x.license?.spdx_id ?? x.license?.name ?? ''), JSON.stringify(topics), String(x.updated_at ?? ''),
       String(x.pushed_at ?? ''), String(x.default_branch ?? ''), Number(x.size ?? 0), Number(x.open_issues_count ?? 0),
-      -1, now(), JSON.stringify(x)
+      -1, now(), JSON.stringify(x), q.kind, q.technology, q.contentMode, q.activityStatus, q.activityDays, q.quality
     );
     db.prepare(`UPDATE jobs SET status='DONE', last_error=NULL, updated_at=? WHERE entity_id=?`).run(now(), id);
     done++;
@@ -236,12 +282,14 @@ function libraryRows(q='', limit=100) {
   limit = Math.max(1, Math.min(Number(limit || 100), 500));
   if (!q) {
     return db.prepare(`SELECT entity_id,full_name,description,stars,language,license,topics_json,archived,fork,
-                              updated_at_github,pushed_at,default_branch,size_kb,open_issues,fetched_at
+                              updated_at_github,pushed_at,default_branch,size_kb,open_issues,fetched_at,
+                              resource_kind,technology,content_mode,activity_status,activity_days,l1_quality
                        FROM results ORDER BY stars DESC LIMIT ?`).all(limit);
   }
   const like = '%' + q + '%';
   return db.prepare(`SELECT entity_id,full_name,description,stars,language,license,topics_json,archived,fork,
-                            updated_at_github,pushed_at,default_branch,size_kb,open_issues,fetched_at
+                            updated_at_github,pushed_at,default_branch,size_kb,open_issues,fetched_at,
+                            resource_kind,technology,content_mode,activity_status,activity_days,l1_quality
                      FROM results
                      WHERE lower(full_name) LIKE ? OR lower(description) LIKE ? OR lower(language) LIKE ?
                         OR lower(license) LIKE ? OR lower(topics_json) LIKE ?
@@ -252,7 +300,12 @@ function resourceById(id) {
   const r = db.prepare(`SELECT * FROM results WHERE entity_id=? OR lower(full_name)=lower(?)`).get(String(id||''), String(id||''));
   if (!r) return null;
   let topics=[]; try { topics=JSON.parse(r.topics_json||'[]'); } catch {}
-  const l2 = db.prepare('SELECT * FROM l2_profiles WHERE entity_id=?').get(r.entity_id) || null;
+  const l2raw = db.prepare('SELECT * FROM l2_profiles WHERE entity_id=?').get(r.entity_id) || null;
+  let l2 = null;
+  if (l2raw) {
+    const parse = (v) => { try { return JSON.parse(v || '[]'); } catch { return []; } };
+    l2 = {...l2raw, capabilities:parse(l2raw.capabilities_json), use_cases:parse(l2raw.use_cases_json), limitations:parse(l2raw.limitations_json)};
+  }
   return {...r, topics, l2};
 }
 
@@ -261,7 +314,8 @@ function statusSnapshot() {
   for (const r of db.prepare('SELECT status, COUNT(*) AS n FROM jobs GROUP BY status').all()) counts[r.status] = Number(r.n);
   const totalResults = Number(db.prepare('SELECT COUNT(*) AS n FROM results').get().n);
   const l2Count = Number(db.prepare('SELECT COUNT(*) AS n FROM l2_profiles').get().n);
-  const recent = db.prepare(`SELECT full_name,description,stars,language,archived,fork,rate_remaining,fetched_at
+  const recent = db.prepare(`SELECT full_name,description,stars,language,archived,fork,rate_remaining,fetched_at,
+                                    resource_kind,technology,content_mode,activity_status,l1_quality
                              FROM results ORDER BY fetched_at DESC LIMIT 12`).all();
   const events = db.prepare('SELECT at,level,event,detail FROM events ORDER BY id DESC LIMIT 12').all();
   const control = loadControlSnapshot();
