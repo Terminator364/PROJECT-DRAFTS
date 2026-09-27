@@ -20,33 +20,34 @@ catch(e){fail('ui-readable',e.message);}
 
 if(html){
   const s=html.indexOf('<script>'),e=html.lastIndexOf('</script>');
+  const markup=s>=0?html.slice(0,s):html;
   if(s<0||e<=s) fail('ui-script-present');
   else{
     const js=html.slice(s+8,e);
     try{new Function(js);ok('ui-javascript-syntax');}catch(err){fail('ui-javascript-syntax',err.message);}
   }
 
-  const ids=[...html.matchAll(/\sid="([^"]+)"/g)].map(m=>m[1]);
+  const ids=[...markup.matchAll(/\sid="([^"]+)"/g)].map(m=>m[1]);
   const dup=[...new Set(ids.filter((x,i)=>ids.indexOf(x)!==i))];
   dup.length?fail('ui-unique-ids',dup.join(',')):ok('ui-unique-ids',ids.length+' ids');
 
-  const views=[...new Set([...html.matchAll(/data-view="([^"]+)"/g)].map(m=>m[1]))];
-  const missingViews=views.filter(v=>!html.includes('<section id="'+v+'" class="section'));
+  const views=[...new Set([...markup.matchAll(/data-view="([^"]+)"/g)].map(m=>m[1]))];
+  const missingViews=views.filter(v=>!markup.includes('<section id="'+v+'" class="section'));
   missingViews.length?fail('ui-main-views',missingViews.join(',')):ok('ui-main-views',views.join(','));
 
-  const gos=[...new Set([...html.matchAll(/data-go="([^"]+)"/g)].map(m=>m[1]))];
-  const missingGo=gos.filter(v=>!html.includes('<section id="'+v+'" class="section'));
+  const gos=[...new Set([...markup.matchAll(/data-go="([^"]+)"/g)].map(m=>m[1]))];
+  const missingGo=gos.filter(v=>!markup.includes('<section id="'+v+'" class="section'));
   missingGo.length?fail('ui-go-targets',missingGo.join(',')):ok('ui-go-targets',gos.length+' targets');
 
   for(const [tab,pane] of [['l0','l0'],['l1','l1'],['l2','l2'],['manager','manager'],['tech','tech']]){
-    const tabs=[...new Set([...html.matchAll(new RegExp('data-'+tab+'-tab="([^"]+)"','g'))].map(m=>m[1]))];
-    const panes=[...new Set([...html.matchAll(new RegExp('data-'+pane+'-pane="([^"]+)"','g'))].map(m=>m[1]))];
+    const tabs=[...new Set([...markup.matchAll(new RegExp('data-'+tab+'-tab="([^"]+)"','g'))].map(m=>m[1]))];
+    const panes=[...new Set([...markup.matchAll(new RegExp('data-'+pane+'-pane="([^"]+)"','g'))].map(m=>m[1]))];
     const miss=tabs.filter(x=>!panes.includes(x));
     miss.length?fail('ui-subpages-'+tab,miss.join(',')):ok('ui-subpages-'+tab,tabs.length+' tabs');
   }
 
   const essentials=['navBack','commandOpen','homeSearchBtn','librarySearchBtn','chatSend','refreshDeepQueue','runUiAuditBtn','drawerClose'];
-  const absent=essentials.filter(id=>!html.includes('id="'+id+'"'));
+  const absent=essentials.filter(id=>!markup.includes('id="'+id+'"'));
   absent.length?fail('ui-essential-controls',absent.join(',')):ok('ui-essential-controls',essentials.length+' controls');
 }
 
