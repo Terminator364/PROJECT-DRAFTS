@@ -1,5 +1,5 @@
 {
-  "observed_at_utc": "2026-09-27T13:54:11.956Z",
+  "observed_at_utc": "2026-09-27T16:24:32.764Z",
   "engine": {
     "version": "1.1.0-fast-ingest",
     "status": "L0_DRAINED",
@@ -13,7 +13,12 @@
     "github_l1_batch_size": 30,
     "checkpoint_policy": "ONE_BATCH_ONE_COMMIT_PLUS_METRICS",
     "last_run_id": "RUN-20260927-135353-5805",
-    "last_run_completed_at_utc": "2026-09-27T13:54:09.644Z"
+    "last_run_completed_at_utc": "2026-09-27T13:54:09.644Z",
+    "source_count": 1811,
+    "source_done": 1746,
+    "source_failed": 65,
+    "source_pending": 0,
+    "l0_drain_quality": "COMPLETE_WITH_EXHAUSTED_FAILURES"
   },
   "product": {
     "l0": {
