@@ -153,6 +153,8 @@ async function stage(){
   }catch(e){rmSync(tmp,{recursive:true,force:true});log('STAGE_FAIL','FAIL',String(e.message||e));throw e}
 }
 async function apply(){
+  const freeMB=Math.round(freemem()/1048576);
+  if(!FORCE && freeMB<500){log('APPLY_DEFERRED','SKIP','free_mb='+freeMB);return {ok:true,deferred:true,reason:'LOW_MEMORY',free_mb:freeMB}}
   const pending=readJson(PENDING,null);
   if(!pending?.verified||!pending?.commit||!pending?.path)throw new Error('NO_VERIFIED_PENDING_SLOT');
   const slot=verifiedSlot(pending.commit);
@@ -182,6 +184,8 @@ async function apply(){
   }
 }
 async function repair(){
+  const freeMB=Math.round(freemem()/1048576);
+  if(!FORCE && freeMB<450){log('REPAIR_DEFERRED','SKIP','free_mb='+freeMB);return {ok:true,deferred:true,reason:'LOW_MEMORY',free_mb:freeMB}}
   const cur=readJson(CURRENT,null);
   if(!cur?.commit||!cur?.path)throw new Error('NO_CURRENT_SLOT');
   const h=await health(8787,1500);
