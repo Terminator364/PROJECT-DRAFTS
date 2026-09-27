@@ -435,7 +435,7 @@ function libraryRows(q='', limit=100) {
   if (!q) {
     return db.prepare(`SELECT r.entity_id,r.full_name,r.description,r.stars,r.language,r.license,r.topics_json,r.archived,r.fork,
                               r.updated_at_github,r.pushed_at,r.default_branch,r.size_kb,r.open_issues,r.fetched_at,
-                              r.resource_kind,r.technology,r.content_mode,r.activity_status,r.activity_days,r.l1_quality,
+                              r.resource_kind,r.technology,r.content_mode,r.activity_status,r.activity_days,r.l1_quality,r.l1_score,
                               l.human_summary
                        FROM results r LEFT JOIN l2_profiles l ON l.entity_id=r.entity_id
                        ORDER BY r.stars DESC LIMIT ?`).all(limit);
@@ -443,13 +443,14 @@ function libraryRows(q='', limit=100) {
   const like = '%' + q + '%';
   return db.prepare(`SELECT r.entity_id,r.full_name,r.description,r.stars,r.language,r.license,r.topics_json,r.archived,r.fork,
                             r.updated_at_github,r.pushed_at,r.default_branch,r.size_kb,r.open_issues,r.fetched_at,
-                            r.resource_kind,r.technology,r.content_mode,r.activity_status,r.activity_days,r.l1_quality,
+                            r.resource_kind,r.technology,r.content_mode,r.activity_status,r.activity_days,r.l1_quality,r.l1_score,
                             l.human_summary
                      FROM results r LEFT JOIN l2_profiles l ON l.entity_id=r.entity_id
                      WHERE lower(r.full_name) LIKE ? OR lower(r.description) LIKE ? OR lower(r.language) LIKE ?
                         OR lower(r.license) LIKE ? OR lower(r.topics_json) LIKE ? OR lower(coalesce(l.human_summary,'')) LIKE ?
                         OR lower(coalesce(r.technology,'')) LIKE ? OR lower(coalesce(r.resource_kind,'')) LIKE ?
-                     ORDER BY r.stars DESC LIMIT ?`).all(like,like,like,like,like,like,like,like,limit);
+                        OR lower(coalesce(r.activity_status,'')) LIKE ? OR lower(coalesce(r.content_mode,'')) LIKE ?
+                     ORDER BY r.stars DESC LIMIT ?`).all(like,like,like,like,like,like,like,like,like,like,limit);
 }
 
 function resourceById(id) {
