@@ -14,6 +14,20 @@ try{
   ok('node-syntax');
 }catch(e){fail('node-syntax',String(e.stderr||e.message||e).slice(0,500));}
 
+try{
+  execFileSync(process.execPath,['--check',join(APP,'scripts','slot-update.mjs')],{stdio:'pipe'});
+  ok('slot-updater-syntax');
+}catch(e){fail('slot-updater-syntax',String(e.stderr||e.message||e).slice(0,500));}
+
+for(const name of ['bootstrap-tlib.ps1','install-windows.ps1','launch-tlib.ps1','update-tlib.ps1']){
+  try{
+    const p=join(APP,'scripts',name);
+    const cmd='[ScriptBlock]::Create((Get-Content -LiteralPath "'+p.replace(/"/g,'""')+'" -Raw)) | Out-Null';
+    execFileSync('powershell.exe',['-NoProfile','-Command',cmd],{stdio:'pipe',windowsHide:true,timeout:10000});
+    ok('powershell-syntax-'+name);
+  }catch(e){fail('powershell-syntax-'+name,String(e.stderr||e.message||e).slice(0,500));}
+}
+
 let html='';
 try{html=readFileSync(join(APP,'public','index.html'),'utf8');ok('ui-readable',html.length+' bytes');}
 catch(e){fail('ui-readable',e.message);}
