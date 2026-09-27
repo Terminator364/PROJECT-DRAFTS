@@ -2,30 +2,47 @@
 
 This policy is a hard runtime constraint for TLIB on low-memory Windows PCs.
 
-## Runtime priorities
+## Core principle
 
-- TLIB worker runs at below-normal OS priority when supported.
-- Update/verification jobs also run below normal.
-- User interaction has priority over background enrichment.
-- Background work must pause under memory or CPU pressure.
+A 4 GB Windows PC commonly operates with 80–95% of physical RAM in use. TLIB must **not** treat that percentage alone as a fault.
 
-## Resource governor
+The resource governor therefore prioritizes:
+- TLIB's own RSS footprint;
+- sustained CPU pressure;
+- combined low-free-memory + high-TLIB-memory signals;
+- foreground user interaction;
+- persistence of the pressure across several samples.
 
-Default behavior:
-- NORMAL: bounded work with an adaptive delay around 1.8 s.
-- USER_ACTIVE: slow to about 5 s while the user interacts with the cockpit.
-- THROTTLED: slow to about 6 s when memory/CPU headroom is low.
-- PAUSED: stop enrichment for about 15 s when free RAM is critically low, worker RSS is excessive, or system CPU is saturated.
+## Adaptive profiles
 
-Current safety thresholds:
-- pause if free RAM < 350 MB or free RAM < 9%;
-- throttle if free RAM < 650 MB or free RAM < 16%;
-- pause if TLIB worker RSS > 220 MB;
-- throttle if TLIB worker RSS > 160 MB;
-- pause near >92% measured CPU;
-- throttle near >78% measured CPU.
+### LOW_RAM_4_6GB
+Applied automatically when total RAM is <= 6 GB.
 
-These are conservative defaults and may be tuned from field evidence.
+Expected:
+- 80–95% system RAM use can remain NORMAL.
+- TLIB RSS should normally stay well below ~110 MB.
+- Low free RAM alone does not pause TLIB.
+
+Pressure logic:
+- soft TLIB RSS reference: ~110 MB;
+- hard TLIB RSS reference: ~180 MB;
+- free memory becomes relevant mainly below ~110 MB and only in combination with TLIB pressure;
+- critical free-memory reference: ~70 MB;
+- CPU soft reference: ~88%;
+- CPU hard reference: ~97%;
+- pressure must persist across multiple samples before PAUSED.
+
+### STANDARD
+For machines above 6 GB, thresholds are wider but the same multi-signal logic applies.
+
+## Runtime modes
+
+- NORMAL: bounded opportunistic work.
+- USER_ACTIVE: slows background enrichment while the cockpit is being used.
+- THROTTLED: slows only after sustained combined pressure.
+- PAUSED: temporary pause under sustained critical pressure; automatic recovery follows.
+
+The user's foreground work always wins.
 
 ## SQLite
 
@@ -33,30 +50,32 @@ These are conservative defaults and may be tuned from field evidence.
 - NORMAL synchronous mode.
 - cache target about 4 MB.
 - queue/results survive worker or PC restarts.
-- the database lives outside the code checkout and is not replaced during updates.
+- the database lives outside the code checkout and is never replaced by an update.
 
 ## Startup
 
-- no full queue rebuild when the persistent queue already contains the staged corpus;
-- reclassification only touches rows that need a new taxonomy or missing L1 fields;
-- launcher performs repair rather than spawning duplicate workers.
+- no full queue rebuild when the persistent queue already contains the corpus;
+- reclassification only touches rows that need it;
+- launcher/repair must prevent duplicate workers.
 
 ## Updates
 
-- stage first, verify outside the active checkout, then activate;
-- verify Node syntax, UI JavaScript, views, subpages, controls and SQLite self-test;
-- keep the old version until the new worker passes build+commit health verification;
-- rollback automatically on failed activation;
-- quarantine failed updates to avoid retry loops;
-- automatic update discovery is rate-limited and must never poll continuously.
+- immutable deployment slots: download into a new slot, verify, preflight, then activate;
+- the active slot is never overwritten in place;
+- manifest blob hashes must match before activation;
+- old slot remains available until the new worker passes build + commit health verification;
+- automatic rollback on activation failure;
+- failed updates are not retried in a tight loop;
+- update discovery does not run during an interactive TLIB launch;
+- on LOW_RAM_4_6GB, staging is deferred only when free RAM is critically small for staging itself, not merely because Windows is using 80–95%.
 
 ## UI
 
-- background synchronization may update small counters only;
+- background synchronization updates small counters only;
 - no periodic full DOM rebuild;
 - preserve scroll position, current view, expanded panels and user input;
 - heavy lists load only on demand.
 
 ## Non-goal
 
-TLIB must not maximize throughput at the expense of Windows responsiveness. Throughput is opportunistic; the user's foreground work always wins.
+TLIB must never maximize throughput at the expense of Windows responsiveness. Throughput is opportunistic and adaptive.
