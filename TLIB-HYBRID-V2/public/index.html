@@ -174,6 +174,7 @@ pre{white-space:pre-wrap;word-break:break-word;background:#0a1120;border:1px sol
   <button data-manager-tab="workers">Workers</button>
   <button data-manager-tab="queue">Queue</button>
   <button data-manager-tab="reports">Rapports</button>
+  <button data-manager-tab="updates">Mises à jour</button>
   <button data-manager-tab="maintenance">Maintenance</button>
 </div>
 
@@ -225,6 +226,21 @@ pre{white-space:pre-wrap;word-break:break-word;background:#0a1120;border:1px sol
     <div class="card"><div class="small muted">Diagnostic</div><h3>Rapport Technique</h3><p class="muted">Node, PID, RAM, GitHub et SQLite.</p><a class="btn primary" href="/api/report?type=technical" download>Télécharger PDF</a></div>
   </div>
   <div class="small muted" id="reportsFreshness" style="margin-top:12px">État courant : …</div>
+</div>
+
+<div class="subpane" data-manager-pane="updates">
+  <div class="section-intro"><div><h3>Mises à jour sûres</h3><p>Préparation hors-ligne, vérification avant activation et rollback automatique si la nouvelle version ne répond pas.</p></div><button class="btn" id="updateRefreshBtn">Actualiser</button></div>
+  <div class="metricgrid">
+    <div class="card"><div class="small muted">Build actif</div><div class="value" id="updateBuild">…</div><div class="small muted" id="updateCommit">…</div></div>
+    <div class="card"><div class="small muted">Dernière bonne version</div><div class="value" id="updateLastGood">…</div><div class="small muted">rollback cible</div></div>
+    <div class="card"><div class="small muted">Mise à jour préparée</div><div class="value" id="updatePending">…</div><div class="small muted" id="updatePendingDetail">…</div></div>
+    <div class="card"><div class="small muted">Politique</div><div class="value statusok">SAFE</div><div class="small muted">stage → verify → activate → health → rollback</div></div>
+  </div>
+  <div class="twocol" style="margin-top:12px">
+    <div class="card"><h3 style="margin-top:0">Actions</h3><p class="muted">“Vérifier” prépare une version sans interrompre TLIB. “Appliquer” n’est disponible que si une version a déjà passé les tests.</p><div class="actions"><button class="btn primary" id="updateStageBtn">Vérifier les mises à jour</button><button class="btn" id="updateApplyBtn">Appliquer la version préparée</button><button class="btn" id="updateRepairBtn">Réparer le moteur courant</button></div><div class="small muted" id="updateActionState" style="margin-top:10px"></div></div>
+    <div class="card"><h3 style="margin-top:0">Garanties</h3><div class="kv"><span>Ancienne version</span><b>reste disponible jusqu’au health-check</b></div><div class="kv"><span>Base SQLite</span><b>hors du code, jamais remplacée</b></div><div class="kv"><span>Échec activation</span><b>rollback automatique</b></div><div class="kv"><span>Double updater</span><b>verrou exclusif</b></div><div class="kv"><span>Version fantôme</span><b>commit vérifié par /api/health</b></div></div>
+  </div>
+  <div class="card" style="margin-top:12px"><h3 style="margin-top:0">Historique récent</h3><div id="updateAudit" class="eventtable"></div></div>
 </div>
 
 <div class="subpane" data-manager-pane="maintenance">
@@ -398,6 +414,30 @@ async function loadL0Sources(opts){
     els('#l0SourceTable .l0-source-row').forEach(function(r){r.onclick=function(){filterByTag(r.dataset.repo)}});
   }catch(e){if(el('#l0SourceTable'))el('#l0SourceTable').innerHTML='<div class="notice">Impossible de charger les sources L0 : '+esc(e.message)+'</div>'}
 }
+async function loadUpdateStatus(){
+  try{
+    var u=await api('/api/update/status');
+    textIf('#updateBuild',u.active&&u.active.build||'—');
+    textIf('#updateCommit',u.active&&u.active.commit?u.active.commit.slice(0,12):'—');
+    textIf('#updateLastGood',u.last_good&&u.last_good.build?u.last_good.build:(u.last_good&&u.last_good.commit?u.last_good.commit.slice(0,12):'Aucune encore'));
+    textIf('#updatePending',u.pending_available?'PRÊTE':'Aucune');
+    textIf('#updatePendingDetail',u.pending&&u.pending.target?u.pending.target.slice(0,12)+' · vérifiée':'aucune version en attente');
+    var audit=(u.audit||[]).slice().reverse();
+    if(el('#updateAudit'))el('#updateAudit').innerHTML='<table><thead><tr><th>Heure</th><th>Événement</th><th>État</th><th>Détail</th></tr></thead><tbody>'+audit.map(function(x){return '<tr><td>'+esc((x.at||'').replace('T',' ').slice(0,19))+'</td><td><b>'+esc(x.event||'')+'</b></td><td class="'+(x.status==='PASS'?'statusok':x.status==='FAIL'||x.status==='CRITICAL'?'audit-fail':'')+'">'+esc(x.status||'')+'</td><td>'+esc(String(x.detail||'').slice(0,120))+'</td></tr>'}).join('')+'</tbody></table>';
+    el('#updateApplyBtn').disabled=!u.pending_available;
+    return u;
+  }catch(e){if(el('#updateActionState'))el('#updateActionState').textContent='État updater indisponible : '+e.message}
+}
+async function triggerUpdate(mode){
+  var state=el('#updateActionState');if(state)state.textContent='Commande '+mode+' envoyée…';
+  try{
+    await api('/api/update/action?mode='+encodeURIComponent(mode),{method:'POST'});
+    if(state)state.textContent=mode==='Stage'?'Vérification lancée en arrière-plan. TLIB reste disponible.':mode==='Apply'?'Activation lancée. Le moteur peut redémarrer quelques secondes.':'Réparation lancée.';
+    if(mode==='Stage')setTimeout(loadUpdateStatus,4000);
+    if(mode==='Repair')setTimeout(loadUpdateStatus,3500);
+    if(mode==='Apply')setTimeout(function(){backgroundRefresh();loadUpdateStatus()},6500);
+  }catch(e){if(state)state.textContent='Échec : '+e.message}
+}
 function runInteractionAudit(){
   var issues=[],checks=0;
   var ids=Array.from(document.querySelectorAll('[id]')).map(function(x){return x.id}),seen={};
@@ -551,6 +591,7 @@ bindPaneTabs('#l1Subnav [data-l1-tab]','[data-l1-pane]','l1Tab');
 els('#l1Subnav [data-l1-tab]').forEach(function(b){b.addEventListener('click',function(){if(b.dataset.l1Tab==='insights')loadL1Insights();if(b.dataset.l1Tab==='deep')loadDeepQueue();if(b.dataset.l1Tab==='themes')loadFacets()})});
 bindPaneTabs('#l2Subnav [data-l2-tab]','[data-l2-pane]','l2Tab');
 bindPaneTabs('#managerSubnav [data-manager-tab]','[data-manager-pane]','managerTab');
+els('#managerSubnav [data-manager-tab]').forEach(function(b){b.addEventListener('click',function(){if(b.dataset.managerTab==='updates')loadUpdateStatus()})});
 bindPaneTabs('#techSubnav [data-tech-tab]','[data-tech-pane]','techTab');
 el('#refreshDeepQueue').onclick=loadDeepQueue;
 el('#refreshInsights').onclick=loadL1Insights;
@@ -569,6 +610,10 @@ el('#commandPalette').onclick=function(e){if(e.target===this)closeCommand()};
 el('#navBack').onclick=function(){var v=NAV_HISTORY.pop();if(v){show(v,{noHistory:true});this.style.display=NAV_HISTORY.length?'inline-block':'none'}};
 document.addEventListener('keydown',function(e){if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='k'){e.preventDefault();openCommand()}if(e.key==='Escape')closeCommand()});
 el('#refreshReports').onclick=async function(){await refresh();toast('Rapports actualisés')};
+el('#updateRefreshBtn').onclick=loadUpdateStatus;
+el('#updateStageBtn').onclick=function(){triggerUpdate('Stage')};
+el('#updateApplyBtn').onclick=function(){if(confirm('Appliquer la version déjà vérifiée ? TLIB redémarrera automatiquement et reviendra en arrière si le health-check échoue.'))triggerUpdate('Apply')};
+el('#updateRepairBtn').onclick=function(){triggerUpdate('Repair')};
 els('[data-manager-tab-jump]').forEach(function(b){b.onclick=function(){show('l1');var t=el('#l1Subnav [data-l1-tab="'+b.dataset.managerTabJump+'"]');if(t)t.click();if(b.dataset.managerTabJump==='deep')loadDeepQueue()}});
 async function runUiSelfTest(){
   var checks=[];
