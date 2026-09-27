@@ -146,7 +146,7 @@ function githubToken() {
 
 function nextGitHubDelay(remaining, resetSeconds) {
   if (!githubToken()) return 75000;
-  const floor = 180;
+  const floor = 1200;
   const rem = Number(remaining);
   const resetMs = Number(resetSeconds || 0) * 1000;
   if (Number.isFinite(rem) && rem <= floor && resetMs > Date.now()) {
@@ -261,6 +261,12 @@ function classifyL1(x) {
       'vba':'VBA','autohotkey':'AutoHotkey','autoit':'AutoIt','cmake':'CMake','ada':'Ada','coq':'Coq'
     };
     if(suffix && !/^(list|resources?|things)$/.test(suffix)) technology=aliases[suffix]||suffix;
+  }
+  if (!technology && kind==='Projet logiciel' && x.language) {
+    const strongName=[name].join(' ');
+    const strongRules=techRules.filter(function(z){return ['react native','android','ios','electron','cordova','flutter','firebase','windows','kubernetes','terraform','home assistant'].includes(z[0]);});
+    for (const [label, rx] of strongRules) if (rx.test(strongName)) { technology = label; break; }
+    if(!technology) technology=String(x.language);
   }
   if (!technology) {
     const topicBag=[name,...topics].join(' ');
@@ -593,7 +599,7 @@ async function githubGet(path, allow404=false) {
 
 async function deepL1Step() {
   if(!githubToken()) return {done:0,state:'NO_AUTH'};
-  if(publicRateRemaining !== null && publicRateRemaining < 600) return {done:0,state:'RESERVE_RATE'};
+  if(publicRateRemaining !== null && publicRateRemaining < 1800) return {done:0,state:'RESERVE_RATE'};
   const row=db.prepare(`SELECT entity_id,full_name,default_branch FROM results
                         WHERE resource_kind='Projet logiciel'
                           AND coalesce(deep_status,'PENDING')='PENDING'
@@ -939,7 +945,7 @@ async function main() {
         const stagedDone=autopilotFixtureStep(Number(process.env.TLIB_STAGE_STEP || 2));
         if(!stagedDone) {
           const core=await autopilotPublicStep();
-          if(core.done && coreSinceDeep>=20){ coreSinceDeep=0; await deepL1Step(); }
+          if(core.done && coreSinceDeep>=40){ coreSinceDeep=0; await deepL1Step(); }
         }
       }
       catch(e){ event('ERROR','L1_AUTOPILOT_ERROR',e.message||String(e)); }
