@@ -1,0 +1,99 @@
+{
+  "schema": 1,
+  "product": "TLIB",
+  "root": "TLIB-HYBRID-V2",
+  "files": [
+    {
+      "path": "package.json",
+      "git_blob_sha": "a5a236489d4079e034e19587dc64e9c4301bdac6"
+    },
+    {
+      "path": "RESOURCE_POLICY.md",
+      "git_blob_sha": "2f3d46782bface7565d7b1077aa2e333fb0fd754"
+    },
+    {
+      "path": "src/tlib.mjs",
+      "git_blob_sha": "75cb41d847e28d561f04bbedc4d17c4f8cef61c2"
+    },
+    {
+      "path": "public/index.html",
+      "git_blob_sha": "2851dd65822ec863a104f355d100d949bdfb8eab"
+    },
+    {
+      "path": "scripts/install-windows.ps1",
+      "git_blob_sha": "769750264a7b1070337d141fd0dd521207bacb64"
+    },
+    {
+      "path": "scripts/launch-tlib.ps1",
+      "git_blob_sha": "d498755c30641f7e92e9375411c3900e0eb0957f"
+    },
+    {
+      "path": "scripts/uninstall-windows.ps1",
+      "git_blob_sha": "cb8103d7b6d7a07e90b653e0c1edff3d930eedae"
+    },
+    {
+      "path": "scripts/update-tlib.ps1",
+      "git_blob_sha": "ae7e58dd1082f5ff0e428c7830d3faee93a9b4a0"
+    },
+    {
+      "path": "scripts/verify-build.mjs",
+      "git_blob_sha": "33b7321fbb1111c1ff661e88d9e5d307b3c5ceba"
+    },
+    {
+      "path": "config/canary-seeds.json",
+      "git_blob_sha": "4e8f0939850eb6f4e2ce37b0c9eaad77a4db44f9"
+    },
+    {
+      "path": "config/control-snapshot.json",
+      "git_blob_sha": "ce1fa7c5e7fde3f01ff0db02c1222e072138d2ad"
+    },
+    {
+      "path": "config/l1-batch-a.json",
+      "git_blob_sha": "afd5af6f2d52701c581219ddadf6309a788e9c1f"
+    },
+    {
+      "path": "config/l1-batch-b.json",
+      "git_blob_sha": "cc75388abda25b3fb3fd7aa6b6733b68682fd2e8"
+    },
+    {
+      "path": "config/l1-batch-c.json",
+      "git_blob_sha": "0bfdc1fdb74f3c4c4b5942ff43122c108b05fdb5"
+    },
+    {
+      "path": "config/l1-batch-d.json",
+      "git_blob_sha": "b7d3f67608c6727b311d18e756f7816264a9fe84"
+    },
+    {
+      "path": "config/l1-batch-e.json",
+      "git_blob_sha": "bcc5f9c7290e887d3fbb2e8918ea07a3b02064b2"
+    },
+    {
+      "path": "config/l1-batch-f1.json",
+      "git_blob_sha": "d8021207b7e8e09b9f99b3f8bf9d3402f8bbd6e6"
+    },
+    {
+      "path": "config/l1-batch-f2.json",
+      "git_blob_sha": "071aaef7668e9dc1f746c0ad8dec9bdfe2c92ff1"
+    },
+    {
+      "path": "config/l1-batch-f3.json",
+      "git_blob_sha": "bd2369e019c42ed262381fdfbab7f5577ed159cf"
+    },
+    {
+      "path": "config/l1-batch-f4.json",
+      "git_blob_sha": "f3b4c932fed9c0d73cb83f49198d8d46b6d42d4b"
+    },
+    {
+      "path": "config/l1-fixture-10.json",
+      "git_blob_sha": "01e7ac71d1b136bd477fe657289f3edaa1d64754"
+    },
+    {
+      "path": "config/l1-names-1000.json",
+      "git_blob_sha": "1fc6340483a6dcc96e692ebd207dc309391b5a5f"
+    },
+    {
+      "path": "config/l2-fixture-10.json",
+      "git_blob_sha": "45ead541699809e69af3a422549dda78e6b23efa"
+    }
+  ]
+}
