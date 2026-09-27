@@ -17,7 +17,7 @@
     },
     {
       "path": "public/index.html",
-      "git_blob_sha": "6a65b7125ebfae0f6d6980d1659a43417b146d0a"
+      "git_blob_sha": "46faeb42957579f565c5ee1ba431a7545b7aca84"
     },
     {
       "path": "scripts/install-windows.ps1",
@@ -37,7 +37,7 @@
     },
     {
       "path": "scripts/verify-build.mjs",
-      "git_blob_sha": "33b7321fbb1111c1ff661e88d9e5d307b3c5ceba"
+      "git_blob_sha": "2dd044b8272175ca703697c6c2bdec761409e421"
     },
     {
       "path": "config/canary-seeds.json",
@@ -104,5 +104,5 @@
       "git_blob_sha": "8c3e65e7b4751b5d8685eda38a50ae4f743ac239"
     }
   ],
-  "updated_at": "2026-09-27T19:31:05.845Z"
+  "updated_at": "2026-09-27T19:36:08.517Z"
 }
