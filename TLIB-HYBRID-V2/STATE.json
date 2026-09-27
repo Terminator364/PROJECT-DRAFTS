@@ -1,9 +1,9 @@
 {
   "project": "TLIB-HYBRID-V2",
   "branch": "lab/tlib-hybrid-v2",
-  "checkpoint": "UPDATE_SAFE_ECO_GOVERNOR_DESIGNED_AND_MANIFEST_VERIFIED",
-  "build_target": "2026.09.27-v0.6.2-adaptive-4gb",
-  "updated_at_utc": "2026-09-27T19:38:52.595Z",
+  "checkpoint": "V063_RESILIENT_BOOT_CANDIDATE_AWAITING_PC_ACTIVATION",
+  "build_target": "2026.09.27-v0.6.3-resilient-boot",
+  "updated_at_utc": "2026-09-27T21:51:56.587Z",
   "production_l1_enabled": false,
   "apps_script_bridge_enabled": false,
   "github_actions_expected_minutes": 0,
@@ -120,5 +120,24 @@
       ]
     }
   },
-  "next_gate": "When MBMPC reconnects: copy latest slot-update.mjs only, run stage, verify pending slot, run apply, confirm /api/health build+commit and resource_governor."
+  "next_gate": "PC connector recovery -> preflight v0.6.3 on fresh port -> activate candidate -> verify desktop double-click -> verify single worker -> verify no modal/terminal windows -> only then seal.",
+  "sealed": false,
+  "last_good_build": "2026.09.27-v0.6.2-adaptive-4gb",
+  "last_good_status": "RUNTIME_WORKED_BUT_DESKTOP_BOOT_PATH_INVALIDATED_BY_FIELD_TEST",
+  "field_findings": [
+    "audit-shortcut.vbs produced permission-denied popup and must never run in production",
+    "PowerShell repair-on-click caused long blocking launch and modal errors",
+    "multiple stale preflight/worker processes were observed",
+    "workers that cannot bind dashboard port must terminate immediately",
+    "heavy synchronous maintenance must not run in launch health-check window"
+  ],
+  "v063_invariants": [
+    "desktop click path is wscript -> hidden VBS -> Node bootstrap",
+    "no PowerShell repair/update in interactive click path",
+    "mono-instance boot lock",
+    "fast server-first boot",
+    "no bulk reclassification during critical launch window",
+    "ghost worker exits on bind failure",
+    "updates and heavy repair remain outside normal click path"
+  ]
 }
