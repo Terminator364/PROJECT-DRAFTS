@@ -72,19 +72,23 @@ if (-not $NoOpen) {
   else { Start-Process $url }
 }
 
-# Découverte de mise à jour au maximum toutes les 6 heures.
-$stage = $true
-if (Test-Path $stamp) {
-  try {
-    $last = [datetime]::Parse((Get-Content $stamp -Raw).Trim()).ToUniversalTime()
-    if (((Get-Date).ToUniversalTime() - $last).TotalHours -lt 6) { $stage = $false }
-  } catch {}
-}
-if ($stage) {
-  (Get-Date).ToUniversalTime().ToString("o") | Set-Content -Encoding ASCII $stamp
-  $updater = Updater
-  if ($updater) {
-    Start-Process -FilePath "node" -ArgumentList ('"' + $updater + '" stage') -WindowStyle Hidden
-    L "BACKGROUND_STAGE_STARTED"
+# Découverte automatique uniquement au démarrage Windows (-NoOpen).
+# Un lancement manuel de TLIB ne télécharge jamais une mise à jour en arrière-plan.
+if ($NoOpen) {
+  $stage = $true
+  if (Test-Path $stamp) {
+    try {
+      $last = [datetime]::Parse((Get-Content $stamp -Raw).Trim()).ToUniversalTime()
+      if (((Get-Date).ToUniversalTime() - $last).TotalHours -lt 6) { $stage = $false }
+    } catch {}
+  }
+  if ($stage) {
+    (Get-Date).ToUniversalTime().ToString("o") | Set-Content -Encoding ASCII $stamp
+    $updater = Updater
+    if ($updater) {
+      $args = '"' + $updater + '" stage'
+      Start-Process -FilePath "node" -ArgumentList $args -WindowStyle Hidden
+      L "BACKGROUND_STAGE_STARTED_AT_LOGON"
+    }
   }
 }
