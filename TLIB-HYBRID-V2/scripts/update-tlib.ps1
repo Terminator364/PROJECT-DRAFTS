@@ -55,10 +55,20 @@ function Get-WorkerPid {
   return $null
 }
 function Stop-Worker {
+  $targets=@()
   $pidValue=Get-WorkerPid
-  if($pidValue){
-    Write-UpdateLog "WORKER_STOP" "pid=$pidValue"
-    Stop-Process -Id $pidValue -Force -ErrorAction SilentlyContinue
+  if($pidValue){ $targets += [int]$pidValue }
+  try{
+    $targets += @(Get-CimInstance Win32_Process -Filter "Name='node.exe'" -ErrorAction SilentlyContinue |
+      Where-Object { $_.CommandLine -like "*TLIB-HYBRID-V2*src*tlib.mjs*agent*" } |
+      ForEach-Object { [int]$_.ProcessId })
+  }catch{}
+  $targets=@($targets | Sort-Object -Unique)
+  foreach($p in $targets){
+    Write-UpdateLog "WORKER_STOP" "pid=$p"
+    Stop-Process -Id $p -Force -ErrorAction SilentlyContinue
+  }
+  if($targets.Count){
     for($i=0;$i -lt 30;$i++){ Start-Sleep -Milliseconds 200; if(-not (Get-Health)){ break } }
   }
 }
@@ -70,6 +80,14 @@ function Start-Worker([string]$ExpectedCommit){
     $h=Get-Health
     if($h -and $h.ok){
       if($ExpectedCommit -and $h.commit -ne $ExpectedCommit){ continue }
+      try{
+        $dups=@(Get-CimInstance Win32_Process -Filter "Name='node.exe'" -ErrorAction SilentlyContinue |
+          Where-Object { $_.CommandLine -like "*TLIB-HYBRID-V2*src*tlib.mjs*agent*" })
+        if($dups.Count -gt 1){
+          Write-UpdateLog "DUPLICATE_WORKERS_DETECTED" ("count="+$dups.Count) "FAIL"
+          foreach($p in $dups){ if([int]$p.ProcessId -ne [int]$h.pid){ Stop-Process -Id $p.ProcessId -Force -ErrorAction SilentlyContinue } }
+        }
+      }catch{}
       Write-UpdateLog "WORKER_HEALTHY" "pid=$($h.pid); build=$($h.build); commit=$($h.commit)" "PASS"
       return $h
     }
