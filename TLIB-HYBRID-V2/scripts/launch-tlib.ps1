@@ -59,7 +59,7 @@ $shouldStage=$true
 if(Test-Path $StageStamp){
   try{
     $last=[datetime]::Parse((Get-Content $StageStamp -Raw).Trim()).ToUniversalTime()
-    if(((Get-Date).ToUniversalTime()-$last).TotalMinutes -lt 30){$shouldStage=$false}
+    if(((Get-Date).ToUniversalTime()-$last).TotalMinutes -lt 120){$shouldStage=$false}
   }catch{}
 }
 if($shouldStage){
