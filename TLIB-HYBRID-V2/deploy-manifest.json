@@ -13,7 +13,7 @@
     },
     {
       "path": "src/tlib.mjs",
-      "git_blob_sha": "e077fab40b2f541648b221869b3497d56deb2c3d"
+      "git_blob_sha": "1ad716b5f0771d2ab34ad1c495089c9c68731a31"
     },
     {
       "path": "public/index.html",
@@ -21,11 +21,11 @@
     },
     {
       "path": "scripts/install-windows.ps1",
-      "git_blob_sha": "7327fb80f96ff9c36e76a2d81af906726ef06491"
+      "git_blob_sha": "5846e0b1fd9cbe67704c253fe50f501a7d207cd3"
     },
     {
       "path": "scripts/launch-tlib.ps1",
-      "git_blob_sha": "f991b8ddb2df22054ae2038d2becc6fc4cf7fe80"
+      "git_blob_sha": "96d709ec50e2e31983a557dde65599d67d6c1ffd"
     },
     {
       "path": "scripts/uninstall-windows.ps1",
@@ -101,8 +101,16 @@
     },
     {
       "path": "scripts/bootstrap-tlib.ps1",
-      "git_blob_sha": "42a0dfdab6f160b93b08ba2f592649e16fcc54f4"
+      "git_blob_sha": "1713264e618591c2c96b75d715280c8017703b43"
+    },
+    {
+      "path": "scripts/bootstrap-node.cjs",
+      "git_blob_sha": "b67882b58ad35981ef9c62047cb648c4b93d3319"
+    },
+    {
+      "path": "scripts/launch-hidden.vbs",
+      "git_blob_sha": "8f92acf23430de49bc05a95819357ddd1429c91d"
     }
   ],
-  "updated_at": "2026-09-27T19:38:14.560Z"
+  "updated_at": "2026-09-27T21:09:27.754Z"
 }
