@@ -819,6 +819,54 @@ function l1Stats() {
     throughput_per_hour:perHour,errors_24h:errors24};
 }
 
+function loadL0Sources() {
+  try {
+    const rows=JSON.parse(readFileSync(join(dataDir,'l0-sources.json'),'utf8'));
+    return Array.isArray(rows)?rows:[];
+  } catch { return []; }
+}
+function l0SourcesSnapshot(params={}) {
+  const all=loadL0Sources();
+  const q=String(params.q||'').trim().toLowerCase();
+  const status=String(params.status||'').trim().toUpperCase();
+  const depth=String(params.depth??'').trim();
+  const limit=Math.max(1,Math.min(Number(params.limit||100),500));
+  const offset=Math.max(0,Number(params.offset||0));
+  const filtered=all.filter(r=>{
+    if(status && String(r.status||'').toUpperCase()!==status) return false;
+    if(depth!=='' && String(r.depth??'')!==depth) return false;
+    if(q){
+      const bag=[r.source_id,r.owner,r.repo,r.raw_url,r.discovered_from,r.status,r.depth].join(' ').toLowerCase();
+      if(!bag.includes(q)) return false;
+    }
+    return true;
+  });
+  const byStatus={},byDepth={};
+  for(const r of all){
+    const s=String(r.status||'UNKNOWN'),d=String(r.depth??'—');
+    byStatus[s]=(byStatus[s]||0)+1;
+    byDepth[d]=(byDepth[d]||0)+1;
+  }
+  return {total:all.length,filtered_total:filtered.length,offset,limit,items:filtered.slice(offset,offset+limit),by_status:byStatus,by_depth:byDepth};
+}
+function l1InsightsSnapshot() {
+  const group=(col,limit=30)=>db.prepare(`SELECT coalesce(${col},'—') AS value, COUNT(*) AS n
+    FROM results GROUP BY ${col} ORDER BY n DESC, value ASC LIMIT ?`).all(limit);
+  const scoreBuckets=db.prepare(`SELECT
+    SUM(CASE WHEN coalesce(l1_score,0)>=90 THEN 1 ELSE 0 END) AS s90,
+    SUM(CASE WHEN coalesce(l1_score,0)>=75 AND coalesce(l1_score,0)<90 THEN 1 ELSE 0 END) AS s75,
+    SUM(CASE WHEN coalesce(l1_score,0)>=50 AND coalesce(l1_score,0)<75 THEN 1 ELSE 0 END) AS s50,
+    SUM(CASE WHEN coalesce(l1_score,0)<50 THEN 1 ELSE 0 END) AS slow
+    FROM results`).get();
+  return {
+    total:Number(db.prepare('SELECT COUNT(*) AS n FROM results').get().n),
+    by_type:group('resource_kind',20), by_theme:group('primary_theme',30), by_path:group('theme_path',40),
+    by_technology:group('technology',40), by_language:group('language',30), by_license:group('license',30),
+    by_activity:group('activity_status',20), by_stage:group('l1_stage',20), by_deep:group('deep_status',20),
+    score_buckets:{'90-100':Number(scoreBuckets.s90||0),'75-89':Number(scoreBuckets.s75||0),'50-74':Number(scoreBuckets.s50||0),'<50':Number(scoreBuckets.slow||0)}
+  };
+}
+
 function facetsSnapshot() {
   const technologies=db.prepare(`SELECT technology AS value, COUNT(*) AS n FROM results
                                  WHERE coalesce(technology,'')<>'' GROUP BY technology
@@ -1013,6 +1061,11 @@ async function startDashboard() {
               offset=u.searchParams.get('offset')||0, sort=u.searchParams.get('sort')||'stars';
         return sendJson(res,200,{items:libraryRows(q,limit,offset,sort),total:libraryCount(q),limit:Number(limit),offset:Number(offset),sort});
       }
+      if (u.pathname === '/api/l0/sources') return sendJson(res,200,l0SourcesSnapshot({
+        q:u.searchParams.get('q')||'', status:u.searchParams.get('status')||'', depth:u.searchParams.get('depth')??'',
+        limit:u.searchParams.get('limit')||100, offset:u.searchParams.get('offset')||0
+      }));
+      if (u.pathname === '/api/l1/insights') return sendJson(res,200,l1InsightsSnapshot());
       if (u.pathname === '/api/facets') return sendJson(res,200,facetsSnapshot());
       if (u.pathname === '/api/l1/stats') return sendJson(res,200,l1Stats());
       if (u.pathname === '/api/l2/list') return sendJson(res,200,{items:l2Rows(u.searchParams.get('limit')||100)});
