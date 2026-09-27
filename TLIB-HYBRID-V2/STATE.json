@@ -20,7 +20,7 @@
     "secure_github_auth",
     "authenticated_100_item_canary"
   ],
-  "updated_at_utc": "2026-09-27T14:21:00Z",
+  "updated_at_utc": "2026-09-27T14:43:00Z",
   "pc": {
     "device": "MBMPC",
     "node_version": "24.21.0",
@@ -40,12 +40,16 @@
     },
     "local_l2_canary": {
       "status": "PASS",
-      "profiles_written": 10,
-      "source": "assistant-canary-from-l1-metadata"
+      "profiles_written": 10
     },
     "autostart": {
       "scheduled_task": "UNAVAILABLE",
       "startup_fallback": "INSTALLED_PER_USER"
+    },
+    "local_l1_canary": {
+      "status": "PASS",
+      "verified_results": 48,
+      "model": "semantic-L1"
     }
   },
   "live_pc_github_canary": {
@@ -54,17 +58,29 @@
   },
   "humanized_ui": {
     "status": "RUNNING",
-    "version": "v0.2",
-    "views": [
-      "Accueil",
-      "Explorer",
-      "Parler à TLIB",
-      "Manager",
-      "Technique"
+    "version": "v0.3",
+    "changes": [
+      "L1 cards humanized",
+      "L2 summaries prioritized",
+      "raw GitHub fields moved to technical details",
+      "search extended to technology/type/L2 summary"
     ]
   },
   "apps_script_lease_bridge": {
     "status": "CODED_LAB_NOT_DEPLOYED",
     "path": "TLIB-HYBRID-V2/apps-script/TLIB_PC_BRIDGE_V2.gs"
+  },
+  "l1_model": {
+    "status": "V2_ACTIVE_IN_LAB",
+    "fields": [
+      "identity",
+      "resource_kind",
+      "technology",
+      "content_mode",
+      "activity_status",
+      "license",
+      "topics",
+      "github_technical_metadata"
+    ]
   }
 }
