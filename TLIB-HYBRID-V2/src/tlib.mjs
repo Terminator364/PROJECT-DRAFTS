@@ -581,6 +581,7 @@ let publicNextAttemptAt = 0;
 let publicRateRemaining = null;
 let publicRateReset = null;
 let coreSinceDeep = 0;
+let deepNextAttemptAt = 0;
 
 async function githubGet(path, allow404=false) {
   const headers={'Accept':'application/vnd.github+json','User-Agent':'TLIB-PC-Agent/0.2'};
@@ -610,6 +611,7 @@ function schedulerMode() {
 }
 
 async function deepL1Step() {
+  if(Date.now()<deepNextAttemptAt) return {done:0,state:'WAIT'};
   if(!githubToken()) return {done:0,state:'NO_AUTH'};
   if(publicRateRemaining !== null && publicRateRemaining < 1800) return {done:0,state:'RESERVE_RATE'};
   const row=db.prepare(`SELECT entity_id,full_name,default_branch FROM results
@@ -631,16 +633,19 @@ async function deepL1Step() {
                 community_health=?,readme_present=?,deep_status='DONE',l1_stage='L1_COMPLETE'
                 WHERE entity_id=?`).run(langJson,releaseTag,releaseAt,health,readme?1:0,row.entity_id);
     event('INFO','L1_DEEP_OK',row.full_name);
+    deepNextAttemptAt=Date.now()+900;
     return {done:1,state:'OK'};
   }catch(e){
     if(e.code==='RATE_LIMIT'){
       publicRateReset=Number(e.reset||0);
       publicNextAttemptAt=Math.max(Date.now()+60000,publicRateReset*1000+15000);
       event('WARN','L1_DEEP_RATE_LIMIT','reset='+publicRateReset);
+      deepNextAttemptAt=publicNextAttemptAt;
       return {done:0,state:'RATE_LIMIT'};
     }
     db.prepare(`UPDATE results SET deep_status='RETRY' WHERE entity_id=?`).run(row.entity_id);
     event('ERROR','L1_DEEP_ERROR',row.full_name+' :: '+String(e.message||e));
+    deepNextAttemptAt=Date.now()+5000;
     return {done:0,state:'ERROR'};
   }
 }
@@ -877,6 +882,16 @@ function statusSnapshot() {
   };
 }
 
+function deepQueueRows(limit=50, state='pending') {
+  limit=Math.max(1,Math.min(Number(limit||50),200));
+  const states=state==='done'?['DONE']:['PENDING','RETRY'];
+  const marks=states.map(()=>'?').join(',');
+  return db.prepare(`SELECT entity_id,full_name,technology,activity_status,l1_score,deep_status,fetched_at
+                     FROM results
+                     WHERE resource_kind='Projet logiciel' AND coalesce(deep_status,'PENDING') IN (${marks})
+                     ORDER BY fetched_at ASC LIMIT ?`).all(...states,limit);
+}
+
 function reportLines(type='manager') {
   const s=statusSnapshot(), q=s.pc_worker.queue||{}, st=s.pc_worker.l1_stats||{}, a=s.apps_script||{}, rt=s.pc_worker.runtime||{};
   const head=[
@@ -1004,6 +1019,9 @@ async function startDashboard() {
       if (u.pathname === '/api/resource') {
         const item=resourceById(u.searchParams.get('id')||'');
         return item ? sendJson(res,200,item) : sendJson(res,404,{error:'NOT_FOUND'});
+      }
+      if (u.pathname === '/api/l1/deep' && req.method === 'GET') {
+        return sendJson(res,200,{state:u.searchParams.get('state')||'pending',items:deepQueueRows(u.searchParams.get('limit')||50,u.searchParams.get('state')||'pending')});
       }
       if (u.pathname === '/api/report' && req.method === 'GET') {
         const type=['manager','l0','l1','technical'].includes(u.searchParams.get('type'))?u.searchParams.get('type'):'manager';
