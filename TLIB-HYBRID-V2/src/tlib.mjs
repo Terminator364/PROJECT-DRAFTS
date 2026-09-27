@@ -51,6 +51,16 @@ CREATE TABLE IF NOT EXISTS events(
   event TEXT NOT NULL,
   detail TEXT
 );
+CREATE TABLE IF NOT EXISTS l2_profiles(
+  entity_id TEXT PRIMARY KEY,
+  human_summary TEXT,
+  capabilities_json TEXT,
+  use_cases_json TEXT,
+  limitations_json TEXT,
+  confidence REAL,
+  source TEXT,
+  updated_at TEXT NOT NULL
+);
 `);
 
 const now = () => new Date().toISOString();
@@ -198,42 +208,91 @@ function fixtureCanary() {
   console.log(JSON.stringify({ ok:true, mode:'fixture', done, summary:statusSnapshot() }, null, 2));
 }
 
+function loadControlSnapshot() {
+  try { return JSON.parse(readFileSync(join(ROOT, 'config', 'control-snapshot.json'), 'utf8')); }
+  catch { return { engine:{}, product:{} }; }
+}
+
+function libraryRows(q='', limit=100) {
+  q = String(q || '').trim().toLowerCase();
+  limit = Math.max(1, Math.min(Number(limit || 100), 500));
+  if (!q) {
+    return db.prepare(`SELECT entity_id,full_name,description,stars,language,license,topics_json,archived,fork,
+                              updated_at_github,pushed_at,default_branch,size_kb,open_issues,fetched_at
+                       FROM results ORDER BY stars DESC LIMIT ?`).all(limit);
+  }
+  const like = '%' + q + '%';
+  return db.prepare(`SELECT entity_id,full_name,description,stars,language,license,topics_json,archived,fork,
+                            updated_at_github,pushed_at,default_branch,size_kb,open_issues,fetched_at
+                     FROM results
+                     WHERE lower(full_name) LIKE ? OR lower(description) LIKE ? OR lower(language) LIKE ?
+                        OR lower(license) LIKE ? OR lower(topics_json) LIKE ?
+                     ORDER BY stars DESC LIMIT ?`).all(like,like,like,like,like,limit);
+}
+
+function resourceById(id) {
+  const r = db.prepare(`SELECT * FROM results WHERE entity_id=? OR lower(full_name)=lower(?)`).get(String(id||''), String(id||''));
+  if (!r) return null;
+  let topics=[]; try { topics=JSON.parse(r.topics_json||'[]'); } catch {}
+  const l2 = db.prepare('SELECT * FROM l2_profiles WHERE entity_id=?').get(r.entity_id) || null;
+  return {...r, topics, l2};
+}
+
 function statusSnapshot() {
   const counts = {};
   for (const r of db.prepare('SELECT status, COUNT(*) AS n FROM jobs GROUP BY status').all()) counts[r.status] = Number(r.n);
   const totalResults = Number(db.prepare('SELECT COUNT(*) AS n FROM results').get().n);
-  const recent = db.prepare(`SELECT full_name,stars,language,archived,fork,rate_remaining,fetched_at
+  const l2Count = Number(db.prepare('SELECT COUNT(*) AS n FROM l2_profiles').get().n);
+  const recent = db.prepare(`SELECT full_name,description,stars,language,archived,fork,rate_remaining,fetched_at
                              FROM results ORDER BY fetched_at DESC LIMIT 12`).all();
-  return { counts, totalResults, recent, dbPath };
+  const events = db.prepare('SELECT at,level,event,detail FROM events ORDER BY id DESC LIMIT 12').all();
+  const control = loadControlSnapshot();
+  return {
+    product: 'TLIB',
+    mode: 'HYBRID_V2_LAB',
+    pc_worker: { online:true, database:dbPath, local_l1_results:totalResults, local_l2_profiles:l2Count, queue:counts },
+    apps_script: control.engine || {},
+    levels: control.product || {},
+    recent,
+    events
+  };
 }
 
-function html() {
-  const s = statusSnapshot();
-  const rows = s.recent.map(r => `<tr><td>${esc(r.full_name)}</td><td>${r.stars}</td><td>${esc(r.language||'')}</td><td>${r.archived?'yes':'no'}</td><td>${r.fork?'yes':'no'}</td><td>${r.rate_remaining}</td></tr>`).join('');
-  return `<!doctype html><html><head><meta charset="utf-8"><meta http-equiv="refresh" content="5">
-<title>TLIB PC Cockpit</title><style>
-body{font-family:Segoe UI,Arial,sans-serif;margin:24px;background:#101318;color:#eef2f7} .card{background:#1b2230;padding:16px;border-radius:12px;margin:10px 0}
-code{color:#9ddcff} table{width:100%;border-collapse:collapse} td,th{padding:8px;border-bottom:1px solid #333;text-align:left}
-.good{color:#76e39a}.muted{color:#aab4c3}
-</style></head><body><h1>TLIB PC Cockpit</h1>
-<div class="card"><b>Mode:</b> LAB / L1 canary <span class="good">local worker</span><br>
-<b>Database:</b> <code>${esc(s.dbPath)}</code><br><b>Results:</b> ${s.totalResults}<br>
-<b>Queue:</b> <code>${esc(JSON.stringify(s.counts))}</code></div>
-<div class="card"><h2>Recent L1 results</h2><table><tr><th>Repo</th><th>Stars</th><th>Language</th><th>Archived</th><th>Fork</th><th>Rate left</th></tr>${rows}</table></div>
-<div class="muted">Refresh every 5 seconds. Bound to localhost only.</div></body></html>`;
+function sendJson(res, code, value) {
+  res.writeHead(code, {'content-type':'application/json; charset=utf-8','cache-control':'no-store'});
+  res.end(JSON.stringify(value));
 }
 
-function esc(v){ return String(v).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
-
-function startDashboard() {
+async function startDashboard() {
   const port = Number(process.env.TLIB_DASHBOARD_PORT || 8787);
-  const server = http.createServer((req,res) => {
-    if (req.url === '/api/status') {
-      res.writeHead(200, {'content-type':'application/json; charset=utf-8'});
-      return res.end(JSON.stringify(statusSnapshot()));
+  let busy = false;
+  const server = http.createServer(async (req,res) => {
+    const u = new URL(req.url || '/', 'http://127.0.0.1');
+    try {
+      if (u.pathname === '/api/status') return sendJson(res,200,statusSnapshot());
+      if (u.pathname === '/api/library') return sendJson(res,200,{items:libraryRows(u.searchParams.get('q')||'',u.searchParams.get('limit')||100)});
+      if (u.pathname === '/api/resource') {
+        const item=resourceById(u.searchParams.get('id')||'');
+        return item ? sendJson(res,200,item) : sendJson(res,404,{error:'NOT_FOUND'});
+      }
+      if (u.pathname === '/api/events') {
+        const items=db.prepare('SELECT at,level,event,detail FROM events ORDER BY id DESC LIMIT 100').all();
+        return sendJson(res,200,{items});
+      }
+      if (u.pathname === '/api/action/fixture-canary' && req.method === 'POST') {
+        if (busy) return sendJson(res,409,{ok:false,message:'Un test est déjà en cours.'});
+        busy=true;
+        try { fixtureCanary(); return sendJson(res,200,{ok:true,message:'Test local terminé.',status:statusSnapshot()}); }
+        finally { busy=false; }
+      }
+      if (u.pathname === '/api/health') return sendJson(res,200,{ok:true,at:now()});
+      const page = readFileSync(join(ROOT,'public','index.html'),'utf8');
+      res.writeHead(200, {'content-type':'text/html; charset=utf-8','cache-control':'no-store'});
+      res.end(page);
+    } catch (e) {
+      event('ERROR','HTTP_ERROR',e.message || String(e));
+      sendJson(res,500,{error:'LOCAL_SERVER_ERROR',message:String(e.message||e)});
     }
-    res.writeHead(200, {'content-type':'text/html; charset=utf-8'});
-    res.end(html());
   });
   server.listen(port, '127.0.0.1', () => {
     event('INFO','DASHBOARD_STARTED','127.0.0.1:' + port);
