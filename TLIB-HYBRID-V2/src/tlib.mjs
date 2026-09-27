@@ -208,6 +208,24 @@ function fixtureCanary() {
   console.log(JSON.stringify({ ok:true, mode:'fixture', done, summary:statusSnapshot() }, null, 2));
 }
 
+function fixtureL2Canary() {
+  const profiles = JSON.parse(readFileSync(join(ROOT, 'config', 'l2-fixture-10.json'), 'utf8'));
+  let done = 0;
+  const stmt = db.prepare(`INSERT OR REPLACE INTO l2_profiles(
+    entity_id,human_summary,capabilities_json,use_cases_json,limitations_json,confidence,source,updated_at
+  ) VALUES(?,?,?,?,?,?,?,?)`);
+  for (const p of profiles) {
+    const id = entityId(p.full_name);
+    const exists = db.prepare('SELECT entity_id FROM results WHERE entity_id=?').get(id);
+    if (!exists) continue;
+    stmt.run(id,String(p.summary||''),JSON.stringify(p.capabilities||[]),JSON.stringify(p.use_cases||[]),
+      JSON.stringify(p.limitations||[]),Number(p.confidence||0),String(p.source||'fixture'),now());
+    done++;
+  }
+  event('INFO','L2_FIXTURE_PASS','done=' + done);
+  console.log(JSON.stringify({ok:true,mode:'l2-fixture',done,summary:statusSnapshot()},null,2));
+}
+
 function loadControlSnapshot() {
   try { return JSON.parse(readFileSync(join(ROOT, 'config', 'control-snapshot.json'), 'utf8')); }
   catch { return { engine:{}, product:{} }; }
@@ -282,7 +300,13 @@ async function startDashboard() {
       if (u.pathname === '/api/action/fixture-canary' && req.method === 'POST') {
         if (busy) return sendJson(res,409,{ok:false,message:'Un test est déjà en cours.'});
         busy=true;
-        try { fixtureCanary(); return sendJson(res,200,{ok:true,message:'Test local terminé.',status:statusSnapshot()}); }
+        try { fixtureCanary(); return sendJson(res,200,{ok:true,message:'Test L1 local terminé.',status:statusSnapshot()}); }
+        finally { busy=false; }
+      }
+      if (u.pathname === '/api/action/fixture-l2' && req.method === 'POST') {
+        if (busy) return sendJson(res,409,{ok:false,message:'Un test est déjà en cours.'});
+        busy=true;
+        try { fixtureL2Canary(); return sendJson(res,200,{ok:true,message:'10 profils L2 de démonstration chargés.',status:statusSnapshot()}); }
         finally { busy=false; }
       }
       if (u.pathname === '/api/health') return sendJson(res,200,{ok:true,at:now()});
@@ -307,6 +331,7 @@ async function main() {
   if (cmd === 'seed') return seed();
   if (cmd === 'canary') return canary(Number(argValue('--limit', '10')));
   if (cmd === 'fixture-canary') return fixtureCanary();
+  if (cmd === 'fixture-l2') return fixtureL2Canary();
   if (cmd === 'dashboard') return startDashboard();
   if (cmd === 'agent') {
     selftest();
