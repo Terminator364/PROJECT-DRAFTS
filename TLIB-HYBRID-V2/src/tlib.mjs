@@ -265,12 +265,15 @@ function statusSnapshot() {
                              FROM results ORDER BY fetched_at DESC LIMIT 12`).all();
   const events = db.prepare('SELECT at,level,event,detail FROM events ORDER BY id DESC LIMIT 12').all();
   const control = loadControlSnapshot();
+  const levels = JSON.parse(JSON.stringify(control.product || {}));
+  if (levels.l1) { levels.l1.count = totalResults; if (totalResults > 0) levels.l1.state = 'CANARY'; }
+  if (levels.l2) { levels.l2.count = l2Count; if (l2Count > 0) levels.l2.state = 'CANARY'; }
   return {
     product: 'TLIB',
     mode: 'HYBRID_V2_LAB',
     pc_worker: { online:true, database:dbPath, local_l1_results:totalResults, local_l2_profiles:l2Count, queue:counts },
     apps_script: control.engine || {},
-    levels: control.product || {},
+    levels,
     recent,
     events
   };
