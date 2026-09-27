@@ -90,6 +90,7 @@ pre{white-space:pre-wrap;word-break:break-word;background:#0a1120;border:1px sol
   <button class="active" data-l1-tab="overview">Vue d’ensemble</button>
   <button data-l1-tab="metadata">Métadonnées</button>
   <button data-l1-tab="themes">Thèmes</button>
+  <button data-l1-tab="insights">Répartition</button>
   <button data-l1-tab="deep">Approfondissement</button>
   <button data-l1-tab="recent">Dernières fiches</button>
 </div>
@@ -125,6 +126,13 @@ pre{white-space:pre-wrap;word-break:break-word;background:#0a1120;border:1px sol
     <div class="card"><h3 style="margin-top:0">Version de taxonomie</h3><div class="bigstat" id="taxonomyVersion">…</div><p class="muted">Les thèmes TLIB sont distincts des topics GitHub bruts.</p></div>
   </div>
   <div class="card" style="margin-top:12px"><h3 style="margin-top:0">Arbre des thèmes</h3><div id="l1Themes" class="theme-tree"></div></div>
+</div>
+
+<div class="subpane" data-l1-pane="insights">
+  <div class="section-intro"><div><h3 style="margin:0">Répartition du corpus vérifié</h3><p>Voir immédiatement où se concentrent les fiches et où il manque encore de profondeur.</p></div><button class="btn" id="refreshInsights">Actualiser</button></div>
+  <div class="twocol"><div class="card"><h3 style="margin-top:0">Par type</h3><div id="insightTypes"></div></div><div class="card"><h3 style="margin-top:0">Par activité</h3><div id="insightActivity"></div></div></div>
+  <div class="twocol" style="margin-top:12px"><div class="card"><h3 style="margin-top:0">Technologies dominantes</h3><div id="insightTech"></div></div><div class="card"><h3 style="margin-top:0">Langages</h3><div id="insightLanguages"></div></div></div>
+  <div class="twocol" style="margin-top:12px"><div class="card"><h3 style="margin-top:0">Licences</h3><div id="insightLicenses"></div></div><div class="card"><h3 style="margin-top:0">Score L1</h3><div id="insightScores"></div></div></div>
 </div>
 
 <div class="subpane" data-l1-pane="deep">
@@ -349,6 +357,21 @@ function bindPaneTabs(buttonSelector,paneSelector,dataKey){
   var buttons=els(buttonSelector),panes=els(paneSelector);
   buttons.forEach(function(b){b.onclick=function(){buttons.forEach(function(x){x.classList.toggle('active',x===b)});panes.forEach(function(p){p.classList.toggle('active',p.dataset[dataKey]===b.dataset[dataKey])})}});
 }
+function insightList(rows,limit){
+  return (rows||[]).slice(0,limit||12).map(function(x){return '<div class="kv clickable-row insight-filter" data-insight="'+esc(x.value)+'"><span>'+esc(x.value||'—')+'</span><b>'+fmt(x.n)+'</b></div>'}).join('')||'<div class="muted">Pas encore de données.</div>';
+}
+async function loadL1Insights(){
+  try{
+    var j=await api('/api/l1/insights');
+    el('#insightTypes').innerHTML=insightList(j.by_type,12);
+    el('#insightActivity').innerHTML=insightList(j.by_activity,12);
+    el('#insightTech').innerHTML=insightList(j.by_technology,15);
+    el('#insightLanguages').innerHTML=insightList(j.by_language,15);
+    el('#insightLicenses').innerHTML=insightList(j.by_license,15);
+    el('#insightScores').innerHTML=Object.entries(j.score_buckets||{}).map(function(x){return '<div class="kv"><span>'+esc(x[0])+'</span><b>'+fmt(x[1])+'</b></div>'}).join('');
+    els('.insight-filter').forEach(function(x){x.onclick=function(){filterByTag(x.dataset.insight)}});
+  }catch(e){toast('Répartition L1 indisponible')}
+}
 async function loadDeepQueue(){
   try{
     var j=await api('/api/l1/deep?state=pending&limit=50');
@@ -525,10 +548,12 @@ document.addEventListener('keydown',function(e){if((e.key==='Enter'||e.key===' '
 bindManagerNodes();
 bindPaneTabs('#l0Subnav [data-l0-tab]','[data-l0-pane]','l0Tab');
 bindPaneTabs('#l1Subnav [data-l1-tab]','[data-l1-pane]','l1Tab');
+els('#l1Subnav [data-l1-tab]').forEach(function(b){b.addEventListener('click',function(){if(b.dataset.l1Tab==='insights')loadL1Insights();if(b.dataset.l1Tab==='deep')loadDeepQueue();if(b.dataset.l1Tab==='themes')loadFacets()})});
 bindPaneTabs('#l2Subnav [data-l2-tab]','[data-l2-pane]','l2Tab');
 bindPaneTabs('#managerSubnav [data-manager-tab]','[data-manager-pane]','managerTab');
 bindPaneTabs('#techSubnav [data-tech-tab]','[data-tech-pane]','techTab');
 el('#refreshDeepQueue').onclick=loadDeepQueue;
+el('#refreshInsights').onclick=loadL1Insights;
 el('#l0SourceRefresh').onclick=function(){loadL0Sources()};
 el('#l0FailuresRefresh').onclick=function(){loadL0Sources({status:'FAILED'})};
 el('#l0SourceStatus').onchange=function(){loadL0Sources()};
