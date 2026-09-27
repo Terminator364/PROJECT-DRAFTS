@@ -4,6 +4,7 @@ import { homedir } from 'node:os';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { DatabaseSync } from 'node:sqlite';
+import { execFileSync } from 'node:child_process';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(HERE, '..');
@@ -83,6 +84,25 @@ ensureResultColumn('has_wiki','INTEGER');
 ensureResultColumn('has_pages','INTEGER');
 ensureResultColumn('has_discussions','INTEGER');
 ensureResultColumn('l1_score','INTEGER');
+ensureResultColumn('owner_login','TEXT');
+ensureResultColumn('owner_type','TEXT');
+ensureResultColumn('html_url','TEXT');
+ensureResultColumn('clone_url','TEXT');
+ensureResultColumn('license_name','TEXT');
+ensureResultColumn('subscribers_count','INTEGER');
+ensureResultColumn('network_count','INTEGER');
+ensureResultColumn('has_issues','INTEGER');
+ensureResultColumn('has_projects','INTEGER');
+ensureResultColumn('has_downloads','INTEGER');
+ensureResultColumn('is_template','INTEGER');
+ensureResultColumn('l1_summary','TEXT');
+ensureResultColumn('l1_stage','TEXT');
+ensureResultColumn('deep_status','TEXT');
+ensureResultColumn('languages_json','TEXT');
+ensureResultColumn('latest_release_tag','TEXT');
+ensureResultColumn('latest_release_at','TEXT');
+ensureResultColumn('community_health','INTEGER');
+ensureResultColumn('readme_present','INTEGER');
 
 const now = () => new Date().toISOString();
 const event = (level, name, detail='') => {
@@ -92,6 +112,46 @@ const event = (level, name, detail='') => {
 function argValue(prefix, fallback) {
   const a = process.argv.find(x => x.startsWith(prefix + '='));
   return a ? a.slice(prefix.length + 1) : fallback;
+}
+
+let ghTokenCache;
+let githubAuthMode = 'UNKNOWN';
+function githubToken() {
+  if (ghTokenCache !== undefined) return ghTokenCache;
+  const fromEnv = String(process.env.GH_TOKEN || '').trim();
+  if (fromEnv.length > 20) {
+    ghTokenCache = fromEnv;
+    githubAuthMode = 'ENV_SECURE';
+    return ghTokenCache;
+  }
+  try {
+    const t = String(execFileSync('gh',['auth','token'],{
+      encoding:'utf8',windowsHide:true,stdio:['ignore','pipe','ignore'],timeout:5000
+    }) || '').trim();
+    if (t.length > 20) {
+      ghTokenCache = t;
+      githubAuthMode = 'GH_KEYRING';
+      return ghTokenCache;
+    }
+  } catch {}
+  ghTokenCache = '';
+  githubAuthMode = 'PUBLIC';
+  return '';
+}
+
+function nextGitHubDelay(remaining, resetSeconds) {
+  if (!githubToken()) return 75000;
+  const floor = 180;
+  const rem = Number(remaining);
+  const resetMs = Number(resetSeconds || 0) * 1000;
+  if (Number.isFinite(rem) && rem <= floor && resetMs > Date.now()) {
+    return Math.max(60000, resetMs - Date.now() + 15000);
+  }
+  if (Number.isFinite(rem) && rem > floor && resetMs > Date.now()) {
+    const spread = Math.ceil((resetMs - Date.now()) / Math.max(1, rem - floor));
+    return Math.max(800, Math.min(5000, spread));
+  }
+  return 900;
 }
 
 function entityId(fullName) {
@@ -178,7 +238,30 @@ function classifyL1(x) {
   if (kind) score += 3;
   if (x.homepage) score += 3;
   score = Math.min(100, score);
-  return {kind, technology, contentMode, activityStatus, activityDays, quality, score};
+  const tech = technology && technology !== 'Domaine à préciser' ? technology : 'un domaine encore à préciser';
+  const summary = kind === 'Catalogue de ressources'
+    ? 'Catalogue de ressources consacré à ' + tech + '. ' + activityStatus + '.'
+    : kind === 'Guide / documentation'
+      ? 'Guide ou documentation consacré à ' + tech + '. ' + activityStatus + '.'
+      : kind === 'Jeu de données / ressources'
+        ? 'Ressource de données consacrée à ' + tech + '. ' + activityStatus + '.'
+        : 'Projet logiciel lié à ' + tech + (x.language ? ', principalement en ' + x.language : '') + '. ' + activityStatus + '.';
+  const deepStatus = kind === 'Projet logiciel' ? 'PENDING' : 'NOT_APPLICABLE';
+  const l1Stage = kind === 'Projet logiciel' ? 'CORE_VERIFIED_DEEP_PENDING' : 'L1_COMPLETE';
+  return {kind, technology, contentMode, activityStatus, activityDays, quality, score, summary, deepStatus, l1Stage};
+}
+
+function applyExtendedL1(entityIdValue, x, q) {
+  db.prepare(`UPDATE results SET
+    owner_login=?,owner_type=?,html_url=?,clone_url=?,license_name=?,subscribers_count=?,network_count=?,
+    has_issues=?,has_projects=?,has_downloads=?,is_template=?,l1_summary=?,l1_stage=?,
+    deep_status=coalesce(deep_status,?)
+    WHERE entity_id=?`).run(
+      String(x.owner?.login ?? ''), String(x.owner?.type ?? ''), String(x.html_url ?? ''),
+      String(x.clone_url ?? ''), String(x.license?.name ?? ''), Number(x.subscribers_count ?? 0),
+      Number(x.network_count ?? 0), x.has_issues ? 1 : 0, x.has_projects ? 1 : 0,
+      x.has_downloads ? 1 : 0, x.is_template ? 1 : 0, q.summary, q.l1Stage, q.deepStatus, entityIdValue
+    );
 }
 
 function reclassifyExisting() {
@@ -189,6 +272,7 @@ function reclassifyExisting() {
     try{
       const x=JSON.parse(r.raw_json||'{}'), q=classifyL1(x);
       upd.run(q.kind,q.technology,q.contentMode,q.activityStatus,q.activityDays,q.quality,q.score,r.entity_id);
+      applyExtendedL1(r.entity_id,x,q);
       changed++;
     }catch{}
   }
@@ -227,7 +311,8 @@ async function fetchRepo(fullName) {
     'Accept': 'application/vnd.github+json',
     'User-Agent': 'TLIB-PC-Agent/0.1'
   };
-  if (process.env.GH_TOKEN) headers.Authorization = 'Bearer ' + process.env.GH_TOKEN;
+  const token = githubToken();
+  if (token) headers.Authorization = 'Bearer ' + token;
   const url = 'https://api.github.com/repos/' + fullName;
   const res = await fetch(url, { headers, signal: AbortSignal.timeout(15000) });
   const text = await res.text();
@@ -242,13 +327,13 @@ async function fetchRepo(fullName) {
     e.reset = reset;
     throw e;
   }
-  if (res.status === 404) return { status: 404, body, remaining };
+  if (res.status === 404) return { status: 404, body, remaining, reset };
   if (!res.ok) {
     const e = new Error('GITHUB_HTTP_' + res.status + ' ' + String(body.message || '').slice(0,300));
     e.code = res.status >= 500 ? 'RETRY' : 'HTTP';
     throw e;
   }
-  return { status: res.status, body, remaining };
+  return { status: res.status, body, remaining, reset };
 }
 
 async function canary(limit=10) {
@@ -281,6 +366,7 @@ async function canary(limit=10) {
         String(x.pushed_at ?? ''), String(x.default_branch ?? ''), Number(x.size ?? 0), Number(x.open_issues_count ?? 0),
         r.remaining, now(), JSON.stringify(x), q.kind, q.technology, q.contentMode, q.activityStatus, q.activityDays, q.quality
       );
+      applyExtendedL1(job.entity_id,x,q);
       db.prepare(`UPDATE jobs SET status='DONE', last_error=NULL, updated_at=? WHERE entity_id=?`).run(now(), job.entity_id);
       event('INFO','L1_OK',job.full_name);
       done++;
@@ -321,26 +407,41 @@ function fixtureCorpus() {
 
 function stagedNames() {
   const out=[], seen=new Set();
+  const add = (rows) => {
+    for(const n of rows || []){
+      const full=String(n||'').trim();
+      if(full && !seen.has(full.toLowerCase())){seen.add(full.toLowerCase());out.push(full);}
+    }
+  };
   try {
     for(const file of readdirSync(join(ROOT,'config')).filter(n=>/^l1-names-.*\.json$/i.test(n)).sort()){
-      try{
-        const rows=JSON.parse(readFileSync(join(ROOT,'config',file),'utf8'));
-        for(const n of rows){
-          const full=String(n||'').trim();
-          if(full && !seen.has(full.toLowerCase())){seen.add(full.toLowerCase());out.push(full);}
-        }
-      }catch{}
+      try{ add(JSON.parse(readFileSync(join(ROOT,'config',file),'utf8'))); }catch{}
+    }
+  }catch{}
+  try {
+    for(const file of readdirSync(dataDir).filter(n=>/^queue-full-\d+\.json$/i.test(n)).sort()){
+      try{ add(JSON.parse(readFileSync(join(dataDir,file),'utf8'))); }catch{}
     }
   }catch{}
   return out;
 }
 
+let stagedNameCount = 0;
 function stageNamedQueue() {
   const rows=stagedNames();
+  stagedNameCount=rows.length;
   const stmt=db.prepare(`INSERT OR IGNORE INTO jobs(entity_id,full_name,status,attempts,updated_at)
                          VALUES(?,?,'PENDING',0,?)`);
   let added=0;
-  for(const fullName of rows) added += Number(stmt.run(entityId(fullName),fullName,now()).changes||0);
+  db.exec('BEGIN IMMEDIATE');
+  try {
+    const at=now();
+    for(const fullName of rows) added += Number(stmt.run(entityId(fullName),fullName,at).changes||0);
+    db.exec('COMMIT');
+  } catch(e) {
+    try{db.exec('ROLLBACK')}catch{}
+    throw e;
+  }
   if(added) event('INFO','L1_NAME_STAGE','added='+added+'; staged_names='+rows.length);
   return {added,staged:rows.length};
 }
@@ -371,6 +472,7 @@ function upsertFixtureResult(x) {
     String(x.homepage??''),Number(x.forks_count??0),Number(x.watchers_count??0),String(x.created_at??''),String(x.visibility??''),
     x.disabled?1:0,x.has_wiki?1:0,x.has_pages?1:0,x.has_discussions?1:0,q.score
   );
+  applyExtendedL1(id,x,q);
   db.prepare(`UPDATE jobs SET status='DONE', last_error=NULL, updated_at=? WHERE entity_id=?`).run(now(),id);
   return true;
 }
@@ -391,6 +493,58 @@ function autopilotFixtureStep(limit=2) {
 let publicNextAttemptAt = 0;
 let publicRateRemaining = null;
 let publicRateReset = null;
+let coreSinceDeep = 0;
+
+async function githubGet(path, allow404=false) {
+  const headers={'Accept':'application/vnd.github+json','User-Agent':'TLIB-PC-Agent/0.2'};
+  const token=githubToken(); if(token) headers.Authorization='Bearer '+token;
+  const res=await fetch('https://api.github.com'+path,{headers,signal:AbortSignal.timeout(15000)});
+  const text=await res.text();
+  let body={}; try{body=text?JSON.parse(text):{}}catch{body={message:text.slice(0,500)}}
+  const remaining=Number(res.headers.get('x-ratelimit-remaining')||-1);
+  const reset=Number(res.headers.get('x-ratelimit-reset')||0);
+  publicRateRemaining=remaining; publicRateReset=reset;
+  if(res.status===404 && allow404) return {status:404,body:{},remaining,reset};
+  if(res.status===403 && remaining===0){const e=new Error('GITHUB_RATE_LIMIT');e.code='RATE_LIMIT';e.reset=reset;throw e}
+  if(!res.ok){const e=new Error('GITHUB_HTTP_'+res.status+' '+String(body.message||'').slice(0,300));e.code=res.status>=500?'RETRY':'HTTP';throw e}
+  return {status:res.status,body,remaining,reset};
+}
+
+async function deepL1Step() {
+  if(!githubToken()) return {done:0,state:'NO_AUTH'};
+  if(publicRateRemaining !== null && publicRateRemaining < 600) return {done:0,state:'RESERVE_RATE'};
+  const row=db.prepare(`SELECT entity_id,full_name,default_branch FROM results
+                        WHERE resource_kind='Projet logiciel'
+                          AND coalesce(deep_status,'PENDING')='PENDING'
+                        ORDER BY fetched_at LIMIT 1`).get();
+  if(!row) return {done:0,state:'EMPTY'};
+  try{
+    const enc=row.full_name.split('/').map(encodeURIComponent).join('/');
+    const langs=await githubGet('/repos/'+enc+'/languages',true);
+    const rel=await githubGet('/repos/'+enc+'/releases/latest',true);
+    const community=await githubGet('/repos/'+enc+'/community/profile',true);
+    const langJson=langs.status===404?'{}':JSON.stringify(langs.body||{});
+    const releaseTag=rel.status===404?'':String(rel.body?.tag_name||'');
+    const releaseAt=rel.status===404?'':String(rel.body?.published_at||rel.body?.created_at||'');
+    const health=community.status===404?null:Number(community.body?.health_percentage ?? 0);
+    const readme=community.status!==404 && Boolean(community.body?.files?.readme);
+    db.prepare(`UPDATE results SET languages_json=?,latest_release_tag=?,latest_release_at=?,
+                community_health=?,readme_present=?,deep_status='DONE',l1_stage='L1_COMPLETE'
+                WHERE entity_id=?`).run(langJson,releaseTag,releaseAt,health,readme?1:0,row.entity_id);
+    event('INFO','L1_DEEP_OK',row.full_name);
+    return {done:1,state:'OK'};
+  }catch(e){
+    if(e.code==='RATE_LIMIT'){
+      publicRateReset=Number(e.reset||0);
+      publicNextAttemptAt=Math.max(Date.now()+60000,publicRateReset*1000+15000);
+      event('WARN','L1_DEEP_RATE_LIMIT','reset='+publicRateReset);
+      return {done:0,state:'RATE_LIMIT'};
+    }
+    db.prepare(`UPDATE results SET deep_status='RETRY' WHERE entity_id=?`).run(row.entity_id);
+    event('ERROR','L1_DEEP_ERROR',row.full_name+' :: '+String(e.message||e));
+    return {done:0,state:'ERROR'};
+  }
+}
 
 function saveLiveResult(job, r) {
   const x=r.body, topics=Array.isArray(x.topics)?x.topics:[], q=classifyL1(x);
@@ -407,6 +561,7 @@ function saveLiveResult(job, r) {
     String(x.homepage??''),Number(x.forks_count??0),Number(x.watchers_count??0),String(x.created_at??''),String(x.visibility??''),
     x.disabled?1:0,x.has_wiki?1:0,x.has_pages?1:0,x.has_discussions?1:0,q.score
   );
+  applyExtendedL1(job.entity_id,x,q);
   db.prepare(`UPDATE jobs SET status='DONE', last_error=NULL, updated_at=? WHERE entity_id=?`).run(now(),job.entity_id);
 }
 
@@ -428,7 +583,9 @@ async function autopilotPublicStep() {
       saveLiveResult(job,r);
       event('INFO','L1_PUBLIC_OK',job.full_name+'; remaining='+publicRateRemaining);
     }
-    publicNextAttemptAt=Date.now()+(process.env.GH_TOKEN?5000:75000);
+    publicRateReset=Number(r.reset||0);
+    publicNextAttemptAt=Date.now()+nextGitHubDelay(publicRateRemaining,publicRateReset);
+    if(r.status!==404) coreSinceDeep++;
     return {done:r.status===404?0:1,state:'OK'};
   }catch(e){
     if(e.code==='RATE_LIMIT'){
@@ -509,6 +666,35 @@ function libraryRows(q='', limit=100) {
                      ORDER BY r.stars DESC LIMIT ?`).all(like,like,like,like,like,like,like,like,like,like,limit);
 }
 
+function libraryCount(q='') {
+  q=String(q||'').trim().toLowerCase();
+  if(!q) return Number(db.prepare('SELECT COUNT(*) AS n FROM results').get().n);
+  const like='%'+q+'%';
+  return Number(db.prepare(`SELECT COUNT(*) AS n
+    FROM results r LEFT JOIN l2_profiles l ON l.entity_id=r.entity_id
+    WHERE lower(r.full_name) LIKE ? OR lower(r.description) LIKE ? OR lower(r.language) LIKE ?
+       OR lower(r.license) LIKE ? OR lower(r.topics_json) LIKE ? OR lower(coalesce(l.human_summary,'')) LIKE ?
+       OR lower(coalesce(r.technology,'')) LIKE ? OR lower(coalesce(r.resource_kind,'')) LIKE ?
+       OR lower(coalesce(r.activity_status,'')) LIKE ? OR lower(coalesce(r.content_mode,'')) LIKE ?`)
+    .get(like,like,like,like,like,like,like,like,like,like).n);
+}
+
+function l1Stats() {
+  const control=loadControlSnapshot();
+  const target=Number(control.engine?.entity_count||120694);
+  const core=Number(db.prepare('SELECT COUNT(*) AS n FROM results').get().n);
+  const complete=Number(db.prepare(`SELECT COUNT(*) AS n FROM results WHERE l1_stage='L1_COMPLETE'`).get().n);
+  const deepDone=Number(db.prepare(`SELECT COUNT(*) AS n FROM results WHERE deep_status='DONE'`).get().n);
+  const deepPending=Number(db.prepare(`SELECT COUNT(*) AS n FROM results WHERE deep_status IN ('PENDING','RETRY')`).get().n);
+  const fiveAgo=new Date(Date.now()-5*60*1000).toISOString();
+  const last5=Number(db.prepare('SELECT COUNT(*) AS n FROM results WHERE fetched_at>=?').get(fiveAgo).n);
+  const perHour=last5*12;
+  const errors24=Number(db.prepare(`SELECT COUNT(*) AS n FROM events WHERE level='ERROR' AND at>=?`).get(new Date(Date.now()-86400000).toISOString()).n);
+  return {target,core,complete,deep_done:deepDone,deep_pending:deepPending,pending:Math.max(0,target-core),
+    core_percent:target?Number((core*100/target).toFixed(3)):0,complete_percent:target?Number((complete*100/target).toFixed(3)):0,
+    throughput_per_hour:perHour,errors_24h:errors24};
+}
+
 function facetsSnapshot() {
   const technologies=db.prepare(`SELECT technology AS value, COUNT(*) AS n FROM results
                                  WHERE coalesce(technology,'')<>'' GROUP BY technology
@@ -553,8 +739,8 @@ function statusSnapshot() {
     product: 'TLIB',
     mode: 'HYBRID_V2_LAB',
     pc_worker: { online:true, database:dbPath, local_l1_results:totalResults, local_l2_profiles:l2Count, queue:counts,
-      staged_l1:fixtureCorpus().length, staged_names:stagedNames().length, autopilot:true,
-      public_mode: process.env.GH_TOKEN ? 'AUTHENTICATED' : 'PUBLIC_SLOW',
+      staged_l1:fixtureCorpus().length, staged_names:stagedNameCount, autopilot:true,
+      github_auth_mode: githubAuthMode, l1_stats:l1Stats(),
       public_next_attempt_at: publicNextAttemptAt ? new Date(publicNextAttemptAt).toISOString() : null,
       public_rate_remaining: publicRateRemaining, public_rate_reset: publicRateReset },
     apps_script: control.engine || {},
@@ -576,8 +762,12 @@ async function startDashboard() {
     const u = new URL(req.url || '/', 'http://127.0.0.1');
     try {
       if (u.pathname === '/api/status') return sendJson(res,200,statusSnapshot());
-      if (u.pathname === '/api/library') return sendJson(res,200,{items:libraryRows(u.searchParams.get('q')||'',u.searchParams.get('limit')||100)});
+      if (u.pathname === '/api/library') {
+        const q=u.searchParams.get('q')||'', limit=u.searchParams.get('limit')||100;
+        return sendJson(res,200,{items:libraryRows(q,limit),total:libraryCount(q),limit:Number(limit)});
+      }
       if (u.pathname === '/api/facets') return sendJson(res,200,facetsSnapshot());
+      if (u.pathname === '/api/l1/stats') return sendJson(res,200,l1Stats());
       if (u.pathname === '/api/resource') {
         const item=resourceById(u.searchParams.get('id')||'');
         return item ? sendJson(res,200,item) : sendJson(res,404,{error:'NOT_FOUND'});
@@ -627,6 +817,7 @@ async function main() {
     selftest();
     seed();
     reclassifyExisting();
+    githubToken();
     stageFixtureJobs();
     stageNamedQueue();
     startDashboard();
@@ -636,11 +827,14 @@ async function main() {
       running=true;
       try {
         const stagedDone=autopilotFixtureStep(Number(process.env.TLIB_STAGE_STEP || 2));
-        if(!stagedDone) await autopilotPublicStep();
+        if(!stagedDone) {
+          const core=await autopilotPublicStep();
+          if(core.done && coreSinceDeep>=20){ coreSinceDeep=0; await deepL1Step(); }
+        }
       }
       catch(e){ event('ERROR','L1_AUTOPILOT_ERROR',e.message||String(e)); }
       finally { running=false; }
-    }, Number(process.env.TLIB_STAGE_INTERVAL_MS || 5000));
+    }, Number(process.env.TLIB_STAGE_INTERVAL_MS || 850));
     if (process.env.TLIB_AUTO_WORK === '1') await canary(Number(process.env.TLIB_AUTO_LIMIT || 10));
     return;
   }
