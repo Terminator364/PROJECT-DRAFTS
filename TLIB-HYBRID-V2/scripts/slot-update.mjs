@@ -4,7 +4,7 @@ import {
   openSync, closeSync, unlinkSync, readdirSync
 } from 'node:fs';
 import { join, dirname } from 'node:path';
-import { homedir, freemem, setPriority, constants as osConstants } from 'node:os';
+import { homedir, freemem, totalmem, setPriority, constants as osConstants } from 'node:os';
 import { execFileSync, spawn } from 'node:child_process';
 
 const OWNER='Terminator364';
@@ -115,8 +115,16 @@ function verifiedSlot(commit){
 }
 async function stage(){
   const freeMB=Math.round(freemem()/1048576);
-  log('STAGE_CHECK_BEGIN','INFO','free_mb='+freeMB);
-  if(!FORCE && freeMB<700){log('STAGE_DEFERRED','SKIP','free_mb='+freeMB);return {ok:true,deferred:true,reason:'LOW_MEMORY',free_mb:freeMB}}
+  const totalMB=Math.round(totalmem()/1048576);
+  const lowRamProfile=totalMB<=6144;
+  const minFree=lowRamProfile?90:320;
+  log('STAGE_CHECK_BEGIN','INFO','free_mb='+freeMB+' total_mb='+totalMB+' profile='+(lowRamProfile?'LOW_RAM_4_6GB':'STANDARD'));
+  // Sur 4–6 Go, une RAM utilisée à 80–95 % est attendue. On diffère uniquement
+  // quand la marge libre devient réellement critique pour le staging lui-même.
+  if(!FORCE && freeMB<minFree){
+    log('STAGE_DEFERRED','SKIP','free_mb='+freeMB+' min_free='+minFree+' profile='+(lowRamProfile?'LOW_RAM_4_6GB':'STANDARD'));
+    return {ok:true,deferred:true,reason:'CRITICAL_FREE_MEMORY_ONLY',free_mb:freeMB,total_mb:totalMB,min_free_mb:minFree};
+  }
   let commit;
   try{commit=await latestCommit()}catch(e){log('LATEST_CHECK_FAIL','FAIL',String(e.message||e));throw e}
   const current=readJson(CURRENT,null);
