@@ -103,39 +103,80 @@ function classifyL1(x) {
   const name = String(x.name || full.split('/').pop() || '').toLowerCase();
   const desc = String(x.description || '').toLowerCase();
   const topics = Array.isArray(x.topics) ? x.topics.map(v => String(v).toLowerCase()) : [];
-  const isList = name.startsWith('awesome') || topics.includes('awesome-list') || topics.includes('list') ||
-    /curated list|collection of resources|resources for|bookmarks/.test(desc);
-  let kind = isList ? 'Catalogue de ressources' : (x.fork ? 'Fork de projet' : 'Projet logiciel');
+  const bag = [name, desc, ...topics].join(' ');
 
-  const candidates = topics.filter(t => !['awesome','awesome-list','list','lists','resources'].includes(t));
+  const isCatalogue = name.startsWith('awesome') || topics.includes('awesome-list') || topics.includes('list') ||
+    /curated list|collection of (useful |awesome |interesting )?(resources|tools|projects|libraries|packages)|awesome resources/.test(desc);
+  const isGuide = /(^|[-_])(tips?|guides?|tutorials?|learning|books?|courses?|roadmaps?|cheat[-_]?sheet|references?|papers?|docs?|documentation)([-_]|$)/.test(name) ||
+    /tips|tutorial|learning material|learning resources|guide|reference|documentation|bookmarks|must[- ]watch/.test(desc);
+  const isDataset = /dataset|data set|public data/.test(bag);
+
+  let kind = isCatalogue ? 'Catalogue de ressources' :
+    isDataset ? 'Jeu de données / ressources' :
+    isGuide ? 'Guide / documentation' :
+    x.is_template ? 'Modèle / template' :
+    'Projet logiciel';
+
+  const techRules = [
+    ['react native', /react[- ]native/], ['nodejs', /node\.js|nodejs|node-js/], ['javascript', /javascript|\bjs\b/],
+    ['typescript', /typescript/], ['python', /python/], ['rust', /\brust\b/], ['golang', /golang|\bgo\b/],
+    ['c++', /c\+\+|\bcpp\b/], ['c# / .NET', /dotnet|\.net|csharp|c#/], ['swift', /swift/], ['ios', /\bios\b/],
+    ['android', /android/], ['electron', /electron/], ['cordova', /cordova|phonegap/], ['flutter', /flutter/],
+    ['firebase', /firebase/], ['cloudflare', /cloudflare/], ['aws', /\baws\b|amazon web services/],
+    ['windows', /windows|powertoys/], ['linux', /linux/], ['macOS', /macos|mac os|\bmac\b/],
+    ['kubernetes', /kubernetes|\bk8s\b/], ['docker', /docker|container/], ['terraform', /terraform|opentofu/],
+    ['home assistant', /home assistant/], ['iot', /\biot\b|esp8266|esp32|adafruit/], ['ebpf', /ebpf/],
+    ['nix', /\bnix\b/], ['deno', /\bdeno\b/], ['scala', /scala/], ['ruby', /ruby/], ['clojure', /clojure/],
+    ['elixir', /elixir/], ['erlang', /erlang/], ['elm', /\belm\b/], ['haskell', /haskell/], ['lua', /\blua\b/],
+    ['R', /(^|[^a-z])r([^a-z]|$)|rstats/], ['julia', /julia/], ['capacitor', /capacitor/],
+    ['frontend', /frontend|front-end/], ['web', /webextensions?|web components?|html5|css/],
+    ['network', /network|mqtt|snmp|rtc/], ['security', /security|cyber|malware|ctf|appsec/],
+    ['machine learning / AI', /machine learning|deep learning|artificial intelligence|generative ai|\bai\b/]
+  ];
   let technology = '';
-  const preferred = ['electron','android-development','android-library','android','ios','react-native','react','nodejs','node','cordova','frontend','iot','swift'];
-  for (const p of preferred) if (candidates.includes(p)) { technology = p; break; }
-  if (!technology && name === 'awesome') technology = 'Multi-thèmes';
-  if (!technology && name.startsWith('awesome-')) technology = name.slice(8).replace(/-/g,' ');
-  if (!technology && candidates.length && !candidates.includes('unicorns')) technology = candidates[0];
-  if (!technology && x.language) technology = String(x.language);
+  for (const [label, rx] of techRules) if (rx.test(bag)) { technology = label; break; }
 
-  const contentMode = isList ? 'Catalogue / documentation / liens' :
-    (x.language ? 'Projet logiciel (' + x.language + ')' : 'Contenu à préciser');
+  const genericTopics = new Set([
+    'awesome','awesome-list','list','lists','resources','resource','open-source','opensource','github',
+    'collection','curated','agpl','agplv3','gpl','gplv3','mit','apache-2','hacktoberfest','community'
+  ]);
+  const candidates = topics.filter(t => !genericTopics.has(t) && !/license|licence|agpl|gpl|mit-license/.test(t));
+  if (!technology && name === 'awesome') technology = 'Multi-thèmes';
+  if (!technology && name.startsWith('awesome-')) {
+    const n = name.slice(8).replace(/-/g,' ').trim();
+    if (n && !/^(list|resources?)$/.test(n)) technology = n;
+  }
+  if (!technology && candidates.length) technology = candidates[0];
+  if (!technology && x.language) technology = String(x.language);
+  if (!technology) technology = 'Domaine à préciser';
+
+  const contentMode = isCatalogue ? 'Catalogue / documentation / liens' :
+    isGuide ? 'Documentation / apprentissage' :
+    isDataset ? 'Données / documentation' :
+    (x.language ? 'Projet logiciel (' + x.language + ')' : 'Projet / contenu à préciser');
 
   let activityDays = null, activityStatus = 'Activité inconnue';
   const pushed = Date.parse(String(x.pushed_at || ''));
   if (Number.isFinite(pushed)) {
     activityDays = Math.max(0, Math.floor((Date.now() - pushed) / 86400000));
-    activityStatus = activityDays <= 180 ? 'Actif récemment' :
+    activityStatus = x.archived ? 'Archivé' :
+      x.disabled ? 'Désactivé' :
+      activityDays <= 180 ? 'Actif récemment' :
       activityDays <= 730 ? 'Activité modérée' : 'Peu actif / ancien';
-  }
+  } else if (x.archived) activityStatus = 'Archivé';
+
   const quality = x.id && full ? 'Identité GitHub vérifiée' : 'Vérification partielle';
-  let score = 35;
+  let score = 30;
   if (x.id && full) score += 20;
   if (x.description) score += 8;
-  if (Array.isArray(x.topics) && x.topics.length) score += 8;
+  if (topics.length) score += 7;
   if (x.license) score += 7;
   if (x.pushed_at) score += 7;
+  if (x.created_at) score += 5;
   if (x.default_branch) score += 5;
-  if (technology) score += 5;
-  if (kind) score += 5;
+  if (technology && technology !== 'Domaine à préciser') score += 5;
+  if (kind) score += 3;
+  if (x.homepage) score += 3;
   score = Math.min(100, score);
   return {kind, technology, contentMode, activityStatus, activityDays, quality, score};
 }
