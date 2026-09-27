@@ -733,6 +733,7 @@ function libraryRows(q='', limit=100, offset=0, sort='stars') {
     return db.prepare(`SELECT r.entity_id,r.full_name,r.description,r.stars,r.language,r.license,r.topics_json,r.archived,r.fork,
                               r.updated_at_github,r.pushed_at,r.default_branch,r.size_kb,r.open_issues,r.fetched_at,
                               r.resource_kind,r.technology,r.content_mode,r.activity_status,r.activity_days,r.l1_quality,r.l1_score,
+                              r.primary_theme,r.theme_path,r.theme_tags_json,r.theme_confidence,
                               l.human_summary
                        FROM results r LEFT JOIN l2_profiles l ON l.entity_id=r.entity_id
                        ORDER BY ${order} LIMIT ? OFFSET ?`).all(limit,offset);
@@ -741,13 +742,16 @@ function libraryRows(q='', limit=100, offset=0, sort='stars') {
   return db.prepare(`SELECT r.entity_id,r.full_name,r.description,r.stars,r.language,r.license,r.topics_json,r.archived,r.fork,
                             r.updated_at_github,r.pushed_at,r.default_branch,r.size_kb,r.open_issues,r.fetched_at,
                             r.resource_kind,r.technology,r.content_mode,r.activity_status,r.activity_days,r.l1_quality,r.l1_score,
+                            r.primary_theme,r.theme_path,r.theme_tags_json,r.theme_confidence,
                             l.human_summary
                      FROM results r LEFT JOIN l2_profiles l ON l.entity_id=r.entity_id
                      WHERE lower(r.full_name) LIKE ? OR lower(r.description) LIKE ? OR lower(r.language) LIKE ?
                         OR lower(r.license) LIKE ? OR lower(r.topics_json) LIKE ? OR lower(coalesce(l.human_summary,'')) LIKE ?
                         OR lower(coalesce(r.technology,'')) LIKE ? OR lower(coalesce(r.resource_kind,'')) LIKE ?
                         OR lower(coalesce(r.activity_status,'')) LIKE ? OR lower(coalesce(r.content_mode,'')) LIKE ?
-                     ORDER BY ${order} LIMIT ? OFFSET ?`).all(like,like,like,like,like,like,like,like,like,like,limit,offset);
+                        OR lower(coalesce(r.primary_theme,'')) LIKE ? OR lower(coalesce(r.theme_path,'')) LIKE ?
+                        OR lower(coalesce(r.theme_tags_json,'')) LIKE ?
+                     ORDER BY ${order} LIMIT ? OFFSET ?`).all(like,like,like,like,like,like,like,like,like,like,like,like,like,limit,offset);
 }
 
 function libraryCount(q='') {
@@ -759,8 +763,10 @@ function libraryCount(q='') {
     WHERE lower(r.full_name) LIKE ? OR lower(r.description) LIKE ? OR lower(r.language) LIKE ?
        OR lower(r.license) LIKE ? OR lower(r.topics_json) LIKE ? OR lower(coalesce(l.human_summary,'')) LIKE ?
        OR lower(coalesce(r.technology,'')) LIKE ? OR lower(coalesce(r.resource_kind,'')) LIKE ?
-       OR lower(coalesce(r.activity_status,'')) LIKE ? OR lower(coalesce(r.content_mode,'')) LIKE ?`)
-    .get(like,like,like,like,like,like,like,like,like,like).n);
+       OR lower(coalesce(r.activity_status,'')) LIKE ? OR lower(coalesce(r.content_mode,'')) LIKE ?
+       OR lower(coalesce(r.primary_theme,'')) LIKE ? OR lower(coalesce(r.theme_path,'')) LIKE ?
+       OR lower(coalesce(r.theme_tags_json,'')) LIKE ?`)
+    .get(like,like,like,like,like,like,like,like,like,like,like,like,like).n);
 }
 
 function l2Rows(limit=100) {
