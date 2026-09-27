@@ -4,12 +4,13 @@ import { homedir } from 'node:os';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { DatabaseSync } from 'node:sqlite';
-import { execFileSync } from 'node:child_process';
+import { execFileSync, execFile } from 'node:child_process';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(HERE, '..');
 const dataDir = process.env.TLIB_DATA_DIR || join(process.env.LOCALAPPDATA || homedir(), 'TLIB-PC');
 mkdirSync(dataDir, { recursive: true });
+const APP_BUILD = '2026.09.27-v0.5.0';
 const dbPath = join(dataDir, 'tlib-worker.sqlite3');
 const db = new DatabaseSync(dbPath);
 db.exec(`
@@ -142,6 +143,20 @@ function githubToken() {
   ghTokenCache = '';
   githubAuthMode = 'PUBLIC';
   return '';
+}
+
+function warmGitHubToken() {
+  if (ghTokenCache !== undefined) return Promise.resolve(ghTokenCache);
+  const fromEnv=String(process.env.GH_TOKEN||'').trim();
+  if(fromEnv.length>20){ghTokenCache=fromEnv;githubAuthMode='ENV_SECURE';return Promise.resolve(ghTokenCache);}
+  return new Promise(resolve=>{
+    execFile('gh',['auth','token'],{encoding:'utf8',windowsHide:true,timeout:15000},(err,stdout)=>{
+      const t=err?'':String(stdout||'').trim();
+      if(t.length>20){ghTokenCache=t;githubAuthMode='GH_KEYRING';}
+      else {ghTokenCache='';githubAuthMode='PUBLIC';}
+      resolve(ghTokenCache);
+    });
+  });
 }
 
 function nextGitHubDelay(remaining, resetSeconds) {
@@ -347,7 +362,10 @@ function applyExtendedL1(entityIdValue, x, q) {
 }
 
 function reclassifyExisting() {
-  const rows=db.prepare('SELECT entity_id,raw_json FROM results').all();
+  const rows=db.prepare(`SELECT entity_id,raw_json FROM results
+                         WHERE coalesce(taxonomy_version,'')<>?
+                            OR coalesce(l1_summary,'')=''
+                            OR coalesce(l1_stage,'')=''`).all(TAXONOMY_VERSION);
   const upd=db.prepare(`UPDATE results SET resource_kind=?,technology=?,content_mode=?,activity_status=?,activity_days=?,l1_quality=?,l1_score=? WHERE entity_id=?`);
   let changed=0;
   for(const r of rows){
@@ -915,6 +933,7 @@ function statusSnapshot() {
   if (levels.l2) { levels.l2.count = l2Count; if (l2Count > 0) levels.l2.state = 'CANARY'; }
   return {
     product: 'TLIB',
+    build: APP_BUILD,
     mode: 'HYBRID_V2_LAB',
     pc_worker: { online:true, database:dbPath, local_l1_results:totalResults, local_l2_profiles:l2Count, queue:counts,
       runtime:{node:process.versions.node,pid:process.pid,uptime_seconds:Math.round(process.uptime()),rss_mb:Math.round(process.memoryUsage().rss/1048576)},
@@ -1056,6 +1075,7 @@ async function startDashboard() {
     const u = new URL(req.url || '/', 'http://127.0.0.1');
     try {
       if (u.pathname === '/api/status') return sendJson(res,200,statusSnapshot());
+      if (u.pathname === '/api/version') return sendJson(res,200,{product:'TLIB',build:APP_BUILD,pid:process.pid,node:process.versions.node});
       if (u.pathname === '/api/library') {
         const q=u.searchParams.get('q')||'', limit=u.searchParams.get('limit')||100,
               offset=u.searchParams.get('offset')||0, sort=u.searchParams.get('sort')||'stars';
@@ -1124,11 +1144,17 @@ async function main() {
   if (cmd === 'agent') {
     selftest();
     seed();
-    reclassifyExisting();
-    githubToken();
-    stageFixtureJobs();
-    stageNamedQueue();
     startDashboard();
+    setTimeout(async () => {
+      try {
+        reclassifyExisting();
+        await warmGitHubToken();
+        stageFixtureJobs();
+        stageNamedQueue();
+      } catch(e) {
+        event('ERROR','BOOTSTRAP_ERROR',e.message||String(e));
+      }
+    }, 150);
     let running=false;
     setInterval(async () => {
       if (running) return;
