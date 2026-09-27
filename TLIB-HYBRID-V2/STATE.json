@@ -1,0 +1,23 @@
+{
+  "project": "TLIB-HYBRID-V2",
+  "branch": "lab/tlib-hybrid-v2",
+  "mode": "CANARY_LOCAL_GITHUB",
+  "production_l1_enabled": false,
+  "apps_script_bridge_enabled": false,
+  "github_actions_expected_minutes": 0,
+  "dashboard_bind": "127.0.0.1",
+  "dashboard_port": 8787,
+  "source_engine": {
+    "version_observed": "1.1.1-fast-ingest-r1",
+    "entity_count_observed": 120694,
+    "pending_source_count_observed": 0
+  },
+  "gates": [
+    "local_selftest",
+    "live_public_canary",
+    "pc_ram_observation",
+    "lease_bridge_design",
+    "secure_github_auth",
+    "authenticated_100_item_canary"
+  ]
+}
