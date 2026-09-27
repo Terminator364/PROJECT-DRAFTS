@@ -1,5 +1,5 @@
 import http from 'node:http';
-import { mkdirSync, readFileSync, readdirSync } from 'node:fs';
+import { mkdirSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
 import { homedir } from 'node:os';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -10,7 +10,20 @@ const HERE = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(HERE, '..');
 const dataDir = process.env.TLIB_DATA_DIR || join(process.env.LOCALAPPDATA || homedir(), 'TLIB-PC');
 mkdirSync(dataDir, { recursive: true });
-const APP_BUILD = '2026.09.27-v0.5.0';
+const APP_BUILD = '2026.09.27-v0.6.0-update-safe';
+const STARTED_AT = new Date().toISOString();
+function gitHead() {
+  try { return String(execFileSync('git',['rev-parse','HEAD'],{cwd:ROOT,encoding:'utf8',windowsHide:true,stdio:['ignore','pipe','ignore'],timeout:3000})||'').trim(); }
+  catch { return 'UNKNOWN'; }
+}
+const APP_COMMIT = gitHead();
+function writeRuntimeMarker() {
+  try {
+    writeFileSync(join(dataDir,'runtime.json'),JSON.stringify({
+      pid:process.pid,build:APP_BUILD,commit:APP_COMMIT,started_at:STARTED_AT,root:ROOT,port:Number(process.env.TLIB_DASHBOARD_PORT||8787)
+    },null,2));
+  } catch {}
+}
 const dbPath = join(dataDir, 'tlib-worker.sqlite3');
 const db = new DatabaseSync(dbPath);
 db.exec(`
@@ -934,6 +947,8 @@ function statusSnapshot() {
   return {
     product: 'TLIB',
     build: APP_BUILD,
+    commit: APP_COMMIT,
+    started_at: STARTED_AT,
     mode: 'HYBRID_V2_LAB',
     pc_worker: { online:true, database:dbPath, local_l1_results:totalResults, local_l2_profiles:l2Count, queue:counts,
       runtime:{node:process.versions.node,pid:process.pid,uptime_seconds:Math.round(process.uptime()),rss_mb:Math.round(process.memoryUsage().rss/1048576)},
@@ -1116,7 +1131,8 @@ async function startDashboard() {
         try { fixtureL2Canary(); return sendJson(res,200,{ok:true,message:'10 profils L2 de démonstration chargés.',status:statusSnapshot()}); }
         finally { busy=false; }
       }
-      if (u.pathname === '/api/health') return sendJson(res,200,{ok:true,at:now()});
+      if (u.pathname === '/api/health') return sendJson(res,200,{ok:true,at:now(),build:APP_BUILD,commit:APP_COMMIT,pid:process.pid,started_at:STARTED_AT});
+      if (u.pathname === '/api/version') return sendJson(res,200,{product:'TLIB',build:APP_BUILD,commit:APP_COMMIT,pid:process.pid,started_at:STARTED_AT,root:ROOT});
       const page = readFileSync(join(ROOT,'public','index.html'),'utf8');
       res.writeHead(200, {'content-type':'text/html; charset=utf-8','cache-control':'no-store'});
       res.end(page);
@@ -1125,9 +1141,15 @@ async function startDashboard() {
       sendJson(res,500,{error:'LOCAL_SERVER_ERROR',message:String(e.message||e)});
     }
   });
+  server.on('error', (e) => {
+    event('ERROR','DASHBOARD_BIND_ERROR',String(e.code||'')+' '+String(e.message||e));
+    console.error('TLIB dashboard bind failed:',e);
+    process.exitCode=2;
+  });
   server.listen(port, '127.0.0.1', () => {
-    event('INFO','DASHBOARD_STARTED','127.0.0.1:' + port);
-    console.log('TLIB dashboard: http://127.0.0.1:' + port);
+    writeRuntimeMarker();
+    event('INFO','DASHBOARD_STARTED','127.0.0.1:' + port + '; build=' + APP_BUILD + '; commit=' + APP_COMMIT);
+    console.log('TLIB dashboard: http://127.0.0.1:' + port + ' [' + APP_BUILD + ']');
   });
   return server;
 }
