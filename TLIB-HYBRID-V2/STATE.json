@@ -19,5 +19,28 @@
     "lease_bridge_design",
     "secure_github_auth",
     "authenticated_100_item_canary"
-  ]
+  ],
+  "updated_at_utc": "2026-09-27T13:42:18Z",
+  "pc": {
+    "device": "MBMPC",
+    "node_version": "24.21.0",
+    "sqlite_selftest": "PASS",
+    "local_fixture_canary": {
+      "status": "PASS",
+      "input_repositories": 10,
+      "results_written": 10,
+      "pending_after_fixture": 10,
+      "evidence": "SQLite readback + dashboard data"
+    },
+    "dashboard": {
+      "status": "RUNNING",
+      "bind": "127.0.0.1",
+      "port": 8787,
+      "desktop_shortcut": "TLIB Cockpit.url"
+    }
+  },
+  "live_pc_github_canary": {
+    "status": "NOT_EXECUTED_BY_ASSISTANT",
+    "reason": "Remote execution of the outbound-network canary command was blocked by platform safety controls; connector-backed live GitHub metadata was used as the fixture instead."
+  }
 }
