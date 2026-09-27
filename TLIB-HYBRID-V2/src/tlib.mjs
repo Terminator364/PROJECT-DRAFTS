@@ -986,16 +986,19 @@ function readJsonSafe(path, fallback=null) {
   try { return JSON.parse(readFileSync(path,'utf8')); } catch { return fallback; }
 }
 function updateStatusSnapshot() {
-  const pending=readJsonSafe(join(dataDir,'pending-update.json'),null);
-  const lastGood=readJsonSafe(join(dataDir,'last-good.json'),null);
+  const pending=readJsonSafe(join(dataDir,'pending-deployment.json'),null);
+  const lastGood=readJsonSafe(join(dataDir,'last-good-deployment.json'),null);
+  const current=readJsonSafe(join(dataDir,'current-deployment.json'),null);
   const runtime=readJsonSafe(join(dataDir,'runtime.json'),null);
   let audit=[];
   try{
-    const lines=readFileSync(join(dataDir,'update-audit.jsonl'),'utf8').split(/\r?\n/).filter(Boolean).slice(-25);
+    const lines=readFileSync(join(dataDir,'slot-update-audit.jsonl'),'utf8').split(/\r?\n/).filter(Boolean).slice(-25);
     audit=lines.map(x=>{try{return JSON.parse(x)}catch{return {at:'',event:'UNPARSEABLE',status:'WARN',detail:x.slice(0,300)}}});
   }catch{}
   return {
+    scheme:'SLOT_V1',
     active:{build:APP_BUILD,commit:APP_COMMIT,pid:process.pid,started_at:STARTED_AT},
+    current,
     runtime,
     pending,
     last_good:lastGood,
@@ -1004,14 +1007,13 @@ function updateStatusSnapshot() {
   };
 }
 function spawnUpdater(mode) {
-  const allowed=new Set(['Stage','Apply','Repair']);
-  if(!allowed.has(mode)) throw new Error('INVALID_UPDATE_MODE');
-  const script=join(ROOT,'scripts','update-tlib.ps1');
-  const ps=spawn('powershell.exe',['-NoProfile','-ExecutionPolicy','Bypass','-WindowStyle','Hidden','-File',script,'-Mode',mode],{
-    windowsHide:true,detached:true,stdio:'ignore'
-  });
-  ps.unref();
-  event('INFO','UPDATE_TRIGGERED',mode);
+  const map={Stage:'stage',Apply:'apply',Repair:'repair'};
+  const chosen=map[mode];
+  if(!chosen) throw new Error('INVALID_UPDATE_MODE');
+  const script=join(ROOT,'scripts','slot-update.mjs');
+  const child=spawn(process.execPath,[script,chosen],{windowsHide:true,detached:true,stdio:'ignore'});
+  child.unref();
+  event('INFO','SLOT_UPDATE_TRIGGERED',chosen);
   return true;
 }
 
