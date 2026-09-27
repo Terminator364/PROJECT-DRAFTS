@@ -181,6 +181,21 @@ function classifyL1(x) {
   return {kind, technology, contentMode, activityStatus, activityDays, quality, score};
 }
 
+function reclassifyExisting() {
+  const rows=db.prepare('SELECT entity_id,raw_json FROM results').all();
+  const upd=db.prepare(`UPDATE results SET resource_kind=?,technology=?,content_mode=?,activity_status=?,activity_days=?,l1_quality=?,l1_score=? WHERE entity_id=?`);
+  let changed=0;
+  for(const r of rows){
+    try{
+      const x=JSON.parse(r.raw_json||'{}'), q=classifyL1(x);
+      upd.run(q.kind,q.technology,q.contentMode,q.activityStatus,q.activityDays,q.quality,q.score,r.entity_id);
+      changed++;
+    }catch{}
+  }
+  if(changed) event('INFO','L1_RECLASSIFY','rows='+changed);
+  return changed;
+}
+
 function seed() {
   const seeds = JSON.parse(readFileSync(join(ROOT, 'config', 'canary-seeds.json'), 'utf8'));
   const stmt = db.prepare(`INSERT OR IGNORE INTO jobs(entity_id,full_name,status,attempts,updated_at)
@@ -603,6 +618,7 @@ async function main() {
   const cmd = process.argv[2] || 'selftest';
   if (cmd === 'selftest') return selftest();
   if (cmd === 'seed') return seed();
+  if (cmd === 'reclassify') { console.log(JSON.stringify({ok:true,rows:reclassifyExisting()},null,2)); return; }
   if (cmd === 'canary') return canary(Number(argValue('--limit', '10')));
   if (cmd === 'fixture-canary') return fixtureCanary();
   if (cmd === 'fixture-l2') return fixtureL2Canary();
@@ -610,6 +626,7 @@ async function main() {
   if (cmd === 'agent') {
     selftest();
     seed();
+    reclassifyExisting();
     stageFixtureJobs();
     stageNamedQueue();
     startDashboard();
