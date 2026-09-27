@@ -12,11 +12,19 @@ const dataDir = process.env.TLIB_DATA_DIR || join(process.env.LOCALAPPDATA || ho
 mkdirSync(dataDir, { recursive: true });
 const APP_BUILD = '2026.09.27-v0.6.1-eco-governor';
 const STARTED_AT = new Date().toISOString();
-function gitHead() {
+function deploymentCommit() {
+  try {
+    const meta=JSON.parse(readFileSync(join(ROOT,'deployment.json'),'utf8'));
+    if(meta && typeof meta.commit==='string' && /^[0-9a-f]{40}$/i.test(meta.commit)) return meta.commit;
+  } catch {}
+  try {
+    const env=String(process.env.TLIB_DEPLOYMENT_COMMIT||'').trim();
+    if(/^[0-9a-f]{40}$/i.test(env)) return env;
+  } catch {}
   try { return String(execFileSync('git',['rev-parse','HEAD'],{cwd:ROOT,encoding:'utf8',windowsHide:true,stdio:['ignore','pipe','ignore'],timeout:3000})||'').trim(); }
   catch { return 'UNKNOWN'; }
 }
-const APP_COMMIT = gitHead();
+const APP_COMMIT = deploymentCommit();
 function writeRuntimeMarker() {
   try {
     writeFileSync(join(dataDir,'runtime.json'),JSON.stringify({
