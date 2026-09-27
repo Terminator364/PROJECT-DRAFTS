@@ -5,7 +5,11 @@ $data = Join-Path $env:LOCALAPPDATA "TLIB-PC"
 $stable = Join-Path $data "bootstrap.ps1"
 
 if (Test-Path $stable) {
-  & "$env:SystemRoot\System32\WindowsPowerShell\v1.0\powershell.exe" -NoProfile -ExecutionPolicy Bypass -File $stable @($NoOpen ? "-NoOpen" : @())
+  if ($NoOpen) {
+    & "$env:SystemRoot\System32\WindowsPowerShell\v1.0\powershell.exe" -NoProfile -ExecutionPolicy Bypass -File $stable -NoOpen
+  } else {
+    & "$env:SystemRoot\System32\WindowsPowerShell\v1.0\powershell.exe" -NoProfile -ExecutionPolicy Bypass -File $stable
+  }
   exit $LASTEXITCODE
 }
 
@@ -22,7 +26,11 @@ if (-not (Test-Path (Join-Path $data "current-deployment.json"))) {
 $bootstrapSource = Join-Path $root "scripts\bootstrap-tlib.ps1"
 if (Test-Path $bootstrapSource) {
   Copy-Item $bootstrapSource $stable -Force
-  & "$env:SystemRoot\System32\WindowsPowerShell\v1.0\powershell.exe" -NoProfile -ExecutionPolicy Bypass -File $stable @($NoOpen ? "-NoOpen" : @())
+  if ($NoOpen) {
+    & "$env:SystemRoot\System32\WindowsPowerShell\v1.0\powershell.exe" -NoProfile -ExecutionPolicy Bypass -File $stable -NoOpen
+  } else {
+    & "$env:SystemRoot\System32\WindowsPowerShell\v1.0\powershell.exe" -NoProfile -ExecutionPolicy Bypass -File $stable
+  }
   exit $LASTEXITCODE
 }
 
