@@ -30,14 +30,9 @@ function log(event,status='INFO',detail=''){
 function readJson(path,fallback=null){try{return JSON.parse(readFileSync(path,'utf8'))}catch{return fallback}}
 function writeJson(path,value){writeFileSync(path,JSON.stringify(value,null,2)+'\n','utf8')}
 function sleep(ms){return new Promise(r=>setTimeout(r,ms))}
-function token(){
-  try{return String(execFileSync('gh',['auth','token'],{encoding:'utf8',windowsHide:true,stdio:['ignore','pipe','ignore'],timeout:7000})||'').trim()}
-  catch{return ''}
-}
-const GH_TOKEN=token();
-function headers(){const h={'User-Agent':'TLIB-Slot-Updater/1.0','Accept':'application/vnd.github+json'};if(GH_TOKEN)h.Authorization='Bearer '+GH_TOKEN;return h}
+function headers(){return {'User-Agent':'TLIB-Slot-Updater/1.1','Accept':'application/vnd.github+json'}}
 async function fetchOk(url,opts={}){
-  const res=await fetch(url,{...opts,headers:{...headers(),...(opts.headers||{})},signal:AbortSignal.timeout(20000)});
+  const res=await fetch(url,{...opts,headers:{...headers(),...(opts.headers||{})},signal:AbortSignal.timeout(10000)});
   if(!res.ok)throw new Error('HTTP_'+res.status+' '+url);
   return res;
 }
@@ -120,8 +115,10 @@ function verifiedSlot(commit){
 }
 async function stage(){
   const freeMB=Math.round(freemem()/1048576);
+  log('STAGE_CHECK_BEGIN','INFO','free_mb='+freeMB);
   if(!FORCE && freeMB<700){log('STAGE_DEFERRED','SKIP','free_mb='+freeMB);return {ok:true,deferred:true,reason:'LOW_MEMORY',free_mb:freeMB}}
-  const commit=await latestCommit();
+  let commit;
+  try{commit=await latestCommit()}catch(e){log('LATEST_CHECK_FAIL','FAIL',String(e.message||e));throw e}
   const current=readJson(CURRENT,null);
   if(current?.commit===commit){rmSync(PENDING,{force:true});log('NO_UPDATE','PASS',commit);return {ok:true,no_update:true,commit}}
   const existing=verifiedSlot(commit);
