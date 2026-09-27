@@ -103,6 +103,11 @@ ensureResultColumn('latest_release_tag','TEXT');
 ensureResultColumn('latest_release_at','TEXT');
 ensureResultColumn('community_health','INTEGER');
 ensureResultColumn('readme_present','INTEGER');
+ensureResultColumn('primary_theme','TEXT');
+ensureResultColumn('theme_path','TEXT');
+ensureResultColumn('theme_tags_json','TEXT');
+ensureResultColumn('theme_confidence','REAL');
+ensureResultColumn('taxonomy_version','TEXT');
 
 const now = () => new Date().toISOString();
 const event = (level, name, detail='') => {
@@ -156,6 +161,56 @@ function nextGitHubDelay(remaining, resetSeconds) {
 
 function entityId(fullName) {
   return 'ghpath:' + fullName.toLowerCase();
+}
+
+const TAXONOMY_VERSION='2026.09-v1';
+const THEME_RULES=[
+  ['Développement/Langages/Python', /\bpython\b|django|flask|pytorch|numpy|pandas/],
+  ['Développement/Langages/JavaScript & TypeScript', /javascript|typescript|node\.?js|npm|deno|bun\b/],
+  ['Développement/Langages/JVM', /\bjava\b|kotlin|scala|groovy|clojure/],
+  ['Développement/Langages/Rust', /\brust\b|cargo/],
+  ['Développement/Langages/Go', /\bgolang\b|\bgo\b/],
+  ['Développement/Langages/.NET', /dotnet|\.net|csharp|c#|fsharp|f#/],
+  ['Développement/Langages/C & C++', /c\+\+|\bcpp\b|cmake|\bc language\b/],
+  ['Développement/Mobile/Android', /android|jetpack|gradle|kotlin/],
+  ['Développement/Mobile/iOS', /\bios\b|swift|watchos|xcode/],
+  ['Développement/Mobile/Hybride', /react[- ]native|flutter|cordova|capacitor|ionic/],
+  ['Développement/Web/Frontend', /frontend|front-end|react\b|vue\b|angular|svelte|css|html5|webcomponents?/],
+  ['Développement/Desktop', /electron|tauri|desktop|windows|macos|gtk|qt\b/],
+  ['Cloud & DevOps/AWS', /\baws\b|amazon web services/],
+  ['Cloud & DevOps/Cloud', /azure|gcp|google cloud|cloudflare|digitalocean|heroku|firebase/],
+  ['Cloud & DevOps/Containers', /docker|kubernetes|\bk8s\b|container|helm/],
+  ['Cloud & DevOps/Infrastructure as Code', /terraform|opentofu|ansible|pulumi/],
+  ['Cloud & DevOps/CI-CD', /github actions|gitlab ci|jenkins|ci[- ]?cd|continuous integration/],
+  ['Données & IA/IA & Machine Learning', /machine learning|deep learning|artificial intelligence|generative ai|llm|transformer/],
+  ['Données & IA/Data Science', /data science|analytics|pandas|numpy|jupyter|visualization/],
+  ['Données & IA/Bases de données', /database|postgres|mysql|sqlite|mongodb|redis|nosql/],
+  ['Réseau & IoT/IoT', /\biot\b|mqtt|arduino|raspberry pi|esp32|esp8266|adafruit|home assistant/],
+  ['Réseau & IoT/Réseau', /network|networking|dns|tcp|udp|snmp|vpn|wifi|wireless/],
+  ['Sécurité/Cybersécurité', /security|cyber|appsec|malware|pentest|ctf|forensic|vulnerability/],
+  ['Automatisation & Outils/CLI & Scripts', /command line|\bcli\b|powershell|shell|bash|automation|scripting/],
+  ['Automatisation & Outils/Productivité développeur', /developer tools|devtools|workflow|productivity|git\b|github/],
+  ['Documentation & Apprentissage/Guides', /tutorial|learning|guide|roadmap|book|course|cheat[- ]?sheet|reference|documentation/],
+  ['Catalogues & Curations/Awesome Lists', /awesome[- ]?list|curated list|collection of .*resources|\bawesome\b/]
+];
+
+function classifyThemes(x,q){
+  const topics=Array.isArray(x.topics)?x.topics.map(v=>String(v).toLowerCase()):[];
+  const bag=[x.name,x.full_name,x.description,q.technology,q.kind,...topics].filter(Boolean).join(' ').toLowerCase();
+  const matches=[];
+  for(const [path,rx] of THEME_RULES) if(rx.test(bag)) matches.push(path);
+  if(q.kind==='Catalogue de ressources' && !matches.includes('Catalogues & Curations/Awesome Lists')) matches.push('Catalogues & Curations/Awesome Lists');
+  if(q.kind==='Guide / documentation' && !matches.includes('Documentation & Apprentissage/Guides')) matches.push('Documentation & Apprentissage/Guides');
+  const uniq=[...new Set(matches)];
+  const primary=uniq[0] || (q.technology && q.technology!=='Domaine à préciser' ? 'Autres/'+q.technology : 'Autres/À classifier');
+  const tags=[...new Set([
+    ...uniq.flatMap(p=>p.split('/').slice(-2)),
+    q.technology!=='Domaine à préciser'?q.technology:'',
+    q.kind,
+    ...topics.slice(0,12)
+  ].filter(Boolean))].slice(0,24);
+  const confidence=Math.min(0.99, uniq.length?0.72+Math.min(0.24,uniq.length*0.06):(q.technology!=='Domaine à préciser'?0.55:0.35));
+  return {primary:primary.split('/')[0],path:primary,tags,confidence};
 }
 
 function classifyL1(x) {
@@ -265,7 +320,8 @@ function classifyL1(x) {
         : 'Projet logiciel lié à ' + tech + (x.language ? ', principalement en ' + x.language : '') + '. ' + activityStatus + '.';
   const deepStatus = kind === 'Projet logiciel' ? 'PENDING' : 'NOT_APPLICABLE';
   const l1Stage = kind === 'Projet logiciel' ? 'CORE_VERIFIED_DEEP_PENDING' : 'L1_COMPLETE';
-  return {kind, technology, contentMode, activityStatus, activityDays, quality, score, summary, deepStatus, l1Stage};
+  const theme=classifyThemes(x,{kind,technology});
+  return {kind, technology, contentMode, activityStatus, activityDays, quality, score, summary, deepStatus, l1Stage, theme};
 }
 
 function applyExtendedL1(entityIdValue, x, q) {
@@ -279,6 +335,9 @@ function applyExtendedL1(entityIdValue, x, q) {
       Number(x.network_count ?? 0), x.has_issues ? 1 : 0, x.has_projects ? 1 : 0,
       x.has_downloads ? 1 : 0, x.is_template ? 1 : 0, q.summary, q.l1Stage, q.deepStatus, entityIdValue
     );
+  const t=q.theme||classifyThemes(x,q);
+  db.prepare(`UPDATE results SET primary_theme=?,theme_path=?,theme_tags_json=?,theme_confidence=?,taxonomy_version=? WHERE entity_id=?`)
+    .run(t.primary,t.path,JSON.stringify(t.tags),Number(t.confidence||0),TAXONOMY_VERSION,entityIdValue);
 }
 
 function reclassifyExisting() {
@@ -741,7 +800,13 @@ function facetsSnapshot() {
   const activities=db.prepare(`SELECT activity_status AS value, COUNT(*) AS n FROM results
                                WHERE coalesce(activity_status,'')<>'' GROUP BY activity_status
                                ORDER BY n DESC, value ASC`).all();
-  return {technologies,types,activities};
+  const themes=db.prepare(`SELECT primary_theme AS value, COUNT(*) AS n FROM results
+                           WHERE coalesce(primary_theme,'')<>'' GROUP BY primary_theme
+                           ORDER BY n DESC, value ASC`).all();
+  const paths=db.prepare(`SELECT theme_path AS value, COUNT(*) AS n FROM results
+                          WHERE coalesce(theme_path,'')<>'' GROUP BY theme_path
+                          ORDER BY n DESC, value ASC LIMIT 40`).all();
+  return {technologies,types,activities,themes,paths,taxonomy_version:TAXONOMY_VERSION};
 }
 
 function resourceById(id) {
