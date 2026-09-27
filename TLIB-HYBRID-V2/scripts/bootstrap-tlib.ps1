@@ -40,11 +40,17 @@ if (-not $updater) {
   exit 2
 }
 
-# Si une version vérifiée attend, elle est activée avant ouverture.
+# Une activation ne doit jamais ralentir un clic utilisateur.
+# Elle est automatique uniquement au démarrage Windows (-NoOpen).
 if (Test-Path $pendingFile) {
   L "PENDING_SLOT_FOUND"
-  & node $updater apply | Out-Null
-  $updater = Updater
+  if ($NoOpen) {
+    & node $updater apply | Out-Null
+    $updater = Updater
+    L "PENDING_SLOT_AUTO_APPLY_AT_LOGON"
+  } else {
+    L "PENDING_SLOT_LEFT_FOR_MANAGER"
+  }
 }
 
 # Répare uniquement si le worker actif ne correspond pas au slot courant.
