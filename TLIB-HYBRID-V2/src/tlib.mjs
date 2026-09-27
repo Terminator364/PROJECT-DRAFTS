@@ -659,16 +659,19 @@ function loadControlSnapshot() {
   catch { return { engine:{}, product:{} }; }
 }
 
-function libraryRows(q='', limit=100) {
+function libraryRows(q='', limit=100, offset=0, sort='stars') {
   q = String(q || '').trim().toLowerCase();
   limit = Math.max(1, Math.min(Number(limit || 100), 500));
+  offset = Math.max(0, Number(offset || 0));
+  const orders={stars:'r.stars DESC',recent:'r.pushed_at DESC',verified:'r.fetched_at DESC',complete:'r.l1_score DESC',name:'r.full_name ASC'};
+  const order=orders[String(sort||'stars')]||orders.stars;
   if (!q) {
     return db.prepare(`SELECT r.entity_id,r.full_name,r.description,r.stars,r.language,r.license,r.topics_json,r.archived,r.fork,
                               r.updated_at_github,r.pushed_at,r.default_branch,r.size_kb,r.open_issues,r.fetched_at,
                               r.resource_kind,r.technology,r.content_mode,r.activity_status,r.activity_days,r.l1_quality,r.l1_score,
                               l.human_summary
                        FROM results r LEFT JOIN l2_profiles l ON l.entity_id=r.entity_id
-                       ORDER BY r.stars DESC LIMIT ?`).all(limit);
+                       ORDER BY ${order} LIMIT ? OFFSET ?`).all(limit,offset);
   }
   const like = '%' + q + '%';
   return db.prepare(`SELECT r.entity_id,r.full_name,r.description,r.stars,r.language,r.license,r.topics_json,r.archived,r.fork,
@@ -680,7 +683,7 @@ function libraryRows(q='', limit=100) {
                         OR lower(r.license) LIKE ? OR lower(r.topics_json) LIKE ? OR lower(coalesce(l.human_summary,'')) LIKE ?
                         OR lower(coalesce(r.technology,'')) LIKE ? OR lower(coalesce(r.resource_kind,'')) LIKE ?
                         OR lower(coalesce(r.activity_status,'')) LIKE ? OR lower(coalesce(r.content_mode,'')) LIKE ?
-                     ORDER BY r.stars DESC LIMIT ?`).all(like,like,like,like,like,like,like,like,like,like,limit);
+                     ORDER BY ${order} LIMIT ? OFFSET ?`).all(like,like,like,like,like,like,like,like,like,like,limit,offset);
 }
 
 function libraryCount(q='') {
@@ -792,8 +795,9 @@ async function startDashboard() {
     try {
       if (u.pathname === '/api/status') return sendJson(res,200,statusSnapshot());
       if (u.pathname === '/api/library') {
-        const q=u.searchParams.get('q')||'', limit=u.searchParams.get('limit')||100;
-        return sendJson(res,200,{items:libraryRows(q,limit),total:libraryCount(q),limit:Number(limit)});
+        const q=u.searchParams.get('q')||'', limit=u.searchParams.get('limit')||100,
+              offset=u.searchParams.get('offset')||0, sort=u.searchParams.get('sort')||'stars';
+        return sendJson(res,200,{items:libraryRows(q,limit,offset,sort),total:libraryCount(q),limit:Number(limit),offset:Number(offset),sort});
       }
       if (u.pathname === '/api/facets') return sendJson(res,200,facetsSnapshot());
       if (u.pathname === '/api/l1/stats') return sendJson(res,200,l1Stats());
@@ -864,7 +868,7 @@ async function main() {
       }
       catch(e){ event('ERROR','L1_AUTOPILOT_ERROR',e.message||String(e)); }
       finally { running=false; }
-    }, Number(process.env.TLIB_STAGE_INTERVAL_MS || 850));
+    }, Number(process.env.TLIB_STAGE_INTERVAL_MS || 150));
     if (process.env.TLIB_AUTO_WORK === '1') await canary(Number(process.env.TLIB_AUTO_LIMIT || 10));
     return;
   }
