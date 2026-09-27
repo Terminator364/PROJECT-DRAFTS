@@ -421,7 +421,7 @@ async function loadUpdateStatus(){
     textIf('#updateCommit',u.active&&u.active.commit?u.active.commit.slice(0,12):'—');
     textIf('#updateLastGood',u.last_good&&u.last_good.build?u.last_good.build:(u.last_good&&u.last_good.commit?u.last_good.commit.slice(0,12):'Aucune encore'));
     textIf('#updatePending',u.pending_available?'PRÊTE':'Aucune');
-    textIf('#updatePendingDetail',u.pending&&u.pending.target?u.pending.target.slice(0,12)+' · vérifiée':'aucune version en attente');
+    textIf('#updatePendingDetail',u.pending&&(u.pending.commit||u.pending.target)?String(u.pending.commit||u.pending.target).slice(0,12)+' · vérifiée · '+esc(u.scheme||'SLOT_V1'):'aucune version en attente');
     var audit=(u.audit||[]).slice().reverse();
     if(el('#updateAudit'))el('#updateAudit').innerHTML='<table><thead><tr><th>Heure</th><th>Événement</th><th>État</th><th>Détail</th></tr></thead><tbody>'+audit.map(function(x){return '<tr><td>'+esc((x.at||'').replace('T',' ').slice(0,19))+'</td><td><b>'+esc(x.event||'')+'</b></td><td class="'+(x.status==='PASS'?'statusok':x.status==='FAIL'||x.status==='CRITICAL'?'audit-fail':'')+'">'+esc(x.status||'')+'</td><td>'+esc(String(x.detail||'').slice(0,120))+'</td></tr>'}).join('')+'</tbody></table>';
     el('#updateApplyBtn').disabled=!u.pending_available;
