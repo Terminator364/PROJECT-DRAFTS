@@ -597,12 +597,24 @@ async function githubGet(path, allow404=false) {
   return {status:res.status,body,remaining,reset};
 }
 
+function deepBacklogCount() {
+  return Number(db.prepare(`SELECT COUNT(*) AS n FROM results
+                            WHERE resource_kind='Projet logiciel'
+                              AND coalesce(deep_status,'PENDING') IN ('PENDING','RETRY')`).get().n);
+}
+function schedulerMode() {
+  const backlog=deepBacklogCount();
+  if(backlog>100 && (publicRateRemaining===null || publicRateRemaining>=2000)) return 'DEEP_CATCHUP';
+  if(backlog>25) return 'BALANCED_DEEP_FIRST';
+  return 'CORE_EXPANSION';
+}
+
 async function deepL1Step() {
   if(!githubToken()) return {done:0,state:'NO_AUTH'};
   if(publicRateRemaining !== null && publicRateRemaining < 1800) return {done:0,state:'RESERVE_RATE'};
   const row=db.prepare(`SELECT entity_id,full_name,default_branch FROM results
                         WHERE resource_kind='Projet logiciel'
-                          AND coalesce(deep_status,'PENDING')='PENDING'
+                          AND coalesce(deep_status,'PENDING') IN ('PENDING','RETRY')
                         ORDER BY fetched_at LIMIT 1`).get();
   if(!row) return {done:0,state:'EMPTY'};
   try{
@@ -856,12 +868,117 @@ function statusSnapshot() {
       staged_l1:fixtureCorpus().length, staged_names:stagedNameCount, autopilot:true,
       github_auth_mode: githubAuthMode, l1_stats:l1Stats(),
       public_next_attempt_at: publicNextAttemptAt ? new Date(publicNextAttemptAt).toISOString() : null,
-      public_rate_remaining: publicRateRemaining, public_rate_reset: publicRateReset },
+      public_rate_remaining: publicRateRemaining, public_rate_reset: publicRateReset,
+      scheduler_mode:schedulerMode(), deep_backlog:deepBacklogCount() },
     apps_script: control.engine || {},
     levels,
     recent,
     events
   };
+}
+
+function reportLines(type='manager') {
+  const s=statusSnapshot(), q=s.pc_worker.queue||{}, st=s.pc_worker.l1_stats||{}, a=s.apps_script||{}, rt=s.pc_worker.runtime||{};
+  const head=[
+    'TLIB - Rapport '+String(type).toUpperCase(),
+    'Genere: '+new Date().toISOString(),
+    ''
+  ];
+  const common=[
+    'L0 ressources: '+Number(a.entity_count||0).toLocaleString('fr-FR'),
+    'L1 verifiees: '+Number(st.core||0).toLocaleString('fr-FR'),
+    'L1 completes: '+Number(st.complete||0).toLocaleString('fr-FR'),
+    'L1 profondes: '+Number(st.deep_done||0).toLocaleString('fr-FR'),
+    'Approfondissements en attente: '+Number(st.deep_pending||0).toLocaleString('fr-FR'),
+    'Mode ordonnanceur: '+String(s.pc_worker.scheduler_mode||''),
+    'Cadence recente: '+Number(st.throughput_per_hour||0).toLocaleString('fr-FR')+' fiches/h',
+    ''
+  ];
+  if(type==='l0') return head.concat([
+    'Etat L0: '+String(a.status||''),
+    'Sources explorees: '+Number(a.source_count||0).toLocaleString('fr-FR'),
+    'Sources terminees: '+Number(a.source_done||0).toLocaleString('fr-FR'),
+    'Sources epuisees: '+Number(a.source_failed||0).toLocaleString('fr-FR'),
+    'Sources en attente: '+Number(a.source_pending||0).toLocaleString('fr-FR'),
+    '',
+    'Objet: decouverte, normalisation et deduplication des ressources.'
+  ]);
+  if(type==='l1') return head.concat(common,[
+    'Queue DONE: '+Number(q.DONE||0).toLocaleString('fr-FR'),
+    'Queue PENDING: '+Number(q.PENDING||0).toLocaleString('fr-FR'),
+    'Queue RUNNING: '+Number(q.RUNNING||0).toLocaleString('fr-FR'),
+    'Erreurs 24h: '+Number(st.errors_24h||0).toLocaleString('fr-FR'),
+    '',
+    'Strategie: resorber la dette d approfondissement avant expansion rapide.'
+  ]);
+  if(type==='technical') return head.concat([
+    'Node: '+String(rt.node||''),
+    'PID: '+String(rt.pid||''),
+    'Uptime: '+Number(rt.uptime_seconds||0).toLocaleString('fr-FR')+' s',
+    'RAM worker: '+Number(rt.rss_mb||0).toLocaleString('fr-FR')+' Mo',
+    'GitHub auth: '+String(s.pc_worker.github_auth_mode||''),
+    'Quota GitHub restant: '+Number(s.pc_worker.public_rate_remaining||0).toLocaleString('fr-FR'),
+    'SQLite: '+String(s.pc_worker.database||'')
+  ]);
+  return head.concat(common,[
+    'Worker: EN LIGNE',
+    'GitHub auth: '+String(s.pc_worker.github_auth_mode||''),
+    'Quota restant: '+Number(s.pc_worker.public_rate_remaining||0).toLocaleString('fr-FR'),
+    'RAM worker: '+Number(rt.rss_mb||0).toLocaleString('fr-FR')+' Mo'
+  ]);
+}
+
+function pdfEscape(s) {
+  return String(s).replace(/\\/g,'\\\\').replace(/\(/g,'\\(').replace(/\)/g,'\\)');
+}
+function latin1(s) {
+  return Buffer.from(String(s).normalize('NFKD').replace(/[\u0300-\u036f]/g,'').replace(/[^\x20-\xFF]/g,'?'),'latin1');
+}
+function simplePdf(title, lines) {
+  const perPage=46, pages=[];
+  for(let i=0;i<lines.length;i+=perPage) pages.push(lines.slice(i,i+perPage));
+  if(!pages.length) pages.push([]);
+  const objects=[null];
+  const fontId=1; objects.push('<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>');
+  const pageIds=[], contentIds=[];
+  const pagesId=2; objects.push('');
+  for(const rows of pages){
+    const pageId=objects.length; pageIds.push(pageId); objects.push('');
+    const contentId=objects.length; contentIds.push(contentId);
+    let body='BT\n/F1 11 Tf\n50 790 Td\n14 TL\n';
+    const all=[title,'',...rows];
+    for(let i=0;i<all.length;i++){
+      const line=pdfEscape(String(all[i]).slice(0,110));
+      if(i===0) body+='/F1 16 Tf\n('+line+') Tj\n/F1 11 Tf\n';
+      else body+='T*\n('+line+') Tj\n';
+    }
+    body+='ET\n';
+    const bytes=latin1(body);
+    objects.push(Buffer.concat([Buffer.from('<< /Length '+bytes.length+' >>\nstream\n','ascii'),bytes,Buffer.from('endstream','ascii')]));
+  }
+  objects[pagesId]='<< /Type /Pages /Count '+pageIds.length+' /Kids ['+pageIds.map(id=>id+' 0 R').join(' ')+'] >>';
+  for(let i=0;i<pageIds.length;i++) objects[pageIds[i]]='<< /Type /Page /Parent '+pagesId+' 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 '+fontId+' 0 R >> >> /Contents '+contentIds[i]+' 0 R >>';
+  const catalogId=objects.length; objects.push('<< /Type /Catalog /Pages '+pagesId+' 0 R >>');
+  const chunks=[Buffer.from('%PDF-1.4\n%TLIB\n','ascii')], offsets=[0];
+  let pos=chunks[0].length;
+  for(let i=1;i<objects.length;i++){
+    offsets[i]=pos;
+    const head=Buffer.from(i+' 0 obj\n','ascii');
+    const body=Buffer.isBuffer(objects[i])?objects[i]:latin1(objects[i]);
+    const tail=Buffer.from('\nendobj\n','ascii');
+    chunks.push(head,body,tail); pos+=head.length+body.length+tail.length;
+  }
+  const xrefPos=pos;
+  let xref='xref\n0 '+objects.length+'\n0000000000 65535 f \n';
+  for(let i=1;i<objects.length;i++) xref+=String(offsets[i]).padStart(10,'0')+' 00000 n \n';
+  xref+='trailer\n<< /Size '+objects.length+' /Root '+catalogId+' 0 R >>\nstartxref\n'+xrefPos+'\n%%EOF';
+  chunks.push(Buffer.from(xref,'ascii'));
+  return Buffer.concat(chunks);
+}
+function sendPdf(res, type) {
+  const lines=reportLines(type), pdf=simplePdf('TLIB - '+String(type).toUpperCase(),lines);
+  res.writeHead(200, {'content-type':'application/pdf','content-disposition':'attachment; filename="TLIB_'+String(type).toUpperCase()+'_'+new Date().toISOString().slice(0,10)+'.pdf"','cache-control':'no-store','content-length':pdf.length});
+  res.end(pdf);
 }
 
 function sendJson(res, code, value) {
@@ -887,6 +1004,10 @@ async function startDashboard() {
       if (u.pathname === '/api/resource') {
         const item=resourceById(u.searchParams.get('id')||'');
         return item ? sendJson(res,200,item) : sendJson(res,404,{error:'NOT_FOUND'});
+      }
+      if (u.pathname === '/api/report' && req.method === 'GET') {
+        const type=['manager','l0','l1','technical'].includes(u.searchParams.get('type'))?u.searchParams.get('type'):'manager';
+        return sendPdf(res,type);
       }
       if (u.pathname === '/api/events') {
         const items=db.prepare('SELECT at,level,event,detail FROM events ORDER BY id DESC LIMIT 100').all();
@@ -944,8 +1065,22 @@ async function main() {
       try {
         const stagedDone=autopilotFixtureStep(Number(process.env.TLIB_STAGE_STEP || 2));
         if(!stagedDone) {
-          const core=await autopilotPublicStep();
-          if(core.done && coreSinceDeep>=40){ coreSinceDeep=0; await deepL1Step(); }
+          const mode=schedulerMode();
+          if(mode==='DEEP_CATCHUP'){
+            const deep=await deepL1Step();
+            if(!deep.done && deep.state!=='RESERVE_RATE') await autopilotPublicStep();
+          }else if(mode==='BALANCED_DEEP_FIRST'){
+            if(coreSinceDeep>=4){
+              coreSinceDeep=0;
+              const deep=await deepL1Step();
+              if(!deep.done && deep.state!=='RESERVE_RATE') await autopilotPublicStep();
+            }else{
+              await autopilotPublicStep();
+            }
+          }else{
+            const core=await autopilotPublicStep();
+            if(core.done && coreSinceDeep>=20){coreSinceDeep=0;await deepL1Step();}
+          }
         }
       }
       catch(e){ event('ERROR','L1_AUTOPILOT_ERROR',e.message||String(e)); }
