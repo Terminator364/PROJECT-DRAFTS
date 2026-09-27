@@ -101,8 +101,9 @@ function classifyL1(x) {
   let technology = '';
   const preferred = ['electron','android-development','android-library','android','ios','react-native','react','nodejs','node','cordova','frontend','iot','swift'];
   for (const p of preferred) if (candidates.includes(p)) { technology = p; break; }
+  if (!technology && name === 'awesome') technology = 'Multi-thèmes';
   if (!technology && name.startsWith('awesome-')) technology = name.slice(8).replace(/-/g,' ');
-  if (!technology && candidates.length) technology = candidates[0];
+  if (!technology && candidates.length && !candidates.includes('unicorns')) technology = candidates[0];
   if (!technology && x.language) technology = String(x.language);
 
   const contentMode = isList && !x.language ? 'Documentation / liens' :
