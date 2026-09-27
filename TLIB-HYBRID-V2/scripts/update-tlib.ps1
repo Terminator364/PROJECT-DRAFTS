@@ -4,6 +4,7 @@ param(
 )
 
 $ErrorActionPreference = "Stop"
+try { [System.Diagnostics.Process]::GetCurrentProcess().PriorityClass = "BelowNormal" } catch {}
 $RepoRoot = (Resolve-Path (Join-Path $PSScriptRoot "..\..")).Path
 $AppRoot = Join-Path $RepoRoot "TLIB-HYBRID-V2"
 $DataDir = Join-Path $env:LOCALAPPDATA "TLIB-PC"
