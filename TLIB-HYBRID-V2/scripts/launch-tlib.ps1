@@ -1,37 +1,10 @@
 param([switch]$NoOpen)
-
-$ErrorActionPreference = "SilentlyContinue"
-$data = Join-Path $env:LOCALAPPDATA "TLIB-PC"
-$stable = Join-Path $data "bootstrap.ps1"
-
-if (Test-Path $stable) {
-  if ($NoOpen) {
-    & "$env:SystemRoot\System32\WindowsPowerShell\v1.0\powershell.exe" -NoProfile -ExecutionPolicy Bypass -File $stable -NoOpen
-  } else {
-    & "$env:SystemRoot\System32\WindowsPowerShell\v1.0\powershell.exe" -NoProfile -ExecutionPolicy Bypass -File $stable
-  }
-  exit $LASTEXITCODE
-}
-
-# Fallback uniquement avant la première installation slot-safe.
-$root = (Resolve-Path (Join-Path $PSScriptRoot "..")).Path
-$slot = Join-Path $root "scripts\slot-update.mjs"
-if (-not (Test-Path $slot)) { exit 2 }
-
-if (-not (Test-Path (Join-Path $data "current-deployment.json"))) {
-  & node $slot latest
-  if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-}
-
-$bootstrapSource = Join-Path $root "scripts\bootstrap-tlib.ps1"
-if (Test-Path $bootstrapSource) {
-  Copy-Item $bootstrapSource $stable -Force
-  if ($NoOpen) {
-    & "$env:SystemRoot\System32\WindowsPowerShell\v1.0\powershell.exe" -NoProfile -ExecutionPolicy Bypass -File $stable -NoOpen
-  } else {
-    & "$env:SystemRoot\System32\WindowsPowerShell\v1.0\powershell.exe" -NoProfile -ExecutionPolicy Bypass -File $stable
-  }
-  exit $LASTEXITCODE
-}
-
-exit 3
+$ErrorActionPreference="SilentlyContinue"
+$data=Join-Path $env:LOCALAPPDATA "TLIB-PC"
+$boot=Join-Path $data "bootstrap-node.cjs"
+$node=(Get-Command node -ErrorAction SilentlyContinue).Source
+if(-not $node -or -not (Test-Path $boot)){ exit 2 }
+$args=@($boot)
+if($NoOpen){$args+="--no-open"}
+Start-Process -FilePath $node -ArgumentList $args -WindowStyle Hidden
+exit 0
