@@ -679,6 +679,17 @@ function libraryCount(q='') {
     .get(like,like,like,like,like,like,like,like,like,like).n);
 }
 
+function l2Rows(limit=100) {
+  limit=Math.max(1,Math.min(Number(limit||100),500));
+  return db.prepare(`SELECT r.entity_id,r.full_name,r.resource_kind,r.technology,r.activity_status,r.stars,
+                            l.human_summary,l.capabilities_json,l.use_cases_json,l.limitations_json,l.confidence,l.updated_at
+                     FROM l2_profiles l JOIN results r ON r.entity_id=l.entity_id
+                     ORDER BY l.updated_at DESC LIMIT ?`).all(limit).map(x=>{
+    const parse=v=>{try{return JSON.parse(v||'[]')}catch{return[]}};
+    return {...x,capabilities:parse(x.capabilities_json),use_cases:parse(x.use_cases_json),limitations:parse(x.limitations_json)};
+  });
+}
+
 function l1Stats() {
   const control=loadControlSnapshot();
   const target=Number(control.engine?.entity_count||120694);
@@ -739,6 +750,7 @@ function statusSnapshot() {
     product: 'TLIB',
     mode: 'HYBRID_V2_LAB',
     pc_worker: { online:true, database:dbPath, local_l1_results:totalResults, local_l2_profiles:l2Count, queue:counts,
+      runtime:{node:process.versions.node,pid:process.pid,uptime_seconds:Math.round(process.uptime()),rss_mb:Math.round(process.memoryUsage().rss/1048576)},
       staged_l1:fixtureCorpus().length, staged_names:stagedNameCount, autopilot:true,
       github_auth_mode: githubAuthMode, l1_stats:l1Stats(),
       public_next_attempt_at: publicNextAttemptAt ? new Date(publicNextAttemptAt).toISOString() : null,
@@ -768,6 +780,7 @@ async function startDashboard() {
       }
       if (u.pathname === '/api/facets') return sendJson(res,200,facetsSnapshot());
       if (u.pathname === '/api/l1/stats') return sendJson(res,200,l1Stats());
+      if (u.pathname === '/api/l2/list') return sendJson(res,200,{items:l2Rows(u.searchParams.get('limit')||100)});
       if (u.pathname === '/api/resource') {
         const item=resourceById(u.searchParams.get('id')||'');
         return item ? sendJson(res,200,item) : sendJson(res,404,{error:'NOT_FOUND'});
