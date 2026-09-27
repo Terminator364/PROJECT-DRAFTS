@@ -10,7 +10,7 @@ const HERE = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(HERE, '..');
 const dataDir = process.env.TLIB_DATA_DIR || join(process.env.LOCALAPPDATA || homedir(), 'TLIB-PC');
 mkdirSync(dataDir, { recursive: true });
-const APP_BUILD = '2026.09.27-v0.6.2-adaptive-4gb';
+const APP_BUILD = '2026.09.27-v0.6.3-resilient-boot';
 const STARTED_AT = new Date().toISOString();
 function deploymentCommit() {
   try {
@@ -551,9 +551,16 @@ function stagedNames() {
 
 let stagedNameCount = 0;
 function stageNamedQueue() {
+  const existing=Number(db.prepare('SELECT COUNT(*) AS n FROM jobs').get().n);
+  // Fast boot: a full corpus is already durable in SQLite. Do not reread/parse
+  // queue-full JSON files on every startup just to rediscover the same names.
+  if(existing>=50000){
+    stagedNameCount=existing;
+    event('INFO','L1_NAME_STAGE_SKIP','existing='+existing+'; reason=durable_queue_already_loaded');
+    return {added:0,staged:existing,skipped:true};
+  }
   const rows=stagedNames();
   stagedNameCount=rows.length;
-  const existing=Number(db.prepare('SELECT COUNT(*) AS n FROM jobs').get().n);
   if(existing>=rows.length){
     event('INFO','L1_NAME_STAGE_SKIP','existing='+existing+'; staged_names='+rows.length);
     return {added:0,staged:rows.length,skipped:true};
@@ -1284,7 +1291,9 @@ async function startDashboard() {
   server.on('error', (e) => {
     event('ERROR','DASHBOARD_BIND_ERROR',String(e.code||'')+' '+String(e.message||e));
     console.error('TLIB dashboard bind failed:',e);
-    process.exitCode=2;
+    // A worker that cannot own the dashboard port is useless and must not
+    // remain resident as a RAM-consuming ghost process.
+    setTimeout(()=>process.exit(2),50);
   });
   server.listen(port, '127.0.0.1', () => {
     writeRuntimeMarker();
@@ -1308,16 +1317,18 @@ async function main() {
     selftest();
     seed();
     startDashboard();
+    // Fast boot: keep the event loop responsive immediately after listen().
+    // Heavy maintenance never runs in the critical launch/health-check window.
     setTimeout(async () => {
       try {
-        reclassifyExisting();
-        await warmGitHubToken();
         stageFixtureJobs();
         stageNamedQueue();
+        // Token discovery is asynchronous and optional; it must not gate UI health.
+        warmGitHubToken().catch(e=>event('WARN','TOKEN_WARMUP_FAILED',e.message||String(e)));
       } catch(e) {
-        event('ERROR','BOOTSTRAP_ERROR',e.message||String(e));
+        event('ERROR','BOOTSTRAP_LIGHT_ERROR',e.message||String(e));
       }
-    }, 800);
+    }, 2500);
     let running=false, timer=null;
     const schedule=(ms)=>{ clearTimeout(timer); timer=setTimeout(tick,Math.max(750,Number(ms||2500))); };
     const tick=async()=>{
