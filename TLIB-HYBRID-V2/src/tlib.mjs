@@ -171,6 +171,33 @@ async function canary(limit=10) {
   console.log(JSON.stringify({ ok: !paused, paused, processed: jobs.length, done, missing, errors, summary }, null, 2));
 }
 
+function fixtureCanary() {
+  seed();
+  const fixture = JSON.parse(readFileSync(join(ROOT, 'config', 'l1-fixture-10.json'), 'utf8'));
+  let done = 0;
+  for (const x of fixture) {
+    const fullName = String(x.full_name || '');
+    const id = entityId(fullName);
+    db.prepare(`INSERT OR IGNORE INTO jobs(entity_id,full_name,status,attempts,updated_at)
+                VALUES(?,?,'PENDING',0,?)`).run(id, fullName, now());
+    const topics = Array.isArray(x.topics) ? x.topics : [];
+    db.prepare(`INSERT OR REPLACE INTO results(
+      entity_id,full_name,http_status,github_id,node_id,description,archived,fork,stars,language,license,
+      topics_json,updated_at_github,pushed_at,default_branch,size_kb,open_issues,rate_remaining,fetched_at,raw_json
+    ) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`).run(
+      id, fullName, 200, String(x.id ?? ''), String(x.node_id ?? ''), String(x.description ?? ''),
+      x.archived ? 1 : 0, x.fork ? 1 : 0, Number(x.stargazers_count ?? 0), String(x.language ?? ''),
+      String(x.license?.spdx_id ?? x.license?.name ?? ''), JSON.stringify(topics), String(x.updated_at ?? ''),
+      String(x.pushed_at ?? ''), String(x.default_branch ?? ''), Number(x.size ?? 0), Number(x.open_issues_count ?? 0),
+      -1, now(), JSON.stringify(x)
+    );
+    db.prepare(`UPDATE jobs SET status='DONE', last_error=NULL, updated_at=? WHERE entity_id=?`).run(now(), id);
+    done++;
+  }
+  event('INFO','FIXTURE_CANARY_PASS','done=' + done);
+  console.log(JSON.stringify({ ok:true, mode:'fixture', done, summary:statusSnapshot() }, null, 2));
+}
+
 function statusSnapshot() {
   const counts = {};
   for (const r of db.prepare('SELECT status, COUNT(*) AS n FROM jobs GROUP BY status').all()) counts[r.status] = Number(r.n);
@@ -220,6 +247,7 @@ async function main() {
   if (cmd === 'selftest') return selftest();
   if (cmd === 'seed') return seed();
   if (cmd === 'canary') return canary(Number(argValue('--limit', '10')));
+  if (cmd === 'fixture-canary') return fixtureCanary();
   if (cmd === 'dashboard') return startDashboard();
   if (cmd === 'agent') {
     selftest();
