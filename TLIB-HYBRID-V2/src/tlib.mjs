@@ -1086,7 +1086,7 @@ async function main() {
           const mode=schedulerMode();
           if(mode==='DEEP_CATCHUP'){
             const deep=await deepL1Step();
-            if(!deep.done && deep.state!=='RESERVE_RATE') await autopilotPublicStep();
+            if(!deep.done && (deep.state==='EMPTY' || deep.state==='NO_AUTH')) await autopilotPublicStep();
           }else if(mode==='BALANCED_DEEP_FIRST'){
             if(coreSinceDeep>=4){
               coreSinceDeep=0;
