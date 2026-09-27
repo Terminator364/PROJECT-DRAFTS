@@ -13,7 +13,7 @@
     },
     {
       "path": "src/tlib.mjs",
-      "git_blob_sha": "4be01a4db2383997bb5a0fd6c8f52839fc1e8d45"
+      "git_blob_sha": "f85b469f89e9787c83d7f916caec2bd82df5c747"
     },
     {
       "path": "public/index.html",
@@ -33,7 +33,7 @@
     },
     {
       "path": "scripts/update-tlib.ps1",
-      "git_blob_sha": "ae7e58dd1082f5ff0e428c7830d3faee93a9b4a0"
+      "git_blob_sha": "efde8f9062a6f73e7052d3809c5294cbefef8dfb"
     },
     {
       "path": "scripts/verify-build.mjs",
@@ -100,5 +100,5 @@
       "git_blob_sha": "8df5690e203c07f0b5fa0cf2a16b58d921241ae1"
     }
   ],
-  "updated_at": "2026-09-27T19:02:55.794Z"
+  "updated_at": "2026-09-27T19:03:59.674Z"
 }
