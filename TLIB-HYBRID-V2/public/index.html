@@ -61,10 +61,10 @@ pre{white-space:pre-wrap;word-break:break-word;background:#0a1120;border:1px sol
 <section id="l0" class="section">
 <div class="section-intro"><div><div class="crumb">Accueil <span>›</span> <b>L0 · Repérage</b></div><h2>Comment TLIB a construit le stock</h2><p>L0 découvre, normalise et déduplique. Ici tu peux vérifier ce qui a été parcouru avant de passer à L1.</p></div><button class="btn primary" data-go="l1">Passer à L1</button></div>
 <div class="compact-grid">
-  <div class="card compact-stat"><div class="small muted">Ressources uniques</div><div class="n" id="l0Entities">…</div><div class="small muted">dédupliquées</div></div>
-  <div class="card compact-stat"><div class="small muted">Sources explorées</div><div class="n" id="l0Sources">…</div><div class="small muted">graphe Awesome / GitHub</div></div>
-  <div class="card compact-stat"><div class="small muted">Sources terminées</div><div class="n statusok" id="l0Done">…</div><div class="small muted">traitées avec succès</div></div>
-  <div class="card compact-stat"><div class="small muted">Sources épuisées</div><div class="n statuswarn" id="l0Failed">…</div><div class="small muted">tentatives consommées, aucune source en attente</div></div>
+  <div class="card compact-stat interactive-card" tabindex="0" data-action="l0-entities"><div class="small muted">Ressources uniques</div><div class="n" id="l0Entities">…</div><div class="small muted">dédupliquées · cliquer pour détails</div></div>
+  <div class="card compact-stat interactive-card" tabindex="0" data-action="l0-sources"><div class="small muted">Sources explorées</div><div class="n" id="l0Sources">…</div><div class="small muted">graphe Awesome / GitHub · détails</div></div>
+  <div class="card compact-stat interactive-card" tabindex="0" data-action="l0-done"><div class="small muted">Sources terminées</div><div class="n statusok" id="l0Done">…</div><div class="small muted">traitées avec succès · détails</div></div>
+  <div class="card compact-stat interactive-card" tabindex="0" data-action="l0-failed"><div class="small muted">Sources épuisées</div><div class="n statuswarn" id="l0Failed">…</div><div class="small muted">tentatives consommées · cliquer pour comprendre</div></div>
 </div>
 <div class="split3" style="margin-top:12px">
   <details class="card accordion" open><summary>🧭 Ce que fait L0</summary><div class="inside"><div class="kv"><span>Découvrir</span><b>liens GitHub et listes spécialisées</b></div><div class="kv"><span>Normaliser</span><b>owner/repo + URL canonique</b></div><div class="kv"><span>Dédupliquer</span><b>un seul entity_id par dépôt</b></div><div class="kv"><span>Relier</span><b>source → ressource → catégorie d'origine</b></div></div></details>
@@ -80,10 +80,10 @@ pre{white-space:pre-wrap;word-break:break-word;background:#0a1120;border:1px sol
 
 <section id="l1" class="section">
 <div class="metricgrid">
-  <div class="card metric" data-l1-action="all"><div class="small muted">Corpus total L0</div><div class="value" id="l1Target">…</div><div class="small muted">candidats à vérifier</div></div>
-  <div class="card metric" data-l1-action="verified"><div class="small muted">Identités vérifiées</div><div class="value" id="l1Core">…</div><div class="small muted" id="l1CorePct">…</div></div>
-  <div class="card metric" data-l1-action="complete"><div class="small muted">L1 complet applicable</div><div class="value" id="l1Complete">…</div><div class="small muted">prêt pour tri / L2</div></div>
-  <div class="card metric" data-l1-action="deep"><div class="small muted">Vérification profonde</div><div class="value" id="l1Deep">…</div><div class="small muted" id="l1DeepPending">…</div></div>
+  <div class="card metric interactive-card" tabindex="0" data-action="l1-all"><div class="small muted">Corpus total L0</div><div class="value" id="l1Target">…</div><div class="small muted">candidats à vérifier</div></div>
+  <div class="card metric interactive-card" tabindex="0" data-action="l1-verified"><div class="small muted">Identités vérifiées</div><div class="value" id="l1Core">…</div><div class="small muted" id="l1CorePct">…</div></div>
+  <div class="card metric interactive-card" tabindex="0" data-action="l1-complete"><div class="small muted">L1 complet applicable</div><div class="value" id="l1Complete">…</div><div class="small muted">prêt pour tri / L2</div></div>
+  <div class="card metric interactive-card" tabindex="0" data-action="l1-deep"><div class="small muted">Vérification profonde</div><div class="value" id="l1Deep">…</div><div class="small muted" id="l1DeepPending">…</div></div>
 </div>
 <div class="card" style="margin-top:16px">
   <div style="display:flex;justify-content:space-between;gap:15px;align-items:end"><div><h2 style="margin:0">Progression L1 totale</h2><div class="muted small" id="l1ProgressText">…</div></div><div class="small live" id="l1Speed">…</div></div>
@@ -109,10 +109,10 @@ pre{white-space:pre-wrap;word-break:break-word;background:#0a1120;border:1px sol
 
 <section id="l2" class="section">
 <div class="metricgrid">
-  <div class="card"><div class="small muted">Profils L2 compris</div><div class="value" id="l2Count">…</div><div class="small muted">mini-canary contrôlé</div></div>
-  <div class="card"><div class="small muted">Entrée L2</div><div class="value">L1</div><div class="small muted">L2 ne reçoit que des fiches suffisamment qualifiées</div></div>
-  <div class="card"><div class="small muted">Objectif</div><div class="value">Sens</div><div class="small muted">utilité, capacités, cas d’usage, limites</div></div>
-  <div class="card"><div class="small muted">IA massive</div><div class="value statuswarn">NON</div><div class="small muted">pas d’analyse aveugle des 120k</div></div>
+  <div class="card interactive-card" tabindex="0" data-action="l2-profiles"><div class="small muted">Profils L2 compris</div><div class="value" id="l2Count">…</div><div class="small muted">mini-canary contrôlé</div></div>
+  <div class="card interactive-card" tabindex="0" data-action="l2-input"><div class="small muted">Entrée L2</div><div class="value">L1</div><div class="small muted">L2 ne reçoit que des fiches suffisamment qualifiées</div></div>
+  <div class="card interactive-card" tabindex="0" data-action="l2-goal"><div class="small muted">Objectif</div><div class="value">Sens</div><div class="small muted">utilité, capacités, cas d’usage, limites</div></div>
+  <div class="card interactive-card" tabindex="0" data-action="l2-ai"><div class="small muted">IA massive</div><div class="value statuswarn">NON</div><div class="small muted">pas d’analyse aveugle des 120k</div></div>
 </div>
 <div class="notice" style="margin-top:16px">L2 reste volontairement en canary pendant que L1 devient complet. Cela évite de dépenser de l’analyse sémantique sur des ressources mortes, dupliquées ou mal classées.</div>
 <div class="card" style="margin-top:16px"><h3 style="margin-top:0">Profils L2 disponibles</h3><div id="l2Results" class="results"></div></div>
@@ -185,6 +185,18 @@ function handleAction(action){
   else if(action==='tech-memory'){html=kvLine('RAM worker',fmt(rt.rss_mb||0)+' Mo')+kvLine('Base SQLite',s.pc_worker.database||'—')+'<p class="muted">La mémoire affichée est celle du moteur TLIB Node, pas celle du navigateur.</p>';openDrawer('Mémoire','Technique · ressources',html)}
   else if(action==='tech-auth'){html=kvLine('Mode',s.pc_worker.github_auth_mode||'—')+kvLine('Secret','Non affiché / trousseau Windows')+kvLine('Quota restant',fmt(s.pc_worker.public_rate_remaining||0));openDrawer('GitHub','Technique · authentification',html)}
   else if(action==='tech-rate'){html=kvLine('Restant',fmt(s.pc_worker.public_rate_remaining||0))+kvLine('Réserve TLIB','≥ 1 200')+kvLine('Approfondissement','ralenti sous 1 800')+kvLine('Prochaine tentative',s.pc_worker.public_next_attempt_at?new Date(s.pc_worker.public_next_attempt_at).toLocaleTimeString('fr-FR'):'adaptative');openDrawer('Quota GitHub','Technique · cadence',html)}
+  else if(action==='l0-entities'){html=kvLine('Ressources uniques',fmt(s.apps_script.entity_count||0))+kvLine('Sources',fmt(s.apps_script.source_count||0))+kvLine('Déduplication','entity_id canonique owner/repo')+'<div class="actions"><button class="btn primary" data-drawer-go="explore">Explorer</button><button class="btn" data-drawer-go="l1">Voir L1</button></div>';openDrawer('Stock L0','L0 · ressources découvertes',html)}
+  else if(action==='l0-sources'){html=kvLine('Sources explorées',fmt(s.apps_script.source_count||0))+kvLine('Terminées',fmt(s.apps_script.source_done||0))+kvLine('Épuisées',fmt(s.apps_script.source_failed||0))+kvLine('En attente',fmt(s.apps_script.source_pending||0));openDrawer('Sources L0','L0 · graphe de découverte',html)}
+  else if(action==='l0-done'){html=kvLine('Sources réussies',fmt(s.apps_script.source_done||0))+kvLine('État','Drainage terminé')+'<p class="muted">Ces sources ont été parcourues et leurs ressources normalisées dans la génération L0 actuelle.</p>';openDrawer('Sources terminées','L0 · réussite',html)}
+  else if(action==='l0-failed'){html=kvLine('Sources épuisées',fmt(s.apps_script.source_failed||0))+kvLine('Sources en attente',fmt(s.apps_script.source_pending||0))+'<p class="muted">“Épuisée” signifie que les tentatives prévues ont été consommées. Elles restent tracées pour audit et n’empêchent pas L1.</p><div class="actions"><button class="btn" data-drawer-go="technical">Ouvrir diagnostics</button></div>';openDrawer('Sources épuisées','L0 · audit',html)}
+  else if(action==='l1-all'){html=kvLine('Candidats L0',fmt(st.target||0))+kvLine('Déjà vérifiés',fmt(st.core||0))+kvLine('Restants',fmt(st.pending||0))+'<div class="actions"><button class="btn primary" data-drawer-go="explore">Explorer les vérifiés</button></div>';openDrawer('Corpus L1','L1 · périmètre total',html)}
+  else if(action==='l1-verified'){html=kvLine('Identités vérifiées',fmt(st.core||0))+kvLine('Progression',Number(st.core_percent||0).toFixed(2)+' %')+kvLine('Cadence récente',fmt(st.throughput_per_hour||0)+' /h');openDrawer('Identités vérifiées','L1 · noyau',html)}
+  else if(action==='l1-complete'){html=kvLine('L1 complètes',fmt(st.complete||0))+kvLine('Progression',Number(st.complete_percent||0).toFixed(2)+' %')+'<p class="muted">“Complet” est évalué selon le type de ressource : un catalogue, un guide et un logiciel n’exigent pas les mêmes champs.</p>';openDrawer('L1 complètes','L1 · qualification',html)}
+  else if(action==='l1-deep'){html=kvLine('Approfondies',fmt(st.deep_done||0))+kvLine('En attente',fmt(st.deep_pending||0))+'<p class="muted">Approfondissement : langages détaillés, release, README et métadonnées communautaires lorsque pertinent.</p>';openDrawer('Vérification profonde','L1 · approfondissement',html)}
+  else if(action==='l2-profiles'){show('l2');loadL2();toast('Profils L2 ouverts');return}
+  else if(action==='l2-input'){html=kvLine('Entrée minimale','L1 suffisamment qualifiée')+kvLine('But','éviter de gaspiller L2 sur des ressources mortes ou mal identifiées');openDrawer('Entrée L2','L2 · gate',html)}
+  else if(action==='l2-goal'){html='<p>Transformer une fiche technique en compréhension utile :</p><div class="kv"><span>Utilité</span><b>à quoi ça sert réellement</b></div><div class="kv"><span>Capacités</span><b>ce que la ressource sait faire</b></div><div class="kv"><span>Cas d’usage</span><b>quand l’utiliser</b></div><div class="kv"><span>Limites</span><b>quand ne pas l’utiliser</b></div>';openDrawer('Objectif L2','L2 · compréhension',html)}
+  else if(action==='l2-ai'){html='<p class="muted">TLIB n’envoie pas aveuglément 120 694 ressources à une IA. L1 filtre et enrichit d’abord ; L2 se concentre sur les ressources qui méritent une compréhension sémantique.</p>';openDrawer('IA en L2','L2 · stratégie',html)}
   bindDrawerActions();
 }
 function bindDrawerActions(){els('[data-drawer-go]').forEach(function(b){b.onclick=function(){closeDrawer();show(b.dataset.drawerGo);if(b.dataset.drawerGo==='l1')loadFacets();if(b.dataset.drawerGo==='l2')loadL2()}})}
@@ -285,11 +297,24 @@ el('#runL2').onclick=async function(){var b=el('#runL2'),m=el('#actionMessage');
 el('#chatSend').onclick=async function(){var i=el('#chatInput'),q=i.value.trim();if(!q)return;el('#chatLog').insertAdjacentHTML('beforeend','<div class="bubble user">'+esc(q)+'</div>');i.value='';var items=await loadLibrary(q);var msg=items.length?'J’ai trouvé '+items.length+' fiche(s) L1 locale(s). Premiers résultats : <b>'+items.slice(0,5).map(function(x){return esc(x.full_name)}).join(', ')+'</b>.':'Rien dans le petit corpus L1 local actuel. Les 120 694 éléments ne sont pas encore tous vérifiés en L1.';el('#chatLog').insertAdjacentHTML('beforeend','<div class="bubble bot"><b>TLIB</b><br>'+msg+'</div>')}
 el('#chatInput').addEventListener('keydown',function(e){if(e.key==='Enter')el('#chatSend').click()})
 els('[data-event-filter]').forEach(function(b){b.onclick=function(){els('[data-event-filter]').forEach(function(x){x.classList.toggle('active',x===b)});renderTechEvents(b.dataset.eventFilter)}})
-els('[data-l1-action]').forEach(function(b){b.onclick=function(){show('explore');loadLibrary('')}})
 el('#drawerClose').onclick=closeDrawer;
 document.addEventListener('click',function(e){var a=e.target.closest('[data-action]');if(a){e.preventDefault();handleAction(a.dataset.action)}});
 document.addEventListener('keydown',function(e){if((e.key==='Enter'||e.key===' ')&&e.target.matches('[data-action]')){e.preventDefault();handleAction(e.target.dataset.action)}if(e.key==='Escape')closeDrawer()});
 bindManagerNodes();
-refresh();loadLibrary('');loadFacets();setInterval(async function(){await refresh();await loadFacets();if(el('#explore').classList.contains('active')&&!el('#librarySearch').value.trim())await loadLibrary('')},5000)
+async function runUiSelfTest(){
+  var checks=[];
+  try{
+    await refresh();await loadFacets();
+    show('manager');
+    var m=el('[data-action="manager-appscript"]');m.click();checks.push(['manager-card',el('#detailDrawer').classList.contains('open')&&el('#drawerTitle').textContent==='Apps Script']);closeDrawer();
+    var node=el('[data-manager-node="pc"]');node.click();checks.push(['manager-flow',el('#mgrNodeDetail').textContent.indexOf('PC Worker')>=0]);
+    show('home');var l0=el('.level[data-level="L0"]');l0.click();checks.push(['home-l0',el('#l0').classList.contains('active')]);
+    show('technical');var tq=el('[data-action="tech-rate"]');tq.click();checks.push(['technical-card',el('#detailDrawer').classList.contains('open')]);closeDrawer();
+    show('l1');var lc=el('[data-action="l1-complete"]');lc.click();checks.push(['l1-card',el('#detailDrawer').classList.contains('open')]);closeDrawer();
+  }catch(e){checks.push(['exception',false,String(e)])}
+  var ok=checks.every(function(x){return x[1]});
+  var out=document.createElement('div');out.id='uiSelfTestResult';out.dataset.pass=String(ok);out.style.display='none';out.textContent=JSON.stringify(checks);document.body.appendChild(out);
+}
+refresh();loadLibrary('');loadFacets();if(new URLSearchParams(location.search).get('selftest')==='1')setTimeout(runUiSelfTest,1800);setInterval(async function(){await refresh();await loadFacets();if(el('#explore').classList.contains('active')&&!el('#librarySearch').value.trim())await loadLibrary('')},5000)
 </script>
 </body></html>
