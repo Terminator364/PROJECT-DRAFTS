@@ -1,0 +1,16 @@
+{
+  "name": "tlib-hybrid-v2-lab",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "selftest": "node src/tlib.mjs selftest",
+    "seed": "node src/tlib.mjs seed",
+    "canary": "node src/tlib.mjs canary --limit=10",
+    "dashboard": "node src/tlib.mjs dashboard",
+    "agent": "node src/tlib.mjs agent"
+  }
+}
