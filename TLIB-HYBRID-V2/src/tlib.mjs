@@ -126,7 +126,7 @@ function githubToken() {
   }
   try {
     const t = String(execFileSync('gh',['auth','token'],{
-      encoding:'utf8',windowsHide:true,stdio:['ignore','pipe','ignore'],timeout:5000
+      encoding:'utf8',windowsHide:true,stdio:['ignore','pipe','ignore'],timeout:15000
     }) || '').trim();
     if (t.length > 20) {
       ghTokenCache = t;
