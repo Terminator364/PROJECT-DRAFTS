@@ -20,7 +20,7 @@
     "secure_github_auth",
     "authenticated_100_item_canary"
   ],
-  "updated_at_utc": "2026-09-27T13:42:18Z",
+  "updated_at_utc": "2026-09-27T14:21:00Z",
   "pc": {
     "device": "MBMPC",
     "node_version": "24.21.0",
@@ -37,10 +37,34 @@
       "bind": "127.0.0.1",
       "port": 8787,
       "desktop_shortcut": "TLIB Cockpit.url"
+    },
+    "local_l2_canary": {
+      "status": "PASS",
+      "profiles_written": 10,
+      "source": "assistant-canary-from-l1-metadata"
+    },
+    "autostart": {
+      "scheduled_task": "UNAVAILABLE",
+      "startup_fallback": "INSTALLED_PER_USER"
     }
   },
   "live_pc_github_canary": {
     "status": "NOT_EXECUTED_BY_ASSISTANT",
     "reason": "Remote execution of the outbound-network canary command was blocked by platform safety controls; connector-backed live GitHub metadata was used as the fixture instead."
+  },
+  "humanized_ui": {
+    "status": "RUNNING",
+    "version": "v0.2",
+    "views": [
+      "Accueil",
+      "Explorer",
+      "Parler à TLIB",
+      "Manager",
+      "Technique"
+    ]
+  },
+  "apps_script_lease_bridge": {
+    "status": "CODED_LAB_NOT_DEPLOYED",
+    "path": "TLIB-HYBRID-V2/apps-script/TLIB_PC_BRIDGE_V2.gs"
   }
 }
