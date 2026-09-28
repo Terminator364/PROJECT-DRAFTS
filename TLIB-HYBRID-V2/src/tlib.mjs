@@ -10,7 +10,7 @@ const HERE = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(HERE, '..');
 const dataDir = process.env.TLIB_DATA_DIR || join(process.env.LOCALAPPDATA || homedir(), 'TLIB-PC');
 mkdirSync(dataDir, { recursive: true });
-const APP_BUILD = '2026.09.28-v0.6.6-dual-process';
+const APP_BUILD = '2026.09.28-v0.6.7-fast-ui';
 const STARTED_AT = new Date().toISOString();
 function deploymentCommit() {
   try {
@@ -132,6 +132,14 @@ ensureResultColumn('theme_path','TEXT');
 ensureResultColumn('theme_tags_json','TEXT');
 ensureResultColumn('theme_confidence','REAL');
 ensureResultColumn('taxonomy_version','TEXT');
+
+db.exec(`
+CREATE INDEX IF NOT EXISTS idx_jobs_status_updated ON jobs(status,updated_at);
+CREATE INDEX IF NOT EXISTS idx_results_deep_fetched ON results(resource_kind,deep_status,fetched_at);
+CREATE INDEX IF NOT EXISTS idx_results_stage ON results(l1_stage);
+CREATE INDEX IF NOT EXISTS idx_results_fetched ON results(fetched_at);
+CREATE INDEX IF NOT EXISTS idx_events_level_at ON events(level,at);
+`);
 
 const now = () => new Date().toISOString();
 const event = (level, name, detail='') => {
@@ -689,7 +697,7 @@ function resourceGovernor() {
   const cpu=systemCpuPercent();
   let sharedActivity=lastInteractiveRequestAt;
   try{sharedActivity=Math.max(sharedActivity,Number(readFileSync(UI_ACTIVITY_FILE,'utf8'))||0)}catch{}
-  const userActive=(Date.now()-sharedActivity)<90000;
+  const userActive=(Date.now()-sharedActivity)<30000;
 
   // 4–6 Go : 80–95 % de RAM utilisée est un état courant sous Windows.
   // On ne pénalise donc jamais TLIB sur la seule RAM système utilisée.
@@ -1261,6 +1269,7 @@ async function startDashboard() {
     const u = new URL(req.url || '/', 'http://127.0.0.1');
     markInteractiveRequest(u.pathname);
     try {
+      if (u.pathname === '/api/interaction' && req.method === 'POST') return sendJson(res,200,{ok:true});
       if (u.pathname === '/api/status') return sendJson(res,200,statusSnapshot());
       if (u.pathname === '/api/version') return sendJson(res,200,{product:'TLIB',build:APP_BUILD,pid:process.pid,node:process.versions.node});
       if (u.pathname === '/api/library') {
@@ -1349,7 +1358,10 @@ function writeBackgroundWorker(extra){
 }
 function ensureBackgroundWorker(){
   const existing=readBackgroundWorker();
-  if(existing&&existing.pid&&pidAlive(existing.pid))return existing;
+  if(existing&&existing.pid&&pidAlive(existing.pid)){
+    if(existing.commit===APP_COMMIT && existing.build===APP_BUILD) return existing;
+    try{process.kill(Number(existing.pid),'SIGTERM')}catch{}
+  }
   const child=spawn(process.execPath,[fileURLToPath(import.meta.url),'worker'],{
     cwd:ROOT,detached:true,windowsHide:true,stdio:'ignore',
     env:{...process.env,TLIB_DATA_DIR:dataDir,TLIB_DEPLOYMENT_COMMIT:APP_COMMIT,TLIB_BACKGROUND_WORKER:'1'}
