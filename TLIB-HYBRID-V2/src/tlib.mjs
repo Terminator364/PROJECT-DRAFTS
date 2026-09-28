@@ -10,7 +10,7 @@ const HERE = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(HERE, '..');
 const dataDir = process.env.TLIB_DATA_DIR || join(process.env.LOCALAPPDATA || homedir(), 'TLIB-PC');
 mkdirSync(dataDir, { recursive: true });
-const APP_BUILD = '2026.09.28-v0.6.5-fast-path';
+const APP_BUILD = '2026.09.28-v0.6.6-dual-process';
 const STARTED_AT = new Date().toISOString();
 function deploymentCommit() {
   try {
@@ -657,6 +657,8 @@ async function githubGet(path, allow404=false) {
   return {status:res.status,body,remaining,reset};
 }
 
+const UI_ACTIVITY_FILE=join(dataDir,'ui-active.txt');
+const BG_WORKER_FILE=join(dataDir,'background-worker.json');
 let lastCpuTimes=null;
 let lastInteractiveRequestAt=Date.now();
 let governorState={mode:'STARTING',delay_ms:2500,free_mb:0,free_pct:0,cpu_pct:null,rss_mb:0,reason:'boot'};
@@ -685,7 +687,9 @@ function resourceGovernor() {
   const usedPct=100-freePct;
   const rssMB=Math.round(process.memoryUsage().rss/1048576);
   const cpu=systemCpuPercent();
-  const userActive=(Date.now()-lastInteractiveRequestAt)<90000;
+  let sharedActivity=lastInteractiveRequestAt;
+  try{sharedActivity=Math.max(sharedActivity,Number(readFileSync(UI_ACTIVITY_FILE,'utf8'))||0)}catch{}
+  const userActive=(Date.now()-sharedActivity)<90000;
 
   // 4–6 Go : 80–95 % de RAM utilisée est un état courant sous Windows.
   // On ne pénalise donc jamais TLIB sur la seule RAM système utilisée.
@@ -740,7 +744,10 @@ function resourceGovernor() {
 }
 function markInteractiveRequest(pathname) {
   const quiet=new Set(['/api/health','/api/version','/api/update/status']);
-  if(!quiet.has(pathname)) lastInteractiveRequestAt=Date.now();
+  if(!quiet.has(pathname)){
+    lastInteractiveRequestAt=Date.now();
+    try{writeFileSync(UI_ACTIVITY_FILE,String(lastInteractiveRequestAt),'utf8')}catch{}
+  }
 }
 
 function deepBacklogCount() {
@@ -1329,6 +1336,88 @@ async function startDashboard() {
   return server;
 }
 
+function pidAlive(pid){
+  try{process.kill(Number(pid),0);return true}catch{return false}
+}
+function readBackgroundWorker(){
+  try{return JSON.parse(readFileSync(BG_WORKER_FILE,'utf8'))}catch{return null}
+}
+function writeBackgroundWorker(extra){
+  try{writeFileSync(BG_WORKER_FILE,JSON.stringify({
+    pid:process.pid,build:APP_BUILD,commit:APP_COMMIT,started_at:STARTED_AT,...extra
+  },null,2),'utf8')}catch{}
+}
+function ensureBackgroundWorker(){
+  const existing=readBackgroundWorker();
+  if(existing&&existing.pid&&pidAlive(existing.pid))return existing;
+  const child=spawn(process.execPath,[fileURLToPath(import.meta.url),'worker'],{
+    cwd:ROOT,detached:true,windowsHide:true,stdio:'ignore',
+    env:{...process.env,TLIB_DATA_DIR:dataDir,TLIB_DEPLOYMENT_COMMIT:APP_COMMIT,TLIB_BACKGROUND_WORKER:'1'}
+  });
+  child.unref();
+  const state={pid:child.pid,build:APP_BUILD,commit:APP_COMMIT,spawned_at:now(),state:'SPAWNED'};
+  try{writeFileSync(BG_WORKER_FILE,JSON.stringify(state,null,2),'utf8')}catch{}
+  event('INFO','BACKGROUND_WORKER_SPAWN','pid='+child.pid);
+  return state;
+}
+function startWorkerLoop(){
+  try { setPriority(process.pid, osConstants.priority?.PRIORITY_BELOW_NORMAL ?? 10); } catch {}
+  writeBackgroundWorker({state:'RUNNING'});
+  process.on('exit',()=>writeBackgroundWorker({state:'STOPPED',stopped_at:now()}));
+  setTimeout(async () => {
+    try {
+      stageFixtureJobs();
+      stageNamedQueue();
+      warmGitHubToken().catch(e=>event('WARN','TOKEN_WARMUP_FAILED',e.message||String(e)));
+    } catch(e) {
+      event('ERROR','BOOTSTRAP_LIGHT_ERROR',e.message||String(e));
+    }
+  }, 2500);
+
+  let running=false, timer=null;
+  const schedule=(ms)=>{ clearTimeout(timer); timer=setTimeout(tick,Math.max(1000,Number(ms||3000))); };
+  const tick=async()=>{
+    if(running){schedule(3000);return}
+    const guard=resourceGovernor();
+    writeBackgroundWorker({state:guard.mode,governor:guard});
+    if(guard.mode==='PAUSED'||guard.mode==='USER_ACTIVE'){
+      if(guard.mode==='PAUSED')event('INFO','ECO_PAUSE',guard.reason+'; free='+guard.free_mb+'MB; cpu='+(guard.cpu_pct??'n/a'));
+      schedule(guard.delay_ms);
+      return;
+    }
+    running=true;
+    try {
+      const stagedDone=autopilotFixtureStep(Number(process.env.TLIB_STAGE_STEP || 1));
+      if(!stagedDone) {
+        const mode=schedulerMode();
+        if(mode==='DEEP_CATCHUP'){
+          const deep=await deepL1Step();
+          if(!deep.done && (deep.state==='EMPTY' || deep.state==='NO_AUTH')) await autopilotPublicStep();
+        }else if(mode==='BALANCED_DEEP_FIRST'){
+          if(coreSinceDeep>=4){
+            coreSinceDeep=0;
+            const deep=await deepL1Step();
+            if(!deep.done && deep.state!=='RESERVE_RATE') await autopilotPublicStep();
+          }else{
+            await autopilotPublicStep();
+          }
+        }else{
+          const core=await autopilotPublicStep();
+          if(core.done && coreSinceDeep>=20){coreSinceDeep=0;await deepL1Step();}
+        }
+      }
+    } catch(e){
+      event('ERROR','L1_AUTOPILOT_ERROR',e.message||String(e));
+    } finally {
+      running=false;
+      const next=resourceGovernor();
+      schedule(Number(process.env.TLIB_STAGE_INTERVAL_MS || next.delay_ms));
+    }
+  };
+  resourceGovernor();
+  schedule(3000);
+}
+
 async function main() {
   const cmd = process.argv[2] || 'selftest';
   if (cmd === 'selftest') return selftest();
@@ -1338,65 +1427,19 @@ async function main() {
   if (cmd === 'fixture-canary') return fixtureCanary();
   if (cmd === 'fixture-l2') return fixtureL2Canary();
   if (cmd === 'dashboard') return startDashboard();
+  if (cmd === 'worker') {
+    selftest();
+    seed();
+    startWorkerLoop();
+    return;
+  }
   if (cmd === 'agent') {
-    try { setPriority(process.pid, osConstants.priority?.PRIORITY_BELOW_NORMAL ?? 10); } catch {}
+    // UI/server stays at normal OS priority. Background enrichment runs in a
+    // separate below-normal process so SQLite/GitHub work cannot block 8787.
     selftest();
     seed();
     startDashboard();
-    // Fast boot: keep the event loop responsive immediately after listen().
-    // Heavy maintenance never runs in the critical launch/health-check window.
-    setTimeout(async () => {
-      try {
-        stageFixtureJobs();
-        stageNamedQueue();
-        // Token discovery is asynchronous and optional; it must not gate UI health.
-        warmGitHubToken().catch(e=>event('WARN','TOKEN_WARMUP_FAILED',e.message||String(e)));
-      } catch(e) {
-        event('ERROR','BOOTSTRAP_LIGHT_ERROR',e.message||String(e));
-      }
-    }, 2500);
-    let running=false, timer=null;
-    const schedule=(ms)=>{ clearTimeout(timer); timer=setTimeout(tick,Math.max(750,Number(ms||2500))); };
-    const tick=async()=>{
-      if(running){schedule(2500);return}
-      const guard=resourceGovernor();
-      if(guard.mode==='PAUSED'||guard.mode==='USER_ACTIVE'){
-        if(guard.mode==='PAUSED')event('INFO','ECO_PAUSE',guard.reason+'; free='+guard.free_mb+'MB; cpu='+(guard.cpu_pct??'n/a'));
-        schedule(guard.delay_ms);
-        return;
-      }
-      running=true;
-      try {
-        const stagedDone=autopilotFixtureStep(Number(process.env.TLIB_STAGE_STEP || 1));
-        if(!stagedDone) {
-          const mode=schedulerMode();
-          if(mode==='DEEP_CATCHUP'){
-            const deep=await deepL1Step();
-            if(!deep.done && (deep.state==='EMPTY' || deep.state==='NO_AUTH')) await autopilotPublicStep();
-          }else if(mode==='BALANCED_DEEP_FIRST'){
-            if(coreSinceDeep>=4){
-              coreSinceDeep=0;
-              const deep=await deepL1Step();
-              if(!deep.done && deep.state!=='RESERVE_RATE') await autopilotPublicStep();
-            }else{
-              await autopilotPublicStep();
-            }
-          }else{
-            const core=await autopilotPublicStep();
-            if(core.done && coreSinceDeep>=20){coreSinceDeep=0;await deepL1Step();}
-          }
-        }
-      }
-      catch(e){ event('ERROR','L1_AUTOPILOT_ERROR',e.message||String(e)); }
-      finally {
-        running=false;
-        const next=resourceGovernor();
-        schedule(Number(process.env.TLIB_STAGE_INTERVAL_MS || next.delay_ms));
-      }
-    };
-    resourceGovernor();
-    schedule(2500);
-    if (process.env.TLIB_AUTO_WORK === '1') await canary(Number(process.env.TLIB_AUTO_LIMIT || 10));
+    ensureBackgroundWorker();
     return;
   }
   throw new Error('UNKNOWN_COMMAND ' + cmd);
