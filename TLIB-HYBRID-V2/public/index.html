@@ -369,9 +369,45 @@ async function loadResource(id){
   '<div class="subpane" data-detail-pane="technical"><div class="detail-grid"><div class="fact"><small>GitHub ID</small><b>'+esc(x.github_id||'—')+'</b></div><div class="fact"><small>Node ID</small><b>'+esc(x.node_id||'—')+'</b></div><div class="fact"><small>Langage GitHub</small><b>'+esc(x.language||'Aucun principal détecté')+'</b></div><div class="fact"><small>Archivé</small><b>'+(x.archived?'Oui':'Non')+'</b></div><div class="fact"><small>Fork</small><b>'+(x.fork?'Oui':'Non')+'</b></div><div class="fact"><small>Visibilité</small><b>'+esc(x.visibility||'—')+'</b></div></div><details><summary class="muted" style="cursor:pointer">JSON GitHub brut</summary><pre>'+esc(x.raw_json||'{}')+'</pre></details></div>';
   el('#closeDetail').onclick=function(){d.style.display='none'};bindTagFilters(d);bindDetailTabs(d);d.scrollIntoView({behavior:'smooth',block:'start'});
 }
-function bindPaneTabs(buttonSelector,paneSelector,dataKey){
+function bindPaneTabs(buttonSelector,paneSelector,buttonKey,paneKey,onChange){
   var buttons=els(buttonSelector),panes=els(paneSelector);
-  buttons.forEach(function(b){b.onclick=function(){buttons.forEach(function(x){x.classList.toggle('active',x===b)});panes.forEach(function(p){p.classList.toggle('active',p.dataset[dataKey]===b.dataset[dataKey])})}});
+  if(!buttons.length||!panes.length)return;
+  function activate(value,source){
+    var matched=false;
+    buttons.forEach(function(x){
+      var active=x.dataset[buttonKey]===value;
+      x.classList.toggle('active',active);
+      x.setAttribute('aria-selected',active?'true':'false');
+      x.setAttribute('tabindex',active?'0':'-1');
+    });
+    panes.forEach(function(p){
+      var active=p.dataset[paneKey]===value;
+      p.classList.toggle('active',active);
+      p.hidden=!active;
+      if(active)matched=true;
+    });
+    if(!matched){
+      var first=panes[0],fallback=first.dataset[paneKey];
+      if(fallback&&fallback!==value)return activate(fallback,null);
+    }
+    if(typeof onChange==='function')onChange(value,source);
+  }
+  buttons.forEach(function(b){
+    b.setAttribute('role','tab');
+    b.onclick=function(){activate(b.dataset[buttonKey],b)};
+    b.onkeydown=function(e){
+      if(e.key!=='ArrowRight'&&e.key!=='ArrowLeft'&&e.key!=='Home'&&e.key!=='End')return;
+      e.preventDefault();
+      var i=buttons.indexOf(b),n=i;
+      if(e.key==='ArrowRight')n=(i+1)%buttons.length;
+      if(e.key==='ArrowLeft')n=(i-1+buttons.length)%buttons.length;
+      if(e.key==='Home')n=0;
+      if(e.key==='End')n=buttons.length-1;
+      buttons[n].focus();activate(buttons[n].dataset[buttonKey],buttons[n]);
+    };
+  });
+  var initial=(buttons.find(function(b){return b.classList.contains('active')})||buttons[0]).dataset[buttonKey];
+  activate(initial,null);
 }
 function insightList(rows,limit){
   return (rows||[]).slice(0,limit||12).map(function(x){return '<div class="kv clickable-row insight-filter" data-insight="'+esc(x.value)+'"><span>'+esc(x.value||'—')+'</span><b>'+fmt(x.n)+'</b></div>'}).join('')||'<div class="muted">Pas encore de données.</div>';
@@ -586,13 +622,11 @@ document.addEventListener('click',function(e){
 });
 document.addEventListener('keydown',function(e){if((e.key==='Enter'||e.key===' ')&&e.target.matches('[data-action]')){e.preventDefault();handleAction(e.target.dataset.action)}if(e.key==='Escape')closeDrawer()});
 bindManagerNodes();
-bindPaneTabs('#l0Subnav [data-l0-tab]','[data-l0-pane]','l0Tab');
-bindPaneTabs('#l1Subnav [data-l1-tab]','[data-l1-pane]','l1Tab');
-els('#l1Subnav [data-l1-tab]').forEach(function(b){b.addEventListener('click',function(){if(b.dataset.l1Tab==='insights')loadL1Insights();if(b.dataset.l1Tab==='deep')loadDeepQueue();if(b.dataset.l1Tab==='themes')loadFacets()})});
-bindPaneTabs('#l2Subnav [data-l2-tab]','[data-l2-pane]','l2Tab');
-bindPaneTabs('#managerSubnav [data-manager-tab]','[data-manager-pane]','managerTab');
-els('#managerSubnav [data-manager-tab]').forEach(function(b){b.addEventListener('click',function(){if(b.dataset.managerTab==='updates')loadUpdateStatus()})});
-bindPaneTabs('#techSubnav [data-tech-tab]','[data-tech-pane]','techTab');
+bindPaneTabs('#l0Subnav [data-l0-tab]','[data-l0-pane]','l0Tab','l0Pane',function(v){if(v==='sources'||v==='depth'||v==='failures')loadL0Sources(v==='failures'?{status:'FAILED'}:{});});
+bindPaneTabs('#l1Subnav [data-l1-tab]','[data-l1-pane]','l1Tab','l1Pane',function(v){if(v==='insights')loadL1Insights();if(v==='deep')loadDeepQueue();if(v==='themes')loadFacets();});
+bindPaneTabs('#l2Subnav [data-l2-tab]','[data-l2-pane]','l2Tab','l2Pane',function(v){if(v==='profiles')loadL2();});
+bindPaneTabs('#managerSubnav [data-manager-tab]','[data-manager-pane]','managerTab','managerPane',function(v){if(v==='updates')loadUpdateStatus();});
+bindPaneTabs('#techSubnav [data-tech-tab]','[data-tech-pane]','techTab','techPane',function(v){if(v==='events'&&STATUS)renderTechEvents('ALL');});
 el('#refreshDeepQueue').onclick=loadDeepQueue;
 el('#refreshInsights').onclick=loadL1Insights;
 el('#l0SourceRefresh').onclick=function(){loadL0Sources()};
