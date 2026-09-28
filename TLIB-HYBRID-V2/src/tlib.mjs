@@ -658,7 +658,7 @@ async function githubGet(path, allow404=false) {
 }
 
 let lastCpuTimes=null;
-let lastInteractiveRequestAt=0;
+let lastInteractiveRequestAt=Date.now();
 let governorState={mode:'STARTING',delay_ms:2500,free_mb:0,free_pct:0,cpu_pct:null,rss_mb:0,reason:'boot'};
 
 function systemCpuPercent() {
@@ -685,7 +685,7 @@ function resourceGovernor() {
   const usedPct=100-freePct;
   const rssMB=Math.round(process.memoryUsage().rss/1048576);
   const cpu=systemCpuPercent();
-  const userActive=(Date.now()-lastInteractiveRequestAt)<20000;
+  const userActive=(Date.now()-lastInteractiveRequestAt)<90000;
 
   // 4–6 Go : 80–95 % de RAM utilisée est un état courant sous Windows.
   // On ne pénalise donc jamais TLIB sur la seule RAM système utilisée.
@@ -739,7 +739,7 @@ function resourceGovernor() {
   return governorState;
 }
 function markInteractiveRequest(pathname) {
-  const quiet=new Set(['/api/status','/api/health','/api/version','/api/update/status']);
+  const quiet=new Set(['/api/health','/api/version','/api/update/status']);
   if(!quiet.has(pathname)) lastInteractiveRequestAt=Date.now();
 }
 
@@ -778,7 +778,7 @@ async function deepL1Step() {
                 community_health=?,readme_present=?,deep_status='DONE',l1_stage='L1_COMPLETE'
                 WHERE entity_id=?`).run(langJson,releaseTag,releaseAt,health,readme?1:0,row.entity_id);
     event('INFO','L1_DEEP_OK',row.full_name);
-    deepNextAttemptAt=Date.now()+900;
+    deepNextAttemptAt=Date.now()+2500;
     return {done:1,state:'OK'};
   }catch(e){
     if(e.code==='RATE_LIMIT'){
@@ -1360,8 +1360,8 @@ async function main() {
     const tick=async()=>{
       if(running){schedule(2500);return}
       const guard=resourceGovernor();
-      if(guard.mode==='PAUSED'){
-        event('INFO','ECO_PAUSE',guard.reason+'; free='+guard.free_mb+'MB; cpu='+(guard.cpu_pct??'n/a'));
+      if(guard.mode==='PAUSED'||guard.mode==='USER_ACTIVE'){
+        if(guard.mode==='PAUSED')event('INFO','ECO_PAUSE',guard.reason+'; free='+guard.free_mb+'MB; cpu='+(guard.cpu_pct??'n/a'));
         schedule(guard.delay_ms);
         return;
       }
