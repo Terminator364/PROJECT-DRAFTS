@@ -10,6 +10,7 @@ const LASTGOOD=path.join(DATA,'last-good-deployment.json');
 const LOCK=path.join(DATA,'boot.lock');
 const LOG=path.join(DATA,'boot-node.log');
 const ERROR=path.join(DATA,'last-launch-error.json');
+const UI_STAMP=path.join(DATA,'ui-open.stamp');
 const NO_OPEN=process.argv.includes('--no-open');
 const URL='http://127.0.0.1:8787';
 
@@ -66,6 +67,13 @@ async function waitHealthy(slot,ms){
 function openUI(){
   if(NO_OPEN)return;
   try{
+    let last=0;
+    try{last=Number(fs.readFileSync(UI_STAMP,'utf8'))||0}catch{}
+    if(Date.now()-last<12000){
+      log('UI_OPEN_SUPPRESSED','recent-launch');
+      return;
+    }
+    fs.writeFileSync(UI_STAMP,String(Date.now()),'utf8');
     const p=spawn('explorer.exe',[URL],{detached:true,windowsHide:true,stdio:'ignore'});
     p.unref();
     log('UI_OPEN');
@@ -97,9 +105,6 @@ function acquireLock(){
   const fd=acquireLock();
   if(fd===null){
     log('BOOT_ALREADY_RUNNING');
-    if(!NO_OPEN){
-      for(let i=0;i<16;i++){const h=await health(700);if(h&&h.ok){openUI();return}await sleep(300)}
-    }
     return;
   }
   try{
