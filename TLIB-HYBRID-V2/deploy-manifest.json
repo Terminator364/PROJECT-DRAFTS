@@ -17,7 +17,7 @@
     },
     {
       "path": "public/index.html",
-      "git_blob_sha": "b2f4a50f74702f731cca435a79e849a3dcf37b50"
+      "git_blob_sha": "351092abfa0dae81c63d83f0b9d299f40ce79677"
     },
     {
       "path": "scripts/install-windows.ps1",
@@ -112,6 +112,6 @@
       "git_blob_sha": "d455a3da409d684c607ddde4a7643088c45fc083"
     }
   ],
-  "updated_at": "2026-09-28T08:06:39.777Z",
+  "updated_at": "2026-09-28T08:08:42.310Z",
   "build": "2026.09.28-v0.6.4-interactive-shell"
 }
