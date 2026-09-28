@@ -1,9 +1,9 @@
 {
   "project": "TLIB-HYBRID-V2",
   "branch": "lab/tlib-hybrid-v2",
-  "checkpoint": "V063_RESILIENT_BOOT_CANDIDATE_AWAITING_PC_ACTIVATION",
-  "build_target": "2026.09.27-v0.6.3-resilient-boot",
-  "updated_at_utc": "2026-09-27T21:51:56.587Z",
+  "checkpoint": "V064_INTERACTIVE_SHELL_ACTIVE_AWAITING_FIELD_VALIDATION",
+  "build_target": "2026.09.28-v0.6.4-interactive-shell",
+  "updated_at_utc": "2026-09-28T08:18:48.650Z",
   "production_l1_enabled": false,
   "apps_script_bridge_enabled": false,
   "github_actions_expected_minutes": 0,
@@ -120,7 +120,7 @@
       ]
     }
   },
-  "next_gate": "PC connector recovery -> preflight v0.6.3 on fresh port -> activate candidate -> verify desktop double-click -> verify single worker -> verify no modal/terminal windows -> only then seal.",
+  "next_gate": "User field test: click TLIB once, then L1 tabs overview/metadata/themes/insights/deep/recent, then L2 overview/profiles/gate/design. If any target fails, capture only that screen and fix against v0.6.4.",
   "sealed": false,
   "last_good_build": "2026.09.27-v0.6.2-adaptive-4gb",
   "last_good_status": "RUNTIME_WORKED_BUT_DESKTOP_BOOT_PATH_INVALIDATED_BY_FIELD_TEST",
@@ -139,5 +139,47 @@
     "no bulk reclassification during critical launch window",
     "ghost worker exits on bind failure",
     "updates and heavy repair remain outside normal click path"
-  ]
+  ],
+  "active_pc_commit": "6384bac6ab3e36807324c8f24e2da20ba59d00ea",
+  "active_pc_build": "2026.09.28-v0.6.4-interactive-shell",
+  "ui_router": {
+    "status": "FIXED_AND_STATIC_AUDIT_PASS",
+    "root_cause": "legacy bindPaneTabs compared button dataset key against nonexistent pane dataset key",
+    "groups": {
+      "l0": 4,
+      "l1": 6,
+      "l2": 4,
+      "manager": 7,
+      "technical": 6
+    },
+    "guarantees": [
+      "explicit buttonKey and paneKey per workspace",
+      "exact button/pane pair validation",
+      "legacy 3-argument bindings rejected by verifier",
+      "manual functional audit clicks every subpage",
+      "heavy data is lazy-loaded only when its subpage is opened",
+      "background sync updates counters only"
+    ]
+  },
+  "launcher": {
+    "status": "DIRECT_EDGE_HEALTH_FIRST",
+    "guarantees": [
+      "desktop launcher checks /api/health first",
+      "opens Edge directly instead of Windows http association",
+      "anti-double-click lock",
+      "second concurrent click suppressed",
+      "bootstrap only used when worker is not healthy"
+    ]
+  },
+  "validation": {
+    "source_js_syntax": "PASS",
+    "subpage_pairs": "PASS_ALL_27",
+    "legacy_router": "NONE",
+    "orphan_buttons": 0,
+    "preflight_8831": "PASS",
+    "live_8787": "V064_ACTIVE",
+    "browser_headless": "UNRELIABLE_ON_THIS_PC_DOM_EMPTY",
+    "opera_connector": "NOT_CONNECTED",
+    "field_click_test": "PENDING_USER"
+  }
 }
