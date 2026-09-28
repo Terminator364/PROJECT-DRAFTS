@@ -21,17 +21,25 @@ $vbs=Join-Path $startup "TLIB-PC-Agent.vbs"
 'sh.Run args, 0, False'
 ) | Set-Content -Encoding ASCII $vbs
 
-# Desktop shortcut: wscript -> launch-hidden.vbs.
+# Desktop shortcut: direct Edge app launch. No VBS/PowerShell/health-check on user click.
 $shortcut=Join-Path $desktop "TLIB.lnk"
+$edgeCandidates=@(
+  "$env:ProgramFiles (x86)\Microsoft\Edge\Application\msedge.exe",
+  "$env:ProgramFiles\Microsoft\Edge\Application\msedge.exe",
+  "$env:LOCALAPPDATA\Microsoft\Edge\Application\msedge.exe"
+)
+$edge=$edgeCandidates | Where-Object { Test-Path $_ } | Select-Object -First 1
+if(-not $edge){ throw "Microsoft Edge executable not found" }
 $ws=New-Object -ComObject WScript.Shell
 $lnk=$ws.CreateShortcut($shortcut)
-$lnk.TargetPath="$env:SystemRoot\System32\wscript.exe"
-$lnk.Arguments='"'+(Join-Path $dataDir "launch-hidden.vbs")+'"'
-$lnk.WorkingDirectory=$dataDir
+$lnk.TargetPath=$edge
+$lnk.Arguments="--app=http://127.0.0.1:8787 --start-maximized --no-first-run"
+$lnk.WorkingDirectory=(Split-Path $edge -Parent)
 $icon=Join-Path $dataDir "TLIB.ico"
-if(Test-Path $icon){$lnk.IconLocation=$icon+",0"}else{$lnk.IconLocation="$env:SystemRoot\System32\SHELL32.dll,220"}
+if(Test-Path $icon){$lnk.IconLocation=$icon+",0"}else{$lnk.IconLocation=$edge+",0"}
 $lnk.Description="TLIB - Bibliotheque intelligente"
 $lnk.Save()
+Remove-Item (Join-Path $desktop "TLIB.vbs") -Force -ErrorAction SilentlyContinue
 
 # Remove old URL shortcut if present.
 Remove-Item (Join-Path $desktop "TLIB Cockpit.url") -Force -ErrorAction SilentlyContinue
