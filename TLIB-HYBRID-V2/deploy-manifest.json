@@ -13,15 +13,15 @@
     },
     {
       "path": "src/tlib.mjs",
-      "git_blob_sha": "70b039ca7930d96318e59dddb2c19966cb3e4e87"
+      "git_blob_sha": "e2a300b748cf2eb49f8b639b4552aa09f243f37e"
     },
     {
       "path": "public/index.html",
-      "git_blob_sha": "b0315049af4533cbee0fa865f5840a76d5de7e03"
+      "git_blob_sha": "d7a977ea6f924f4dd2cf4ef7134cecf61a849af2"
     },
     {
       "path": "scripts/install-windows.ps1",
-      "git_blob_sha": "5846e0b1fd9cbe67704c253fe50f501a7d207cd3"
+      "git_blob_sha": "040d6e45e63a2d80cb7be70b4461c28cff45be2e"
     },
     {
       "path": "scripts/launch-tlib.ps1",
@@ -37,7 +37,7 @@
     },
     {
       "path": "scripts/verify-build.mjs",
-      "git_blob_sha": "d90dc829d232c6c767b3e61167ddae57ad006c45"
+      "git_blob_sha": "ffdcb652ecbdadcfcd431f03be480ad6a43205c9"
     },
     {
       "path": "config/canary-seeds.json",
@@ -110,8 +110,12 @@
     {
       "path": "scripts/launch-hidden.vbs",
       "git_blob_sha": "d455a3da409d684c607ddde4a7643088c45fc083"
+    },
+    {
+      "path": "public/vendor-qrcode.min.js",
+      "git_blob_sha": "4a68e12e70cf03d89a1ea56c5d0d78b5a9cc548f"
     }
   ],
-  "updated_at": "2026-09-28T09:42:34.944Z",
-  "build": "2026.09.28-v0.6.7-fast-ui"
+  "updated_at": "2026-09-28T13:24:01.409Z",
+  "build": "2026.09.28-v0.6.8-phone-lan"
 }
