@@ -57,8 +57,31 @@ if(html){
     const tabs=[...new Set([...markup.matchAll(new RegExp('data-'+tab+'-tab="([^"]+)"','g'))].map(m=>m[1]))];
     const panes=[...new Set([...markup.matchAll(new RegExp('data-'+pane+'-pane="([^"]+)"','g'))].map(m=>m[1]))];
     const miss=tabs.filter(x=>!panes.includes(x));
-    miss.length?fail('ui-subpages-'+tab,miss.join(',')):ok('ui-subpages-'+tab,tabs.length+' tabs');
+    const orphan=panes.filter(x=>!tabs.includes(x));
+    if(miss.length||orphan.length) fail('ui-subpages-'+tab,'missing='+miss.join('|')+' orphan='+orphan.join('|'));
+    else ok('ui-subpages-'+tab,tabs.length+' exact pairs');
   }
+
+  const js=s>=0&&e>s?html.slice(s+8,e):'';
+  const expectedBindings=[
+    "bindPaneTabs('#l0Subnav [data-l0-tab]','[data-l0-pane]','l0Tab','l0Pane'",
+    "bindPaneTabs('#l1Subnav [data-l1-tab]','[data-l1-pane]','l1Tab','l1Pane'",
+    "bindPaneTabs('#l2Subnav [data-l2-tab]','[data-l2-pane]','l2Tab','l2Pane'",
+    "bindPaneTabs('#managerSubnav [data-manager-tab]','[data-manager-pane]','managerTab','managerPane'",
+    "bindPaneTabs('#techSubnav [data-tech-tab]','[data-tech-pane]','techTab','techPane'"
+  ];
+  const missingBindings=expectedBindings.filter(x=>!js.includes(x));
+  missingBindings.length?fail('ui-router-contract',missingBindings.join(' || ')):ok('ui-router-contract','explicit button/pane keys for all workspaces');
+
+  const legacyBindings=[
+    "bindPaneTabs('#l0Subnav [data-l0-tab]','[data-l0-pane]','l0Tab');",
+    "bindPaneTabs('#l1Subnav [data-l1-tab]','[data-l1-pane]','l1Tab');",
+    "bindPaneTabs('#l2Subnav [data-l2-tab]','[data-l2-pane]','l2Tab');",
+    "bindPaneTabs('#managerSubnav [data-manager-tab]','[data-manager-pane]','managerTab');",
+    "bindPaneTabs('#techSubnav [data-tech-tab]','[data-tech-pane]','techTab');"
+  ];
+  const legacyFound=legacyBindings.filter(x=>js.includes(x));
+  legacyFound.length?fail('ui-router-no-legacy',legacyFound.join(' || ')):ok('ui-router-no-legacy');
 
   const essentials=['navBack','commandOpen','homeSearchBtn','librarySearchBtn','chatSend','refreshDeepQueue','runUiAuditBtn','drawerClose'];
   const absent=essentials.filter(id=>!markup.includes('id="'+id+'"'));
