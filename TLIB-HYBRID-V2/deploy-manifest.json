@@ -13,11 +13,11 @@
     },
     {
       "path": "src/tlib.mjs",
-      "git_blob_sha": "0cc87af8a4703535417ac2c1e0afff4f84c64ac9"
+      "git_blob_sha": "7631e5276ad96967338e0e1d868d3c60a24912c4"
     },
     {
       "path": "public/index.html",
-      "git_blob_sha": "96bdf5cafc27c5e5854b7d247b4a7c9843d18546"
+      "git_blob_sha": "e1e97e01ac6714c7602f50d9d3caeddc5f3f9f74"
     },
     {
       "path": "scripts/install-windows.ps1",
@@ -37,7 +37,7 @@
     },
     {
       "path": "scripts/verify-build.mjs",
-      "git_blob_sha": "ffdcb652ecbdadcfcd431f03be480ad6a43205c9"
+      "git_blob_sha": "05578875f852c19f6110cfc664fb36efc478fba6"
     },
     {
       "path": "config/canary-seeds.json",
@@ -114,8 +114,16 @@
     {
       "path": "public/vendor-qrcode.min.js",
       "git_blob_sha": "4a68e12e70cf03d89a1ea56c5d0d78b5a9cc548f"
+    },
+    {
+      "path": "public/vendor/qrcode.min.js",
+      "git_blob_sha": "993e88f396640f881b69f98db7a4d17401ef83ca"
+    },
+    {
+      "path": "THIRD_PARTY_NOTICES.md",
+      "git_blob_sha": "e746a429df4a3c75935686951b4f422b51d1df59"
     }
   ],
-  "updated_at": "2026-09-28T13:37:16.953Z",
-  "build": "2026.09.28-v0.6.9-fast-serve"
+  "updated_at": "2026-09-28T13:46:53.737Z",
+  "build": "2026.09.28-v0.7.0-phone-link"
 }
