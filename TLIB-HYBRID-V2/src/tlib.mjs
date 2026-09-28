@@ -1,16 +1,17 @@
 import http from 'node:http';
 import { mkdirSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
-import { homedir, freemem, totalmem, cpus, setPriority, constants as osConstants } from 'node:os';
+import { homedir, freemem, totalmem, cpus, networkInterfaces, setPriority, constants as osConstants } from 'node:os';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { DatabaseSync } from 'node:sqlite';
 import { execFileSync, execFile, spawn } from 'node:child_process';
+import { randomBytes, createHash, timingSafeEqual } from 'node:crypto';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(HERE, '..');
 const dataDir = process.env.TLIB_DATA_DIR || join(process.env.LOCALAPPDATA || homedir(), 'TLIB-PC');
 mkdirSync(dataDir, { recursive: true });
-const APP_BUILD = '2026.09.28-v0.6.9-fast-serve';
+const APP_BUILD = '2026.09.28-v0.7.0-phone-link';
 const STARTED_AT = new Date().toISOString();
 function deploymentCommit() {
   try {
@@ -1059,6 +1060,148 @@ function resourceById(id) {
   return {...r, topics, l2};
 }
 
+
+const PHONE_STATE_FILE=join(dataDir,'phone-share.json');
+const PHONE_COOKIE='tlib_m';
+let phonePairOffer=null;
+const phoneClaimAttempts=new Map();
+
+function privateLanIpv4(){
+  try{
+    const found=[];
+    for(const [name,rows] of Object.entries(networkInterfaces())){
+      for(const x of rows||[]){
+        if(!x||x.family!=='IPv4'||x.internal) continue;
+        const a=String(x.address||'');
+        const priv=/^10\./.test(a)||/^192\.168\./.test(a)||/^172\.(1[6-9]|2\d|3[01])\./.test(a);
+        if(priv) found.push({name,address:a,score:/wi-?fi|wireless|wlan/i.test(name)?3:/ethernet/i.test(name)?2:1});
+      }
+    }
+    found.sort((a,b)=>b.score-a.score||a.address.localeCompare(b.address));
+    return found[0]?.address||null;
+  }catch{return null}
+}
+function tokenHash(v){return createHash('sha256').update(String(v||''),'utf8').digest('hex')}
+function phoneCodeFromBytes(buf){
+  const alphabet='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+  let n=BigInt('0x'+buf.toString('hex')),out='';
+  for(let i=0;i<10;i++){out=alphabet[Number(n%BigInt(alphabet.length))]+out;n/=BigInt(alphabet.length)}
+  return out;
+}
+function cleanPhoneState(state){
+  const nowMs=Date.now(),s=state&&typeof state==='object'?state:{};
+  const sessions=Array.isArray(s.sessions)?s.sessions.filter(x=>Number(x.expires_at||0)>nowMs):[];
+  return {schema:1,sessions};
+}
+function loadPhoneState(){
+  try{return cleanPhoneState(JSON.parse(readFileSync(PHONE_STATE_FILE,'utf8')))}
+  catch{return {schema:1,sessions:[]}}
+}
+function savePhoneState(state){
+  try{writeFileSync(PHONE_STATE_FILE,JSON.stringify(cleanPhoneState(state),null,2),'utf8')}catch{}
+}
+function phoneState(){
+  const s=loadPhoneState(); savePhoneState(s); return s;
+}
+function normalizePhoneMinutes(v){
+  const n=Number(v||30);
+  return [30,90,180].includes(n)?n:30;
+}
+function createPhonePair(minutes=30){
+  const lanIp=privateLanIpv4();
+  if(!lanIp) return {ok:false,error:'NO_PRIVATE_LAN_IP'};
+  minutes=normalizePhoneMinutes(minutes);
+  const secret=randomBytes(24).toString('base64url');
+  const code=phoneCodeFromBytes(randomBytes(7));
+  const nowMs=Date.now();
+  phonePairOffer={
+    secret,code,minutes,created_at:nowMs,offer_expires_at:nowMs+5*60*1000,
+    lan_ip:lanIp,used:false
+  };
+  event('INFO','PHONE_PAIR_CREATED','duration='+minutes+'m; ip='+lanIp);
+  return phoneStatus();
+}
+function activePhoneOffer(){
+  if(!phonePairOffer||phonePairOffer.used||Number(phonePairOffer.offer_expires_at||0)<=Date.now()) return null;
+  return phonePairOffer;
+}
+function phoneStatus(){
+  const state=phoneState(),offer=activePhoneOffer(),lanIp=privateLanIpv4();
+  return {
+    ok:true,enabled:Boolean(offer||state.sessions.length),lan_ip:lanIp,port:Number(process.env.TLIB_DASHBOARD_PORT||8787),
+    base_url:lanIp?'http://'+lanIp+':'+Number(process.env.TLIB_DASHBOARD_PORT||8787):null,
+    pair:offer?{
+      code:offer.code,minutes:offer.minutes,offer_expires_at:new Date(offer.offer_expires_at).toISOString(),
+      session_expires_at:new Date(offer.created_at+offer.minutes*60*1000).toISOString(),
+      qr_url:'http://'+offer.lan_ip+':'+Number(process.env.TLIB_DASHBOARD_PORT||8787)+'/pair#t='+encodeURIComponent(offer.secret)
+    }:null,
+    sessions:state.sessions.map(x=>({created_at:new Date(x.created_at).toISOString(),expires_at:new Date(x.expires_at).toISOString(),last_seen:x.last_seen?new Date(x.last_seen).toISOString():null})),
+    session_count:state.sessions.length,
+    read_only:true
+  };
+}
+function parseCookies(req){
+  const out={};
+  for(const p of String(req.headers.cookie||'').split(';')){
+    const i=p.indexOf('=');if(i<1)continue;
+    const k=p.slice(0,i).trim(),v=p.slice(i+1).trim();
+    try{out[k]=decodeURIComponent(v)}catch{out[k]=v}
+  }
+  return out;
+}
+function safeEqualText(a,b){
+  const aa=Buffer.from(String(a||'')),bb=Buffer.from(String(b||''));
+  return aa.length===bb.length&&timingSafeEqual(aa,bb);
+}
+function isLoopbackRequest(req){
+  const a=String(req.socket?.remoteAddress||'').replace(/^::ffff:/,'');
+  return a==='127.0.0.1'||a==='::1'||a==='localhost';
+}
+function remoteAddress(req){return String(req.socket?.remoteAddress||'').replace(/^::ffff:/,'')}
+function validPhoneSession(req){
+  const raw=parseCookies(req)[PHONE_COOKIE];
+  if(!raw) return null;
+  const hash=tokenHash(raw),state=phoneState(),nowMs=Date.now();
+  const found=state.sessions.find(x=>x.hash===hash&&Number(x.expires_at)>nowMs);
+  if(!found)return null;
+  if(!found.last_seen||nowMs-Number(found.last_seen)>60000){
+    found.last_seen=nowMs; savePhoneState(state);
+  }
+  return found;
+}
+function phoneClaimAllowed(req){
+  const ip=remoteAddress(req),nowMs=Date.now();
+  let x=phoneClaimAttempts.get(ip);
+  if(!x||nowMs-x.start>60000)x={start:nowMs,count:0};
+  x.count++;phoneClaimAttempts.set(ip,x);
+  return x.count<=10;
+}
+function readJsonBody(req,max=4096){
+  return new Promise((resolve,reject)=>{
+    let size=0,parts=[];
+    req.on('data',d=>{size+=d.length;if(size>max){reject(new Error('BODY_TOO_LARGE'));req.destroy();return}parts.push(d)});
+    req.on('end',()=>{try{resolve(parts.length?JSON.parse(Buffer.concat(parts).toString('utf8')):{})}catch(e){reject(new Error('INVALID_JSON'))}});
+    req.on('error',reject);
+  });
+}
+function pairPage(){
+  return '<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">'+
+    '<meta name="referrer" content="no-referrer"><title>TLIB · Connexion téléphone</title><style>'+
+    'body{font-family:Segoe UI,Arial,sans-serif;background:#0c111b;color:#edf2ff;margin:0;min-height:100vh;display:grid;place-items:center;padding:20px}'+
+    '.box{width:min(420px,100%);background:#131b2a;border:1px solid #2a3850;border-radius:20px;padding:22px;box-shadow:0 18px 60px #0007}'+
+    'h1{font-size:22px;margin:0 0 8px}p{color:#9fb0ca;line-height:1.45}input,button{box-sizing:border-box;width:100%;padding:13px 14px;border-radius:11px;border:1px solid #354661;background:#0b1220;color:#fff;font-size:16px}'+
+    'button{margin-top:10px;background:#4777ff;border:0;font-weight:700}#state{margin-top:14px;font-size:14px;color:#9fb0ca}.ok{color:#67d391}.bad{color:#ff7f8c}</style></head><body><div class="box">'+
+    '<h1>📱 TLIB sur téléphone</h1><p>Scanne le QR depuis le PC, ou saisis le code temporaire affiché dans Manager.</p>'+
+    '<form id="f"><input id="code" autocomplete="one-time-code" placeholder="Code TLIB"><button>Se connecter</button></form><div id="state">Connexion locale sécurisée par session temporaire.</div>'+
+    '<script>(function(){var st=document.getElementById("state"),f=document.getElementById("f"),inp=document.getElementById("code");'+
+    'async function claim(v,k){st.textContent="Vérification…";try{var r=await fetch("/api/mobile/claim",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify(k==="token"?{token:v}:{code:v})});var j=await r.json();if(!r.ok)throw new Error(j.error||"PAIR_FAILED");history.replaceState(null,"","/pair");st.className="ok";st.textContent="Connecté. Ouverture de TLIB…";setTimeout(function(){location.replace("/")},250)}catch(e){st.className="bad";st.textContent="Connexion refusée : "+e.message}}'+
+    'var h=location.hash||"";if(h.indexOf("#t=")===0){var t=decodeURIComponent(h.slice(3));location.hash="";claim(t,"token")}'+
+    'f.onsubmit=function(e){e.preventDefault();var c=inp.value.trim().toUpperCase();if(c)claim(c,"code")}})();</script></div></body></html>';
+}
+function revokePhoneSessions(){
+  phonePairOffer=null;savePhoneState({schema:1,sessions:[]});event('INFO','PHONE_SESSIONS_REVOKED','all');return phoneStatus();
+}
+
 function readJsonSafe(path, fallback=null) {
   try { return JSON.parse(readFileSync(path,'utf8')); } catch { return fallback; }
 }
@@ -1265,11 +1408,57 @@ function sendJson(res, code, value) {
 async function startDashboard() {
   const port = Number(process.env.TLIB_DASHBOARD_PORT || 8787);
   const dashboardPage = readFileSync(join(ROOT,'public','index.html'),'utf8');
+  const qrCodeJs = readFileSync(join(ROOT,'public','vendor','qrcode.min.js'),'utf8');
   let busy = false;
   const server = http.createServer(async (req,res) => {
     const u = new URL(req.url || '/', 'http://127.0.0.1');
+    const local=isLoopbackRequest(req);
+    const phoneSession=local?null:validPhoneSession(req);
     markInteractiveRequest(u.pathname);
     try {
+      res.setHeader('Referrer-Policy','no-referrer');
+      res.setHeader('X-Content-Type-Options','nosniff');
+
+      if(u.pathname==='/pair'&&!local){
+        if(!activePhoneOffer()) return sendJson(res,403,{error:'PAIRING_NOT_ACTIVE'});
+        const html=pairPage();
+        res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store','content-length':Buffer.byteLength(html)});
+        return res.end(html);
+      }
+      if(u.pathname==='/api/mobile/claim'&&req.method==='POST'&&!local){
+        if(!phoneClaimAllowed(req)) return sendJson(res,429,{error:'PAIR_RATE_LIMIT'});
+        const offer=activePhoneOffer();if(!offer)return sendJson(res,410,{error:'PAIR_EXPIRED'});
+        const body=await readJsonBody(req).catch(e=>null);if(!body)return sendJson(res,400,{error:'INVALID_BODY'});
+        const ok=(body.token&&safeEqualText(body.token,offer.secret))||(body.code&&safeEqualText(String(body.code).trim().toUpperCase(),offer.code));
+        if(!ok)return sendJson(res,403,{error:'PAIR_CODE_INVALID'});
+        const raw=randomBytes(32).toString('base64url'),state=phoneState(),nowMs=Date.now(),expiresAt=nowMs+offer.minutes*60*1000;
+        state.sessions.push({hash:tokenHash(raw),created_at:nowMs,expires_at:expiresAt,last_seen:nowMs});
+        savePhoneState(state);offer.used=true;phonePairOffer=null;
+        res.setHeader('Set-Cookie',PHONE_COOKIE+'='+encodeURIComponent(raw)+'; HttpOnly; SameSite=Strict; Path=/; Max-Age='+Math.floor(offer.minutes*60));
+        event('INFO','PHONE_PAIR_CLAIMED','duration='+offer.minutes+'m; remote='+remoteAddress(req));
+        return sendJson(res,200,{ok:true,expires_at:new Date(expiresAt).toISOString(),read_only:true});
+      }
+
+      if(!local&&!phoneSession) return sendJson(res,401,{error:'PHONE_AUTH_REQUIRED'});
+      if(!local&&req.method!=='GET'&&u.pathname!=='/api/interaction') return sendJson(res,403,{error:'PHONE_READ_ONLY'});
+
+      if(u.pathname==='/vendor/qrcode.min.js'){
+        res.writeHead(200,{'content-type':'application/javascript; charset=utf-8','cache-control':'public, max-age=86400','content-length':Buffer.byteLength(qrCodeJs)});
+        return res.end(qrCodeJs);
+      }
+      if(u.pathname==='/api/mobile/status'){
+        if(!local)return sendJson(res,403,{error:'LOCAL_ONLY'});
+        return sendJson(res,200,phoneStatus());
+      }
+      if(u.pathname==='/api/mobile/pair'&&req.method==='POST'){
+        if(!local)return sendJson(res,403,{error:'LOCAL_ONLY'});
+        const out=createPhonePair(u.searchParams.get('minutes')||30);
+        return sendJson(res,out.ok===false?409:200,out);
+      }
+      if(u.pathname==='/api/mobile/revoke'&&req.method==='POST'){
+        if(!local)return sendJson(res,403,{error:'LOCAL_ONLY'});
+        return sendJson(res,200,revokePhoneSessions());
+      }
       if (u.pathname === '/api/interaction' && req.method === 'POST') return sendJson(res,200,{ok:true});
       if (u.pathname === '/api/status') return sendJson(res,200,statusSnapshot());
       if (u.pathname === '/api/version') return sendJson(res,200,{product:'TLIB',build:APP_BUILD,pid:process.pid,node:process.versions.node});
@@ -1337,9 +1526,10 @@ async function startDashboard() {
     // remain resident as a RAM-consuming ghost process.
     setTimeout(()=>process.exit(2),50);
   });
-  server.listen(port, '127.0.0.1', () => {
+  server.listen(port, '0.0.0.0', () => {
     writeRuntimeMarker();
-    event('INFO','DASHBOARD_STARTED','127.0.0.1:' + port + '; build=' + APP_BUILD + '; commit=' + APP_COMMIT);
+    const lan=privateLanIpv4();
+    event('INFO','DASHBOARD_STARTED','0.0.0.0:' + port + '; lan='+(lan||'none')+'; build=' + APP_BUILD + '; commit=' + APP_COMMIT);
     console.log('TLIB dashboard: http://127.0.0.1:' + port + ' [' + APP_BUILD + ']');
   });
   return server;
