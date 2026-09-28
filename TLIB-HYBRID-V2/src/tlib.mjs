@@ -1,17 +1,19 @@
 import http from 'node:http';
 import { mkdirSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
-import { homedir, freemem, totalmem, cpus, setPriority, constants as osConstants } from 'node:os';
+import { homedir, freemem, totalmem, cpus, networkInterfaces, setPriority, constants as osConstants } from 'node:os';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { DatabaseSync } from 'node:sqlite';
 import { execFileSync, execFile, spawn } from 'node:child_process';
+import { randomBytes } from 'node:crypto';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(HERE, '..');
 const dataDir = process.env.TLIB_DATA_DIR || join(process.env.LOCALAPPDATA || homedir(), 'TLIB-PC');
 mkdirSync(dataDir, { recursive: true });
-const APP_BUILD = '2026.09.28-v0.6.7-fast-ui';
+const APP_BUILD = '2026.09.28-v0.6.8-phone-lan';
 const STARTED_AT = new Date().toISOString();
+const DASHBOARD_PORT = Number(process.env.TLIB_DASHBOARD_PORT || 8787);
 function deploymentCommit() {
   try {
     const meta=JSON.parse(readFileSync(join(ROOT,'deployment.json'),'utf8'));
@@ -1257,19 +1259,250 @@ function sendPdf(res, type) {
   res.end(pdf);
 }
 
+
+const phoneShare={
+  server:null,token:null,pairCode:null,startedAt:0,expiresAt:0,durationMinutes:0,
+  generation:0,lanAddress:null,baseUrl:null,url:null,port:0,timer:null,monitor:null,
+  devices:new Map(),failures:new Map()
+};
+function lanIpv4(){
+  const nets=networkInterfaces(),rows=[];
+  const private4=a=>/^10\.|^192\.168\.|^172\.(1[6-9]|2\d|3[01])\./.test(a);
+  for(const [name,list] of Object.entries(nets)){
+    for(const row of list||[]){
+      if(row.family!=='IPv4'||row.internal||!row.address||row.address.startsWith('169.254.'))continue;
+      const virtual=/tailscale|vpn|virtual|vethernet|docker|wsl|hyper-v|loopback/i.test(name);
+      let score=virtual?100:0;
+      score+=private4(row.address)?0:30;
+      score+=/wi-?fi|wireless|wlan/i.test(name)?0:/ethernet/i.test(name)?5:20;
+      rows.push({address:row.address,name,score});
+    }
+  }
+  rows.sort((a,b)=>a.score-b.score);
+  return rows[0]||null;
+}
+function cookieValue(req,name){
+  const raw=String(req.headers.cookie||'');
+  for(const part of raw.split(';')){
+    const i=part.indexOf('=');
+    if(i>0&&part.slice(0,i).trim()===name)return decodeURIComponent(part.slice(i+1).trim());
+  }
+  return null;
+}
+function normalizePhoneDuration(v){return [30,90,180].includes(Number(v))?Number(v):90}
+function newPairCode(){return String(randomBytes(4).readUInt32BE(0)%100000000).padStart(8,'0')}
+function phoneShareFile(){return join(dataDir,'phone_share.json')}
+function persistPhoneShareState(){
+  const obj={
+    version:1,active:!!phoneShare.server,base_url:phoneShare.baseUrl,pair_code:phoneShare.pairCode,
+    started_at:phoneShare.startedAt||null,expires_at:phoneShare.expiresAt||null,
+    duration_minutes:phoneShare.durationMinutes,generation:phoneShare.generation,
+    lan_address:phoneShare.lanAddress,port:phoneShare.port,same_wifi_required:true,
+    devices:[...phoneShare.devices.values()].map(x=>({label:x.label,ip:x.ip,last_seen:x.last_seen})).slice(0,12),
+    updated_at:now()
+  };
+  try{writeFileSync(phoneShareFile(),JSON.stringify(obj,null,2),'utf8')}catch{}
+}
+function refreshPhoneAddress(write=true){
+  const lan=lanIpv4();
+  if(!phoneShare.server||!phoneShare.token)return lan;
+  if(!lan){
+    const changed=!!phoneShare.url;
+    phoneShare.url=null;phoneShare.baseUrl=null;phoneShare.lanAddress=null;
+    if(changed&&write)persistPhoneShareState();
+    return null;
+  }
+  const base='http://'+lan.address+':'+phoneShare.port+'/';
+  const next=base+'?pair='+encodeURIComponent(phoneShare.token);
+  const changed=next!==phoneShare.url;
+  phoneShare.lanAddress=lan.address;phoneShare.baseUrl=base;phoneShare.url=next;
+  if(changed&&write)persistPhoneShareState();
+  return lan;
+}
+function phoneStatus(){
+  const lan=refreshPhoneAddress(false)||lanIpv4();
+  const remaining=phoneShare.expiresAt?Math.max(0,phoneShare.expiresAt-Date.now()):0;
+  return {
+    ok:true,active:!!phoneShare.server,url:phoneShare.url,base_url:phoneShare.baseUrl,
+    pair_code:phoneShare.pairCode,port:phoneShare.port,started_at:phoneShare.startedAt||null,
+    expires_at:phoneShare.expiresAt||null,remaining_ms:remaining,duration_minutes:phoneShare.durationMinutes,
+    generation:phoneShare.generation,same_wifi_required:true,
+    lan:lan?{address:lan.address,adapter:lan.name}:null,
+    devices:[...phoneShare.devices.values()].sort((a,b)=>b.last_seen-a.last_seen).slice(0,12)
+  };
+}
+function clearPhoneTimers(){
+  if(phoneShare.timer){clearTimeout(phoneShare.timer);phoneShare.timer=null}
+  if(phoneShare.monitor){clearInterval(phoneShare.monitor);phoneShare.monitor=null}
+}
+function stopPhoneShare(){
+  clearPhoneTimers();
+  const srv=phoneShare.server;
+  phoneShare.server=null;phoneShare.token=null;phoneShare.pairCode=null;
+  phoneShare.startedAt=0;phoneShare.expiresAt=0;phoneShare.url=null;phoneShare.baseUrl=null;
+  phoneShare.lanAddress=null;phoneShare.port=0;phoneShare.devices.clear();phoneShare.failures.clear();
+  if(srv){try{srv.close()}catch{}}
+  persistPhoneShareState();
+  return phoneStatus();
+}
+function resetPhoneExpiry(minutes){
+  phoneShare.durationMinutes=normalizePhoneDuration(minutes);
+  phoneShare.expiresAt=Date.now()+phoneShare.durationMinutes*60000;
+  if(phoneShare.timer)clearTimeout(phoneShare.timer);
+  phoneShare.timer=setTimeout(()=>stopPhoneShare(),Math.max(1000,phoneShare.expiresAt-Date.now()));
+  phoneShare.timer.unref?.();
+}
+function phoneRateLimited(ip){
+  const t=Date.now(),old=phoneShare.failures.get(ip)||[],recent=old.filter(x=>t-x<300000);
+  phoneShare.failures.set(ip,recent);
+  return recent.length>=6;
+}
+function phoneFailCode(ip){
+  const x=phoneShare.failures.get(ip)||[];
+  x.push(Date.now());phoneShare.failures.set(ip,x.slice(-8));
+}
+function phoneRelayHandler(req,res){
+  if(!phoneShare.server||Date.now()>=phoneShare.expiresAt){
+    res.writeHead(410,{'content-type':'text/plain; charset=utf-8','cache-control':'no-store'});
+    return res.end('Session TLIB expirée');
+  }
+  refreshPhoneAddress(false);
+  const u=new URL(req.url||'/',phoneShare.baseUrl||'http://127.0.0.1/');
+  const ip=String(req.socket.remoteAddress||'').replace(/^::ffff:/,'');
+  const supplied=u.searchParams.get('pair');
+  const code=String(u.searchParams.get('code')||'').trim();
+  const paired=cookieValue(req,'tlib_pair');
+  const validToken=supplied&&supplied===phoneShare.token;
+  const validCode=code&&code===phoneShare.pairCode;
+  if(validToken||validCode){
+    phoneShare.failures.delete(ip);
+    res.writeHead(302,{
+      'set-cookie':'tlib_pair='+encodeURIComponent(phoneShare.token)+'; Path=/; HttpOnly; SameSite=Strict',
+      'location':'/','cache-control':'no-store','referrer-policy':'no-referrer','x-frame-options':'DENY'
+    });
+    return res.end();
+  }
+  if(paired!==phoneShare.token){
+    if(code&&!validCode)phoneFailCode(ip);
+    if(phoneRateLimited(ip)){
+      res.writeHead(429,{'content-type':'text/plain; charset=utf-8','cache-control':'no-store'});
+      return res.end('Trop de tentatives. Réessaie dans quelques minutes.');
+    }
+    res.writeHead(401,{
+      'content-type':'text/html; charset=utf-8','cache-control':'no-store',
+      'referrer-policy':'no-referrer','x-frame-options':'DENY'
+    });
+    return res.end('<!doctype html><meta name="viewport" content="width=device-width,initial-scale=1"><style>body{font:16px system-ui;background:#08111f;color:#eef3fb;display:grid;place-items:center;min-height:100vh;margin:0}.c{width:min(420px,calc(100vw - 28px));padding:24px;border:1px solid #263956;border-radius:18px;background:#101b2d;box-sizing:border-box}h1{font-size:22px;margin:0 0 8px}p{color:#9fb0c8;line-height:1.5}input,button{width:100%;height:46px;border-radius:10px;box-sizing:border-box;font:inherit}input{padding:0 12px;border:1px solid #344967;background:#091321;color:white;margin:8px 0}button{border:0;background:#5b8cff;color:white;font-weight:700}</style><div class="c"><h1>TLIB</h1><p>Scanne le QR affiché sur le PC, ou saisis le code temporaire. Le téléphone et le PC doivent être sur le même réseau local.</p><form><input name="code" inputmode="numeric" autocomplete="one-time-code" placeholder="Code temporaire"><button>Ouvrir TLIB</button></form></div>');
+  }
+  const ua=String(req.headers['user-agent']||'Appareil');
+  phoneShare.devices.set(ip,{
+    id:ip,label:/Android/i.test(ua)?'Téléphone Android':/iPhone|iPad/i.test(ua)?'iPhone / iPad':'Navigateur',
+    ip,last_seen:Date.now(),user_agent:ua.slice(0,180)
+  });
+  const headers={...req.headers,host:'127.0.0.1:'+DASHBOARD_PORT};
+  delete headers['accept-encoding'];delete headers.cookie;
+  const proxy=http.request({hostname:'127.0.0.1',port:DASHBOARD_PORT,path:req.url||'/',method:req.method,headers},up=>{
+    const out={...up.headers};
+    delete out['content-security-policy'];
+    res.writeHead(up.statusCode||502,out);up.pipe(res);
+  });
+  proxy.on('error',()=>{
+    if(!res.headersSent)res.writeHead(502,{'content-type':'text/plain; charset=utf-8'});
+    res.end('TLIB local indisponible');
+  });
+  req.pipe(proxy);
+}
+async function listenPhoneRelay(){
+  for(let port=8831;port<=8835;port++){
+    const relay=http.createServer(phoneRelayHandler);
+    const result=await new Promise(resolve=>{
+      const onError=e=>resolve({ok:false,error:e});
+      relay.once('error',onError);
+      relay.listen(port,'0.0.0.0',()=>{
+        relay.off('error',onError);resolve({ok:true,relay,port});
+      });
+    });
+    if(result.ok)return result;
+    try{relay.close()}catch{}
+    if(result.error?.code!=='EADDRINUSE')return result;
+  }
+  return {ok:false,error:new Error('NO_TLIB_PHONE_PORT_AVAILABLE')};
+}
+async function startPhoneShare(minutes=90){
+  if(phoneShare.server)stopPhoneShare();
+  const lan=lanIpv4();
+  if(!lan)return {ok:false,state:'NO_LAN_IPV4'};
+  phoneShare.token=randomBytes(12).toString('base64url');
+  phoneShare.pairCode=newPairCode();phoneShare.startedAt=Date.now();phoneShare.generation++;
+  const listened=await listenPhoneRelay();
+  if(!listened.ok){
+    stopPhoneShare();
+    return {ok:false,state:'PHONE_PORT_UNAVAILABLE',error:String(listened.error?.message||listened.error)};
+  }
+  phoneShare.server=listened.relay;phoneShare.port=listened.port;
+  resetPhoneExpiry(minutes);refreshPhoneAddress(false);
+  phoneShare.server.on('error',()=>stopPhoneShare());
+  phoneShare.monitor=setInterval(()=>refreshPhoneAddress(true),10000);
+  phoneShare.monitor.unref?.();
+  persistPhoneShareState();
+  event('INFO','PHONE_SHARE_ACTIVE','port='+phoneShare.port+'; minutes='+phoneShare.durationMinutes);
+  return {ok:true,state:'PHONE_SHARE_ACTIVE',...phoneStatus()};
+}
+function extendPhoneShare(minutes){
+  if(!phoneShare.server)return {ok:false,state:'PHONE_SHARE_INACTIVE'};
+  resetPhoneExpiry(minutes);persistPhoneShareState();
+  event('INFO','PHONE_SHARE_EXTENDED','minutes='+phoneShare.durationMinutes);
+  return {ok:true,state:'PHONE_SHARE_EXTENDED',...phoneStatus()};
+}
+function rotatePhoneShare(){
+  if(!phoneShare.server)return {ok:false,state:'PHONE_SHARE_INACTIVE'};
+  phoneShare.token=randomBytes(12).toString('base64url');
+  phoneShare.pairCode=newPairCode();phoneShare.generation++;
+  phoneShare.devices.clear();phoneShare.failures.clear();refreshPhoneAddress(false);persistPhoneShareState();
+  event('INFO','PHONE_SHARE_ROTATED','generation='+phoneShare.generation);
+  return {ok:true,state:'PHONE_SHARE_ROTATED',...phoneStatus()};
+}
+function readJsonBody(req,max=16384){
+  return new Promise((resolveBody,rejectBody)=>{
+    let raw='';
+    req.setEncoding('utf8');
+    req.on('data',chunk=>{
+      raw+=chunk;
+      if(raw.length>max){rejectBody(new Error('BODY_TOO_LARGE'));try{req.destroy()}catch{}}
+    });
+    req.on('end',()=>{
+      if(!raw)return resolveBody({});
+      try{resolveBody(JSON.parse(raw))}catch{rejectBody(new Error('INVALID_JSON'))}
+    });
+    req.on('error',rejectBody);
+  });
+}
+
 function sendJson(res, code, value) {
   res.writeHead(code, {'content-type':'application/json; charset=utf-8','cache-control':'no-store'});
   res.end(JSON.stringify(value));
 }
 
 async function startDashboard() {
-  const port = Number(process.env.TLIB_DASHBOARD_PORT || 8787);
+  const port = DASHBOARD_PORT;
   let busy = false;
   const server = http.createServer(async (req,res) => {
     const u = new URL(req.url || '/', 'http://127.0.0.1');
     markInteractiveRequest(u.pathname);
     try {
       if (u.pathname === '/api/interaction' && req.method === 'POST') return sendJson(res,200,{ok:true});
+      if (u.pathname === '/api/phone/share' && req.method === 'GET') return sendJson(res,200,phoneStatus());
+      if (u.pathname === '/api/phone/share' && req.method === 'POST') {
+        const body=await readJsonBody(req);
+        const action=String(body.action||'status');
+        let out;
+        if(action==='start') out=await startPhoneShare(body.minutes);
+        else if(action==='extend') out=extendPhoneShare(body.minutes);
+        else if(action==='rotate') out=rotatePhoneShare();
+        else if(action==='stop') out={ok:true,state:'PHONE_SHARE_STOPPED',...stopPhoneShare()};
+        else out=phoneStatus();
+        return sendJson(res,out.ok===false?409:200,out);
+      }
       if (u.pathname === '/api/status') return sendJson(res,200,statusSnapshot());
       if (u.pathname === '/api/version') return sendJson(res,200,{product:'TLIB',build:APP_BUILD,pid:process.pid,node:process.versions.node});
       if (u.pathname === '/api/library') {
@@ -1322,6 +1555,11 @@ async function startDashboard() {
       }
       if (u.pathname === '/api/health') return sendJson(res,200,{ok:true,at:now(),build:APP_BUILD,commit:APP_COMMIT,pid:process.pid,started_at:STARTED_AT});
       if (u.pathname === '/api/version') return sendJson(res,200,{product:'TLIB',build:APP_BUILD,commit:APP_COMMIT,pid:process.pid,started_at:STARTED_AT,root:ROOT});
+      if (u.pathname === '/vendor-qrcode.min.js') {
+        const qr=readFileSync(join(ROOT,'public','vendor-qrcode.min.js'));
+        res.writeHead(200,{'content-type':'application/javascript; charset=utf-8','cache-control':'public, max-age=86400'});
+        return res.end(qr);
+      }
       const page = readFileSync(join(ROOT,'public','index.html'),'utf8');
       res.writeHead(200, {'content-type':'text/html; charset=utf-8','cache-control':'no-store'});
       res.end(page);
