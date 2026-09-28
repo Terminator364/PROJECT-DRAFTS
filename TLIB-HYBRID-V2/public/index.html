@@ -31,21 +31,18 @@ pre{white-space:pre-wrap;word-break:break-word;background:#0a1120;border:1px sol
 .facets{display:flex;gap:8px;flex-wrap:wrap}.facet{cursor:pointer}.facet b{margin-left:5px;color:#fff}.eventtable{max-height:460px;overflow:auto}.statusok{color:var(--ok)}.statuswarn{color:var(--warn)}
 .flow{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;align-items:stretch}.flow-node{cursor:pointer;text-align:center;position:relative}.flow-node:hover,.flow-node.active{border-color:#6d96df;background:linear-gradient(180deg,#203154,#111b30)}.flow-node .icon{font-size:24px}.flow-node .flowname{font-weight:800;margin:7px 0}.flow-node .flowstate{font-size:11px;color:var(--muted)}.flow-arrow{display:none}.manager-detail{margin-top:12px;background:#0c1426;border:1px solid var(--line);border-radius:12px;padding:14px}.manager-detail h4{margin:0 0 8px}.manager-detail p{margin:0;color:var(--muted);line-height:1.5}.interactive-card{cursor:pointer;position:relative;transition:.16s}.interactive-card:hover{border-color:#648bd0;transform:translateY(-1px)}.interactive-card:focus{outline:2px solid #7198ff;outline-offset:2px}.interactive-card:after{content:"›";position:absolute;right:12px;top:10px;color:#6f83a7;font-size:20px}.drawer{position:fixed;right:18px;top:18px;bottom:18px;width:min(520px,calc(100vw - 36px));z-index:80;background:#0b1324;border:1px solid #3a527b;border-radius:16px;box-shadow:0 24px 70px rgba(0,0,0,.48);transform:translateX(calc(100% + 40px));transition:.22s;display:flex;flex-direction:column}.drawer.open{transform:translateX(0)}.drawer-head{padding:16px 18px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center}.drawer-body{padding:16px 18px;overflow:auto}.drawer-close{border:0;background:#16243f;color:#fff;border-radius:8px;padding:7px 10px;cursor:pointer}.toast{position:fixed;left:50%;bottom:22px;z-index:100;transform:translate(-50%,20px);opacity:0;background:#152441;border:1px solid #48648f;color:#fff;padding:10px 14px;border-radius:10px;transition:.18s;pointer-events:none}.toast.show{opacity:1;transform:translate(-50%,0)}.clickable-row{cursor:pointer;border-radius:8px;padding:9px 8px;margin:0 -8px;transition:.15s}.clickable-row:hover{background:#121e34}.clickable-row:after{content:"›";float:right;color:#667c9f}.command-trigger{cursor:pointer;background:#111c31}.command-trigger:hover{color:#fff;border-color:#6388c9}.cmd{position:fixed;inset:0;z-index:120;background:rgba(3,7,14,.68);display:none;align-items:flex-start;justify-content:center;padding-top:12vh;backdrop-filter:blur(5px)}.cmd.open{display:flex}.cmdbox{width:min(680px,calc(100vw - 28px));background:#0b1426;border:1px solid #3a527b;border-radius:16px;box-shadow:0 30px 90px rgba(0,0,0,.55);overflow:hidden}.cmdbox input{width:100%;background:#0e1a30;color:#fff;border:0;border-bottom:1px solid var(--line);padding:16px 18px;font-size:16px;outline:none}.cmdlist{max-height:420px;overflow:auto;padding:8px}.cmditem{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:11px 12px;border-radius:10px;cursor:pointer}.cmditem:hover,.cmditem.active{background:#172743}.cmditem small{color:var(--muted)}.source-toolbar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}.source-toolbar input,.source-toolbar select{background:#0b1325;color:#fff;border:1px solid var(--line);border-radius:8px;padding:8px 10px}.audit-pass{color:var(--ok)}.audit-fail{color:#ff8e8e}
 .accordion{padding:0;overflow:hidden}.accordion>summary{list-style:none;cursor:pointer;padding:14px 16px;font-weight:750;display:flex;align-items:center;justify-content:space-between}.accordion>summary::-webkit-details-marker{display:none}.accordion>summary:after{content:"＋";color:var(--muted);font-size:18px}.accordion[open]>summary:after{content:"−"}.accordion>.inside{padding:0 16px 16px;border-top:1px solid var(--line)}.section-intro{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:14px}.section-intro h2{margin:0;font-size:20px}.section-intro p{margin:4px 0 0;color:var(--muted);font-size:13px}.theme-tree{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.theme-card{cursor:pointer}.theme-card:hover{border-color:#698fd4}.theme-card b{display:block;margin-bottom:4px}.theme-card span{font-size:12px;color:var(--muted)}.crumb{display:flex;gap:6px;align-items:center;color:var(--muted);font-size:12px;margin-bottom:8px}.crumb b{color:#dfe8f8}.compact-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}.compact-stat{padding:12px}.compact-stat .n{font-size:25px;font-weight:800;margin-top:4px}.split3{display:grid;grid-template-columns:1.15fr 1fr 1fr;gap:12px}
-.phone-grid{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(280px,.65fr);gap:14px;align-items:start}
-.phone-actions{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
-.phone-choice{padding:14px;text-align:left;cursor:pointer}
-.phone-choice b{display:block;font-size:16px;margin-bottom:4px}
-.phone-choice span{font-size:12px;color:var(--muted)}
-.qr-card{min-height:300px;display:grid;place-items:center;background:#fff;border-radius:16px;padding:18px}
-.qr-card canvas,.qr-card img,.qr-card svg{max-width:100%;height:auto}
-.pair-code{font:700 20px/1.2 ui-monospace,SFMono-Regular,Consolas,monospace;letter-spacing:2px}
-.phone-url{word-break:break-all;font:12px/1.45 ui-monospace,SFMono-Regular,Consolas,monospace;background:#0b1325;border:1px solid var(--line);padding:10px;border-radius:9px}
-.device-row{display:grid;grid-template-columns:1fr auto;gap:10px;padding:11px 0;border-bottom:1px solid var(--line)}
-.device-row:last-child{border-bottom:0}
-@media(max-width:760px){.phone-grid{grid-template-columns:1fr}.phone-actions{grid-template-columns:1fr}.qr-card{min-height:240px}.nav{display:flex;overflow-x:auto;gap:6px;padding-bottom:6px}.nav button{min-width:max-content;flex:0 0 auto}.sidefoot{display:none}.side{padding-bottom:8px}}
-
 @media(max-width:1050px){.flow,.theme-tree,.compact-grid{grid-template-columns:repeat(2,1fr)}.split3{grid-template-columns:1fr}}.progress{height:8px;background:#0b1325;border-radius:999px;overflow:hidden}.bar{height:100%;background:linear-gradient(90deg,#558cff,#7b70ff);transition:width .4s}
 @media(max-width:1050px){.levels,.results{grid-template-columns:repeat(2,1fr)}.hero,.twocol,.manager-grid{grid-template-columns:1fr}}@media(max-width:760px){.shell{grid-template-columns:1fr}.side{height:auto;position:static}.sidefoot{position:static;margin-top:16px}.levels,.results{grid-template-columns:1fr}.top{flex-direction:column;align-items:flex-start}main{padding:20px}}
+
+/* TLIB FAST RENDER — default for low-RAM Windows PCs */
+body{background:#0b1020}
+.side,.top,.cmd{-webkit-backdrop-filter:none!important;backdrop-filter:none!important}
+.card,.cmdbox,.drawer,.logo{box-shadow:none!important}
+.nav button,.level,.btn,.bar,.interactive-card,.drawer,.toast,.clickable-row{transition:none!important}
+.level:hover,.btn:hover,.interactive-card:hover{transform:none!important}
+.pulse{animation:none!important}
+html{scroll-behavior:auto!important}
+
 </style>
 </head>
 <body>
@@ -53,9 +50,9 @@ pre{white-space:pre-wrap;word-break:break-word;background:#0a1120;border:1px sol
 <aside class="side">
 <div class="brand"><div class="logo">T</div><div><b>TLIB</b><small>Bibliothèque intelligente</small></div></div>
 <div class="nav">
-<button class="active" data-view="home">🏠 Accueil</button><button data-view="explore">🔎 Explorer</button><button data-view="l0">🧭 L0 · Repérage</button><button data-view="l1">✅ L1 · Vérification</button><button data-view="l2">🧠 L2 · Compréhension</button><button data-view="talk">💬 Parler à TLIB</button><button data-view="phone">📱 Téléphone</button><button data-view="manager">⚙️ Manager</button><button data-view="technical">🛠 Technique</button>
+<button class="active" data-view="home">🏠 Accueil</button><button data-view="explore">🔎 Explorer</button><button data-view="l0">🧭 L0 · Repérage</button><button data-view="l1">✅ L1 · Vérification</button><button data-view="l2">🧠 L2 · Compréhension</button><button data-view="talk">💬 Parler à TLIB</button><button data-view="manager">⚙️ Manager</button><button data-view="technical">🛠 Technique</button>
 </div>
-<div class="sidefoot"><span class="dot"></span><span id="sideWorker">PC worker en ligne</span><br><span class="small">Local-first — PC + téléphone via QR temporaire</span></div>
+<div class="sidefoot"><span class="dot"></span><span id="sideWorker">PC worker en ligne</span><br><span class="small">Interface locale — ton PC uniquement</span></div>
 </aside>
 <main>
 <div class="top"><div style="display:flex;align-items:center;gap:10px"><button class="btn" id="navBack" title="Retour" style="display:none">←</button><div><h1 id="pageTitle">Ta bibliothèque technique</h1><div class="subtitle" id="pageSubtitle">TLIB transforme des ressources brutes en connaissances utiles.</div></div></div><div class="badges"><button class="badge command-trigger" id="commandOpen">⌘ Actions</button><button class="badge command-trigger" data-go="l0" id="bL0">L0 — …</button><button class="badge command-trigger" data-go="l1" id="bPC">PC — …</button><span class="badge" id="syncBadge">● synchronisation discrète</span></div></div>
@@ -65,7 +62,7 @@ pre{white-space:pre-wrap;word-break:break-word;background:#0a1120;border:1px sol
 <div class="hero">
 <div class="card big"><h2>Que veux-tu trouver ?</h2><p>Recherche un outil, une technologie ou un besoin. Le PC n'essaie jamais de charger les 120 694 ressources en mémoire : il travaille par lots et garde des checkpoints.</p>
 <div class="searchbar"><input id="homeSearch" placeholder="Ex. Android, Telegram, Node.js, réseau…"><button class="btn primary" id="homeSearchBtn">Rechercher</button></div>
-<div class="actions"><button class="btn" data-go="explore">Explorer la bibliothèque</button><button class="btn" data-go="phone">📱 Ouvrir sur téléphone</button><button class="btn" data-go="manager">Voir ce que TLIB fait</button></div></div>
+<div class="actions"><button class="btn" data-go="explore">Explorer la bibliothèque</button><button class="btn" data-go="manager">Voir ce que TLIB fait</button></div></div>
 <div class="card"><h3 style="margin-top:0">Aujourd'hui</h3><div class="statusline clickable-row" data-go="l0"><strong>Repérage</strong><span id="todayL0">…</span></div><div class="statusline clickable-row" data-go="l1"><strong>Vérification</strong><span id="todayL1">…</span></div><div class="statusline clickable-row" data-go="l2"><strong>Compréhension</strong><span id="todayL2">…</span></div><div class="statusline clickable-row" data-go="technical"><strong>PC</strong><span id="todayPC">…</span></div></div>
 </div>
 <div class="card"><h3 style="margin-top:0">Dernières fiches vérifiées</h3><div id="homeRecent" class="results"></div></div>
@@ -179,50 +176,6 @@ pre{white-space:pre-wrap;word-break:break-word;background:#0a1120;border:1px sol
 
 <section id="talk" class="section"><div class="section-intro"><div><div class="crumb"><button class="pill" data-go="home">Accueil</button><span>›</span><b>Parler à TLIB</b></div><h2>Recherche conversationnelle</h2><p>Prototype local : recherche L1 aujourd’hui, raisonnement L2/L3 ensuite.</p></div></div><div class="card chatbox"><div class="meta" id="chatSuggestions"><button class="pill" data-chat="android léger">Android léger</button><button class="pill" data-chat="windows automatisation">Windows automatisation</button><button class="pill" data-chat="telegram">Telegram</button><button class="pill" data-chat="python">Python</button><button class="pill" data-chat="réseau">Réseau</button></div><div id="chatLog"><div class="bubble bot"><b>TLIB</b><br>Dis-moi ce que tu cherches. Je peux déjà interroger les fiches L1 vérifiées et t’emmener vers les ressources correspondantes.</div></div><div class="composer"><input id="chatInput" placeholder="Ex. Trouve-moi des outils Android légers"><button class="btn primary" id="chatSend">Envoyer</button></div></div></section>
 
-<section id="phone" class="section">
-<div class="section-intro"><div><div class="crumb"><button class="pill" data-go="home">Accueil</button><span>›</span><b>Téléphone</b></div><h2>TLIB sur ton téléphone</h2><p>Le même cockpit, temporairement accessible sur le Wi‑Fi local avec QR + code d’appairage.</p></div><div class="badges"><span class="badge" id="phoneStatusBadge">partage fermé</span><button class="btn" id="phoneRefresh">Actualiser</button></div></div>
-<div class="subnav" id="phoneSubnav"><button class="active" data-phone-tab="pair">Connexion</button><button data-phone-tab="devices">Appareils</button><button data-phone-tab="security">Sécurité</button></div>
-
-<div class="subpane active" data-phone-pane="pair">
-  <div class="phone-grid">
-    <div class="card">
-      <h3 style="margin-top:0">Connexion temporaire</h3>
-      <p class="muted">Choisis une durée. TLIB ouvre un port LAN temporaire, génère un QR et le ferme automatiquement à l’expiration.</p>
-      <div class="phone-actions">
-        <button class="card phone-choice" data-phone-minutes="30"><b>30 min</b><span>Session courte</span></button>
-        <button class="card phone-choice" data-phone-minutes="90"><b>1 h 30</b><span>Durée standard</span></button>
-        <button class="card phone-choice" data-phone-minutes="180"><b>3 heures</b><span>Session longue</span></button>
-      </div>
-      <div id="phoneSessionPanel" style="margin-top:14px">
-        <div class="notice"><div><b>Fermé par défaut</b><p>Génère une session uniquement quand tu veux utiliser TLIB sur ton téléphone.</p></div></div>
-      </div>
-      <div class="actions" id="phoneSessionActions" style="display:none;margin-top:12px">
-        <button class="btn" id="phoneExtend">Prolonger 90 min</button>
-        <button class="btn" id="phoneRotate">Nouveau QR / code</button>
-        <button class="btn" id="phoneCopy">Copier le lien</button>
-        <button class="btn danger" id="phoneStop">Arrêter</button>
-      </div>
-    </div>
-    <div class="qr-card"><div id="phoneQr"><div style="color:#111;text-align:center"><div style="font-size:42px">▦</div><b>Le QR apparaîtra ici</b><p style="font-size:12px">Même Wi‑Fi requis</p></div></div></div>
-  </div>
-</div>
-
-<div class="subpane" data-phone-pane="devices">
-  <div class="twocol">
-    <div class="card"><h3 style="margin-top:0">Appareils de la session</h3><div id="phoneDevices"><div class="muted">Aucun appareil pairé.</div></div></div>
-    <div class="card"><h3 style="margin-top:0">État LAN</h3><div id="phoneLanState"></div></div>
-  </div>
-</div>
-
-<div class="subpane" data-phone-pane="security">
-  <div class="split3">
-    <div class="card"><div class="small muted">Accès</div><h3>Même réseau local</h3><p class="muted">Le serveur principal reste sur 127.0.0.1. Seul le relais temporaire est visible sur le LAN.</p></div>
-    <div class="card"><div class="small muted">Pairing</div><h3>QR + code</h3><p class="muted">Token aléatoire éphémère, cookie HttpOnly après appairage, ancien QR invalidé après rotation.</p></div>
-    <div class="card"><div class="small muted">Protection</div><h3>Expiration + rate-limit</h3><p class="muted">30/90/180 min et blocage après plusieurs codes incorrects.</p></div>
-  </div>
-</div>
-</section>
-
 <section id="manager" class="section">
 <div class="section-intro"><div><div class="crumb">Accueil <span>›</span> <b>Manager</b></div><h2>Centre de contrôle TLIB</h2><p>Chaque bloc mène vers une sous-page opérationnelle, pas vers un simple texte décoratif.</p></div><div class="badges"><span class="badge" id="mgrSchedulerBadge">ordonnanceur …</span><span class="badge" id="mgrQuotaBadge">quota …</span></div></div>
 <div class="subnav" id="managerSubnav">
@@ -330,7 +283,7 @@ pre{white-space:pre-wrap;word-break:break-word;background:#0a1120;border:1px sol
 <div id="commandPalette" class="cmd" aria-hidden="true"><div class="cmdbox"><input id="commandInput" placeholder="Aller à L1, ouvrir Manager, chercher Android…"><div class="cmdlist" id="commandList"></div></div></div><aside id="detailDrawer" class="drawer" aria-hidden="true"><div class="drawer-head"><div><div class="small muted" id="drawerKicker">Détail</div><h3 id="drawerTitle" style="margin:2px 0 0">TLIB</h3></div><button class="drawer-close" id="drawerClose">Fermer ✕</button></div><div class="drawer-body" id="drawerBody"></div></aside>
 <div id="toast" class="toast">Action effectuée</div>
 <script>
-var STATUS=null,PHONE_STATE=null,FIRST_L1=null,LAST_L1=null,LIB_OFFSET=0,LIB_QUERY='',LIB_TOTAL=0,LIB_LIMIT=60,NAV_HISTORY=[],CURRENT_VIEW='home';
+var STATUS=null,FIRST_L1=null,LAST_L1=null,LIB_OFFSET=0,LIB_QUERY='',LIB_TOTAL=0,LIB_LIMIT=60,NAV_HISTORY=[],CURRENT_VIEW='home';
 function el(s){return document.querySelector(s)} function els(s){return Array.from(document.querySelectorAll(s))}
 function fmt(n){return Number(n||0).toLocaleString('fr-FR')}
 function mustEl(s){var x=el(s);if(!x)throw new Error('UI_ELEMENT_MISSING '+s);return x}
@@ -338,7 +291,13 @@ function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){retur
 function human(s){var m={DONE:'Terminé',CANARY:'Test en cours',DESIGNED:'Conçu',LATER:'Plus tard'};return m[s]||s||'—'}
 function cls(s){return s==='DONE'?'ok':s==='CANARY'?'warn':''}
 async function api(path,opts){var r=await fetch(path,opts);var j=await r.json();if(!r.ok)throw new Error(j.message||j.error||'Erreur');return j}
-function signalInteraction(){try{fetch('/api/interaction',{method:'POST',cache:'no-store',keepalive:true}).catch(function(){})}catch(e){}}
+var LAST_INTERACTION_SIGNAL=0;
+function signalInteraction(){
+  var n=Date.now();
+  if(n-LAST_INTERACTION_SIGNAL<5000)return;
+  LAST_INTERACTION_SIGNAL=n;
+  try{fetch('/api/interaction',{method:'POST',cache:'no-store',keepalive:true}).catch(function(){})}catch(e){}
+}
 function toast(msg){var t=el('#toast');if(!t)return;t.textContent=msg;t.classList.add('show');clearTimeout(toast._t);toast._t=setTimeout(function(){t.classList.remove('show')},1400)}
 function openDrawer(title,kicker,html){el('#drawerTitle').textContent=title;el('#drawerKicker').textContent=kicker||'Détail';el('#drawerBody').innerHTML=html;el('#detailDrawer').classList.add('open');el('#detailDrawer').setAttribute('aria-hidden','false');toast(title)}
 function closeDrawer(){el('#detailDrawer').classList.remove('open');el('#detailDrawer').setAttribute('aria-hidden','true')}
@@ -370,11 +329,10 @@ function handleAction(action){
   bindDrawerActions();
 }
 function bindDrawerActions(){els('[data-drawer-go]').forEach(function(b){b.onclick=function(){closeDrawer();show(b.dataset.drawerGo);if(b.dataset.drawerGo==='l1')loadFacets();if(b.dataset.drawerGo==='l2')loadL2()}})}
-function show(v,opts){opts=opts||{};var target=el('#'+v);if(!target){console.error('TLIB VIEW MISSING',v);toast('Page introuvable : '+v);return false;}if(v!==CURRENT_VIEW&&!opts.noHistory){NAV_HISTORY.push(CURRENT_VIEW);if(NAV_HISTORY.length>30)NAV_HISTORY.shift()}CURRENT_VIEW=v;var back=el('#navBack');if(back)back.style.display=NAV_HISTORY.length?'inline-block':'none';els('.section').forEach(function(x){x.classList.toggle('active',x.id===v)});els('.nav button').forEach(function(x){x.classList.toggle('active',x.dataset.view===v)});var t={home:['Ta bibliothèque technique','TLIB transforme des ressources brutes en connaissances utiles.'],l0:['L0 · Repérage','Voir comment le stock brut a été découvert, normalisé et dédupliqué.'],explore:['Explorer TLIB','Cherche, filtre et ouvre les fiches de ta bibliothèque.'],l1:['L1 · Vérification totale','Identifier et qualifier au maximum avant d’envoyer quoi que ce soit vers L2.'],l2:['L2 · Compréhension','Comprendre l’utilité réelle des ressources déjà qualifiées.'],talk:['Parler à TLIB','Prototype conversationnel local.'],phone:['Téléphone','QR temporaire pour utiliser le même TLIB sur ton téléphone via le réseau local.'],manager:['Manager TLIB','Piloter le moteur, la cadence et les files sans lire du code.'],technical:['Technique','Diagnostic structuré, métriques et audit brut en dernier niveau.']};el('#pageTitle').textContent=t[v][0];el('#pageSubtitle').textContent=t[v][1];try{localStorage.setItem('tlib.view',v)}catch(e){}setTimeout(signalInteraction,0);return true}
+function show(v,opts){opts=opts||{};var target=el('#'+v);if(!target){console.error('TLIB VIEW MISSING',v);toast('Page introuvable : '+v);return false;}if(v!==CURRENT_VIEW&&!opts.noHistory){NAV_HISTORY.push(CURRENT_VIEW);if(NAV_HISTORY.length>30)NAV_HISTORY.shift()}CURRENT_VIEW=v;var back=el('#navBack');if(back)back.style.display=NAV_HISTORY.length?'inline-block':'none';els('.section').forEach(function(x){x.classList.toggle('active',x.id===v)});els('.nav button').forEach(function(x){x.classList.toggle('active',x.dataset.view===v)});var t={home:['Ta bibliothèque technique','TLIB transforme des ressources brutes en connaissances utiles.'],l0:['L0 · Repérage','Voir comment le stock brut a été découvert, normalisé et dédupliqué.'],explore:['Explorer TLIB','Cherche, filtre et ouvre les fiches de ta bibliothèque.'],l1:['L1 · Vérification totale','Identifier et qualifier au maximum avant d’envoyer quoi que ce soit vers L2.'],l2:['L2 · Compréhension','Comprendre l’utilité réelle des ressources déjà qualifiées.'],talk:['Parler à TLIB','Prototype conversationnel local.'],manager:['Manager TLIB','Piloter le moteur, la cadence et les files sans lire du code.'],technical:['Technique','Diagnostic structuré, métriques et audit brut en dernier niveau.']};el('#pageTitle').textContent=t[v][0];el('#pageSubtitle').textContent=t[v][1];try{localStorage.setItem('tlib.view',v)}catch(e){}signalInteraction();return true}
 els('.nav button').forEach(function(b){b.onclick=function(){
   var v=b.dataset.view;show(v);
   if(v==='explore'&&!el('#libraryResults').children.length){requestAnimationFrame(function(){loadLibrary('',false);loadFacets();});}
-  if(v==='phone')loadPhoneStatus();
 }});
 function tagButton(v,label){return '<button class="pill tag-filter" data-tag="'+esc(v)+'">'+esc(label||v)+'</button>'}
 function toolCard(x){var type=x.resource_kind||'Ressource GitHub';var tech=x.technology||x.language||'';var activity=x.activity_status||'';var d=String(x.human_summary||'').trim();if(!d){d=type+(tech?' consacré à '+tech:'')+'. '+(activity?activity+'.':'Fiche L1 vérifiée.')}return '<div class="card tool" data-id="'+esc(x.entity_id)+'"><div class="small muted">'+esc(type)+'</div><h3>'+esc(x.full_name)+'</h3><p>'+esc(d.slice(0,180))+'</p><div class="meta"><span class="pill">✓ L1 vérifié</span>'+(x.human_summary?'<span class="pill">🧠 L2 compris</span>':'')+(tech?tagButton(tech,tech):'')+(activity?tagButton(activity,activity):'')+'</div></div>'}
@@ -432,7 +390,7 @@ async function loadResource(id){
   '<div class="subpane" data-detail-pane="l1"><div class="detail-grid"><div class="fact"><small>Créé</small><b>'+esc((x.created_at_github||'—').slice(0,10))+'</b></div><div class="fact"><small>Dernier push</small><b>'+esc((x.pushed_at||'—').slice(0,10))+'</b></div><div class="fact"><small>Branche</small><b>'+esc(x.default_branch||'—')+'</b></div><div class="fact"><small>Taille</small><b>'+fmt(x.size_kb)+' Ko</b></div><div class="fact"><small>Forks</small><b>'+fmt(x.forks_count||0)+'</b></div><div class="fact"><small>Issues ouvertes</small><b>'+fmt(x.open_issues||0)+'</b></div><div class="fact"><small>Abonnés / watchers</small><b>'+fmt(x.subscribers_count||x.watchers_count||0)+'</b></div><div class="fact"><small>Profil communauté</small><b>'+(x.community_health==null?'À approfondir':fmt(x.community_health)+'%')+'</b></div><div class="fact"><small>README</small><b>'+(x.readme_present==null?'À vérifier':x.readme_present?'Présent':'Non détecté')+'</b></div><div class="fact"><small>Release récente</small><b>'+esc(x.latest_release_tag||'Aucune / à vérifier')+'</b></div><div class="fact"><small>Langages</small><b>'+esc(Object.keys(langs).slice(0,5).join(', ')||x.language||'Non applicable / à vérifier')+'</b></div><div class="fact"><small>Approfondissement</small><b>'+esc(x.deep_status||'PENDING')+'</b></div></div></div>'+
   '<div class="subpane" data-detail-pane="l2"><h3>À quoi peut-elle servir ?</h3><div class="meta">'+(uses.length?uses.map(function(t){return tagButton(t,t)}).join(''):'<span class="muted">Pas encore qualifié en L2.</span>')+'</div><h3>Capacités</h3><div class="meta">'+(caps.length?caps.map(function(t){return tagButton(t,t)}).join(''):'<span class="muted">Pas encore qualifiées.</span>')+'</div><h3>Limites</h3><div class="meta">'+(limits.length?limits.map(function(t){return tagButton(t,t)}).join(''):'<span class="muted">Pas encore qualifiées.</span>')+'</div></div>'+
   '<div class="subpane" data-detail-pane="technical"><div class="detail-grid"><div class="fact"><small>GitHub ID</small><b>'+esc(x.github_id||'—')+'</b></div><div class="fact"><small>Node ID</small><b>'+esc(x.node_id||'—')+'</b></div><div class="fact"><small>Langage GitHub</small><b>'+esc(x.language||'Aucun principal détecté')+'</b></div><div class="fact"><small>Archivé</small><b>'+(x.archived?'Oui':'Non')+'</b></div><div class="fact"><small>Fork</small><b>'+(x.fork?'Oui':'Non')+'</b></div><div class="fact"><small>Visibilité</small><b>'+esc(x.visibility||'—')+'</b></div></div><details><summary class="muted" style="cursor:pointer">JSON GitHub brut</summary><pre>'+esc(x.raw_json||'{}')+'</pre></details></div>';
-  el('#closeDetail').onclick=function(){d.style.display='none'};bindTagFilters(d);bindDetailTabs(d);d.scrollIntoView({behavior:'smooth',block:'start'});
+  el('#closeDetail').onclick=function(){d.style.display='none'};bindTagFilters(d);bindDetailTabs(d);d.scrollIntoView({behavior:'auto',block:'start'});
 }
 function bindPaneTabs(buttonSelector,paneSelector,buttonKey,paneKey,onChange){
   var buttons=els(buttonSelector),panes=els(paneSelector);
@@ -455,10 +413,8 @@ function bindPaneTabs(buttonSelector,paneSelector,buttonKey,paneKey,onChange){
       var first=panes[0],fallback=first.dataset[paneKey];
       if(fallback&&fallback!==value)return activate(fallback,null);
     }
-    setTimeout(signalInteraction,0);
-    if(typeof onChange==='function'){
-      requestAnimationFrame(function(){setTimeout(function(){onChange(value,source)},0)});
-    }
+    signalInteraction();
+    if(typeof onChange==='function')onChange(value,source);
   }
   buttons.forEach(function(b){
     b.setAttribute('role','tab');
@@ -560,7 +516,7 @@ function runInteractionAudit(exercise){
   ids.forEach(function(id){checks++;seen[id]=(seen[id]||0)+1});Object.keys(seen).forEach(function(id){if(seen[id]>1)issues.push('ID dupliqué : '+id)});
   document.querySelectorAll('[data-view]').forEach(function(x){checks++;if(!el('#'+x.dataset.view))issues.push('Vue manquante : '+x.dataset.view)});
   document.querySelectorAll('[data-go]').forEach(function(x){checks++;if(!el('#'+x.dataset.go))issues.push('Cible data-go manquante : '+x.dataset.go)});
-  [['l0','l0'],['l1','l1'],['l2','l2'],['phone','phone'],['manager','manager'],['tech','tech']].forEach(function(def){
+  [['l0','l0'],['l1','l1'],['l2','l2'],['manager','manager'],['tech','tech']].forEach(function(def){
     var buttons=Array.from(document.querySelectorAll('[data-'+def[0]+'-tab]'));
     var panes=Array.from(document.querySelectorAll('[data-'+def[1]+'-pane]'));
     buttons.forEach(function(b){
@@ -684,68 +640,7 @@ function backgroundRender(s){
   textIf('#syncBadge','● synchronisé '+new Date().toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'}));
 }
 async function refresh(){try{renderStatus(await api('/api/status'));el('#sideWorker').textContent='PC worker en ligne'}catch(e){el('#sideWorker').textContent='Interface en erreur';console.error('TLIB UI ERROR',e);toast('Erreur interface : '+String(e.message||e))}}
-
-function phoneMinutes(p){return p&&p.remaining_ms?Math.max(0,Math.ceil(Number(p.remaining_ms)/60000)):0}
-function ensureQrLib(){
-  if(window.QRCode)return Promise.resolve(window.QRCode);
-  if(ensureQrLib.promise)return ensureQrLib.promise;
-  ensureQrLib.promise=new Promise(function(resolve,reject){
-    var s=document.createElement('script');s.src='/vendor-qrcode.min.js';
-    s.onload=function(){resolve(window.QRCode)};s.onerror=reject;document.head.appendChild(s);
-  });
-  return ensureQrLib.promise;
-}
-function renderPhone(p){
-  PHONE_STATE=p||{active:false,devices:[]};
-  var active=Boolean(PHONE_STATE.active),mins=phoneMinutes(PHONE_STATE);
-  textIf('#phoneStatusBadge',active?'● actif · '+mins+' min':'partage fermé');
-  var panel=el('#phoneSessionPanel'),actions=el('#phoneSessionActions'),qr=el('#phoneQr');
-  if(panel){
-    if(active){
-      panel.innerHTML='<div class="notice"><div><b>Session prête sur le Wi‑Fi local</b><p>'+esc(PHONE_STATE.lan&&PHONE_STATE.lan.address?PHONE_STATE.lan.address:'adresse LAN')+' · port '+esc(PHONE_STATE.port||'—')+' · '+mins+' min restantes</p></div></div>'+
-        '<div class="twocol" style="margin-top:10px"><div><div class="small muted">Code temporaire</div><div class="pair-code">'+esc(PHONE_STATE.pair_code||'—')+'</div></div><div><div class="small muted">Lien de pairing</div><div class="phone-url" id="phonePairUrl">'+esc(PHONE_STATE.url||'—')+'</div></div></div>';
-    }else{
-      panel.innerHTML='<div class="notice"><div><b>Fermé par défaut</b><p>Choisis 30, 90 ou 180 minutes pour générer un QR temporaire.</p></div></div>';
-    }
-  }
-  if(actions)actions.style.display=active?'flex':'none';
-  if(qr){
-    qr.innerHTML=active?'<div class="muted" style="color:#111">Génération du QR…</div>':'<div style="color:#111;text-align:center"><div style="font-size:42px">▦</div><b>Le QR apparaîtra ici</b><p style="font-size:12px">Même Wi‑Fi requis</p></div>';
-    if(active&&PHONE_STATE.url){
-      var url=PHONE_STATE.url;
-      ensureQrLib().then(function(){
-        if(!PHONE_STATE||PHONE_STATE.url!==url)return;
-        qr.innerHTML='';
-        new window.QRCode(qr,{text:url,width:230,height:230,colorDark:'#08111f',colorLight:'#ffffff',correctLevel:window.QRCode.CorrectLevel.M});
-      }).catch(function(){qr.innerHTML='<div style="color:#b42318">QR indisponible · utilise le code '+esc(PHONE_STATE.pair_code||'')+'</div>'});
-    }
-  }
-  var dev=el('#phoneDevices'),list=PHONE_STATE.devices||[];
-  if(dev)dev.innerHTML=list.length?list.map(function(x){return '<div class="device-row"><div><b>'+esc(x.label||'Appareil')+'</b><div class="small muted">'+esc(x.ip||'')+'</div></div><span class="badge">pairé</span></div>'}).join(''):'<div class="muted">Aucun appareil pairé dans cette session.</div>';
-  var lan=el('#phoneLanState');
-  if(lan)lan.innerHTML=kvLine('Session',active?'Active':'Fermée')+kvLine('Adresse',PHONE_STATE.lan&&PHONE_STATE.lan.address?PHONE_STATE.lan.address:'—')+kvLine('Adaptateur',PHONE_STATE.lan&&PHONE_STATE.lan.adapter?PHONE_STATE.lan.adapter:'—')+kvLine('Port',active?PHONE_STATE.port:'fermé')+kvLine('Expiration',active?mins+' min':'—');
-}
-async function loadPhoneStatus(){
-  try{renderPhone(await api('/api/phone/share'))}catch(e){toast('Téléphone : état indisponible')}
-}
-async function phoneAction(action,minutes){
-  try{
-    var body={action:action};if(minutes)body.minutes=minutes;
-    var p=await api('/api/phone/share',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(body)});
-    renderPhone(p);
-    if(action==='start')toast('QR téléphone prêt');
-    else if(action==='extend')toast('Session prolongée');
-    else if(action==='rotate')toast('Nouveau QR généré');
-    else if(action==='stop')toast('Partage téléphone arrêté');
-  }catch(e){toast('Téléphone : '+String(e.message||e))}
-}
-function copyPhoneUrl(){
-  var value=PHONE_STATE&&PHONE_STATE.url?PHONE_STATE.url:'';
-  if(!value)return;
-  if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(value).then(function(){toast('Lien copié')}).catch(function(){});
-}
-
-async function backgroundRefresh(){try{backgroundRender(await api('/api/status'));el('#sideWorker').textContent='PC worker en ligne';if(CURRENT_VIEW==='phone')loadPhoneStatus()}catch(e){el('#sideWorker').textContent='Synchronisation en attente'}}
+async function backgroundRefresh(){try{backgroundRender(await api('/api/status'));el('#sideWorker').textContent='PC worker en ligne'}catch(e){el('#sideWorker').textContent='Synchronisation en attente'}}
 el('#homeSearchBtn').onclick=async function(){show('explore');el('#librarySearch').value=el('#homeSearch').value;await loadLibrary(el('#homeSearch').value,false)}
 el('#homeSearch').addEventListener('keydown',function(e){if(e.key==='Enter')el('#homeSearchBtn').click()})
 el('#librarySearchBtn').onclick=function(){loadLibrary(el('#librarySearch').value,false)}
@@ -779,15 +674,8 @@ bindManagerNodes();
 bindPaneTabs('#l0Subnav [data-l0-tab]','[data-l0-pane]','l0Tab','l0Pane',function(v){if(v==='sources'||v==='depth'||v==='failures')loadL0Sources(v==='failures'?{status:'FAILED'}:{});});
 bindPaneTabs('#l1Subnav [data-l1-tab]','[data-l1-pane]','l1Tab','l1Pane',function(v){if(v==='insights')loadL1Insights();if(v==='deep')loadDeepQueue();if(v==='themes')loadFacets();});
 bindPaneTabs('#l2Subnav [data-l2-tab]','[data-l2-pane]','l2Tab','l2Pane',function(v){if(v==='profiles')loadL2();});
-bindPaneTabs('#phoneSubnav [data-phone-tab]','[data-phone-pane]','phoneTab','phonePane',function(){loadPhoneStatus();});
 bindPaneTabs('#managerSubnav [data-manager-tab]','[data-manager-pane]','managerTab','managerPane',function(v){if(v==='updates')loadUpdateStatus();});
 bindPaneTabs('#techSubnav [data-tech-tab]','[data-tech-pane]','techTab','techPane',function(v){if(v==='events'&&STATUS)renderTechEvents('ALL');});
-els('[data-phone-minutes]').forEach(function(b){b.onclick=function(){phoneAction('start',Number(b.dataset.phoneMinutes))}});
-el('#phoneRefresh').onclick=loadPhoneStatus;
-el('#phoneExtend').onclick=function(){phoneAction('extend',90)};
-el('#phoneRotate').onclick=function(){phoneAction('rotate')};
-el('#phoneStop').onclick=function(){phoneAction('stop')};
-el('#phoneCopy').onclick=copyPhoneUrl;
 el('#refreshDeepQueue').onclick=function(){cacheClear('l1-deep');loadDeepQueue(true)};
 el('#refreshInsights').onclick=loadL1Insights;
 el('#l0SourceRefresh').onclick=function(){loadL0Sources()};
