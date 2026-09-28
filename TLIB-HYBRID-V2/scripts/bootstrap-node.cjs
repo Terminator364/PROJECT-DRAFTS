@@ -2,7 +2,7 @@ const fs=require('fs');
 const path=require('path');
 const os=require('os');
 const http=require('http');
-const {spawn}=require('child_process');
+const {spawn,spawnSync}=require('child_process');
 
 const DATA=path.join(process.env.LOCALAPPDATA||os.homedir(),'TLIB-PC');
 const CURRENT=path.join(DATA,'current-deployment.json');
@@ -38,9 +38,22 @@ function verifiedSlot(slot){
     return !!(v&&v.commit===slot.commit&&fs.existsSync(path.join(slot.path,'src','tlib.mjs')));
   }catch{return false}
 }
+function portPid(port){
+  try{
+    const r=spawnSync('netstat.exe',['-ano','-p','tcp'],{encoding:'utf8',windowsHide:true,timeout:3000});
+    for(const line of String(r.stdout||'').split(/\r?\n/)){
+      const m=line.match(new RegExp('127\\.0\\.0\\.1:'+port+'\\s+0\\.0\\.0\\.0:0\\s+LISTENING\\s+(\\d+)','i'));
+      if(m)return Number(m[1]);
+    }
+  }catch{}
+  return null;
+}
 function stopPid(pid){
   if(!pid)return;
-  try{process.kill(Number(pid),'SIGTERM');log('STALE_WORKER_STOP','pid='+pid)}catch{}
+  try{
+    spawnSync('taskkill.exe',['/PID',String(Number(pid)),'/T','/F'],{windowsHide:true,timeout:4000,stdio:'ignore'});
+    log('STALE_WORKER_STOP','pid='+pid);
+  }catch{}
 }
 function startSlot(slot){
   const entry=path.join(slot.path,'src','tlib.mjs');
@@ -117,7 +130,8 @@ function acquireLock(){
       return;
     }
 
-    let h=await health(900);
+    let h=await health(1400);
+    if(!h){await sleep(250);h=await health(1400)}
     if(h&&h.ok&&h.commit===desired.commit){
       log('ALREADY_HEALTHY','pid='+h.pid+' build='+h.build);
       openUI();
@@ -127,6 +141,13 @@ function acquireLock(){
     if(h&&h.ok&&h.pid&&h.commit!==desired.commit){
       stopPid(h.pid);
       await sleep(500);
+    }else if(!h){
+      const owner=portPid(8787);
+      if(owner){
+        log('UNRESPONSIVE_PORT_OWNER','pid='+owner);
+        stopPid(owner);
+        await sleep(650);
+      }
     }
 
     const totalMB=Math.round(os.totalmem()/1048576);
