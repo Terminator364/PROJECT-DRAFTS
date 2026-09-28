@@ -13,11 +13,11 @@
     },
     {
       "path": "src/tlib.mjs",
-      "git_blob_sha": "1ad716b5f0771d2ab34ad1c495089c9c68731a31"
+      "git_blob_sha": "b3c4c1f6eaa7d05c4695a84874f5c72ba487411a"
     },
     {
       "path": "public/index.html",
-      "git_blob_sha": "46faeb42957579f565c5ee1ba431a7545b7aca84"
+      "git_blob_sha": "b2f4a50f74702f731cca435a79e849a3dcf37b50"
     },
     {
       "path": "scripts/install-windows.ps1",
@@ -37,7 +37,7 @@
     },
     {
       "path": "scripts/verify-build.mjs",
-      "git_blob_sha": "2dd044b8272175ca703697c6c2bdec761409e421"
+      "git_blob_sha": "d90dc829d232c6c767b3e61167ddae57ad006c45"
     },
     {
       "path": "config/canary-seeds.json",
@@ -105,12 +105,13 @@
     },
     {
       "path": "scripts/bootstrap-node.cjs",
-      "git_blob_sha": "b67882b58ad35981ef9c62047cb648c4b93d3319"
+      "git_blob_sha": "6f61c81ff3e1492147dff482af44b6419772a311"
     },
     {
       "path": "scripts/launch-hidden.vbs",
-      "git_blob_sha": "8f92acf23430de49bc05a95819357ddd1429c91d"
+      "git_blob_sha": "d455a3da409d684c607ddde4a7643088c45fc083"
     }
   ],
-  "updated_at": "2026-09-27T21:09:27.754Z"
+  "updated_at": "2026-09-28T08:06:39.777Z",
+  "build": "2026.09.28-v0.6.4-interactive-shell"
 }
