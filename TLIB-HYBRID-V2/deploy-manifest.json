@@ -13,11 +13,11 @@
     },
     {
       "path": "src/tlib.mjs",
-      "git_blob_sha": "e2a300b748cf2eb49f8b639b4552aa09f243f37e"
+      "git_blob_sha": "0cc87af8a4703535417ac2c1e0afff4f84c64ac9"
     },
     {
       "path": "public/index.html",
-      "git_blob_sha": "d7a977ea6f924f4dd2cf4ef7134cecf61a849af2"
+      "git_blob_sha": "96bdf5cafc27c5e5854b7d247b4a7c9843d18546"
     },
     {
       "path": "scripts/install-windows.ps1",
@@ -116,6 +116,6 @@
       "git_blob_sha": "4a68e12e70cf03d89a1ea56c5d0d78b5a9cc548f"
     }
   ],
-  "updated_at": "2026-09-28T13:24:01.409Z",
-  "build": "2026.09.28-v0.6.8-phone-lan"
+  "updated_at": "2026-09-28T13:37:16.953Z",
+  "build": "2026.09.28-v0.6.9-fast-serve"
 }
