@@ -481,7 +481,18 @@ function runInteractionAudit(){
   document.querySelectorAll('[data-view]').forEach(function(x){checks++;if(!el('#'+x.dataset.view))issues.push('Vue manquante : '+x.dataset.view)});
   document.querySelectorAll('[data-go]').forEach(function(x){checks++;if(!el('#'+x.dataset.go))issues.push('Cible data-go manquante : '+x.dataset.go)});
   [['l0','l0'],['l1','l1'],['l2','l2'],['manager','manager'],['tech','tech']].forEach(function(def){
-    document.querySelectorAll('[data-'+def[0]+'-tab]').forEach(function(b){checks++;var key=b.getAttribute('data-'+def[0]+'-tab');if(!document.querySelector('[data-'+def[1]+'-pane="'+key+'"]'))issues.push('Sous-page manquante '+def[0]+' : '+key)});
+    var buttons=Array.from(document.querySelectorAll('[data-'+def[0]+'-tab]'));
+    var panes=Array.from(document.querySelectorAll('[data-'+def[1]+'-pane]'));
+    buttons.forEach(function(b){
+      checks++;
+      var key=b.getAttribute('data-'+def[0]+'-tab');
+      var target=document.querySelector('[data-'+def[1]+'-pane="'+key+'"]');
+      if(!target){issues.push('Sous-page manquante '+def[0]+' : '+key);return}
+      b.click();
+      var visible=panes.filter(function(p){return p.classList.contains('active')&&!p.hidden});
+      if(visible.length!==1||visible[0]!==target)issues.push('Activation cassée '+def[0]+' : '+key+' (visibles='+visible.length+')');
+    });
+    var first=buttons[0];if(first)first.click();
   });
   var required=['homeSearchBtn','librarySearchBtn','drawerClose','chatSend','refreshDeepQueue','navBack','commandOpen','runUiAuditBtn','updateStageBtn','updateRepairBtn'];
   required.forEach(function(id){checks++;if(!document.getElementById(id))issues.push('Contrôle essentiel absent : '+id)});
