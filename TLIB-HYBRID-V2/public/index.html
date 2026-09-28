@@ -33,6 +33,16 @@ pre{white-space:pre-wrap;word-break:break-word;background:#0a1120;border:1px sol
 .accordion{padding:0;overflow:hidden}.accordion>summary{list-style:none;cursor:pointer;padding:14px 16px;font-weight:750;display:flex;align-items:center;justify-content:space-between}.accordion>summary::-webkit-details-marker{display:none}.accordion>summary:after{content:"＋";color:var(--muted);font-size:18px}.accordion[open]>summary:after{content:"−"}.accordion>.inside{padding:0 16px 16px;border-top:1px solid var(--line)}.section-intro{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:14px}.section-intro h2{margin:0;font-size:20px}.section-intro p{margin:4px 0 0;color:var(--muted);font-size:13px}.theme-tree{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.theme-card{cursor:pointer}.theme-card:hover{border-color:#698fd4}.theme-card b{display:block;margin-bottom:4px}.theme-card span{font-size:12px;color:var(--muted)}.crumb{display:flex;gap:6px;align-items:center;color:var(--muted);font-size:12px;margin-bottom:8px}.crumb b{color:#dfe8f8}.compact-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}.compact-stat{padding:12px}.compact-stat .n{font-size:25px;font-weight:800;margin-top:4px}.split3{display:grid;grid-template-columns:1.15fr 1fr 1fr;gap:12px}
 @media(max-width:1050px){.flow,.theme-tree,.compact-grid{grid-template-columns:repeat(2,1fr)}.split3{grid-template-columns:1fr}}.progress{height:8px;background:#0b1325;border-radius:999px;overflow:hidden}.bar{height:100%;background:linear-gradient(90deg,#558cff,#7b70ff);transition:width .4s}
 @media(max-width:1050px){.levels,.results{grid-template-columns:repeat(2,1fr)}.hero,.twocol,.manager-grid{grid-template-columns:1fr}}@media(max-width:760px){.shell{grid-template-columns:1fr}.side{height:auto;position:static}.sidefoot{position:static;margin-top:16px}.levels,.results{grid-template-columns:1fr}.top{flex-direction:column;align-items:flex-start}main{padding:20px}}
+
+/* TLIB FAST RENDER — default for low-RAM Windows PCs */
+body{background:#0b1020}
+.side,.top,.cmd{-webkit-backdrop-filter:none!important;backdrop-filter:none!important}
+.card,.cmdbox,.drawer,.logo{box-shadow:none!important}
+.nav button,.level,.btn,.bar,.interactive-card,.drawer,.toast,.clickable-row{transition:none!important}
+.level:hover,.btn:hover,.interactive-card:hover{transform:none!important}
+.pulse{animation:none!important}
+html{scroll-behavior:auto!important}
+
 </style>
 </head>
 <body>
@@ -281,7 +291,13 @@ function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){retur
 function human(s){var m={DONE:'Terminé',CANARY:'Test en cours',DESIGNED:'Conçu',LATER:'Plus tard'};return m[s]||s||'—'}
 function cls(s){return s==='DONE'?'ok':s==='CANARY'?'warn':''}
 async function api(path,opts){var r=await fetch(path,opts);var j=await r.json();if(!r.ok)throw new Error(j.message||j.error||'Erreur');return j}
-function signalInteraction(){try{fetch('/api/interaction',{method:'POST',cache:'no-store',keepalive:true}).catch(function(){})}catch(e){}}
+var LAST_INTERACTION_SIGNAL=0;
+function signalInteraction(){
+  var n=Date.now();
+  if(n-LAST_INTERACTION_SIGNAL<5000)return;
+  LAST_INTERACTION_SIGNAL=n;
+  try{fetch('/api/interaction',{method:'POST',cache:'no-store',keepalive:true}).catch(function(){})}catch(e){}
+}
 function toast(msg){var t=el('#toast');if(!t)return;t.textContent=msg;t.classList.add('show');clearTimeout(toast._t);toast._t=setTimeout(function(){t.classList.remove('show')},1400)}
 function openDrawer(title,kicker,html){el('#drawerTitle').textContent=title;el('#drawerKicker').textContent=kicker||'Détail';el('#drawerBody').innerHTML=html;el('#detailDrawer').classList.add('open');el('#detailDrawer').setAttribute('aria-hidden','false');toast(title)}
 function closeDrawer(){el('#detailDrawer').classList.remove('open');el('#detailDrawer').setAttribute('aria-hidden','true')}
@@ -313,7 +329,7 @@ function handleAction(action){
   bindDrawerActions();
 }
 function bindDrawerActions(){els('[data-drawer-go]').forEach(function(b){b.onclick=function(){closeDrawer();show(b.dataset.drawerGo);if(b.dataset.drawerGo==='l1')loadFacets();if(b.dataset.drawerGo==='l2')loadL2()}})}
-function show(v,opts){opts=opts||{};var target=el('#'+v);if(!target){console.error('TLIB VIEW MISSING',v);toast('Page introuvable : '+v);return false;}if(v!==CURRENT_VIEW&&!opts.noHistory){NAV_HISTORY.push(CURRENT_VIEW);if(NAV_HISTORY.length>30)NAV_HISTORY.shift()}CURRENT_VIEW=v;var back=el('#navBack');if(back)back.style.display=NAV_HISTORY.length?'inline-block':'none';els('.section').forEach(function(x){x.classList.toggle('active',x.id===v)});els('.nav button').forEach(function(x){x.classList.toggle('active',x.dataset.view===v)});var t={home:['Ta bibliothèque technique','TLIB transforme des ressources brutes en connaissances utiles.'],l0:['L0 · Repérage','Voir comment le stock brut a été découvert, normalisé et dédupliqué.'],explore:['Explorer TLIB','Cherche, filtre et ouvre les fiches de ta bibliothèque.'],l1:['L1 · Vérification totale','Identifier et qualifier au maximum avant d’envoyer quoi que ce soit vers L2.'],l2:['L2 · Compréhension','Comprendre l’utilité réelle des ressources déjà qualifiées.'],talk:['Parler à TLIB','Prototype conversationnel local.'],manager:['Manager TLIB','Piloter le moteur, la cadence et les files sans lire du code.'],technical:['Technique','Diagnostic structuré, métriques et audit brut en dernier niveau.']};el('#pageTitle').textContent=t[v][0];el('#pageSubtitle').textContent=t[v][1];try{localStorage.setItem('tlib.view',v)}catch(e){}setTimeout(signalInteraction,0);return true}
+function show(v,opts){opts=opts||{};var target=el('#'+v);if(!target){console.error('TLIB VIEW MISSING',v);toast('Page introuvable : '+v);return false;}if(v!==CURRENT_VIEW&&!opts.noHistory){NAV_HISTORY.push(CURRENT_VIEW);if(NAV_HISTORY.length>30)NAV_HISTORY.shift()}CURRENT_VIEW=v;var back=el('#navBack');if(back)back.style.display=NAV_HISTORY.length?'inline-block':'none';els('.section').forEach(function(x){x.classList.toggle('active',x.id===v)});els('.nav button').forEach(function(x){x.classList.toggle('active',x.dataset.view===v)});var t={home:['Ta bibliothèque technique','TLIB transforme des ressources brutes en connaissances utiles.'],l0:['L0 · Repérage','Voir comment le stock brut a été découvert, normalisé et dédupliqué.'],explore:['Explorer TLIB','Cherche, filtre et ouvre les fiches de ta bibliothèque.'],l1:['L1 · Vérification totale','Identifier et qualifier au maximum avant d’envoyer quoi que ce soit vers L2.'],l2:['L2 · Compréhension','Comprendre l’utilité réelle des ressources déjà qualifiées.'],talk:['Parler à TLIB','Prototype conversationnel local.'],manager:['Manager TLIB','Piloter le moteur, la cadence et les files sans lire du code.'],technical:['Technique','Diagnostic structuré, métriques et audit brut en dernier niveau.']};el('#pageTitle').textContent=t[v][0];el('#pageSubtitle').textContent=t[v][1];try{localStorage.setItem('tlib.view',v)}catch(e){}signalInteraction();return true}
 els('.nav button').forEach(function(b){b.onclick=function(){
   var v=b.dataset.view;show(v);
   if(v==='explore'&&!el('#libraryResults').children.length){requestAnimationFrame(function(){loadLibrary('',false);loadFacets();});}
@@ -374,7 +390,7 @@ async function loadResource(id){
   '<div class="subpane" data-detail-pane="l1"><div class="detail-grid"><div class="fact"><small>Créé</small><b>'+esc((x.created_at_github||'—').slice(0,10))+'</b></div><div class="fact"><small>Dernier push</small><b>'+esc((x.pushed_at||'—').slice(0,10))+'</b></div><div class="fact"><small>Branche</small><b>'+esc(x.default_branch||'—')+'</b></div><div class="fact"><small>Taille</small><b>'+fmt(x.size_kb)+' Ko</b></div><div class="fact"><small>Forks</small><b>'+fmt(x.forks_count||0)+'</b></div><div class="fact"><small>Issues ouvertes</small><b>'+fmt(x.open_issues||0)+'</b></div><div class="fact"><small>Abonnés / watchers</small><b>'+fmt(x.subscribers_count||x.watchers_count||0)+'</b></div><div class="fact"><small>Profil communauté</small><b>'+(x.community_health==null?'À approfondir':fmt(x.community_health)+'%')+'</b></div><div class="fact"><small>README</small><b>'+(x.readme_present==null?'À vérifier':x.readme_present?'Présent':'Non détecté')+'</b></div><div class="fact"><small>Release récente</small><b>'+esc(x.latest_release_tag||'Aucune / à vérifier')+'</b></div><div class="fact"><small>Langages</small><b>'+esc(Object.keys(langs).slice(0,5).join(', ')||x.language||'Non applicable / à vérifier')+'</b></div><div class="fact"><small>Approfondissement</small><b>'+esc(x.deep_status||'PENDING')+'</b></div></div></div>'+
   '<div class="subpane" data-detail-pane="l2"><h3>À quoi peut-elle servir ?</h3><div class="meta">'+(uses.length?uses.map(function(t){return tagButton(t,t)}).join(''):'<span class="muted">Pas encore qualifié en L2.</span>')+'</div><h3>Capacités</h3><div class="meta">'+(caps.length?caps.map(function(t){return tagButton(t,t)}).join(''):'<span class="muted">Pas encore qualifiées.</span>')+'</div><h3>Limites</h3><div class="meta">'+(limits.length?limits.map(function(t){return tagButton(t,t)}).join(''):'<span class="muted">Pas encore qualifiées.</span>')+'</div></div>'+
   '<div class="subpane" data-detail-pane="technical"><div class="detail-grid"><div class="fact"><small>GitHub ID</small><b>'+esc(x.github_id||'—')+'</b></div><div class="fact"><small>Node ID</small><b>'+esc(x.node_id||'—')+'</b></div><div class="fact"><small>Langage GitHub</small><b>'+esc(x.language||'Aucun principal détecté')+'</b></div><div class="fact"><small>Archivé</small><b>'+(x.archived?'Oui':'Non')+'</b></div><div class="fact"><small>Fork</small><b>'+(x.fork?'Oui':'Non')+'</b></div><div class="fact"><small>Visibilité</small><b>'+esc(x.visibility||'—')+'</b></div></div><details><summary class="muted" style="cursor:pointer">JSON GitHub brut</summary><pre>'+esc(x.raw_json||'{}')+'</pre></details></div>';
-  el('#closeDetail').onclick=function(){d.style.display='none'};bindTagFilters(d);bindDetailTabs(d);d.scrollIntoView({behavior:'smooth',block:'start'});
+  el('#closeDetail').onclick=function(){d.style.display='none'};bindTagFilters(d);bindDetailTabs(d);d.scrollIntoView({behavior:'auto',block:'start'});
 }
 function bindPaneTabs(buttonSelector,paneSelector,buttonKey,paneKey,onChange){
   var buttons=els(buttonSelector),panes=els(paneSelector);
@@ -397,10 +413,8 @@ function bindPaneTabs(buttonSelector,paneSelector,buttonKey,paneKey,onChange){
       var first=panes[0],fallback=first.dataset[paneKey];
       if(fallback&&fallback!==value)return activate(fallback,null);
     }
-    setTimeout(signalInteraction,0);
-    if(typeof onChange==='function'){
-      requestAnimationFrame(function(){setTimeout(function(){onChange(value,source)},0)});
-    }
+    signalInteraction();
+    if(typeof onChange==='function')onChange(value,source);
   }
   buttons.forEach(function(b){
     b.setAttribute('role','tab');
