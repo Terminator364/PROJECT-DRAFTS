@@ -19,14 +19,19 @@ try{
   ok('slot-updater-syntax');
 }catch(e){fail('slot-updater-syntax',String(e.stderr||e.message||e).slice(0,500));}
 
-for(const name of ['bootstrap-tlib.ps1','install-windows.ps1','launch-tlib.ps1','update-tlib.ps1']){
-  try{
-    const p=join(APP,'scripts',name);
-    const cmd='[ScriptBlock]::Create((Get-Content -LiteralPath "'+p.replace(/"/g,'""')+'" -Raw)) | Out-Null';
-    execFileSync('powershell.exe',['-NoProfile','-Command',cmd],{stdio:'pipe',windowsHide:true,timeout:10000});
-    ok('powershell-syntax-'+name);
-  }catch(e){fail('powershell-syntax-'+name,String(e.stderr||e.message||e).slice(0,500));}
-}
+try{
+  const psFiles=['bootstrap-tlib.ps1','install-windows.ps1','launch-tlib.ps1','update-tlib.ps1'].map(name=>join(APP,'scripts',name));
+  const q=s=>"'"+String(s).replace(/'/g,"''")+"'";
+  const cmd=[
+    "$ErrorActionPreference='Stop'",
+    "$files=@("+psFiles.map(q).join(',')+")",
+    "$bad=@()",
+    "foreach($p in $files){$tokens=$null;$errs=$null;[void][System.Management.Automation.Language.Parser]::ParseFile($p,[ref]$tokens,[ref]$errs);if($errs.Count -gt 0){$bad += ($p+' :: '+(($errs|ForEach-Object {$_.Message}) -join ' | '))}}",
+    "if($bad.Count -gt 0){$bad|ForEach-Object {Write-Error $_};exit 1}"
+  ].join(';');
+  execFileSync('powershell.exe',['-NoProfile','-NonInteractive','-Command',cmd],{stdio:'pipe',windowsHide:true,timeout:30000});
+  ok('powershell-syntax-batch',psFiles.length+' scripts');
+}catch(e){fail('powershell-syntax-batch',String(e.stderr||e.message||e).slice(0,1000));}
 
 let html='';
 try{html=readFileSync(join(APP,'public','index.html'),'utf8');ok('ui-readable',html.length+' bytes');}
