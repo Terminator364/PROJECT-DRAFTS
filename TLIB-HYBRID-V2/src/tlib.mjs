@@ -10,7 +10,7 @@ const HERE = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(HERE, '..');
 const dataDir = process.env.TLIB_DATA_DIR || join(process.env.LOCALAPPDATA || homedir(), 'TLIB-PC');
 mkdirSync(dataDir, { recursive: true });
-const APP_BUILD = '2026.09.28-v0.6.4-interactive-shell';
+const APP_BUILD = '2026.09.28-v0.6.5-fast-path';
 const STARTED_AT = new Date().toISOString();
 function deploymentCommit() {
   try {
@@ -517,7 +517,9 @@ function fixtureFiles() {
   } catch { return []; }
 }
 
+let fixtureCorpusCache=null;
 function fixtureCorpus() {
+  if(fixtureCorpusCache) return fixtureCorpusCache;
   const byName = new Map();
   for (const file of fixtureFiles()) {
     try {
@@ -525,7 +527,8 @@ function fixtureCorpus() {
       for (const x of rows) if (x && x.full_name) byName.set(String(x.full_name).toLowerCase(), x);
     } catch {}
   }
-  return [...byName.values()];
+  fixtureCorpusCache=[...byName.values()];
+  return fixtureCorpusCache;
 }
 
 function stagedNames() {
@@ -612,7 +615,9 @@ function upsertFixtureResult(x) {
   return true;
 }
 
+let fixtureAutopilotExhausted=false;
 function autopilotFixtureStep(limit=2) {
+  if(fixtureAutopilotExhausted) return 0;
   const corpus=fixtureCorpus(), pending=[];
   for(const x of corpus){
     const id=entityId(x.full_name);
@@ -620,8 +625,14 @@ function autopilotFixtureStep(limit=2) {
     if(!done) pending.push(x);
     if(pending.length>=limit) break;
   }
-  let done=0; for(const x of pending) if(upsertFixtureResult(x)) done++;
-  if(done) event('INFO','L1_AUTOPILOT','+'+done+' fiche(s); total='+db.prepare('SELECT COUNT(*) AS n FROM results').get().n);
+  if(!pending.length){
+    fixtureAutopilotExhausted=true;
+    event('INFO','L1_FIXTURE_EXHAUSTED','cached='+corpus.length);
+    return 0;
+  }
+  let done=0;
+  for(const x of pending) if(upsertFixtureResult(x)) done++;
+  if(done) event('INFO','L1_AUTOPILOT','+'+done+' fiche(s)');
   return done;
 }
 
@@ -1068,7 +1079,19 @@ function spawnUpdater(mode) {
   return true;
 }
 
-function statusSnapshot() {
+let statusCacheValue=null;
+let statusCacheAt=0;
+function statusSnapshot(force=false) {
+  const nowMs=Date.now();
+  if(!force && statusCacheValue && nowMs-statusCacheAt<8000){
+    const cached=JSON.parse(JSON.stringify(statusCacheValue));
+    if(cached.pc_worker&&cached.pc_worker.runtime){
+      cached.pc_worker.runtime.uptime_seconds=Math.round(process.uptime());
+      cached.pc_worker.runtime.rss_mb=Math.round(process.memoryUsage().rss/1048576);
+    }
+    if(cached.pc_worker) cached.pc_worker.resource_governor=governorState;
+    return cached;
+  }
   const counts = {};
   for (const r of db.prepare('SELECT status, COUNT(*) AS n FROM jobs GROUP BY status').all()) counts[r.status] = Number(r.n);
   const totalResults = Number(db.prepare('SELECT COUNT(*) AS n FROM results').get().n);
@@ -1082,7 +1105,7 @@ function statusSnapshot() {
   const levels = JSON.parse(JSON.stringify(control.product || {}));
   if (levels.l1) { levels.l1.count = totalResults; if (totalResults > 0) levels.l1.state = 'CANARY'; }
   if (levels.l2) { levels.l2.count = l2Count; if (l2Count > 0) levels.l2.state = 'CANARY'; }
-  return {
+  const out={
     product: 'TLIB',
     build: APP_BUILD,
     commit: APP_COMMIT,
@@ -1100,6 +1123,9 @@ function statusSnapshot() {
     recent,
     events
   };
+  statusCacheValue=out;
+  statusCacheAt=nowMs;
+  return JSON.parse(JSON.stringify(out));
 }
 
 function deepQueueRows(limit=50, state='pending') {
