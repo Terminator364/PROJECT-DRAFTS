@@ -37,7 +37,7 @@
     },
     {
       "path": "scripts/verify-build.mjs",
-      "git_blob_sha": "05578875f852c19f6110cfc664fb36efc478fba6"
+      "git_blob_sha": "4091bf3bfea7cff36f5ca9ec9f802f7e5ef4e2e0"
     },
     {
       "path": "config/canary-seeds.json",
@@ -124,6 +124,6 @@
       "git_blob_sha": "e746a429df4a3c75935686951b4f422b51d1df59"
     }
   ],
-  "updated_at": "2026-09-28T13:46:53.737Z",
+  "updated_at": "2026-09-28T13:52:40.148Z",
   "build": "2026.09.28-v0.7.0-phone-link"
 }
