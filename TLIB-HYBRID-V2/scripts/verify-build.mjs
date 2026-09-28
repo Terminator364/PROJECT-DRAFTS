@@ -53,7 +53,7 @@ if(html){
   const missingGo=gos.filter(v=>!markup.includes('<section id="'+v+'" class="section'));
   missingGo.length?fail('ui-go-targets',missingGo.join(',')):ok('ui-go-targets',gos.length+' targets');
 
-  for(const [tab,pane] of [['l0','l0'],['l1','l1'],['l2','l2'],['phone','phone'],['manager','manager'],['tech','tech']]){
+  for(const [tab,pane] of [['l0','l0'],['l1','l1'],['l2','l2'],['manager','manager'],['tech','tech']]){
     const tabs=[...new Set([...markup.matchAll(new RegExp('data-'+tab+'-tab="([^"]+)"','g'))].map(m=>m[1]))];
     const panes=[...new Set([...markup.matchAll(new RegExp('data-'+pane+'-pane="([^"]+)"','g'))].map(m=>m[1]))];
     const miss=tabs.filter(x=>!panes.includes(x));
@@ -67,7 +67,6 @@ if(html){
     "bindPaneTabs('#l0Subnav [data-l0-tab]','[data-l0-pane]','l0Tab','l0Pane'",
     "bindPaneTabs('#l1Subnav [data-l1-tab]','[data-l1-pane]','l1Tab','l1Pane'",
     "bindPaneTabs('#l2Subnav [data-l2-tab]','[data-l2-pane]','l2Tab','l2Pane'",
-    "bindPaneTabs('#phoneSubnav [data-phone-tab]','[data-phone-pane]','phoneTab','phonePane'",
     "bindPaneTabs('#managerSubnav [data-manager-tab]','[data-manager-pane]','managerTab','managerPane'",
     "bindPaneTabs('#techSubnav [data-tech-tab]','[data-tech-pane]','techTab','techPane'"
   ];
@@ -78,39 +77,42 @@ if(html){
     "bindPaneTabs('#l0Subnav [data-l0-tab]','[data-l0-pane]','l0Tab');",
     "bindPaneTabs('#l1Subnav [data-l1-tab]','[data-l1-pane]','l1Tab');",
     "bindPaneTabs('#l2Subnav [data-l2-tab]','[data-l2-pane]','l2Tab');",
-    "bindPaneTabs('#phoneSubnav [data-phone-tab]','[data-phone-pane]','phoneTab');",
     "bindPaneTabs('#managerSubnav [data-manager-tab]','[data-manager-pane]','managerTab');",
     "bindPaneTabs('#techSubnav [data-tech-tab]','[data-tech-pane]','techTab');"
   ];
   const legacyFound=legacyBindings.filter(x=>js.includes(x));
   legacyFound.length?fail('ui-router-no-legacy',legacyFound.join(' || ')):ok('ui-router-no-legacy');
 
-  const essentials=['navBack','commandOpen','homeSearchBtn','librarySearchBtn','chatSend','refreshDeepQueue','runUiAuditBtn','drawerClose','phoneRefresh','phoneExtend','phoneRotate','phoneStop','phoneCopy'];
+  const essentials=['navBack','commandOpen','homeSearchBtn','librarySearchBtn','chatSend','refreshDeepQueue','runUiAuditBtn','drawerClose','phoneCreateBtn','phoneRefreshBtn','phoneRevokeBtn','phoneQr'];
   const absent=essentials.filter(id=>!markup.includes('id="'+id+'"'));
   absent.length?fail('ui-essential-controls',absent.join(',')):ok('ui-essential-controls',essentials.length+' controls');
 
   const phoneDurations=[30,90,180].filter(n=>markup.includes('data-phone-minutes="'+n+'"'));
   phoneDurations.length===3?ok('phone-ui-durations','30/90/180'):fail('phone-ui-durations',phoneDurations.join(','));
-  markup.includes('data-view="phone"')&&markup.includes('id="phone"')?ok('phone-ui-workspace'):fail('phone-ui-workspace');
-  js.includes("s.src='/vendor-qrcode.min.js'")?ok('phone-ui-qr-loader'):fail('phone-ui-qr-loader');
+  markup.includes('data-manager-tab="phone"')&&markup.includes('data-manager-pane="phone"')?ok('phone-ui-workspace','Manager > Téléphone'):fail('phone-ui-workspace');
+  html.includes('<script src="/vendor/qrcode.min.js"></script>')?ok('phone-ui-qr-loader'):fail('phone-ui-qr-loader');
+  js.includes("if(v==='phone')loadPhoneStatus()")?ok('phone-ui-lazy-load'):fail('phone-ui-lazy-load');
 }
 
 try{
-  const qr=readFileSync(join(APP,'public','vendor-qrcode.min.js'),'utf8');
-  qr.includes('QRCode=function')?ok('phone-qr-asset',qr.length+' bytes'):fail('phone-qr-asset','unexpected content');
+  const qr=readFileSync(join(APP,'public','vendor','qrcode.min.js'),'utf8');
+  qr.includes('QRCode')?ok('phone-qr-asset',qr.length+' bytes'):fail('phone-qr-asset','unexpected content');
 }catch(e){fail('phone-qr-asset',e.message)}
 
 try{
   const src=readFileSync(join(APP,'src','tlib.mjs'),'utf8');
   const phoneChecks=[
     ['phone-server-durations',src.includes('[30,90,180]')],
-    ['phone-server-pair-code',src.includes('pair_code')],
-    ['phone-server-state',src.includes('phone_share.json')],
-    ['phone-server-cookie',src.includes('tlib_pair')],
-    ['phone-server-ports',src.includes('port=8831')&&src.includes('port<=8835')],
-    ['phone-server-rate-limit',src.includes('phoneRateLimited')],
-    ['phone-server-api',src.includes("/api/phone/share")],
-    ['phone-server-rotate',src.includes('PHONE_SHARE_ROTATED')]
+    ['phone-server-pair-code',src.includes('phoneCodeFromBytes')],
+    ['phone-server-state',src.includes('phone-share.json')],
+    ['phone-server-cookie',src.includes("PHONE_COOKIE='tlib_m'")],
+    ['phone-server-lan-bind',src.includes("server.listen(port, '0.0.0.0'")],
+    ['phone-server-rate-limit',src.includes('phoneClaimAllowed')],
+    ['phone-server-pair-api',src.includes("/api/mobile/pair")],
+    ['phone-server-claim-api',src.includes("/api/mobile/claim")],
+    ['phone-server-revoke-api',src.includes("/api/mobile/revoke")],
+    ['phone-server-read-only',src.includes('PHONE_READ_ONLY')],
+    ['phone-server-fragment-pair',src.includes("/pair#t=")]
   ];
   for(const [id,pass] of phoneChecks) pass?ok(id):fail(id);
 }catch(e){fail('phone-server-contract',e.message)}
