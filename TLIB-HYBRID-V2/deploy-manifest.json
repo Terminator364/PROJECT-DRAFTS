@@ -13,11 +13,11 @@
     },
     {
       "path": "src/tlib.mjs",
-      "git_blob_sha": "ec58b21af623cccbd20cf0adff8306df61d0f033"
+      "git_blob_sha": "a0c247cc957e41f2e4b74baebe3c3d27e8d477bc"
     },
     {
       "path": "public/index.html",
-      "git_blob_sha": "250e920b87656560865f90c12142273a65567833"
+      "git_blob_sha": "e3ff103d614a3f8a89bb3da0073dcec7e20b77a0"
     },
     {
       "path": "scripts/install-windows.ps1",
@@ -37,7 +37,7 @@
     },
     {
       "path": "scripts/verify-build.mjs",
-      "git_blob_sha": "328381e691a5e2ef2acf750d1972444940421e17"
+      "git_blob_sha": "c7c1c8928727a156cf8cc184e95ead0e82548190"
     },
     {
       "path": "config/canary-seeds.json",
@@ -120,6 +120,6 @@
       "git_blob_sha": "e746a429df4a3c75935686951b4f422b51d1df59"
     }
   ],
-  "updated_at": "2026-09-29T13:23:21.573Z",
-  "build": "2026.09.29-v0.10.0-interactive-drilldown"
+  "updated_at": "2026-09-29T13:28:57.166Z",
+  "build": "2026.09.29-v0.10.1-interactive-depth"
 }
