@@ -11,7 +11,7 @@ const HERE = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(HERE, '..');
 const dataDir = process.env.TLIB_DATA_DIR || join(process.env.LOCALAPPDATA || homedir(), 'TLIB-PC');
 mkdirSync(dataDir, { recursive: true });
-const APP_BUILD = '2026.09.29-v0.7.4-update-hardening';
+const APP_BUILD = '2026.09.29-v0.7.5-update-progress';
 const STARTED_AT = new Date().toISOString();
 function deploymentCommit() {
   try {
@@ -1222,6 +1222,7 @@ function updateStatusSnapshot() {
   const lastGood=readJsonSafe(join(dataDir,'last-good-deployment.json'),null);
   const current=readJsonSafe(join(dataDir,'current-deployment.json'),null);
   const runtime=readJsonSafe(join(dataDir,'runtime.json'),null);
+  const progress=readJsonSafe(join(dataDir,'slot-update-progress.json'),null);
   let audit=[];
   try{
     const lines=readFileSync(join(dataDir,'slot-update-audit.jsonl'),'utf8').split(/\r?\n/).filter(Boolean).slice(-25);
@@ -1235,6 +1236,7 @@ function updateStatusSnapshot() {
     pending,
     last_good:lastGood,
     pending_available:!!(pending&&pending.verified),
+    progress,
     automatic_update:{
       enabled:true,
       channel:'release/tlib-hybrid-v2-stable',
