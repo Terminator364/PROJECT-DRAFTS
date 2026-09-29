@@ -250,7 +250,7 @@ html{scroll-behavior:auto!important}
 <section id="talk" class="section"><div class="section-intro"><div><div class="crumb"><button class="pill" data-go="home">Accueil</button><span>›</span><b>Parler à TLIB</b></div><h2>Recherche conversationnelle</h2><p>Prototype local : recherche L1 aujourd’hui, raisonnement L2/L3 ensuite.</p></div></div><div class="card chatbox"><div class="meta" id="chatSuggestions"><button class="pill" data-chat="android léger">Android léger</button><button class="pill" data-chat="windows automatisation">Windows automatisation</button><button class="pill" data-chat="telegram">Telegram</button><button class="pill" data-chat="python">Python</button><button class="pill" data-chat="réseau">Réseau</button></div><div id="chatLog"><div class="bubble bot"><b>TLIB</b><br>Dis-moi ce que tu cherches. Je peux déjà interroger les fiches L1 vérifiées et t’emmener vers les ressources correspondantes.</div></div><div class="composer"><input id="chatInput" placeholder="Ex. Trouve-moi des outils Android légers"><button class="btn primary" id="chatSend">Envoyer</button></div></div></section>
 
 <section id="manager" class="section">
-<div class="section-intro"><div><div class="crumb">Accueil <span>›</span> <b>Manager</b></div><h2>Centre de contrôle TLIB</h2><p>Chaque bloc mène vers une sous-page opérationnelle, pas vers un simple texte décoratif.</p></div><div class="badges"><span class="badge" id="mgrBuildBadge" title="2026.09.29-v0.7.2-qr-visible">UI v0.8.2-r2</span><button class="btn primary" id="mgrPhoneShortcut">📱 Ouvrir QR téléphone</button><span class="badge" id="mgrSchedulerBadge">ordonnanceur …</span><span class="badge" id="mgrQuotaBadge">quota …</span></div></div>
+<div class="section-intro"><div><div class="crumb">Accueil <span>›</span> <b>Manager</b></div><h2>Centre de contrôle TLIB</h2><p>Chaque bloc mène vers une sous-page opérationnelle, pas vers un simple texte décoratif.</p></div><div class="badges"><span class="badge" id="mgrBuildBadge" title="__TLIB_BUILD__">UI <span id="mgrUiBuildShort">__TLIB_BUILD__</span></span><button class="btn primary" id="mgrPhoneShortcut">📱 Ouvrir QR téléphone</button><span class="badge" id="mgrSchedulerBadge">ordonnanceur …</span><span class="badge" id="mgrQuotaBadge">quota …</span></div></div>
 <div class="subnav" id="managerSubnav">
   <button class="active" data-manager-tab="overview">Vue d’ensemble</button>
   <button data-manager-tab="pipeline">Pipeline</button>
@@ -268,7 +268,22 @@ html{scroll-behavior:auto!important}
     <div class="card interactive-card" tabindex="0" data-action="manager-pc"><div class="muted small">Worker PC</div><div class="bigstat" style="color:var(--ok)"><span class="pulse"></span>EN LIGNE</div><p class="muted" id="mgrPCText"></p><div class="small live" id="mgrLive"></div><div class="small muted">Runtime, RAM, cadence et GitHub</div></div>
     <div class="card interactive-card" tabindex="0" data-action="manager-queue"><div class="muted small">File L1</div><div class="bigstat" id="mgrQueue">…</div><p class="muted" id="mgrQueueText"></p><div class="progress"><div class="bar" id="mgrProgress" style="width:0%"></div></div><div class="small muted" id="mgrProgressText" style="margin-top:7px"></div></div>
     <div class="card interactive-card" tabindex="0" data-action="manager-l2"><div class="muted small">L2</div><div class="bigstat" id="mgrL2">0</div><p class="muted">Compréhension sémantique après qualification L1.</p><div class="small muted">Ouvrir L2</div></div>
-    <div class="card interactive-card" tabindex="0" id="mgrPhoneCard"><div class="muted small">Connexion téléphone</div><div class="bigstat">📱 QR</div><p class="muted">Pairage local temporaire, code manuel et sessions 30/90/180 min.</p><div class="small live">Ouvrir Téléphone / QR</div></div>
+    <div class="card interactive-card" tabindex="0" id="mgrPhoneCard"><div class="muted small">Connexion téléphone</div><div class="bigstat">📱 QR</div><p class="muted">Pairage local temporaire, code manuel et sessions 30 min / 3 h / 6 h.</p><div class="small live">Ouvrir Téléphone / QR</div></div>
+  </div>
+  <div class="card" id="projectFeedbackCard" style="margin-top:12px">
+    <div class="section-intro"><div><h3 style="margin:0">Feedback projet TLIB</h3><p>État de la version, de l’auto-update et des derniers contrôles du projet — pas de l’ordinateur entier.</p></div><span class="badge" id="projectSyncBadge">vérification…</span></div>
+    <div class="detail-grid">
+      <div class="fact"><small>Interface chargée</small><b id="projectUiBuild">__TLIB_BUILD__</b></div>
+      <div class="fact"><small>Moteur actif</small><b id="projectRuntimeBuild">…</b></div>
+      <div class="fact"><small>Canal</small><b id="projectChannel">stable</b></div>
+      <div class="fact"><small>État update</small><b id="projectUpdateState">…</b></div>
+      <div class="fact"><small>Dernier contrôle</small><b id="projectLastCheck">…</b></div>
+      <div class="fact"><small>Prochain contrôle</small><b id="projectNextCheck">…</b></div>
+      <div class="fact"><small>Dernier résultat</small><b id="projectLastResult">…</b></div>
+      <div class="fact"><small>Dernier événement</small><b id="projectLastEvent">…</b></div>
+    </div>
+    <div class="progress" style="margin-top:12px"><div class="bar" id="projectProgressBar" style="width:0%"></div></div>
+    <div class="small muted" id="projectProgressText" style="margin-top:7px">En attente.</div>
   </div>
   <div class="card" style="margin-top:12px"><div class="kv"><span>Mode de planification</span><b id="mgrSchedulerMode">…</b></div><div class="kv"><span>Mode ressources</span><b id="mgrEcoMode">…</b></div><div class="kv"><span>Raison</span><b id="mgrEcoReason">…</b></div><div class="kv"><span>RAM libre</span><b id="mgrFreeRam">…</b></div><div class="kv"><span>Dette approfondissement</span><b id="mgrDeepBacklog">…</b></div><div class="kv"><span>Quota GitHub restant</span><b id="mgrQuotaRemaining">…</b></div></div>
 </div>
@@ -397,11 +412,23 @@ html{scroll-behavior:auto!important}
 <script src="/vendor/qrcode.min.js"></script>
 <script>
 var STATUS=null,FIRST_L1=null,LAST_L1=null,LIB_OFFSET=0,LIB_QUERY='',LIB_TOTAL=0,LIB_LIMIT=60,NAV_HISTORY=[],CURRENT_VIEW='home';
+const PAGE_BUILD='__TLIB_BUILD__',PAGE_COMMIT='__TLIB_COMMIT__';
+let UI_RUNTIME_RELOAD_PENDING=false;
 function el(s){return document.querySelector(s)} function els(s){return Array.from(document.querySelectorAll(s))}
 function fmt(n){return Number(n||0).toLocaleString('fr-FR')}
 function mustEl(s){var x=el(s);if(!x)throw new Error('UI_ELEMENT_MISSING '+s);return x}
 function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
 function human(s){var m={DONE:'Terminé',CANARY:'Test en cours',DESIGNED:'Conçu',LATER:'Plus tard'};return m[s]||s||'—'}
+function shortBuild(b){b=String(b||'—');var m=b.match(/v\d+\.\d+(?:\.\d+)?(?:-[\w-]+)?/);return m?m[0]:b}
+function ensureUiRuntimeSync(build,commit){
+  if(!build||build===PAGE_BUILD)return true;
+  if(UI_RUNTIME_RELOAD_PENDING)return false;
+  UI_RUNTIME_RELOAD_PENDING=true;
+  toast('Nouvelle version détectée · rechargement…');
+  if(el('#syncBadge')){el('#syncBadge').textContent='● nouvelle version · rechargement…';el('#syncBadge').classList.add('connection-wait')}
+  setTimeout(function(){location.reload()},900);
+  return false;
+}
 function cls(s){return s==='DONE'?'ok':s==='CANARY'?'warn':''}
 var API_ACTIVE=0,API_LAST_OK=Date.now();
 function setGlobalActivity(on,text){
@@ -482,6 +509,7 @@ function mobileMode(){return window.matchMedia&&window.matchMedia('(max-width:76
 function openMobileMenu(){var s=el('.side'),b=el('#mobileBackdrop'),t=el('#mobileMenuToggle');if(!s)return;s.classList.add('mobile-open');if(b)b.classList.add('open');if(t)t.setAttribute('aria-expanded','true')}
 function closeMobileMenu(){var s=el('.side'),b=el('#mobileBackdrop'),t=el('#mobileMenuToggle');if(!s)return;s.classList.remove('mobile-open');if(b)b.classList.remove('open');if(t)t.setAttribute('aria-expanded','false')}
 function syncMobileNav(v){els('#mobileBottomNav [data-mobile-view]').forEach(function(b){b.classList.toggle('active',b.dataset.mobileView===v)})}
+textIf('#mgrUiBuildShort',shortBuild(PAGE_BUILD));
 function openDrawer(title,kicker,html){el('#drawerTitle').textContent=title;el('#drawerKicker').textContent=kicker||'Détail';el('#drawerBody').innerHTML=html;el('#detailDrawer').classList.add('open');el('#detailDrawer').setAttribute('aria-hidden','false');toast(title)}
 function closeDrawer(){el('#detailDrawer').classList.remove('open');el('#detailDrawer').setAttribute('aria-hidden','true')}
 function kvLine(a,b){return '<div class="kv"><span>'+esc(a)+'</span><b>'+esc(b)+'</b></div>'}
@@ -714,6 +742,32 @@ async function loadUpdateStatus(){
     return null;
   }
 }
+async function loadProjectFeedback(){
+  try{
+    var u=await api('/api/update/status'),a=u.automatic_update||{},p=u.progress||{},audit=u.audit||[];
+    var active=u.active||u.current||{};
+    textIf('#projectUiBuild',PAGE_BUILD);
+    textIf('#projectRuntimeBuild',active.build||'—');
+    textIf('#projectChannel',a.channel||'release/tlib-hybrid-v2-stable');
+    var sync=(active.build===PAGE_BUILD);
+    textIf('#projectSyncBadge',sync?'UI ↔ moteur synchronisés':'interface périmée');
+    var sb=el('#projectSyncBadge');if(sb)sb.className='badge '+(sync?'ok':'warn');
+    var state=u.pending_available?'VERSION PRÊTE':(a.running?'VÉRIFICATION EN COURS':String(a.last_result||'EN ATTENTE').replace(/_/g,' '));
+    textIf('#projectUpdateState',state);
+    textIf('#projectLastCheck',a.last_check_at?new Date(a.last_check_at).toLocaleTimeString('fr-FR'):'—');
+    textIf('#projectNextCheck',a.next_check_at?new Date(a.next_check_at).toLocaleTimeString('fr-FR'):'—');
+    textIf('#projectLastResult',String(a.last_result||'—').replace(/_/g,' '));
+    var last=audit.length?audit[audit.length-1]:null;
+    textIf('#projectLastEvent',last?(last.event+' · '+last.status):'—');
+    widthIf('#projectProgressBar',Math.max(0,Math.min(100,Number(p.percent||0)))+'%');
+    textIf('#projectProgressText',p.phase?(String(p.phase).replace(/_/g,' ')+' · '+fmt(p.percent||0)+'% · '+String(p.detail||'')):'En attente.');
+    ensureUiRuntimeSync(active.build,active.commit);
+    return u;
+  }catch(e){
+    textIf('#projectSyncBadge','feedback indisponible');
+    return null;
+  }
+}
 var updatePollTimer=null,UPDATE_EXPECT_RESTART=false;
 function pageBuild(){var b=el('#mgrBuildBadge');return b?(b.getAttribute('title')||''):''}
 function stopUpdatePolling(){if(updatePollTimer){clearTimeout(updatePollTimer);updatePollTimer=null}}
@@ -881,8 +935,8 @@ function backgroundRender(s){
 
   textIf('#syncBadge','● synchronisé '+new Date().toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'}));
 }
-async function refresh(){try{renderStatus(await api('/api/status'));el('#sideWorker').textContent='PC worker en ligne'}catch(e){el('#sideWorker').textContent='Interface en erreur';console.error('TLIB UI ERROR',e);toast('Erreur interface : '+String(e.message||e))}}
-async function backgroundRefresh(){try{backgroundRender(await api('/api/status'));el('#sideWorker').textContent='PC worker en ligne'}catch(e){el('#sideWorker').textContent='Synchronisation en attente'}}
+async function refresh(){try{var s=await api('/api/status');ensureUiRuntimeSync(s.build,s.commit);renderStatus(s);el('#sideWorker').textContent='PC worker en ligne';if(CURRENT_VIEW==='manager')loadProjectFeedback()}catch(e){el('#sideWorker').textContent='Interface en erreur';console.error('TLIB UI ERROR',e);toast('Erreur interface : '+String(e.message||e))}}
+async function backgroundRefresh(){try{var s=await api('/api/status');ensureUiRuntimeSync(s.build,s.commit);backgroundRender(s);el('#sideWorker').textContent='PC worker en ligne';if(CURRENT_VIEW==='manager')loadProjectFeedback()}catch(e){el('#sideWorker').textContent='Synchronisation en attente'}}
 el('#homeSearchBtn').onclick=async function(){show('explore');el('#librarySearch').value=el('#homeSearch').value;await loadLibrary(el('#homeSearch').value,false)}
 el('#homeSearch').addEventListener('keydown',function(e){if(e.key==='Enter')el('#homeSearchBtn').click()})
 el('#librarySearchBtn').onclick=function(){loadLibrary(el('#librarySearch').value,false)}
@@ -927,7 +981,7 @@ bindManagerNodes();
 bindPaneTabs('#l0Subnav [data-l0-tab]','[data-l0-pane]','l0Tab','l0Pane',function(v){if(v==='sources'||v==='depth'||v==='failures')return loadL0Sources(v==='failures'?{status:'FAILED'}:{});});
 bindPaneTabs('#l1Subnav [data-l1-tab]','[data-l1-pane]','l1Tab','l1Pane',function(v){if(v==='insights')return loadL1Insights();if(v==='deep')return loadDeepQueue();if(v==='themes')return loadFacets();});
 bindPaneTabs('#l2Subnav [data-l2-tab]','[data-l2-pane]','l2Tab','l2Pane',function(v){if(v==='profiles')return loadL2();});
-bindPaneTabs('#managerSubnav [data-manager-tab]','[data-manager-pane]','managerTab','managerPane',function(v){if(v==='updates')return loadUpdateStatus();if(v==='phone')return loadPhoneStatus();});
+bindPaneTabs('#managerSubnav [data-manager-tab]','[data-manager-pane]','managerTab','managerPane',function(v){if(v==='overview')return loadProjectFeedback();if(v==='updates')return Promise.all([loadUpdateStatus(),loadProjectFeedback()]);if(v==='phone')return loadPhoneStatus();});
 bindPaneTabs('#techSubnav [data-tech-tab]','[data-tech-pane]','techTab','techPane',function(v){if(v==='events'&&STATUS)renderTechEvents('ALL');});
 el('#refreshDeepQueue').onclick=function(){cacheClear('l1-deep');loadDeepQueue(true)};
 el('#refreshInsights').onclick=loadL1Insights;
