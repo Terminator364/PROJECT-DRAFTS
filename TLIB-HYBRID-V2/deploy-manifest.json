@@ -13,11 +13,11 @@
     },
     {
       "path": "src/tlib.mjs",
-      "git_blob_sha": "28d72093af1641064ac64a2dfe82132011d49145"
+      "git_blob_sha": "cda3010e2e93cc00043a8e2358622998853126fd"
     },
     {
       "path": "public/index.html",
-      "git_blob_sha": "f808bc6916e95f75122888b395ec8df736ac5d08"
+      "git_blob_sha": "aec52bce5b87a7cc455fce13d98cb67e0c8fd0b5"
     },
     {
       "path": "scripts/install-windows.ps1",
@@ -37,7 +37,7 @@
     },
     {
       "path": "scripts/verify-build.mjs",
-      "git_blob_sha": "16eef7f276da2608dc5949e64003ac587c9718ab"
+      "git_blob_sha": "a511290dafbecf740788c53ca744d26cc034c6de"
     },
     {
       "path": "config/canary-seeds.json",
@@ -97,7 +97,7 @@
     },
     {
       "path": "scripts/slot-update.mjs",
-      "git_blob_sha": "cc9b53dc827afe0fddd8eefba45816a36906fdba"
+      "git_blob_sha": "4c7c4a4dbb1d4515a967becec1da9b0947bf1efc"
     },
     {
       "path": "scripts/bootstrap-tlib.ps1",
@@ -120,6 +120,6 @@
       "git_blob_sha": "e746a429df4a3c75935686951b4f422b51d1df59"
     }
   ],
-  "updated_at": "2026-09-29T11:24:38.254Z",
-  "build": "2026.09.29-v0.7.3-autonomous-update"
+  "updated_at": "2026-09-29T11:30:36.628Z",
+  "build": "2026.09.29-v0.7.4-update-hardening"
 }
