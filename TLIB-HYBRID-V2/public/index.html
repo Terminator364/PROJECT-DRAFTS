@@ -568,40 +568,75 @@ async function api(path,opts){
     throw last||new Error('Erreur réseau');
   }finally{setGlobalActivity(false,'Prêt')}
 }
-var PHONE_MINUTES=30,PHONE_STATUS=null;
-function phoneDate(v){if(!v)return '—';try{return new Date(v).toLocaleString('fr-FR',{hour:'2-digit',minute:'2-digit',day:'2-digit',month:'2-digit'})}catch(e){return '—'}}
+var PHONE_MINUTES=30,PHONE_STATUS=null,PHONE_TICK_TIMER=null;
+function phoneDate(v){if(!v)return '—';try{return new Date(v).toLocaleString('fr-FR',{hour:'2-digit',minute:'2-digit',day:'2-digit',month:'2-digit',year:'numeric'})}catch(e){return '—'}}
+function phoneDurationLabel(minutes){minutes=Number(minutes||0);if(minutes===360)return '6 h';if(minutes===180)return '3 h';if(minutes===30)return '30 min';if(minutes>=60)return Math.floor(minutes/60)+' h '+(minutes%60?minutes%60+' min':'');return minutes+' min'}
+function phoneRemainingSeconds(expires){var t=Date.parse(expires||'');return Number.isFinite(t)?Math.max(0,Math.floor((t-Date.now())/1000)):0}
+function phoneRemainingLabel(sec){sec=Math.max(0,Number(sec||0));var h=Math.floor(sec/3600),m=Math.floor((sec%3600)/60),s=sec%60;if(h)return h+' h '+String(m).padStart(2,'0')+' min';if(m)return m+' min '+String(s).padStart(2,'0')+' s';return s+' s'}
+function renderPhoneCountdowns(){
+  var sessions=PHONE_STATUS&&Array.isArray(PHONE_STATUS.sessions)?PHONE_STATUS.sessions:[],max=0,latest=null;
+  sessions.forEach(function(x){var sec=phoneRemainingSeconds(x.expires_at);max=Math.max(max,sec);if(!latest||Date.parse(x.expires_at)>Date.parse(latest.expires_at))latest=x});
+  textIf('#phoneRemainingMax',sessions.length?phoneRemainingLabel(max):'—');
+  textIf('#phoneSessionExpiry',latest?phoneDate(latest.expires_at):'—');
+  els('#phoneSessionList [data-session-expiry]').forEach(function(n){n.textContent=phoneRemainingLabel(phoneRemainingSeconds(n.dataset.sessionExpiry))});
+}
+function bindPhoneSessionCards(){
+  els('#phoneSessionList [data-phone-session]').forEach(function(card){
+    var open=function(e){if(e&&e.target&&e.target.closest('[data-revoke-phone-session]'))return;var id=card.dataset.phoneSession,s=(PHONE_STATUS.sessions||[]).find(function(x){return String(x.id)===String(id)});if(!s)return;openDrawer('Session téléphone '+String(id).slice(0,8),'Manager · téléphone',kvLine('État','ACTIVE')+kvLine('Durée initiale',phoneDurationLabel(s.duration_minutes))+kvLine('Créée',phoneDate(s.created_at))+kvLine('Expire',phoneDate(s.expires_at))+kvLine('Temps restant',phoneRemainingLabel(phoneRemainingSeconds(s.expires_at)))+kvLine('Dernière activité',phoneDate(s.last_seen))+'<div class="actions"><button class="btn warn" data-revoke-phone-session="'+esc(s.id)+'">Révoquer cette session</button></div>');bindPhoneRevokeButtons()};
+    card.onclick=open;card.onkeydown=function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();open(e)}};
+  });
+  bindPhoneRevokeButtons();
+}
+function bindPhoneRevokeButtons(){
+  els('[data-revoke-phone-session]').forEach(function(b){if(b.dataset.boundRevoke)return;b.dataset.boundRevoke='1';b.onclick=function(e){e.preventDefault();e.stopPropagation();revokePhoneSessionUI(b.dataset.revokePhoneSession)}});
+}
 function renderPhoneStatus(s){
-  PHONE_STATUS=s||{};var pair=s&&s.pair;
+  PHONE_STATUS=s||{};var pair=s&&s.pair,sessions=s&&Array.isArray(s.sessions)?s.sessions:[],hasSession=sessions.length>0;
   textIf('#phoneLanIp',s&&s.lan_ip?s.lan_ip:'indisponible');
-  textIf('#phoneSessions',fmt(s&&s.session_count||0));
-  textIf('#phoneSessionBadge',fmt(s&&s.session_count||0)+' session'+((s&&s.session_count||0)>1?'s':''));
+  textIf('#phoneSessions',fmt(sessions.length));
+  textIf('#phoneSessionBadge',fmt(sessions.length)+' session'+(sessions.length>1?'s':''));
+  textIf('#phoneSessionsLiveBadge',fmt(sessions.length)+' active'+(sessions.length>1?'s':''));
   textIf('#phoneModeBadge',s&&s.enabled?'actif':'inactif');
-  textIf('#phoneUrl',s&&s.base_url?s.base_url+'/pair':'—');
-  textIf('#phoneCode',pair&&pair.code?pair.code:'—');
-  textIf('#phoneQrExpiry',pair?'QR valable jusqu’à '+phoneDate(pair.offer_expires_at):'Aucun QR actif.');
-  textIf('#phoneSessionExpiry',pair?phoneDate(pair.session_expires_at):(s&&s.sessions&&s.sessions[0]?phoneDate(s.sessions[0].expires_at):'—'));
+  textIf('#phoneUrl',s&&s.base_url?s.base_url:'—');
+  textIf('#phoneCode',pair&&pair.code?pair.code:'Aucun code en attente');
+  textIf('#phonePairState',pair?'QR prêt · '+phoneDurationLabel(pair.minutes):'Aucun pairage en attente');
+  var qrText=pair&&pair.qr_url?pair.qr_url:(hasSession&&s.access_qr_url?s.access_qr_url:null),qrType=pair?'PAIRAGE':hasSession?'ACCÈS':'AUCUN';
+  textIf('#phoneQrType',qrType.toLowerCase());
+  textIf('#phoneQrTitle',pair?'QR de pairage':hasSession?'QR d’accès TLIB':'QR téléphone');
+  textIf('#phoneQrHelp',pair?'À scanner pour autoriser un nouveau téléphone. Ce QR est temporaire et à usage unique.':hasSession?'À scanner depuis un téléphone déjà autorisé pour rouvrir TLIB sur le réseau local.':'Crée un pairage pour autoriser un téléphone.');
+  textIf('#phoneQrExpiry',pair?'Pairage valable jusqu’à '+phoneDate(pair.offer_expires_at):hasSession?'QR d’accès disponible tant qu’une session autorisée reste active.':'Aucun QR actif.');
   var box=el('#phoneQr');if(box){
     box.innerHTML='';
-    if(pair&&pair.qr_url&&window.QRCode){
-      new QRCode(box,{text:pair.qr_url,width:220,height:220,colorDark:'#05070b',colorLight:'#ffffff',correctLevel:QRCode.CorrectLevel.M});
-    }else box.innerHTML='<div class="muted">'+(s&&s.lan_ip?'Crée une connexion pour afficher le QR.':'Aucune IP Wi‑Fi/LAN privée détectée.')+'</div>';
+    if(qrText&&window.QRCode)new QRCode(box,{text:qrText,width:220,height:220,colorDark:'#05070b',colorLight:'#ffffff',correctLevel:QRCode.CorrectLevel.M});
+    else box.innerHTML='<div class="muted">'+(s&&s.lan_ip?'Aucune session ni pairage actif.':'Aucune IP Wi‑Fi/LAN privée détectée.')+'</div>';
   }
-  textIf('#phoneState',s&&s.read_only?'Accès téléphone : lecture seule · session locale temporaire.':'');
+  var list=el('#phoneSessionList');
+  if(list)list.innerHTML=sessions.length?sessions.slice().sort(function(a,b){return Date.parse(b.expires_at)-Date.parse(a.expires_at)}).map(function(x){
+    return '<div class="phone-session" role="button" tabindex="0" data-phone-session="'+esc(x.id)+'"><div class="topline"><div><div class="small muted">Session '+esc(String(x.id).slice(0,8))+'</div><b>'+phoneDurationLabel(x.duration_minutes)+'</b></div><div class="remaining" data-session-expiry="'+esc(x.expires_at)+'">'+phoneRemainingLabel(phoneRemainingSeconds(x.expires_at))+'</div></div><div class="detail-grid" style="margin-top:10px"><div class="fact"><small>Créée</small><b>'+phoneDate(x.created_at)+'</b></div><div class="fact"><small>Expire</small><b>'+phoneDate(x.expires_at)+'</b></div><div class="fact"><small>Dernière activité</small><b>'+phoneDate(x.last_seen)+'</b></div><div class="fact"><small>Accès</small><b>Lecture seule</b></div></div><div class="session-actions"><button class="btn" data-revoke-phone-session="'+esc(x.id)+'">Révoquer cette session</button></div></div>';
+  }).join(''):'<div class="muted">Aucune session active.</div>';
+  textIf('#phoneState',s&&s.read_only?'Accès téléphone : lecture seule · état de session persistant sur le PC.':'');
+  renderPhoneCountdowns();bindPhoneSessionCards();
+  if(PHONE_TICK_TIMER)clearInterval(PHONE_TICK_TIMER);
+  PHONE_TICK_TIMER=setInterval(renderPhoneCountdowns,1000);
 }
 async function loadPhoneStatus(){
   try{var s=await api('/api/mobile/status');renderPhoneStatus(s);return s}
   catch(e){textIf('#phoneState','Erreur : '+e.message);return null}
 }
 async function createPhonePair(){
-  var b=el('#phoneCreateBtn');if(b)b.disabled=true;
-  textIf('#phoneState','Création du pairage…');
-  try{var s=await api('/api/mobile/pair?minutes='+PHONE_MINUTES,{method:'POST'});renderPhoneStatus(s);toast('QR téléphone prêt')}
+  var b=el('#phoneCreateBtn');if(b)b.disabled=true;textIf('#phoneState','Création du pairage…');
+  try{var s=await api('/api/mobile/pair?minutes='+PHONE_MINUTES,{method:'POST'});renderPhoneStatus(s);toast('QR de pairage prêt')}
   catch(e){textIf('#phoneState','Impossible de créer le QR : '+e.message)}
   finally{if(b)b.disabled=false}
 }
+async function revokePhoneSessionUI(id){
+  if(!id)return;
+  try{var s=await api('/api/mobile/session/revoke?id='+encodeURIComponent(id),{method:'POST'});closeDrawer();renderPhoneStatus(s);toast('Session révoquée')}
+  catch(e){textIf('#phoneState','Révocation de la session impossible : '+e.message)}
+}
 async function revokePhone(){
   var b=el('#phoneRevokeBtn');if(b)b.disabled=true;
-  try{var s=await api('/api/mobile/revoke',{method:'POST'});renderPhoneStatus(s);toast('Sessions téléphone révoquées')}
+  try{var s=await api('/api/mobile/revoke',{method:'POST'});renderPhoneStatus(s);toast('Toutes les sessions téléphone ont été révoquées')}
   catch(e){textIf('#phoneState','Révocation impossible : '+e.message)}
   finally{if(b)b.disabled=false}
 }
