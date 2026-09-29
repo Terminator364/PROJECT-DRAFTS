@@ -37,7 +37,7 @@
     },
     {
       "path": "scripts/verify-build.mjs",
-      "git_blob_sha": "359f176c507cb0e28dd7cafe44301caf793e2ace"
+      "git_blob_sha": "328381e691a5e2ef2acf750d1972444940421e17"
     },
     {
       "path": "config/canary-seeds.json",
@@ -120,6 +120,6 @@
       "git_blob_sha": "e746a429df4a3c75935686951b4f422b51d1df59"
     }
   ],
-  "updated_at": "2026-09-29T13:15:56.250Z",
+  "updated_at": "2026-09-29T13:23:21.573Z",
   "build": "2026.09.29-v0.10.0-interactive-drilldown"
 }
