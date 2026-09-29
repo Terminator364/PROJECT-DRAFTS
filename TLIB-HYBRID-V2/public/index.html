@@ -50,7 +50,7 @@ html{scroll-behavior:auto!important}
 .phonecode{font:700 28px/1.1 ui-monospace,SFMono-Regular,Consolas,monospace;letter-spacing:.12em}
 .phoneurl{word-break:break-all;font-family:ui-monospace,SFMono-Regular,Consolas,monospace}
 .duration-row{display:flex;flex-wrap:wrap;gap:8px}
-.duration-row .btn.active{outline:2px solid var(--accent);outline-offset:1px}
+.duration-row .btn.active{outline:2px solid #7198ff;outline-offset:1px}
 @media(max-width:820px){.phonegrid{grid-template-columns:1fr}.qrbox{min-height:220px}}
 </style>
 </head>
@@ -61,7 +61,7 @@ html{scroll-behavior:auto!important}
 <div class="nav">
 <button class="active" data-view="home">🏠 Accueil</button><button data-view="explore">🔎 Explorer</button><button data-view="l0">🧭 L0 · Repérage</button><button data-view="l1">✅ L1 · Vérification</button><button data-view="l2">🧠 L2 · Compréhension</button><button data-view="talk">💬 Parler à TLIB</button><button data-view="manager">⚙️ Manager</button><button data-view="technical">🛠 Technique</button>
 </div>
-<div class="sidefoot"><span class="dot"></span><span id="sideWorker">PC worker en ligne</span><br><span class="small">Interface locale — ton PC uniquement</span></div>
+<div class="sidefoot"><span class="dot"></span><span id="sideWorker">PC worker en ligne</span><br><span class="small">Interface locale — PC + téléphone autorisé</span></div>
 </aside>
 <main>
 <div class="top"><div style="display:flex;align-items:center;gap:10px"><button class="btn" id="navBack" title="Retour" style="display:none">←</button><div><h1 id="pageTitle">Ta bibliothèque technique</h1><div class="subtitle" id="pageSubtitle">TLIB transforme des ressources brutes en connaissances utiles.</div></div></div><div class="badges"><button class="badge command-trigger" id="commandOpen">⌘ Actions</button><button class="badge command-trigger" data-go="l0" id="bL0">L0 — …</button><button class="badge command-trigger" data-go="l1" id="bPC">PC — …</button><span class="badge" id="syncBadge">● synchronisation discrète</span></div></div>
@@ -194,7 +194,7 @@ html{scroll-behavior:auto!important}
   <button data-manager-tab="queue">Queue</button>
   <button data-manager-tab="reports">Rapports</button>
   <button data-manager-tab="updates">Mises à jour</button>
-  <button data-manager-tab="phone">Téléphone</button>
+  <button data-manager-tab="phone">📱 Téléphone / QR</button>
   <button data-manager-tab="maintenance">Maintenance</button>
 </div>
 
