@@ -13,11 +13,11 @@
     },
     {
       "path": "src/tlib.mjs",
-      "git_blob_sha": "99f843e1d35132bb981a774fe85447106646ca29"
+      "git_blob_sha": "3d27828c24d4e63cef7d088d1a9d24750f8b9835"
     },
     {
       "path": "public/index.html",
-      "git_blob_sha": "76376da89fdfa44fb7b3efd0b70b3288006ceab7"
+      "git_blob_sha": "f24b6b09d246cf4dc1c17109d634f30c250f3728"
     },
     {
       "path": "scripts/install-windows.ps1",
@@ -37,7 +37,7 @@
     },
     {
       "path": "scripts/verify-build.mjs",
-      "git_blob_sha": "41c62404961ebd1174c1dd1f6fa2d383e200907a"
+      "git_blob_sha": "e5dad79f644b45bb20e33fabe8952f579c4b3a83"
     },
     {
       "path": "config/canary-seeds.json",
@@ -120,6 +120,6 @@
       "git_blob_sha": "e746a429df4a3c75935686951b4f422b51d1df59"
     }
   ],
-  "updated_at": "2026-09-29T12:01:00.752Z",
-  "build": "2026.09.29-v0.8.1-resilient-ux-contract"
+  "updated_at": "2026-09-29T12:03:16.364Z",
+  "build": "2026.09.29-v0.8.1-r2-resilient-ux-contract"
 }
