@@ -1,9 +1,9 @@
 {
   "project": "TLIB-HYBRID-V2",
   "branch": "lab/tlib-hybrid-v2",
-  "checkpoint": "V011_L2_COMPREHENSION_V3_PREFLIGHT_PASS_AWAITING_STABLE",
-  "build_target": "2026.09.29-v0.11.0-l2-comprehension-v3",
-  "updated_at_utc": "2026-09-29T14:46:43.936Z",
+  "checkpoint": "V0111_L2_SCHEDULER_HOTFIX_AWAITING_STABLE",
+  "build_target": "2026.09.29-v0.11.1-l2-scheduler-hotfix",
+  "updated_at_utc": "2026-09-29T14:56:28.022Z",
   "production_l1_enabled": false,
   "apps_script_bridge_enabled": false,
   "github_actions_expected_minutes": 0,
@@ -224,7 +224,7 @@
       "manager_resource_indicators_clickable": true
     }
   },
-  "next_gate": "Update deploy manifest, fast-forward stable channel, let active TLIB self-update autonomously, then prove L2 V3 dossier generation, L3 action packs, persistent phone sessions/QR, and existing L1 continuity on the live PC.",
+  "next_gate": "Publish v0.11.1 stable, allow autonomous self-update, then prove DEEP>0 while BASE backlog remains, L3 generation when a dossier becomes ready, and phone session migration/persistence.",
   "sealed": false,
   "last_good_build": "2026.09.29-v0.8.0-mobile-autonomous",
   "last_good_status": "PRESERVED_PRE_ACTIVATION",
@@ -364,7 +364,11 @@
     "v011_l2_v3_contracts": "PASS",
     "v011_l3_contracts": "PASS",
     "v011_phone_session_contracts": "PASS",
-    "v011_runtime": "PENDING_STABLE_ACTIVATION"
+    "v011_runtime": "PENDING_STABLE_ACTIVATION",
+    "v011_runtime_partial": "PASS_L1_CONTINUES_L2_V3_BASE_PRODUCES",
+    "v011_runtime_issue": "L2_DEEP_AND_L3_STARVED_BY_MODULO_COLLISION",
+    "v0111_scheduler_static": "PASS_NON_OVERLAPPING_ORDER",
+    "v0111_runtime": "PENDING"
   },
   "seal_scope": "V0102_RUNTIME_PROVEN_INTERACTIVE_EVERYWHERE",
   "runtime_validated": false,
@@ -514,5 +518,32 @@
       180,
       360
     ]
+  },
+  "runtime_observation_v011": {
+    "l1_core": 10813,
+    "l1_complete": 10221,
+    "l1_deep": 9791,
+    "l2_v3_total": 6,
+    "l2_v3_base": 6,
+    "l2_v3_deep": 0,
+    "l2_v3_ready": 0,
+    "legacy_l2_pending_rebuild": 388,
+    "l2_sample": "nousresearch/hermes-agent",
+    "sample_language_ui": "fr",
+    "phone_raw_state": {
+      "schema": 1,
+      "sessions": 1,
+      "note": "legacy session persisted through activation; migration to schema 2 occurs on phone status read"
+    }
+  },
+  "scheduler_hotfix": {
+    "reason": "BASE cycle modulo 3 shadowed DEEP modulo 12=6 and L3 modulo 15=9 while base backlog existed",
+    "new_order": [
+      "L3 if cycle%20==9",
+      "L2-DEEP if cycle%12==6",
+      "L2-BASE if cycle%4==0 batch=4",
+      "L1 otherwise"
+    ],
+    "target": "keep L1 majority while guaranteeing L2-DEEP and L3 opportunities"
   }
 }
