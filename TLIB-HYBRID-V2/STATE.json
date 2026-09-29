@@ -1,9 +1,9 @@
 {
   "project": "TLIB-HYBRID-V2",
   "branch": "lab/tlib-hybrid-v2",
-  "checkpoint": "V071_PHONE_LINK_CODE_SEALED_AWAITING_PC_PREFLIGHT",
-  "build_target": "2026.09.29-v0.7.1-phone-link-sealed",
-  "updated_at_utc": "2026-09-29T10:32:50.697Z",
+  "checkpoint": "V072_QR_DISCOVERABILITY_CODE_SEALED_AWAITING_PC_DEPLOYMENT",
+  "build_target": "2026.09.29-v0.7.2-qr-visible",
+  "updated_at_utc": "2026-09-29T11:08:48.913Z",
   "production_l1_enabled": false,
   "apps_script_bridge_enabled": false,
   "github_actions_expected_minutes": 0,
@@ -122,7 +122,7 @@
       ]
     }
   },
-  "next_gate": "PC reconnect: preflight exact v0.7.1 build on a fresh port, verify /api/health build+commit, then activate on 8787 and field-test fast navigation plus Android QR/code pairing, expiry, read-only policy and revoke.",
+  "next_gate": "Reconnect MBMPC, preflight exact v0.7.2 on a fresh port, verify /api/health build+commit, activate on 8787, then confirm Manager visibly shows UI v0.7.2 + QR shortcut + QR card and complete Android pairing tests.",
   "sealed": true,
   "last_good_build": "2026.09.27-v0.6.2-adaptive-4gb",
   "last_good_status": "RUNTIME_WORKED_BUT_DESKTOP_BOOT_PATH_INVALIDATED_BY_FIELD_TEST",
@@ -187,14 +187,17 @@
     "v071_preflight": "PENDING_PC_RECONNECT",
     "v071_health": "PENDING_PC_RECONNECT",
     "phone_android_pair": "PENDING_PC_RECONNECT",
-    "legacy_qr_duplicate": "REMOVED"
+    "legacy_qr_duplicate": "REMOVED",
+    "qr_discoverability_static": "PASS",
+    "v072_preflight": "PENDING_PC_RECONNECT",
+    "v072_live_manager_visibility": "PENDING_PC_RECONNECT"
   },
   "seal_scope": "CODE_STATIC_AUDIT",
   "runtime_validated": false,
   "activation_pending": true,
   "phone_link": {
     "status": "CODE_SEALED_AWAITING_RUNTIME",
-    "manager_entry": "Téléphone / QR",
+    "manager_entry": "📱 Téléphone / QR",
     "qr_offer_ttl_minutes": 5,
     "session_minutes": [
       30,
@@ -206,6 +209,7 @@
     "read_only": true,
     "bind": "0.0.0.0:8787",
     "asset": "public/vendor/qrcode.min.js",
-    "legacy_duplicate_removed": true
+    "legacy_duplicate_removed": true,
+    "discoverability": "MANAGER_HEADER_SHORTCUT_AND_OVERVIEW_CARD"
   }
 }
