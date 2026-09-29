@@ -11,7 +11,7 @@ const HERE = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(HERE, '..');
 const dataDir = process.env.TLIB_DATA_DIR || join(process.env.LOCALAPPDATA || homedir(), 'TLIB-PC');
 mkdirSync(dataDir, { recursive: true });
-const APP_BUILD = '2026.09.29-v0.10.2-interactive-everywhere';
+const APP_BUILD = '2026.09.29-v0.11.0-l2-comprehension-v3';
 const STARTED_AT = new Date().toISOString();
 function deploymentCommit() {
   try {
@@ -146,7 +146,12 @@ ensureL2Column('readme_signals_json','TEXT');
 ensureL2Column('attempts','INTEGER');
 ensureL2Column('last_error','TEXT');
 ensureL2Column('source_version','TEXT');
-db.prepare("UPDATE l2_profiles SET stage=coalesce(stage,'BASE'),deep_status=coalesce(deep_status,CASE WHEN source='fixture' THEN 'NOT_APPLICABLE' ELSE 'PENDING' END),attempts=coalesce(attempts,0),source_version=coalesce(source_version,CASE WHEN source='fixture' THEN 'fixture-v1' ELSE 'legacy' END)").run();
+ensureL2Column('dossier_json','TEXT');
+ensureL2Column('comprehension_score','INTEGER');
+ensureL2Column('l3_ready','INTEGER');
+ensureL2Column('language_ui','TEXT');
+ensureL2Column('deep_sources_json','TEXT');
+db.prepare("UPDATE l2_profiles SET stage=coalesce(stage,'BASE'),deep_status=coalesce(deep_status,CASE WHEN source='fixture' THEN 'NOT_APPLICABLE' ELSE 'PENDING' END),attempts=coalesce(attempts,0),source_version=coalesce(source_version,CASE WHEN source='fixture' THEN 'fixture-v1' ELSE 'legacy' END),language_ui=coalesce(language_ui,'fr'),comprehension_score=coalesce(comprehension_score,score,0),l3_ready=coalesce(l3_ready,0)").run();
 
 db.exec(`
 CREATE INDEX IF NOT EXISTS idx_jobs_status_updated ON jobs(status,updated_at);
