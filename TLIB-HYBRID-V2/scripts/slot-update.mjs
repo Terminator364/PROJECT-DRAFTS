@@ -1,11 +1,12 @@
 import { createHash } from 'node:crypto';
 import {
   mkdirSync, readFileSync, writeFileSync, existsSync, rmSync, renameSync,
-  openSync, closeSync, unlinkSync, readdirSync
+  openSync, closeSync, unlinkSync, readdirSync, statSync
 } from 'node:fs';
-import { join, dirname } from 'node:path';
+import { join, dirname, resolve, sep } from 'node:path';
 import { homedir, freemem, totalmem, setPriority, constants as osConstants } from 'node:os';
 import { execFileSync, spawn } from 'node:child_process';
+import { createServer } from 'node:net';
 
 const OWNER='Terminator364';
 const REPO='PROJECT-DRAFTS';
@@ -21,6 +22,10 @@ const LOCK=join(DATA,'slot-update.lock');
 const LOG=join(DATA,'slot-update-audit.jsonl');
 const MODE=(process.argv[2]||'status').toLowerCase();
 const FORCE=process.argv.includes('--force');
+const FETCH_TIMEOUT_MS=45000;
+const MAX_MANIFEST_FILES=256;
+const MAX_FILE_BYTES=8*1024*1024;
+const MAX_TOTAL_BYTES=64*1024*1024;
 mkdirSync(DATA,{recursive:true}); mkdirSync(DEPLOY,{recursive:true});
 try{setPriority(process.pid,osConstants.priority?.PRIORITY_BELOW_NORMAL ?? 10)}catch{}
 
@@ -33,9 +38,19 @@ function writeJson(path,value){writeFileSync(path,JSON.stringify(value,null,2)+'
 function sleep(ms){return new Promise(r=>setTimeout(r,ms))}
 function headers(){return {'User-Agent':'TLIB-Slot-Updater/1.1','Accept':'application/vnd.github+json'}}
 async function fetchOk(url,opts={}){
-  const res=await fetch(url,{...opts,headers:{...headers(),...(opts.headers||{})},signal:AbortSignal.timeout(10000)});
-  if(!res.ok)throw new Error('HTTP_'+res.status+' '+url);
-  return res;
+  let lastErr=null;
+  for(let attempt=0;attempt<3;attempt++){
+    try{
+      const res=await fetch(url,{...opts,headers:{...headers(),...(opts.headers||{})},signal:AbortSignal.timeout(FETCH_TIMEOUT_MS)});
+      if(res.ok)return res;
+      const retry=res.status===408||res.status===429||res.status>=500;
+      const err=new Error('HTTP_'+res.status+' '+url);
+      if(!retry)throw err;
+      lastErr=err;
+    }catch(e){lastErr=e}
+    if(attempt<2)await sleep(1000*Math.pow(2,attempt));
+  }
+  throw lastErr||new Error('FETCH_FAILED '+url);
 }
 async function latestCommit(){
   const url='https://api.github.com/repos/'+OWNER+'/'+REPO+'/branches/'+encodeURIComponent(UPDATE_CHANNEL);
@@ -50,12 +65,17 @@ function blobSha(buf){
 async function rawFile(commit,path){
   const url='https://raw.githubusercontent.com/'+OWNER+'/'+REPO+'/'+commit+'/'+PREFIX+'/'+path;
   const res=await fetchOk(url,{headers:{Accept:'application/octet-stream'}});
-  return Buffer.from(await res.arrayBuffer());
+  const len=Number(res.headers.get('content-length')||0);
+  if(len>MAX_FILE_BYTES)throw new Error('FILE_TOO_LARGE '+path+' '+len);
+  const buf=Buffer.from(await res.arrayBuffer());
+  if(buf.length>MAX_FILE_BYTES)throw new Error('FILE_TOO_LARGE '+path+' '+buf.length);
+  return buf;
 }
 async function manifestFor(commit){
   const buf=await rawFile(commit,'deploy-manifest.json');
   const j=JSON.parse(buf.toString('utf8'));
   if(j?.schema!==1||j?.product!=='TLIB'||!Array.isArray(j.files))throw new Error('MANIFEST_INVALID');
+  if(j.files.length<1||j.files.length>MAX_MANIFEST_FILES)throw new Error('MANIFEST_FILE_COUNT '+j.files.length);
   return j;
 }
 function runNode(args,cwd,env={}){
@@ -79,11 +99,26 @@ async function waitHealth(port,commit,ms=15000){
 }
 function killPid(pid){
   if(!pid)return;
-  try{process.kill(Number(pid),'SIGTERM')}catch{}
+  const n=Number(pid);
+  try{
+    if(process.platform==='win32')execFileSync('taskkill.exe',['/PID',String(n),'/T','/F'],{windowsHide:true,timeout:5000,stdio:'ignore'});
+    else process.kill(n,'SIGTERM');
+  }catch{}
+}
+function portPid(port){
+  if(process.platform!=='win32')return null;
+  try{
+    const r=execFileSync('netstat.exe',['-ano','-p','tcp'],{encoding:'utf8',windowsHide:true,timeout:4000});
+    const re=new RegExp('(?:127\\.0\\.0\\.1|0\\.0\\.0\\.0):'+port+'\\s+0\\.0\\.0\\.0:0\\s+LISTENING\\s+(\\d+)','i');
+    for(const line of String(r||'').split(/\r?\n/)){const m=line.match(re);if(m)return Number(m[1])}
+  }catch{}
+  return null;
 }
 async function stopActive(){
   const h=await health(8787,1200);
-  if(h?.pid){log('WORKER_STOP','INFO','pid='+h.pid);killPid(h.pid);for(let i=0;i<25;i++){await sleep(200);if(!await health(8787,400))break}}
+  let pid=h?.pid||null;
+  if(!pid)pid=portPid(8787);
+  if(pid){log('WORKER_STOP','INFO','pid='+pid);killPid(pid);for(let i=0;i<30;i++){await sleep(200);if(!await health(8787,350)&&!portPid(8787))break}}
 }
 function startWorker(slot){
   const entry=join(slot.path,'src','tlib.mjs');
@@ -94,19 +129,31 @@ function startWorker(slot){
   child.unref();
   return child.pid;
 }
+async function freePreflightPort(){
+  return await new Promise((resolvePort,reject)=>{
+    const s=createServer();
+    s.unref();
+    s.on('error',reject);
+    s.listen(0,'127.0.0.1',()=>{const a=s.address();const p=typeof a==='object'&&a?a.port:0;s.close(()=>p?resolvePort(p):reject(new Error('NO_PREFLIGHT_PORT')))});
+  });
+}
 async function preflight(slot){
   const temp=join(DATA,'preflight-'+slot.commit.slice(0,12)+'-'+process.pid);
   rmSync(temp,{recursive:true,force:true});mkdirSync(temp,{recursive:true});
   const entry=join(slot.path,'src','tlib.mjs');
+  const port=await freePreflightPort();
   const child=spawn(process.execPath,[entry,'dashboard'],{
     cwd:slot.path,windowsHide:true,stdio:'ignore',
-    env:{...process.env,TLIB_DATA_DIR:temp,TLIB_DASHBOARD_PORT:'8797',TLIB_DEPLOYMENT_COMMIT:slot.commit}
+    env:{...process.env,TLIB_DATA_DIR:temp,TLIB_DASHBOARD_PORT:String(port),TLIB_DEPLOYMENT_COMMIT:slot.commit}
   });
-  const h=await waitHealth(8797,slot.commit,10000);
-  killPid(child.pid);
-  rmSync(temp,{recursive:true,force:true});
-  if(!h)throw new Error('PREFLIGHT_HEALTH_FAILED');
-  return h;
+  try{
+    const h=await waitHealth(port,slot.commit,12000);
+    if(!h)throw new Error('PREFLIGHT_HEALTH_FAILED port='+port);
+    return h;
+  }finally{
+    killPid(child.pid);
+    rmSync(temp,{recursive:true,force:true});
+  }
 }
 function verifiedSlot(commit){
   const path=join(DEPLOY,commit);
@@ -137,15 +184,22 @@ async function stage(){
   rmSync(tmp,{recursive:true,force:true});mkdirSync(tmp,{recursive:true});
   log('STAGE_BEGIN','INFO','commit='+commit+' files='+manifest.files.length);
   try{
+    let totalBytes=0;
     for(let i=0;i<manifest.files.length;i++){
       const f=manifest.files[i];
       if(!f?.path||!/^[0-9a-f]{40}$/i.test(String(f.git_blob_sha||'')))throw new Error('MANIFEST_ENTRY_INVALID '+i);
-      const buf=await rawFile(commit,String(f.path));
+      const rel=String(f.path).replace(/\\/g,'/');
+      if(rel.startsWith('/')||rel.split('/').includes('..'))throw new Error('MANIFEST_PATH_UNSAFE '+rel);
+      const dest=resolve(tmp,rel);
+      if(!(dest===tmp||dest.startsWith(tmp+sep)))throw new Error('MANIFEST_PATH_ESCAPE '+rel);
+      const buf=await rawFile(commit,rel);
+      totalBytes+=buf.length;if(totalBytes>MAX_TOTAL_BYTES)throw new Error('UPDATE_TOO_LARGE '+totalBytes);
       const got=blobSha(buf);
-      if(got!==f.git_blob_sha)throw new Error('BLOB_MISMATCH '+f.path+' expected='+f.git_blob_sha+' got='+got);
-      const dest=join(tmp,String(f.path));mkdirSync(dirname(dest),{recursive:true});writeFileSync(dest,buf);
+      if(got!==f.git_blob_sha)throw new Error('BLOB_MISMATCH '+rel+' expected='+f.git_blob_sha+' got='+got);
+      mkdirSync(dirname(dest),{recursive:true});writeFileSync(dest,buf);
       if(i%4===3)await sleep(80);
     }
+    writeFileSync(join(tmp,'deploy-manifest.json'),JSON.stringify(manifest,null,2)+'\n','utf8');
     writeJson(join(tmp,'deployment.json'),{commit,channel:UPDATE_CHANNEL,source_branch:DEVELOPMENT_BRANCH,staged_at:now(),manifest_schema:manifest.schema});
     runNode([join(tmp,'scripts','verify-build.mjs')],tmp,{TLIB_DEPLOYMENT_COMMIT:commit});
     const testData=join(DATA,'verify-slot-'+process.pid);
@@ -160,6 +214,16 @@ async function stage(){
     const slot={commit,path:finalPath,build,verified:true,staged_at:now()};
     writeJson(PENDING,slot);log('STAGE_PASS','PASS','commit='+commit+' build='+build);return {ok:true,staged:true,...slot};
   }catch(e){rmSync(tmp,{recursive:true,force:true});log('STAGE_FAIL','FAIL',String(e.message||e));throw e}
+}
+function syncBootstrapArtifacts(slot){
+  for(const name of ['bootstrap-node.cjs','launch-hidden.vbs']){
+    try{
+      const src=join(slot.path,'scripts',name);if(!existsSync(src))continue;
+      const dest=join(DATA,name),tmp=dest+'.tmp-'+process.pid;
+      writeFileSync(tmp,readFileSync(src));renameSync(tmp,dest);
+      log('BOOTSTRAP_SYNC','PASS',name);
+    }catch(e){log('BOOTSTRAP_SYNC','WARN',name+' '+String(e.message||e))}
+  }
 }
 async function apply(){
   const freeMB=Math.round(freemem()/1048576);
@@ -177,14 +241,17 @@ async function apply(){
   await preflight(slot);
   const old=readJson(CURRENT,null);
   writeJson(join(DATA,'rollback-deployment.json'),old||{});
+  if(old?.commit&&old?.path)writeJson(LASTGOOD,{...old,preserved_at:now(),reason:'pre-activation-last-good'});
   await stopActive();
   try{
     const pid=startWorker(slot);
     const h=await waitHealth(8787,slot.commit,16000);
     if(!h)throw new Error('ACTIVE_HEALTH_FAILED');
     const active={commit:slot.commit,path:slot.path,build:h.build||slot.build,pid:h.pid||pid,activated_at:now()};
-    writeJson(CURRENT,active);writeJson(LASTGOOD,active);rmSync(PENDING,{force:true});
-    log('ACTIVATE_PASS','PASS','commit='+slot.commit+' build='+active.build+' pid='+active.pid);
+    writeJson(CURRENT,active);rmSync(PENDING,{force:true});
+    if(!old?.commit)writeJson(LASTGOOD,{...active,promoted_at:now(),reason:'first-install-no-prior-good'});
+    syncBootstrapArtifacts(slot);
+    log('ACTIVATE_PASS','PASS','commit='+slot.commit+' build='+active.build+' pid='+active.pid+' last_good='+(old?.commit||slot.commit));
     cleanup();
     return {ok:true,active};
   }catch(e){
@@ -225,10 +292,28 @@ function status(){
   return {ok:true,current:readJson(CURRENT,null),pending:readJson(PENDING,null),last_good:readJson(LASTGOOD,null),free_mb:Math.round(freemem()/1048576)};
 }
 
+function pidAlive(pid){try{process.kill(Number(pid),0);return true}catch{return false}}
+function acquireUpdateLock(){
+  for(let attempt=0;attempt<2;attempt++){
+    try{
+      const fd=openSync(LOCK,'wx');
+      writeFileSync(fd,JSON.stringify({pid:process.pid,created_at:now(),mode:MODE}));
+      return fd;
+    }catch(e){
+      if(e?.code!=='EEXIST')throw e;
+      let info=null,age=Infinity;
+      try{info=readJson(LOCK,null);age=Date.now()-statSync(LOCK).mtimeMs}catch{}
+      const alive=info?.pid?pidAlive(info.pid):false;
+      const stale=(info?.pid&&!alive)||(!info?.pid&&age>15*60*1000);
+      if(stale){try{unlinkSync(LOCK);log('STALE_UPDATE_LOCK_REMOVED','WARN','pid='+(info?.pid||'unknown')+' age_ms='+Math.round(age));continue}catch{}}
+      return null;
+    }
+  }
+  return null;
+}
 let lockFd=null;
-try{
-  lockFd=openSync(LOCK,'wx');
-}catch{
+try{lockFd=acquireUpdateLock()}catch(e){console.error(String(e.message||e));process.exit(1)}
+if(lockFd===null){
   console.log(JSON.stringify({ok:true,busy:true,message:'another slot update is running'}));process.exit(0);
 }
 try{
