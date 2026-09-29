@@ -13,11 +13,11 @@
     },
     {
       "path": "src/tlib.mjs",
-      "git_blob_sha": "6abf9a76f1c4fcec83120112cbd6a3642dd2e86a"
+      "git_blob_sha": "43481675eec855f803cf86ee9cdaaf8887a1adc6"
     },
     {
       "path": "public/index.html",
-      "git_blob_sha": "68314440ac48e3ed49d18c0d7e8ee7816d10e566"
+      "git_blob_sha": "11e8607d8ddde3dd19d700be499e1c827daccd38"
     },
     {
       "path": "scripts/install-windows.ps1",
@@ -37,7 +37,7 @@
     },
     {
       "path": "scripts/verify-build.mjs",
-      "git_blob_sha": "d96fa8fe72b4756f76749a1676f09da22838603c"
+      "git_blob_sha": "95c0b4c9b0c1038817b1dec57fd4c7fde70bdd3c"
     },
     {
       "path": "config/canary-seeds.json",
@@ -120,6 +120,6 @@
       "git_blob_sha": "e746a429df4a3c75935686951b4f422b51d1df59"
     }
   ],
-  "updated_at": "2026-09-29T12:08:15.965Z",
-  "build": "2026.09.29-v0.8.2-r2-autonomy-audit-proof"
+  "updated_at": "2026-09-29T12:24:52.957Z",
+  "build": "2026.09.29-v0.8.3-project-feedback-autosync"
 }
