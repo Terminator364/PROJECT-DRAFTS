@@ -89,6 +89,27 @@ if(html){
   legacyFound.length?fail('ui-router-no-legacy',legacyFound.join(' || ')):ok('ui-router-no-legacy');
 
   const essentials=['navBack','commandOpen','homeSearchBtn','librarySearchBtn','chatSend','refreshDeepQueue','runUiAuditBtn','drawerClose','phoneCreateBtn','phoneRefreshBtn','phoneRevokeBtn','phoneQr','mgrPhoneShortcut','mgrPhoneCard','mgrBuildBadge','updateAutoMode','updateAutoDetail','updateProgressBar','updateProgressText'];
+
+  // Global actionability contract: no visible control may ship dead.
+  const declarativeButtonAttrs=['data-view','data-go','data-action','data-l0-tab','data-l1-tab','data-l2-tab','data-manager-tab','data-tech-tab','data-detail-tab','data-chat','data-phone-minutes','data-event-filter','data-l0-jump','data-depth-filter','data-filter','data-tag','data-drawer-go','data-manager-node','data-manager-tab-jump','data-cmd-index','data-mobile-view'];
+  const buttonAttrs=[...markup.matchAll(/<button\b([^>]*)>/g)].map(m=>m[1]);
+  const deadButtons=[];
+  for(const attrs of buttonAttrs){
+    if(declarativeButtonAttrs.some(a=>attrs.includes(a+'=')))continue;
+    const id=(attrs.match(/\bid="([^"]+)"/)||[])[1]||'';
+    if(!id){deadButtons.push('(sans id)');continue}
+    const direct=js.includes("el('#"+id+"').onclick")||js.includes('el("#'+id+'").onclick')||js.includes("el('#"+id+"').onchange")||js.includes("el('#"+id+"').oninput")||js.includes("el('#"+id+"').addEventListener");
+    if(!direct)deadButtons.push(id);
+  }
+  deadButtons.length?fail('ui-all-buttons-actionable',deadButtons.join(',')):ok('ui-all-buttons-actionable',buttonAttrs.length+' buttons');
+
+  const fieldAttrs=[...markup.matchAll(/<(?:input|select)\b([^>]*)>/g)].map(m=>m[1]);
+  const deadFields=[];
+  for(const attrs of fieldAttrs){
+    const id=(attrs.match(/\bid="([^"]+)"/)||[])[1]||'';
+    if(!id||!js.includes("el('#"+id+"')"))deadFields.push(id||'(sans id)');
+  }
+  deadFields.length?fail('ui-all-fields-actionable',deadFields.join(',')):ok('ui-all-fields-actionable',fieldAttrs.length+' fields');
   const absent=essentials.filter(id=>!markup.includes('id="'+id+'"'));
   absent.length?fail('ui-essential-controls',absent.join(',')):ok('ui-essential-controls',essentials.length+' controls');
 
