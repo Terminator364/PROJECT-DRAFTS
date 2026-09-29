@@ -13,11 +13,11 @@
     },
     {
       "path": "src/tlib.mjs",
-      "git_blob_sha": "14133d663fbc79c4e9aa4dec43480e446efc717f"
+      "git_blob_sha": "bb456e4eccac8fd4593f11584437f5b5cbadd8ba"
     },
     {
       "path": "public/index.html",
-      "git_blob_sha": "f0a63ef9aea966c861b9c0ecf940c59177f72c22"
+      "git_blob_sha": "334fcbf9d1349aa511e60f656f7df6c2b9e2ea9d"
     },
     {
       "path": "scripts/install-windows.ps1",
@@ -37,7 +37,7 @@
     },
     {
       "path": "scripts/verify-build.mjs",
-      "git_blob_sha": "e0ed999cef7477c47165d4c579470176b59dfdd7"
+      "git_blob_sha": "b35d9ac500a5dab51ee01385a5a98c9a98aa27cf"
     },
     {
       "path": "config/canary-seeds.json",
@@ -120,6 +120,6 @@
       "git_blob_sha": "e746a429df4a3c75935686951b4f422b51d1df59"
     }
   ],
-  "updated_at": "2026-09-29T10:32:50.697Z",
-  "build": "2026.09.29-v0.7.1-phone-link-sealed"
+  "updated_at": "2026-09-29T11:08:48.913Z",
+  "build": "2026.09.29-v0.7.2-qr-visible"
 }
