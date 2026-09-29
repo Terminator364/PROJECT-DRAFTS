@@ -11,7 +11,7 @@ const HERE = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(HERE, '..');
 const dataDir = process.env.TLIB_DATA_DIR || join(process.env.LOCALAPPDATA || homedir(), 'TLIB-PC');
 mkdirSync(dataDir, { recursive: true });
-const APP_BUILD = '2026.09.29-v0.11.1-l2-scheduler-hotfix';
+const APP_BUILD = '2026.09.29-v0.11.2-l2-v3-coherence';
 const STARTED_AT = new Date().toISOString();
 function deploymentCommit() {
   try {
@@ -1292,8 +1292,8 @@ function l2Drilldown(kind='profiles',q='',limit=50,offset=0,sort='score'){
   const allowed=new Set(['profiles','eligible','base_pending','base_done','deep_pending','deep_done','l3_ready']);if(!allowed.has(kind))kind='profiles';
   const maps={
     profiles:{from:'l2_profiles l JOIN results r ON r.entity_id=l.entity_id',where:'l.source_version=?',pre:[L2_RULESET_VERSION]},
-    eligible:{from:'results r LEFT JOIN l2_profiles l ON l.entity_id=r.entity_id',where:l2EligibilitySql('r'),pre:[]},
-    base_pending:{from:'results r LEFT JOIN l2_profiles l ON l.entity_id=r.entity_id',where:l2EligibilitySql('r')+" AND (l.entity_id IS NULL OR coalesce(l.source_version,'')<>?)",pre:[L2_RULESET_VERSION]},
+    eligible:{from:"results r LEFT JOIN l2_profiles l ON l.entity_id=r.entity_id AND l.source_version='"+L2_RULESET_VERSION+"'",where:l2EligibilitySql('r'),pre:[]},
+    base_pending:{from:"results r LEFT JOIN l2_profiles l ON l.entity_id=r.entity_id AND l.source_version='"+L2_RULESET_VERSION+"'",where:l2EligibilitySql('r')+' AND l.entity_id IS NULL',pre:[]},
     base_done:{from:'l2_profiles l JOIN results r ON r.entity_id=l.entity_id',where:"l.source_version=? AND coalesce(l.stage,'BASE')='BASE'",pre:[L2_RULESET_VERSION]},
     deep_pending:{from:'l2_profiles l JOIN results r ON r.entity_id=l.entity_id',where:"l.source_version=? AND l.deep_status IN ('PENDING','RETRY')",pre:[L2_RULESET_VERSION]},
     deep_done:{from:'l2_profiles l JOIN results r ON r.entity_id=l.entity_id',where:"l.source_version=? AND l.stage='DEEP'",pre:[L2_RULESET_VERSION]},
