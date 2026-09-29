@@ -103,6 +103,9 @@ if(html){
   markup.includes('id="mobileMenuToggle"')&&markup.includes('id="mobileBottomNav"')&&markup.includes('id="mobileBackdrop"')?ok('mobile-ui-shell','off-canvas + bottom-nav'):fail('mobile-ui-shell');
   html.includes('.side.mobile-open')&&html.includes('.mobile-bottom-nav')&&html.includes('@media(max-width:760px)')?ok('mobile-ui-responsive-css'):fail('mobile-ui-responsive-css');
   js.includes('openMobileMenu')&&js.includes('closeMobileMenu')&&js.includes('syncMobileNav')?ok('mobile-ui-navigation-js'):fail('mobile-ui-navigation-js');
+  markup.includes('id="globalActivity"')&&html.includes('.subpane.pane-loading')?ok('ui-global-loading-contract'):fail('ui-global-loading-contract');
+  js.includes("attempts=method==='GET'?3:1")?ok('ui-read-retry-contract'):fail('ui-read-retry-contract');
+  js.includes('UPDATE_EXPECT_RESTART')&&js.includes('reconnexion automatique')&&js.includes('location.reload()')?ok('ui-update-reconnect-contract'):fail('ui-update-reconnect-contract');
 }
 
 try{
@@ -150,6 +153,8 @@ try{
   updater.includes("reason:'pre-activation-last-good'")&&!updater.includes('writeJson(CURRENT,active);writeJson(LASTGOOD,active)')?ok('update-delayed-last-good'):fail('update-delayed-last-good');
   updater.includes('MANIFEST_PATH_UNSAFE')&&updater.includes('MAX_TOTAL_BYTES')?ok('update-manifest-safety'):fail('update-manifest-safety');
   updater.includes('FETCH_TIMEOUT_MS=45000')?ok('update-slow-network-profile'):fail('update-slow-network-profile');
+  updater.includes("taskkill.exe',['/PID',String(n),'/F']")&&!updater.includes("taskkill.exe',['/PID',String(n),'/T','/F']")?ok('update-self-survival-no-tree-kill'):fail('update-self-survival-no-tree-kill');
+  updater.includes('stopBackgroundWorker()')&&updater.includes('UPDATER_SURVIVED_STOP')?ok('update-self-survival-contract'):fail('update-self-survival-contract');
   updater.includes("const PROGRESS=join(DATA,'slot-update-progress.json')")&&updater.includes("progress('DOWNLOAD'")&&updater.includes("progress('DONE'")?ok('update-progress-contract'):fail('update-progress-contract');
 }catch(e){fail('update-stable-contract',e.message)}
 
