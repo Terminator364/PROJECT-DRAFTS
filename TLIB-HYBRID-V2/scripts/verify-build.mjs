@@ -188,6 +188,7 @@ try{
     ['l2-v3-french-fields',src.includes('definition_fr')&&src.includes('fonctionnement_fr')&&src.includes('installation_lancement_fr')&&src.includes('preuves_fr')&&src.includes('handoff_l3')],
     ['l2-v3-deep-sources',src.includes('rootInventory')&&src.includes('manifestFacts')&&src.includes('L2_V3_README_STRUCTURE_MANIFESTS')],
     ['l2-v3-legacy-rebuild',src.includes("coalesce(l.source_version,'')<>?")&&src.includes('L2_RULESET_VERSION')],
+    ['l2-v3-drill-current-only',src.includes("l.source_version='\"+L2_RULESET_VERSION+\"'")&&src.includes("base_pending:{from:\"results r LEFT JOIN l2_profiles l ON l.entity_id=r.entity_id AND l.source_version='"))],
     ['l2-v3-french-ui-data',src.includes("language_ui='fr'")||src.includes("'fr','[]'")],
     ['l3-engine',src.includes('function l3Step')&&src.includes('function l3ActionPackFromDossier')&&src.includes('CREATE TABLE IF NOT EXISTS l3_actions')],
     ['l3-api',src.includes("/api/l3/list")&&src.includes('l3Stats()')]
