@@ -186,7 +186,7 @@ html{scroll-behavior:auto!important}
 <section id="talk" class="section"><div class="section-intro"><div><div class="crumb"><button class="pill" data-go="home">Accueil</button><span>›</span><b>Parler à TLIB</b></div><h2>Recherche conversationnelle</h2><p>Prototype local : recherche L1 aujourd’hui, raisonnement L2/L3 ensuite.</p></div></div><div class="card chatbox"><div class="meta" id="chatSuggestions"><button class="pill" data-chat="android léger">Android léger</button><button class="pill" data-chat="windows automatisation">Windows automatisation</button><button class="pill" data-chat="telegram">Telegram</button><button class="pill" data-chat="python">Python</button><button class="pill" data-chat="réseau">Réseau</button></div><div id="chatLog"><div class="bubble bot"><b>TLIB</b><br>Dis-moi ce que tu cherches. Je peux déjà interroger les fiches L1 vérifiées et t’emmener vers les ressources correspondantes.</div></div><div class="composer"><input id="chatInput" placeholder="Ex. Trouve-moi des outils Android légers"><button class="btn primary" id="chatSend">Envoyer</button></div></div></section>
 
 <section id="manager" class="section">
-<div class="section-intro"><div><div class="crumb">Accueil <span>›</span> <b>Manager</b></div><h2>Centre de contrôle TLIB</h2><p>Chaque bloc mène vers une sous-page opérationnelle, pas vers un simple texte décoratif.</p></div><div class="badges"><span class="badge" id="mgrSchedulerBadge">ordonnanceur …</span><span class="badge" id="mgrQuotaBadge">quota …</span></div></div>
+<div class="section-intro"><div><div class="crumb">Accueil <span>›</span> <b>Manager</b></div><h2>Centre de contrôle TLIB</h2><p>Chaque bloc mène vers une sous-page opérationnelle, pas vers un simple texte décoratif.</p></div><div class="badges"><span class="badge" id="mgrBuildBadge" title="2026.09.29-v0.7.2-qr-visible">UI v0.7.2</span><button class="btn primary" id="mgrPhoneShortcut">📱 Ouvrir QR téléphone</button><span class="badge" id="mgrSchedulerBadge">ordonnanceur …</span><span class="badge" id="mgrQuotaBadge">quota …</span></div></div>
 <div class="subnav" id="managerSubnav">
   <button class="active" data-manager-tab="overview">Vue d’ensemble</button>
   <button data-manager-tab="pipeline">Pipeline</button>
@@ -204,6 +204,7 @@ html{scroll-behavior:auto!important}
     <div class="card interactive-card" tabindex="0" data-action="manager-pc"><div class="muted small">Worker PC</div><div class="bigstat" style="color:var(--ok)"><span class="pulse"></span>EN LIGNE</div><p class="muted" id="mgrPCText"></p><div class="small live" id="mgrLive"></div><div class="small muted">Runtime, RAM, cadence et GitHub</div></div>
     <div class="card interactive-card" tabindex="0" data-action="manager-queue"><div class="muted small">File L1</div><div class="bigstat" id="mgrQueue">…</div><p class="muted" id="mgrQueueText"></p><div class="progress"><div class="bar" id="mgrProgress" style="width:0%"></div></div><div class="small muted" id="mgrProgressText" style="margin-top:7px"></div></div>
     <div class="card interactive-card" tabindex="0" data-action="manager-l2"><div class="muted small">L2</div><div class="bigstat" id="mgrL2">0</div><p class="muted">Compréhension sémantique après qualification L1.</p><div class="small muted">Ouvrir L2</div></div>
+    <div class="card interactive-card" tabindex="0" id="mgrPhoneCard"><div class="muted small">Connexion téléphone</div><div class="bigstat">📱 QR</div><p class="muted">Pairage local temporaire, code manuel et sessions 30/90/180 min.</p><div class="small live">Ouvrir Téléphone / QR</div></div>
   </div>
   <div class="card" style="margin-top:12px"><div class="kv"><span>Mode de planification</span><b id="mgrSchedulerMode">…</b></div><div class="kv"><span>Mode ressources</span><b id="mgrEcoMode">…</b></div><div class="kv"><span>Raison</span><b id="mgrEcoReason">…</b></div><div class="kv"><span>RAM libre</span><b id="mgrFreeRam">…</b></div><div class="kv"><span>Dette approfondissement</span><b id="mgrDeepBacklog">…</b></div><div class="kv"><span>Quota GitHub restant</span><b id="mgrQuotaRemaining">…</b></div></div>
 </div>
@@ -731,6 +732,10 @@ els('[data-phone-minutes]').forEach(function(b){b.onclick=function(){PHONE_MINUT
 el('#phoneCreateBtn').onclick=createPhonePair;
 el('#phoneRefreshBtn').onclick=loadPhoneStatus;
 el('#phoneRevokeBtn').onclick=revokePhone;
+function openManagerPhone(){var t=el('#managerSubnav [data-manager-tab="phone"]');if(t){t.click();requestAnimationFrame(function(){var p=el('[data-manager-pane="phone"]');if(p)p.scrollIntoView({behavior:'auto',block:'start'})})}}
+el('#mgrPhoneShortcut').onclick=openManagerPhone;
+el('#mgrPhoneCard').onclick=openManagerPhone;
+el('#mgrPhoneCard').onkeydown=function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();openManagerPhone()}};
 el('#refreshManager').onclick=refresh
 el('#runFixture').onclick=async function(){var b=el('#runFixture'),m=el('#actionMessage');b.disabled=true;m.textContent='Test L1 local en cours…';try{var j=await api('/api/action/fixture-canary',{method:'POST'});m.textContent=j.message||'Terminé.';renderStatus(j.status)}catch(e){m.textContent='Erreur : '+e.message}finally{b.disabled=false}}
 el('#runL2').onclick=async function(){var b=el('#runL2'),m=el('#actionMessage');b.disabled=true;m.textContent='Chargement du canary L2…';try{var j=await api('/api/action/fixture-l2',{method:'POST'});m.textContent=j.message||'Terminé.';renderStatus(j.status)}catch(e){m.textContent='Erreur : '+e.message}finally{b.disabled=false}}
