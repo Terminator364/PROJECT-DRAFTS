@@ -88,7 +88,7 @@ if(html){
   const legacyFound=legacyBindings.filter(x=>js.includes(x));
   legacyFound.length?fail('ui-router-no-legacy',legacyFound.join(' || ')):ok('ui-router-no-legacy');
 
-  const essentials=['navBack','commandOpen','homeSearchBtn','librarySearchBtn','chatSend','refreshDeepQueue','runUiAuditBtn','drawerClose','phoneCreateBtn','phoneRefreshBtn','phoneRevokeBtn','phoneQr','mgrPhoneShortcut','mgrPhoneCard','mgrBuildBadge','updateAutoMode','updateAutoDetail','updateProgressBar','updateProgressText'];
+  const essentials=['navBack','commandOpen','homeSearchBtn','librarySearchBtn','chatSend','refreshDeepQueue','refreshL2Queue','runUiAuditBtn','drawerClose','phoneCreateBtn','phoneRefreshBtn','phoneRevokeBtn','phoneQr','mgrPhoneShortcut','mgrPhoneCard','mgrBuildBadge','updateAutoMode','updateAutoDetail','updateProgressBar','updateProgressText','l2ProgressBar','l2QueueTable'];
 
   // Global actionability contract: no visible control may ship dead.
   const declarativeButtonAttrs=['data-view','data-go','data-action','data-l0-tab','data-l1-tab','data-l2-tab','data-manager-tab','data-tech-tab','data-detail-tab','data-chat','data-phone-minutes','data-event-filter','data-l0-jump','data-depth-filter','data-filter','data-tag','data-drawer-go','data-manager-node','data-manager-tab-jump','data-cmd-index','data-mobile-view'];
@@ -129,6 +129,11 @@ if(html){
   js.includes('UPDATE_EXPECT_RESTART')&&js.includes('reconnexion automatique')&&js.includes('location.reload()')?ok('ui-update-reconnect-contract'):fail('ui-update-reconnect-contract');
   markup.includes('id="projectFeedbackCard"')&&markup.includes('id="projectSyncBadge"')?ok('ui-project-feedback-panel'):fail('ui-project-feedback-panel');
   js.includes('ensureUiRuntimeSync')&&js.includes('PAGE_BUILD')?ok('ui-runtime-autosync'):fail('ui-runtime-autosync');
+  markup.includes('data-l2-tab="pipeline"')&&markup.includes('data-l2-pane="pipeline"')?ok('l2-ui-pipeline-pane'):fail('l2-ui-pipeline-pane');
+  markup.includes('id="l2BasePending"')&&markup.includes('id="l2DeepDone"')&&markup.includes('id="l2ProgressBar"')?ok('l2-ui-metrics'):fail('l2-ui-metrics');
+  js.includes('loadL2Queue')&&js.includes("if(v==='pipeline')return loadL2Queue()")?ok('l2-ui-lazy-queue'):fail('l2-ui-lazy-queue');
+  const l2tabs=[...new Set([...markup.matchAll(/data-l2-tab="([^"]+)"/g)].map(m=>m[1]))];
+  l2tabs.length===5?ok('l2-ui-five-subpages',l2tabs.join(',')):fail('l2-ui-five-subpages',String(l2tabs.length));
 }
 
 try{
@@ -148,7 +153,13 @@ try{
     ['auto-update-idle-guard',src.includes('AUTO_UPDATE_IDLE_GUARD_MS')],
     ['auto-update-interval',src.includes('AUTO_UPDATE_INTERVAL_MS=10*60*1000')],
     ['auto-update-first-check',src.includes('AUTO_UPDATE_FIRST_DELAY_MS=45*1000')],
-    ['auto-update-channel',src.includes("channel:'release/tlib-hybrid-v2-stable'")]
+    ['auto-update-channel',src.includes("channel:'release/tlib-hybrid-v2-stable'")],
+    ['l2-continuous-base',src.includes('function l2BaseStep')&&src.includes('LOCAL_METADATA_RULES')],
+    ['l2-continuous-deep',src.includes('async function l2DeepStep')&&src.includes('L2_README_RATE_RESERVE=2800')],
+    ['l2-continuous-scheduler',src.includes('async function scheduledPipelineStep')&&src.includes("return 'PARALLEL_L1_L2'")],
+    ['l2-l1-parallel-safe',src.includes('pipelineCycle%4===0')&&src.includes('pipelineCycle%12===6')],
+    ['l2-queue-api',src.includes("/api/l2/queue")],
+    ['l2-entry-quality-gate',src.includes('const L2_MIN_L1_SCORE=65')]
   ];
   for(const [id,pass] of autoChecks) pass?ok(id):fail(id);
   const phoneChecks=[
