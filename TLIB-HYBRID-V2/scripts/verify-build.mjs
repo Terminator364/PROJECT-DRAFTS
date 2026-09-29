@@ -97,7 +97,7 @@ if(html){
   markup.includes('data-manager-tab="phone"')&&markup.includes('data-manager-pane="phone"')?ok('phone-ui-workspace','Manager > Téléphone / QR'):fail('phone-ui-workspace');
   markup.includes('data-manager-tab="phone">📱 Téléphone / QR</button>')?ok('phone-ui-label','explicit QR entry'):fail('phone-ui-label');
   html.includes('<script src="/vendor/qrcode.min.js"></script>')?ok('phone-ui-qr-loader'):fail('phone-ui-qr-loader');
-  js.includes("if(v==='phone')loadPhoneStatus()")?ok('phone-ui-lazy-load'):fail('phone-ui-lazy-load');
+  (js.includes("if(v==='phone')loadPhoneStatus()")||js.includes("if(v==='phone')return loadPhoneStatus()"))?ok('phone-ui-lazy-load'):fail('phone-ui-lazy-load');
   js.includes("el('#mgrPhoneShortcut').onclick=openManagerPhone")&&js.includes("el('#mgrPhoneCard').onclick=openManagerPhone")?ok('phone-ui-discoverability','header + overview card'):fail('phone-ui-discoverability');
   js.includes('startUpdatePolling()')&&js.includes("#updateProgressBar")?ok('update-ui-progress','live polling + bar'):fail('update-ui-progress');
   markup.includes('id="mobileMenuToggle"')&&markup.includes('id="mobileBottomNav"')&&markup.includes('id="mobileBackdrop"')?ok('mobile-ui-shell','off-canvas + bottom-nav'):fail('mobile-ui-shell');
