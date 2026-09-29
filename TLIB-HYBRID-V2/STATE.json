@@ -1,9 +1,9 @@
 {
   "project": "TLIB-HYBRID-V2",
   "branch": "lab/tlib-hybrid-v2",
-  "checkpoint": "V0102_STABLE_PUBLISHED__V0101_RUNTIME_PROVEN",
+  "checkpoint": "V0102_INTERACTIVE_EVERYWHERE_RUNTIME_PROVEN",
   "build_target": "2026.09.29-v0.10.2-interactive-everywhere",
-  "updated_at_utc": "2026-09-29T13:40:38.633Z",
+  "updated_at_utc": "2026-09-29T13:42:52.897Z",
   "production_l1_enabled": false,
   "apps_script_bridge_enabled": false,
   "github_actions_expected_minutes": 0,
@@ -224,7 +224,7 @@
       "manager_resource_indicators_clickable": true
     }
   },
-  "next_gate": "Active v0.10.1 must self-update to stable v0.10.2. Do not remotely trigger update. After activation, verify health and manager navigation markers.",
+  "next_gate": "Long-run product use. Any future visible metric/card added to L1/L2/Manager must have a real route or be explicitly terminal detail; verifier must remain green before stable promotion.",
   "sealed": true,
   "last_good_build": "2026.09.29-v0.8.0-mobile-autonomous",
   "last_good_status": "PRESERVED_PRE_ACTIVATION",
@@ -244,8 +244,8 @@
     "ghost worker exits on bind failure",
     "updates and heavy repair remain outside normal click path"
   ],
-  "active_pc_commit": "7f956de7e5460e0d94193e826859da3d8cca7e0a",
-  "active_pc_build": "2026.09.29-v0.10.1-interactive-depth",
+  "active_pc_commit": "8d8a8bdfdc07de4301012a52d8382bf5ba1eb1c1",
+  "active_pc_build": "2026.09.29-v0.10.2-interactive-everywhere",
   "ui_router": {
     "status": "FIXED_AND_STATIC_AUDIT_PASS",
     "root_cause": "legacy bindPaneTabs compared button dataset key against nonexistent pane dataset key",
@@ -348,15 +348,18 @@
     "l1_l2_passive_metric_cards": "PASS_ZERO_AFTER_TAXONOMY_FIX",
     "v0101_runtime": "PASS",
     "v0102_static": "PASS_FULL_VERIFY_BUILD",
-    "manager_feedback_actionable": "PASS_STATIC",
+    "manager_feedback_actionable": "PASS_RUNTIME",
     "v0101_l1_drilldown_runtime": "PASS",
     "v0101_l2_drilldown_runtime": "PASS",
     "v0101_chat_runtime": "PASS",
-    "v0102_runtime": "PENDING_AUTONOMOUS"
+    "v0102_runtime": "PASS",
+    "autonomous_update_to_v0102": "PASS",
+    "l1_l2_interactive_depth": "PASS_RUNTIME",
+    "chat_dedicated_runtime": "PASS"
   },
-  "seal_scope": "V090_RUNTIME_PROVEN_CONTINUOUS_L1_L2",
+  "seal_scope": "V0102_RUNTIME_PROVEN_INTERACTIVE_EVERYWHERE",
   "runtime_validated": true,
-  "activation_pending": true,
+  "activation_pending": false,
   "phone_link": {
     "status": "CODE_SEALED_AWAITING_RUNTIME",
     "manager_entry": "📱 Téléphone / QR",
@@ -420,6 +423,20 @@
       "ui_markers": "PASS",
       "autonomous_activation": "PASS",
       "updater_survived_stop": "PASS"
+    },
+    "v0102": {
+      "health": "PASS",
+      "l1_complete_total": 10102,
+      "l2_profiles_total": 127,
+      "chat_telegram_total": 34,
+      "manager_feedback_routes": "PASS",
+      "l1_drilldown": "PASS",
+      "l2_drilldown": "PASS",
+      "dedicated_chat": "PASS",
+      "autonomous_stage": "PASS",
+      "updater_survived_stop": "PASS",
+      "autonomous_activation": "PASS",
+      "temp_audit_cleanup": "PASS"
     }
   },
   "stable_target_build": "2026.09.29-v0.10.2-interactive-everywhere",
