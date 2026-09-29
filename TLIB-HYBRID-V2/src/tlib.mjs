@@ -11,7 +11,7 @@ const HERE = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(HERE, '..');
 const dataDir = process.env.TLIB_DATA_DIR || join(process.env.LOCALAPPDATA || homedir(), 'TLIB-PC');
 mkdirSync(dataDir, { recursive: true });
-const APP_BUILD = '2026.09.29-v0.9.0-l1-l2-continuous';
+const APP_BUILD = '2026.09.29-v0.10.0-interactive-drilldown';
 const STARTED_AT = new Date().toISOString();
 function deploymentCommit() {
   try {
@@ -1231,6 +1231,57 @@ function facetsSnapshot() {
   return {technologies,types,activities,themes,paths,taxonomy_version:TAXONOMY_VERSION};
 }
 
+function drillLike(q){return '%'+String(q||'').trim().toLowerCase()+'%'}
+function l1Drilldown(kind='verified',q='',limit=50,offset=0,sort='score'){
+  kind=String(kind||'verified');q=String(q||'').trim().toLowerCase();
+  limit=Math.max(1,Math.min(Number(limit||50),100));offset=Math.max(0,Number(offset||0));
+  const allowed=new Set(['verified','complete','deep_done','deep_pending','l2_eligible']);if(!allowed.has(kind))kind='verified';
+  const whereMap={
+    verified:'1=1',
+    complete:"r.l1_stage='L1_COMPLETE'",
+    deep_done:"r.deep_status='DONE'",
+    deep_pending:"r.resource_kind='Projet logiciel' AND coalesce(r.deep_status,'PENDING') IN ('PENDING','RETRY')",
+    l2_eligible:l2EligibilitySql('r')
+  };
+  let where=whereMap[kind],params=[];
+  if(q){where+=' AND (lower(r.full_name) LIKE ? OR lower(coalesce(r.description,\'\')) LIKE ? OR lower(coalesce(r.technology,\'\')) LIKE ? OR lower(coalesce(r.resource_kind,\'\')) LIKE ? OR lower(coalesce(r.theme_path,\'\')) LIKE ?)';const like=drillLike(q);params.push(like,like,like,like,like);}
+  const orderMap={score:'r.l1_score DESC,r.stars DESC',recent:'r.fetched_at DESC',stars:'r.stars DESC,r.l1_score DESC',name:'r.full_name ASC'};
+  const order=orderMap[String(sort||'score')]||orderMap.score;
+  const total=Number(db.prepare('SELECT COUNT(*) AS n FROM results r WHERE '+where).get(...params).n);
+  const items=db.prepare(`SELECT r.entity_id,r.full_name,r.description,r.resource_kind,r.technology,r.activity_status,r.l1_score,r.l1_stage,r.deep_status,r.stars,r.fetched_at,r.primary_theme,r.theme_path,
+    EXISTS(SELECT 1 FROM l2_profiles l WHERE l.entity_id=r.entity_id) AS has_l2
+    FROM results r WHERE ${where} ORDER BY ${order} LIMIT ? OFFSET ?`).all(...params,limit,offset);
+  return {kind,q,sort,total,limit,offset,items};
+}
+function l2Drilldown(kind='profiles',q='',limit=50,offset=0,sort='score'){
+  kind=String(kind||'profiles');q=String(q||'').trim().toLowerCase();
+  limit=Math.max(1,Math.min(Number(limit||50),100));offset=Math.max(0,Number(offset||0));
+  const allowed=new Set(['profiles','eligible','base_pending','base_done','deep_pending','deep_done']);if(!allowed.has(kind))kind='profiles';
+  const maps={
+    profiles:{from:'l2_profiles l JOIN results r ON r.entity_id=l.entity_id',where:'1=1'},
+    eligible:{from:'results r LEFT JOIN l2_profiles l ON l.entity_id=r.entity_id',where:l2EligibilitySql('r')},
+    base_pending:{from:'results r LEFT JOIN l2_profiles l ON l.entity_id=r.entity_id',where:l2EligibilitySql('r')+' AND l.entity_id IS NULL'},
+    base_done:{from:'l2_profiles l JOIN results r ON r.entity_id=l.entity_id',where:"coalesce(l.stage,'BASE')='BASE'"},
+    deep_pending:{from:'l2_profiles l JOIN results r ON r.entity_id=l.entity_id',where:"l.deep_status IN ('PENDING','RETRY')"},
+    deep_done:{from:'l2_profiles l JOIN results r ON r.entity_id=l.entity_id',where:"l.stage='DEEP'"}
+  };
+  const cfg=maps[kind];let where=cfg.where,params=[];
+  if(q){where+=' AND (lower(r.full_name) LIKE ? OR lower(coalesce(r.description,\'\')) LIKE ? OR lower(coalesce(r.technology,\'\')) LIKE ? OR lower(coalesce(r.resource_kind,\'\')) LIKE ?)';const like=drillLike(q);params.push(like,like,like,like);}
+  const orderMap={score:'coalesce(l.score,r.l1_score,0) DESC,r.stars DESC',recent:'coalesce(l.updated_at,r.fetched_at) DESC',stars:'r.stars DESC',name:'r.full_name ASC'};
+  const order=orderMap[String(sort||'score')]||orderMap.score;
+  const total=Number(db.prepare('SELECT COUNT(*) AS n FROM '+cfg.from+' WHERE '+where).get(...params).n);
+  const items=db.prepare(`SELECT r.entity_id,r.full_name,r.description,r.resource_kind,r.technology,r.activity_status,r.l1_score,r.stars,
+    l.stage AS l2_stage,l.deep_status AS l2_deep_status,l.score AS l2_score,l.confidence,l.updated_at AS l2_updated_at,l.human_summary
+    FROM ${cfg.from} WHERE ${where} ORDER BY ${order} LIMIT ? OFFSET ?`).all(...params,limit,offset);
+  return {kind,q,sort,total,limit,offset,items};
+}
+function chatSearch(q,limit=8){
+  q=String(q||'').trim();limit=Math.max(1,Math.min(Number(limit||8),12));
+  if(!q)return {q,items:[],total:0};
+  const rows=libraryRows(q,Math.min(limit*4,40),0,'complete');
+  const items=rows.sort((a,b)=>(Boolean(b.human_summary)-Boolean(a.human_summary))||Number(b.stars||0)-Number(a.stars||0)).slice(0,limit);
+  return {q,total:libraryCount(q),items};
+}
 function resourceById(id) {
   const r = db.prepare(`SELECT * FROM results WHERE entity_id=? OR lower(full_name)=lower(?)`).get(String(id||''), String(id||''));
   if (!r) return null;
@@ -1239,7 +1290,7 @@ function resourceById(id) {
   let l2 = null;
   if (l2raw) {
     const parse = (v) => { try { return JSON.parse(v || '[]'); } catch { return []; } };
-    l2 = {...l2raw, capabilities:parse(l2raw.capabilities_json), use_cases:parse(l2raw.use_cases_json), limitations:parse(l2raw.limitations_json)};
+    l2 = {...l2raw, capabilities:parse(l2raw.capabilities_json), use_cases:parse(l2raw.use_cases_json), limitations:parse(l2raw.limitations_json), evidence:parse(l2raw.evidence_json), readme_signals:parse(l2raw.readme_signals_json)};
   }
   return {...r, topics, l2};
 }
@@ -1779,6 +1830,9 @@ async function startDashboard() {
         limit:u.searchParams.get('limit')||100, offset:u.searchParams.get('offset')||0
       }));
       if (u.pathname === '/api/l1/insights') return sendJson(res,200,l1InsightsSnapshot());
+      if (u.pathname === '/api/l1/drilldown') return sendJson(res,200,l1Drilldown(u.searchParams.get('kind')||'verified',u.searchParams.get('q')||'',u.searchParams.get('limit')||50,u.searchParams.get('offset')||0,u.searchParams.get('sort')||'score'));
+      if (u.pathname === '/api/l2/drilldown') return sendJson(res,200,l2Drilldown(u.searchParams.get('kind')||'profiles',u.searchParams.get('q')||'',u.searchParams.get('limit')||50,u.searchParams.get('offset')||0,u.searchParams.get('sort')||'score'));
+      if (u.pathname === '/api/chat/search') return sendJson(res,200,chatSearch(u.searchParams.get('q')||'',u.searchParams.get('limit')||8));
       if (u.pathname === '/api/facets') return sendJson(res,200,facetsSnapshot());
       if (u.pathname === '/api/l1/stats') return sendJson(res,200,l1Stats());
       if (u.pathname === '/api/l2/list') return sendJson(res,200,{items:l2Rows(u.searchParams.get('limit')||100),stats:l2Stats()});
