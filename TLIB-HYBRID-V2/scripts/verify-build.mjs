@@ -58,7 +58,7 @@ if(html){
   const missingGo=gos.filter(v=>!markup.includes('<section id="'+v+'" class="section'));
   missingGo.length?fail('ui-go-targets',missingGo.join(',')):ok('ui-go-targets',gos.length+' targets');
 
-  for(const [tab,pane] of [['l0','l0'],['l1','l1'],['l2','l2'],['manager','manager'],['tech','tech']]){
+  for(const [tab,pane] of [['l0','l0'],['l1','l1'],['l2','l2'],['l3','l3'],['manager','manager'],['tech','tech']]){
     const tabs=[...new Set([...markup.matchAll(new RegExp('data-'+tab+'-tab="([^"]+)"','g'))].map(m=>m[1]))];
     const panes=[...new Set([...markup.matchAll(new RegExp('data-'+pane+'-pane="([^"]+)"','g'))].map(m=>m[1]))];
     const miss=tabs.filter(x=>!panes.includes(x));
@@ -72,6 +72,7 @@ if(html){
     "bindPaneTabs('#l0Subnav [data-l0-tab]','[data-l0-pane]','l0Tab','l0Pane'",
     "bindPaneTabs('#l1Subnav [data-l1-tab]','[data-l1-pane]','l1Tab','l1Pane'",
     "bindPaneTabs('#l2Subnav [data-l2-tab]','[data-l2-pane]','l2Tab','l2Pane'",
+    "bindPaneTabs('#l3Subnav [data-l3-tab]','[data-l3-pane]','l3Tab','l3Pane'",
     "bindPaneTabs('#managerSubnav [data-manager-tab]','[data-manager-pane]','managerTab','managerPane'",
     "bindPaneTabs('#techSubnav [data-tech-tab]','[data-tech-pane]','techTab','techPane'"
   ];
@@ -88,10 +89,10 @@ if(html){
   const legacyFound=legacyBindings.filter(x=>js.includes(x));
   legacyFound.length?fail('ui-router-no-legacy',legacyFound.join(' || ')):ok('ui-router-no-legacy');
 
-  const essentials=['navBack','commandOpen','homeSearchBtn','librarySearchBtn','chatSend','refreshDeepQueue','refreshL2Queue','runUiAuditBtn','drawerClose','phoneCreateBtn','phoneRefreshBtn','phoneRevokeBtn','phoneQr','mgrPhoneShortcut','mgrPhoneCard','mgrBuildBadge','updateAutoMode','updateAutoDetail','updateProgressBar','updateProgressText','l2ProgressBar','l2QueueTable','l1DrillSearchBtn','l1DrillPrev','l1DrillNext','l1DrillResults','l2ProfileSearchBtn','l2ProfilePrev','l2ProfileNext','l2Results'];
+  const essentials=['navBack','commandOpen','homeSearchBtn','librarySearchBtn','chatSend','refreshDeepQueue','refreshL2Queue','refreshL3','runUiAuditBtn','drawerClose','phoneCreateBtn','phoneRefreshBtn','phoneRevokeBtn','phoneQr','phoneSessionList','phoneRemainingMax','phonePairState','mgrPhoneShortcut','mgrPhoneCard','mgrBuildBadge','updateAutoMode','updateAutoDetail','updateProgressBar','updateProgressText','l2ProgressBar','l2QueueTable','l2L3Ready','l2Comprehension','l1DrillSearchBtn','l1DrillPrev','l1DrillNext','l1DrillResults','l2ProfileSearchBtn','l2ProfilePrev','l2ProfileNext','l2Results','l3Ready','l3Total','l3Pending','l3ProgressBar','l3Results'];
 
   // Global actionability contract: no visible control may ship dead.
-  const declarativeButtonAttrs=['data-view','data-go','data-action','data-l0-tab','data-l1-tab','data-l2-tab','data-manager-tab','data-tech-tab','data-detail-tab','data-chat','data-phone-minutes','data-event-filter','data-l0-jump','data-depth-filter','data-filter','data-tag','data-drawer-go','data-manager-node','data-manager-tab-jump','data-cmd-index','data-mobile-view','data-l1-drill-open','data-l1-drill','data-l2-drill-open','data-l2-kind','data-l2-jump','data-score-band','data-chat-resource','data-manager-jump','data-tech-jump','data-l1-jump'];
+  const declarativeButtonAttrs=['data-view','data-go','data-action','data-l0-tab','data-l1-tab','data-l2-tab','data-l3-tab','data-manager-tab','data-tech-tab','data-detail-tab','data-l2mini-tab','data-chat','data-phone-minutes','data-event-filter','data-l0-jump','data-depth-filter','data-filter','data-tag','data-drawer-go','data-manager-node','data-manager-tab-jump','data-cmd-index','data-mobile-view','data-l1-drill-open','data-l1-drill','data-l2-drill-open','data-l2-kind','data-l2-jump','data-l3-jump','data-score-band','data-chat-resource','data-manager-jump','data-tech-jump','data-l1-jump'];
   const buttonAttrs=[...markup.matchAll(/<button\b([^>]*)>/g)].map(m=>m[1]);
   const deadButtons=[];
   for(const attrs of buttonAttrs){
@@ -143,6 +144,15 @@ if(html){
   js.includes('loadL2Queue')&&js.includes("if(v==='pipeline')return loadL2Queue()")?ok('l2-ui-lazy-queue'):fail('l2-ui-lazy-queue');
   const l2tabs=[...new Set([...markup.matchAll(/data-l2-tab="([^"]+)"/g)].map(m=>m[1]))];
   l2tabs.length===5?ok('l2-ui-five-subpages',l2tabs.join(',')):fail('l2-ui-five-subpages',String(l2tabs.length));
+  markup.includes('id="l2L3Ready"')&&markup.includes('id="l2Comprehension"')&&markup.includes('V3 dossier')?ok('l2-v3-dashboard'):fail('l2-v3-dashboard');
+  js.includes('data-l2mini-tab="understand"')&&js.includes('data-l2mini-tab="use"')&&js.includes('data-l2mini-tab="architecture"')&&js.includes('data-l2mini-tab="proof"')?ok('l2-v3-nested-dossier-tabs'):fail('l2-v3-nested-dossier-tabs');
+  js.includes('dossier.definition_fr')&&js.includes('installation_lancement_fr')&&js.includes('a_verifier_fr')?ok('l2-v3-french-dossier-render'):fail('l2-v3-french-dossier-render');
+  markup.includes('<section id="l3" class="section">')&&markup.includes('id="l3Results"')&&markup.includes('data-l3-tab="packs"')?ok('l3-real-workspace'):fail('l3-real-workspace');
+  js.includes('async function loadL3')&&js.includes('/api/l3/list')?ok('l3-ui-data'):fail('l3-ui-data');
+  markup.includes('id="phoneSessionList"')&&markup.includes('id="phoneRemainingMax"')&&markup.includes('id="phoneQrType"')?ok('phone-session-dashboard'):fail('phone-session-dashboard');
+  js.includes('phoneRemainingLabel')&&js.includes('setInterval(renderPhoneCountdowns,1000)')?ok('phone-live-countdown'):fail('phone-live-countdown');
+  js.includes('/api/mobile/session/revoke')&&js.includes('data-revoke-phone-session')?ok('phone-individual-revoke'):fail('phone-individual-revoke');
+  js.includes('access_qr_url')&&js.includes("qrType=pair?'PAIRAGE':hasSession?'ACCÈS':'AUCUN'")?ok('phone-access-qr'):fail('phone-access-qr');
 }
 
 try{
@@ -163,16 +173,23 @@ try{
     ['auto-update-interval',src.includes('AUTO_UPDATE_INTERVAL_MS=10*60*1000')],
     ['auto-update-first-check',src.includes('AUTO_UPDATE_FIRST_DELAY_MS=45*1000')],
     ['auto-update-channel',src.includes("channel:'release/tlib-hybrid-v2-stable'")],
-    ['l2-continuous-base',src.includes('function l2BaseStep')&&src.includes('LOCAL_METADATA_RULES')],
+    ['l2-continuous-base-v3',src.includes('function l2BaseStep')&&src.includes("'L1_DOSSIER_FR'")&&src.includes('dossier_json')],
     ['l2-continuous-deep',src.includes('async function l2DeepStep')&&src.includes('L2_README_RATE_RESERVE=2800')],
     ['l2-continuous-scheduler',src.includes('async function scheduledPipelineStep')&&src.includes("return 'PARALLEL_L1_L2'")],
-    ['l2-l1-parallel-safe',src.includes('pipelineCycle%4===0')&&src.includes('pipelineCycle%12===6')],
+    ['l2-l1-parallel-safe',src.includes('pipelineCycle%3===0')&&src.includes('pipelineCycle%12===6')],
     ['l2-queue-api',src.includes("/api/l2/queue")],
     ['l2-entry-quality-gate',src.includes('const L2_MIN_L1_SCORE=65')],
     ['l1-drilldown-api',src.includes('function l1Drilldown')&&src.includes("/api/l1/drilldown")],
     ['l2-drilldown-api',src.includes('function l2Drilldown')&&src.includes("/api/l2/drilldown")],
     ['chat-search-api',src.includes('function chatSearch')&&src.includes("/api/chat/search")],
-    ['resource-l2-evidence',src.includes('evidence:parse(l2raw.evidence_json)')&&src.includes('readme_signals:parse(l2raw.readme_signals_json)')]
+    ['resource-l2-evidence',src.includes('evidence:parse(l2raw.evidence_json)')&&src.includes('readme_signals:parse(l2raw.readme_signals_json)')],
+    ['l2-v3-ruleset',src.includes("L2_RULESET_VERSION='2026.09-v3-dossier'")],
+    ['l2-v3-french-fields',src.includes('definition_fr')&&src.includes('fonctionnement_fr')&&src.includes('installation_lancement_fr')&&src.includes('preuves_fr')&&src.includes('handoff_l3')],
+    ['l2-v3-deep-sources',src.includes('rootInventory')&&src.includes('manifestFacts')&&src.includes('L2_V3_README_STRUCTURE_MANIFESTS')],
+    ['l2-v3-legacy-rebuild',src.includes("coalesce(l.source_version,'')<>?")&&src.includes('L2_RULESET_VERSION')],
+    ['l2-v3-french-ui-data',src.includes("language_ui='fr'")||src.includes("'fr','[]'")],
+    ['l3-engine',src.includes('function l3Step')&&src.includes('function l3ActionPackFromDossier')&&src.includes('CREATE TABLE IF NOT EXISTS l3_actions')],
+    ['l3-api',src.includes("/api/l3/list")&&src.includes('l3Stats()')]
   ];
   for(const [id,pass] of autoChecks) pass?ok(id):fail(id);
   const phoneChecks=[
@@ -186,7 +203,11 @@ try{
     ['phone-server-claim-api',src.includes("/api/mobile/claim")],
     ['phone-server-revoke-api',src.includes("/api/mobile/revoke")],
     ['phone-server-read-only',src.includes('PHONE_READ_ONLY')],
-    ['phone-server-fragment-pair',src.includes("/pair#t=")]
+    ['phone-server-fragment-pair',src.includes("/pair#t=")],
+    ['phone-server-persistent-pair',src.includes('pair_offer')&&src.includes('schema:2')],
+    ['phone-server-session-id',src.includes('duration_minutes')&&src.includes('remaining_seconds')],
+    ['phone-server-session-revoke',src.includes('/api/mobile/session/revoke')&&src.includes('revokePhoneSession')],
+    ['phone-server-access-qr',src.includes('access_qr_url')]
   ];
   for(const [id,pass] of phoneChecks) pass?ok(id):fail(id);
 }catch(e){fail('phone-server-contract',e.message)}
