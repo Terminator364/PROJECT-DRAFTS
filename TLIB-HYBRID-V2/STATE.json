@@ -1,9 +1,9 @@
 {
   "project": "TLIB-HYBRID-V2",
   "branch": "lab/tlib-hybrid-v2",
-  "checkpoint": "V082R2_STABLE_PUBLISHED_AWAITING_AUTONOMOUS_PC_CYCLE",
-  "build_target": "2026.09.29-v0.8.2-r2-autonomy-audit-proof",
-  "updated_at_utc": "2026-09-29T12:11:24.292Z",
+  "checkpoint": "V083_PROJECT_FEEDBACK_AUTOSYNC_PUBLISHED_AWAITING_AUTONOMOUS_PC_CYCLE",
+  "build_target": "2026.09.29-v0.8.3-project-feedback-autosync",
+  "updated_at_utc": "2026-09-29T12:24:52.957Z",
   "production_l1_enabled": false,
   "apps_script_bridge_enabled": false,
   "github_actions_expected_minutes": 0,
@@ -181,9 +181,18 @@
       "buttons_audited": 94,
       "fields_audited": 8,
       "dead_controls_allowed": 0
+    },
+    "project_feedback": {
+      "visible_in_manager": true,
+      "ui_runtime_sync": true,
+      "last_check": true,
+      "next_check": true,
+      "last_result": true,
+      "last_event": true,
+      "progress": true
     }
   },
-  "next_gate": "Do not remotely trigger update. Stable channel is e3ce5641caef3f3e6331d65fa7dde9ad8bd0bb2e (v0.8.2-r2). Active v0.8.1-r2 next autonomous check is scheduled by runtime; prove child-updater survival with STAGE_PASS + UPDATER_SURVIVED_STOP + ACTIVATE_PASS and exact /api/health.",
+  "next_gate": "Do not remotely trigger update. Active v0.8.2-r2 must self-update to v0.8.3. Then verify stale-page detection reloads automatically and Manager feedback panel reports project-local state.",
   "sealed": true,
   "last_good_build": "2026.09.29-v0.8.0-mobile-autonomous",
   "last_good_status": "PRESERVED_PRE_ACTIVATION",
@@ -276,10 +285,13 @@
     "v081r2_health": "PASS_ACTIVE_8787",
     "v081r2_commit_exact": "PASS",
     "v081r2_breakglass_recovery": "PASS_ONE_TIME",
-    "remote_update_dependency": "REMOVED_NORMAL_PATH"
+    "remote_update_dependency": "REMOVED_NORMAL_PATH",
+    "project_feedback_static": "PASS",
+    "ui_runtime_autosync_static": "PASS",
+    "v083_runtime": "PENDING_AUTONOMOUS"
   },
   "seal_scope": "ACTIVE_RUNTIME_PROVEN_V081R2__V082R2_PENDING_AUTONOMY",
-  "runtime_validated": true,
+  "runtime_validated": false,
   "activation_pending": true,
   "phone_link": {
     "status": "CODE_SEALED_AWAITING_RUNTIME",
