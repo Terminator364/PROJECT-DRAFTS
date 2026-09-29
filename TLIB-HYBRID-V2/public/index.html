@@ -255,7 +255,7 @@ html{scroll-behavior:auto!important}
     <div class="card"><div class="small muted">Build actif</div><div class="value" id="updateBuild">…</div><div class="small muted" id="updateCommit">…</div></div>
     <div class="card"><div class="small muted">Dernière bonne version</div><div class="value" id="updateLastGood">…</div><div class="small muted">rollback cible</div></div>
     <div class="card"><div class="small muted">Mise à jour préparée</div><div class="value" id="updatePending">…</div><div class="small muted" id="updatePendingDetail">…</div></div>
-    <div class="card"><div class="small muted">Politique</div><div class="value statusok">SAFE</div><div class="small muted">stage → verify → activate → health → rollback</div></div>
+    <div class="card"><div class="small muted">Auto-update</div><div class="value statusok" id="updateAutoMode">ACTIF</div><div class="small muted" id="updateAutoDetail">canal stable · toutes les 6 h</div></div>
   </div>
   <div class="twocol" style="margin-top:12px">
     <div class="card"><h3 style="margin-top:0">Actions</h3><p class="muted">“Vérifier” prépare une version sans interrompre TLIB. “Appliquer” n’est disponible que si une version a déjà passé les tests.</p><div class="actions"><button class="btn primary" id="updateStageBtn">Vérifier les mises à jour</button><button class="btn" id="updateApplyBtn">Appliquer la version préparée</button><button class="btn" id="updateRepairBtn">Réparer le moteur courant</button></div><div class="small muted" id="updateActionState" style="margin-top:10px"></div></div>
@@ -574,6 +574,9 @@ async function loadUpdateStatus(){
     textIf('#updateLastGood',u.last_good&&u.last_good.build?u.last_good.build:(u.last_good&&u.last_good.commit?u.last_good.commit.slice(0,12):'Aucune encore'));
     textIf('#updatePending',u.pending_available?'PRÊTE':'Aucune');
     textIf('#updatePendingDetail',u.pending&&(u.pending.commit||u.pending.target)?String(u.pending.commit||u.pending.target).slice(0,12)+' · vérifiée · '+esc(u.scheme||'SLOT_V1'):'aucune version en attente');
+    var au=u.automatic_update||{};
+    textIf('#updateAutoMode',au.enabled?'ACTIF':'INACTIF');
+    textIf('#updateAutoDetail',au.enabled?('canal stable · '+fmt(au.interval_hours||6)+' h · '+String(au.last_result||'en attente').replace(/_/g,' ').toLowerCase()):'désactivé');
     var audit=(u.audit||[]).slice().reverse();
     if(el('#updateAudit'))el('#updateAudit').innerHTML='<table><thead><tr><th>Heure</th><th>Événement</th><th>État</th><th>Détail</th></tr></thead><tbody>'+audit.map(function(x){return '<tr><td>'+esc((x.at||'').replace('T',' ').slice(0,19))+'</td><td><b>'+esc(x.event||'')+'</b></td><td class="'+(x.status==='PASS'?'statusok':x.status==='FAIL'||x.status==='CRITICAL'?'audit-fail':'')+'">'+esc(x.status||'')+'</td><td>'+esc(String(x.detail||'').slice(0,120))+'</td></tr>'}).join('')+'</tbody></table>';
     el('#updateApplyBtn').disabled=!u.pending_available;
