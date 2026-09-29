@@ -113,6 +113,27 @@ html{scroll-behavior:auto!important}
 .duration-row{display:flex;flex-wrap:wrap;gap:8px}
 .duration-row .btn.active{outline:2px solid #7198ff;outline-offset:1px}
 @media(max-width:820px){.phonegrid{grid-template-columns:1fr}.qrbox{min-height:220px}}
+
+.drill-card{margin-top:12px}
+.drill-nav{display:flex;gap:7px;flex-wrap:wrap;margin:10px 0}
+.drill-nav button{border:1px solid var(--line);background:#0d1729;color:var(--muted);border-radius:9px;padding:8px 10px;cursor:pointer}
+.drill-nav button.active{color:#fff;border-color:#648bd0;background:#172a49}
+.drill-toolbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:10px 0}
+.drill-toolbar input,.drill-toolbar select{background:#0b1325;color:#fff;border:1px solid var(--line);border-radius:8px;padding:9px 10px}
+.drill-toolbar input{min-width:220px;flex:1}
+.drill-summary{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}
+.drill-row{cursor:pointer}
+.drill-row:hover{background:#111d32}
+.drill-empty{padding:20px;text-align:center;color:var(--muted)}
+.progress-hit{display:block;width:100%;border:0;background:transparent;color:inherit;text-align:left;padding:0;cursor:pointer}
+.progress-hit:hover .progress{outline:1px solid #648bd0}
+.kv.actionable{cursor:pointer}
+.kv.actionable:hover{background:#111d32}
+.chat-thinking{opacity:.78}
+.chat-results{display:grid;gap:8px;margin-top:8px}
+.chat-result{border:1px solid var(--line);background:#0d1728;border-radius:10px;padding:10px;cursor:pointer;text-align:left;color:#fff}
+.chat-result:hover{border-color:#648bd0}
+@media(max-width:760px){.drill-toolbar{align-items:stretch}.drill-toolbar input,.drill-toolbar select,.drill-toolbar .btn{width:100%}.drill-nav{flex-wrap:nowrap;overflow-x:auto}.drill-nav button{flex:0 0 auto}}
 </style>
 </head>
 <body>
@@ -176,6 +197,7 @@ html{scroll-behavior:auto!important}
   <button data-l1-tab="insights">Répartition</button>
   <button data-l1-tab="deep">Approfondissement</button>
   <button data-l1-tab="recent">Dernières fiches</button>
+  <button data-l1-tab="drill">Détails interactifs</button>
 </div>
 
 <div class="subpane active" data-l1-pane="overview">
@@ -187,18 +209,44 @@ html{scroll-behavior:auto!important}
   </div>
   <div class="card" style="margin-top:12px">
     <div class="section-intro"><div><h3 style="margin:0">Progression</h3><p id="l1ProgressText">…</p></div><div class="live" id="l1Speed">…</div></div>
-    <div class="progress"><div class="bar" id="l1CoreBar" style="width:0"></div></div>
-    <div class="small muted" style="margin:6px 0 12px">Identité + métadonnées principales</div>
-    <div class="progress"><div class="bar green" id="l1CompleteBar" style="width:0"></div></div>
-    <div class="small muted" style="margin-top:6px">L1 complet selon le type de ressource</div>
+    <button class="progress-hit" type="button" data-l1-drill-open="verified" aria-label="Ouvrir les identités vérifiées">
+      <div class="progress"><div class="bar" id="l1CoreBar" style="width:0"></div></div>
+      <div class="small muted" style="margin:6px 0 12px">Identité + métadonnées principales · cliquer pour détailler</div>
+    </button>
+    <button class="progress-hit" type="button" data-l1-drill-open="complete" aria-label="Ouvrir les L1 complètes">
+      <div class="progress"><div class="bar green" id="l1CompleteBar" style="width:0"></div></div>
+      <div class="small muted" style="margin-top:6px">L1 complet selon le type de ressource · cliquer pour détailler</div>
+    </button>
+  </div>
+</div>
+
+<div class="subpane" data-l1-pane="drill">
+  <div class="section-intro"><div><h3 id="l1DrillTitle" style="margin:0">Détails L1</h3><p id="l1DrillHelp">Explore les fiches réelles correspondant à l’état sélectionné.</p></div><span class="badge" id="l1DrillCount">…</span></div>
+  <div class="drill-nav" id="l1DrillNav">
+    <button class="active" data-l1-drill="verified">Identités vérifiées</button>
+    <button data-l1-drill="complete">L1 complètes</button>
+    <button data-l1-drill="deep_done">Profondes terminées</button>
+    <button data-l1-drill="deep_pending">Profondes en attente</button>
+    <button data-l1-drill="l2_eligible">Éligibles L2</button>
+  </div>
+  <div class="card drill-card">
+    <div class="drill-toolbar">
+      <input id="l1DrillSearch" placeholder="Nom, technologie, type, thème…">
+      <select id="l1DrillSort"><option value="score">Score L1</option><option value="recent">Plus récentes</option><option value="stars">Popularité</option><option value="name">Nom A→Z</option></select>
+      <button class="btn primary" id="l1DrillSearchBtn">Filtrer</button>
+      <button class="btn" id="l1DrillPrev">← Précédent</button>
+      <button class="btn" id="l1DrillNext">Suivant →</button>
+    </div>
+    <div class="drill-summary" id="l1DrillSummary"></div>
+    <div id="l1DrillResults" class="eventtable"></div>
   </div>
 </div>
 
 <div class="subpane" data-l1-pane="metadata">
   <div class="split3">
-    <details class="card accordion" open><summary>Identité & provenance</summary><div class="inside"><div class="kv"><span>Dépôt</span><b>owner/repo, GitHub ID, Node ID</b></div><div class="kv"><span>État</span><b>public, archive, fork, template, disabled</b></div><div class="kv"><span>Liens</span><b>GitHub, homepage, branche principale</b></div></div></details>
-    <details class="card accordion" open><summary>Projet & activité</summary><div class="inside"><div class="kv"><span>Langage</span><b>langage principal + détails si approfondi</b></div><div class="kv"><span>Licence</span><b>SPDX + nom</b></div><div class="kv"><span>Dates</span><b>création, update, push, release</b></div><div class="kv"><span>Volume</span><b>taille, issues, forks, watchers</b></div></div></details>
-    <details class="card accordion" open><summary>Qualité & compréhension mécanique</summary><div class="inside"><div class="kv"><span>Type</span><b>logiciel, catalogue, guide…</b></div><div class="kv"><span>Résumé L1</span><b>description humaine dérivée sans LLM massif</b></div><div class="kv"><span>Complétude</span><b>score adapté au type de ressource</b></div><div class="kv"><span>Communauté</span><b>README, release, health si pertinent</b></div></div></details>
+    <details class="card accordion" open><summary>Identité & provenance</summary><div class="inside"><div class="kv actionable" data-l1-drill-open="verified"><span>Dépôt</span><b>owner/repo, GitHub ID, Node ID ›</b></div><div class="kv actionable" data-l1-drill-open="verified"><span>État</span><b>public, archive, fork, template, disabled ›</b></div><div class="kv actionable" data-l1-drill-open="verified"><span>Liens</span><b>GitHub, homepage, branche principale ›</b></div></div></details>
+    <details class="card accordion" open><summary>Projet & activité</summary><div class="inside"><div class="kv actionable" data-l1-drill-open="deep_done"><span>Langage</span><b>langage principal + détails si approfondi ›</b></div><div class="kv actionable" data-l1-drill-open="complete"><span>Licence</span><b>SPDX + nom ›</b></div><div class="kv actionable" data-l1-drill-open="deep_done"><span>Dates</span><b>création, update, push, release ›</b></div><div class="kv actionable" data-l1-drill-open="deep_done"><span>Volume</span><b>taille, issues, forks, watchers ›</b></div></div></details>
+    <details class="card accordion" open><summary>Qualité & compréhension mécanique</summary><div class="inside"><div class="kv actionable" data-l1-drill-open="complete"><span>Type</span><b>logiciel, catalogue, guide… ›</b></div><div class="kv actionable" data-l1-drill-open="complete"><span>Résumé L1</span><b>description humaine dérivée sans LLM massif ›</b></div><div class="kv actionable" data-l1-drill-open="complete"><span>Complétude</span><b>score adapté au type de ressource ›</b></div><div class="kv actionable" data-l1-drill-open="deep_done"><span>Communauté</span><b>README, release, health si pertinent ›</b></div></div></details>
   </div>
   <div class="notice" style="margin-top:12px">Une “L1 complète” n’est pas un formulaire identique pour tout. Un catalogue Awesome n’a pas besoin des mêmes preuves qu’un projet logiciel exécutable.</div>
 </div>
@@ -220,10 +268,10 @@ html{scroll-behavior:auto!important}
 
 <div class="subpane" data-l1-pane="deep">
   <div class="metricgrid">
-    <div class="card"><div class="small muted">Approfondies</div><div class="value" id="l1DeepDone2">…</div><div class="small muted">langages / release / README / communauté</div></div>
-    <div class="card"><div class="small muted">En attente</div><div class="value statuswarn" id="l1DeepBacklog">…</div><div class="small muted">dette qualité à résorber</div></div>
-    <div class="card"><div class="small muted">Ordonnanceur</div><div class="value" id="l1SchedulerMode">…</div><div class="small muted">priorité dynamique</div></div>
-    <div class="card"><div class="small muted">Quota GitHub</div><div class="value" id="l1DeepQuota">…</div><div class="small muted">réserve protégée</div></div>
+    <div class="card interactive-card" tabindex="0" data-l1-drill-open="deep_done"><div class="small muted">Approfondies</div><div class="value" id="l1DeepDone2">…</div><div class="small muted">langages / release / README / communauté</div></div>
+    <div class="card interactive-card" tabindex="0" data-l1-drill-open="deep_pending"><div class="small muted">En attente</div><div class="value statuswarn" id="l1DeepBacklog">…</div><div class="small muted">dette qualité à résorber</div></div>
+    <div class="card interactive-card" tabindex="0" data-action="manager-queue"><div class="small muted">Ordonnanceur</div><div class="value" id="l1SchedulerMode">…</div><div class="small muted">ouvrir le détail de la file</div></div>
+    <div class="card interactive-card" tabindex="0" data-action="tech-rate"><div class="small muted">Quota GitHub</div><div class="value" id="l1DeepQuota">…</div><div class="small muted">ouvrir quota et cadence</div></div>
   </div>
   <div class="card" style="margin-top:12px"><div class="section-intro"><div><h3 style="margin:0">Queue d’approfondissement</h3><p>Les plus anciennes fiches incomplètes sont traitées en priorité.</p></div><button class="btn" id="refreshDeepQueue">Actualiser</button></div><div id="deepQueueTable" class="eventtable"></div></div>
 </div>
@@ -239,22 +287,43 @@ html{scroll-behavior:auto!important}
 <div class="subpane active" data-l2-pane="overview">
   <div class="metricgrid">
     <div class="card interactive-card" tabindex="0" data-action="l2-profiles"><div class="small muted">Profils L2 produits</div><div class="value" id="l2Count">…</div><div class="small muted">L2-BASE + L2-DEEP</div></div>
-    <div class="card"><div class="small muted">L1 éligibles L2</div><div class="value" id="l2Eligible">…</div><div class="small muted">complètes · score ≥ 65</div></div>
-    <div class="card"><div class="small muted">L2-BASE en attente</div><div class="value statuswarn" id="l2BasePending">…</div><div class="small muted">local · zéro requête GitHub</div></div>
-    <div class="card"><div class="small muted">L2-DEEP terminées</div><div class="value" id="l2DeepDone">…</div><div class="small muted">README sélectionnés et analysés</div></div>
-    <div class="card"><div class="small muted">Cadence L2</div><div class="value" id="l2Speed">…</div><div class="small muted">profils/h sur 5 min</div></div>
-    <div class="card"><div class="small muted">Ordonnanceur</div><div class="value" id="l2Mode">…</div><div class="small muted">L1 + L2 sous un seul gouverneur</div></div>
+    <div class="card interactive-card" tabindex="0" data-l2-drill-open="eligible"><div class="small muted">L1 éligibles L2</div><div class="value" id="l2Eligible">…</div><div class="small muted">complètes · score ≥ 65</div></div>
+    <div class="card interactive-card" tabindex="0" data-l2-drill-open="base_pending"><div class="small muted">L2-BASE en attente</div><div class="value statuswarn" id="l2BasePending">…</div><div class="small muted">local · zéro requête GitHub</div></div>
+    <div class="card interactive-card" tabindex="0" data-l2-drill-open="deep_done"><div class="small muted">L2-DEEP terminées</div><div class="value" id="l2DeepDone">…</div><div class="small muted">README sélectionnés et analysés</div></div>
+    <div class="card interactive-card" tabindex="0" data-l2-jump="pipeline"><div class="small muted">Cadence L2</div><div class="value" id="l2Speed">…</div><div class="small muted">ouvrir le pipeline</div></div>
+    <div class="card interactive-card" tabindex="0" data-l2-jump="pipeline"><div class="small muted">Ordonnanceur</div><div class="value" id="l2Mode">…</div><div class="small muted">ouvrir le pipeline L1 + L2</div></div>
   </div>
-  <div class="card" style="margin-top:12px"><div class="small muted">Progression L2 sur le corpus actuellement éligible</div><div class="progress" style="margin-top:8px"><div class="bar" id="l2ProgressBar" style="width:0%"></div></div><div class="small muted" id="l2ProgressText" style="margin-top:7px">…</div></div>
+  <div class="card interactive-card" tabindex="0" data-l2-drill-open="eligible" style="margin-top:12px"><div class="small muted">Progression L2 sur le corpus actuellement éligible</div><div class="progress" style="margin-top:8px"><div class="bar" id="l2ProgressBar" style="width:0%"></div></div><div class="small muted" id="l2ProgressText" style="margin-top:7px">…</div></div>
   <div class="notice" style="margin-top:12px">L1 continue. L2-BASE fonctionne localement en parallèle logique ; L2-DEEP lit sélectivement les README seulement si quota GitHub et ressources le permettent.</div>
 </div>
-<div class="subpane" data-l2-pane="profiles"><div class="card"><div class="section-intro"><div><h3 style="margin:0">Profils compris</h3><p>Chaque profil est ouvrable et renvoie à sa fiche complète.</p></div></div><div id="l2Results" class="results"></div></div></div>
+<div class="subpane" data-l2-pane="profiles">
+  <div class="section-intro"><div><h3 id="l2ProfileTitle" style="margin:0">Profils L2</h3><p id="l2ProfileHelp">Explore les profils réels et leur état dans le pipeline.</p></div><span class="badge" id="l2ProfileCount">…</span></div>
+  <div class="drill-nav" id="l2ProfileNav">
+    <button class="active" data-l2-kind="profiles">Tous les profils</button>
+    <button data-l2-kind="eligible">Éligibles</button>
+    <button data-l2-kind="base_pending">BASE en attente</button>
+    <button data-l2-kind="base_done">BASE produites</button>
+    <button data-l2-kind="deep_pending">DEEP en attente</button>
+    <button data-l2-kind="deep_done">DEEP terminées</button>
+  </div>
+  <div class="card drill-card">
+    <div class="drill-toolbar">
+      <input id="l2ProfileSearch" placeholder="Nom, technologie, type…">
+      <select id="l2ProfileSort"><option value="score">Score</option><option value="recent">Plus récentes</option><option value="stars">Popularité</option><option value="name">Nom A→Z</option></select>
+      <button class="btn primary" id="l2ProfileSearchBtn">Filtrer</button>
+      <button class="btn" id="l2ProfilePrev">← Précédent</button>
+      <button class="btn" id="l2ProfileNext">Suivant →</button>
+    </div>
+    <div class="drill-summary" id="l2ProfileSummary"></div>
+    <div id="l2Results" class="eventtable"></div>
+  </div>
+</div>
 <div class="subpane" data-l2-pane="pipeline">
   <div class="metricgrid">
-    <div class="card"><div class="small muted">BASE produites</div><div class="value" id="l2BaseDone">…</div></div>
-    <div class="card"><div class="small muted">DEEP en attente</div><div class="value statuswarn" id="l2DeepPending">…</div></div>
-    <div class="card"><div class="small muted">Confiance moyenne</div><div class="value" id="l2Confidence">…</div></div>
-    <div class="card"><div class="small muted">Réserve GitHub L2-DEEP</div><div class="value">2 800</div><div class="small muted">L1 reste prioritaire</div></div>
+    <div class="card interactive-card" tabindex="0" data-l2-drill-open="base_done"><div class="small muted">BASE produites</div><div class="value" id="l2BaseDone">…</div></div>
+    <div class="card interactive-card" tabindex="0" data-l2-drill-open="deep_pending"><div class="small muted">DEEP en attente</div><div class="value statuswarn" id="l2DeepPending">…</div></div>
+    <div class="card interactive-card" tabindex="0" data-l2-drill-open="profiles"><div class="small muted">Confiance moyenne</div><div class="value" id="l2Confidence">…</div></div>
+    <div class="card interactive-card" tabindex="0" data-action="tech-rate"><div class="small muted">Réserve GitHub L2-DEEP</div><div class="value">2 800</div><div class="small muted">ouvrir quota et cadence</div></div>
   </div>
   <div class="card" style="margin-top:12px"><div class="section-intro"><div><h3 style="margin:0">Queue L2</h3><p>BASE locale d’abord ; DEEP réseau uniquement après qualification.</p></div><button class="btn" id="refreshL2Queue">Actualiser</button></div><div id="l2QueueTable" class="eventtable"></div></div>
 </div>
