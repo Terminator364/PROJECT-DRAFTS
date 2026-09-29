@@ -1,5 +1,5 @@
 import http from 'node:http';
-import { mkdirSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
+import { mkdirSync, readFileSync, readdirSync, writeFileSync, renameSync } from 'node:fs';
 import { homedir, freemem, totalmem, cpus, networkInterfaces, setPriority, constants as osConstants } from 'node:os';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -11,7 +11,7 @@ const HERE = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(HERE, '..');
 const dataDir = process.env.TLIB_DATA_DIR || join(process.env.LOCALAPPDATA || homedir(), 'TLIB-PC');
 mkdirSync(dataDir, { recursive: true });
-const APP_BUILD = '2026.09.29-v0.7.3-autonomous-update';
+const APP_BUILD = '2026.09.29-v0.7.4-update-hardening';
 const STARTED_AT = new Date().toISOString();
 function deploymentCommit() {
   try {
@@ -1210,6 +1210,7 @@ function readJsonSafe(path, fallback=null) {
 const AUTO_UPDATE_INTERVAL_MS=6*60*60*1000;
 const AUTO_UPDATE_FIRST_DELAY_MS=90*1000;
 const AUTO_UPDATE_IDLE_GUARD_MS=120*1000;
+const LAST_GOOD_SOAK_MS=15*60*1000;
 let autoUpdateRunning=false;
 let autoUpdateTimer=null;
 let autoUpdateNextAt=0;
@@ -1287,8 +1288,13 @@ async function autoUpdateTick(){
       scheduleAutoUpdate(10*60*1000);return;
     }
     event('INFO','AUTO_UPDATE_CHECK_BEGIN','channel=release/tlib-hybrid-v2-stable');
-    await runUpdaterStage();
-    const pending=readJsonSafe(join(dataDir,'pending-deployment.json'),null);
+    let pending=readJsonSafe(join(dataDir,'pending-deployment.json'),null);
+    if(!(pending&&pending.verified)){
+      await runUpdaterStage();
+      pending=readJsonSafe(join(dataDir,'pending-deployment.json'),null);
+    }else{
+      event('INFO','AUTO_UPDATE_REUSE_PENDING',String(pending.commit||''));
+    }
     if(!pending?.verified){
       autoUpdateLastResult='NO_UPDATE';
       event('INFO','AUTO_UPDATE_NO_UPDATE',APP_COMMIT);
@@ -1314,6 +1320,20 @@ async function autoUpdateTick(){
     event('WARN','AUTO_UPDATE_ERROR',String(e.message||e).slice(0,500));
     scheduleAutoUpdate(30*60*1000);
   }finally{autoUpdateRunning=false}
+}
+function promoteCurrentToLastGoodAfterSoak(){
+  const timer=setTimeout(()=>{
+    try{
+      const current=readJsonSafe(join(dataDir,'current-deployment.json'),null);
+      if(!current||current.commit!==APP_COMMIT)return;
+      const value={...current,build:APP_BUILD,pid:process.pid,promoted_at:new Date().toISOString(),soak_minutes:15};
+      const dest=join(dataDir,'last-good-deployment.json'),tmp=dest+'.tmp-'+process.pid;
+      writeFileSync(tmp,JSON.stringify(value,null,2)+'\n','utf8');
+      try{renameSync(tmp,dest)}catch{writeFileSync(dest,JSON.stringify(value,null,2)+'\n','utf8')}
+      event('INFO','LAST_GOOD_PROMOTED','commit='+APP_COMMIT+' soak=15m');
+    }catch(e){event('WARN','LAST_GOOD_PROMOTE_FAIL',String(e.message||e).slice(0,300))}
+  },LAST_GOOD_SOAK_MS);
+  try{timer.unref()}catch{}
 }
 function startAutonomousUpdates(){
   event('INFO','AUTO_UPDATE_ARMED','first=90s interval=6h channel=release/tlib-hybrid-v2-stable');
@@ -1737,6 +1757,7 @@ async function main() {
     startDashboard();
     ensureBackgroundWorker();
     startAutonomousUpdates();
+    promoteCurrentToLastGoodAfterSoak();
     return;
   }
   throw new Error('UNKNOWN_COMMAND ' + cmd);
