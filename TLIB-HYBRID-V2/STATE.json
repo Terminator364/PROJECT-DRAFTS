@@ -1,9 +1,9 @@
 {
   "project": "TLIB-HYBRID-V2",
   "branch": "lab/tlib-hybrid-v2",
-  "checkpoint": "V0113_L2_V3_VERIFIED_AWAITING_STABLE",
+  "checkpoint": "V0113_L2_V3_RUNTIME_PROVEN_SEALED",
   "build_target": "2026.09.29-v0.11.3-l2-v3-verified",
-  "updated_at_utc": "2026-09-29T15:42:49.323Z",
+  "updated_at_utc": "2026-09-29T15:46:24.952Z",
   "production_l1_enabled": false,
   "apps_script_bridge_enabled": false,
   "github_actions_expected_minutes": 0,
@@ -224,8 +224,8 @@
       "manager_resource_indicators_clickable": true
     }
   },
-  "next_gate": "Fast-forward stable to v0.11.3, let TLIB self-update, then prove: L2 V3 BASE and DEEP both progress with backlog, L3 produces from ready dossiers, L1 continues, phone sessions persist/migrate and countdown/QR remain coherent.",
-  "sealed": false,
+  "next_gate": "Long-run quality tuning only. Do not redesign the L2 contract again without measured dossier quality feedback; continue rebuilding remaining legacy L2 profiles into V3.",
+  "sealed": true,
   "last_good_build": "2026.09.29-v0.8.0-mobile-autonomous",
   "last_good_status": "PRESERVED_PRE_ACTIVATION",
   "field_findings": [
@@ -244,8 +244,8 @@
     "ghost worker exits on bind failure",
     "updates and heavy repair remain outside normal click path"
   ],
-  "active_pc_commit": "8d8a8bdfdc07de4301012a52d8382bf5ba1eb1c1",
-  "active_pc_build": "2026.09.29-v0.10.2-interactive-everywhere",
+  "active_pc_commit": "4fea6de930ea0492f08c811035b2cd8367c3a749",
+  "active_pc_build": "2026.09.29-v0.11.3-l2-v3-verified",
   "ui_router": {
     "status": "FIXED_AND_STATIC_AUDIT_PASS",
     "root_cause": "legacy bindPaneTabs compared button dataset key against nonexistent pane dataset key",
@@ -375,15 +375,23 @@
     "v0113_src_syntax": "PASS",
     "v0113_verifier_syntax": "PASS",
     "v0113_verify_build": "PASS",
-    "v0113_runtime": "PENDING_STABLE_ACTIVATION",
+    "v0113_runtime": "PASS",
     "v0113_node_syntax": "PASS",
     "v0113_ui_js_syntax": "PASS",
     "v0113_scheduler_no_overlap": "PASS",
-    "v0113_l2_v3_drill_current_only": "PASS"
+    "v0113_l2_v3_drill_current_only": "PASS",
+    "v0113_l1_continues": "PASS",
+    "v0113_l2_base_progress": "PASS",
+    "v0113_l2_deep_progress_with_base_backlog": "PASS",
+    "v0113_l3_action_generation": "PASS",
+    "v0113_french_l2_dossier": "PASS",
+    "v0113_phone_state_schema2": "PASS",
+    "v0113_phone_access_qr": "PASS",
+    "v0113_phone_session_persistence": "PASS"
   },
-  "seal_scope": "V0102_RUNTIME_PROVEN_INTERACTIVE_EVERYWHERE",
-  "runtime_validated": false,
-  "activation_pending": true,
+  "seal_scope": "L1_CONTINUITY_L2_V3_BASE_DEEP_L3_ACTION_PHONE_SESSION_PERSISTENCE",
+  "runtime_validated": true,
+  "activation_pending": false,
   "phone_link": {
     "status": "CODE_SEALED_AWAITING_RUNTIME",
     "manager_entry": "📱 Téléphone / QR",
@@ -421,46 +429,44 @@
     }
   },
   "runtime_proof": {
-    "observed_after_activation": {
-      "l1_core": 10643,
-      "l1_complete": 10052,
-      "l1_deep": 9622,
-      "l2_total": 13,
-      "l2_base": 12,
-      "l2_deep": 1,
-      "l2_deep_pending": 9
+    "l1": {
+      "core": 10981,
+      "complete": 10390,
+      "deep": 9950
     },
-    "pre_activation_reference": {
-      "l1_core": 10636,
-      "l1_complete": 10045,
-      "l1_deep": 9615,
-      "l2_total": 10
+    "l2_v3": {
+      "total": 505,
+      "base": 495,
+      "deep": 10,
+      "l3_ready": 10,
+      "legacy_remaining": 10,
+      "comprehension_avg": 57.9
     },
-    "conclusion": "L1 and L2 both advanced after v0.9.0 activation; continuous interleaved pipeline proven.",
-    "v0101": {
-      "health": "PASS",
-      "l1_complete_total": 10092,
-      "l1_deep_pending_total": 101,
-      "l2_profiles_total": 106,
-      "l2_eligible_total": 9630,
-      "chat_telegram_total": 34,
-      "ui_markers": "PASS",
-      "autonomous_activation": "PASS",
-      "updater_survived_stop": "PASS"
+    "l3": {
+      "action_packs": 9
     },
-    "v0102": {
-      "health": "PASS",
-      "l1_complete_total": 10102,
-      "l2_profiles_total": 127,
-      "chat_telegram_total": 34,
-      "manager_feedback_routes": "PASS",
-      "l1_drilldown": "PASS",
-      "l2_drilldown": "PASS",
-      "dedicated_chat": "PASS",
-      "autonomous_stage": "PASS",
-      "updater_survived_stop": "PASS",
-      "autonomous_activation": "PASS",
-      "temp_audit_cleanup": "PASS"
+    "l2_sample": {
+      "full_name": "getinsomnia/insomnia",
+      "stage": "DEEP",
+      "score": 100,
+      "language_ui": "fr",
+      "deep_sources": [
+        "README",
+        "Structure racine",
+        "Fichier package.json"
+      ],
+      "commands_detected": true,
+      "architecture_detected": true,
+      "evidence_detected": true
+    },
+    "phone": {
+      "schema": 2,
+      "sessions": 1,
+      "access_qr": true,
+      "pair_active": false,
+      "duration_minutes": 360,
+      "session_id": "legacy-0",
+      "read_only": true
     }
   },
   "stable_target_build": "2026.09.29-v0.10.2-interactive-everywhere",
