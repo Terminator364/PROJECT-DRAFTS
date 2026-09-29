@@ -1,9 +1,9 @@
 {
   "project": "TLIB-HYBRID-V2",
   "branch": "lab/tlib-hybrid-v2",
-  "checkpoint": "V0101_INTERACTIVE_DEPTH_CODE_SEALED_AWAITING_FINAL_AUDIT",
-  "build_target": "2026.09.29-v0.10.1-interactive-depth",
-  "updated_at_utc": "2026-09-29T13:28:30.029Z",
+  "checkpoint": "V0102_INTERACTIVE_EVERYWHERE_CODE_SEALED_AWAITING_AUDIT",
+  "build_target": "2026.09.29-v0.10.2-interactive-everywhere",
+  "updated_at_utc": "2026-09-29T13:38:18.264Z",
   "production_l1_enabled": false,
   "apps_script_bridge_enabled": false,
   "github_actions_expected_minutes": 0,
@@ -219,10 +219,12 @@
       "search_sort_pagination": true,
       "resource_detail_l2_evidence": true,
       "chat_dedicated_search": true,
-      "tab_switch_before_network": true
+      "tab_switch_before_network": true,
+      "manager_project_feedback_clickable": true,
+      "manager_resource_indicators_clickable": true
     }
   },
-  "next_gate": "Finalize manifest for v0.10.1, rerun focused audit, then advance stable. If v0.10.0 was already staged, v0.10.1 remains a distinct build and will be picked on the following autonomous cycle.",
+  "next_gate": "Verify v0.10.2 full build then advance stable. Normal installation must remain autonomous.",
   "sealed": true,
   "last_good_build": "2026.09.29-v0.8.0-mobile-autonomous",
   "last_good_status": "PRESERVED_PRE_ACTIVATION",
@@ -344,7 +346,9 @@
     "update_autonomy_contract": "PASS",
     "v0100_runtime": "PENDING_AUTONOMOUS",
     "l1_l2_passive_metric_cards": "PASS_ZERO_AFTER_TAXONOMY_FIX",
-    "v0101_runtime": "PENDING"
+    "v0101_runtime": "PENDING",
+    "v0102_static": "PENDING",
+    "manager_feedback_actionable": "PENDING"
   },
   "seal_scope": "V090_RUNTIME_PROVEN_CONTINUOUS_L1_L2",
   "runtime_validated": false,
