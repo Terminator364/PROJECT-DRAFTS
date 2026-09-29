@@ -9,7 +9,8 @@ import { execFileSync, spawn } from 'node:child_process';
 
 const OWNER='Terminator364';
 const REPO='PROJECT-DRAFTS';
-const BRANCH='lab/tlib-hybrid-v2';
+const UPDATE_CHANNEL='release/tlib-hybrid-v2-stable';
+const DEVELOPMENT_BRANCH='lab/tlib-hybrid-v2';
 const PREFIX='TLIB-HYBRID-V2';
 const DATA=process.env.TLIB_DATA_DIR || join(process.env.LOCALAPPDATA || homedir(),'TLIB-PC');
 const DEPLOY=join(DATA,'deployments');
@@ -37,7 +38,7 @@ async function fetchOk(url,opts={}){
   return res;
 }
 async function latestCommit(){
-  const url='https://api.github.com/repos/'+OWNER+'/'+REPO+'/branches/'+encodeURIComponent(BRANCH);
+  const url='https://api.github.com/repos/'+OWNER+'/'+REPO+'/branches/'+encodeURIComponent(UPDATE_CHANNEL);
   const j=await (await fetchOk(url)).json();
   const sha=String(j?.commit?.sha||'');
   if(!/^[0-9a-f]{40}$/i.test(sha))throw new Error('LATEST_COMMIT_INVALID');
@@ -145,7 +146,7 @@ async function stage(){
       const dest=join(tmp,String(f.path));mkdirSync(dirname(dest),{recursive:true});writeFileSync(dest,buf);
       if(i%4===3)await sleep(80);
     }
-    writeJson(join(tmp,'deployment.json'),{commit,branch:BRANCH,staged_at:now(),manifest_schema:manifest.schema});
+    writeJson(join(tmp,'deployment.json'),{commit,channel:UPDATE_CHANNEL,source_branch:DEVELOPMENT_BRANCH,staged_at:now(),manifest_schema:manifest.schema});
     runNode([join(tmp,'scripts','verify-build.mjs')],tmp,{TLIB_DEPLOYMENT_COMMIT:commit});
     const testData=join(DATA,'verify-slot-'+process.pid);
     rmSync(testData,{recursive:true,force:true});mkdirSync(testData,{recursive:true});
