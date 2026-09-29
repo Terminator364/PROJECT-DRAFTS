@@ -1,9 +1,9 @@
 {
   "project": "TLIB-HYBRID-V2",
   "branch": "lab/tlib-hybrid-v2",
-  "checkpoint": "V075_UPDATE_PROGRESS_CODE_SEALED_AWAITING_RUNTIME",
-  "build_target": "2026.09.29-v0.7.5-update-progress",
-  "updated_at_utc": "2026-09-29T11:40:16.243Z",
+  "checkpoint": "V080_MOBILE_AUTONOMOUS_CODE_SEALED_AWAITING_SELF_UPDATE",
+  "build_target": "2026.09.29-v0.8.0-mobile-autonomous",
+  "updated_at_utc": "2026-09-29T11:48:11.407Z",
   "production_l1_enabled": false,
   "apps_script_bridge_enabled": false,
   "github_actions_expected_minutes": 0,
@@ -56,8 +56,7 @@
     "channel": "release/tlib-hybrid-v2-stable",
     "development_branch": "lab/tlib-hybrid-v2",
     "automatic": true,
-    "interval_hours": 6,
-    "first_check_seconds": 90,
+    "first_check_seconds": 45,
     "idle_guard_seconds": 120,
     "remote_tool_required": false,
     "last_good_soak_minutes": 15,
@@ -83,7 +82,10 @@
       "ROLLBACK",
       "ROLLED_BACK",
       "ERROR"
-    ]
+    ],
+    "interval_minutes": 10,
+    "release_trigger": "ADVANCE_STABLE_CHANNEL",
+    "normal_update_path": "TLIB_SELF_UPDATE_ONLY"
   },
   "resource_governor": {
     "profile_for_4gb": "LOW_RAM_4_6GB",
@@ -152,9 +154,19 @@
         "ui",
         "raw"
       ]
+    },
+    "mobile": {
+      "status": "DEDICATED_RESPONSIVE_SHELL",
+      "breakpoint_px": 760,
+      "off_canvas_navigation": true,
+      "bottom_navigation": true,
+      "compact_header": true,
+      "horizontal_subtabs": true,
+      "mobile_cards": "1-2_COLUMNS_BY_WIDTH",
+      "bottom_sheet_drawer": true
     }
   },
-  "next_gate": "Deploy v0.7.5 from the stable channel and verify live progress phases during a no-op update check; keep v0.7.4 as last-good until soak.",
+  "next_gate": "Promote v0.8.0 to stable. Existing v0.7.5 may be updated once from TLIB Manager > Mises à jour for immediate rollout; after v0.8.0, stable-channel polling is every 10 minutes and normal updates require no Desktop Commander.",
   "sealed": true,
   "last_good_build": "2026.09.27-v0.6.2-adaptive-4gb",
   "last_good_status": "RUNTIME_WORKED_BUT_DESKTOP_BOOT_PATH_INVALIDATED_BY_FIELD_TEST",
@@ -229,7 +241,11 @@
     "update_hardening_static": "PASS",
     "v074_runtime": "PENDING_ONE_TIME_MIGRATION",
     "update_progress_static": "PASS",
-    "v075_runtime": "PENDING"
+    "v075_runtime": "PENDING",
+    "mobile_responsive_static": "PASS",
+    "phone_durations_30_180_360": "PASS",
+    "autonomous_10min_static": "PASS",
+    "v080_runtime": "PENDING_SELF_UPDATE"
   },
   "seal_scope": "CODE_STATIC_AUDIT",
   "runtime_validated": false,
@@ -240,8 +256,8 @@
     "qr_offer_ttl_minutes": 5,
     "session_minutes": [
       30,
-      90,
-      180
+      180,
+      360
     ],
     "manual_code": true,
     "cookie": "HttpOnly; SameSite=Strict",
@@ -249,6 +265,7 @@
     "bind": "0.0.0.0:8787",
     "asset": "public/vendor/qrcode.min.js",
     "legacy_duplicate_removed": true,
-    "discoverability": "MANAGER_HEADER_SHORTCUT_AND_OVERVIEW_CARD"
+    "discoverability": "MANAGER_HEADER_SHORTCUT_AND_OVERVIEW_CARD",
+    "mobile_ui": "DEDICATED_RESPONSIVE_SHELL"
   }
 }
