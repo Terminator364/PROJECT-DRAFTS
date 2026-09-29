@@ -13,7 +13,7 @@
     },
     {
       "path": "src/tlib.mjs",
-      "git_blob_sha": "00f96ad730ee364aa0a70d6c1805ff3b7b7778b5"
+      "git_blob_sha": "46c95d9200eabbc7706eff9c4a91c3343eb59c1a"
     },
     {
       "path": "public/index.html",
@@ -37,7 +37,7 @@
     },
     {
       "path": "scripts/verify-build.mjs",
-      "git_blob_sha": "52923d587f2de9b9e94ea7584fe30a40aff7433a"
+      "git_blob_sha": "0de517e924c00722a0c43ce92543ee5cfd5db56b"
     },
     {
       "path": "config/canary-seeds.json",
@@ -120,6 +120,6 @@
       "git_blob_sha": "e746a429df4a3c75935686951b4f422b51d1df59"
     }
   ],
-  "updated_at": "2026-09-29T14:59:46.765Z",
-  "build": "2026.09.29-v0.11.2-l2-v3-coherence"
+  "updated_at": "2026-09-29T15:07:45.956Z",
+  "build": "2026.09.29-v0.11.3-l2-v3-verified"
 }
