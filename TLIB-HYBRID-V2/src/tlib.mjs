@@ -1143,9 +1143,11 @@ function libraryCount(q='') {
 function l2Rows(limit=100) {
   limit=Math.max(1,Math.min(Number(limit||100),500));
   return db.prepare(`SELECT r.entity_id,r.full_name,r.resource_kind,r.technology,r.activity_status,r.stars,
-                            l.human_summary,l.capabilities_json,l.use_cases_json,l.limitations_json,l.confidence,l.updated_at
+                            l.human_summary,l.capabilities_json,l.use_cases_json,l.limitations_json,l.confidence,l.updated_at,
+                            l.stage,l.deep_status,l.comprehension_score,l.l3_ready,l.language_ui,l.source_version
                      FROM l2_profiles l JOIN results r ON r.entity_id=l.entity_id
-                     ORDER BY l.updated_at DESC LIMIT ?`).all(limit).map(x=>{
+                     WHERE l.source_version=?
+                     ORDER BY l.comprehension_score DESC,l.updated_at DESC LIMIT ?`).all(L2_RULESET_VERSION,limit).map(x=>{
     const parse=v=>{try{return JSON.parse(v||'[]')}catch{return[]}};
     return {...x,capabilities:parse(x.capabilities_json),use_cases:parse(x.use_cases_json),limitations:parse(x.limitations_json)};
   });
@@ -1259,26 +1261,23 @@ function l1Drilldown(kind='verified',q='',limit=50,offset=0,sort='score',band=''
   return {kind,q,sort,band,total,limit,offset,items};
 }
 function l2Drilldown(kind='profiles',q='',limit=50,offset=0,sort='score'){
-  kind=String(kind||'profiles');q=String(q||'').trim().toLowerCase();
-  limit=Math.max(1,Math.min(Number(limit||50),100));offset=Math.max(0,Number(offset||0));
-  const allowed=new Set(['profiles','eligible','base_pending','base_done','deep_pending','deep_done']);if(!allowed.has(kind))kind='profiles';
+  kind=String(kind||'profiles');q=String(q||'').trim().toLowerCase();limit=Math.max(1,Math.min(Number(limit||50),100));offset=Math.max(0,Number(offset||0));
+  const allowed=new Set(['profiles','eligible','base_pending','base_done','deep_pending','deep_done','l3_ready']);if(!allowed.has(kind))kind='profiles';
   const maps={
-    profiles:{from:'l2_profiles l JOIN results r ON r.entity_id=l.entity_id',where:'1=1'},
-    eligible:{from:'results r LEFT JOIN l2_profiles l ON l.entity_id=r.entity_id',where:l2EligibilitySql('r')},
-    base_pending:{from:'results r LEFT JOIN l2_profiles l ON l.entity_id=r.entity_id',where:l2EligibilitySql('r')+' AND l.entity_id IS NULL'},
-    base_done:{from:'l2_profiles l JOIN results r ON r.entity_id=l.entity_id',where:"coalesce(l.stage,'BASE')='BASE'"},
-    deep_pending:{from:'l2_profiles l JOIN results r ON r.entity_id=l.entity_id',where:"l.deep_status IN ('PENDING','RETRY')"},
-    deep_done:{from:'l2_profiles l JOIN results r ON r.entity_id=l.entity_id',where:"l.stage='DEEP'"}
+    profiles:{from:'l2_profiles l JOIN results r ON r.entity_id=l.entity_id',where:'l.source_version=?',pre:[L2_RULESET_VERSION]},
+    eligible:{from:'results r LEFT JOIN l2_profiles l ON l.entity_id=r.entity_id',where:l2EligibilitySql('r'),pre:[]},
+    base_pending:{from:'results r LEFT JOIN l2_profiles l ON l.entity_id=r.entity_id',where:l2EligibilitySql('r')+" AND (l.entity_id IS NULL OR coalesce(l.source_version,'')<>?)",pre:[L2_RULESET_VERSION]},
+    base_done:{from:'l2_profiles l JOIN results r ON r.entity_id=l.entity_id',where:"l.source_version=? AND coalesce(l.stage,'BASE')='BASE'",pre:[L2_RULESET_VERSION]},
+    deep_pending:{from:'l2_profiles l JOIN results r ON r.entity_id=l.entity_id',where:"l.source_version=? AND l.deep_status IN ('PENDING','RETRY')",pre:[L2_RULESET_VERSION]},
+    deep_done:{from:'l2_profiles l JOIN results r ON r.entity_id=l.entity_id',where:"l.source_version=? AND l.stage='DEEP'",pre:[L2_RULESET_VERSION]},
+    l3_ready:{from:'l2_profiles l JOIN results r ON r.entity_id=l.entity_id',where:'l.source_version=? AND l.l3_ready=1',pre:[L2_RULESET_VERSION]}
   };
-  const cfg=maps[kind];let where=cfg.where,params=[];
-  if(q){where+=' AND (lower(r.full_name) LIKE ? OR lower(coalesce(r.description,\'\')) LIKE ? OR lower(coalesce(r.technology,\'\')) LIKE ? OR lower(coalesce(r.resource_kind,\'\')) LIKE ?)';const like=drillLike(q);params.push(like,like,like,like);}
-  const orderMap={score:'coalesce(l.score,r.l1_score,0) DESC,r.stars DESC',recent:'coalesce(l.updated_at,r.fetched_at) DESC',stars:'r.stars DESC',name:'r.full_name ASC'};
-  const order=orderMap[String(sort||'score')]||orderMap.score;
+  const cfg=maps[kind];let where=cfg.where,params=[...(cfg.pre||[])];
+  if(q){where+=" AND (lower(r.full_name) LIKE ? OR lower(coalesce(r.description,'')) LIKE ? OR lower(coalesce(r.technology,'')) LIKE ? OR lower(coalesce(r.resource_kind,'')) LIKE ? OR lower(coalesce(l.human_summary,'')) LIKE ?)";const like=drillLike(q);params.push(like,like,like,like,like)}
+  const orderMap={score:'coalesce(l.comprehension_score,l.score,r.l1_score,0) DESC,r.stars DESC',recent:'coalesce(l.updated_at,r.fetched_at) DESC',stars:'r.stars DESC',name:'r.full_name ASC'};const order=orderMap[String(sort||'score')]||orderMap.score;
   const total=Number(db.prepare('SELECT COUNT(*) AS n FROM '+cfg.from+' WHERE '+where).get(...params).n);
-  const items=db.prepare(`SELECT r.entity_id,r.full_name,r.description,r.resource_kind,r.technology,r.activity_status,r.l1_score,r.stars,
-    l.stage AS l2_stage,l.deep_status AS l2_deep_status,l.score AS l2_score,l.confidence,l.updated_at AS l2_updated_at,l.human_summary
-    FROM ${cfg.from} WHERE ${where} ORDER BY ${order} LIMIT ? OFFSET ?`).all(...params,limit,offset);
-  return {kind,q,sort,total,limit,offset,items};
+  const items=db.prepare('SELECT r.entity_id,r.full_name,r.description,r.resource_kind,r.technology,r.activity_status,r.l1_score,r.stars,l.stage AS l2_stage,l.deep_status AS l2_deep_status,l.comprehension_score AS l2_score,l.confidence,l.updated_at AS l2_updated_at,l.human_summary,l.l3_ready,l.language_ui FROM '+cfg.from+' WHERE '+where+' ORDER BY '+order+' LIMIT ? OFFSET ?').all(...params,limit,offset);
+  return {kind,q,sort,total,limit,offset,items,version:L2_RULESET_VERSION};
 }
 function chatSearch(q,limit=8){
   q=String(q||'').trim();limit=Math.max(1,Math.min(Number(limit||8),12));
@@ -1295,7 +1294,7 @@ function resourceById(id) {
   let l2 = null;
   if (l2raw) {
     const parse = (v) => { try { return JSON.parse(v || '[]'); } catch { return []; } };
-    l2 = {...l2raw, capabilities:parse(l2raw.capabilities_json), use_cases:parse(l2raw.use_cases_json), limitations:parse(l2raw.limitations_json), evidence:parse(l2raw.evidence_json), readme_signals:parse(l2raw.readme_signals_json)};
+    l2 = {...l2raw, capabilities:parse(l2raw.capabilities_json), use_cases:parse(l2raw.use_cases_json), limitations:parse(l2raw.limitations_json), evidence:parse(l2raw.evidence_json), readme_signals:parse(l2raw.readme_signals_json), dossier:parse(l2raw.dossier_json), deep_sources:parse(l2raw.deep_sources_json)};
   }
   return {...r, topics, l2};
 }
