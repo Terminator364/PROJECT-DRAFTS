@@ -134,6 +134,17 @@ html{scroll-behavior:auto!important}
 .chat-result{border:1px solid var(--line);background:#0d1728;border-radius:10px;padding:10px;cursor:pointer;text-align:left;color:#fff}
 .chat-result:hover{border-color:#648bd0}
 @media(max-width:760px){.drill-toolbar{align-items:stretch}.drill-toolbar input,.drill-toolbar select,.drill-toolbar .btn{width:100%}.drill-nav{flex-wrap:nowrap;overflow-x:auto}.drill-nav button{flex:0 0 auto}}
+
+.phone-session-list{display:grid;gap:10px}
+.phone-session{border:1px solid var(--line);border-radius:12px;padding:12px;background:var(--panel2);cursor:pointer}
+.phone-session:hover{border-color:#648bd0}
+.phone-session .topline{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+.phone-session .remaining{font-size:20px;font-weight:800}
+.phone-session .session-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.phone-status-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:12px}
+.phone-status-grid .fact{min-height:88px}
+@media(max-width:760px){.phone-status-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:390px){.phone-status-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -431,32 +442,41 @@ html{scroll-behavior:auto!important}
 </div>
 
 <div class="subpane" data-manager-pane="phone">
-  <div class="section-intro"><div><h3>Connexion téléphone</h3><p>Accès local temporaire sur le même Wi‑Fi. Le QR sert une seule fois au pairage ; la session téléphone reste ensuite active pendant la durée choisie.</p></div><div class="badges"><span class="badge" id="phoneModeBadge">inactif</span><span class="badge" id="phoneSessionBadge">0 session</span></div></div>
+  <div class="section-intro"><div><h3>Connexion téléphone</h3><p>Pairage temporaire sur le même Wi‑Fi, puis session locale persistante pendant 30 min, 3 h ou 6 h. Le statut ci-dessous survit aux rechargements de page.</p></div><div class="badges"><span class="badge" id="phoneModeBadge">inactif</span><span class="badge" id="phoneSessionBadge">0 session</span></div></div>
+  <div class="phone-status-grid">
+    <div class="fact interactive-card" tabindex="0" id="phoneStatusSessionsCard"><small>Sessions actives</small><b id="phoneSessions">0</b></div>
+    <div class="fact interactive-card" tabindex="0" id="phoneStatusRemainingCard"><small>Temps restant max.</small><b id="phoneRemainingMax">—</b></div>
+    <div class="fact interactive-card" tabindex="0" id="phoneStatusPairCard"><small>Pairage</small><b id="phonePairState">Aucun</b></div>
+    <div class="fact interactive-card" tabindex="0" id="phoneStatusModeCard"><small>Mode téléphone</small><b>Lecture seule</b></div>
+  </div>
   <div class="phonegrid">
     <div class="card">
-      <div class="small muted">QR temporaire</div>
-      <div class="qrbox" id="phoneQr"><div class="muted">Crée une connexion pour afficher le QR.</div></div>
+      <div class="section-intro"><div><h3 id="phoneQrTitle" style="margin:0">QR téléphone</h3><p id="phoneQrHelp">Crée un pairage ou utilise le QR d’accès d’une session déjà active.</p></div><span class="badge" id="phoneQrType">aucun</span></div>
+      <div class="qrbox" id="phoneQr"><div class="muted">Aucun QR à afficher.</div></div>
       <div class="small muted" id="phoneQrExpiry" style="margin-top:10px">Aucun QR actif.</div>
+      <div class="card" style="margin-top:12px;background:var(--panel2)">
+        <div class="small muted">Code manuel de pairage</div><div class="phonecode" id="phoneCode">Aucun code en attente</div>
+        <div class="small muted" style="margin-top:10px">Adresse TLIB sur le réseau local</div><div class="phoneurl" id="phoneUrl">—</div>
+      </div>
     </div>
     <div class="card">
-      <h3 style="margin-top:0">📱 Pairer un téléphone</h3>
-      <p class="muted">Choisis la durée de la session. Le QR de pairage expire après quelques minutes, mais la session créée garde la durée choisie.</p>
+      <h3 style="margin-top:0">Créer ou renouveler un pairage</h3>
+      <p class="muted">Le QR de pairage n’est valable que quelques minutes. Une fois le téléphone autorisé, sa session garde la durée choisie et apparaît dans la liste en dessous.</p>
       <div class="duration-row" id="phoneDurations">
         <button class="btn active" data-phone-minutes="30">30 min</button>
         <button class="btn" data-phone-minutes="180">3 h</button>
         <button class="btn" data-phone-minutes="360">6 h</button>
       </div>
-      <div class="actions" style="margin-top:12px"><button class="btn primary" id="phoneCreateBtn">Créer / renouveler le QR</button><button class="btn" id="phoneRefreshBtn">Actualiser</button><button class="btn" id="phoneRevokeBtn">Révoquer tout</button></div>
-      <div class="card" style="margin-top:12px;background:var(--panel2)">
-        <div class="small muted">Code manuel</div><div class="phonecode" id="phoneCode">—</div>
-        <div class="small muted" style="margin-top:10px">Adresse LAN</div><div class="phoneurl" id="phoneUrl">—</div>
-      </div>
+      <div class="actions" style="margin-top:12px"><button class="btn primary" id="phoneCreateBtn">Créer / renouveler le QR</button><button class="btn" id="phoneRefreshBtn">Actualiser</button><button class="btn" id="phoneRevokeBtn">Révoquer toutes les sessions</button></div>
       <div class="kv" style="margin-top:12px"><span>IP locale</span><b id="phoneLanIp">—</b></div>
-      <div class="kv"><span>Sessions actives</span><b id="phoneSessions">0</b></div>
-      <div class="kv"><span>Expiration session</span><b id="phoneSessionExpiry">—</b></div>
-      <div class="notice" style="margin-top:12px">Le téléphone est en <b>lecture seule</b> : navigation, recherche et consultation sont autorisées ; mises à jour et maintenance restent réservées au PC.</div>
+      <div class="kv"><span>Expiration la plus tardive</span><b id="phoneSessionExpiry">—</b></div>
+      <div class="notice" style="margin-top:12px">Le téléphone reste en <b>lecture seule</b> : navigation, recherche et consultation sont autorisées ; mises à jour et maintenance restent réservées au PC.</div>
       <div class="small muted" id="phoneState" style="margin-top:10px"></div>
     </div>
+  </div>
+  <div class="card" style="margin-top:12px">
+    <div class="section-intro"><div><h3 style="margin:0">Sessions actives</h3><p>Chaque session est indépendante et peut être inspectée ou révoquée séparément.</p></div><span class="badge" id="phoneSessionsLiveBadge">0 active</span></div>
+    <div id="phoneSessionList" class="phone-session-list"><div class="muted">Aucune session active.</div></div>
   </div>
 </div>
 
