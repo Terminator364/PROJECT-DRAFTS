@@ -186,7 +186,7 @@ html{scroll-behavior:auto!important}
 <section id="talk" class="section"><div class="section-intro"><div><div class="crumb"><button class="pill" data-go="home">Accueil</button><span>›</span><b>Parler à TLIB</b></div><h2>Recherche conversationnelle</h2><p>Prototype local : recherche L1 aujourd’hui, raisonnement L2/L3 ensuite.</p></div></div><div class="card chatbox"><div class="meta" id="chatSuggestions"><button class="pill" data-chat="android léger">Android léger</button><button class="pill" data-chat="windows automatisation">Windows automatisation</button><button class="pill" data-chat="telegram">Telegram</button><button class="pill" data-chat="python">Python</button><button class="pill" data-chat="réseau">Réseau</button></div><div id="chatLog"><div class="bubble bot"><b>TLIB</b><br>Dis-moi ce que tu cherches. Je peux déjà interroger les fiches L1 vérifiées et t’emmener vers les ressources correspondantes.</div></div><div class="composer"><input id="chatInput" placeholder="Ex. Trouve-moi des outils Android légers"><button class="btn primary" id="chatSend">Envoyer</button></div></div></section>
 
 <section id="manager" class="section">
-<div class="section-intro"><div><div class="crumb">Accueil <span>›</span> <b>Manager</b></div><h2>Centre de contrôle TLIB</h2><p>Chaque bloc mène vers une sous-page opérationnelle, pas vers un simple texte décoratif.</p></div><div class="badges"><span class="badge" id="mgrBuildBadge" title="2026.09.29-v0.7.2-qr-visible">UI v0.7.4</span><button class="btn primary" id="mgrPhoneShortcut">📱 Ouvrir QR téléphone</button><span class="badge" id="mgrSchedulerBadge">ordonnanceur …</span><span class="badge" id="mgrQuotaBadge">quota …</span></div></div>
+<div class="section-intro"><div><div class="crumb">Accueil <span>›</span> <b>Manager</b></div><h2>Centre de contrôle TLIB</h2><p>Chaque bloc mène vers une sous-page opérationnelle, pas vers un simple texte décoratif.</p></div><div class="badges"><span class="badge" id="mgrBuildBadge" title="2026.09.29-v0.7.2-qr-visible">UI v0.7.5</span><button class="btn primary" id="mgrPhoneShortcut">📱 Ouvrir QR téléphone</button><span class="badge" id="mgrSchedulerBadge">ordonnanceur …</span><span class="badge" id="mgrQuotaBadge">quota …</span></div></div>
 <div class="subnav" id="managerSubnav">
   <button class="active" data-manager-tab="overview">Vue d’ensemble</button>
   <button data-manager-tab="pipeline">Pipeline</button>
@@ -258,7 +258,7 @@ html{scroll-behavior:auto!important}
     <div class="card"><div class="small muted">Auto-update</div><div class="value statusok" id="updateAutoMode">ACTIF</div><div class="small muted" id="updateAutoDetail">canal stable · toutes les 6 h</div></div>
   </div>
   <div class="twocol" style="margin-top:12px">
-    <div class="card"><h3 style="margin-top:0">Actions</h3><p class="muted">“Vérifier” prépare une version sans interrompre TLIB. “Appliquer” n’est disponible que si une version a déjà passé les tests.</p><div class="actions"><button class="btn primary" id="updateStageBtn">Vérifier les mises à jour</button><button class="btn" id="updateApplyBtn">Appliquer la version préparée</button><button class="btn" id="updateRepairBtn">Réparer le moteur courant</button></div><div class="small muted" id="updateActionState" style="margin-top:10px"></div></div>
+    <div class="card"><h3 style="margin-top:0">Actions</h3><p class="muted">“Vérifier” prépare une version sans interrompre TLIB. “Appliquer” n’est disponible que si une version a déjà passé les tests.</p><div class="actions"><button class="btn primary" id="updateStageBtn">Vérifier les mises à jour</button><button class="btn" id="updateApplyBtn">Appliquer la version préparée</button><button class="btn" id="updateRepairBtn">Réparer le moteur courant</button></div><div class="progress" style="margin-top:14px"><div class="bar" id="updateProgressBar" style="width:0%"></div></div><div class="small muted" id="updateProgressText" style="margin-top:7px">En attente.</div><div class="small muted" id="updateActionState" style="margin-top:10px"></div></div>
     <div class="card"><h3 style="margin-top:0">Garanties</h3><div class="kv"><span>Ancienne version</span><b>reste disponible jusqu’au health-check</b></div><div class="kv"><span>Base SQLite</span><b>hors du code, jamais remplacée</b></div><div class="kv"><span>Échec activation</span><b>rollback automatique</b></div><div class="kv"><span>Double updater</span><b>verrou exclusif</b></div><div class="kv"><span>Version fantôme</span><b>commit vérifié par /api/health</b></div></div>
   </div>
   <div class="card" style="margin-top:12px"><h3 style="margin-top:0">Historique récent</h3><div id="updateAudit" class="eventtable"></div></div>
@@ -574,6 +574,9 @@ async function loadUpdateStatus(){
     textIf('#updateLastGood',u.last_good&&u.last_good.build?u.last_good.build:(u.last_good&&u.last_good.commit?u.last_good.commit.slice(0,12):'Aucune encore'));
     textIf('#updatePending',u.pending_available?'PRÊTE':'Aucune');
     textIf('#updatePendingDetail',u.pending&&(u.pending.commit||u.pending.target)?String(u.pending.commit||u.pending.target).slice(0,12)+' · vérifiée · '+esc(u.scheme||'SLOT_V1'):'aucune version en attente');
+    var pr=u.progress||{};
+    widthIf('#updateProgressBar',Math.max(0,Math.min(100,Number(pr.percent||0)))+'%');
+    textIf('#updateProgressText',pr.phase?(String(pr.phase).replace(/_/g,' ')+' · '+fmt(pr.percent||0)+'% · '+String(pr.detail||'')):'En attente.');
     var au=u.automatic_update||{};
     textIf('#updateAutoMode',au.enabled?'ACTIF':'INACTIF');
     textIf('#updateAutoDetail',au.enabled?('canal stable · '+fmt(au.interval_hours||6)+' h · '+String(au.last_result||'en attente').replace(/_/g,' ').toLowerCase()):'désactivé');
@@ -583,8 +586,11 @@ async function loadUpdateStatus(){
     return u;
   }catch(e){if(el('#updateActionState'))el('#updateActionState').textContent='État updater indisponible : '+e.message}
 }
+var updatePollTimer=null;
+function startUpdatePolling(){clearInterval(updatePollTimer);updatePollTimer=setInterval(async function(){var u=await loadUpdateStatus();var p=u&&u.progress;if(p&&['DONE','READY','ERROR','ROLLED_BACK'].includes(String(p.phase||''))){clearInterval(updatePollTimer);updatePollTimer=null}},1000)}
 async function triggerUpdate(mode){
   var state=el('#updateActionState');if(state)state.textContent='Commande '+mode+' envoyée…';
+  startUpdatePolling();
   try{
     await api('/api/update/action?mode='+encodeURIComponent(mode),{method:'POST'});
     if(state)state.textContent=mode==='Stage'?'Vérification lancée en arrière-plan. TLIB reste disponible.':mode==='Apply'?'Activation lancée. Le moteur peut redémarrer quelques secondes.':'Réparation lancée.';
