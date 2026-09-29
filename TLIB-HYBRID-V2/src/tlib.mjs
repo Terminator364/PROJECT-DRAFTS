@@ -11,7 +11,7 @@ const HERE = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(HERE, '..');
 const dataDir = process.env.TLIB_DATA_DIR || join(process.env.LOCALAPPDATA || homedir(), 'TLIB-PC');
 mkdirSync(dataDir, { recursive: true });
-const APP_BUILD = '2026.09.29-v0.8.2-r2-autonomy-audit-proof';
+const APP_BUILD = '2026.09.29-v0.8.3-project-feedback-autosync';
 const STARTED_AT = new Date().toISOString();
 function deploymentCommit() {
   try {
@@ -1523,7 +1523,7 @@ function sendJson(res, code, value) {
 
 async function startDashboard() {
   const port = Number(process.env.TLIB_DASHBOARD_PORT || 8787);
-  const dashboardPage = readFileSync(join(ROOT,'public','index.html'),'utf8');
+  const dashboardPage = readFileSync(join(ROOT,'public','index.html'),'utf8').replaceAll('__TLIB_BUILD__',APP_BUILD).replaceAll('__TLIB_COMMIT__',APP_COMMIT);
   const qrCodeJs = readFileSync(join(ROOT,'public','vendor','qrcode.min.js'),'utf8');
   let busy = false;
   const server = http.createServer(async (req,res) => {
