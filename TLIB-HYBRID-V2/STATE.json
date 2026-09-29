@@ -1,9 +1,9 @@
 {
   "project": "TLIB-HYBRID-V2",
   "branch": "lab/tlib-hybrid-v2",
-  "checkpoint": "V074_UPDATE_HARDENING_CODE_SEALED_AWAITING_ONE_TIME_MIGRATION",
-  "build_target": "2026.09.29-v0.7.4-update-hardening",
-  "updated_at_utc": "2026-09-29T11:30:36.628Z",
+  "checkpoint": "V075_UPDATE_PROGRESS_CODE_SEALED_AWAITING_RUNTIME",
+  "build_target": "2026.09.29-v0.7.5-update-progress",
+  "updated_at_utc": "2026-09-29T11:40:16.243Z",
   "production_l1_enabled": false,
   "apps_script_bridge_enabled": false,
   "github_actions_expected_minutes": 0,
@@ -67,7 +67,23 @@
     "slow_network_retries": 3,
     "fetch_timeout_seconds": 45,
     "manifest_path_safety": true,
-    "rollback_policy": "PRESERVE_PREVIOUS_GOOD_UNTIL_15_MIN_SOAK"
+    "rollback_policy": "PRESERVE_PREVIOUS_GOOD_UNTIL_15_MIN_SOAK",
+    "progress_ui": true,
+    "progress_poll_seconds": 1,
+    "progress_phases": [
+      "CHECK",
+      "DOWNLOAD",
+      "VERIFY",
+      "SELFTEST",
+      "READY",
+      "PREFLIGHT",
+      "ACTIVATE",
+      "HEALTH",
+      "DONE",
+      "ROLLBACK",
+      "ROLLED_BACK",
+      "ERROR"
+    ]
   },
   "resource_governor": {
     "profile_for_4gb": "LOW_RAM_4_6GB",
@@ -138,7 +154,7 @@
       ]
     }
   },
-  "next_gate": "One-time migration from active v0.6.4 via Manager > Mises à jour. After v0.7.4, normal updates are autonomous and independent of Desktop Commander/PowerShell.",
+  "next_gate": "Deploy v0.7.5 from the stable channel and verify live progress phases during a no-op update check; keep v0.7.4 as last-good until soak.",
   "sealed": true,
   "last_good_build": "2026.09.27-v0.6.2-adaptive-4gb",
   "last_good_status": "RUNTIME_WORKED_BUT_DESKTOP_BOOT_PATH_INVALIDATED_BY_FIELD_TEST",
@@ -211,7 +227,9 @@
     "stable_channel_static": "PASS",
     "v073_runtime": "PENDING_ONE_TIME_MIGRATION",
     "update_hardening_static": "PASS",
-    "v074_runtime": "PENDING_ONE_TIME_MIGRATION"
+    "v074_runtime": "PENDING_ONE_TIME_MIGRATION",
+    "update_progress_static": "PASS",
+    "v075_runtime": "PENDING"
   },
   "seal_scope": "CODE_STATIC_AUDIT",
   "runtime_validated": false,
