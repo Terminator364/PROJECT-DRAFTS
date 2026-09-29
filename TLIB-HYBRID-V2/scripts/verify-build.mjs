@@ -88,10 +88,10 @@ if(html){
   const legacyFound=legacyBindings.filter(x=>js.includes(x));
   legacyFound.length?fail('ui-router-no-legacy',legacyFound.join(' || ')):ok('ui-router-no-legacy');
 
-  const essentials=['navBack','commandOpen','homeSearchBtn','librarySearchBtn','chatSend','refreshDeepQueue','refreshL2Queue','runUiAuditBtn','drawerClose','phoneCreateBtn','phoneRefreshBtn','phoneRevokeBtn','phoneQr','mgrPhoneShortcut','mgrPhoneCard','mgrBuildBadge','updateAutoMode','updateAutoDetail','updateProgressBar','updateProgressText','l2ProgressBar','l2QueueTable'];
+  const essentials=['navBack','commandOpen','homeSearchBtn','librarySearchBtn','chatSend','refreshDeepQueue','refreshL2Queue','runUiAuditBtn','drawerClose','phoneCreateBtn','phoneRefreshBtn','phoneRevokeBtn','phoneQr','mgrPhoneShortcut','mgrPhoneCard','mgrBuildBadge','updateAutoMode','updateAutoDetail','updateProgressBar','updateProgressText','l2ProgressBar','l2QueueTable','l1DrillSearchBtn','l1DrillPrev','l1DrillNext','l1DrillResults','l2ProfileSearchBtn','l2ProfilePrev','l2ProfileNext','l2Results'];
 
   // Global actionability contract: no visible control may ship dead.
-  const declarativeButtonAttrs=['data-view','data-go','data-action','data-l0-tab','data-l1-tab','data-l2-tab','data-manager-tab','data-tech-tab','data-detail-tab','data-chat','data-phone-minutes','data-event-filter','data-l0-jump','data-depth-filter','data-filter','data-tag','data-drawer-go','data-manager-node','data-manager-tab-jump','data-cmd-index','data-mobile-view'];
+  const declarativeButtonAttrs=['data-view','data-go','data-action','data-l0-tab','data-l1-tab','data-l2-tab','data-manager-tab','data-tech-tab','data-detail-tab','data-chat','data-phone-minutes','data-event-filter','data-l0-jump','data-depth-filter','data-filter','data-tag','data-drawer-go','data-manager-node','data-manager-tab-jump','data-cmd-index','data-mobile-view','data-l1-drill-open','data-l1-drill','data-l2-drill-open','data-l2-kind','data-l2-jump','data-score-band','data-chat-resource'];
   const buttonAttrs=[...markup.matchAll(/<button\b([^>]*)>/g)].map(m=>m[1]);
   const deadButtons=[];
   for(const attrs of buttonAttrs){
@@ -129,6 +129,12 @@ if(html){
   js.includes('UPDATE_EXPECT_RESTART')&&js.includes('reconnexion automatique')&&js.includes('location.reload()')?ok('ui-update-reconnect-contract'):fail('ui-update-reconnect-contract');
   markup.includes('id="projectFeedbackCard"')&&markup.includes('id="projectSyncBadge"')?ok('ui-project-feedback-panel'):fail('ui-project-feedback-panel');
   js.includes('ensureUiRuntimeSync')&&js.includes('PAGE_BUILD')?ok('ui-runtime-autosync'):fail('ui-runtime-autosync');
+  markup.includes('data-l1-pane="drill"')&&markup.includes('id="l1DrillResults"')&&markup.includes('id="l1DrillSearch"')?ok('l1-ui-real-drilldown'):fail('l1-ui-real-drilldown');
+  js.includes('function openL1Drill')&&js.includes("/api/l1/drilldown")&&js.includes("openL1Drill('complete')")?ok('l1-ui-drilldown-routing'):fail('l1-ui-drilldown-routing');
+  markup.includes('id="l2ProfileNav"')&&markup.includes('id="l2ProfileSearch"')&&markup.includes('id="l2Results"')?ok('l2-ui-real-drilldown'):fail('l2-ui-real-drilldown');
+  js.includes('function openL2Drill')&&js.includes("/api/l2/drilldown")&&js.includes("openL2Drill('profiles')")?ok('l2-ui-drilldown-routing'):fail('l2-ui-drilldown-routing');
+  js.includes('function sendChatQuery')&&js.includes("/api/chat/search")&&!js.includes("var items=await loadLibrary(q)")?ok('chat-dedicated-search'):fail('chat-dedicated-search');
+  markup.includes('data-l1-drill-open="complete"')&&markup.includes('data-l2-drill-open="eligible"')?ok('overview-metrics-actionable'):fail('overview-metrics-actionable');
   markup.includes('data-l2-tab="pipeline"')&&markup.includes('data-l2-pane="pipeline"')?ok('l2-ui-pipeline-pane'):fail('l2-ui-pipeline-pane');
   markup.includes('id="l2BasePending"')&&markup.includes('id="l2DeepDone"')&&markup.includes('id="l2ProgressBar"')?ok('l2-ui-metrics'):fail('l2-ui-metrics');
   js.includes('loadL2Queue')&&js.includes("if(v==='pipeline')return loadL2Queue()")?ok('l2-ui-lazy-queue'):fail('l2-ui-lazy-queue');
@@ -159,7 +165,11 @@ try{
     ['l2-continuous-scheduler',src.includes('async function scheduledPipelineStep')&&src.includes("return 'PARALLEL_L1_L2'")],
     ['l2-l1-parallel-safe',src.includes('pipelineCycle%4===0')&&src.includes('pipelineCycle%12===6')],
     ['l2-queue-api',src.includes("/api/l2/queue")],
-    ['l2-entry-quality-gate',src.includes('const L2_MIN_L1_SCORE=65')]
+    ['l2-entry-quality-gate',src.includes('const L2_MIN_L1_SCORE=65')],
+    ['l1-drilldown-api',src.includes('function l1Drilldown')&&src.includes("/api/l1/drilldown")],
+    ['l2-drilldown-api',src.includes('function l2Drilldown')&&src.includes("/api/l2/drilldown")],
+    ['chat-search-api',src.includes('function chatSearch')&&src.includes("/api/chat/search")],
+    ['resource-l2-evidence',src.includes('evidence:parse(l2raw.evidence_json)')&&src.includes('readme_signals:parse(l2raw.readme_signals_json)')]
   ];
   for(const [id,pass] of autoChecks) pass?ok(id):fail(id);
   const phoneChecks=[
