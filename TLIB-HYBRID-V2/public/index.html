@@ -254,7 +254,7 @@ html{scroll-behavior:auto!important}
 <div class="subpane" data-l1-pane="themes">
   <div class="twocol">
     <div class="card"><h3 style="margin-top:0">Facettes en direct</h3><p class="muted">Clique sur une facette pour ouvrir Explorer avec ce filtre.</p><div id="l1Facets" class="facets"></div></div>
-    <div class="card"><h3 style="margin-top:0">Version de taxonomie</h3><div class="bigstat" id="taxonomyVersion">…</div><p class="muted">Les thèmes TLIB sont distincts des topics GitHub bruts.</p></div>
+    <div class="card interactive-card" tabindex="0" data-action="l1-taxonomy"><h3 style="margin-top:0">Version de taxonomie</h3><div class="bigstat" id="taxonomyVersion">…</div><p class="muted">Les thèmes TLIB sont distincts des topics GitHub bruts. Cliquer pour recharger les facettes.</p></div>
   </div>
   <div class="card" style="margin-top:12px"><h3 style="margin-top:0">Arbre des thèmes</h3><div id="l1Themes" class="theme-tree"></div></div>
 </div>
@@ -615,6 +615,7 @@ function handleAction(action){
   else if(action==='l0-sources'){html=kvLine('Sources explorées',fmt(s.apps_script.source_count||0))+kvLine('Terminées',fmt(s.apps_script.source_done||0))+kvLine('Épuisées',fmt(s.apps_script.source_failed||0))+kvLine('En attente',fmt(s.apps_script.source_pending||0));openDrawer('Sources L0','L0 · graphe de découverte',html)}
   else if(action==='l0-done'){html=kvLine('Sources réussies',fmt(s.apps_script.source_done||0))+kvLine('État','Drainage terminé')+'<p class="muted">Ces sources ont été parcourues et leurs ressources normalisées dans la génération L0 actuelle.</p>';openDrawer('Sources terminées','L0 · réussite',html)}
   else if(action==='l0-failed'){html=kvLine('Sources épuisées',fmt(s.apps_script.source_failed||0))+kvLine('Sources en attente',fmt(s.apps_script.source_pending||0))+'<p class="muted">“Épuisée” signifie que les tentatives prévues ont été consommées. Elles restent tracées pour audit et n’empêchent pas L1.</p><div class="actions"><button class="btn" data-drawer-go="technical">Ouvrir diagnostics</button></div>';openDrawer('Sources épuisées','L0 · audit',html)}
+  else if(action==='l1-taxonomy'){show('l1');clickSubtab('#l1Subnav','data-l1-tab','themes');return}
   else if(action==='l1-all'){openL1Drill('verified');return}
   else if(action==='l1-verified'){openL1Drill('verified');return}
   else if(action==='l1-complete'){openL1Drill('complete');return}
