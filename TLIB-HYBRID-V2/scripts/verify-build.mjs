@@ -111,6 +111,7 @@ existsSync(join(APP,'public','vendor-qrcode.min.js'))?fail('phone-qr-no-legacy-d
 try{
   const src=readFileSync(join(APP,'src','tlib.mjs'),'utf8');
   const autoChecks=[
+    ['last-good-soak',src.includes('LAST_GOOD_SOAK_MS=15*60*1000')&&src.includes('promoteCurrentToLastGoodAfterSoak')],
     ['auto-update-arm',src.includes('startAutonomousUpdates()')],
     ['auto-update-stage',src.includes('runUpdaterStage')],
     ['auto-update-idle-guard',src.includes('AUTO_UPDATE_IDLE_GUARD_MS')],
@@ -138,6 +139,12 @@ try{
   const updater=readFileSync(join(APP,'scripts','slot-update.mjs'),'utf8');
   updater.includes("const UPDATE_CHANNEL='release/tlib-hybrid-v2-stable'")?ok('update-stable-channel'):fail('update-stable-channel');
   updater.includes("branches/'+encodeURIComponent(UPDATE_CHANNEL)")?ok('update-stable-lookup'):fail('update-stable-lookup');
+  updater.includes('STALE_UPDATE_LOCK_REMOVED')?ok('update-stale-lock-recovery'):fail('update-stale-lock-recovery');
+  updater.includes('freePreflightPort')?ok('update-dynamic-preflight-port'):fail('update-dynamic-preflight-port');
+  updater.includes('BOOTSTRAP_SYNC')?ok('update-bootstrap-self-refresh'):fail('update-bootstrap-self-refresh');
+  updater.includes("reason:'pre-activation-last-good'")&&!updater.includes('writeJson(CURRENT,active);writeJson(LASTGOOD,active)')?ok('update-delayed-last-good'):fail('update-delayed-last-good');
+  updater.includes('MANIFEST_PATH_UNSAFE')&&updater.includes('MAX_TOTAL_BYTES')?ok('update-manifest-safety'):fail('update-manifest-safety');
+  updater.includes('FETCH_TIMEOUT_MS=45000')?ok('update-slow-network-profile'):fail('update-slow-network-profile');
 }catch(e){fail('update-stable-contract',e.message)}
 
 try{
