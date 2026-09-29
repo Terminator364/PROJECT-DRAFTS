@@ -1,9 +1,9 @@
 {
   "project": "TLIB-HYBRID-V2",
   "branch": "lab/tlib-hybrid-v2",
-  "checkpoint": "V090_L1_L2_CONTINUOUS_PUBLISHED_AWAITING_AUTONOMOUS_PC_CYCLE",
+  "checkpoint": "V090_L1_L2_CONTINUOUS_RUNTIME_PROVEN",
   "build_target": "2026.09.29-v0.9.0-l1-l2-continuous",
-  "updated_at_utc": "2026-09-29T12:50:00.071Z",
+  "updated_at_utc": "2026-09-29T12:56:27.908Z",
   "production_l1_enabled": false,
   "apps_script_bridge_enabled": false,
   "github_actions_expected_minutes": 0,
@@ -192,7 +192,7 @@
       "progress": true
     }
   },
-  "next_gate": "Active v0.8.3 must self-update to v0.9.0 via stable channel. Runtime proof: L1 continues increasing while L2 total rises beyond fixture 10; L2-BASE consumes no GitHub, L2-DEEP respects reserve 2800 and shared resource governor.",
+  "next_gate": "Continue long-run observation. Tune L2 weighting only from measured L1/L2 throughput, GitHub reserve, and resource governor; do not increase parallelism blindly on 4GB RAM.",
   "sealed": true,
   "last_good_build": "2026.09.29-v0.8.0-mobile-autonomous",
   "last_good_status": "PRESERVED_PRE_ACTIVATION",
@@ -212,8 +212,8 @@
     "ghost worker exits on bind failure",
     "updates and heavy repair remain outside normal click path"
   ],
-  "active_pc_commit": "5a18af6b78072a29e60b4e9fde1076bd328a62c6",
-  "active_pc_build": "2026.09.29-v0.8.1-r2-resilient-ux-contract",
+  "active_pc_commit": "9fe745b16cf2b93e86ecfbaf22d98468091d022e",
+  "active_pc_build": "2026.09.29-v0.9.0-l1-l2-continuous",
   "ui_router": {
     "status": "FIXED_AND_STATIC_AUDIT_PASS",
     "root_cause": "legacy bindPaneTabs compared button dataset key against nonexistent pane dataset key",
@@ -293,11 +293,15 @@
     "l1_not_starved_static": "PASS",
     "l2_readme_quota_guard_static": "PASS",
     "l2_pipeline_ui_static": "PASS",
-    "v090_runtime": "PENDING_AUTONOMOUS"
+    "v090_runtime": "PASS",
+    "l1_continues_runtime": "PASS",
+    "l2_exceeds_fixture_runtime": "PASS",
+    "l2_deep_readme_runtime": "PASS",
+    "autonomous_update_to_v090": "PASS"
   },
-  "seal_scope": "ACTIVE_RUNTIME_PROVEN_V081R2__V082R2_PENDING_AUTONOMY",
-  "runtime_validated": false,
-  "activation_pending": true,
+  "seal_scope": "V090_RUNTIME_PROVEN_CONTINUOUS_L1_L2",
+  "runtime_validated": true,
+  "activation_pending": false,
   "phone_link": {
     "status": "CODE_SEALED_AWAITING_RUNTIME",
     "manager_entry": "📱 Téléphone / QR",
@@ -333,5 +337,23 @@
       "resource_governor_shared": true,
       "user_active_pause": true
     }
+  },
+  "runtime_proof": {
+    "observed_after_activation": {
+      "l1_core": 10643,
+      "l1_complete": 10052,
+      "l1_deep": 9622,
+      "l2_total": 13,
+      "l2_base": 12,
+      "l2_deep": 1,
+      "l2_deep_pending": 9
+    },
+    "pre_activation_reference": {
+      "l1_core": 10636,
+      "l1_complete": 10045,
+      "l1_deep": 9615,
+      "l2_total": 10
+    },
+    "conclusion": "L1 and L2 both advanced after v0.9.0 activation; continuous interleaved pipeline proven."
   }
 }
