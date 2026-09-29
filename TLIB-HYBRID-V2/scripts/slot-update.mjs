@@ -21,6 +21,7 @@ const LASTGOOD=join(DATA,'last-good-deployment.json');
 const LOCK=join(DATA,'slot-update.lock');
 const LOG=join(DATA,'slot-update-audit.jsonl');
 const PROGRESS=join(DATA,'slot-update-progress.json');
+const BG_WORKER=join(DATA,'background-worker.json');
 const MODE=(process.argv[2]||'status').toLowerCase();
 const FORCE=process.argv.includes('--force');
 const FETCH_TIMEOUT_MS=45000;
@@ -105,9 +106,20 @@ function killPid(pid){
   if(!pid)return;
   const n=Number(pid);
   try{
-    if(process.platform==='win32')execFileSync('taskkill.exe',['/PID',String(n),'/T','/F'],{windowsHide:true,timeout:5000,stdio:'ignore'});
+    // Never use /T here: the updater itself can be a descendant of the old agent.
+    // Tree-killing the agent would kill the updater during self-update.
+    if(process.platform==='win32')execFileSync('taskkill.exe',['/PID',String(n),'/F'],{windowsHide:true,timeout:5000,stdio:'ignore'});
     else process.kill(n,'SIGTERM');
   }catch{}
+}
+function stopBackgroundWorker(){
+  const bg=readJson(BG_WORKER,null);
+  const pid=Number(bg?.pid||0);
+  if(pid&&pid!==process.pid){
+    log('BACKGROUND_WORKER_STOP','INFO','pid='+pid);
+    killPid(pid);
+  }
+  try{rmSync(BG_WORKER,{force:true})}catch{}
 }
 function portPid(port){
   if(process.platform!=='win32')return null;
@@ -119,6 +131,7 @@ function portPid(port){
   return null;
 }
 async function stopActive(){
+  stopBackgroundWorker();
   const h=await health(8787,1200);
   let pid=h?.pid||null;
   if(!pid)pid=portPid(8787);
@@ -254,7 +267,9 @@ async function apply(){
   writeJson(join(DATA,'rollback-deployment.json'),old||{});
   if(old?.commit&&old?.path)writeJson(LASTGOOD,{...old,preserved_at:now(),reason:'pre-activation-last-good'});
   await stopActive();
-  progress('ACTIVATE',55,'Ancien moteur arrêté · démarrage de la nouvelle version',{commit:slot.commit});
+  progress('ACTIVATE',55,'Ancien moteur arrêté · updater toujours actif',{commit:slot.commit,updater_pid:process.pid});
+  log('UPDATER_SURVIVED_STOP','PASS','pid='+process.pid+' old='+(old?.commit||'none'));
+  progress('ACTIVATE',62,'Démarrage de la nouvelle version',{commit:slot.commit});
   try{
     const pid=startWorker(slot);
     progress('HEALTH',78,'Health-check du nouveau moteur',{commit:slot.commit});
