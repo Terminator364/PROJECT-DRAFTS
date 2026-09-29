@@ -1,4 +1,4 @@
-import { readFileSync } from 'node:fs';
+import { readFileSync, existsSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { execFileSync } from 'node:child_process';
@@ -94,7 +94,8 @@ if(html){
 
   const phoneDurations=[30,90,180].filter(n=>markup.includes('data-phone-minutes="'+n+'"'));
   phoneDurations.length===3?ok('phone-ui-durations','30/90/180'):fail('phone-ui-durations',phoneDurations.join(','));
-  markup.includes('data-manager-tab="phone"')&&markup.includes('data-manager-pane="phone"')?ok('phone-ui-workspace','Manager > Téléphone'):fail('phone-ui-workspace');
+  markup.includes('data-manager-tab="phone"')&&markup.includes('data-manager-pane="phone"')?ok('phone-ui-workspace','Manager > Téléphone / QR'):fail('phone-ui-workspace');
+  markup.includes('data-manager-tab="phone">📱 Téléphone / QR</button>')?ok('phone-ui-label','explicit QR entry'):fail('phone-ui-label');
   html.includes('<script src="/vendor/qrcode.min.js"></script>')?ok('phone-ui-qr-loader'):fail('phone-ui-qr-loader');
   js.includes("if(v==='phone')loadPhoneStatus()")?ok('phone-ui-lazy-load'):fail('phone-ui-lazy-load');
 }
@@ -103,6 +104,8 @@ try{
   const qr=readFileSync(join(APP,'public','vendor','qrcode.min.js'),'utf8');
   qr.includes('QRCode')?ok('phone-qr-asset',qr.length+' bytes'):fail('phone-qr-asset','unexpected content');
 }catch(e){fail('phone-qr-asset',e.message)}
+
+existsSync(join(APP,'public','vendor-qrcode.min.js'))?fail('phone-qr-no-legacy-duplicate','legacy duplicate present'):ok('phone-qr-no-legacy-duplicate');
 
 try{
   const src=readFileSync(join(APP,'src','tlib.mjs'),'utf8');
