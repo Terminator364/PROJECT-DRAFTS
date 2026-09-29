@@ -161,6 +161,8 @@ CREATE INDEX IF NOT EXISTS idx_results_fetched ON results(fetched_at);
 CREATE INDEX IF NOT EXISTS idx_events_level_at ON events(level,at);
 CREATE INDEX IF NOT EXISTS idx_l2_stage_status ON l2_profiles(stage,deep_status,updated_at);
 CREATE INDEX IF NOT EXISTS idx_l2_score ON l2_profiles(score);
+CREATE TABLE IF NOT EXISTS l3_actions(entity_id TEXT PRIMARY KEY,action_json TEXT NOT NULL,source_l2_version TEXT NOT NULL,updated_at TEXT NOT NULL);
+CREATE INDEX IF NOT EXISTS idx_l3_updated ON l3_actions(updated_at);
 `);
 
 const now = () => new Date().toISOString();
@@ -1070,6 +1072,30 @@ async function l2DeepStep(){
     event('INFO','L2_DEEP_V3_OK',row.full_name+'; score='+p.score+'; l3='+p.l3_ready+'; sources='+deepSources.length);l2DeepNextAttemptAt=Date.now()+4500;return {done:1,state:'OK'};
   }catch(e){if(e.code==='RATE_LIMIT'){l2DeepNextAttemptAt=Math.max(Date.now()+60000,Number(e.reset||0)*1000+15000);event('WARN','L2_DEEP_V3_RATE_LIMIT','reset='+Number(e.reset||0));return {done:0,state:'RATE_LIMIT'}}db.prepare("UPDATE l2_profiles SET deep_status='RETRY',attempts=coalesce(attempts,0)+1,last_error=?,updated_at=? WHERE entity_id=?").run(String(e.message||e).slice(0,400),now(),row.entity_id);l2DeepNextAttemptAt=Date.now()+15000;event('ERROR','L2_DEEP_V3_ERROR',row.full_name+' :: '+String(e.message||e));return {done:0,state:'ERROR'}}
 }
+function l3ActionPackFromDossier(entityId,dossier){
+  dossier=dossier&&typeof dossier==='object'?dossier:{};const h=dossier.handoff_l3||{};
+  const commands=Array.isArray(dossier.commandes)?dossier.commandes:[],deps=Array.isArray(dossier.dependances)?dossier.dependances:[],interfaces=Array.isArray(dossier.interfaces_fr)?dossier.interfaces_fr:[],unknowns=Array.isArray(dossier.a_verifier_fr)?dossier.a_verifier_fr:[],limits=Array.isArray(dossier.limites_fr)?dossier.limites_fr:[],uses=Array.isArray(dossier.cas_usage_fr)?dossier.cas_usage_fr:[];
+  const first=uniqText([...(Array.isArray(h.ce_quon_peut_deja_faire)?h.ce_quon_peut_deja_faire:[]),commands[0]?'Exécuter un test contrôlé avec : '+commands[0]:'',deps.length?'Vérifier la compatibilité des dépendances clés : '+deps.slice(0,5).join(', '):''],8);
+  const testPlan=uniqText([commands.length?'Lancer le projet avec une commande documentée dans un environnement isolé.':'Préparer un environnement isolé avant toute exécution.',interfaces.length?'Tester l’interface principale : '+interfaces.join(', '):'',uses[0]?'Vérifier le cas d’usage prioritaire : '+uses[0]:'','Mesurer succès, erreurs et consommation de ressources.'],8);
+  const integration=uniqText([interfaces.length?'Point d’intégration probable : '+interfaces.join(', '):'',deps.length?'Dépendances à provisionner : '+deps.slice(0,8).join(', '):'','Conserver un mécanisme de rollback avant intégration durable.'],8);
+  const risks=uniqText([...limits,...unknowns.map(x=>'À confirmer : '+x)],12);
+  return {schema:1,entity_id:entityId,objective:'Passer de la compréhension L2 à un test ou une intégration contrôlée.',first_actions:first,test_plan:testPlan,integration_plan:integration,risks,blockers:unknowns,source_score:Number(h.score||0),source_ready:Boolean(h.pret)};
+}
+function l3Step(limit=2){
+  limit=Math.max(1,Math.min(Number(limit||2),5));
+  const rows=db.prepare("SELECT l.entity_id,l.dossier_json FROM l2_profiles l LEFT JOIN l3_actions a ON a.entity_id=l.entity_id WHERE l.source_version=? AND l.l3_ready=1 AND (a.entity_id IS NULL OR a.source_l2_version<>?) ORDER BY l.comprehension_score DESC,l.updated_at ASC LIMIT ?").all(L2_RULESET_VERSION,L2_RULESET_VERSION,limit);
+  if(!rows.length)return {done:0,state:'EMPTY'};const stmt=db.prepare("INSERT INTO l3_actions(entity_id,action_json,source_l2_version,updated_at) VALUES(?,?,?,?) ON CONFLICT(entity_id) DO UPDATE SET action_json=excluded.action_json,source_l2_version=excluded.source_l2_version,updated_at=excluded.updated_at");let done=0;
+  for(const r of rows){try{const d=jsonObject(r.dossier_json),pack=l3ActionPackFromDossier(r.entity_id,d);stmt.run(r.entity_id,JSON.stringify(pack),L2_RULESET_VERSION,now());done++}catch(e){event('ERROR','L3_ACTION_ERROR',r.entity_id+' :: '+String(e.message||e))}}
+  if(done)event('INFO','L3_ACTION_OK','+'+done+' pack(s)');return {done,state:done?'OK':'ERROR'};
+}
+function l3Stats(){
+  const ready=Number(db.prepare('SELECT COUNT(*) AS n FROM l2_profiles WHERE source_version=? AND l3_ready=1').get(L2_RULESET_VERSION).n);
+  const total=Number(db.prepare('SELECT COUNT(*) AS n FROM l3_actions WHERE source_l2_version=?').get(L2_RULESET_VERSION).n);
+  return {ready,total,pending:Math.max(0,ready-total),progress_percent:ready?Number((total*100/ready).toFixed(1)):0};
+}
+function l3Rows(limit=100){
+  limit=Math.max(1,Math.min(Number(limit||100),200));return db.prepare("SELECT a.entity_id,a.action_json,a.updated_at,r.full_name,r.resource_kind,r.technology,l.comprehension_score FROM l3_actions a JOIN results r ON r.entity_id=a.entity_id JOIN l2_profiles l ON l.entity_id=a.entity_id WHERE a.source_l2_version=? ORDER BY l.comprehension_score DESC,a.updated_at DESC LIMIT ?").all(L2_RULESET_VERSION,limit).map(x=>({...x,action:jsonObject(x.action_json)}));
+}
 async function scheduledL1Step(){
   const mode=l1SchedulerMode();l1Cycle++;
   if(mode==='DEEP_CATCHUP'){
@@ -1086,6 +1112,7 @@ async function scheduledPipelineStep(){
   pipelineCycle++;const l2=l2Stats();
   if(l2.base_pending>0&&pipelineCycle%3===0)return l2BaseStep(3);
   if(l2.deep_pending>0&&pipelineCycle%12===6){const d=await l2DeepStep();if(d.done||!['EMPTY','NO_AUTH','RESERVE_RATE','WAIT'].includes(d.state))return d;}
+  const l3=l3Stats();if(l3.pending>0&&pipelineCycle%15===9){const a=l3Step(2);if(a.done)return a;}
   return await scheduledL1Step();
 }
 
@@ -1296,7 +1323,9 @@ function resourceById(id) {
     const parse = (v) => { try { return JSON.parse(v || '[]'); } catch { return []; } };
     l2 = {...l2raw, capabilities:parse(l2raw.capabilities_json), use_cases:parse(l2raw.use_cases_json), limitations:parse(l2raw.limitations_json), evidence:parse(l2raw.evidence_json), readme_signals:parse(l2raw.readme_signals_json), dossier:parse(l2raw.dossier_json), deep_sources:parse(l2raw.deep_sources_json)};
   }
-  return {...r, topics, l2};
+  const l3raw=db.prepare('SELECT action_json,updated_at,source_l2_version FROM l3_actions WHERE entity_id=?').get(r.entity_id)||null;
+  const l3=l3raw?{...l3raw,action:jsonObject(l3raw.action_json)}:null;
+  return {...r, topics, l2, l3};
 }
 
 
@@ -1583,7 +1612,7 @@ function statusSnapshot(force=false) {
   const counts = {};
   for (const r of db.prepare('SELECT status, COUNT(*) AS n FROM jobs GROUP BY status').all()) counts[r.status] = Number(r.n);
   const totalResults = Number(db.prepare('SELECT COUNT(*) AS n FROM results').get().n);
-  const l2stat=l2Stats();
+  const l2stat=l2Stats(),l3stat=l3Stats();
   const l2Count = Number(l2stat.total||0);
   const recent = db.prepare(`SELECT r.full_name,r.description,r.stars,r.language,r.archived,r.fork,r.rate_remaining,r.fetched_at,
                                     r.resource_kind,r.technology,r.content_mode,r.activity_status,r.l1_quality,l.human_summary
@@ -1594,6 +1623,7 @@ function statusSnapshot(force=false) {
   const levels = JSON.parse(JSON.stringify(control.product || {}));
   if (levels.l1) { levels.l1.count = totalResults; if (totalResults > 0) levels.l1.state = 'CANARY'; }
   if (levels.l2) { levels.l2.count = l2Count; if (l2Count > 0) levels.l2.state = l2Count>10?'RUNNING':'CANARY'; }
+  if (levels.l3) { levels.l3.count = l3stat.total; levels.l3.state = l3stat.total>0?'RUNNING':'DESIGNED'; }
   const out={
     product: 'TLIB',
     build: APP_BUILD,
@@ -1606,7 +1636,7 @@ function statusSnapshot(force=false) {
       github_auth_mode: githubAuthMode, l1_stats:l1Stats(),
       public_next_attempt_at: publicNextAttemptAt ? new Date(publicNextAttemptAt).toISOString() : null,
       public_rate_remaining: publicRateRemaining, public_rate_reset: publicRateReset,
-      scheduler_mode:schedulerMode(), l1_scheduler_mode:l1SchedulerMode(), deep_backlog:deepBacklogCount(), l2_stats:l2stat, resource_governor:governorState },
+      scheduler_mode:schedulerMode(), l1_scheduler_mode:l1SchedulerMode(), deep_backlog:deepBacklogCount(), l2_stats:l2stat, l3_stats:l3stat, resource_governor:governorState },
     apps_script: control.engine || {},
     levels,
     recent,
@@ -1822,6 +1852,7 @@ async function startDashboard() {
       if (u.pathname === '/api/l1/stats') return sendJson(res,200,l1Stats());
       if (u.pathname === '/api/l2/list') return sendJson(res,200,{items:l2Rows(u.searchParams.get('limit')||100),stats:l2Stats()});
       if (u.pathname === '/api/l2/queue') return sendJson(res,200,{items:l2QueueRows(u.searchParams.get('limit')||60),stats:l2Stats()});
+      if (u.pathname === '/api/l3/list') return sendJson(res,200,{items:l3Rows(u.searchParams.get('limit')||100),stats:l3Stats()});
       if (u.pathname === '/api/resource') {
         const item=resourceById(u.searchParams.get('id')||'');
         return item ? sendJson(res,200,item) : sendJson(res,404,{error:'NOT_FOUND'});
