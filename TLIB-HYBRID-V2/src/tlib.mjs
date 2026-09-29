@@ -11,7 +11,7 @@ const HERE = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(HERE, '..');
 const dataDir = process.env.TLIB_DATA_DIR || join(process.env.LOCALAPPDATA || homedir(), 'TLIB-PC');
 mkdirSync(dataDir, { recursive: true });
-const APP_BUILD = '2026.09.29-v0.7.5-update-progress';
+const APP_BUILD = '2026.09.29-v0.8.0-mobile-autonomous';
 const STARTED_AT = new Date().toISOString();
 function deploymentCommit() {
   try {
@@ -1107,7 +1107,7 @@ function phoneState(){
 }
 function normalizePhoneMinutes(v){
   const n=Number(v||30);
-  return [30,90,180].includes(n)?n:30;
+  return [30,180,360].includes(n)?n:30;
 }
 function createPhonePair(minutes=30){
   const lanIp=privateLanIpv4();
@@ -1207,8 +1207,8 @@ function revokePhoneSessions(){
 function readJsonSafe(path, fallback=null) {
   try { return JSON.parse(readFileSync(path,'utf8')); } catch { return fallback; }
 }
-const AUTO_UPDATE_INTERVAL_MS=6*60*60*1000;
-const AUTO_UPDATE_FIRST_DELAY_MS=90*1000;
+const AUTO_UPDATE_INTERVAL_MS=10*60*1000;
+const AUTO_UPDATE_FIRST_DELAY_MS=45*1000;
 const AUTO_UPDATE_IDLE_GUARD_MS=120*1000;
 const LAST_GOOD_SOAK_MS=15*60*1000;
 let autoUpdateRunning=false;
@@ -1240,8 +1240,8 @@ function updateStatusSnapshot() {
     automatic_update:{
       enabled:true,
       channel:'release/tlib-hybrid-v2-stable',
-      interval_hours:6,
-      first_check_seconds:90,
+      interval_minutes:10,
+      first_check_seconds:45,
       idle_guard_seconds:120,
       running:autoUpdateRunning,
       last_check_at:autoUpdateLastAt?new Date(autoUpdateLastAt).toISOString():null,
@@ -1338,7 +1338,7 @@ function promoteCurrentToLastGoodAfterSoak(){
   try{timer.unref()}catch{}
 }
 function startAutonomousUpdates(){
-  event('INFO','AUTO_UPDATE_ARMED','first=90s interval=6h channel=release/tlib-hybrid-v2-stable');
+  event('INFO','AUTO_UPDATE_ARMED','first=45s interval=10m channel=release/tlib-hybrid-v2-stable');
   scheduleAutoUpdate(AUTO_UPDATE_FIRST_DELAY_MS);
 }
 
