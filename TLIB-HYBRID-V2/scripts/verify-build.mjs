@@ -135,6 +135,7 @@ if(html){
   js.includes('function openL2Drill')&&js.includes("/api/l2/drilldown")&&js.includes("openL2Drill('profiles')")?ok('l2-ui-drilldown-routing'):fail('l2-ui-drilldown-routing');
   js.includes('function sendChatQuery')&&js.includes("/api/chat/search")&&!js.includes("var items=await loadLibrary(q)")?ok('chat-dedicated-search'):fail('chat-dedicated-search');
   markup.includes('data-l1-drill-open="complete"')&&markup.includes('data-l2-drill-open="eligible"')?ok('overview-metrics-actionable'):fail('overview-metrics-actionable');
+  markup.includes('data-action="l1-taxonomy"')?ok('l1-taxonomy-actionable'):fail('l1-taxonomy-actionable');
   markup.includes('data-l2-tab="pipeline"')&&markup.includes('data-l2-pane="pipeline"')?ok('l2-ui-pipeline-pane'):fail('l2-ui-pipeline-pane');
   markup.includes('id="l2BasePending"')&&markup.includes('id="l2DeepDone"')&&markup.includes('id="l2ProgressBar"')?ok('l2-ui-metrics'):fail('l2-ui-metrics');
   js.includes('loadL2Queue')&&js.includes("if(v==='pipeline')return loadL2Queue()")?ok('l2-ui-lazy-queue'):fail('l2-ui-lazy-queue');
