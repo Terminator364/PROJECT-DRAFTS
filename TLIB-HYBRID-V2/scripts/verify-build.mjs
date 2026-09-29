@@ -127,6 +127,8 @@ if(html){
   markup.includes('id="globalActivity"')&&html.includes('.subpane.pane-loading')?ok('ui-global-loading-contract'):fail('ui-global-loading-contract');
   js.includes("attempts=method==='GET'?3:1")?ok('ui-read-retry-contract'):fail('ui-read-retry-contract');
   js.includes('UPDATE_EXPECT_RESTART')&&js.includes('reconnexion automatique')&&js.includes('location.reload()')?ok('ui-update-reconnect-contract'):fail('ui-update-reconnect-contract');
+  markup.includes('id="projectFeedbackCard"')&&markup.includes('id="projectSyncBadge"')?ok('ui-project-feedback-panel'):fail('ui-project-feedback-panel');
+  js.includes('ensureUiRuntimeSync')&&js.includes('PAGE_BUILD')?ok('ui-runtime-autosync'):fail('ui-runtime-autosync');
 }
 
 try{
@@ -139,6 +141,7 @@ existsSync(join(APP,'public','vendor-qrcode.min.js'))?fail('phone-qr-no-legacy-d
 try{
   const src=readFileSync(join(APP,'src','tlib.mjs'),'utf8');
   const autoChecks=[
+    ['dashboard-build-injection',src.includes("replaceAll('__TLIB_BUILD__',APP_BUILD)")&&src.includes("replaceAll('__TLIB_COMMIT__',APP_COMMIT)")],
     ['last-good-soak',src.includes('LAST_GOOD_SOAK_MS=15*60*1000')&&src.includes('promoteCurrentToLastGoodAfterSoak')],
     ['auto-update-arm',src.includes('startAutonomousUpdates()')],
     ['auto-update-stage',src.includes('runUpdaterStage')],
