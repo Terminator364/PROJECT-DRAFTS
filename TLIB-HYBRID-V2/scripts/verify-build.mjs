@@ -88,7 +88,7 @@ if(html){
   const legacyFound=legacyBindings.filter(x=>js.includes(x));
   legacyFound.length?fail('ui-router-no-legacy',legacyFound.join(' || ')):ok('ui-router-no-legacy');
 
-  const essentials=['navBack','commandOpen','homeSearchBtn','librarySearchBtn','chatSend','refreshDeepQueue','runUiAuditBtn','drawerClose','phoneCreateBtn','phoneRefreshBtn','phoneRevokeBtn','phoneQr','mgrPhoneShortcut','mgrPhoneCard','mgrBuildBadge','updateAutoMode','updateAutoDetail'];
+  const essentials=['navBack','commandOpen','homeSearchBtn','librarySearchBtn','chatSend','refreshDeepQueue','runUiAuditBtn','drawerClose','phoneCreateBtn','phoneRefreshBtn','phoneRevokeBtn','phoneQr','mgrPhoneShortcut','mgrPhoneCard','mgrBuildBadge','updateAutoMode','updateAutoDetail','updateProgressBar','updateProgressText'];
   const absent=essentials.filter(id=>!markup.includes('id="'+id+'"'));
   absent.length?fail('ui-essential-controls',absent.join(',')):ok('ui-essential-controls',essentials.length+' controls');
 
@@ -99,6 +99,7 @@ if(html){
   html.includes('<script src="/vendor/qrcode.min.js"></script>')?ok('phone-ui-qr-loader'):fail('phone-ui-qr-loader');
   js.includes("if(v==='phone')loadPhoneStatus()")?ok('phone-ui-lazy-load'):fail('phone-ui-lazy-load');
   js.includes("el('#mgrPhoneShortcut').onclick=openManagerPhone")&&js.includes("el('#mgrPhoneCard').onclick=openManagerPhone")?ok('phone-ui-discoverability','header + overview card'):fail('phone-ui-discoverability');
+  js.includes('startUpdatePolling()')&&js.includes("#updateProgressBar")?ok('update-ui-progress','live polling + bar'):fail('update-ui-progress');
 }
 
 try{
@@ -145,6 +146,7 @@ try{
   updater.includes("reason:'pre-activation-last-good'")&&!updater.includes('writeJson(CURRENT,active);writeJson(LASTGOOD,active)')?ok('update-delayed-last-good'):fail('update-delayed-last-good');
   updater.includes('MANIFEST_PATH_UNSAFE')&&updater.includes('MAX_TOTAL_BYTES')?ok('update-manifest-safety'):fail('update-manifest-safety');
   updater.includes('FETCH_TIMEOUT_MS=45000')?ok('update-slow-network-profile'):fail('update-slow-network-profile');
+  updater.includes("const PROGRESS=join(DATA,'slot-update-progress.json')")&&updater.includes("progress('DOWNLOAD'")&&updater.includes("progress('DONE'")?ok('update-progress-contract'):fail('update-progress-contract');
 }catch(e){fail('update-stable-contract',e.message)}
 
 try{
