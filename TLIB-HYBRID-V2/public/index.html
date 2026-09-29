@@ -822,6 +822,16 @@ async function loadL2Queue(){
     bindOpenResourceRows('#l2QueueTable');return j;
   }catch(e){if(el('#l2QueueTable'))el('#l2QueueTable').innerHTML='<div class="notice">Queue L2 indisponible : '+esc(e.message||e)+'</div>';throw e}
 }
+async function loadL3(){
+  try{
+    var j=await api('/api/l3/list?limit=120'),st=j.stats||{},items=j.items||[];
+    textIf('#l3Ready',fmt(st.ready||0));textIf('#l3Total',fmt(st.total||0));textIf('#l3Pending',fmt(st.pending||0));textIf('#l3ProgressPct',Number(st.progress_percent||0).toFixed(1)+'%');
+    widthIf('#l3ProgressBar',Math.min(100,Number(st.progress_percent||0))+'%');textIf('#l3ProgressText',fmt(st.total||0)+' / '+fmt(st.ready||0)+' dossiers prêts transformés en packs d’action');
+    var box=el('#l3Results');if(box)box.innerHTML=items.length?items.map(function(x){var a=x.action||{},first=Array.isArray(a.first_actions)?a.first_actions:[],risk=Array.isArray(a.risks)?a.risks:[];return '<div class="card tool" tabindex="0" data-l3-resource="'+esc(x.entity_id)+'"><div class="small muted">Compréhension L2 '+fmt(x.comprehension_score||0)+'/100</div><h3>'+esc(x.full_name)+'</h3><p>'+esc(a.objective||'Pack d’action disponible.')+'</p><div class="meta"><span class="pill">'+esc(x.resource_kind||'Projet')+'</span><span class="pill">'+esc(x.technology||'—')+'</span><span class="pill">'+fmt(first.length)+' action(s)</span><span class="pill">'+fmt(risk.length)+' risque(s)</span></div></div>'}).join(''):'<div class="notice">Aucun dossier L2 n’est encore assez étayé pour produire un pack L3. L2 continue son approfondissement.</div>';
+    els('#l3Results [data-l3-resource]').forEach(function(c){var go=function(){show('explore');loadResource(c.dataset.l3Resource)};c.onclick=go;c.onkeydown=function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();go()}}});
+    return j;
+  }catch(e){if(el('#l3Results'))el('#l3Results').innerHTML='<div class="notice">L3 indisponible : '+esc(e.message||e)+'</div>';throw e}
+}
 function bindDetailTabs(root){
   var buttons=Array.from(root.querySelectorAll('[data-detail-tab]'));
   buttons.forEach(function(b){b.onclick=function(){buttons.forEach(function(z){z.classList.toggle('active',z===b)});Array.from(root.querySelectorAll('.subpane')).forEach(function(p){p.classList.toggle('active',p.dataset.detailPane===b.dataset.detailTab)})}});
