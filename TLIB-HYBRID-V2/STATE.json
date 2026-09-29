@@ -1,9 +1,9 @@
 {
   "project": "TLIB-HYBRID-V2",
   "branch": "lab/tlib-hybrid-v2",
-  "checkpoint": "V0113_L2_V3_VERIFIED_AWAITING_AUTONOMOUS_ACTIVATION",
+  "checkpoint": "V0113_L2_V3_VERIFIED_AWAITING_STABLE",
   "build_target": "2026.09.29-v0.11.3-l2-v3-verified",
-  "updated_at_utc": "2026-09-29T15:07:27.374Z",
+  "updated_at_utc": "2026-09-29T15:42:49.323Z",
   "production_l1_enabled": false,
   "apps_script_bridge_enabled": false,
   "github_actions_expected_minutes": 0,
@@ -224,7 +224,7 @@
       "manager_resource_indicators_clickable": true
     }
   },
-  "next_gate": "Publish v0.11.3 stable. Autonomous updater is in error backoff after safely rejecting v0.11.2; do not bypass with Desktop Commander. On next autonomous check or normal app restart, verify activation then prove DEEP>0 with BASE backlog, L3 packs when ready, phone schema-2 migration/persistence, and L1 continuity.",
+  "next_gate": "Fast-forward stable to v0.11.3, let TLIB self-update, then prove: L2 V3 BASE and DEEP both progress with backlog, L3 produces from ready dossiers, L1 continues, phone sessions persist/migrate and countdown/QR remain coherent.",
   "sealed": false,
   "last_good_build": "2026.09.29-v0.8.0-mobile-autonomous",
   "last_good_status": "PRESERVED_PRE_ACTIVATION",
@@ -374,8 +374,12 @@
     "v0112_auto_stage": "REJECTED_VERIFIER_SYNTAX_NO_ACTIVATION",
     "v0113_src_syntax": "PASS",
     "v0113_verifier_syntax": "PASS",
-    "v0113_verify_build": "PASS_121_CHECKS",
-    "v0113_runtime": "PENDING_AUTONOMOUS_ACTIVATION"
+    "v0113_verify_build": "PASS",
+    "v0113_runtime": "PENDING_STABLE_ACTIVATION",
+    "v0113_node_syntax": "PASS",
+    "v0113_ui_js_syntax": "PASS",
+    "v0113_scheduler_no_overlap": "PASS",
+    "v0113_l2_v3_drill_current_only": "PASS"
   },
   "seal_scope": "V0102_RUNTIME_PROVEN_INTERACTIVE_EVERYWHERE",
   "runtime_validated": false,
