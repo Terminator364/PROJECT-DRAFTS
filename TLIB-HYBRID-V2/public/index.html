@@ -496,6 +496,8 @@ html{scroll-behavior:auto!important}
 <script src="/vendor/qrcode.min.js"></script>
 <script>
 var STATUS=null,FIRST_L1=null,LAST_L1=null,LIB_OFFSET=0,LIB_QUERY='',LIB_TOTAL=0,LIB_LIMIT=60,NAV_HISTORY=[],CURRENT_VIEW='home';
+var L1_DRILL_KIND='verified',L1_DRILL_BAND='',L1_DRILL_OFFSET=0,L1_DRILL_LIMIT=40;
+var L2_PROFILE_KIND='profiles',L2_PROFILE_OFFSET=0,L2_PROFILE_LIMIT=40;
 const PAGE_BUILD='__TLIB_BUILD__',PAGE_COMMIT='__TLIB_COMMIT__';
 let UI_RUNTIME_RELOAD_PENDING=false;
 function el(s){return document.querySelector(s)} function els(s){return Array.from(document.querySelectorAll(s))}
@@ -604,7 +606,7 @@ function handleAction(action){
   if(action==='manager-appscript'){html=kvLine('État',s.apps_script.status)+kvLine('L0',fmt(s.apps_script.entity_count)+' ressources')+kvLine('Sources',fmt(s.apps_script.source_count||0))+kvLine('Terminées',fmt(s.apps_script.source_done||0))+kvLine('Épuisées',fmt(s.apps_script.source_failed||0))+'<div class="actions"><button class="btn primary" data-drawer-go="l0">Ouvrir L0</button><button class="btn" data-drawer-go="technical">Diagnostics</button></div>';openDrawer('Apps Script','Manager · moteur cloud',html)}
   else if(action==='manager-pc'){html=kvLine('État','EN LIGNE')+kvLine('PID',rt.pid||'—')+kvLine('RAM',fmt(rt.rss_mb||0)+' Mo')+kvLine('Uptime',fmt(rt.uptime_seconds||0)+' s')+kvLine('Cadence',fmt(st.throughput_per_hour||0)+' fiches/h')+kvLine('GitHub',s.pc_worker.github_auth_mode||'—')+'<div class="actions"><button class="btn primary" data-drawer-go="technical">Ouvrir Technique</button><button class="btn" data-drawer-go="l1">Voir L1</button></div>';openDrawer('Worker PC','Manager · exécution locale',html)}
   else if(action==='manager-queue'){html=kvLine('Total',fmt(s.pc_worker.staged_names||0))+kvLine('Terminées',fmt(q.DONE||0))+kvLine('En attente',fmt(q.PENDING||0))+kvLine('En cours',fmt(q.RUNNING||0))+kvLine('Échecs',fmt(q.FAILED||0))+'<div class="actions"><button class="btn primary" data-drawer-go="l1">Ouvrir L1</button></div>';openDrawer('File L1','Manager · queue',html)}
-  else if(action==='manager-l2'){show('l2');loadL2();toast('L2 ouvert');return}
+  else if(action==='manager-l2'){show('l2');clickSubtab('#l2Subnav','data-l2-tab','pipeline');return}
   else if(action==='tech-runtime'){html=kvLine('Node','v'+String(rt.node||'—'))+kvLine('PID',rt.pid||'—')+kvLine('Uptime',fmt(rt.uptime_seconds||0)+' s')+kvLine('Autopilote',s.pc_worker.autopilot?'Actif':'Inactif');openDrawer('Runtime','Technique · processus',html)}
   else if(action==='tech-memory'){html=kvLine('RAM worker',fmt(rt.rss_mb||0)+' Mo')+kvLine('Base SQLite',s.pc_worker.database||'—')+'<p class="muted">La mémoire affichée est celle du moteur TLIB Node, pas celle du navigateur.</p>';openDrawer('Mémoire','Technique · ressources',html)}
   else if(action==='tech-auth'){html=kvLine('Mode',s.pc_worker.github_auth_mode||'—')+kvLine('Secret','Non affiché / trousseau Windows')+kvLine('Quota restant',fmt(s.pc_worker.public_rate_remaining||0));openDrawer('GitHub','Technique · authentification',html)}
@@ -613,14 +615,14 @@ function handleAction(action){
   else if(action==='l0-sources'){html=kvLine('Sources explorées',fmt(s.apps_script.source_count||0))+kvLine('Terminées',fmt(s.apps_script.source_done||0))+kvLine('Épuisées',fmt(s.apps_script.source_failed||0))+kvLine('En attente',fmt(s.apps_script.source_pending||0));openDrawer('Sources L0','L0 · graphe de découverte',html)}
   else if(action==='l0-done'){html=kvLine('Sources réussies',fmt(s.apps_script.source_done||0))+kvLine('État','Drainage terminé')+'<p class="muted">Ces sources ont été parcourues et leurs ressources normalisées dans la génération L0 actuelle.</p>';openDrawer('Sources terminées','L0 · réussite',html)}
   else if(action==='l0-failed'){html=kvLine('Sources épuisées',fmt(s.apps_script.source_failed||0))+kvLine('Sources en attente',fmt(s.apps_script.source_pending||0))+'<p class="muted">“Épuisée” signifie que les tentatives prévues ont été consommées. Elles restent tracées pour audit et n’empêchent pas L1.</p><div class="actions"><button class="btn" data-drawer-go="technical">Ouvrir diagnostics</button></div>';openDrawer('Sources épuisées','L0 · audit',html)}
-  else if(action==='l1-all'){html=kvLine('Candidats L0',fmt(st.target||0))+kvLine('Déjà vérifiés',fmt(st.core||0))+kvLine('Restants',fmt(st.pending||0))+'<div class="actions"><button class="btn primary" data-drawer-go="explore">Explorer les vérifiés</button></div>';openDrawer('Corpus L1','L1 · périmètre total',html)}
-  else if(action==='l1-verified'){html=kvLine('Identités vérifiées',fmt(st.core||0))+kvLine('Progression',Number(st.core_percent||0).toFixed(2)+' %')+kvLine('Cadence récente',fmt(st.throughput_per_hour||0)+' /h');openDrawer('Identités vérifiées','L1 · noyau',html)}
-  else if(action==='l1-complete'){html=kvLine('L1 complètes',fmt(st.complete||0))+kvLine('Progression',Number(st.complete_percent||0).toFixed(2)+' %')+'<p class="muted">“Complet” est évalué selon le type de ressource : un catalogue, un guide et un logiciel n’exigent pas les mêmes champs.</p>';openDrawer('L1 complètes','L1 · qualification',html)}
-  else if(action==='l1-deep'){html=kvLine('Approfondies',fmt(st.deep_done||0))+kvLine('En attente',fmt(st.deep_pending||0))+'<p class="muted">Approfondissement : langages détaillés, release, README et métadonnées communautaires lorsque pertinent.</p>';openDrawer('Vérification profonde','L1 · approfondissement',html)}
-  else if(action==='l2-profiles'){show('l2');loadL2();toast('Profils L2 ouverts');return}
-  else if(action==='l2-input'){html=kvLine('Entrée minimale','L1 suffisamment qualifiée')+kvLine('But','éviter de gaspiller L2 sur des ressources mortes ou mal identifiées');openDrawer('Entrée L2','L2 · gate',html)}
-  else if(action==='l2-goal'){html='<p>Transformer une fiche technique en compréhension utile :</p><div class="kv"><span>Utilité</span><b>à quoi ça sert réellement</b></div><div class="kv"><span>Capacités</span><b>ce que la ressource sait faire</b></div><div class="kv"><span>Cas d’usage</span><b>quand l’utiliser</b></div><div class="kv"><span>Limites</span><b>quand ne pas l’utiliser</b></div>';openDrawer('Objectif L2','L2 · compréhension',html)}
-  else if(action==='l2-ai'){html='<p class="muted">L2-BASE est local et déterministe. L2-DEEP lit sélectivement les README quand quota GitHub et ressources le permettent. L1 continue en parallèle logique sous le même gouverneur.</p>';openDrawer('Analyse en L2','L2 · pipeline continu',html)}
+  else if(action==='l1-all'){openL1Drill('verified');return}
+  else if(action==='l1-verified'){openL1Drill('verified');return}
+  else if(action==='l1-complete'){openL1Drill('complete');return}
+  else if(action==='l1-deep'){openL1Drill('deep_done');return}
+  else if(action==='l2-profiles'){openL2Drill('profiles');return}
+  else if(action==='l2-input'){openL2Drill('eligible');return}
+  else if(action==='l2-goal'){show('l2');clickSubtab('#l2Subnav','data-l2-tab','design');return}
+  else if(action==='l2-ai'){show('l2');clickSubtab('#l2Subnav','data-l2-tab','pipeline');return}
   bindDrawerActions();
 }
 function bindDrawerActions(){els('[data-drawer-go]').forEach(function(b){b.onclick=function(){closeDrawer();show(b.dataset.drawerGo);if(b.dataset.drawerGo==='l1')loadFacets();if(b.dataset.drawerGo==='l2')loadL2()}})}
@@ -662,20 +664,74 @@ async function loadFacets(force){
     bindTagFilters(el('#l1Facets'));bindTagFilters(el('#l1Themes'));
   }catch(e){toast('Filtres indisponibles : '+String(e.message||e));throw e}
 }
-async function loadL2(force){
-  if(!force&&cacheFresh('l2',90000))return;
-  try{
-    var j=await api('/api/l2/list?limit=100');
-    el('#l2Results').innerHTML=j.items.length?j.items.map(function(x){return '<div class="card tool" data-id="'+esc(x.entity_id)+'"><div class="small muted">🧠 L2 compris · confiance '+Math.round(Number(x.confidence||0)*100)+'%</div><h3>'+esc(x.full_name)+'</h3><p>'+esc(x.human_summary||'')+'</p><div class="meta">'+(x.technology?tagButton(x.technology,x.technology):'')+(x.activity_status?tagButton(x.activity_status,x.activity_status):'')+'</div></div>'}).join(''):'<div class="muted">Aucun profil L2.</div>';
-    els('#l2Results .tool').forEach(function(x){x.onclick=function(){show('explore');loadResource(x.dataset.id)}});bindTagFilters(el('#l2Results'));
-  }catch(e){if(el('#l2Results'))el('#l2Results').innerHTML='<div class="notice">Profils L2 indisponibles : '+esc(e.message||e)+'</div>';throw e}
+const L1_DRILL_META={
+  verified:['Identités vérifiées','Toutes les fiches L1 dont l’identité GitHub et les métadonnées principales sont déjà présentes.'],
+  complete:['L1 complètes','Fiches ayant atteint le niveau de complétude adapté à leur type de ressource.'],
+  deep_done:['Vérifications profondes terminées','Logiciels dont les signaux profonds pertinents ont été vérifiés.'],
+  deep_pending:['Vérifications profondes en attente','Dette profonde encore à traiter ou à retenter.'],
+  l2_eligible:['Éligibles L2','Fiches L1 complètes, non archivées, non désactivées et avec score suffisant pour L2.']
+};
+const L2_DRILL_META={
+  profiles:['Tous les profils L2','Profils L2 déjà produits, BASE ou DEEP.'],
+  eligible:['L1 éligibles à L2','Ressources qui satisfont aujourd’hui le gate d’entrée L2.'],
+  base_pending:['L2-BASE en attente','Ressources éligibles qui n’ont pas encore reçu leur profil BASE local.'],
+  base_done:['L2-BASE produites','Profils construits localement à partir de la L1 qualifiée.'],
+  deep_pending:['L2-DEEP en attente','Profils sélectionnés pour une lecture README approfondie.'],
+  deep_done:['L2-DEEP terminées','Profils dont le README a été lu et intégré à la compréhension.']
+};
+function clickSubtab(root,attr,value){var b=el(root+' ['+attr+'="'+value+'"]');if(b){b.click();return true}return false}
+function bindOpenResourceRows(rootSelector){
+  els(rootSelector+' [data-id]').forEach(function(r){
+    if(r.dataset.boundResource)return;r.dataset.boundResource='1';
+    var open=function(){show('explore');loadResource(r.dataset.id)};
+    r.onclick=open;r.onkeydown=function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();open()}};
+  });
 }
+function syncL1DrillNav(){els('#l1DrillNav [data-l1-drill]').forEach(function(b){b.classList.toggle('active',b.dataset.l1Drill===L1_DRILL_KIND)})}
+async function loadL1Drill(){
+  syncL1DrillNav();
+  var meta=L1_DRILL_META[L1_DRILL_KIND]||L1_DRILL_META.verified;
+  textIf('#l1DrillTitle',meta[0]+(L1_DRILL_BAND?' · score '+L1_DRILL_BAND:''));textIf('#l1DrillHelp',meta[1]);
+  var q=el('#l1DrillSearch')?el('#l1DrillSearch').value.trim():'',sort=el('#l1DrillSort')?el('#l1DrillSort').value:'score';
+  var url='/api/l1/drilldown?kind='+encodeURIComponent(L1_DRILL_KIND)+'&q='+encodeURIComponent(q)+'&sort='+encodeURIComponent(sort)+'&band='+encodeURIComponent(L1_DRILL_BAND)+'&limit='+L1_DRILL_LIMIT+'&offset='+L1_DRILL_OFFSET;
+  try{
+    var j=await api(url),items=j.items||[],from=j.total?j.offset+1:0,to=Math.min(j.total,j.offset+items.length);
+    textIf('#l1DrillCount',fmt(j.total)+' fiche(s)');
+    el('#l1DrillSummary').innerHTML='<span class="pill">'+fmt(j.total)+' au total</span><span class="pill">'+fmt(from)+'–'+fmt(to)+'</span>'+(j.band?'<span class="pill">score '+esc(j.band)+'</span>':'')+(q?'<span class="pill">filtre : '+esc(q)+'</span>':'');
+    el('#l1DrillPrev').disabled=j.offset<=0;el('#l1DrillNext').disabled=j.offset+items.length>=j.total;
+    el('#l1DrillResults').innerHTML=items.length?'<table><thead><tr><th>Ressource</th><th>Type</th><th>Technologie</th><th>Score</th><th>État L1</th><th>Deep</th><th>L2</th></tr></thead><tbody>'+items.map(function(x){return '<tr class="drill-row" tabindex="0" data-id="'+esc(x.entity_id)+'"><td><b>'+esc(x.full_name)+'</b><div class="small muted">★ '+fmt(x.stars||0)+'</div></td><td>'+esc(x.resource_kind||'—')+'</td><td>'+esc(x.technology||'—')+'</td><td>'+fmt(x.l1_score||0)+'/100</td><td>'+esc(x.l1_stage||'—')+'</td><td>'+esc(x.deep_status||'—')+'</td><td>'+(x.has_l2?'🧠 oui':'—')+'</td></tr>'}).join('')+'</tbody></table>':'<div class="drill-empty">Aucune fiche pour ce filtre.</div>';
+    bindOpenResourceRows('#l1DrillResults');return j;
+  }catch(e){el('#l1DrillResults').innerHTML='<div class="notice">Détail L1 indisponible : '+esc(e.message||e)+'</div>';throw e}
+}
+function openL1Drill(kind,band){
+  L1_DRILL_KIND=L1_DRILL_META[kind]?kind:'verified';L1_DRILL_BAND=band||'';L1_DRILL_OFFSET=0;
+  show('l1');syncL1DrillNav();clickSubtab('#l1Subnav','data-l1-tab','drill');
+}
+function syncL2ProfileNav(){els('#l2ProfileNav [data-l2-kind]').forEach(function(b){b.classList.toggle('active',b.dataset.l2Kind===L2_PROFILE_KIND)})}
+async function loadL2Drill(){
+  syncL2ProfileNav();var meta=L2_DRILL_META[L2_PROFILE_KIND]||L2_DRILL_META.profiles;
+  textIf('#l2ProfileTitle',meta[0]);textIf('#l2ProfileHelp',meta[1]);
+  var q=el('#l2ProfileSearch')?el('#l2ProfileSearch').value.trim():'',sort=el('#l2ProfileSort')?el('#l2ProfileSort').value:'score';
+  var url='/api/l2/drilldown?kind='+encodeURIComponent(L2_PROFILE_KIND)+'&q='+encodeURIComponent(q)+'&sort='+encodeURIComponent(sort)+'&limit='+L2_PROFILE_LIMIT+'&offset='+L2_PROFILE_OFFSET;
+  try{
+    var j=await api(url),items=j.items||[],from=j.total?j.offset+1:0,to=Math.min(j.total,j.offset+items.length);
+    textIf('#l2ProfileCount',fmt(j.total)+' élément(s)');
+    el('#l2ProfileSummary').innerHTML='<span class="pill">'+fmt(j.total)+' au total</span><span class="pill">'+fmt(from)+'–'+fmt(to)+'</span>'+(q?'<span class="pill">filtre : '+esc(q)+'</span>':'');
+    el('#l2ProfilePrev').disabled=j.offset<=0;el('#l2ProfileNext').disabled=j.offset+items.length>=j.total;
+    el('#l2Results').innerHTML=items.length?'<table><thead><tr><th>Ressource</th><th>Type</th><th>Technologie</th><th>L1</th><th>Stage L2</th><th>Deep</th><th>Confiance</th></tr></thead><tbody>'+items.map(function(x){var conf=x.confidence==null?'—':Math.round(Number(x.confidence)*100)+'%';return '<tr class="drill-row" tabindex="0" data-id="'+esc(x.entity_id)+'"><td><b>'+esc(x.full_name)+'</b><div class="small muted">★ '+fmt(x.stars||0)+'</div></td><td>'+esc(x.resource_kind||'—')+'</td><td>'+esc(x.technology||'—')+'</td><td>'+fmt(x.l1_score||0)+'/100</td><td>'+esc(x.l2_stage||'pas encore')+'</td><td>'+esc(x.l2_deep_status||'—')+'</td><td>'+esc(conf)+'</td></tr>'}).join('')+'</tbody></table>':'<div class="drill-empty">Aucun élément pour ce filtre.</div>';
+    bindOpenResourceRows('#l2Results');return j;
+  }catch(e){el('#l2Results').innerHTML='<div class="notice">Exploration L2 indisponible : '+esc(e.message||e)+'</div>';throw e}
+}
+function openL2Drill(kind){
+  L2_PROFILE_KIND=L2_DRILL_META[kind]?kind:'profiles';L2_PROFILE_OFFSET=0;show('l2');syncL2ProfileNav();clickSubtab('#l2Subnav','data-l2-tab','profiles');
+}
+async function loadL2(force){return loadL2Drill()}
 async function loadL2Queue(){
   try{
     var j=await api('/api/l2/queue?limit=80'),items=j.items||[],st=j.stats||{},box=el('#l2QueueTable');
     textIf('#l2BaseDone',fmt(st.base_done||0));textIf('#l2DeepPending',fmt(st.deep_pending||0));textIf('#l2Confidence',Math.round(Number(st.confidence_avg||0)*100)+'%');
-    box.innerHTML=items.length?'<table><thead><tr><th>File</th><th>Ressource</th><th>Technologie</th><th>Score L1</th><th>État</th></tr></thead><tbody>'+items.map(function(x){return '<tr><td><span class="pill">'+esc(x.queue||'—')+'</span></td><td>'+esc(x.full_name||'—')+'</td><td>'+esc(x.technology||'—')+'</td><td>'+fmt(x.l1_score||0)+'</td><td>'+esc(x.activity_status||'—')+'</td></tr>'}).join('')+'</tbody></table>':'<div class="notice">Queue L2 vide.</div>';
-    return j;
+    box.innerHTML=items.length?'<table><thead><tr><th>File</th><th>Ressource</th><th>Technologie</th><th>Score L1</th><th>État</th></tr></thead><tbody>'+items.map(function(x){return '<tr class="drill-row" tabindex="0" data-id="'+esc(x.entity_id)+'"><td><span class="pill">'+esc(x.queue||'—')+'</span></td><td><b>'+esc(x.full_name||'—')+'</b></td><td>'+esc(x.technology||'—')+'</td><td>'+fmt(x.l1_score||0)+'</td><td>'+esc(x.activity_status||'—')+'</td></tr>'}).join('')+'</tbody></table>':'<div class="notice">Queue L2 vide.</div>';
+    bindOpenResourceRows('#l2QueueTable');return j;
   }catch(e){if(el('#l2QueueTable'))el('#l2QueueTable').innerHTML='<div class="notice">Queue L2 indisponible : '+esc(e.message||e)+'</div>';throw e}
 }
 function bindDetailTabs(root){
