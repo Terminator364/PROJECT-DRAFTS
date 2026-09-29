@@ -979,12 +979,17 @@ function runInteractionAudit(exercise){
     });
     if(exercise){var first=buttons[0];if(first)first.click();}
   });
-  var required=['homeSearchBtn','librarySearchBtn','drawerClose','chatSend','refreshDeepQueue','navBack','commandOpen','runUiAuditBtn','updateStageBtn','updateApplyBtn','updateRepairBtn','mobileMenuToggle','mobileBottomNav','globalActivity','updateProgressBar'];
+  var required=['homeSearchBtn','librarySearchBtn','drawerClose','chatSend','refreshDeepQueue','refreshL2Queue','navBack','commandOpen','runUiAuditBtn','updateStageBtn','updateApplyBtn','updateRepairBtn','mobileMenuToggle','mobileBottomNav','globalActivity','updateProgressBar','l1DrillSearchBtn','l1DrillPrev','l1DrillNext','l1DrillResults','l2ProfileSearchBtn','l2ProfilePrev','l2ProfileNext','l2Results'];
   required.forEach(function(id){checks++;if(!document.getElementById(id))issues.push('Contrôle essentiel absent : '+id)});
   checks++;if(typeof api!=='function'||!String(api).includes('attempts=method'))issues.push('Contrat retry API absent');
   checks++;if(typeof bindPaneTabs!=='function'||!String(bindPaneTabs).includes('pane-loading'))issues.push('Contrat chargement sous-page absent');
   checks++;if(typeof startUpdatePolling!=='function'||!String(startUpdatePolling).includes('location.reload'))issues.push('Contrat reconnexion update absent');
   checks++;if(!el('#mobileBottomNav')||els('#mobileBottomNav [data-mobile-view]').length<4)issues.push('Navigation mobile incomplète');
+  checks++;if(typeof openL1Drill!=='function'||typeof loadL1Drill!=='function')issues.push('Drill-down L1 absent');
+  checks++;if(typeof openL2Drill!=='function'||typeof loadL2Drill!=='function')issues.push('Drill-down L2 absent');
+  checks++;if(typeof sendChatQuery!=='function'||String(sendChatQuery).indexOf('/api/chat/search')<0)issues.push('Recherche chat dédiée absente');
+  checks++;if(els('[data-l1-drill-open]').length<6)issues.push('Trop peu de portes interactives L1');
+  checks++;if(els('[data-l2-drill-open]').length<5)issues.push('Trop peu de portes interactives L2');
   var pass=issues.length===0;
   el('#uiAuditResult').innerHTML='<div class="metricgrid"><div class="card"><div class="small muted">Contrôles vérifiés</div><div class="value">'+fmt(checks)+'</div></div><div class="card"><div class="small muted">Défauts détectés</div><div class="value '+(pass?'audit-pass':'audit-fail')+'">'+fmt(issues.length)+'</div></div><div class="card"><div class="small muted">Résultat</div><div class="value '+(pass?'audit-pass':'audit-fail')+'">'+(pass?'PASS':'À CORRIGER')+'</div></div><div class="card"><div class="small muted">Horodatage</div><div class="value" style="font-size:18px">'+new Date().toLocaleTimeString('fr-FR')+'</div></div></div>'+(issues.length?'<div class="card" style="margin-top:12px"><h3>Défauts</h3>'+issues.map(function(x){return '<div class="kv"><span>⚠</span><b>'+esc(x)+'</b></div>'}).join('')+'</div>':'<div class="notice" style="margin-top:12px;border-left-color:var(--ok)">Aucune cible de navigation ou sous-page manquante détectée dans le DOM actuel.</div>');
   return {pass:pass,checks:checks,issues:issues};
@@ -1222,9 +1227,14 @@ async function runUiSelfTest(){
     var node=el('[data-manager-node="pc"]');node.click();checks.push(['manager-flow',el('#mgrNodeDetail').textContent.indexOf('PC Worker')>=0]);
     show('home');var l0=el('.level[data-level="L0"]');l0.click();checks.push(['home-l0',el('#l0').classList.contains('active')]);
     show('technical');var tq=el('[data-action="tech-rate"]');tq.click();checks.push(['technical-card',el('#detailDrawer').classList.contains('open')]);closeDrawer();
-    show('l1');var lc=el('[data-action="l1-complete"]');lc.click();checks.push(['l1-card',el('#detailDrawer').classList.contains('open')]);closeDrawer();
+    show('l1');var lc=el('[data-action="l1-complete"]');lc.click();await uiSleep(80);checks.push(['l1-drill-route',el('#l1').classList.contains('active')&&el('[data-l1-pane="drill"]').classList.contains('active')&&L1_DRILL_KIND==='complete']);
+    var l1j=await api('/api/l1/drilldown?kind=complete&limit=2');checks.push(['l1-drill-data',Array.isArray(l1j.items)&&Number(l1j.total)>=l1j.items.length]);
+    openL2Drill('eligible');await uiSleep(80);checks.push(['l2-drill-route',el('#l2').classList.contains('active')&&el('[data-l2-pane="profiles"]').classList.contains('active')&&L2_PROFILE_KIND==='eligible']);
+    var l2j=await api('/api/l2/drilldown?kind=eligible&limit=2');checks.push(['l2-drill-data',Array.isArray(l2j.items)&&Number(l2j.total)>=l2j.items.length]);
+    var cj=await api('/api/chat/search?q=telegram&limit=2');checks.push(['chat-dedicated-search',Array.isArray(cj.items)]);
   }catch(e){checks.push(['exception',false,String(e)])}
   var ok=checks.every(function(x){return x[1]});
+  var old=document.getElementById('uiSelfTestResult');if(old)old.remove();
   var out=document.createElement('div');out.id='uiSelfTestResult';out.dataset.pass=String(ok);out.style.display='none';out.textContent=JSON.stringify(checks);document.body.appendChild(out);
 }
 refresh();setTimeout(function(){runInteractionAudit(false);try{var v=localStorage.getItem('tlib.view');if(v&&el('#'+v))show(v,{noHistory:true})}catch(e){}},900);if(new URLSearchParams(location.search).get('selftest')==='1')setTimeout(runUiSelfTest,1800);
