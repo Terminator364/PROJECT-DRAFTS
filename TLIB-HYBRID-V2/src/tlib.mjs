@@ -1232,7 +1232,7 @@ function facetsSnapshot() {
 }
 
 function drillLike(q){return '%'+String(q||'').trim().toLowerCase()+'%'}
-function l1Drilldown(kind='verified',q='',limit=50,offset=0,sort='score'){
+function l1Drilldown(kind='verified',q='',limit=50,offset=0,sort='score',band=''){
   kind=String(kind||'verified');q=String(q||'').trim().toLowerCase();
   limit=Math.max(1,Math.min(Number(limit||50),100));offset=Math.max(0,Number(offset||0));
   const allowed=new Set(['verified','complete','deep_done','deep_pending','l2_eligible']);if(!allowed.has(kind))kind='verified';
@@ -1244,6 +1244,8 @@ function l1Drilldown(kind='verified',q='',limit=50,offset=0,sort='score'){
     l2_eligible:l2EligibilitySql('r')
   };
   let where=whereMap[kind],params=[];
+  band=String(band||'');const bandMap={'90-100':'coalesce(r.l1_score,0)>=90','75-89':'coalesce(r.l1_score,0)>=75 AND coalesce(r.l1_score,0)<90','50-74':'coalesce(r.l1_score,0)>=50 AND coalesce(r.l1_score,0)<75','<50':'coalesce(r.l1_score,0)<50'};
+  if(bandMap[band])where+=' AND '+bandMap[band];
   if(q){where+=' AND (lower(r.full_name) LIKE ? OR lower(coalesce(r.description,\'\')) LIKE ? OR lower(coalesce(r.technology,\'\')) LIKE ? OR lower(coalesce(r.resource_kind,\'\')) LIKE ? OR lower(coalesce(r.theme_path,\'\')) LIKE ?)';const like=drillLike(q);params.push(like,like,like,like,like);}
   const orderMap={score:'r.l1_score DESC,r.stars DESC',recent:'r.fetched_at DESC',stars:'r.stars DESC,r.l1_score DESC',name:'r.full_name ASC'};
   const order=orderMap[String(sort||'score')]||orderMap.score;
@@ -1251,7 +1253,7 @@ function l1Drilldown(kind='verified',q='',limit=50,offset=0,sort='score'){
   const items=db.prepare(`SELECT r.entity_id,r.full_name,r.description,r.resource_kind,r.technology,r.activity_status,r.l1_score,r.l1_stage,r.deep_status,r.stars,r.fetched_at,r.primary_theme,r.theme_path,
     EXISTS(SELECT 1 FROM l2_profiles l WHERE l.entity_id=r.entity_id) AS has_l2
     FROM results r WHERE ${where} ORDER BY ${order} LIMIT ? OFFSET ?`).all(...params,limit,offset);
-  return {kind,q,sort,total,limit,offset,items};
+  return {kind,q,sort,band,total,limit,offset,items};
 }
 function l2Drilldown(kind='profiles',q='',limit=50,offset=0,sort='score'){
   kind=String(kind||'profiles');q=String(q||'').trim().toLowerCase();
@@ -1830,7 +1832,7 @@ async function startDashboard() {
         limit:u.searchParams.get('limit')||100, offset:u.searchParams.get('offset')||0
       }));
       if (u.pathname === '/api/l1/insights') return sendJson(res,200,l1InsightsSnapshot());
-      if (u.pathname === '/api/l1/drilldown') return sendJson(res,200,l1Drilldown(u.searchParams.get('kind')||'verified',u.searchParams.get('q')||'',u.searchParams.get('limit')||50,u.searchParams.get('offset')||0,u.searchParams.get('sort')||'score'));
+      if (u.pathname === '/api/l1/drilldown') return sendJson(res,200,l1Drilldown(u.searchParams.get('kind')||'verified',u.searchParams.get('q')||'',u.searchParams.get('limit')||50,u.searchParams.get('offset')||0,u.searchParams.get('sort')||'score',u.searchParams.get('band')||''));
       if (u.pathname === '/api/l2/drilldown') return sendJson(res,200,l2Drilldown(u.searchParams.get('kind')||'profiles',u.searchParams.get('q')||'',u.searchParams.get('limit')||50,u.searchParams.get('offset')||0,u.searchParams.get('sort')||'score'));
       if (u.pathname === '/api/chat/search') return sendJson(res,200,chatSearch(u.searchParams.get('q')||'',u.searchParams.get('limit')||8));
       if (u.pathname === '/api/facets') return sendJson(res,200,facetsSnapshot());
