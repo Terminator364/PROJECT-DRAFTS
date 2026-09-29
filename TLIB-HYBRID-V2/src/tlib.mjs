@@ -11,7 +11,7 @@ const HERE = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(HERE, '..');
 const dataDir = process.env.TLIB_DATA_DIR || join(process.env.LOCALAPPDATA || homedir(), 'TLIB-PC');
 mkdirSync(dataDir, { recursive: true });
-const APP_BUILD = '2026.09.29-v0.8.3-project-feedback-autosync';
+const APP_BUILD = '2026.09.29-v0.9.0-l1-l2-continuous';
 const STARTED_AT = new Date().toISOString();
 function deploymentCommit() {
   try {
@@ -134,12 +134,28 @@ ensureResultColumn('theme_tags_json','TEXT');
 ensureResultColumn('theme_confidence','REAL');
 ensureResultColumn('taxonomy_version','TEXT');
 
+function ensureL2Column(name,type){
+  const cols=db.prepare('PRAGMA table_info(l2_profiles)').all().map(r=>String(r.name));
+  if(!cols.includes(name)) db.exec('ALTER TABLE l2_profiles ADD COLUMN '+name+' '+type);
+}
+ensureL2Column('stage','TEXT');
+ensureL2Column('deep_status','TEXT');
+ensureL2Column('score','INTEGER');
+ensureL2Column('evidence_json','TEXT');
+ensureL2Column('readme_signals_json','TEXT');
+ensureL2Column('attempts','INTEGER');
+ensureL2Column('last_error','TEXT');
+ensureL2Column('source_version','TEXT');
+db.prepare("UPDATE l2_profiles SET stage=coalesce(stage,'BASE'),deep_status=coalesce(deep_status,CASE WHEN source='fixture' THEN 'NOT_APPLICABLE' ELSE 'PENDING' END),attempts=coalesce(attempts,0),source_version=coalesce(source_version,CASE WHEN source='fixture' THEN 'fixture-v1' ELSE 'legacy' END)").run();
+
 db.exec(`
 CREATE INDEX IF NOT EXISTS idx_jobs_status_updated ON jobs(status,updated_at);
 CREATE INDEX IF NOT EXISTS idx_results_deep_fetched ON results(resource_kind,deep_status,fetched_at);
 CREATE INDEX IF NOT EXISTS idx_results_stage ON results(l1_stage);
 CREATE INDEX IF NOT EXISTS idx_results_fetched ON results(fetched_at);
 CREATE INDEX IF NOT EXISTS idx_events_level_at ON events(level,at);
+CREATE INDEX IF NOT EXISTS idx_l2_stage_status ON l2_profiles(stage,deep_status,updated_at);
+CREATE INDEX IF NOT EXISTS idx_l2_score ON l2_profiles(score);
 `);
 
 const now = () => new Date().toISOString();
@@ -766,11 +782,16 @@ function deepBacklogCount() {
                             WHERE resource_kind='Projet logiciel'
                               AND coalesce(deep_status,'PENDING') IN ('PENDING','RETRY')`).get().n);
 }
-function schedulerMode() {
+function l1SchedulerMode() {
   const backlog=deepBacklogCount();
   if(backlog>100 && (publicRateRemaining===null || publicRateRemaining>=2000)) return 'DEEP_CATCHUP';
   if(backlog>25) return 'BALANCED_DEEP_FIRST';
   return 'CORE_EXPANSION';
+}
+function schedulerMode(){
+  const l2=l2Stats();
+  if(l2.base_pending>0 || l2.deep_pending>0) return 'PARALLEL_L1_L2';
+  return 'L1_'+l1SchedulerMode();
 }
 
 async function deepL1Step() {
@@ -890,18 +911,179 @@ function fixtureL2Canary() {
   const profiles = JSON.parse(readFileSync(join(ROOT, 'config', 'l2-fixture-10.json'), 'utf8'));
   let done = 0;
   const stmt = db.prepare(`INSERT OR REPLACE INTO l2_profiles(
-    entity_id,human_summary,capabilities_json,use_cases_json,limitations_json,confidence,source,updated_at
-  ) VALUES(?,?,?,?,?,?,?,?)`);
+    entity_id,human_summary,capabilities_json,use_cases_json,limitations_json,confidence,source,updated_at,
+    stage,deep_status,score,evidence_json,readme_signals_json,attempts,last_error,source_version
+  ) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`);
   for (const p of profiles) {
     const id = entityId(p.full_name);
     const exists = db.prepare('SELECT entity_id FROM results WHERE entity_id=?').get(id);
     if (!exists) continue;
     stmt.run(id,String(p.summary||''),JSON.stringify(p.capabilities||[]),JSON.stringify(p.use_cases||[]),
-      JSON.stringify(p.limitations||[]),Number(p.confidence||0),String(p.source||'fixture'),now());
+      JSON.stringify(p.limitations||[]),Number(p.confidence||0),String(p.source||'fixture'),now(),
+      'BASE','NOT_APPLICABLE',Math.round(Number(p.confidence||0)*100),JSON.stringify(['fixture contrôlée']),'{}',0,null,'fixture-v1');
     done++;
   }
   event('INFO','L2_FIXTURE_PASS','done=' + done);
   console.log(JSON.stringify({ok:true,mode:'l2-fixture',done,summary:statusSnapshot()},null,2));
+}
+
+const L2_RULESET_VERSION='2026.09-v2';
+const L2_MIN_L1_SCORE=65;
+const L2_README_RATE_RESERVE=2800;
+let l2DeepNextAttemptAt=0;
+let pipelineCycle=0;
+let l1Cycle=0;
+
+function jsonArray(v){try{const x=JSON.parse(v||'[]');return Array.isArray(x)?x:[]}catch{return[]}}
+function jsonObject(v){try{const x=JSON.parse(v||'{}');return x&&typeof x==='object'&&!Array.isArray(x)?x:{} }catch{return{}}}
+function uniqText(xs,max=12){return [...new Set(xs.map(x=>String(x||'').trim()).filter(Boolean))].slice(0,max)}
+
+const L2_SIGNAL_RULES=[
+  ['API / intégration',/\bapi\b|rest|graphql|webhook|sdk|integration/],
+  ['Ligne de commande / automatisation',/\bcli\b|command[- ]line|terminal|shell|powershell|automation|script/],
+  ['Bibliothèque / SDK',/library|framework|sdk|package|module|dependency/],
+  ['Application web',/web app|frontend|backend|server|browser|http|website/],
+  ['Application mobile',/android|ios|mobile|flutter|react native|capacitor/],
+  ['Données / stockage',/database|sqlite|postgres|mysql|mongodb|redis|dataset|storage/],
+  ['IA / machine learning',/machine learning|deep learning|\bllm\b|artificial intelligence|generative ai|neural/],
+  ['Réseau / communication',/network|tcp|udp|dns|wifi|mqtt|websocket|telegram|messag/],
+  ['Cloud / DevOps',/docker|kubernetes|terraform|ci[- ]?cd|github actions|cloud|deployment|container/],
+  ['Sécurité',/security|auth|oauth|encrypt|crypt|vulnerability|pentest|malware/],
+  ['Observabilité / monitoring',/monitor|metrics|logging|telemetry|tracing|observability/],
+  ['Documentation / apprentissage',/documentation|tutorial|guide|course|learning|reference|awesome/]
+];
+
+function l2Signals(text){
+  const bag=String(text||'').toLowerCase(),out=[];
+  for(const [label,rx] of L2_SIGNAL_RULES) if(rx.test(bag)) out.push(label);
+  return uniqText(out,8);
+}
+function cleanMarkdownText(text){
+  return String(text||'').replace(/```[\s\S]*?```/g,' ').replace(/!\[[^\]]*\]\([^)]*\)/g,' ')
+    .replace(/\[([^\]]+)\]\([^)]*\)/g,'$1').replace(/<[^>]+>/g,' ').replace(/[\t ]+/g,' ').replace(/\r/g,'');
+}
+function readmeSignals(text){
+  const raw=String(text||'').slice(0,65536),clean=cleanMarkdownText(raw);
+  const headings=uniqText([...raw.matchAll(/^#{1,3}\s+(.+)$/gm)].map(m=>m[1].replace(/[#*_`]/g,'').trim()),10);
+  const paras=clean.split(/\n\s*\n/).map(x=>x.replace(/\n/g,' ').trim()).filter(x=>x.length>=60&&!/^https?:\/\//i.test(x));
+  const intro=(paras[0]||'').slice(0,420);
+  const signals=l2Signals([headings.join(' '),intro,clean.slice(0,12000)].join(' '));
+  return {headings,signals,intro,chars:raw.length};
+}
+function l2BaseProfile(r){
+  const topics=jsonArray(r.topics_json),tags=jsonArray(r.theme_tags_json),langs=Object.keys(jsonObject(r.languages_json));
+  const bag=[r.full_name,r.description,r.l1_summary,r.resource_kind,r.technology,r.content_mode,r.primary_theme,r.theme_path,r.language,topics.join(' '),tags.join(' '),langs.join(' ')].filter(Boolean).join(' ');
+  const signals=l2Signals(bag);
+  const capabilities=uniqText([
+    ...signals.map(x=>'Signal fonctionnel : '+x),
+    r.resource_kind==='Catalogue de ressources'?'Organise et référence des ressources autour de '+(r.technology||r.primary_theme||'son domaine'):'',
+    r.resource_kind==='Guide / documentation'?'Sert de ressource de documentation / apprentissage':'',
+    r.resource_kind==='Projet logiciel'?'Fournit un projet logiciel exploitable autour de '+(r.technology||r.primary_theme||'son domaine'):''
+  ],10);
+  const useCases=uniqText([
+    r.technology?'Évaluer une solution liée à '+r.technology:'',
+    r.primary_theme?'Explorer le domaine '+r.primary_theme:'',
+    signals.includes('API / intégration')?'Intégration dans un autre logiciel ou workflow':'',
+    signals.includes('Ligne de commande / automatisation')?'Automatisation de tâches locales ou techniques':'',
+    signals.includes('Documentation / apprentissage')?'Documentation, veille ou apprentissage ciblé':'',
+    r.resource_kind==='Catalogue de ressources'?'Découverte et comparaison de ressources':''
+  ],8);
+  const limitations=uniqText([
+    'Profil L2-BASE inféré localement à partir de métadonnées L1 vérifiées ; il ne remplace pas encore une lecture complète du projet.',
+    r.archived?'Dépôt archivé.':'',r.disabled?'Dépôt désactivé.':'',
+    !r.license?'Licence non déterminée dans les métadonnées.':'',
+    Number(r.activity_days||0)>730?'Activité récente faible ou ancienne.':'',
+    !r.readme_present&&r.resource_kind==='Projet logiciel'?'README non confirmé par L1 profonde.':''
+  ],8);
+  const evidence=uniqText([r.l1_summary?'Résumé L1':'',r.description?'Description GitHub':'',topics.length?'Topics GitHub':'',langs.length?'Langages détectés':'',r.latest_release_tag?'Dernière release '+r.latest_release_tag:'',r.community_health!=null?'Santé communauté '+r.community_health+'%':'',r.readme_present?'README présent':'',r.theme_path?'Taxonomie '+r.theme_path:''],12);
+  const score=Math.max(0,Math.min(100,Math.round(Number(r.l1_score||0)*0.72+Math.min(12,signals.length*2)+(r.deep_status==='DONE'?8:0)+(r.readme_present?4:0)+(r.latest_release_tag?4:0))));
+  const confidence=Math.max(0.35,Math.min(0.94,score/100));
+  const title=String(r.full_name||'Cette ressource');
+  const human=String(r.l1_summary||r.description||title).trim()+(signals.length?' Signaux L2 détectés : '+signals.slice(0,4).join(', ')+'.':'');
+  return {human_summary:human.slice(0,1100),capabilities,use_cases:useCases,limitations,confidence,score,evidence,deep_status:(r.resource_kind==='Projet logiciel'&&Number(r.readme_present||0)===1)?'PENDING':'NOT_APPLICABLE'};
+}
+function l2EligibilitySql(alias='r'){
+  return alias+".l1_stage='L1_COMPLETE' AND coalesce("+alias+".l1_score,0)>="+L2_MIN_L1_SCORE+" AND coalesce("+alias+".archived,0)=0 AND coalesce("+alias+".disabled,0)=0";
+}
+function l2Stats(){
+  const eligible=Number(db.prepare('SELECT COUNT(*) AS n FROM results r WHERE '+l2EligibilitySql('r')).get().n);
+  const total=Number(db.prepare('SELECT COUNT(*) AS n FROM l2_profiles').get().n);
+  const base=Number(db.prepare("SELECT COUNT(*) AS n FROM l2_profiles WHERE coalesce(stage,'BASE')='BASE'").get().n);
+  const deep=Number(db.prepare("SELECT COUNT(*) AS n FROM l2_profiles WHERE stage='DEEP'").get().n);
+  const basePending=Number(db.prepare('SELECT COUNT(*) AS n FROM results r LEFT JOIN l2_profiles l ON l.entity_id=r.entity_id WHERE '+l2EligibilitySql('r')+' AND l.entity_id IS NULL').get().n);
+  const deepPending=Number(db.prepare("SELECT COUNT(*) AS n FROM l2_profiles WHERE deep_status IN ('PENDING','RETRY')").get().n);
+  const deepUnavailable=Number(db.prepare("SELECT COUNT(*) AS n FROM l2_profiles WHERE deep_status IN ('NOT_AVAILABLE','NOT_APPLICABLE')").get().n);
+  const fiveAgo=new Date(Date.now()-5*60*1000).toISOString();
+  const last5=Number(db.prepare('SELECT COUNT(*) AS n FROM l2_profiles WHERE updated_at>=?').get(fiveAgo).n);
+  const avg=Number(db.prepare('SELECT coalesce(avg(confidence),0) AS n FROM l2_profiles').get().n||0);
+  return {eligible,total,base_done:base,deep_done:deep,base_pending:basePending,deep_pending:deepPending,deep_unavailable:deepUnavailable,throughput_per_hour:last5*12,confidence_avg:Number(avg.toFixed(3)),progress_percent:eligible?Number((Math.min(total,eligible)*100/eligible).toFixed(2)):0};
+}
+function l2QueueRows(limit=60){
+  limit=Math.max(1,Math.min(Number(limit||60),200));
+  const base=db.prepare("SELECT 'BASE' AS queue,r.entity_id,r.full_name,r.technology,r.resource_kind,r.l1_score,r.stars,r.activity_status,r.fetched_at FROM results r LEFT JOIN l2_profiles l ON l.entity_id=r.entity_id WHERE "+l2EligibilitySql('r')+" AND l.entity_id IS NULL ORDER BY r.l1_score DESC,r.stars DESC,r.fetched_at ASC LIMIT ?").all(limit);
+  if(base.length>=limit)return base;
+  const deep=db.prepare("SELECT 'DEEP' AS queue,r.entity_id,r.full_name,r.technology,r.resource_kind,r.l1_score,r.stars,r.activity_status,l.updated_at AS fetched_at FROM l2_profiles l JOIN results r ON r.entity_id=l.entity_id WHERE l.deep_status IN ('PENDING','RETRY') ORDER BY l.score DESC,l.updated_at ASC LIMIT ?").all(limit-base.length);
+  return base.concat(deep);
+}
+function l2BaseStep(limit=3){
+  limit=Math.max(1,Math.min(Number(limit||3),8));
+  const rows=db.prepare('SELECT r.* FROM results r LEFT JOIN l2_profiles l ON l.entity_id=r.entity_id WHERE '+l2EligibilitySql('r')+' AND l.entity_id IS NULL ORDER BY r.l1_score DESC,r.stars DESC,r.fetched_at ASC LIMIT ?').all(limit);
+  if(!rows.length)return {done:0,state:'EMPTY'};
+  const stmt=db.prepare(`INSERT INTO l2_profiles(entity_id,human_summary,capabilities_json,use_cases_json,limitations_json,confidence,source,updated_at,stage,deep_status,score,evidence_json,readme_signals_json,attempts,last_error,source_version) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`);
+  let done=0;
+  for(const r of rows){
+    try{const p=l2BaseProfile(r);stmt.run(r.entity_id,p.human_summary,JSON.stringify(p.capabilities),JSON.stringify(p.use_cases),JSON.stringify(p.limitations),p.confidence,'LOCAL_METADATA_RULES',now(),'BASE',p.deep_status,p.score,JSON.stringify(p.evidence),'{}',0,null,L2_RULESET_VERSION);done++;}
+    catch(e){event('ERROR','L2_BASE_ERROR',String(r.full_name||r.entity_id)+' :: '+String(e.message||e))}
+  }
+  if(done)event('INFO','L2_BASE_OK','+'+done+' profile(s)');
+  return {done,state:done?'OK':'ERROR'};
+}
+async function l2DeepStep(){
+  if(Date.now()<l2DeepNextAttemptAt)return {done:0,state:'WAIT'};
+  if(!githubToken())return {done:0,state:'NO_AUTH'};
+  if(publicRateRemaining!==null&&publicRateRemaining<L2_README_RATE_RESERVE)return {done:0,state:'RESERVE_RATE'};
+  const row=db.prepare("SELECT l.*,r.full_name,r.description,r.technology,r.resource_kind,r.l1_summary,r.theme_path FROM l2_profiles l JOIN results r ON r.entity_id=l.entity_id WHERE l.deep_status IN ('PENDING','RETRY') ORDER BY l.score DESC,l.updated_at ASC LIMIT 1").get();
+  if(!row)return {done:0,state:'EMPTY'};
+  try{
+    const enc=String(row.full_name).split('/').map(encodeURIComponent).join('/');
+    const rr=await githubGet('/repos/'+enc+'/readme',true);
+    if(rr.status===404||!rr.body?.content){db.prepare("UPDATE l2_profiles SET deep_status='NOT_AVAILABLE',attempts=coalesce(attempts,0)+1,last_error='README_404',updated_at=? WHERE entity_id=?").run(now(),row.entity_id);l2DeepNextAttemptAt=Date.now()+2500;return {done:0,state:'NO_README'};}
+    const decoded=Buffer.from(String(rr.body.content||'').replace(/\s/g,''),String(rr.body.encoding||'base64')).toString('utf8').slice(0,65536);
+    const sig=readmeSignals(decoded);
+    const caps=uniqText([...jsonArray(row.capabilities_json),...sig.signals.map(x=>'README confirme : '+x)],12);
+    const uses=uniqText([...jsonArray(row.use_cases_json),sig.signals.includes('API / intégration')?'Intégration confirmée ou documentée dans le README':'',sig.signals.includes('Ligne de commande / automatisation')?'Usage CLI / automatisation documenté':'',sig.signals.includes('Documentation / apprentissage')?'Lecture guidée par la documentation du projet':''],10);
+    const limits=uniqText([...jsonArray(row.limitations_json),'L2-DEEP lit un extrait borné du README ; code source et issues ne sont pas encore analysés exhaustivement.'],10);
+    const evidence=uniqText([...jsonArray(row.evidence_json),'README GitHub lu ('+sig.chars+' caractères)','Titres README: '+sig.headings.slice(0,5).join(' | ')],14);
+    const human=(sig.intro?sig.intro+' ':'')+String(row.human_summary||row.l1_summary||row.description||'');
+    const confidence=Math.min(0.98,Number(row.confidence||0.5)+0.08+Math.min(0.05,sig.signals.length*0.01));
+    const score=Math.min(100,Number(row.score||50)+8+Math.min(5,sig.signals.length));
+    db.prepare(`UPDATE l2_profiles SET human_summary=?,capabilities_json=?,use_cases_json=?,limitations_json=?,confidence=?,source='LOCAL_METADATA+README',updated_at=?,stage='DEEP',deep_status='DONE',score=?,evidence_json=?,readme_signals_json=?,attempts=coalesce(attempts,0)+1,last_error=NULL,source_version=? WHERE entity_id=?`).run(human.slice(0,1400),JSON.stringify(caps),JSON.stringify(uses),JSON.stringify(limits),confidence,now(),score,JSON.stringify(evidence),JSON.stringify(sig),L2_RULESET_VERSION,row.entity_id);
+    event('INFO','L2_DEEP_OK',row.full_name+'; signals='+sig.signals.length);
+    l2DeepNextAttemptAt=Date.now()+3500;
+    return {done:1,state:'OK'};
+  }catch(e){
+    if(e.code==='RATE_LIMIT'){l2DeepNextAttemptAt=Math.max(Date.now()+60000,Number(e.reset||0)*1000+15000);event('WARN','L2_DEEP_RATE_LIMIT','reset='+Number(e.reset||0));return {done:0,state:'RATE_LIMIT'};}
+    db.prepare("UPDATE l2_profiles SET deep_status='RETRY',attempts=coalesce(attempts,0)+1,last_error=?,updated_at=? WHERE entity_id=?").run(String(e.message||e).slice(0,400),now(),row.entity_id);
+    l2DeepNextAttemptAt=Date.now()+10000;event('ERROR','L2_DEEP_ERROR',row.full_name+' :: '+String(e.message||e));return {done:0,state:'ERROR'};
+  }
+}
+async function scheduledL1Step(){
+  const mode=l1SchedulerMode();l1Cycle++;
+  if(mode==='DEEP_CATCHUP'){
+    if(l1Cycle%4!==0){const deep=await deepL1Step();if(deep.done||!['EMPTY','NO_AUTH','RESERVE_RATE'].includes(deep.state))return deep;}
+    return await autopilotPublicStep();
+  }
+  if(mode==='BALANCED_DEEP_FIRST'){
+    if(l1Cycle%3===0){const deep=await deepL1Step();if(deep.done||!['EMPTY','NO_AUTH','RESERVE_RATE'].includes(deep.state))return deep;}
+    return await autopilotPublicStep();
+  }
+  const core=await autopilotPublicStep();if(core.done&&l1Cycle%20===0)await deepL1Step();return core;
+}
+async function scheduledPipelineStep(){
+  pipelineCycle++;const l2=l2Stats();
+  if(l2.base_pending>0&&pipelineCycle%4===0)return l2BaseStep(3);
+  if(l2.deep_pending>0&&pipelineCycle%12===6){const d=await l2DeepStep();if(d.done||!['EMPTY','NO_AUTH','RESERVE_RATE','WAIT'].includes(d.state))return d;}
+  return await scheduledL1Step();
 }
 
 function loadControlSnapshot() {
@@ -1370,6 +1552,7 @@ function statusSnapshot(force=false) {
   for (const r of db.prepare('SELECT status, COUNT(*) AS n FROM jobs GROUP BY status').all()) counts[r.status] = Number(r.n);
   const totalResults = Number(db.prepare('SELECT COUNT(*) AS n FROM results').get().n);
   const l2Count = Number(db.prepare('SELECT COUNT(*) AS n FROM l2_profiles').get().n);
+  const l2stat=l2Stats();
   const recent = db.prepare(`SELECT r.full_name,r.description,r.stars,r.language,r.archived,r.fork,r.rate_remaining,r.fetched_at,
                                     r.resource_kind,r.technology,r.content_mode,r.activity_status,r.l1_quality,l.human_summary
                              FROM results r LEFT JOIN l2_profiles l ON l.entity_id=r.entity_id
@@ -1378,7 +1561,7 @@ function statusSnapshot(force=false) {
   const control = loadControlSnapshot();
   const levels = JSON.parse(JSON.stringify(control.product || {}));
   if (levels.l1) { levels.l1.count = totalResults; if (totalResults > 0) levels.l1.state = 'CANARY'; }
-  if (levels.l2) { levels.l2.count = l2Count; if (l2Count > 0) levels.l2.state = 'CANARY'; }
+  if (levels.l2) { levels.l2.count = l2Count; if (l2Count > 0) levels.l2.state = l2Count>10?'RUNNING':'CANARY'; }
   const out={
     product: 'TLIB',
     build: APP_BUILD,
@@ -1391,7 +1574,7 @@ function statusSnapshot(force=false) {
       github_auth_mode: githubAuthMode, l1_stats:l1Stats(),
       public_next_attempt_at: publicNextAttemptAt ? new Date(publicNextAttemptAt).toISOString() : null,
       public_rate_remaining: publicRateRemaining, public_rate_reset: publicRateReset,
-      scheduler_mode:schedulerMode(), deep_backlog:deepBacklogCount(), resource_governor:governorState },
+      scheduler_mode:schedulerMode(), l1_scheduler_mode:l1SchedulerMode(), deep_backlog:deepBacklogCount(), l2_stats:l2stat, resource_governor:governorState },
     apps_script: control.engine || {},
     levels,
     recent,
@@ -1598,7 +1781,8 @@ async function startDashboard() {
       if (u.pathname === '/api/l1/insights') return sendJson(res,200,l1InsightsSnapshot());
       if (u.pathname === '/api/facets') return sendJson(res,200,facetsSnapshot());
       if (u.pathname === '/api/l1/stats') return sendJson(res,200,l1Stats());
-      if (u.pathname === '/api/l2/list') return sendJson(res,200,{items:l2Rows(u.searchParams.get('limit')||100)});
+      if (u.pathname === '/api/l2/list') return sendJson(res,200,{items:l2Rows(u.searchParams.get('limit')||100),stats:l2Stats()});
+      if (u.pathname === '/api/l2/queue') return sendJson(res,200,{items:l2QueueRows(u.searchParams.get('limit')||60),stats:l2Stats()});
       if (u.pathname === '/api/resource') {
         const item=resourceById(u.searchParams.get('id')||'');
         return item ? sendJson(res,200,item) : sendJson(res,404,{error:'NOT_FOUND'});
@@ -1707,22 +1891,7 @@ function startWorkerLoop(){
     try {
       const stagedDone=autopilotFixtureStep(Number(process.env.TLIB_STAGE_STEP || 1));
       if(!stagedDone) {
-        const mode=schedulerMode();
-        if(mode==='DEEP_CATCHUP'){
-          const deep=await deepL1Step();
-          if(!deep.done && (deep.state==='EMPTY' || deep.state==='NO_AUTH')) await autopilotPublicStep();
-        }else if(mode==='BALANCED_DEEP_FIRST'){
-          if(coreSinceDeep>=4){
-            coreSinceDeep=0;
-            const deep=await deepL1Step();
-            if(!deep.done && deep.state!=='RESERVE_RATE') await autopilotPublicStep();
-          }else{
-            await autopilotPublicStep();
-          }
-        }else{
-          const core=await autopilotPublicStep();
-          if(core.done && coreSinceDeep>=20){coreSinceDeep=0;await deepL1Step();}
-        }
+        await scheduledPipelineStep();
       }
     } catch(e){
       event('ERROR','L1_AUTOPILOT_ERROR',e.message||String(e));
