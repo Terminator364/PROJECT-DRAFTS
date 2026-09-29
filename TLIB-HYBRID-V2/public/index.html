@@ -357,19 +357,19 @@ html{scroll-behavior:auto!important}
   <div class="card" id="projectFeedbackCard" style="margin-top:12px">
     <div class="section-intro"><div><h3 style="margin:0">Feedback projet TLIB</h3><p>État de la version, de l’auto-update et des derniers contrôles du projet — pas de l’ordinateur entier.</p></div><span class="badge" id="projectSyncBadge">vérification…</span></div>
     <div class="detail-grid">
-      <div class="fact"><small>Interface chargée</small><b id="projectUiBuild">__TLIB_BUILD__</b></div>
-      <div class="fact"><small>Moteur actif</small><b id="projectRuntimeBuild">…</b></div>
-      <div class="fact"><small>Canal</small><b id="projectChannel">stable</b></div>
-      <div class="fact"><small>État update</small><b id="projectUpdateState">…</b></div>
-      <div class="fact"><small>Dernier contrôle</small><b id="projectLastCheck">…</b></div>
-      <div class="fact"><small>Prochain contrôle</small><b id="projectNextCheck">…</b></div>
-      <div class="fact"><small>Dernier résultat</small><b id="projectLastResult">…</b></div>
-      <div class="fact"><small>Dernier événement</small><b id="projectLastEvent">…</b></div>
+      <div class="fact interactive-card" tabindex="0" data-manager-jump="updates"><small>Interface chargée</small><b id="projectUiBuild">__TLIB_BUILD__ ›</b></div>
+      <div class="fact interactive-card" tabindex="0" data-tech-jump="runtime"><small>Moteur actif</small><b id="projectRuntimeBuild">…</b></div>
+      <div class="fact interactive-card" tabindex="0" data-manager-jump="updates"><small>Canal</small><b id="projectChannel">stable ›</b></div>
+      <div class="fact interactive-card" tabindex="0" data-manager-jump="updates"><small>État update</small><b id="projectUpdateState">…</b></div>
+      <div class="fact interactive-card" tabindex="0" data-manager-jump="updates"><small>Dernier contrôle</small><b id="projectLastCheck">…</b></div>
+      <div class="fact interactive-card" tabindex="0" data-manager-jump="updates"><small>Prochain contrôle</small><b id="projectNextCheck">…</b></div>
+      <div class="fact interactive-card" tabindex="0" data-manager-jump="updates"><small>Dernier résultat</small><b id="projectLastResult">…</b></div>
+      <div class="fact interactive-card" tabindex="0" data-tech-jump="events"><small>Dernier événement</small><b id="projectLastEvent">…</b></div>
     </div>
-    <div class="progress" style="margin-top:12px"><div class="bar" id="projectProgressBar" style="width:0%"></div></div>
+    <div class="progress-hit" role="button" tabindex="0" data-manager-jump="updates" style="margin-top:12px"><div class="progress"><div class="bar" id="projectProgressBar" style="width:0%"></div></div></div>
     <div class="small muted" id="projectProgressText" style="margin-top:7px">En attente.</div>
   </div>
-  <div class="card" style="margin-top:12px"><div class="kv"><span>Mode de planification</span><b id="mgrSchedulerMode">…</b></div><div class="kv"><span>Mode ressources</span><b id="mgrEcoMode">…</b></div><div class="kv"><span>Raison</span><b id="mgrEcoReason">…</b></div><div class="kv"><span>RAM libre</span><b id="mgrFreeRam">…</b></div><div class="kv"><span>Dette approfondissement</span><b id="mgrDeepBacklog">…</b></div><div class="kv"><span>Quota GitHub restant</span><b id="mgrQuotaRemaining">…</b></div></div>
+  <div class="card" style="margin-top:12px"><div class="kv actionable" tabindex="0" data-manager-jump="pipeline"><span>Mode de planification</span><b id="mgrSchedulerMode">…</b></div><div class="kv actionable" tabindex="0" data-tech-jump="runtime"><span>Mode ressources</span><b id="mgrEcoMode">…</b></div><div class="kv actionable" tabindex="0" data-tech-jump="events"><span>Raison</span><b id="mgrEcoReason">…</b></div><div class="kv actionable" tabindex="0" data-tech-jump="runtime"><span>RAM libre</span><b id="mgrFreeRam">…</b></div><div class="kv actionable" tabindex="0" data-l1-jump="deep"><span>Dette approfondissement</span><b id="mgrDeepBacklog">…</b></div><div class="kv actionable" tabindex="0" data-action="tech-rate"><span>Quota GitHub restant</span><b id="mgrQuotaRemaining">…</b></div></div>
 </div>
 
 <div class="subpane" data-manager-pane="pipeline">
@@ -1165,16 +1165,22 @@ document.addEventListener('click',function(e){
   var l1d=e.target.closest('[data-l1-drill-open]');if(l1d){e.preventDefault();openL1Drill(l1d.dataset.l1DrillOpen);return}
   var l2d=e.target.closest('[data-l2-drill-open]');if(l2d){e.preventDefault();openL2Drill(l2d.dataset.l2DrillOpen);return}
   var l2j=e.target.closest('[data-l2-jump]');if(l2j){e.preventDefault();show('l2');clickSubtab('#l2Subnav','data-l2-tab',l2j.dataset.l2Jump);return}
+  var mj=e.target.closest('[data-manager-jump]');if(mj){e.preventDefault();show('manager');clickSubtab('#managerSubnav','data-manager-tab',mj.dataset.managerJump);return}
+  var tj=e.target.closest('[data-tech-jump]');if(tj){e.preventDefault();show('technical');clickSubtab('#techSubnav','data-tech-tab',tj.dataset.techJump);return}
+  var lj=e.target.closest('[data-l1-jump]');if(lj){e.preventDefault();show('l1');clickSubtab('#l1Subnav','data-l1-tab',lj.dataset.l1Jump);return}
   var a=e.target.closest('[data-action]');if(a){e.preventDefault();handleAction(a.dataset.action)}
 });
 document.addEventListener('keydown',function(e){
   if(e.key==='Escape'){closeDrawer();closeMobileMenu();return}
   if(e.key!=='Enter'&&e.key!==' ')return;
-  var t=e.target.closest('[data-action],[data-l1-drill-open],[data-l2-drill-open],[data-l2-jump]');
+  var t=e.target.closest('[data-action],[data-l1-drill-open],[data-l2-drill-open],[data-l2-jump],[data-manager-jump],[data-tech-jump],[data-l1-jump]');
   if(!t)return;e.preventDefault();
   if(t.dataset.l1DrillOpen)return openL1Drill(t.dataset.l1DrillOpen);
   if(t.dataset.l2DrillOpen)return openL2Drill(t.dataset.l2DrillOpen);
   if(t.dataset.l2Jump){show('l2');clickSubtab('#l2Subnav','data-l2-tab',t.dataset.l2Jump);return}
+  if(t.dataset.managerJump){show('manager');clickSubtab('#managerSubnav','data-manager-tab',t.dataset.managerJump);return}
+  if(t.dataset.techJump){show('technical');clickSubtab('#techSubnav','data-tech-tab',t.dataset.techJump);return}
+  if(t.dataset.l1Jump){show('l1');clickSubtab('#l1Subnav','data-l1-tab',t.dataset.l1Jump);return}
   if(t.dataset.action)handleAction(t.dataset.action);
 });
 bindManagerNodes();
