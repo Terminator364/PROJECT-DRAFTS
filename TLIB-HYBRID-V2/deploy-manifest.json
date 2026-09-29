@@ -13,7 +13,7 @@
     },
     {
       "path": "src/tlib.mjs",
-      "git_blob_sha": "9d1fc8bab6a7b8e305b1bf43720e76873217de6d"
+      "git_blob_sha": "fecdcb00793c499b101e93b01e8c49316faa8e00"
     },
     {
       "path": "public/index.html",
@@ -37,7 +37,7 @@
     },
     {
       "path": "scripts/verify-build.mjs",
-      "git_blob_sha": "9ae22bd8dcde0facd631606396588963fa924f3e"
+      "git_blob_sha": "fb3808e8f6089f7f28b77b2df5c79bd346b02ae1"
     },
     {
       "path": "config/canary-seeds.json",
@@ -120,6 +120,6 @@
       "git_blob_sha": "e746a429df4a3c75935686951b4f422b51d1df59"
     }
   ],
-  "updated_at": "2026-09-29T14:47:04.665Z",
-  "build": "2026.09.29-v0.11.0-l2-comprehension-v3"
+  "updated_at": "2026-09-29T14:56:46.819Z",
+  "build": "2026.09.29-v0.11.1-l2-scheduler-hotfix"
 }
