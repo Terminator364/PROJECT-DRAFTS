@@ -11,7 +11,7 @@ const HERE = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(HERE, '..');
 const dataDir = process.env.TLIB_DATA_DIR || join(process.env.LOCALAPPDATA || homedir(), 'TLIB-PC');
 mkdirSync(dataDir, { recursive: true });
-const APP_BUILD = '2026.09.29-v0.11.0-l2-comprehension-v3';
+const APP_BUILD = '2026.09.29-v0.11.1-l2-scheduler-hotfix';
 const STARTED_AT = new Date().toISOString();
 function deploymentCommit() {
   try {
@@ -1109,10 +1109,10 @@ async function scheduledL1Step(){
   const core=await autopilotPublicStep();if(core.done&&l1Cycle%20===0)await deepL1Step();return core;
 }
 async function scheduledPipelineStep(){
-  pipelineCycle++;const l2=l2Stats();
-  if(l2.base_pending>0&&pipelineCycle%3===0)return l2BaseStep(3);
+  pipelineCycle++;const l2=l2Stats(),l3=l3Stats();
+  if(l3.pending>0&&pipelineCycle%20===9){const a=l3Step(2);if(a.done)return a;}
   if(l2.deep_pending>0&&pipelineCycle%12===6){const d=await l2DeepStep();if(d.done||!['EMPTY','NO_AUTH','RESERVE_RATE','WAIT'].includes(d.state))return d;}
-  const l3=l3Stats();if(l3.pending>0&&pipelineCycle%15===9){const a=l3Step(2);if(a.done)return a;}
+  if(l2.base_pending>0&&pipelineCycle%4===0)return l2BaseStep(4);
   return await scheduledL1Step();
 }
 
