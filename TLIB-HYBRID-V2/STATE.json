@@ -1,9 +1,9 @@
 {
   "project": "TLIB-HYBRID-V2",
   "branch": "lab/tlib-hybrid-v2",
-  "checkpoint": "V072_QR_DISCOVERABILITY_CODE_SEALED_AWAITING_PC_DEPLOYMENT",
-  "build_target": "2026.09.29-v0.7.2-qr-visible",
-  "updated_at_utc": "2026-09-29T11:08:48.913Z",
+  "checkpoint": "V073_AUTONOMOUS_UPDATE_CODE_SEALED_AWAITING_ONE_TIME_MIGRATION",
+  "build_target": "2026.09.29-v0.7.3-autonomous-update",
+  "updated_at_utc": "2026-09-29T11:24:38.254Z",
   "production_l1_enabled": false,
   "apps_script_bridge_enabled": false,
   "github_actions_expected_minutes": 0,
@@ -28,21 +28,22 @@
     "scheduler_mode": "DEEP_CATCHUP"
   },
   "update_system": {
-    "scheme": "SLOT_V1",
-    "active_pc_migration": "PENDING_DEVICE_RECONNECT",
+    "scheme": "SLOT_V2_AUTONOMOUS_STABLE_CHANNEL",
+    "active_pc_migration": "ONE_TIME_MANUAL_FROM_V064_THEN_AUTONOMOUS",
     "manifest_files": 25,
     "manifest_integrity_last_check": "PASS_0_MISMATCH",
     "principles": [
+      "normal updates never require Desktop Commander or another remote control tool",
+      "development branch is never auto-deployed",
+      "only release/tlib-hybrid-v2-stable is eligible for autonomous installation",
       "active version is never overwritten in place",
       "download into immutable deployment slot",
       "verify Git blob SHA for every manifest file",
-      "verify Node syntax, UI JavaScript, views, subpages, controls, slot updater and PowerShell scripts",
+      "verify Node/UI/updater contracts before activation",
       "preflight on temporary port before activation",
+      "do not auto-apply during explicit user interaction",
       "health check exact build+commit after activation",
       "rollback to last-good slot on failure",
-      "manual TLIB launch never checks or activates updates",
-      "automatic discovery only at Windows logon and at most every 6 hours",
-      "single stable bootstrap outside deployment slots",
       "duplicate workers prohibited"
     ],
     "files": {
@@ -51,7 +52,14 @@
       "bootstrap": "scripts/bootstrap-tlib.ps1",
       "verifier": "scripts/verify-build.mjs",
       "wrapper": "scripts/update-tlib.ps1"
-    }
+    },
+    "channel": "release/tlib-hybrid-v2-stable",
+    "development_branch": "lab/tlib-hybrid-v2",
+    "automatic": true,
+    "interval_hours": 6,
+    "first_check_seconds": 90,
+    "idle_guard_seconds": 120,
+    "remote_tool_required": false
   },
   "resource_governor": {
     "profile_for_4gb": "LOW_RAM_4_6GB",
@@ -122,7 +130,7 @@
       ]
     }
   },
-  "next_gate": "Reconnect MBMPC, preflight exact v0.7.2 on a fresh port, verify /api/health build+commit, activate on 8787, then confirm Manager visibly shows UI v0.7.2 + QR shortcut + QR card and complete Android pairing tests.",
+  "next_gate": "One-time migration from active v0.6.4 using TLIB Manager > Mises à jour (Stage then Apply). After v0.7.3 is active, future updates self-stage every 6h from release/tlib-hybrid-v2-stable and auto-apply only after 120s without explicit user interaction, with preflight, health-check and rollback.",
   "sealed": true,
   "last_good_build": "2026.09.27-v0.6.2-adaptive-4gb",
   "last_good_status": "RUNTIME_WORKED_BUT_DESKTOP_BOOT_PATH_INVALIDATED_BY_FIELD_TEST",
@@ -190,7 +198,10 @@
     "legacy_qr_duplicate": "REMOVED",
     "qr_discoverability_static": "PASS",
     "v072_preflight": "PENDING_PC_RECONNECT",
-    "v072_live_manager_visibility": "PENDING_PC_RECONNECT"
+    "v072_live_manager_visibility": "PENDING_PC_RECONNECT",
+    "autonomous_update_static": "PASS",
+    "stable_channel_static": "PASS",
+    "v073_runtime": "PENDING_ONE_TIME_MIGRATION"
   },
   "seal_scope": "CODE_STATIC_AUDIT",
   "runtime_validated": false,
