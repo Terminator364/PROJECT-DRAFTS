@@ -1,9 +1,9 @@
 {
   "project": "TLIB-HYBRID-V2",
   "branch": "lab/tlib-hybrid-v2",
-  "checkpoint": "V083_PROJECT_FEEDBACK_AUTOSYNC_PUBLISHED_AWAITING_AUTONOMOUS_PC_CYCLE",
-  "build_target": "2026.09.29-v0.8.3-project-feedback-autosync",
-  "updated_at_utc": "2026-09-29T12:24:52.957Z",
+  "checkpoint": "V090_L1_L2_CONTINUOUS_PUBLISHED_AWAITING_AUTONOMOUS_PC_CYCLE",
+  "build_target": "2026.09.29-v0.9.0-l1-l2-continuous",
+  "updated_at_utc": "2026-09-29T12:50:00.071Z",
   "production_l1_enabled": false,
   "apps_script_bridge_enabled": false,
   "github_actions_expected_minutes": 0,
@@ -192,7 +192,7 @@
       "progress": true
     }
   },
-  "next_gate": "Do not remotely trigger update. Active v0.8.2-r2 must self-update to v0.8.3. Then verify stale-page detection reloads automatically and Manager feedback panel reports project-local state.",
+  "next_gate": "Active v0.8.3 must self-update to v0.9.0 via stable channel. Runtime proof: L1 continues increasing while L2 total rises beyond fixture 10; L2-BASE consumes no GitHub, L2-DEEP respects reserve 2800 and shared resource governor.",
   "sealed": true,
   "last_good_build": "2026.09.29-v0.8.0-mobile-autonomous",
   "last_good_status": "PRESERVED_PRE_ACTIVATION",
@@ -288,7 +288,12 @@
     "remote_update_dependency": "REMOVED_NORMAL_PATH",
     "project_feedback_static": "PASS",
     "ui_runtime_autosync_static": "PASS",
-    "v083_runtime": "PENDING_AUTONOMOUS"
+    "v083_runtime": "PENDING_AUTONOMOUS",
+    "l2_continuous_static": "PASS",
+    "l1_not_starved_static": "PASS",
+    "l2_readme_quota_guard_static": "PASS",
+    "l2_pipeline_ui_static": "PASS",
+    "v090_runtime": "PENDING_AUTONOMOUS"
   },
   "seal_scope": "ACTIVE_RUNTIME_PROVEN_V081R2__V082R2_PENDING_AUTONOMY",
   "runtime_validated": false,
@@ -310,5 +315,23 @@
     "legacy_duplicate_removed": true,
     "discoverability": "MANAGER_HEADER_SHORTCUT_AND_OVERVIEW_CARD",
     "mobile_ui": "DEDICATED_RESPONSIVE_SHELL"
+  },
+  "pipeline": {
+    "l1_l2": {
+      "mode": "CONTINUOUS_INTERLEAVED",
+      "target": "L1 continues while L2 starts immediately on qualified L1",
+      "pc_profile": "LOW_RAM_4GB_SAFE",
+      "l1_priority": "MAJORITY",
+      "l2_base_share": "~25% micro-cycles when base backlog exists",
+      "l2_base_batch": 3,
+      "l2_base_network": false,
+      "l2_deep_share": "~1/12 micro-cycles when deep backlog exists",
+      "l2_deep_network": "README_GITHUB_API",
+      "github_rate_reserve": 2800,
+      "minimum_l1_score": 65,
+      "l2_entry_requires": "L1_COMPLETE",
+      "resource_governor_shared": true,
+      "user_active_pause": true
+    }
   }
 }
