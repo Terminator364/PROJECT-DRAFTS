@@ -1236,6 +1236,11 @@ els('[data-phone-minutes]').forEach(function(b){b.onclick=function(){PHONE_MINUT
 el('#phoneCreateBtn').onclick=createPhonePair;
 el('#phoneRefreshBtn').onclick=loadPhoneStatus;
 el('#phoneRevokeBtn').onclick=revokePhone;
+function openPhoneSessionArea(){var x=el('#phoneSessionList');if(x)x.scrollIntoView({behavior:'smooth',block:'start'})}
+el('#phoneStatusSessionsCard').onclick=openPhoneSessionArea;el('#phoneStatusSessionsCard').onkeydown=function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();openPhoneSessionArea()}};
+el('#phoneStatusRemainingCard').onclick=openPhoneSessionArea;el('#phoneStatusRemainingCard').onkeydown=el('#phoneStatusSessionsCard').onkeydown;
+el('#phoneStatusPairCard').onclick=function(){var x=el('#phoneQr');if(x)x.scrollIntoView({behavior:'smooth',block:'center'})};el('#phoneStatusPairCard').onkeydown=function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();el('#phoneStatusPairCard').click()}};
+el('#phoneStatusModeCard').onclick=function(){openDrawer('Mode téléphone','Manager · sécurité',kvLine('Accès','Lecture seule')+kvLine('Mises à jour','PC uniquement')+kvLine('Maintenance','PC uniquement')+kvLine('Portée','Navigation, recherche et consultation'))};el('#phoneStatusModeCard').onkeydown=function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();el('#phoneStatusModeCard').click()}};
 function openManagerPhone(){var t=el('#managerSubnav [data-manager-tab="phone"]');if(t){t.click();requestAnimationFrame(function(){var p=el('[data-manager-pane="phone"]');if(p)p.scrollIntoView({behavior:'auto',block:'start'})})}}
 el('#mgrPhoneShortcut').onclick=openManagerPhone;
 el('#mgrPhoneCard').onclick=openManagerPhone;
@@ -1286,6 +1291,7 @@ document.addEventListener('click',function(e){
   var l1d=e.target.closest('[data-l1-drill-open]');if(l1d){e.preventDefault();openL1Drill(l1d.dataset.l1DrillOpen);return}
   var l2d=e.target.closest('[data-l2-drill-open]');if(l2d){e.preventDefault();openL2Drill(l2d.dataset.l2DrillOpen);return}
   var l2j=e.target.closest('[data-l2-jump]');if(l2j){e.preventDefault();show('l2');clickSubtab('#l2Subnav','data-l2-tab',l2j.dataset.l2Jump);return}
+  var l3j=e.target.closest('[data-l3-jump]');if(l3j){e.preventDefault();show('l3');clickSubtab('#l3Subnav','data-l3-tab',l3j.dataset.l3Jump);return}
   var mj=e.target.closest('[data-manager-jump]');if(mj){e.preventDefault();show('manager');clickSubtab('#managerSubnav','data-manager-tab',mj.dataset.managerJump);return}
   var tj=e.target.closest('[data-tech-jump]');if(tj){e.preventDefault();show('technical');clickSubtab('#techSubnav','data-tech-tab',tj.dataset.techJump);return}
   var lj=e.target.closest('[data-l1-jump]');if(lj){e.preventDefault();show('l1');clickSubtab('#l1Subnav','data-l1-tab',lj.dataset.l1Jump);return}
@@ -1294,11 +1300,12 @@ document.addEventListener('click',function(e){
 document.addEventListener('keydown',function(e){
   if(e.key==='Escape'){closeDrawer();closeMobileMenu();return}
   if(e.key!=='Enter'&&e.key!==' ')return;
-  var t=e.target.closest('[data-action],[data-l1-drill-open],[data-l2-drill-open],[data-l2-jump],[data-manager-jump],[data-tech-jump],[data-l1-jump]');
+  var t=e.target.closest('[data-action],[data-l1-drill-open],[data-l2-drill-open],[data-l2-jump],[data-l3-jump],[data-manager-jump],[data-tech-jump],[data-l1-jump]');
   if(!t)return;e.preventDefault();
   if(t.dataset.l1DrillOpen)return openL1Drill(t.dataset.l1DrillOpen);
   if(t.dataset.l2DrillOpen)return openL2Drill(t.dataset.l2DrillOpen);
   if(t.dataset.l2Jump){show('l2');clickSubtab('#l2Subnav','data-l2-tab',t.dataset.l2Jump);return}
+  if(t.dataset.l3Jump){show('l3');clickSubtab('#l3Subnav','data-l3-tab',t.dataset.l3Jump);return}
   if(t.dataset.managerJump){show('manager');clickSubtab('#managerSubnav','data-manager-tab',t.dataset.managerJump);return}
   if(t.dataset.techJump){show('technical');clickSubtab('#techSubnav','data-tech-tab',t.dataset.techJump);return}
   if(t.dataset.l1Jump){show('l1');clickSubtab('#l1Subnav','data-l1-tab',t.dataset.l1Jump);return}
@@ -1308,10 +1315,12 @@ bindManagerNodes();
 bindPaneTabs('#l0Subnav [data-l0-tab]','[data-l0-pane]','l0Tab','l0Pane',function(v){if(v==='sources'||v==='depth'||v==='failures')return loadL0Sources(v==='failures'?{status:'FAILED'}:{});});
 bindPaneTabs('#l1Subnav [data-l1-tab]','[data-l1-pane]','l1Tab','l1Pane',function(v){if(v==='insights')return loadL1Insights();if(v==='deep')return loadDeepQueue();if(v==='themes')return loadFacets();if(v==='drill')return loadL1Drill();});
 bindPaneTabs('#l2Subnav [data-l2-tab]','[data-l2-pane]','l2Tab','l2Pane',function(v){if(v==='profiles')return loadL2();if(v==='pipeline')return loadL2Queue();});
+bindPaneTabs('#l3Subnav [data-l3-tab]','[data-l3-pane]','l3Tab','l3Pane',function(v){if(v==='overview'||v==='packs')return loadL3();});
 bindPaneTabs('#managerSubnav [data-manager-tab]','[data-manager-pane]','managerTab','managerPane',function(v){if(v==='overview')return loadProjectFeedback();if(v==='updates')return Promise.all([loadUpdateStatus(),loadProjectFeedback()]);if(v==='phone')return loadPhoneStatus();});
 bindPaneTabs('#techSubnav [data-tech-tab]','[data-tech-pane]','techTab','techPane',function(v){if(v==='events'&&STATUS)renderTechEvents('ALL');});
 el('#refreshDeepQueue').onclick=function(){cacheClear('l1-deep');loadDeepQueue(true)};
 el('#refreshL2Queue').onclick=loadL2Queue;
+el('#refreshL3').onclick=loadL3;
 el('#refreshInsights').onclick=loadL1Insights;
 els('#l1DrillNav [data-l1-drill]').forEach(function(b){b.onclick=function(){L1_DRILL_KIND=b.dataset.l1Drill;L1_DRILL_BAND='';L1_DRILL_OFFSET=0;loadL1Drill()}});
 el('#l1DrillSearchBtn').onclick=function(){L1_DRILL_OFFSET=0;loadL1Drill()};
