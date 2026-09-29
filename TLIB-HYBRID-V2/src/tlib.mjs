@@ -932,80 +932,96 @@ function fixtureL2Canary() {
   console.log(JSON.stringify({ok:true,mode:'l2-fixture',done,summary:statusSnapshot()},null,2));
 }
 
-const L2_RULESET_VERSION='2026.09-v2';
+const L2_RULESET_VERSION='2026.09-v3-dossier';
 const L2_MIN_L1_SCORE=65;
 const L2_README_RATE_RESERVE=2800;
+const L2_RAW_FILE_MAX=262144;
 let l2DeepNextAttemptAt=0;
 let pipelineCycle=0;
 let l1Cycle=0;
 
 function jsonArray(v){try{const x=JSON.parse(v||'[]');return Array.isArray(x)?x:[]}catch{return[]}}
 function jsonObject(v){try{const x=JSON.parse(v||'{}');return x&&typeof x==='object'&&!Array.isArray(x)?x:{} }catch{return{}}}
-function uniqText(xs,max=12){return [...new Set(xs.map(x=>String(x||'').trim()).filter(Boolean))].slice(0,max)}
+function uniqText(xs,max=16){return [...new Set(xs.map(x=>String(x||'').trim()).filter(Boolean))].slice(0,max)}
+function frJoin(xs){xs=uniqText(xs,8);return xs.length<2?(xs[0]||''):xs.slice(0,-1).join(', ')+' et '+xs[xs.length-1]}
+function sentence(v){v=String(v||'').trim();return v?v.replace(/\s+/g,' ').replace(/[.;:,\s]+$/,'')+'.':''}
 
 const L2_SIGNAL_RULES=[
   ['API / intégration',/\bapi\b|rest|graphql|webhook|sdk|integration/],
   ['Ligne de commande / automatisation',/\bcli\b|command[- ]line|terminal|shell|powershell|automation|script/],
   ['Bibliothèque / SDK',/library|framework|sdk|package|module|dependency/],
-  ['Application web',/web app|frontend|backend|server|browser|http|website/],
-  ['Application mobile',/android|ios|mobile|flutter|react native|capacitor/],
-  ['Données / stockage',/database|sqlite|postgres|mysql|mongodb|redis|dataset|storage/],
-  ['IA / machine learning',/machine learning|deep learning|\bllm\b|artificial intelligence|generative ai|neural/],
+  ['Application web',/web app|frontend|backend|server|browser|http|website|next\.js|react|vue|angular/],
+  ['Application mobile',/android|ios|mobile|flutter|react native|capacitor|expo/],
+  ['Données / stockage',/database|sqlite|postgres|mysql|mongodb|redis|dataset|storage|vector/],
+  ['IA / apprentissage automatique',/machine learning|deep learning|\bllm\b|artificial intelligence|generative ai|neural|transformer/],
   ['Réseau / communication',/network|tcp|udp|dns|wifi|mqtt|websocket|telegram|messag/],
   ['Cloud / DevOps',/docker|kubernetes|terraform|ci[- ]?cd|github actions|cloud|deployment|container/],
-  ['Sécurité',/security|auth|oauth|encrypt|crypt|vulnerability|pentest|malware/],
-  ['Observabilité / monitoring',/monitor|metrics|logging|telemetry|tracing|observability/],
+  ['Sécurité / authentification',/security|auth|oauth|encrypt|crypt|vulnerability|pentest|malware|jwt/],
+  ['Observabilité / supervision',/monitor|metrics|logging|telemetry|tracing|observability/],
   ['Documentation / apprentissage',/documentation|tutorial|guide|course|learning|reference|awesome/]
 ];
+const L2_PURPOSE_MAP={
+  'API / intégration':'S’intégrer à d’autres applications ou exposer des fonctions programmatiques.',
+  'Ligne de commande / automatisation':'Automatiser des tâches techniques depuis un terminal ou un script.',
+  'Bibliothèque / SDK':'Être réutilisé comme composant logiciel dans un autre projet.',
+  'Application web':'Fournir ou soutenir une interface ou un service accessible sur le Web.',
+  'Application mobile':'Construire, exécuter ou accompagner une expérience sur téléphone ou tablette.',
+  'Données / stockage':'Lire, transformer, indexer, conserver ou servir des données.',
+  'IA / apprentissage automatique':'Exécuter ou intégrer des fonctions liées à l’intelligence artificielle ou à l’apprentissage automatique.',
+  'Réseau / communication':'Échanger des données entre appareils, services ou utilisateurs.',
+  'Cloud / DevOps':'Construire, déployer, conteneuriser ou automatiser une infrastructure.',
+  'Sécurité / authentification':'Gérer des contrôles de sécurité, d’identité ou de protection des données.',
+  'Observabilité / supervision':'Mesurer, journaliser ou superviser le comportement d’un système.',
+  'Documentation / apprentissage':'Servir de référence, de guide ou de corpus d’apprentissage.'
+};
+const L2_AUDIENCE_MAP={
+  'API / intégration':'développeurs qui intègrent des services ou des API',
+  'Ligne de commande / automatisation':'développeurs, administrateurs et utilisateurs techniques',
+  'Bibliothèque / SDK':'développeurs qui réutilisent des bibliothèques',
+  'Application web':'développeurs web et équipes produit',
+  'Application mobile':'développeurs mobile et équipes produit',
+  'Données / stockage':'développeurs data, backend et opérateurs de bases',
+  'IA / apprentissage automatique':'développeurs IA, data scientists et intégrateurs',
+  'Réseau / communication':'développeurs réseau, backend et systèmes',
+  'Cloud / DevOps':'équipes DevOps, SRE et administrateurs',
+  'Sécurité / authentification':'développeurs sécurité et administrateurs',
+  'Observabilité / supervision':'équipes exploitation, SRE et développeurs',
+  'Documentation / apprentissage':'apprenants, mainteneurs et développeurs'
+};
 
-function l2Signals(text){
-  const bag=String(text||'').toLowerCase(),out=[];
-  for(const [label,rx] of L2_SIGNAL_RULES) if(rx.test(bag)) out.push(label);
-  return uniqText(out,8);
-}
-function cleanMarkdownText(text){
-  return String(text||'').replace(/```[\s\S]*?```/g,' ').replace(/!\[[^\]]*\]\([^)]*\)/g,' ')
-    .replace(/\[([^\]]+)\]\([^)]*\)/g,'$1').replace(/<[^>]+>/g,' ').replace(/[\t ]+/g,' ').replace(/\r/g,'');
-}
-function readmeSignals(text){
-  const raw=String(text||'').slice(0,65536),clean=cleanMarkdownText(raw);
-  const headings=uniqText([...raw.matchAll(/^#{1,3}\s+(.+)$/gm)].map(m=>m[1].replace(/[#*_`]/g,'').trim()),10);
-  const paras=clean.split(/\n\s*\n/).map(x=>x.replace(/\n/g,' ').trim()).filter(x=>x.length>=60&&!/^https?:\/\//i.test(x));
-  const intro=(paras[0]||'').slice(0,420);
-  const signals=l2Signals([headings.join(' '),intro,clean.slice(0,12000)].join(' '));
-  return {headings,signals,intro,chars:raw.length};
-}
-function l2BaseProfile(r){
+function l2Signals(text){const bag=String(text||'').toLowerCase(),out=[];for(const [label,rx] of L2_SIGNAL_RULES)if(rx.test(bag))out.push(label);return uniqText(out,10)}
+function cleanMarkdownText(text){return String(text||'').replace(/```[\s\S]*?```/g,' ').replace(/!\[[^\]]*\]\([^)]*\)/g,' ').replace(/\[([^\]]+)\]\([^)]*\)/g,'$1').replace(/<[^>]+>/g,' ').replace(/[\t ]+/g,' ').replace(/\r/g,'')}
+function extractReadmeCommands(raw){const out=[];for(const m of String(raw||'').matchAll(/```[^\n]*\n([\s\S]*?)```/g)){for(const line of String(m[1]||'').split(/\r?\n/)){const x=line.trim().replace(/^\$\s*/,'');if(/^(npm|pnpm|yarn|npx|node|bun|python|python3|pip|pip3|uv|poetry|docker|docker-compose|podman|make|cargo|go|dotnet|java|gradle|mvn|powershell|pwsh)\b/i.test(x)&&x.length<180)out.push(x)}}return uniqText(out,12)}
+function readmeSignals(text){const raw=String(text||'').slice(0,65536),clean=cleanMarkdownText(raw);const headings=uniqText([...raw.matchAll(/^#{1,3}\s+(.+)$/gm)].map(m=>m[1].replace(/[#*_`]/g,'').trim()),16);const signals=l2Signals([headings.join(' '),clean.slice(0,18000)].join(' '));const commands=extractReadmeCommands(raw);const h=headings.join(' ').toLowerCase();return {headings,signals,commands,chars:raw.length,sections:{installation:/install|setup|getting started|quick start|prerequisite/.test(h),usage:/usage|how to use|example|tutorial|quick start/.test(h),configuration:/config|environment|settings|variables/.test(h),api:/\bapi\b|reference|sdk/.test(h),deployment:/deploy|docker|kubernetes|production|hosting/.test(h),architecture:/architecture|design|structure|internals/.test(h),contributing:/contribut|development/.test(h)}}}
+function repoApiBase(fullName){return '/repos/'+String(fullName||'').split('/').map(encodeURIComponent).join('/')}
+async function githubRawText(fullName,branch,path,maxBytes=L2_RAW_FILE_MAX){const url='https://raw.githubusercontent.com/'+String(fullName).split('/').map(encodeURIComponent).join('/')+'/'+encodeURIComponent(String(branch||'main'))+'/'+String(path).split('/').map(encodeURIComponent).join('/');const res=await fetch(url,{headers:{'User-Agent':'TLIB-PC-Agent/0.3'},signal:AbortSignal.timeout(12000)});if(res.status===404)return null;if(!res.ok)throw new Error('RAW_HTTP_'+res.status+' '+path);const len=Number(res.headers.get('content-length')||0);if(len>maxBytes)return null;const txt=await res.text();return txt.length>maxBytes?txt.slice(0,maxBytes):txt}
+async function rootInventory(fullName,branch){const rr=await githubGet(repoApiBase(fullName)+'/contents?ref='+encodeURIComponent(String(branch||'main')),true);if(rr.status===404||!Array.isArray(rr.body))return {names:[],files:[],dirs:[]};const files=rr.body.filter(x=>x&&x.type==='file').map(x=>String(x.name||''));const dirs=rr.body.filter(x=>x&&x.type==='dir').map(x=>String(x.name||''));return {names:files.concat(dirs),files,dirs}}
+async function manifestFacts(r,inventory){const names=new Set((inventory.files||[]).map(x=>String(x).toLowerCase()));const candidates=['package.json','pyproject.toml','requirements.txt','dockerfile','docker-compose.yml','compose.yml','go.mod','cargo.toml'];const selected=candidates.filter(x=>names.has(x)).slice(0,4);const facts={files:selected,commands:[],dependencies:[],scripts:[],services:[],runtime:[],config_files:[],raw_detected:inventory.names||[]};for(const p of selected){try{const actual=(inventory.files||[]).find(x=>String(x).toLowerCase()===p)||p;const txt=await githubRawText(r.full_name,r.default_branch||'main',actual);if(!txt)continue;if(p==='package.json'){let j={};try{j=JSON.parse(txt)}catch{}facts.scripts=uniqText(Object.keys(j.scripts||{}),12);facts.commands=uniqText([...facts.commands,...Object.keys(j.scripts||{}).map(k=>'npm run '+k)],12);facts.dependencies=uniqText([...Object.keys(j.dependencies||{}),...Object.keys(j.peerDependencies||{}),...Object.keys(j.devDependencies||{}).slice(0,8)],20);if(j.engines)facts.runtime.push('Node '+Object.entries(j.engines).map(([k,v])=>k+' '+v).join(', '))}else if(p==='requirements.txt'){facts.dependencies=uniqText([...facts.dependencies,...txt.split(/\r?\n/).map(x=>x.trim().split(/[<=>~!]/)[0]).filter(x=>x&&!x.startsWith('#'))],20);facts.runtime.push('Python')}else if(p==='pyproject.toml'){facts.runtime.push('Python')}else if(p==='go.mod'){const m=txt.match(/^module\s+(.+)$/m);if(m)facts.runtime.push('Go · module '+m[1].trim())}else if(p==='cargo.toml'){facts.runtime.push('Rust / Cargo')}else if(p==='dockerfile'){facts.runtime.push('Docker')}else if(/compose/.test(p)){facts.runtime.push('Docker Compose')}}catch(e){event('WARN','L2_MANIFEST_READ_FAIL',r.full_name+' '+p+' '+String(e.message||e).slice(0,180))}}facts.config_files=uniqText((inventory.files||[]).filter(x=>/^(?:\.env|config|settings|.*\.ya?ml$|.*\.toml$)/i.test(x)),12);return facts}
+function l2Nature(r,signals){if(signals.includes('Application mobile'))return 'application ou outillage orienté mobile';if(signals.includes('Application web')&&signals.includes('API / intégration'))return 'application ou service Web avec fonctions d’intégration';if(signals.includes('Cloud / DevOps'))return 'outil ou composant d’automatisation et de déploiement';if(signals.includes('Bibliothèque / SDK'))return 'bibliothèque ou SDK réutilisable';if(signals.includes('Ligne de commande / automatisation'))return 'outil technique utilisable en ligne de commande ou en automatisation';if(r.resource_kind==='Catalogue de ressources')return 'catalogue de ressources techniques';if(r.resource_kind==='Guide / documentation')return 'guide ou documentation technique';return String(r.resource_kind||'projet logiciel').toLowerCase()}
+function l2FrenchDossier(r,sig={signals:[],commands:[],sections:{}},inventory={names:[],files:[],dirs:[]},facts={files:[],commands:[],dependencies:[],scripts:[],services:[],runtime:[],config_files:[]}){
   const topics=jsonArray(r.topics_json),tags=jsonArray(r.theme_tags_json),langs=Object.keys(jsonObject(r.languages_json));
-  const bag=[r.full_name,r.description,r.l1_summary,r.resource_kind,r.technology,r.content_mode,r.primary_theme,r.theme_path,r.language,topics.join(' '),tags.join(' '),langs.join(' ')].filter(Boolean).join(' ');
-  const signals=l2Signals(bag);
-  const capabilities=uniqText([
-    ...signals.map(x=>'Signal fonctionnel : '+x),
-    r.resource_kind==='Catalogue de ressources'?'Organise et référence des ressources autour de '+(r.technology||r.primary_theme||'son domaine'):'',
-    r.resource_kind==='Guide / documentation'?'Sert de ressource de documentation / apprentissage':'',
-    r.resource_kind==='Projet logiciel'?'Fournit un projet logiciel exploitable autour de '+(r.technology||r.primary_theme||'son domaine'):''
-  ],10);
-  const useCases=uniqText([
-    r.technology?'Évaluer une solution liée à '+r.technology:'',
-    r.primary_theme?'Explorer le domaine '+r.primary_theme:'',
-    signals.includes('API / intégration')?'Intégration dans un autre logiciel ou workflow':'',
-    signals.includes('Ligne de commande / automatisation')?'Automatisation de tâches locales ou techniques':'',
-    signals.includes('Documentation / apprentissage')?'Documentation, veille ou apprentissage ciblé':'',
-    r.resource_kind==='Catalogue de ressources'?'Découverte et comparaison de ressources':''
-  ],8);
-  const limitations=uniqText([
-    'Profil L2-BASE inféré localement à partir de métadonnées L1 vérifiées ; il ne remplace pas encore une lecture complète du projet.',
-    r.archived?'Dépôt archivé.':'',r.disabled?'Dépôt désactivé.':'',
-    !r.license?'Licence non déterminée dans les métadonnées.':'',
-    Number(r.activity_days||0)>730?'Activité récente faible ou ancienne.':'',
-    !r.readme_present&&r.resource_kind==='Projet logiciel'?'README non confirmé par L1 profonde.':''
-  ],8);
-  const evidence=uniqText([r.l1_summary?'Résumé L1':'',r.description?'Description GitHub':'',topics.length?'Topics GitHub':'',langs.length?'Langages détectés':'',r.latest_release_tag?'Dernière release '+r.latest_release_tag:'',r.community_health!=null?'Santé communauté '+r.community_health+'%':'',r.readme_present?'README présent':'',r.theme_path?'Taxonomie '+r.theme_path:''],12);
-  const score=Math.max(0,Math.min(100,Math.round(Number(r.l1_score||0)*0.72+Math.min(12,signals.length*2)+(r.deep_status==='DONE'?8:0)+(r.readme_present?4:0)+(r.latest_release_tag?4:0))));
-  const confidence=Math.max(0.35,Math.min(0.94,score/100));
-  const title=String(r.full_name||'Cette ressource');
-  const human=String(r.l1_summary||r.description||title).trim()+(signals.length?' Signaux L2 détectés : '+signals.slice(0,4).join(', ')+'.':'');
-  return {human_summary:human.slice(0,1100),capabilities,use_cases:useCases,limitations,confidence,score,evidence,deep_status:(r.resource_kind==='Projet logiciel'&&Number(r.readme_present||0)===1)?'PENDING':'NOT_APPLICABLE'};
+  const signals=uniqText([...l2Signals([r.full_name,r.description,r.l1_summary,r.resource_kind,r.technology,r.content_mode,r.primary_theme,r.theme_path,r.language,topics.join(' '),tags.join(' '),langs.join(' ')].filter(Boolean).join(' ')),...(sig.signals||[])],10);
+  const tech=r.technology||r.language||langs[0]||'technologie principale non déterminée',nature=l2Nature(r,signals);
+  const purposes=uniqText(signals.map(x=>L2_PURPOSE_MAP[x]).filter(Boolean),8);if(r.resource_kind==='Catalogue de ressources')purposes.unshift('Repérer, comparer et retrouver des ressources techniques dans un domaine donné.');if(r.resource_kind==='Guide / documentation')purposes.unshift('Comprendre une technologie ou suivre une procédure technique à partir d’une documentation structurée.');
+  const audiences=uniqText(signals.map(x=>L2_AUDIENCE_MAP[x]).filter(Boolean),8);
+  const interfaces=uniqText([signals.includes('Ligne de commande / automatisation')?'Ligne de commande / scripts':'',signals.includes('API / intégration')?'API ou interface d’intégration':'',signals.includes('Application web')?'Interface ou service Web':'',signals.includes('Application mobile')?'Interface ou composant mobile':'',signals.includes('Bibliothèque / SDK')?'Bibliothèque / SDK':''],8);
+  const commands=uniqText([...(sig.commands||[]),...(facts.commands||[])],14);
+  const architecture=uniqText(['Technologie principale : '+tech,langs.length?'Langages détectés : '+frJoin(langs.slice(0,6)):'',(facts.runtime||[]).length?'Environnement d’exécution : '+frJoin(facts.runtime):'',(inventory.dirs||[]).length?'Répertoires racine observés : '+frJoin(inventory.dirs.slice(0,10)):'',(facts.files||[]).length?'Fichiers techniques détectés : '+frJoin(facts.files):'',(facts.services||[]).length?'Services déclarés : '+frJoin(facts.services):''],12);
+  const setup=uniqText([commands.length?'Commandes documentées ou déduites : '+commands.slice(0,6).join(' ; '):'',sig.sections&&sig.sections.installation?'Le README contient une section d’installation ou de démarrage rapide.':'',(facts.config_files||[]).length?'Configuration repérée : '+frJoin(facts.config_files):''],10);
+  const integrations=uniqText([signals.includes('Données / stockage')?'Stockage ou base de données détecté dans les signaux du projet.':'',signals.includes('Réseau / communication')?'Communication réseau ou messagerie détectée.':'',signals.includes('Cloud / DevOps')?'Déploiement ou infrastructure automatisée détecté.':'',signals.includes('Sécurité / authentification')?'Mécanisme de sécurité ou d’authentification détecté.':'',...(facts.services||[]).map(x=>'Service déclaré : '+x)],10);
+  const dependencies=uniqText(facts.dependencies||[],20);
+  const deployment=uniqText([(facts.runtime||[]).some(x=>/Docker/.test(x))?'Exécution ou déploiement conteneurisé prévu ou documenté.':'',signals.includes('Cloud / DevOps')?'Le projet comporte des signaux de déploiement, CI/CD ou infrastructure.':'',signals.includes('Application mobile')?'Le projet comporte une cible mobile ; la chaîne de build mobile doit être vérifiée dans les fichiers dédiés.':'',sig.sections&&sig.sections.deployment?'Le README possède une section de déploiement ou de production.':''],8);
+  const limits=uniqText([Number(r.archived||0)?'Le dépôt est archivé : ne pas le choisir pour un nouveau projet sans justification.':'',Number(r.disabled||0)?'Le dépôt est désactivé.':'',!r.license&&!r.license_name?'La licence n’est pas déterminée : vérifier les droits d’utilisation avant intégration.':'',Number(r.activity_days||0)>730?'L’activité récente paraît faible ou ancienne.':'',!commands.length?'Aucune commande exploitable n’a encore été confirmée automatiquement.':'',!(facts.files||[]).length?'Aucun manifeste technique racine n’a encore été analysé.':'','La compréhension L2 est fondée sur des preuves du dépôt ; elle ne remplace pas encore un audit ligne par ligne du code source.'],10);
+  const unknowns=uniqText([!commands.length?'commande exacte d’installation ou de lancement':'',!dependencies.length?'dépendances techniques détaillées':'',!interfaces.length?'interface principale réellement exposée':'',!(sig.sections&&sig.sections.architecture)?'architecture interne explicitement documentée':'',!r.latest_release_tag?'cycle de release récent':''],10);
+  const evidence=uniqText([r.l1_summary?'Fiche L1 complète':'',r.description?'Description GitHub':'',topics.length?'Topics GitHub':'',langs.length?'Langages détaillés':'',r.latest_release_tag?'Release '+r.latest_release_tag:'',sig.chars?'README analysé ('+sig.chars+' caractères)':'',(inventory.names||[]).length?'Structure racine analysée ('+inventory.names.length+' entrées)':'',(facts.files||[]).length?'Manifestes analysés : '+frJoin(facts.files):''],16);
+  const evidenceScore=(sig.chars?18:0)+((inventory.names||[]).length?12:0)+((facts.files||[]).length?15:0)+(commands.length?10:0)+(dependencies.length?8:0)+(r.deep_status==='DONE'?7:0);
+  const comprehension=Math.max(35,Math.min(100,Math.round(Number(r.l1_score||0)*0.45+signals.length*2+evidenceScore)));
+  const l3Ready=comprehension>=78&&Boolean(sig.chars)&&Boolean((inventory.names||[]).length)&&(commands.length>0||interfaces.length>0);
+  const definition='« '+String(r.full_name||'Ce projet')+' » est '+nature+' centré sur '+tech+'. '+(purposes[0]||'Sa finalité précise doit encore être confirmée par les preuves du dépôt.');
+  const how='Le fonctionnement observable repose sur '+(interfaces.length?frJoin(interfaces):'une interface encore à préciser')+(architecture.length?' ; '+architecture.slice(0,3).join(' ; '):'')+'.';
+  const dossier={schema:3,language:'fr',project:String(r.full_name||''),definition_fr:sentence(definition),nature_fr:nature,finalites_fr:purposes,audiences_fr:audiences,interfaces_fr:interfaces,fonctionnement_fr:sentence(how),installation_lancement_fr:setup,commandes:commands,architecture_fr:architecture,dependances:dependencies,integrations_fr:integrations,deploiement_fr:deployment,cas_usage_fr:purposes.slice(0,8),limites_fr:limits,preuves_fr:evidence,a_verifier_fr:unknowns,handoff_l3:{pret:Boolean(l3Ready),score:comprehension,utilisable_des_l2:comprehension>=65,ce_quon_peut_deja_faire:uniqText([purposes[0]?'Décider si le projet correspond à ce besoin : '+purposes[0]:'',commands.length?'Préparer un test local à partir des commandes confirmées.':'',dependencies.length?'Évaluer les dépendances principales avant intégration.':'',interfaces.length?'Choisir une stratégie d’intégration via '+frJoin(interfaces):''],8),blocages:unknowns}};
+  const caps=uniqText([...interfaces.map(x=>'Interface : '+x),...architecture.slice(0,5)],12);
+  return {dossier,human_summary:dossier.definition_fr+' '+dossier.fonctionnement_fr,capabilities:caps,use_cases:purposes,limitations:limits,confidence:Math.min(0.99,Math.max(0.4,comprehension/100)),score:comprehension,evidence,deep_status:(r.resource_kind==='Projet logiciel'&&Number(r.readme_present||0)===1)?'PENDING':'NOT_APPLICABLE',l3_ready:l3Ready?1:0};
 }
 function l2EligibilitySql(alias='r'){
   return alias+".l1_stage='L1_COMPLETE' AND coalesce("+alias+".l1_score,0)>="+L2_MIN_L1_SCORE+" AND coalesce("+alias+".archived,0)=0 AND coalesce("+alias+".disabled,0)=0";
