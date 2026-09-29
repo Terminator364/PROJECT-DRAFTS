@@ -1,9 +1,9 @@
 {
   "project": "TLIB-HYBRID-V2",
   "branch": "lab/tlib-hybrid-v2",
-  "checkpoint": "V0102_INTERACTIVE_EVERYWHERE_RUNTIME_PROVEN",
-  "build_target": "2026.09.29-v0.10.2-interactive-everywhere",
-  "updated_at_utc": "2026-09-29T13:42:52.897Z",
+  "checkpoint": "V011_L2_COMPREHENSION_V3_PREFLIGHT_PASS_AWAITING_STABLE",
+  "build_target": "2026.09.29-v0.11.0-l2-comprehension-v3",
+  "updated_at_utc": "2026-09-29T14:46:43.936Z",
   "production_l1_enabled": false,
   "apps_script_bridge_enabled": false,
   "github_actions_expected_minutes": 0,
@@ -224,8 +224,8 @@
       "manager_resource_indicators_clickable": true
     }
   },
-  "next_gate": "Long-run product use. Any future visible metric/card added to L1/L2/Manager must have a real route or be explicitly terminal detail; verifier must remain green before stable promotion.",
-  "sealed": true,
+  "next_gate": "Update deploy manifest, fast-forward stable channel, let active TLIB self-update autonomously, then prove L2 V3 dossier generation, L3 action packs, persistent phone sessions/QR, and existing L1 continuity on the live PC.",
+  "sealed": false,
   "last_good_build": "2026.09.29-v0.8.0-mobile-autonomous",
   "last_good_status": "PRESERVED_PRE_ACTIVATION",
   "field_findings": [
@@ -355,11 +355,20 @@
     "v0102_runtime": "PASS",
     "autonomous_update_to_v0102": "PASS",
     "l1_l2_interactive_depth": "PASS_RUNTIME",
-    "chat_dedicated_runtime": "PASS"
+    "chat_dedicated_runtime": "PASS",
+    "v011_node_syntax": "PASS",
+    "v011_ui_js_syntax": "PASS",
+    "v011_verifier_syntax": "PASS",
+    "v011_verify_build": "PASS",
+    "v011_ui_views": "PASS_HOME_EXPLORE_L0_L1_L2_L3_TALK_MANAGER_TECHNICAL",
+    "v011_l2_v3_contracts": "PASS",
+    "v011_l3_contracts": "PASS",
+    "v011_phone_session_contracts": "PASS",
+    "v011_runtime": "PENDING_STABLE_ACTIVATION"
   },
   "seal_scope": "V0102_RUNTIME_PROVEN_INTERACTIVE_EVERYWHERE",
-  "runtime_validated": true,
-  "activation_pending": false,
+  "runtime_validated": false,
+  "activation_pending": true,
   "phone_link": {
     "status": "CODE_SEALED_AWAITING_RUNTIME",
     "manager_entry": "📱 Téléphone / QR",
@@ -440,5 +449,70 @@
     }
   },
   "stable_target_build": "2026.09.29-v0.10.2-interactive-everywhere",
-  "stable_target_commit": "8d8a8bdfdc07de4301012a52d8382bf5ba1eb1c1"
+  "stable_target_commit": "8d8a8bdfdc07de4301012a52d8382bf5ba1eb1c1",
+  "l2_v3": {
+    "ruleset": "2026.09-v3-dossier",
+    "ui_language": "fr",
+    "contract": "L1=facts; L2=actionable project understanding; L3=action/synthesis",
+    "base_inputs": [
+      "L1 verified fields",
+      "classification",
+      "topics",
+      "languages",
+      "activity",
+      "release/community signals"
+    ],
+    "deep_inputs": [
+      "README",
+      "repository root structure",
+      "technical manifests when present"
+    ],
+    "dossier_fields": [
+      "definition_fr",
+      "finalites_fr",
+      "audiences_fr",
+      "interfaces_fr",
+      "fonctionnement_fr",
+      "installation_lancement_fr",
+      "commandes",
+      "architecture_fr",
+      "dependances",
+      "integrations_fr",
+      "deploiement_fr",
+      "cas_usage_fr",
+      "limites_fr",
+      "preuves_fr",
+      "a_verifier_fr",
+      "handoff_l3"
+    ],
+    "legacy_v2_policy": "REBUILD_AS_V3_NOT_COUNTED_AS_CURRENT",
+    "min_l1_score": 65,
+    "github_rate_reserve": 2800
+  },
+  "l3": {
+    "status": "IMPLEMENTED_CANDIDATE",
+    "role": "ACTION_FROM_READY_L2_ONLY",
+    "outputs": [
+      "first_actions",
+      "test_plan",
+      "integration_plan",
+      "risks",
+      "blockers"
+    ],
+    "network_required": false
+  },
+  "phone_sessions": {
+    "pair_offer_persisted": true,
+    "access_qr_for_active_sessions": true,
+    "per_session_id": true,
+    "live_remaining_time_ui": true,
+    "individual_revoke": true,
+    "all_revoke": true,
+    "read_only_remote": true,
+    "durations_minutes": [
+      30,
+      180,
+      360
+    ]
+  }
 }
