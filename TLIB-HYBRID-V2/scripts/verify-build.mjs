@@ -91,7 +91,7 @@ if(html){
   const essentials=['navBack','commandOpen','homeSearchBtn','librarySearchBtn','chatSend','refreshDeepQueue','refreshL2Queue','runUiAuditBtn','drawerClose','phoneCreateBtn','phoneRefreshBtn','phoneRevokeBtn','phoneQr','mgrPhoneShortcut','mgrPhoneCard','mgrBuildBadge','updateAutoMode','updateAutoDetail','updateProgressBar','updateProgressText','l2ProgressBar','l2QueueTable','l1DrillSearchBtn','l1DrillPrev','l1DrillNext','l1DrillResults','l2ProfileSearchBtn','l2ProfilePrev','l2ProfileNext','l2Results'];
 
   // Global actionability contract: no visible control may ship dead.
-  const declarativeButtonAttrs=['data-view','data-go','data-action','data-l0-tab','data-l1-tab','data-l2-tab','data-manager-tab','data-tech-tab','data-detail-tab','data-chat','data-phone-minutes','data-event-filter','data-l0-jump','data-depth-filter','data-filter','data-tag','data-drawer-go','data-manager-node','data-manager-tab-jump','data-cmd-index','data-mobile-view','data-l1-drill-open','data-l1-drill','data-l2-drill-open','data-l2-kind','data-l2-jump','data-score-band','data-chat-resource'];
+  const declarativeButtonAttrs=['data-view','data-go','data-action','data-l0-tab','data-l1-tab','data-l2-tab','data-manager-tab','data-tech-tab','data-detail-tab','data-chat','data-phone-minutes','data-event-filter','data-l0-jump','data-depth-filter','data-filter','data-tag','data-drawer-go','data-manager-node','data-manager-tab-jump','data-cmd-index','data-mobile-view','data-l1-drill-open','data-l1-drill','data-l2-drill-open','data-l2-kind','data-l2-jump','data-score-band','data-chat-resource','data-manager-jump','data-tech-jump','data-l1-jump'];
   const buttonAttrs=[...markup.matchAll(/<button\b([^>]*)>/g)].map(m=>m[1]);
   const deadButtons=[];
   for(const attrs of buttonAttrs){
@@ -136,6 +136,8 @@ if(html){
   js.includes('function sendChatQuery')&&js.includes("/api/chat/search")&&!js.includes("var items=await loadLibrary(q)")?ok('chat-dedicated-search'):fail('chat-dedicated-search');
   markup.includes('data-l1-drill-open="complete"')&&markup.includes('data-l2-drill-open="eligible"')?ok('overview-metrics-actionable'):fail('overview-metrics-actionable');
   markup.includes('data-action="l1-taxonomy"')?ok('l1-taxonomy-actionable'):fail('l1-taxonomy-actionable');
+  markup.includes('id="projectFeedbackCard"')&&markup.includes('data-manager-jump="updates"')&&markup.includes('data-tech-jump="events"')?ok('manager-project-feedback-actionable'):fail('manager-project-feedback-actionable');
+  markup.includes('data-l1-jump="deep"')&&markup.includes('data-manager-jump="pipeline"')?ok('manager-resource-indicators-actionable'):fail('manager-resource-indicators-actionable');
   markup.includes('data-l2-tab="pipeline"')&&markup.includes('data-l2-pane="pipeline"')?ok('l2-ui-pipeline-pane'):fail('l2-ui-pipeline-pane');
   markup.includes('id="l2BasePending"')&&markup.includes('id="l2DeepDone"')&&markup.includes('id="l2ProgressBar"')?ok('l2-ui-metrics'):fail('l2-ui-metrics');
   js.includes('loadL2Queue')&&js.includes("if(v==='pipeline')return loadL2Queue()")?ok('l2-ui-lazy-queue'):fail('l2-ui-lazy-queue');
