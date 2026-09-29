@@ -1,9 +1,9 @@
 {
   "project": "TLIB-HYBRID-V2",
   "branch": "lab/tlib-hybrid-v2",
-  "checkpoint": "V081_RESILIENT_UX_CONTRACT_CODE_SEALED_BREAKGLASS_RECOVERY_REQUIRED",
-  "build_target": "2026.09.29-v0.8.1-resilient-ux-contract",
-  "updated_at_utc": "2026-09-29T12:01:00.752Z",
+  "checkpoint": "V081R2_RESILIENT_UX_CONTRACT_CODE_SEALED_BREAKGLASS_RECOVERY_REQUIRED",
+  "build_target": "2026.09.29-v0.8.1-r2-resilient-ux-contract",
+  "updated_at_utc": "2026-09-29T12:03:16.364Z",
   "production_l1_enabled": false,
   "apps_script_bridge_enabled": false,
   "github_actions_expected_minutes": 0,
@@ -261,7 +261,9 @@
     "self_update_survival_static": "PASS",
     "global_loading_static": "PASS",
     "update_reconnect_static": "PASS",
-    "v081_runtime": "PENDING_BREAKGLASS"
+    "v081_runtime": "PENDING_BREAKGLASS",
+    "verifier_phone_lazy_contract": "PASS_ACCEPTS_RETURN_PROMISE",
+    "v081r2_runtime": "PENDING_BREAKGLASS"
   },
   "seal_scope": "CODE_STATIC_AUDIT",
   "runtime_validated": false,
