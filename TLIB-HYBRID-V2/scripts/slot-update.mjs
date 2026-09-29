@@ -20,6 +20,7 @@ const PENDING=join(DATA,'pending-deployment.json');
 const LASTGOOD=join(DATA,'last-good-deployment.json');
 const LOCK=join(DATA,'slot-update.lock');
 const LOG=join(DATA,'slot-update-audit.jsonl');
+const PROGRESS=join(DATA,'slot-update-progress.json');
 const MODE=(process.argv[2]||'status').toLowerCase();
 const FORCE=process.argv.includes('--force');
 const FETCH_TIMEOUT_MS=45000;
@@ -35,6 +36,9 @@ function log(event,status='INFO',detail=''){
 }
 function readJson(path,fallback=null){try{return JSON.parse(readFileSync(path,'utf8'))}catch{return fallback}}
 function writeJson(path,value){writeFileSync(path,JSON.stringify(value,null,2)+'\n','utf8')}
+function progress(phase,pct,detail='',extra={}){
+  try{writeJson(PROGRESS,{at:now(),mode:MODE,phase,percent:Math.max(0,Math.min(100,Math.round(Number(pct)||0))),detail,...extra})}catch{}
+}
 function sleep(ms){return new Promise(r=>setTimeout(r,ms))}
 function headers(){return {'User-Agent':'TLIB-Slot-Updater/1.1','Accept':'application/vnd.github+json'}}
 async function fetchOk(url,opts={}){
@@ -166,6 +170,7 @@ async function stage(){
   const totalMB=Math.round(totalmem()/1048576);
   const lowRamProfile=totalMB<=6144;
   const minFree=lowRamProfile?90:320;
+  progress('CHECK',2,'Vérification du canal stable');
   log('STAGE_CHECK_BEGIN','INFO','free_mb='+freeMB+' total_mb='+totalMB+' profile='+(lowRamProfile?'LOW_RAM_4_6GB':'STANDARD'));
   // Sur 4–6 Go, une RAM utilisée à 80–95 % est attendue. On diffère uniquement
   // quand la marge libre devient réellement critique pour le staging lui-même.
@@ -176,15 +181,16 @@ async function stage(){
   let commit;
   try{commit=await latestCommit()}catch(e){log('LATEST_CHECK_FAIL','FAIL',String(e.message||e));throw e}
   const current=readJson(CURRENT,null);
-  if(current?.commit===commit){rmSync(PENDING,{force:true});log('NO_UPDATE','PASS',commit);return {ok:true,no_update:true,commit}}
+  if(current?.commit===commit){rmSync(PENDING,{force:true});progress('DONE',100,'TLIB est déjà à jour',{commit});log('NO_UPDATE','PASS',commit);return {ok:true,no_update:true,commit}}
   const existing=verifiedSlot(commit);
-  if(existing){writeJson(PENDING,{...existing,verified:true,staged_at:now()});log('STAGE_REUSE','PASS',commit);return {ok:true,staged:true,reused:true,...existing}}
+  if(existing){writeJson(PENDING,{...existing,verified:true,staged_at:now()});progress('READY',100,'Version déjà vérifiée',{commit,build:existing.build});log('STAGE_REUSE','PASS',commit);return {ok:true,staged:true,reused:true,...existing}}
   const manifest=await manifestFor(commit);
   const finalPath=join(DEPLOY,commit),tmp=finalPath+'.tmp-'+process.pid;
   rmSync(tmp,{recursive:true,force:true});mkdirSync(tmp,{recursive:true});
   log('STAGE_BEGIN','INFO','commit='+commit+' files='+manifest.files.length);
   try{
     let totalBytes=0;
+    progress('DOWNLOAD',8,'Téléchargement et vérification des fichiers',{commit,total_files:manifest.files.length,current_file:0});
     for(let i=0;i<manifest.files.length;i++){
       const f=manifest.files[i];
       if(!f?.path||!/^[0-9a-f]{40}$/i.test(String(f.git_blob_sha||'')))throw new Error('MANIFEST_ENTRY_INVALID '+i);
@@ -197,13 +203,16 @@ async function stage(){
       const got=blobSha(buf);
       if(got!==f.git_blob_sha)throw new Error('BLOB_MISMATCH '+rel+' expected='+f.git_blob_sha+' got='+got);
       mkdirSync(dirname(dest),{recursive:true});writeFileSync(dest,buf);
+      progress('DOWNLOAD',8+Math.round(((i+1)/manifest.files.length)*62),'Fichier '+(i+1)+' / '+manifest.files.length,{commit,total_files:manifest.files.length,current_file:i+1,file:rel});
       if(i%4===3)await sleep(80);
     }
     writeFileSync(join(tmp,'deploy-manifest.json'),JSON.stringify(manifest,null,2)+'\n','utf8');
     writeJson(join(tmp,'deployment.json'),{commit,channel:UPDATE_CHANNEL,source_branch:DEVELOPMENT_BRANCH,staged_at:now(),manifest_schema:manifest.schema});
+    progress('VERIFY',75,'Audit statique de la nouvelle version',{commit});
     runNode([join(tmp,'scripts','verify-build.mjs')],tmp,{TLIB_DEPLOYMENT_COMMIT:commit});
     const testData=join(DATA,'verify-slot-'+process.pid);
     rmSync(testData,{recursive:true,force:true});mkdirSync(testData,{recursive:true});
+    progress('SELFTEST',88,'Auto-test moteur isolé',{commit});
     try{runNode([join(tmp,'src','tlib.mjs'),'selftest'],tmp,{TLIB_DATA_DIR:testData,TLIB_DEPLOYMENT_COMMIT:commit})}
     finally{rmSync(testData,{recursive:true,force:true})}
     const src=readFileSync(join(tmp,'src','tlib.mjs'),'utf8');
@@ -212,7 +221,7 @@ async function stage(){
     writeJson(join(tmp,'VERIFIED.json'),{commit,build,verified_at:now(),files:manifest.files.length});
     rmSync(finalPath,{recursive:true,force:true});renameSync(tmp,finalPath);
     const slot={commit,path:finalPath,build,verified:true,staged_at:now()};
-    writeJson(PENDING,slot);log('STAGE_PASS','PASS','commit='+commit+' build='+build);return {ok:true,staged:true,...slot};
+    writeJson(PENDING,slot);progress('READY',100,'Version prête à être activée',{commit,build});log('STAGE_PASS','PASS','commit='+commit+' build='+build);return {ok:true,staged:true,...slot};
   }catch(e){rmSync(tmp,{recursive:true,force:true});log('STAGE_FAIL','FAIL',String(e.message||e));throw e}
 }
 function syncBootstrapArtifacts(slot){
@@ -234,32 +243,38 @@ async function apply(){
     log('APPLY_DEFERRED','SKIP','free_mb='+freeMB+' floor='+activationFloor+' profile='+(lowRamProfile?'LOW_RAM_4_6GB':'STANDARD'));
     return {ok:true,deferred:true,reason:'ACTIVATION_MEMORY_FLOOR',free_mb:freeMB,total_mb:totalMB,activation_floor_mb:activationFloor};
   }
+  progress('PREFLIGHT',5,'Préflight de la version préparée');
   const pending=readJson(PENDING,null);
   if(!pending?.verified||!pending?.commit||!pending?.path)throw new Error('NO_VERIFIED_PENDING_SLOT');
   const slot=verifiedSlot(pending.commit);
   if(!slot)throw new Error('PENDING_SLOT_NOT_VERIFIED');
   await preflight(slot);
+  progress('ACTIVATE',35,'Préflight réussi · préparation de la bascule',{commit:slot.commit,build:slot.build});
   const old=readJson(CURRENT,null);
   writeJson(join(DATA,'rollback-deployment.json'),old||{});
   if(old?.commit&&old?.path)writeJson(LASTGOOD,{...old,preserved_at:now(),reason:'pre-activation-last-good'});
   await stopActive();
+  progress('ACTIVATE',55,'Ancien moteur arrêté · démarrage de la nouvelle version',{commit:slot.commit});
   try{
     const pid=startWorker(slot);
+    progress('HEALTH',78,'Health-check du nouveau moteur',{commit:slot.commit});
     const h=await waitHealth(8787,slot.commit,16000);
     if(!h)throw new Error('ACTIVE_HEALTH_FAILED');
     const active={commit:slot.commit,path:slot.path,build:h.build||slot.build,pid:h.pid||pid,activated_at:now()};
     writeJson(CURRENT,active);rmSync(PENDING,{force:true});
     if(!old?.commit)writeJson(LASTGOOD,{...active,promoted_at:now(),reason:'first-install-no-prior-good'});
     syncBootstrapArtifacts(slot);
+    progress('DONE',100,'Mise à jour activée',{commit:slot.commit,build:active.build,pid:active.pid});
     log('ACTIVATE_PASS','PASS','commit='+slot.commit+' build='+active.build+' pid='+active.pid+' last_good='+(old?.commit||slot.commit));
     cleanup();
     return {ok:true,active};
   }catch(e){
+    progress('ROLLBACK',85,'Échec activation · rollback en cours',{error:String(e.message||e).slice(0,300)});
     log('ACTIVATE_FAIL','FAIL',String(e.message||e));
     await stopActive();
     if(old?.commit&&old?.path&&existsSync(join(old.path,'src','tlib.mjs'))){
       const pid=startWorker(old);const h=await waitHealth(8787,old.commit,15000);
-      if(h){writeJson(CURRENT,{...old,pid:h.pid||pid,rollback_at:now()});log('ROLLBACK_PASS','PASS',old.commit)}
+      if(h){writeJson(CURRENT,{...old,pid:h.pid||pid,rollback_at:now()});progress('ROLLED_BACK',100,'Rollback réussi',{commit:old.commit,build:old.build||''});log('ROLLBACK_PASS','PASS',old.commit)}
       else log('ROLLBACK_FAIL','CRITICAL',old.commit);
     }
     throw e;
@@ -326,6 +341,7 @@ try{
   else throw new Error('UNKNOWN_MODE '+MODE);
   console.log(JSON.stringify(out,null,2));
 }catch(e){
+  progress('ERROR',100,'Échec : '+String(e.message||e).slice(0,300));
   log('COMMAND_FAIL','FAIL',String(e.stack||e.message||e));
   console.error(String(e.stack||e.message||e));process.exitCode=1;
 }finally{
