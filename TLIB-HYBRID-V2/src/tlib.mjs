@@ -1106,7 +1106,7 @@ function libraryRows(q='', limit=100, offset=0, sort='stars') {
                               r.resource_kind,r.technology,r.content_mode,r.activity_status,r.activity_days,r.l1_quality,r.l1_score,
                               r.primary_theme,r.theme_path,r.theme_tags_json,r.theme_confidence,
                               l.human_summary
-                       FROM results r LEFT JOIN l2_profiles l ON l.entity_id=r.entity_id
+                       FROM results r LEFT JOIN l2_profiles l ON l.entity_id=r.entity_id AND l.source_version='${L2_RULESET_VERSION}'
                        ORDER BY ${order} LIMIT ? OFFSET ?`).all(limit,offset);
   }
   const like = '%' + q + '%';
@@ -1115,7 +1115,7 @@ function libraryRows(q='', limit=100, offset=0, sort='stars') {
                             r.resource_kind,r.technology,r.content_mode,r.activity_status,r.activity_days,r.l1_quality,r.l1_score,
                             r.primary_theme,r.theme_path,r.theme_tags_json,r.theme_confidence,
                             l.human_summary
-                     FROM results r LEFT JOIN l2_profiles l ON l.entity_id=r.entity_id
+                     FROM results r LEFT JOIN l2_profiles l ON l.entity_id=r.entity_id AND l.source_version='${L2_RULESET_VERSION}'
                      WHERE lower(r.full_name) LIKE ? OR lower(r.description) LIKE ? OR lower(r.language) LIKE ?
                         OR lower(r.license) LIKE ? OR lower(r.topics_json) LIKE ? OR lower(coalesce(l.human_summary,'')) LIKE ?
                         OR lower(coalesce(r.technology,'')) LIKE ? OR lower(coalesce(r.resource_kind,'')) LIKE ?
@@ -1130,7 +1130,7 @@ function libraryCount(q='') {
   if(!q) return Number(db.prepare('SELECT COUNT(*) AS n FROM results').get().n);
   const like='%'+q+'%';
   return Number(db.prepare(`SELECT COUNT(*) AS n
-    FROM results r LEFT JOIN l2_profiles l ON l.entity_id=r.entity_id
+    FROM results r LEFT JOIN l2_profiles l ON l.entity_id=r.entity_id AND l.source_version='${L2_RULESET_VERSION}'
     WHERE lower(r.full_name) LIKE ? OR lower(r.description) LIKE ? OR lower(r.language) LIKE ?
        OR lower(r.license) LIKE ? OR lower(r.topics_json) LIKE ? OR lower(coalesce(l.human_summary,'')) LIKE ?
        OR lower(coalesce(r.technology,'')) LIKE ? OR lower(coalesce(r.resource_kind,'')) LIKE ?
@@ -1290,7 +1290,7 @@ function resourceById(id) {
   const r = db.prepare(`SELECT * FROM results WHERE entity_id=? OR lower(full_name)=lower(?)`).get(String(id||''), String(id||''));
   if (!r) return null;
   let topics=[]; try { topics=JSON.parse(r.topics_json||'[]'); } catch {}
-  const l2raw = db.prepare('SELECT * FROM l2_profiles WHERE entity_id=?').get(r.entity_id) || null;
+  const l2raw = db.prepare('SELECT * FROM l2_profiles WHERE entity_id=? AND source_version=?').get(r.entity_id,L2_RULESET_VERSION) || null;
   let l2 = null;
   if (l2raw) {
     const parse = (v) => { try { return JSON.parse(v || '[]'); } catch { return []; } };
@@ -1583,11 +1583,11 @@ function statusSnapshot(force=false) {
   const counts = {};
   for (const r of db.prepare('SELECT status, COUNT(*) AS n FROM jobs GROUP BY status').all()) counts[r.status] = Number(r.n);
   const totalResults = Number(db.prepare('SELECT COUNT(*) AS n FROM results').get().n);
-  const l2Count = Number(db.prepare('SELECT COUNT(*) AS n FROM l2_profiles').get().n);
   const l2stat=l2Stats();
+  const l2Count = Number(l2stat.total||0);
   const recent = db.prepare(`SELECT r.full_name,r.description,r.stars,r.language,r.archived,r.fork,r.rate_remaining,r.fetched_at,
                                     r.resource_kind,r.technology,r.content_mode,r.activity_status,r.l1_quality,l.human_summary
-                             FROM results r LEFT JOIN l2_profiles l ON l.entity_id=r.entity_id
+                             FROM results r LEFT JOIN l2_profiles l ON l.entity_id=r.entity_id AND l.source_version='${L2_RULESET_VERSION}'
                              ORDER BY r.fetched_at DESC LIMIT 12`).all();
   const events = db.prepare('SELECT at,level,event,detail FROM events ORDER BY id DESC LIMIT 12').all();
   const control = loadControlSnapshot();
