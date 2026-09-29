@@ -1302,7 +1302,6 @@ function resourceById(id) {
 
 const PHONE_STATE_FILE=join(dataDir,'phone-share.json');
 const PHONE_COOKIE='tlib_m';
-let phonePairOffer=null;
 const phoneClaimAttempts=new Map();
 
 function privateLanIpv4(){
@@ -1329,55 +1328,35 @@ function phoneCodeFromBytes(buf){
 }
 function cleanPhoneState(state){
   const nowMs=Date.now(),s=state&&typeof state==='object'?state:{};
-  const sessions=Array.isArray(s.sessions)?s.sessions.filter(x=>Number(x.expires_at||0)>nowMs):[];
-  return {schema:1,sessions};
+  const sessions=Array.isArray(s.sessions)?s.sessions.filter(x=>Number(x.expires_at||0)>nowMs).map((x,i)=>({...x,id:String(x.id||('legacy-'+i)),duration_minutes:Number(x.duration_minutes||Math.max(1,Math.round((Number(x.expires_at||0)-Number(x.created_at||nowMs))/60000))) })):[];
+  const p=s.pair_offer&&typeof s.pair_offer==='object'?s.pair_offer:null;
+  const pair_offer=p&&!p.used&&Number(p.offer_expires_at||0)>nowMs?p:null;
+  return {schema:2,sessions,pair_offer};
 }
 function loadPhoneState(){
   try{return cleanPhoneState(JSON.parse(readFileSync(PHONE_STATE_FILE,'utf8')))}
-  catch{return {schema:1,sessions:[]}}
+  catch{return {schema:2,sessions:[],pair_offer:null}}
 }
-function savePhoneState(state){
-  try{writeFileSync(PHONE_STATE_FILE,JSON.stringify(cleanPhoneState(state),null,2),'utf8')}catch{}
-}
-function phoneState(){
-  const s=loadPhoneState(); savePhoneState(s); return s;
-}
-function normalizePhoneMinutes(v){
-  const n=Number(v||30);
-  return [30,180,360].includes(n)?n:30;
-}
+function savePhoneState(state){try{writeFileSync(PHONE_STATE_FILE,JSON.stringify(cleanPhoneState(state),null,2),'utf8')}catch{}}
+function phoneState(){const st=loadPhoneState();savePhoneState(st);return st}
+function normalizePhoneMinutes(v){const n=Number(v||30);return [30,180,360].includes(n)?n:30}
 function createPhonePair(minutes=30){
-  const lanIp=privateLanIpv4();
-  if(!lanIp) return {ok:false,error:'NO_PRIVATE_LAN_IP'};
-  minutes=normalizePhoneMinutes(minutes);
-  const secret=randomBytes(24).toString('base64url');
-  const code=phoneCodeFromBytes(randomBytes(7));
-  const nowMs=Date.now();
-  phonePairOffer={
-    secret,code,minutes,created_at:nowMs,offer_expires_at:nowMs+5*60*1000,
-    lan_ip:lanIp,used:false
-  };
-  event('INFO','PHONE_PAIR_CREATED','duration='+minutes+'m; ip='+lanIp);
-  return phoneStatus();
+  const lanIp=privateLanIpv4();if(!lanIp)return {ok:false,error:'NO_PRIVATE_LAN_IP'};
+  minutes=normalizePhoneMinutes(minutes);const secret=randomBytes(24).toString('base64url'),code=phoneCodeFromBytes(randomBytes(7)),nowMs=Date.now(),state=phoneState();
+  state.pair_offer={secret,code,minutes,created_at:nowMs,offer_expires_at:nowMs+5*60*1000,lan_ip:lanIp,used:false};savePhoneState(state);
+  event('INFO','PHONE_PAIR_CREATED','duration='+minutes+'m; ip='+lanIp);return phoneStatus();
 }
-function activePhoneOffer(){
-  if(!phonePairOffer||phonePairOffer.used||Number(phonePairOffer.offer_expires_at||0)<=Date.now()) return null;
-  return phonePairOffer;
-}
+function activePhoneOffer(){return phoneState().pair_offer||null}
 function phoneStatus(){
-  const state=phoneState(),offer=activePhoneOffer(),lanIp=privateLanIpv4();
-  return {
-    ok:true,enabled:Boolean(offer||state.sessions.length),lan_ip:lanIp,port:Number(process.env.TLIB_DASHBOARD_PORT||8787),
-    base_url:lanIp?'http://'+lanIp+':'+Number(process.env.TLIB_DASHBOARD_PORT||8787):null,
-    pair:offer?{
-      code:offer.code,minutes:offer.minutes,offer_expires_at:new Date(offer.offer_expires_at).toISOString(),
-      session_expires_at:new Date(offer.created_at+offer.minutes*60*1000).toISOString(),
-      qr_url:'http://'+offer.lan_ip+':'+Number(process.env.TLIB_DASHBOARD_PORT||8787)+'/pair#t='+encodeURIComponent(offer.secret)
-    }:null,
-    sessions:state.sessions.map(x=>({created_at:new Date(x.created_at).toISOString(),expires_at:new Date(x.expires_at).toISOString(),last_seen:x.last_seen?new Date(x.last_seen).toISOString():null})),
-    session_count:state.sessions.length,
-    read_only:true
-  };
+  const state=phoneState(),offer=state.pair_offer,lanIp=privateLanIpv4(),port=Number(process.env.TLIB_DASHBOARD_PORT||8787),base=lanIp?'http://'+lanIp+':'+port:null,nowMs=Date.now();
+  return {ok:true,enabled:Boolean(offer||state.sessions.length),lan_ip:lanIp,port,base_url:base,access_qr_url:state.sessions.length&&base?base:null,
+    pair:offer?{code:offer.code,minutes:offer.minutes,offer_expires_at:new Date(offer.offer_expires_at).toISOString(),session_expires_at:new Date(offer.created_at+offer.minutes*60*1000).toISOString(),qr_url:'http://'+offer.lan_ip+':'+port+'/pair#t='+encodeURIComponent(offer.secret)}:null,
+    sessions:state.sessions.map(x=>({id:String(x.id),duration_minutes:Number(x.duration_minutes||0),created_at:new Date(x.created_at).toISOString(),expires_at:new Date(x.expires_at).toISOString(),remaining_seconds:Math.max(0,Math.floor((Number(x.expires_at)-nowMs)/1000)),last_seen:x.last_seen?new Date(x.last_seen).toISOString():null,state:Number(x.expires_at)>nowMs?'ACTIVE':'EXPIRED'})),
+    session_count:state.sessions.length,read_only:true};
+}
+function revokePhoneSession(id){
+  const state=phoneState(),before=state.sessions.length;state.sessions=state.sessions.filter(x=>String(x.id)!==String(id||''));savePhoneState(state);
+  event('INFO','PHONE_SESSION_REVOKED','id='+String(id||'')+'; removed='+(before-state.sessions.length));return phoneStatus();
 }
 function parseCookies(req){
   const out={};
@@ -1437,9 +1416,7 @@ function pairPage(){
     'var h=location.hash||"";if(h.indexOf("#t=")===0){var t=decodeURIComponent(h.slice(3));location.hash="";claim(t,"token")}'+
     'f.onsubmit=function(e){e.preventDefault();var c=inp.value.trim().toUpperCase();if(c)claim(c,"code")}})();</script></div></body></html>';
 }
-function revokePhoneSessions(){
-  phonePairOffer=null;savePhoneState({schema:1,sessions:[]});event('INFO','PHONE_SESSIONS_REVOKED','all');return phoneStatus();
-}
+function revokePhoneSessions(){savePhoneState({schema:2,sessions:[],pair_offer:null});event('INFO','PHONE_SESSIONS_REVOKED','all');return phoneStatus();}
 
 function readJsonSafe(path, fallback=null) {
   try { return JSON.parse(readFileSync(path,'utf8')); } catch { return fallback; }
@@ -1785,9 +1762,9 @@ async function startDashboard() {
         const body=await readJsonBody(req).catch(e=>null);if(!body)return sendJson(res,400,{error:'INVALID_BODY'});
         const ok=(body.token&&safeEqualText(body.token,offer.secret))||(body.code&&safeEqualText(String(body.code).trim().toUpperCase(),offer.code));
         if(!ok)return sendJson(res,403,{error:'PAIR_CODE_INVALID'});
-        const raw=randomBytes(32).toString('base64url'),state=phoneState(),nowMs=Date.now(),expiresAt=nowMs+offer.minutes*60*1000;
-        state.sessions.push({hash:tokenHash(raw),created_at:nowMs,expires_at:expiresAt,last_seen:nowMs});
-        savePhoneState(state);offer.used=true;phonePairOffer=null;
+        const raw=randomBytes(32).toString('base64url'),state=phoneState(),nowMs=Date.now(),expiresAt=nowMs+offer.minutes*60*1000,id=randomBytes(6).toString('hex');
+        state.sessions.push({id,hash:tokenHash(raw),duration_minutes:offer.minutes,created_at:nowMs,expires_at:expiresAt,last_seen:nowMs});
+        state.pair_offer=null;savePhoneState(state);
         res.setHeader('Set-Cookie',PHONE_COOKIE+'='+encodeURIComponent(raw)+'; HttpOnly; SameSite=Strict; Path=/; Max-Age='+Math.floor(offer.minutes*60));
         event('INFO','PHONE_PAIR_CLAIMED','duration='+offer.minutes+'m; remote='+remoteAddress(req));
         return sendJson(res,200,{ok:true,expires_at:new Date(expiresAt).toISOString(),read_only:true});
@@ -1812,6 +1789,10 @@ async function startDashboard() {
       if(u.pathname==='/api/mobile/revoke'&&req.method==='POST'){
         if(!local)return sendJson(res,403,{error:'LOCAL_ONLY'});
         return sendJson(res,200,revokePhoneSessions());
+      }
+      if(u.pathname==='/api/mobile/session/revoke'&&req.method==='POST'){
+        if(!local)return sendJson(res,403,{error:'LOCAL_ONLY'});
+        return sendJson(res,200,revokePhoneSession(u.searchParams.get('id')||''));
       }
       if (u.pathname === '/api/interaction' && req.method === 'POST') return sendJson(res,200,{ok:true});
       if (u.pathname === '/api/status') return sendJson(res,200,statusSnapshot());
