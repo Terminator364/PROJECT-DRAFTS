@@ -11,7 +11,7 @@ const HERE = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(HERE, '..');
 const dataDir = process.env.TLIB_DATA_DIR || join(process.env.LOCALAPPDATA || homedir(), 'TLIB-PC');
 mkdirSync(dataDir, { recursive: true });
-const APP_BUILD = '2026.09.29-v0.7.2-qr-visible';
+const APP_BUILD = '2026.09.29-v0.7.3-autonomous-update';
 const STARTED_AT = new Date().toISOString();
 function deploymentCommit() {
   try {
@@ -670,6 +670,7 @@ const UI_ACTIVITY_FILE=join(dataDir,'ui-active.txt');
 const BG_WORKER_FILE=join(dataDir,'background-worker.json');
 let lastCpuTimes=null;
 let lastInteractiveRequestAt=Date.now();
+let lastExplicitInteractionAt=0;
 let governorState={mode:'STARTING',delay_ms:2500,free_mb:0,free_pct:0,cpu_pct:null,rss_mb:0,reason:'boot'};
 
 function systemCpuPercent() {
@@ -753,6 +754,7 @@ function resourceGovernor() {
 }
 function markInteractiveRequest(pathname) {
   const quiet=new Set(['/api/health','/api/version','/api/update/status']);
+  if(pathname==='/api/interaction') lastExplicitInteractionAt=Date.now();
   if(!quiet.has(pathname)){
     lastInteractiveRequestAt=Date.now();
     try{writeFileSync(UI_ACTIVITY_FILE,String(lastInteractiveRequestAt),'utf8')}catch{}
@@ -1205,6 +1207,15 @@ function revokePhoneSessions(){
 function readJsonSafe(path, fallback=null) {
   try { return JSON.parse(readFileSync(path,'utf8')); } catch { return fallback; }
 }
+const AUTO_UPDATE_INTERVAL_MS=6*60*60*1000;
+const AUTO_UPDATE_FIRST_DELAY_MS=90*1000;
+const AUTO_UPDATE_IDLE_GUARD_MS=120*1000;
+let autoUpdateRunning=false;
+let autoUpdateTimer=null;
+let autoUpdateNextAt=0;
+let autoUpdateLastAt=0;
+let autoUpdateLastResult='NOT_RUN';
+
 function updateStatusSnapshot() {
   const pending=readJsonSafe(join(dataDir,'pending-deployment.json'),null);
   const lastGood=readJsonSafe(join(dataDir,'last-good-deployment.json'),null);
@@ -1223,9 +1234,92 @@ function updateStatusSnapshot() {
     pending,
     last_good:lastGood,
     pending_available:!!(pending&&pending.verified),
+    automatic_update:{
+      enabled:true,
+      channel:'release/tlib-hybrid-v2-stable',
+      interval_hours:6,
+      first_check_seconds:90,
+      idle_guard_seconds:120,
+      running:autoUpdateRunning,
+      last_check_at:autoUpdateLastAt?new Date(autoUpdateLastAt).toISOString():null,
+      next_check_at:autoUpdateNextAt?new Date(autoUpdateNextAt).toISOString():null,
+      last_result:autoUpdateLastResult
+    },
     audit
   };
 }
+function runUpdaterStage() {
+  const script=join(ROOT,'scripts','slot-update.mjs');
+  return new Promise((resolve,reject)=>{
+    execFile(process.execPath,[script,'stage'],{cwd:ROOT,windowsHide:true,timeout:180000,maxBuffer:1024*1024},(err,stdout,stderr)=>{
+      if(err)return reject(new Error('AUTO_STAGE_FAILED '+String(stderr||err.message||err).slice(0,500)));
+      resolve(String(stdout||''));
+    });
+  });
+}
+function spawnUpdaterApply() {
+  const script=join(ROOT,'scripts','slot-update.mjs');
+  const child=spawn(process.execPath,[script,'apply'],{cwd:ROOT,windowsHide:true,detached:true,stdio:'ignore'});
+  child.unref();
+  event('INFO','AUTO_UPDATE_APPLY_TRIGGERED','pid='+child.pid);
+  return child.pid;
+}
+function scheduleAutoUpdate(delayMs=AUTO_UPDATE_INTERVAL_MS){
+  try{if(autoUpdateTimer)clearTimeout(autoUpdateTimer)}catch{}
+  autoUpdateNextAt=Date.now()+Math.max(1000,Number(delayMs||AUTO_UPDATE_INTERVAL_MS));
+  autoUpdateTimer=setTimeout(autoUpdateTick,Math.max(1000,Number(delayMs||AUTO_UPDATE_INTERVAL_MS)));
+  try{autoUpdateTimer.unref()}catch{}
+}
+async function autoUpdateTick(){
+  if(autoUpdateRunning){scheduleAutoUpdate(5*60*1000);return}
+  autoUpdateRunning=true;autoUpdateLastAt=Date.now();autoUpdateNextAt=0;
+  try{
+    const explicitAge=lastExplicitInteractionAt?Date.now()-lastExplicitInteractionAt:Infinity;
+    const guard=resourceGovernor();
+    if(explicitAge<AUTO_UPDATE_IDLE_GUARD_MS){
+      autoUpdateLastResult='DEFER_USER_ACTIVE';
+      event('INFO','AUTO_UPDATE_DEFER','user-active');
+      scheduleAutoUpdate(5*60*1000);return;
+    }
+    if(guard.mode==='PAUSED'){
+      autoUpdateLastResult='DEFER_RESOURCE_PRESSURE';
+      event('INFO','AUTO_UPDATE_DEFER',guard.reason||'resource-pressure');
+      scheduleAutoUpdate(10*60*1000);return;
+    }
+    event('INFO','AUTO_UPDATE_CHECK_BEGIN','channel=release/tlib-hybrid-v2-stable');
+    await runUpdaterStage();
+    const pending=readJsonSafe(join(dataDir,'pending-deployment.json'),null);
+    if(!pending?.verified){
+      autoUpdateLastResult='NO_UPDATE';
+      event('INFO','AUTO_UPDATE_NO_UPDATE',APP_COMMIT);
+      scheduleAutoUpdate(AUTO_UPDATE_INTERVAL_MS);return;
+    }
+    const ageAfterStage=lastExplicitInteractionAt?Date.now()-lastExplicitInteractionAt:Infinity;
+    if(ageAfterStage<AUTO_UPDATE_IDLE_GUARD_MS){
+      autoUpdateLastResult='STAGED_WAITING_FOR_IDLE';
+      event('INFO','AUTO_UPDATE_STAGED_WAIT_IDLE',String(pending.commit||''));
+      scheduleAutoUpdate(5*60*1000);return;
+    }
+    const guardAfter=resourceGovernor();
+    if(guardAfter.mode==='PAUSED'){
+      autoUpdateLastResult='STAGED_WAITING_FOR_RESOURCES';
+      event('INFO','AUTO_UPDATE_STAGED_WAIT_RESOURCES',guardAfter.reason||'resource-pressure');
+      scheduleAutoUpdate(10*60*1000);return;
+    }
+    autoUpdateLastResult='APPLY_TRIGGERED';
+    spawnUpdaterApply();
+    scheduleAutoUpdate(10*60*1000);
+  }catch(e){
+    autoUpdateLastResult='ERROR';
+    event('WARN','AUTO_UPDATE_ERROR',String(e.message||e).slice(0,500));
+    scheduleAutoUpdate(30*60*1000);
+  }finally{autoUpdateRunning=false}
+}
+function startAutonomousUpdates(){
+  event('INFO','AUTO_UPDATE_ARMED','first=90s interval=6h channel=release/tlib-hybrid-v2-stable');
+  scheduleAutoUpdate(AUTO_UPDATE_FIRST_DELAY_MS);
+}
+
 function spawnUpdater(mode) {
   const map={Stage:'stage',Apply:'apply',Repair:'repair'};
   const chosen=map[mode];
@@ -1642,6 +1736,7 @@ async function main() {
     seed();
     startDashboard();
     ensureBackgroundWorker();
+    startAutonomousUpdates();
     return;
   }
   throw new Error('UNKNOWN_COMMAND ' + cmd);
