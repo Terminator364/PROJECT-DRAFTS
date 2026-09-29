@@ -11,7 +11,7 @@ const HERE = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(HERE, '..');
 const dataDir = process.env.TLIB_DATA_DIR || join(process.env.LOCALAPPDATA || homedir(), 'TLIB-PC');
 mkdirSync(dataDir, { recursive: true });
-const APP_BUILD = '2026.09.29-v0.8.1-r2-resilient-ux-contract';
+const APP_BUILD = '2026.09.29-v0.8.2-autonomy-proof';
 const STARTED_AT = new Date().toISOString();
 function deploymentCommit() {
   try {
