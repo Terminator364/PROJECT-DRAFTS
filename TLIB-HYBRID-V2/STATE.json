@@ -1,9 +1,9 @@
 {
   "project": "TLIB-HYBRID-V2",
   "branch": "lab/tlib-hybrid-v2",
-  "checkpoint": "V082R2_AUTONOMY_AUDIT_PROOF_PUBLISHED",
+  "checkpoint": "V082R2_STABLE_PUBLISHED_AWAITING_AUTONOMOUS_PC_CYCLE",
   "build_target": "2026.09.29-v0.8.2-r2-autonomy-audit-proof",
-  "updated_at_utc": "2026-09-29T12:08:15.965Z",
+  "updated_at_utc": "2026-09-29T12:11:24.292Z",
   "production_l1_enabled": false,
   "apps_script_bridge_enabled": false,
   "github_actions_expected_minutes": 0,
@@ -183,10 +183,10 @@
       "dead_controls_allowed": 0
     }
   },
-  "next_gate": "Observe autonomous self-update from active v0.8.1-r2. Pass requires fixed updater survival, exact health v0.8.2-r2, and no remote update trigger.",
+  "next_gate": "Do not remotely trigger update. Stable channel is e3ce5641caef3f3e6331d65fa7dde9ad8bd0bb2e (v0.8.2-r2). Active v0.8.1-r2 next autonomous check is scheduled by runtime; prove child-updater survival with STAGE_PASS + UPDATER_SURVIVED_STOP + ACTIVATE_PASS and exact /api/health.",
   "sealed": true,
-  "last_good_build": "2026.09.27-v0.6.2-adaptive-4gb",
-  "last_good_status": "RUNTIME_WORKED_BUT_DESKTOP_BOOT_PATH_INVALIDATED_BY_FIELD_TEST",
+  "last_good_build": "2026.09.29-v0.8.0-mobile-autonomous",
+  "last_good_status": "PRESERVED_PRE_ACTIVATION",
   "field_findings": [
     "audit-shortcut.vbs produced permission-denied popup and must never run in production",
     "PowerShell repair-on-click caused long blocking launch and modal errors",
@@ -203,8 +203,8 @@
     "ghost worker exits on bind failure",
     "updates and heavy repair remain outside normal click path"
   ],
-  "active_pc_commit": "6384bac6ab3e36807324c8f24e2da20ba59d00ea",
-  "active_pc_build": "2026.09.28-v0.6.4-interactive-shell",
+  "active_pc_commit": "5a18af6b78072a29e60b4e9fde1076bd328a62c6",
+  "active_pc_build": "2026.09.29-v0.8.1-r2-resilient-ux-contract",
   "ui_router": {
     "status": "FIXED_AND_STATIC_AUDIT_PASS",
     "root_cause": "legacy bindPaneTabs compared button dataset key against nonexistent pane dataset key",
@@ -272,10 +272,14 @@
     "v082_autonomy_proof": "PENDING_AUTONOMOUS_RUNTIME",
     "all_buttons_actionable_static": "PASS_94",
     "all_fields_actionable_static": "PASS_8",
-    "v082r2_autonomy_proof": "PENDING_AUTONOMOUS_RUNTIME"
+    "v082r2_autonomy_proof": "PENDING_NEXT_AUTONOMOUS_CYCLE",
+    "v081r2_health": "PASS_ACTIVE_8787",
+    "v081r2_commit_exact": "PASS",
+    "v081r2_breakglass_recovery": "PASS_ONE_TIME",
+    "remote_update_dependency": "REMOVED_NORMAL_PATH"
   },
-  "seal_scope": "CODE_STATIC_AUDIT",
-  "runtime_validated": false,
+  "seal_scope": "ACTIVE_RUNTIME_PROVEN_V081R2__V082R2_PENDING_AUTONOMY",
+  "runtime_validated": true,
   "activation_pending": true,
   "phone_link": {
     "status": "CODE_SEALED_AWAITING_RUNTIME",
