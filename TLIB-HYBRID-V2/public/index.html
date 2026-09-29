@@ -250,7 +250,7 @@ html{scroll-behavior:auto!important}
 <section id="talk" class="section"><div class="section-intro"><div><div class="crumb"><button class="pill" data-go="home">Accueil</button><span>›</span><b>Parler à TLIB</b></div><h2>Recherche conversationnelle</h2><p>Prototype local : recherche L1 aujourd’hui, raisonnement L2/L3 ensuite.</p></div></div><div class="card chatbox"><div class="meta" id="chatSuggestions"><button class="pill" data-chat="android léger">Android léger</button><button class="pill" data-chat="windows automatisation">Windows automatisation</button><button class="pill" data-chat="telegram">Telegram</button><button class="pill" data-chat="python">Python</button><button class="pill" data-chat="réseau">Réseau</button></div><div id="chatLog"><div class="bubble bot"><b>TLIB</b><br>Dis-moi ce que tu cherches. Je peux déjà interroger les fiches L1 vérifiées et t’emmener vers les ressources correspondantes.</div></div><div class="composer"><input id="chatInput" placeholder="Ex. Trouve-moi des outils Android légers"><button class="btn primary" id="chatSend">Envoyer</button></div></div></section>
 
 <section id="manager" class="section">
-<div class="section-intro"><div><div class="crumb">Accueil <span>›</span> <b>Manager</b></div><h2>Centre de contrôle TLIB</h2><p>Chaque bloc mène vers une sous-page opérationnelle, pas vers un simple texte décoratif.</p></div><div class="badges"><span class="badge" id="mgrBuildBadge" title="2026.09.29-v0.7.2-qr-visible">UI v0.8.2</span><button class="btn primary" id="mgrPhoneShortcut">📱 Ouvrir QR téléphone</button><span class="badge" id="mgrSchedulerBadge">ordonnanceur …</span><span class="badge" id="mgrQuotaBadge">quota …</span></div></div>
+<div class="section-intro"><div><div class="crumb">Accueil <span>›</span> <b>Manager</b></div><h2>Centre de contrôle TLIB</h2><p>Chaque bloc mène vers une sous-page opérationnelle, pas vers un simple texte décoratif.</p></div><div class="badges"><span class="badge" id="mgrBuildBadge" title="2026.09.29-v0.7.2-qr-visible">UI v0.8.2-r2</span><button class="btn primary" id="mgrPhoneShortcut">📱 Ouvrir QR téléphone</button><span class="badge" id="mgrSchedulerBadge">ordonnanceur …</span><span class="badge" id="mgrQuotaBadge">quota …</span></div></div>
 <div class="subnav" id="managerSubnav">
   <button class="active" data-manager-tab="overview">Vue d’ensemble</button>
   <button data-manager-tab="pipeline">Pipeline</button>
@@ -524,8 +524,9 @@ async function filterByTag(tag){show('explore');el('#librarySearch').value=tag||
 async function loadLibrary(q,append){
   q=q||'';append=Boolean(append);
   if(!append){LIB_OFFSET=0;LIB_QUERY=q;el('#libraryResults').innerHTML='';}
-  var sort=el('#librarySort')?el('#librarySort').value:'stars';
-  var j=await api('/api/library?q='+encodeURIComponent(q)+'&limit='+LIB_LIMIT+'&offset='+LIB_OFFSET+'&sort='+encodeURIComponent(sort));
+  var sort=el('#librarySort')?el('#librarySort').value:'stars',j;
+  try{j=await api('/api/library?q='+encodeURIComponent(q)+'&limit='+LIB_LIMIT+'&offset='+LIB_OFFSET+'&sort='+encodeURIComponent(sort))}
+  catch(e){if(el('#libraryResults'))el('#libraryResults').innerHTML='<div class="notice">Bibliothèque indisponible : '+esc(e.message||e)+'</div>';toast('Bibliothèque indisponible');return []}
   LIB_TOTAL=Number(j.total||0);
   if(!append&&j.items.length===0)el('#libraryResults').innerHTML='<div class="card muted">Aucun résultat local.</div>';
   else el('#libraryResults').insertAdjacentHTML('beforeend',j.items.map(toolCard).join(''));
@@ -562,7 +563,10 @@ function bindDetailTabs(root){
   buttons.forEach(function(b){b.onclick=function(){buttons.forEach(function(z){z.classList.toggle('active',z===b)});Array.from(root.querySelectorAll('.subpane')).forEach(function(p){p.classList.toggle('active',p.dataset.detailPane===b.dataset.detailTab)})}});
 }
 async function loadResource(id){
-  var x=await api('/api/resource?id='+encodeURIComponent(id)),topics=Array.isArray(x.topics)?x.topics:[],d=el('#resourceDetail');d.style.display='block';
+  var x,d=el('#resourceDetail');
+  try{x=await api('/api/resource?id='+encodeURIComponent(id))}
+  catch(e){if(d){d.style.display='block';d.innerHTML='<div class="notice">Fiche indisponible : '+esc(e.message||e)+'</div>'}toast('Fiche indisponible');return null}
+  var topics=Array.isArray(x.topics)?x.topics:[];d.style.display='block';
   var summary=x.l2&&x.l2.human_summary?x.l2.human_summary:(x.l1_summary||x.description||'Description non disponible.');
   var tech=x.technology||x.language||'À préciser',kind=x.resource_kind||'Ressource GitHub';
   var caps=x.l2&&Array.isArray(x.l2.capabilities)?x.l2.capabilities:[],uses=x.l2&&Array.isArray(x.l2.use_cases)?x.l2.use_cases:[],limits=x.l2&&Array.isArray(x.l2.limitations)?x.l2.limitations:[];
