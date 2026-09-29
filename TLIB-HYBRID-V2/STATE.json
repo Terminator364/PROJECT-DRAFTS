@@ -1,9 +1,9 @@
 {
   "project": "TLIB-HYBRID-V2",
   "branch": "lab/tlib-hybrid-v2",
-  "checkpoint": "V090_L1_L2_CONTINUOUS_RUNTIME_PROVEN",
-  "build_target": "2026.09.29-v0.9.0-l1-l2-continuous",
-  "updated_at_utc": "2026-09-29T12:56:27.908Z",
+  "checkpoint": "V0100_INTERACTIVE_DRILLDOWN_CODE_SEALED_AWAITING_AUDIT",
+  "build_target": "2026.09.29-v0.10.0-interactive-drilldown",
+  "updated_at_utc": "2026-09-29T13:15:43.879Z",
   "production_l1_enabled": false,
   "apps_script_bridge_enabled": false,
   "github_actions_expected_minutes": 0,
@@ -190,9 +190,39 @@
       "last_result": true,
       "last_event": true,
       "progress": true
+    },
+    "interactivity_contract": {
+      "principle": "VISIBLE_METRIC_OR_ROW_MUST_ROUTE_TO_DATA_OR_OPERATION",
+      "l1_drilldown": true,
+      "l1_drilldown_kinds": [
+        "verified",
+        "complete",
+        "deep_done",
+        "deep_pending",
+        "l2_eligible"
+      ],
+      "l1_score_band_drilldown": true,
+      "l2_drilldown": true,
+      "l2_drilldown_kinds": [
+        "profiles",
+        "eligible",
+        "base_pending",
+        "base_done",
+        "deep_pending",
+        "deep_done"
+      ],
+      "clickable_progress": true,
+      "clickable_metadata_rows": true,
+      "clickable_l2_gate": true,
+      "clickable_l2_schema": true,
+      "clickable_l2_queue": true,
+      "search_sort_pagination": true,
+      "resource_detail_l2_evidence": true,
+      "chat_dedicated_search": true,
+      "tab_switch_before_network": true
     }
   },
-  "next_gate": "Continue long-run observation. Tune L2 weighting only from measured L1/L2 throughput, GitHub reserve, and resource governor; do not increase parallelism blindly on 4GB RAM.",
+  "next_gate": "Audit syntax and interaction contracts. If green, promote v0.10.0 to stable and let active v0.9.0 self-update. Runtime proof must include L1 drilldown rows, L2 drilldown rows, dedicated chat search, clickable queue rows and UI self-test PASS.",
   "sealed": true,
   "last_good_build": "2026.09.29-v0.8.0-mobile-autonomous",
   "last_good_status": "PRESERVED_PRE_ACTIVATION",
@@ -297,11 +327,16 @@
     "l1_continues_runtime": "PASS",
     "l2_exceeds_fixture_runtime": "PASS",
     "l2_deep_readme_runtime": "PASS",
-    "autonomous_update_to_v090": "PASS"
+    "autonomous_update_to_v090": "PASS",
+    "v0100_static": "PENDING",
+    "l1_real_drilldown": "PENDING",
+    "l2_real_drilldown": "PENDING",
+    "chat_dedicated": "PENDING",
+    "dead_controls": "PENDING"
   },
   "seal_scope": "V090_RUNTIME_PROVEN_CONTINUOUS_L1_L2",
-  "runtime_validated": true,
-  "activation_pending": false,
+  "runtime_validated": false,
+  "activation_pending": true,
   "phone_link": {
     "status": "CODE_SEALED_AWAITING_RUNTIME",
     "manager_entry": "📱 Téléphone / QR",
