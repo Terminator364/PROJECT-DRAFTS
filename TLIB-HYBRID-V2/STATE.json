@@ -1,9 +1,9 @@
 {
   "project": "TLIB-HYBRID-V2",
   "branch": "lab/tlib-hybrid-v2",
-  "checkpoint": "V080_MOBILE_AUTONOMOUS_CODE_SEALED_AWAITING_SELF_UPDATE",
-  "build_target": "2026.09.29-v0.8.0-mobile-autonomous",
-  "updated_at_utc": "2026-09-29T11:48:11.407Z",
+  "checkpoint": "V081_RESILIENT_UX_CONTRACT_CODE_SEALED_BREAKGLASS_RECOVERY_REQUIRED",
+  "build_target": "2026.09.29-v0.8.1-resilient-ux-contract",
+  "updated_at_utc": "2026-09-29T12:01:00.752Z",
   "production_l1_enabled": false,
   "apps_script_bridge_enabled": false,
   "github_actions_expected_minutes": 0,
@@ -85,7 +85,11 @@
     ],
     "interval_minutes": 10,
     "release_trigger": "ADVANCE_STABLE_CHANNEL",
-    "normal_update_path": "TLIB_SELF_UPDATE_ONLY"
+    "normal_update_path": "TLIB_SELF_UPDATE_ONLY",
+    "self_update_survival_fix": true,
+    "tree_kill_old_agent": false,
+    "explicit_background_worker_stop": true,
+    "update_restart_ui": "RECONNECT_AND_AUTO_RELOAD"
   },
   "resource_governor": {
     "profile_for_4gb": "LOW_RAM_4_6GB",
@@ -164,9 +168,17 @@
       "horizontal_subtabs": true,
       "mobile_cards": "1-2_COLUMNS_BY_WIDTH",
       "bottom_sheet_drawer": true
+    },
+    "async_contract": {
+      "global_activity_bar": true,
+      "pane_busy_state": true,
+      "get_retry_attempts": 3,
+      "update_restart_reconnect": true,
+      "auto_reload_after_update": true,
+      "audited_subpages": 28
     }
   },
-  "next_gate": "Promote v0.8.0 to stable. Existing v0.7.5 may be updated once from TLIB Manager > Mises à jour for immediate rollout; after v0.8.0, stable-channel polling is every 10 minutes and normal updates require no Desktop Commander.",
+  "next_gate": "Break-glass recovery once because v0.8.0 self-update killed its own updater at 35%. Stage v0.8.1 with the already-staged updater, apply using v0.8.1 fixed updater, then prove a later stable release updates end-to-end without Desktop Commander.",
   "sealed": true,
   "last_good_build": "2026.09.27-v0.6.2-adaptive-4gb",
   "last_good_status": "RUNTIME_WORKED_BUT_DESKTOP_BOOT_PATH_INVALIDATED_BY_FIELD_TEST",
@@ -245,7 +257,11 @@
     "mobile_responsive_static": "PASS",
     "phone_durations_30_180_360": "PASS",
     "autonomous_10min_static": "PASS",
-    "v080_runtime": "PENDING_SELF_UPDATE"
+    "v080_runtime": "PENDING_SELF_UPDATE",
+    "self_update_survival_static": "PASS",
+    "global_loading_static": "PASS",
+    "update_reconnect_static": "PASS",
+    "v081_runtime": "PENDING_BREAKGLASS"
   },
   "seal_scope": "CODE_STATIC_AUDIT",
   "runtime_validated": false,
