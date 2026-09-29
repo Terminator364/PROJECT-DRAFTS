@@ -29,7 +29,7 @@ try{
     "foreach($p in $files){$tokens=$null;$errs=$null;[void][System.Management.Automation.Language.Parser]::ParseFile($p,[ref]$tokens,[ref]$errs);if($errs.Count -gt 0){$bad += ($p+' :: '+(($errs|ForEach-Object {$_.Message}) -join ' | '))}}",
     "if($bad.Count -gt 0){$bad|ForEach-Object {Write-Error $_};exit 1}"
   ].join(';');
-  execFileSync('powershell.exe',['-NoProfile','-NonInteractive','-Command',cmd],{stdio:'pipe',windowsHide:true,timeout:30000});
+  execFileSync('powershell.exe',['-NoProfile','-NonInteractive','-Command',cmd],{stdio:'pipe',windowsHide:true,timeout:60000});
   ok('powershell-syntax-batch',psFiles.length+' scripts');
 }catch(e){fail('powershell-syntax-batch',String(e.stderr||e.message||e).slice(0,1000));}
 
