@@ -1,9 +1,9 @@
 {
   "project": "TLIB-HYBRID-V2",
   "branch": "lab/tlib-hybrid-v2",
-  "checkpoint": "V073_AUTONOMOUS_UPDATE_CODE_SEALED_AWAITING_ONE_TIME_MIGRATION",
-  "build_target": "2026.09.29-v0.7.3-autonomous-update",
-  "updated_at_utc": "2026-09-29T11:24:38.254Z",
+  "checkpoint": "V074_UPDATE_HARDENING_CODE_SEALED_AWAITING_ONE_TIME_MIGRATION",
+  "build_target": "2026.09.29-v0.7.4-update-hardening",
+  "updated_at_utc": "2026-09-29T11:30:36.628Z",
   "production_l1_enabled": false,
   "apps_script_bridge_enabled": false,
   "github_actions_expected_minutes": 0,
@@ -28,7 +28,7 @@
     "scheduler_mode": "DEEP_CATCHUP"
   },
   "update_system": {
-    "scheme": "SLOT_V2_AUTONOMOUS_STABLE_CHANNEL",
+    "scheme": "SLOT_V2_AUTONOMOUS_HARDENED",
     "active_pc_migration": "ONE_TIME_MANUAL_FROM_V064_THEN_AUTONOMOUS",
     "manifest_files": 25,
     "manifest_integrity_last_check": "PASS_0_MISMATCH",
@@ -59,7 +59,15 @@
     "interval_hours": 6,
     "first_check_seconds": 90,
     "idle_guard_seconds": 120,
-    "remote_tool_required": false
+    "remote_tool_required": false,
+    "last_good_soak_minutes": 15,
+    "stale_lock_recovery": true,
+    "dynamic_preflight_port": true,
+    "bootstrap_self_refresh": true,
+    "slow_network_retries": 3,
+    "fetch_timeout_seconds": 45,
+    "manifest_path_safety": true,
+    "rollback_policy": "PRESERVE_PREVIOUS_GOOD_UNTIL_15_MIN_SOAK"
   },
   "resource_governor": {
     "profile_for_4gb": "LOW_RAM_4_6GB",
@@ -130,7 +138,7 @@
       ]
     }
   },
-  "next_gate": "One-time migration from active v0.6.4 using TLIB Manager > Mises à jour (Stage then Apply). After v0.7.3 is active, future updates self-stage every 6h from release/tlib-hybrid-v2-stable and auto-apply only after 120s without explicit user interaction, with preflight, health-check and rollback.",
+  "next_gate": "One-time migration from active v0.6.4 via Manager > Mises à jour. After v0.7.4, normal updates are autonomous and independent of Desktop Commander/PowerShell.",
   "sealed": true,
   "last_good_build": "2026.09.27-v0.6.2-adaptive-4gb",
   "last_good_status": "RUNTIME_WORKED_BUT_DESKTOP_BOOT_PATH_INVALIDATED_BY_FIELD_TEST",
@@ -201,7 +209,9 @@
     "v072_live_manager_visibility": "PENDING_PC_RECONNECT",
     "autonomous_update_static": "PASS",
     "stable_channel_static": "PASS",
-    "v073_runtime": "PENDING_ONE_TIME_MIGRATION"
+    "v073_runtime": "PENDING_ONE_TIME_MIGRATION",
+    "update_hardening_static": "PASS",
+    "v074_runtime": "PENDING_ONE_TIME_MIGRATION"
   },
   "seal_scope": "CODE_STATIC_AUDIT",
   "runtime_validated": false,
