@@ -88,7 +88,7 @@ if(html){
   const legacyFound=legacyBindings.filter(x=>js.includes(x));
   legacyFound.length?fail('ui-router-no-legacy',legacyFound.join(' || ')):ok('ui-router-no-legacy');
 
-  const essentials=['navBack','commandOpen','homeSearchBtn','librarySearchBtn','chatSend','refreshDeepQueue','runUiAuditBtn','drawerClose','phoneCreateBtn','phoneRefreshBtn','phoneRevokeBtn','phoneQr','mgrPhoneShortcut','mgrPhoneCard','mgrBuildBadge'];
+  const essentials=['navBack','commandOpen','homeSearchBtn','librarySearchBtn','chatSend','refreshDeepQueue','runUiAuditBtn','drawerClose','phoneCreateBtn','phoneRefreshBtn','phoneRevokeBtn','phoneQr','mgrPhoneShortcut','mgrPhoneCard','mgrBuildBadge','updateAutoMode','updateAutoDetail'];
   const absent=essentials.filter(id=>!markup.includes('id="'+id+'"'));
   absent.length?fail('ui-essential-controls',absent.join(',')):ok('ui-essential-controls',essentials.length+' controls');
 
@@ -110,6 +110,14 @@ existsSync(join(APP,'public','vendor-qrcode.min.js'))?fail('phone-qr-no-legacy-d
 
 try{
   const src=readFileSync(join(APP,'src','tlib.mjs'),'utf8');
+  const autoChecks=[
+    ['auto-update-arm',src.includes('startAutonomousUpdates()')],
+    ['auto-update-stage',src.includes('runUpdaterStage')],
+    ['auto-update-idle-guard',src.includes('AUTO_UPDATE_IDLE_GUARD_MS')],
+    ['auto-update-interval',src.includes('AUTO_UPDATE_INTERVAL_MS=6*60*60*1000')],
+    ['auto-update-channel',src.includes("channel:'release/tlib-hybrid-v2-stable'")]
+  ];
+  for(const [id,pass] of autoChecks) pass?ok(id):fail(id);
   const phoneChecks=[
     ['phone-server-durations',src.includes('[30,90,180]')],
     ['phone-server-pair-code',src.includes('phoneCodeFromBytes')],
@@ -125,6 +133,12 @@ try{
   ];
   for(const [id,pass] of phoneChecks) pass?ok(id):fail(id);
 }catch(e){fail('phone-server-contract',e.message)}
+
+try{
+  const updater=readFileSync(join(APP,'scripts','slot-update.mjs'),'utf8');
+  updater.includes("const UPDATE_CHANNEL='release/tlib-hybrid-v2-stable'")?ok('update-stable-channel'):fail('update-stable-channel');
+  updater.includes("branches/'+encodeURIComponent(UPDATE_CHANNEL)")?ok('update-stable-lookup'):fail('update-stable-lookup');
+}catch(e){fail('update-stable-contract',e.message)}
 
 try{
   const src=readFileSync(join(APP,'src','tlib.mjs'),'utf8');
