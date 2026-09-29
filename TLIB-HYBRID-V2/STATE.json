@@ -1,9 +1,9 @@
 {
   "project": "TLIB-HYBRID-V2",
   "branch": "lab/tlib-hybrid-v2",
-  "checkpoint": "V082_AUTONOMY_PROOF_PUBLISHED_AWAITING_SELF_UPDATE",
-  "build_target": "2026.09.29-v0.8.2-autonomy-proof",
-  "updated_at_utc": "2026-09-29T12:05:17.225Z",
+  "checkpoint": "V082R2_AUTONOMY_AUDIT_PROOF_PUBLISHED",
+  "build_target": "2026.09.29-v0.8.2-r2-autonomy-audit-proof",
+  "updated_at_utc": "2026-09-29T12:08:15.965Z",
   "production_l1_enabled": false,
   "apps_script_bridge_enabled": false,
   "github_actions_expected_minutes": 0,
@@ -176,9 +176,14 @@
       "update_restart_reconnect": true,
       "auto_reload_after_update": true,
       "audited_subpages": 28
+    },
+    "actionability_contract": {
+      "buttons_audited": 94,
+      "fields_audited": 8,
+      "dead_controls_allowed": 0
     }
   },
-  "next_gate": "Do not trigger update remotely. Observe active v0.8.1-r2 self-stage and self-apply v0.8.2 from stable channel. Pass requires UPDATER_SURVIVED_STOP + ACTIVATE_PASS + /api/health exact v0.8.2.",
+  "next_gate": "Observe autonomous self-update from active v0.8.1-r2. Pass requires fixed updater survival, exact health v0.8.2-r2, and no remote update trigger.",
   "sealed": true,
   "last_good_build": "2026.09.27-v0.6.2-adaptive-4gb",
   "last_good_status": "RUNTIME_WORKED_BUT_DESKTOP_BOOT_PATH_INVALIDATED_BY_FIELD_TEST",
@@ -264,7 +269,10 @@
     "v081_runtime": "PENDING_BREAKGLASS",
     "verifier_phone_lazy_contract": "PASS_ACCEPTS_RETURN_PROMISE",
     "v081r2_runtime": "PENDING_BREAKGLASS",
-    "v082_autonomy_proof": "PENDING_AUTONOMOUS_RUNTIME"
+    "v082_autonomy_proof": "PENDING_AUTONOMOUS_RUNTIME",
+    "all_buttons_actionable_static": "PASS_94",
+    "all_fields_actionable_static": "PASS_8",
+    "v082r2_autonomy_proof": "PENDING_AUTONOMOUS_RUNTIME"
   },
   "seal_scope": "CODE_STATIC_AUDIT",
   "runtime_validated": false,
