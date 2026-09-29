@@ -13,11 +13,11 @@
     },
     {
       "path": "src/tlib.mjs",
-      "git_blob_sha": "7631e5276ad96967338e0e1d868d3c60a24912c4"
+      "git_blob_sha": "14133d663fbc79c4e9aa4dec43480e446efc717f"
     },
     {
       "path": "public/index.html",
-      "git_blob_sha": "e1e97e01ac6714c7602f50d9d3caeddc5f3f9f74"
+      "git_blob_sha": "f0a63ef9aea966c861b9c0ecf940c59177f72c22"
     },
     {
       "path": "scripts/install-windows.ps1",
@@ -37,7 +37,7 @@
     },
     {
       "path": "scripts/verify-build.mjs",
-      "git_blob_sha": "4091bf3bfea7cff36f5ca9ec9f802f7e5ef4e2e0"
+      "git_blob_sha": "e0ed999cef7477c47165d4c579470176b59dfdd7"
     },
     {
       "path": "config/canary-seeds.json",
@@ -112,10 +112,6 @@
       "git_blob_sha": "d455a3da409d684c607ddde4a7643088c45fc083"
     },
     {
-      "path": "public/vendor-qrcode.min.js",
-      "git_blob_sha": "4a68e12e70cf03d89a1ea56c5d0d78b5a9cc548f"
-    },
-    {
       "path": "public/vendor/qrcode.min.js",
       "git_blob_sha": "993e88f396640f881b69f98db7a4d17401ef83ca"
     },
@@ -124,6 +120,6 @@
       "git_blob_sha": "e746a429df4a3c75935686951b4f422b51d1df59"
     }
   ],
-  "updated_at": "2026-09-28T13:52:40.148Z",
-  "build": "2026.09.28-v0.7.0-phone-link"
+  "updated_at": "2026-09-29T10:32:50.697Z",
+  "build": "2026.09.29-v0.7.1-phone-link-sealed"
 }
