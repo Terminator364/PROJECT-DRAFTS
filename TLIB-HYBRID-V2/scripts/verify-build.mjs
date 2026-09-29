@@ -92,14 +92,17 @@ if(html){
   const absent=essentials.filter(id=>!markup.includes('id="'+id+'"'));
   absent.length?fail('ui-essential-controls',absent.join(',')):ok('ui-essential-controls',essentials.length+' controls');
 
-  const phoneDurations=[30,90,180].filter(n=>markup.includes('data-phone-minutes="'+n+'"'));
-  phoneDurations.length===3?ok('phone-ui-durations','30/90/180'):fail('phone-ui-durations',phoneDurations.join(','));
+  const phoneDurations=[30,180,360].filter(n=>markup.includes('data-phone-minutes="'+n+'"'));
+  phoneDurations.length===3?ok('phone-ui-durations','30/180/360'):fail('phone-ui-durations',phoneDurations.join(','));
   markup.includes('data-manager-tab="phone"')&&markup.includes('data-manager-pane="phone"')?ok('phone-ui-workspace','Manager > Téléphone / QR'):fail('phone-ui-workspace');
   markup.includes('data-manager-tab="phone">📱 Téléphone / QR</button>')?ok('phone-ui-label','explicit QR entry'):fail('phone-ui-label');
   html.includes('<script src="/vendor/qrcode.min.js"></script>')?ok('phone-ui-qr-loader'):fail('phone-ui-qr-loader');
   js.includes("if(v==='phone')loadPhoneStatus()")?ok('phone-ui-lazy-load'):fail('phone-ui-lazy-load');
   js.includes("el('#mgrPhoneShortcut').onclick=openManagerPhone")&&js.includes("el('#mgrPhoneCard').onclick=openManagerPhone")?ok('phone-ui-discoverability','header + overview card'):fail('phone-ui-discoverability');
   js.includes('startUpdatePolling()')&&js.includes("#updateProgressBar")?ok('update-ui-progress','live polling + bar'):fail('update-ui-progress');
+  markup.includes('id="mobileMenuToggle"')&&markup.includes('id="mobileBottomNav"')&&markup.includes('id="mobileBackdrop"')?ok('mobile-ui-shell','off-canvas + bottom-nav'):fail('mobile-ui-shell');
+  html.includes('.side.mobile-open')&&html.includes('.mobile-bottom-nav')&&html.includes('@media(max-width:760px)')?ok('mobile-ui-responsive-css'):fail('mobile-ui-responsive-css');
+  js.includes('openMobileMenu')&&js.includes('closeMobileMenu')&&js.includes('syncMobileNav')?ok('mobile-ui-navigation-js'):fail('mobile-ui-navigation-js');
 }
 
 try{
@@ -116,12 +119,13 @@ try{
     ['auto-update-arm',src.includes('startAutonomousUpdates()')],
     ['auto-update-stage',src.includes('runUpdaterStage')],
     ['auto-update-idle-guard',src.includes('AUTO_UPDATE_IDLE_GUARD_MS')],
-    ['auto-update-interval',src.includes('AUTO_UPDATE_INTERVAL_MS=6*60*60*1000')],
+    ['auto-update-interval',src.includes('AUTO_UPDATE_INTERVAL_MS=10*60*1000')],
+    ['auto-update-first-check',src.includes('AUTO_UPDATE_FIRST_DELAY_MS=45*1000')],
     ['auto-update-channel',src.includes("channel:'release/tlib-hybrid-v2-stable'")]
   ];
   for(const [id,pass] of autoChecks) pass?ok(id):fail(id);
   const phoneChecks=[
-    ['phone-server-durations',src.includes('[30,90,180]')],
+    ['phone-server-durations',src.includes('[30,180,360]')],
     ['phone-server-pair-code',src.includes('phoneCodeFromBytes')],
     ['phone-server-state',src.includes('phone-share.json')],
     ['phone-server-cookie',src.includes("PHONE_COOKIE='tlib_m'")],
