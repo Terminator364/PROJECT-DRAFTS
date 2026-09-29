@@ -1,9 +1,9 @@
 {
   "project": "TLIB-HYBRID-V2",
   "branch": "lab/tlib-hybrid-v2",
-  "checkpoint": "V0111_L2_SCHEDULER_HOTFIX_AWAITING_STABLE",
-  "build_target": "2026.09.29-v0.11.1-l2-scheduler-hotfix",
-  "updated_at_utc": "2026-09-29T14:56:28.022Z",
+  "checkpoint": "V0112_L2_V3_COHERENCE_AWAITING_STABLE",
+  "build_target": "2026.09.29-v0.11.2-l2-v3-coherence",
+  "updated_at_utc": "2026-09-29T14:59:30.093Z",
   "production_l1_enabled": false,
   "apps_script_bridge_enabled": false,
   "github_actions_expected_minutes": 0,
@@ -224,7 +224,7 @@
       "manager_resource_indicators_clickable": true
     }
   },
-  "next_gate": "Publish v0.11.1 stable, allow autonomous self-update, then prove DEEP>0 while BASE backlog remains, L3 generation when a dossier becomes ready, and phone session migration/persistence.",
+  "next_gate": "Publish v0.11.2 stable. Let TLIB self-update autonomously. Prove: current-only L2 drilldowns, BASE rebuild while DEEP progresses, L3 pack generation after ready dossiers, L1 continuity, and phone session schema migration/persistence.",
   "sealed": false,
   "last_good_build": "2026.09.29-v0.8.0-mobile-autonomous",
   "last_good_status": "PRESERVED_PRE_ACTIVATION",
@@ -368,7 +368,9 @@
     "v011_runtime_partial": "PASS_L1_CONTINUES_L2_V3_BASE_PRODUCES",
     "v011_runtime_issue": "L2_DEEP_AND_L3_STARVED_BY_MODULO_COLLISION",
     "v0111_scheduler_static": "PASS_NON_OVERLAPPING_ORDER",
-    "v0111_runtime": "PENDING"
+    "v0111_runtime": "PENDING",
+    "v0112_legacy_ui_isolation": "PASS_STATIC",
+    "v0112_runtime": "PENDING"
   },
   "seal_scope": "V0102_RUNTIME_PROVEN_INTERACTIVE_EVERYWHERE",
   "runtime_validated": false,
