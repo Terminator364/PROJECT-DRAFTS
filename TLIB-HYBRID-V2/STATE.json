@@ -1,15 +1,16 @@
 {
   "project": "TLIB-HYBRID-V2",
   "branch": "lab/tlib-hybrid-v2",
-  "checkpoint": "V064_INTERACTIVE_SHELL_ACTIVE_AWAITING_FIELD_VALIDATION",
-  "build_target": "2026.09.28-v0.6.4-interactive-shell",
-  "updated_at_utc": "2026-09-28T08:18:48.650Z",
+  "checkpoint": "V071_PHONE_LINK_CODE_SEALED_AWAITING_PC_PREFLIGHT",
+  "build_target": "2026.09.29-v0.7.1-phone-link-sealed",
+  "updated_at_utc": "2026-09-29T10:32:50.697Z",
   "production_l1_enabled": false,
   "apps_script_bridge_enabled": false,
   "github_actions_expected_minutes": 0,
   "dashboard": {
-    "bind": "127.0.0.1",
-    "port": 8787
+    "bind": "0.0.0.0",
+    "port": 8787,
+    "remote_policy": "AUTHENTICATED_PHONE_READ_ONLY"
   },
   "source_engine": {
     "entity_count": 120694,
@@ -108,7 +109,8 @@
         "queue",
         "reports",
         "updates",
-        "maintenance"
+        "maintenance",
+        "phone"
       ],
       "technical": [
         "runtime",
@@ -120,8 +122,8 @@
       ]
     }
   },
-  "next_gate": "User field test: click TLIB once, then L1 tabs overview/metadata/themes/insights/deep/recent, then L2 overview/profiles/gate/design. If any target fails, capture only that screen and fix against v0.6.4.",
-  "sealed": false,
+  "next_gate": "PC reconnect: preflight exact v0.7.1 build on a fresh port, verify /api/health build+commit, then activate on 8787 and field-test fast navigation plus Android QR/code pairing, expiry, read-only policy and revoke.",
+  "sealed": true,
   "last_good_build": "2026.09.27-v0.6.2-adaptive-4gb",
   "last_good_status": "RUNTIME_WORKED_BUT_DESKTOP_BOOT_PATH_INVALIDATED_BY_FIELD_TEST",
   "field_findings": [
@@ -149,7 +151,7 @@
       "l0": 4,
       "l1": 6,
       "l2": 4,
-      "manager": 7,
+      "manager": 8,
       "technical": 6
     },
     "guarantees": [
@@ -173,13 +175,37 @@
   },
   "validation": {
     "source_js_syntax": "PASS",
-    "subpage_pairs": "PASS_ALL_27",
+    "subpage_pairs": "PASS_ALL_28_STATIC",
     "legacy_router": "NONE",
     "orphan_buttons": 0,
     "preflight_8831": "PASS",
     "live_8787": "V064_ACTIVE",
     "browser_headless": "UNRELIABLE_ON_THIS_PC_DOM_EMPTY",
     "opera_connector": "NOT_CONNECTED",
-    "field_click_test": "PENDING_USER"
+    "field_click_test": "PENDING_PC_RECONNECT",
+    "code_seal": "PASS",
+    "v071_preflight": "PENDING_PC_RECONNECT",
+    "v071_health": "PENDING_PC_RECONNECT",
+    "phone_android_pair": "PENDING_PC_RECONNECT",
+    "legacy_qr_duplicate": "REMOVED"
+  },
+  "seal_scope": "CODE_STATIC_AUDIT",
+  "runtime_validated": false,
+  "activation_pending": true,
+  "phone_link": {
+    "status": "CODE_SEALED_AWAITING_RUNTIME",
+    "manager_entry": "Téléphone / QR",
+    "qr_offer_ttl_minutes": 5,
+    "session_minutes": [
+      30,
+      90,
+      180
+    ],
+    "manual_code": true,
+    "cookie": "HttpOnly; SameSite=Strict",
+    "read_only": true,
+    "bind": "0.0.0.0:8787",
+    "asset": "public/vendor/qrcode.min.js",
+    "legacy_duplicate_removed": true
   }
 }
