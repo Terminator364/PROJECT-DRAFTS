@@ -1530,9 +1530,11 @@ function l2Drilldown(kind='profiles',q='',limit=50,offset=0,sort='score'){
 }
 function chatSearch(q,limit=8){
   q=String(q||'').trim();limit=Math.max(1,Math.min(Number(limit||8),12));
-  if(!q)return {q,items:[],total:0};
-  const items=libraryRows(q,limit,0,'relevance'),resolved=resolveSearchMatch(q);
-  return {q,total:libraryCount(q),items,engine:'FTS5_L1_L2_L3',query:resolved.match,search_mode:resolved.mode};
+  if(!q)return {q,items:[],total:0,concepts:[],engine:'FTS5_CONCEPT_RERANK'};
+  ensureSearchIndex();
+  const ranked=searchRanked(q);
+  const items=ranked.items.slice(0,limit).map(({_title,_l1,_l2,_l3,_hidden,_bm25,...x})=>x);
+  return {q,total:ranked.total,items,concepts:ranked.groups,mode:ranked.mode,engine:'FTS5_CONCEPT_RERANK_L1_L2_L3'};
 }
 function resourceById(id) {
   const r = db.prepare(`SELECT * FROM results WHERE entity_id=? OR lower(full_name)=lower(?)`).get(String(id||''), String(id||''));
