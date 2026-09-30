@@ -176,7 +176,7 @@ try{
     ['auto-update-interval',src.includes('AUTO_UPDATE_INTERVAL_MS=10*60*1000')],
     ['auto-update-first-check',src.includes('AUTO_UPDATE_FIRST_DELAY_MS=45*1000')],
     ['auto-update-channel',src.includes("channel:'release/tlib-hybrid-v2-stable'")],
-    ['l2-continuous-base-v3',src.includes('function l2BaseStep')&&src.includes("'L1_DOSSIER_FR'")&&src.includes('dossier_json')],
+    ['l2-continuous-base-v4',src.includes('function l2BaseStep')&&src.includes("'L1_DOSSIER_FR_V4'")&&src.includes('dossier_json')&&src.includes('retrieval_text')],
     ['l2-continuous-deep',src.includes('async function l2DeepStep')&&src.includes('L2_README_RATE_RESERVE=2800')],
     ['l2-continuous-scheduler',src.includes('async function scheduledPipelineStep')&&src.includes("return 'PARALLEL_L1_L2'")],
     ['l2-l1-parallel-safe',src.includes('pipelineCycle%4===0')&&src.includes('pipelineCycle%12===6')],
@@ -203,7 +203,7 @@ try{
     ['search-l1-l2-l3-index',src.includes('syncSearchEntity')&&src.includes('l.dossier_json')&&src.includes('a.action_json')&&src.includes('l.retrieval_text')],
     ['search-bilingual-concepts',src.includes('searchConceptGroups')&&src.includes("['database','sql','postgres','mysql','sqlite','redis']")&&src.includes("['local','ai','llm','localai','ollama']")],
     ['search-background-index',src.includes("if (cmd === 'worker')")&&src.includes('reclassifyExisting();')&&src.includes('ensureSearchIndex();')],
-    ['l3-decision-support',src.includes('relevance_summary')&&src.includes('best_for')&&src.includes('selection_checks')&&src.includes('readiness')&&src.includes('research_terms')]
+    ['l3-decision-support',src.includes('relevance_summary')&&src.includes('best_for')&&src.includes('selection_checks')&&src.includes('readiness')&&src.includes('research_terms')],
     ['l3-api',src.includes("/api/l3/list")&&src.includes('l3Stats()')]
   ];
   for(const [id,pass] of autoChecks) pass?ok(id):fail(id);
