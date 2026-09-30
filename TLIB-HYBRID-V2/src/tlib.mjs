@@ -1035,14 +1035,30 @@ function syncSearchEntity(entityIdValue){
 }
 function rebuildSearchIndex(){
   const started=Date.now();
-  db.exec('DELETE FROM search_fts');
-  const rows=db.prepare('SELECT entity_id FROM results').all();
-  const tx=db.transaction((items)=>{for(const r of items)syncSearchEntity(r.entity_id)});
-  tx(rows);
-  db.prepare("INSERT INTO search_meta(key,value) VALUES('index_version',?) ON CONFLICT(key) DO UPDATE SET value=excluded.value").run(SEARCH_INDEX_VERSION);
-  db.prepare("INSERT INTO search_meta(key,value) VALUES('indexed_count',?) ON CONFLICT(key) DO UPDATE SET value=excluded.value").run(String(rows.length));
-  event('INFO','SEARCH_INDEX_REBUILT','rows='+rows.length+'; ms='+(Date.now()-started));
-  return rows.length;
+  try{
+    db.exec('BEGIN IMMEDIATE');
+    db.exec('DELETE FROM search_fts');
+    db.prepare(`INSERT INTO search_fts(entity_id,title,l1,l2,l3,hidden)
+      SELECT r.entity_id,
+             coalesce(r.full_name,''),
+             trim(coalesce(r.description,'')||' '||coalesce(r.language,'')||' '||coalesce(r.license,'')||' '||coalesce(r.topics_json,'')||' '||coalesce(r.resource_kind,'')||' '||coalesce(r.technology,'')||' '||coalesce(r.content_mode,'')||' '||coalesce(r.activity_status,'')||' '||coalesce(r.primary_theme,'')||' '||coalesce(r.theme_path,'')||' '||coalesce(r.theme_tags_json,'')||' '||coalesce(r.l1_summary,'')),
+             trim(coalesce(l.human_summary,'')||' '||coalesce(l.capabilities_json,'')||' '||coalesce(l.use_cases_json,'')||' '||coalesce(l.limitations_json,'')||' '||coalesce(l.dossier_json,'')),
+             coalesce(a.action_json,''),
+             coalesce(l.retrieval_text,'')
+      FROM results r
+      LEFT JOIN l2_profiles l ON l.entity_id=r.entity_id AND l.source_version=?
+      LEFT JOIN l3_actions a ON a.entity_id=r.entity_id AND a.source_l2_version=?`).run(L2_RULESET_VERSION,L2_RULESET_VERSION);
+    const total=Number(db.prepare('SELECT COUNT(*) AS n FROM results').get().n||0);
+    db.prepare("INSERT INTO search_meta(key,value) VALUES('index_version',?) ON CONFLICT(key) DO UPDATE SET value=excluded.value").run(SEARCH_INDEX_VERSION);
+    db.prepare("INSERT INTO search_meta(key,value) VALUES('indexed_count',?) ON CONFLICT(key) DO UPDATE SET value=excluded.value").run(String(total));
+    db.exec('COMMIT');
+    event('INFO','SEARCH_INDEX_REBUILT','rows='+total+'; ms='+(Date.now()-started));
+    return total;
+  }catch(e){
+    try{db.exec('ROLLBACK')}catch{}
+    event('ERROR','SEARCH_INDEX_REBUILD_ERROR',String(e.message||e));
+    throw e;
+  }
 }
 function ensureSearchIndex(){
   try{
@@ -1290,49 +1306,43 @@ function loadControlSnapshot() {
 }
 
 function libraryRows(q='', limit=100, offset=0, sort='stars') {
-  q = String(q || '').trim().toLowerCase();
-  limit = Math.max(1, Math.min(Number(limit || 100), 500));
-  offset = Math.max(0, Number(offset || 0));
+  q=String(q||'').trim();
+  limit=Math.max(1,Math.min(Number(limit||100),500));
+  offset=Math.max(0,Number(offset||0));
   const orders={stars:'r.stars DESC',recent:'r.pushed_at DESC',verified:'r.fetched_at DESC',complete:'r.l1_score DESC',name:'r.full_name ASC'};
   const order=orders[String(sort||'stars')]||orders.stars;
-  if (!q) {
+  if(!q){
     return db.prepare(`SELECT r.entity_id,r.full_name,r.description,r.stars,r.language,r.license,r.topics_json,r.archived,r.fork,
-                              r.updated_at_github,r.pushed_at,r.default_branch,r.size_kb,r.open_issues,r.fetched_at,
-                              r.resource_kind,r.technology,r.content_mode,r.activity_status,r.activity_days,r.l1_quality,r.l1_score,
-                              r.primary_theme,r.theme_path,r.theme_tags_json,r.theme_confidence,
-                              l.human_summary
-                       FROM results r LEFT JOIN l2_profiles l ON l.entity_id=r.entity_id AND l.source_version='${L2_RULESET_VERSION}'
-                       ORDER BY ${order} LIMIT ? OFFSET ?`).all(limit,offset);
+      r.updated_at_github,r.pushed_at,r.default_branch,r.size_kb,r.open_issues,r.fetched_at,
+      r.resource_kind,r.technology,r.content_mode,r.activity_status,r.activity_days,r.l1_quality,r.l1_score,
+      r.primary_theme,r.theme_path,r.theme_tags_json,r.theme_confidence,
+      l.human_summary,l.stage AS l2_stage,l.comprehension_score AS l2_score,l.l3_ready
+      FROM results r LEFT JOIN l2_profiles l ON l.entity_id=r.entity_id AND l.source_version=?
+      ORDER BY ${order} LIMIT ? OFFSET ?`).all(L2_RULESET_VERSION,limit,offset);
   }
-  const like = '%' + q + '%';
+  ensureSearchIndex();
+  const match=searchFtsQuery(q);
+  if(!match)return [];
   return db.prepare(`SELECT r.entity_id,r.full_name,r.description,r.stars,r.language,r.license,r.topics_json,r.archived,r.fork,
-                            r.updated_at_github,r.pushed_at,r.default_branch,r.size_kb,r.open_issues,r.fetched_at,
-                            r.resource_kind,r.technology,r.content_mode,r.activity_status,r.activity_days,r.l1_quality,r.l1_score,
-                            r.primary_theme,r.theme_path,r.theme_tags_json,r.theme_confidence,
-                            l.human_summary
-                     FROM results r LEFT JOIN l2_profiles l ON l.entity_id=r.entity_id AND l.source_version='${L2_RULESET_VERSION}'
-                     WHERE lower(r.full_name) LIKE ? OR lower(r.description) LIKE ? OR lower(r.language) LIKE ?
-                        OR lower(r.license) LIKE ? OR lower(r.topics_json) LIKE ? OR lower(coalesce(l.human_summary,'')) LIKE ?
-                        OR lower(coalesce(r.technology,'')) LIKE ? OR lower(coalesce(r.resource_kind,'')) LIKE ?
-                        OR lower(coalesce(r.activity_status,'')) LIKE ? OR lower(coalesce(r.content_mode,'')) LIKE ?
-                        OR lower(coalesce(r.primary_theme,'')) LIKE ? OR lower(coalesce(r.theme_path,'')) LIKE ?
-                        OR lower(coalesce(r.theme_tags_json,'')) LIKE ?
-                     ORDER BY ${order} LIMIT ? OFFSET ?`).all(like,like,like,like,like,like,like,like,like,like,like,like,like,limit,offset);
+      r.updated_at_github,r.pushed_at,r.default_branch,r.size_kb,r.open_issues,r.fetched_at,
+      r.resource_kind,r.technology,r.content_mode,r.activity_status,r.activity_days,r.l1_quality,r.l1_score,
+      r.primary_theme,r.theme_path,r.theme_tags_json,r.theme_confidence,
+      l.human_summary,l.stage AS l2_stage,l.comprehension_score AS l2_score,l.l3_ready,
+      bm25(search_fts,0.0,10.0,4.0,9.0,6.0,3.0) AS search_rank
+    FROM search_fts
+    JOIN results r ON r.entity_id=search_fts.entity_id
+    LEFT JOIN l2_profiles l ON l.entity_id=r.entity_id AND l.source_version=?
+    WHERE search_fts MATCH ?
+    ORDER BY search_rank ASC,coalesce(l.comprehension_score,0) DESC,r.l1_score DESC,r.stars DESC
+    LIMIT ? OFFSET ?`).all(L2_RULESET_VERSION,match,limit,offset);
 }
 
 function libraryCount(q='') {
-  q=String(q||'').trim().toLowerCase();
-  if(!q) return Number(db.prepare('SELECT COUNT(*) AS n FROM results').get().n);
-  const like='%'+q+'%';
-  return Number(db.prepare(`SELECT COUNT(*) AS n
-    FROM results r LEFT JOIN l2_profiles l ON l.entity_id=r.entity_id AND l.source_version='${L2_RULESET_VERSION}'
-    WHERE lower(r.full_name) LIKE ? OR lower(r.description) LIKE ? OR lower(r.language) LIKE ?
-       OR lower(r.license) LIKE ? OR lower(r.topics_json) LIKE ? OR lower(coalesce(l.human_summary,'')) LIKE ?
-       OR lower(coalesce(r.technology,'')) LIKE ? OR lower(coalesce(r.resource_kind,'')) LIKE ?
-       OR lower(coalesce(r.activity_status,'')) LIKE ? OR lower(coalesce(r.content_mode,'')) LIKE ?
-       OR lower(coalesce(r.primary_theme,'')) LIKE ? OR lower(coalesce(r.theme_path,'')) LIKE ?
-       OR lower(coalesce(r.theme_tags_json,'')) LIKE ?`)
-    .get(like,like,like,like,like,like,like,like,like,like,like,like,like).n);
+  q=String(q||'').trim();
+  if(!q)return Number(db.prepare('SELECT COUNT(*) AS n FROM results').get().n);
+  ensureSearchIndex();
+  const match=searchFtsQuery(q);if(!match)return 0;
+  return Number(db.prepare('SELECT COUNT(*) AS n FROM search_fts WHERE search_fts MATCH ?').get(match).n||0);
 }
 
 function l2Rows(limit=100) {
@@ -1477,9 +1487,8 @@ function l2Drilldown(kind='profiles',q='',limit=50,offset=0,sort='score'){
 function chatSearch(q,limit=8){
   q=String(q||'').trim();limit=Math.max(1,Math.min(Number(limit||8),12));
   if(!q)return {q,items:[],total:0};
-  const rows=libraryRows(q,Math.min(limit*4,40),0,'complete');
-  const items=rows.sort((a,b)=>(Boolean(b.human_summary)-Boolean(a.human_summary))||Number(b.stars||0)-Number(a.stars||0)).slice(0,limit);
-  return {q,total:libraryCount(q),items};
+  const items=libraryRows(q,limit,0,'relevance');
+  return {q,total:libraryCount(q),items,engine:'FTS5_L1_L2_L3',query:searchFtsQuery(q)};
 }
 function resourceById(id) {
   const r = db.prepare(`SELECT * FROM results WHERE entity_id=? OR lower(full_name)=lower(?)`).get(String(id||''), String(id||''));
@@ -2155,6 +2164,8 @@ async function main() {
   if (cmd === 'worker') {
     selftest();
     seed();
+    reclassifyExisting();
+    ensureSearchIndex();
     startWorkerLoop();
     return;
   }
@@ -2163,6 +2174,7 @@ async function main() {
     // separate below-normal process so SQLite/GitHub work cannot block 8787.
     selftest();
     seed();
+    ensureSearchIndex();
     startDashboard();
     ensureBackgroundWorker();
     startAutonomousUpdates();
