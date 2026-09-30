@@ -1575,7 +1575,7 @@ function chatSearch(q,limit=8){
   const items=ranked.items.slice(0,limit).map(({_title,_l1,_l2,_l3,_hidden,_bm25,...x})=>x);
   return {q,total:ranked.total,items,concepts:ranked.groups,mode:ranked.mode,search_mode:ranked.mode,engine:'FTS5_CONCEPT_RERANK_L1_L2_L3'};
 }
-function searchAuditSnapshot(){
+async function searchAuditSnapshot(){
   ensureSearchIndex(true);
   const queries=['android remote control','local ai','docker backup','typescript automation','database gui','offline first','websocket remote','self hosted monitoring','telegram automation'];
   const results={};
@@ -1583,16 +1583,23 @@ function searchAuditSnapshot(){
     const r=searchRanked(q);
     results[q]={mode:r.mode,total:r.total,top:r.items.slice(0,8).map(x=>({full_name:x.full_name,coverage:x.search_coverage,score:x.search_score,l1:x.l1_score,l2:x.l2_score,stage:x.l2_stage,l3_ready:Boolean(x.l3_ready),theme:x.theme_path,summary:String(x.human_summary||x.description||'').slice(0,220)}))};
   }
-  const semanticSamples=['stablyai/orca','mudler/LocalAI','firezone/firezone','offen/docker-volume-backup','mobile-next/mobile-mcp'];
-  const samples=semanticSamples.map(name=>{
-    const r=db.prepare(`SELECT r.full_name,r.primary_theme,r.theme_path,r.l1_score,l.stage,l.comprehension_score,l.dossier_json,a.action_json
-      FROM results r LEFT JOIN l2_profiles l ON l.entity_id=r.entity_id AND l.source_version=?
-      LEFT JOIN l3_actions a ON a.entity_id=r.entity_id AND a.source_l2_version=?
-      WHERE lower(r.full_name)=lower(?)`).get(L2_RULESET_VERSION,L2_RULESET_VERSION,name);
-    if(!r)return {full_name:name,missing:true};
-    const d=jsonObject(r.dossier_json),a=jsonObject(r.action_json);
-    return {full_name:r.full_name,theme:r.theme_path,l1_score:r.l1_score,l2_stage:r.stage||null,l2_score:r.comprehension_score||null,role:d.role_id||null,definition:d.definition_fr||null,identity_confidence:d.identity_confidence??null,l3_readiness:a.readiness||null};
-  });
+  const semanticNames=['stablyai/orca','mudler/LocalAI','firezone/firezone','offen/docker-volume-backup','mobile-next/mobile-mcp'];
+  const samples=[];
+  for(const name of semanticNames){
+    const r=db.prepare('SELECT * FROM results WHERE lower(full_name)=lower(?)').get(name);
+    if(!r){samples.push({full_name:name,missing:true});continue}
+    const stored=db.prepare('SELECT stage,comprehension_score,dossier_json FROM l2_profiles WHERE entity_id=? AND source_version=?').get(r.entity_id,L2_RULESET_VERSION)||null;
+    const d=stored?jsonObject(stored.dossier_json):{};
+    let probe=null;
+    try{
+      const enc=String(r.full_name).split('/').map(encodeURIComponent).join('/');
+      const rr=await githubGet('/repos/'+enc+'/readme',true);
+      let decoded='';if(rr.status!==404&&rr.body&&rr.body.content)decoded=Buffer.from(String(rr.body.content||'').replace(/\s/g,''),String(rr.body.encoding||'base64')).toString('utf8').slice(0,65536);
+      const sig=readmeSignals(decoded),p=l2FrenchDossier(r,sig,{names:[],files:[],dirs:[]},{files:[],commands:[],dependencies:[],scripts:[],services:[],runtime:[],config_files:[]});
+      probe={role:p.dossier.role_id,role_fr:p.dossier.role_fr,definition:p.dossier.definition_fr,identity_confidence:p.dossier.identity_confidence,finalites:p.dossier.finalites_fr.slice(0,4),readme_chars:sig.chars};
+    }catch(e){probe={error:String(e.message||e)}}
+    samples.push({full_name:r.full_name,theme:r.theme_path,l1_score:r.l1_score,l2_stage:stored?.stage||null,l2_score:stored?.comprehension_score||null,stored_role:d.role_id||null,stored_definition:d.definition_fr||null,live_readme_probe:probe});
+  }
   return {build:APP_BUILD,l2_version:L2_RULESET_VERSION,taxonomy:TAXONOMY_VERSION,search_index:SEARCH_INDEX_VERSION,indexed:Number(db.prepare('SELECT COUNT(*) AS n FROM search_fts').get().n||0),results,samples};
 }
 function resourceById(id) {
@@ -2263,7 +2270,7 @@ async function main() {
   if (cmd === 'selftest') return selftest();
   if (cmd === 'seed') return seed();
   if (cmd === 'reclassify') { console.log(JSON.stringify({ok:true,rows:reclassifyExisting()},null,2)); return; }
-  if (cmd === 'search-audit') { reclassifyExisting(); console.log(JSON.stringify(searchAuditSnapshot(),null,2)); return; }
+  if (cmd === 'search-audit') { reclassifyExisting(); console.log(JSON.stringify(await searchAuditSnapshot(),null,2)); return; }
   if (cmd === 'canary') return canary(Number(argValue('--limit', '10')));
   if (cmd === 'fixture-canary') return fixtureCanary();
   if (cmd === 'fixture-l2') return fixtureL2Canary();
