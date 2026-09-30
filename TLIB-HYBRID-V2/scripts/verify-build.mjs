@@ -205,7 +205,7 @@ try{
     ['l2-v4-migration-stats',src.includes('legacy_remaining:legacyRemaining')&&src.includes('never_profiled:neverProfiled')&&src.includes('const basePending=legacyRemaining+neverProfiled')],
     ['l2-purpose-role-filter',src.includes('function l2PurposeSignals')&&src.includes("'remote-desktop':['Réseau / communication','Sécurité / authentification','Application mobile']")],
     ['semantic-real-witnesses',src.includes("description:'Blazing-fast remote access'")&&src.includes("'getinsomnia/insomnia'")&&src.includes("'stablyai/orca'")&&src.includes("'rustdesk/rustdesk'")],
-    ['l1-api-testing-theme',src.includes("'Développement/API & Tests'")&&src.includes('/api client|api testing|api development|http client|rest client/')],
+    ['l1-api-testing-theme',src.includes("'Développement/API & Tests'")&&src.includes('api client|api testing|api development|http client|rest client')&&src.includes("if(/^Développement\\/API & Tests/.test(p))return 108")],
     ['search-fts-schema',src.includes('CREATE VIRTUAL TABLE IF NOT EXISTS search_fts USING fts5')&&src.includes('SEARCH_INDEX_VERSION')],
     ['search-fts-ranking',src.includes('bm25(search_fts')&&src.includes('resolveSearchMatch')&&src.includes('ALL_CONCEPTS_AVAILABLE')&&src.includes('RELAXED_CONCEPTS')&&src.includes('searchRanked')&&src.includes('search_coverage')],
     ['search-concept-coverage-gate',src.includes('resolved.strict_hits>0?1')&&src.includes('coverage*180')],
