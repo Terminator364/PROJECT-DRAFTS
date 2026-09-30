@@ -494,9 +494,11 @@ function selftest() {
   if (!row || row.full_name !== testName) throw new Error('SQLITE_READBACK_FAILED');
 
   const roleCases=[
-    [{full_name:'stablyai/orca',description:'An AI agent orchestrator for running multiple coding agents in parallel worktrees.'},{identity_excerpt:'Run coding agents in parallel worktrees and manage terminals.'},'coding-agent-orchestrator'],
-    [{full_name:'mudler/LocalAI',description:'Open source local AI engine, OpenAI compatible and self-hosted.'},{identity_excerpt:'Run models locally with an OpenAI compatible API.'},'local-ai-engine'],
-    [{full_name:'firezone/firezone',description:'Secure remote access platform using zero-trust networking and WireGuard.'},{identity_excerpt:'Connect users to private apps and infrastructure securely.'},'secure-remote-access'],
+    [{full_name:'stablyai/orca',description:'Orca is the ADE for working with a fleet of parallel agents. Run any coding agent with your own subscription. Available on desktop, mobile and remote runtime.',topics_json:'["ai-agents","parallel-agents","worktrees"]',theme_path:'Développement/Outils IA & Agents'},{identity_excerpt:'Run coding agents in parallel worktrees and manage terminals.'},'coding-agent-orchestrator'],
+    [{full_name:'mudler/LocalAI',description:'LocalAI is the open-source AI engine. Run any model - LLMs, vision, voice, image, video - on any hardware. No GPU required.',topics_json:'["ai","llm","api"]',theme_path:'Données & IA/Moteurs IA locaux'},{identity_excerpt:'Run models locally with an OpenAI compatible API.'},'local-ai-engine'],
+    [{full_name:'firezone/firezone',description:'Blazing-fast remote access',topics_json:'["network-security","security","vpn","wireguard","wireguard-vpn"]',theme_path:'Réseau & IoT/Accès distant',theme_tags_json:'["Accès distant","Cybersécurité"]'},{identity_excerpt:'Connect users to private apps and infrastructure securely.'},'secure-remote-access'],
+    [{full_name:'rustdesk/rustdesk',description:'An open-source remote desktop application designed for self-hosting, as an alternative to TeamViewer.',topics_json:'["remote-control","remote-desktop","rdp","vnc"]',theme_path:'Réseau & IoT/Accès distant'},{identity_excerpt:'Remote desktop control across multiple platforms.'},'remote-desktop'],
+    [{full_name:'getinsomnia/insomnia',description:'The open-source, cross-platform API client for GraphQL, REST, WebSockets, SSE and gRPC.',topics_json:'["api","api-client","graphql","rest-api"]',theme_path:'Développement/API & Tests'},{identity_excerpt:'API client for designing and testing APIs.'},'api-client'],
     [{full_name:'mobile-next/mobile-mcp',description:'Mobile MCP server for iOS and Android automation.'},{identity_excerpt:'Automate mobile applications and devices.'},'mobile-automation-mcp'],
     [{full_name:'offen/docker-volume-backup',description:'Backup Docker volumes locally or to S3-compatible storage.'},{identity_excerpt:'Automated backup and restore for Docker volumes.'},'backup']
   ];
@@ -506,20 +508,23 @@ function selftest() {
   }
   const themeCases=[
     [{full_name:'stablyai/orca',name:'orca',description:'AI agent orchestrator for coding agents and parallel worktrees',language:'TypeScript',topics:['ai','agents']},{kind:'Projet logiciel',technology:'TypeScript'},'Développement/Outils IA & Agents'],
-    [{full_name:'firezone/firezone',name:'firezone',description:'Zero-trust secure remote access platform',language:'Rust',topics:['wireguard','security']},{kind:'Projet logiciel',technology:'Rust'},'Réseau & IoT/Accès distant'],
-    [{full_name:'mudler/LocalAI',name:'LocalAI',description:'Local AI engine and self-hosted LLM inference',language:'Go',topics:['llm','ai']},{kind:'Projet logiciel',technology:'Go'},'Données & IA/Moteurs IA locaux']
+    [{full_name:'firezone/firezone',name:'firezone',description:'Blazing-fast remote access',language:'Elixir',topics:['wireguard','security','vpn']},{kind:'Projet logiciel',technology:'Elixir'},'Réseau & IoT/Accès distant'],
+    [{full_name:'mudler/LocalAI',name:'LocalAI',description:'Local AI engine and self-hosted LLM inference',language:'Go',topics:['llm','ai']},{kind:'Projet logiciel',technology:'Go'},'Données & IA/Moteurs IA locaux'],
+    [{full_name:'getinsomnia/insomnia',name:'insomnia',description:'Cross-platform API client for GraphQL, REST, WebSockets and gRPC',language:'TypeScript',topics:['api','api-client','graphql','rest-api']},{kind:'Projet logiciel',technology:'TypeScript'},'Développement/API & Tests']
   ];
   for(const [x,q,expected] of themeCases){
     const got=classifyThemes(x,q).path;
     if(got!==expected)throw new Error('SEMANTIC_THEME_FAIL '+x.full_name+' expected='+expected+' got='+got);
   }
+  const noisy=l2PurposeSignals('remote-desktop',['Ligne de commande / automatisation','Réseau / communication','Application mobile']);
+  if(noisy.includes('Ligne de commande / automatisation')||!noisy.includes('Réseau / communication'))throw new Error('SEMANTIC_PURPOSE_FILTER_FAIL');
   const concepts=searchConceptGroups('android remote control');
   if(concepts.length<3||!searchFtsQuery('android remote control','broad').includes(' OR '))throw new Error('SEARCH_CONCEPT_SELFTEST_FAIL');
   if(searchTextHasTerm('maikub/flutter_local_notifications','ai')||!searchTextHasTerm('local AI engine','ai')||searchFtsTerm('gui')!=='gui')throw new Error('SEARCH_TOKEN_BOUNDARY_SELFTEST_FAIL');
   const frConcepts=searchConceptGroups('je veux contrôler un téléphone Android à distance');if(frConcepts.length<3)throw new Error('SEARCH_FRENCH_CONCEPT_SELFTEST_FAIL');
 
-  event('INFO', 'SELFTEST_PASS', `node=${process.versions.node}; semantic=5; themes=3; search=PASS`);
-  console.log(JSON.stringify({ ok:true,node:process.versions.node,sqlite:true,semantic_roles:5,semantic_themes:3,search_concepts:true,dbPath }, null, 2));
+  event('INFO', 'SELFTEST_PASS', `node=${process.versions.node}; semantic=7; themes=4; search=PASS`);
+  console.log(JSON.stringify({ ok:true,node:process.versions.node,sqlite:true,semantic_roles:7,semantic_themes:4,search_concepts:true,dbPath }, null, 2));
 }
 
 async function fetchRepo(fullName) {
