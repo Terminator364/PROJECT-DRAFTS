@@ -1025,6 +1025,52 @@ function resolveSearchMatch(q){
   try{if(strict)strictHits=Number(db.prepare('SELECT COUNT(*) AS n FROM search_fts WHERE search_fts MATCH ?').get(strict).n||0)}catch{}
   return {match:broad,mode:strictHits>0?'ALL_CONCEPTS_AVAILABLE':'RELAXED_CONCEPTS',strict_hits:strictHits,groups};
 }
+const searchResultCache=new Map();
+function searchRanked(q){
+  q=String(q||'').trim();
+  const key=searchNormalize(q),cached=searchResultCache.get(key);
+  if(cached&&Date.now()-cached.at<5000)return cached.value;
+  const resolved=resolveSearchMatch(q),groups=resolved.groups||[],match=resolved.match;
+  if(!groups.length||!match)return {items:[],total:0,groups:[],mode:'EMPTY'};
+  const sql="SELECT r.entity_id,r.full_name,r.description,r.stars,r.language,r.license,r.topics_json,r.archived,r.fork,"+
+    "r.updated_at_github,r.pushed_at,r.default_branch,r.size_kb,r.open_issues,r.fetched_at,"+
+    "r.resource_kind,r.technology,r.content_mode,r.activity_status,r.activity_days,r.l1_quality,r.l1_score,"+
+    "r.primary_theme,r.theme_path,r.theme_tags_json,r.theme_confidence,"+
+    "l.human_summary,l.stage AS l2_stage,l.comprehension_score AS l2_score,l.l3_ready,"+
+    "search_fts.title AS _title,search_fts.l1 AS _l1,search_fts.l2 AS _l2,search_fts.l3 AS _l3,search_fts.hidden AS _hidden,"+
+    "bm25(search_fts,0.0,10.0,4.0,9.0,7.0,3.0) AS _bm25 "+
+    "FROM search_fts JOIN results r ON r.entity_id=search_fts.entity_id "+
+    "LEFT JOIN l2_profiles l ON l.entity_id=r.entity_id AND l.source_version=? "+
+    "WHERE search_fts MATCH ? ORDER BY _bm25 ASC LIMIT 700";
+  const candidates=db.prepare(sql).all(L2_RULESET_VERSION,match);
+  const fieldWeights=[['_title',11],['_l2',10],['_l3',8],['_l1',6],['_hidden',4]];
+  const phrase=searchNormalize(q),scored=[];
+  for(const r of candidates){
+    const fields=fieldWeights.map(([k,w])=>[searchNormalize(r[k]),w]);
+    let hits=0,semantic=0;const matched=[];
+    for(const group of groups){
+      let best=0,bestTerm='';
+      for(const term of group){
+        const t=searchNormalize(term);
+        for(const [txt,w] of fields){if(txt.includes(t)&&w>best){best=w;bestTerm=t}}
+      }
+      if(best){hits++;semantic+=best;matched.push(bestTerm)}
+    }
+    const coverage=hits/groups.length,minCoverage=groups.length<=2?0.5:groups.length<=4?0.5:0.4;
+    if(coverage<minCoverage)continue;
+    const title=searchNormalize(r.full_name),exactTitle=title===phrase?40:title.includes(phrase)?18:0;
+    const depthBonus=r.l2_stage==='DEEP'?12:r.l2_stage==='BASE'?4:0;
+    const readyBonus=Number(r.l3_ready||0)?5:0;
+    const qualityBonus=Math.min(10,Number(r.l2_score||0)/12)+Math.min(6,Number(r.l1_score||0)/18);
+    const score=coverage*100+semantic*3+exactTitle+depthBonus+readyBonus+qualityBonus;
+    scored.push({...r,search_score:Number(score.toFixed(2)),search_coverage:Number(coverage.toFixed(3)),search_hits:hits,search_groups:groups.length,search_terms:matched,search_mode:resolved.mode});
+  }
+  scored.sort((x,y)=>y.search_score-x.search_score||Number(y.l2_score||0)-Number(x.l2_score||0)||Number(y.l1_score||0)-Number(x.l1_score||0)||Number(y.stars||0)-Number(x.stars||0));
+  const value={items:scored,total:scored.length,groups,mode:resolved.mode};
+  searchResultCache.set(key,{at:Date.now(),value});
+  if(searchResultCache.size>50){const first=searchResultCache.keys().next().value;searchResultCache.delete(first)}
+  return value;
+}
 function syncSearchEntity(entityIdValue){
   try{
     const r=db.prepare(`SELECT r.entity_id,r.full_name,r.description,r.language,r.license,r.topics_json,r.resource_kind,r.technology,r.content_mode,r.activity_status,r.primary_theme,r.theme_path,r.theme_tags_json,r.l1_summary,
