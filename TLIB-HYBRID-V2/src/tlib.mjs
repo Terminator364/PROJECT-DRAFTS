@@ -514,6 +514,7 @@ function selftest() {
   const concepts=searchConceptGroups('android remote control');
   if(concepts.length<3||!searchFtsQuery('android remote control','broad').includes(' OR '))throw new Error('SEARCH_CONCEPT_SELFTEST_FAIL');
   if(searchTextHasTerm('maikub/flutter_local_notifications','ai')||!searchTextHasTerm('local AI engine','ai')||searchFtsTerm('gui')!=='gui')throw new Error('SEARCH_TOKEN_BOUNDARY_SELFTEST_FAIL');
+  const frConcepts=searchConceptGroups('je veux contrôler un téléphone Android à distance');if(frConcepts.length<3)throw new Error('SEARCH_FRENCH_CONCEPT_SELFTEST_FAIL');
 
   event('INFO', 'SELFTEST_PASS', `node=${process.versions.node}; semantic=5; themes=3; search=PASS`);
   console.log(JSON.stringify({ ok:true,node:process.versions.node,sqlite:true,semantic_roles:5,semantic_themes:3,search_concepts:true,dbPath }, null, 2));
@@ -1027,13 +1028,16 @@ function searchConceptGroups(q){
     [/automatisation/g,['automation','workflow','automate']],
     [/controle/g,['control','remote','pilotage']],
     [/telephone/g,['mobile','android','ios']],
-    [/ordinateur/g,['desktop','pc','computer']]
+    [/ordinateur/g,['desktop','pc','computer']],
+    [/hors ligne/g,['offline','local']],
+    [/sans internet/g,['offline','local']],
+    [/open source/g,['open','source','opensource']]
   ];
   for(const [rx,alts] of phrases){
     if(rx.test(x)){groups.push(alts);x=x.replace(rx,' ');}
   }
   for(const token of x.split(/[^a-z0-9_.+#-]+/).map(t=>t.replace(/^[-_.]+|[-_.]+$/g,'')).filter(t=>t.length>1&&!SEARCH_STOPWORDS.has(t))){
-    const map={distance:['distance','remote'],sauvegarde:['backup','snapshot','restore'],monitoring:['monitoring','observability','monitor'],android:['android'],mobile:['mobile','android','ios'],telegram:['telegram'],docker:['docker','container'],offline:['offline','localfirst'],local:['local','localai'],agent:['agent','agents'],agents:['agent','agents'],workflow:['workflow','automation'],backup:['backup','snapshot','restore'],remote:['remote','distance'],database:['database','sql','postgres','mysql','sqlite'],gui:['gui','interface']};
+    const map={distance:['distance','remote'],distant:['remote','distance'],distante:['remote','distance'],sauvegarde:['backup','snapshot','restore'],sauvegarder:['backup','snapshot','restore'],monitoring:['monitoring','observability','monitor'],supervision:['monitoring','observability','monitor'],android:['android'],mobile:['mobile','android','ios'],telegram:['telegram'],docker:['docker','container'],offline:['offline','local'],local:['local','localai'],locale:['local','localai'],ia:['ai','llm','artificial'],agent:['agent','agents'],agents:['agent','agents'],workflow:['workflow','automation'],automatiser:['automation','workflow','automate'],automation:['automation','workflow','automate'],backup:['backup','snapshot','restore'],remote:['remote','distance'],database:['database','sql','postgres','mysql','sqlite'],donnees:['data','database'],gui:['gui','interface'],graphique:['gui','interface','ui'],interface:['interface','gui','ui'],leger:['lightweight','light','lowresource'],legere:['lightweight','light','lowresource'],reseau:['network','tcp','udp','wifi','lan'],securite:['security','secure'],securise:['secure','security','zerotrust'],securisee:['secure','security','zerotrust']};
     groups.push(map[token]||[token]);
   }
   return groups.slice(0,8);
@@ -1098,7 +1102,10 @@ function searchRanked(q){
     const depthBonus=r.l2_stage==='DEEP'?12:r.l2_stage==='BASE'?4:0;
     const readyBonus=Number(r.l3_ready||0)?5:0;
     const qualityBonus=Math.min(10,Number(r.l2_score||0)/12)+Math.min(6,Number(r.l1_score||0)/18);
-    const score=coverage*180+semantic*3+exactTitle+depthBonus+readyBonus+qualityBonus;
+    const referenceIntent=/(awesome|catalog|catalogue|guide|documentation|reference|liste|ressource)/.test(phrase);
+    const kind=String(r.resource_kind||'');
+    const kindBonus=kind==='Projet logiciel'?10:(!referenceIntent&&kind==='Catalogue de ressources'?-18:!referenceIntent&&kind==='Guide / documentation'?-10:0);
+    const score=coverage*180+semantic*3+exactTitle+depthBonus+readyBonus+qualityBonus+kindBonus;
     scored.push({...r,search_score:Number(score.toFixed(2)),search_coverage:Number(coverage.toFixed(3)),search_hits:hits,search_groups:groups.length,search_terms:matched,search_mode:resolved.mode});
   }
   scored.sort((x,y)=>y.search_score-x.search_score||Number(y.l2_score||0)-Number(x.l2_score||0)||Number(y.l1_score||0)-Number(x.l1_score||0)||Number(y.stars||0)-Number(x.stars||0));
