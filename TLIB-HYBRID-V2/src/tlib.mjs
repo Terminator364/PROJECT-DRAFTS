@@ -1012,10 +1012,20 @@ function searchConceptGroups(q){
   }
   return groups.slice(0,8);
 }
-function searchFtsQuery(q){
+function searchFtsQuery(q,mode='strict'){
   const groups=searchConceptGroups(q);
   if(!groups.length)return '';
-  return groups.map(g=>'('+uniqText(g,8).map(t=>String(t).replace(/[^a-z0-9_.-]/g,'')).filter(Boolean).map(t=>t+'*').join(' OR ')+')').filter(x=>x!=='()').join(' AND ');
+  const parts=groups.map(g=>'('+uniqText(g,8).map(t=>String(t).replace(/[^a-z0-9]/g,'')).filter(Boolean).map(t=>t+'*').join(' OR ')+')').filter(x=>x!=='()');
+  return parts.join(mode==='broad'?' OR ':' AND ');
+}
+function resolveSearchMatch(q){
+  const strict=searchFtsQuery(q,'strict');
+  if(!strict)return {match:'',mode:'EMPTY'};
+  try{
+    const n=Number(db.prepare('SELECT COUNT(*) AS n FROM search_fts WHERE search_fts MATCH ?').get(strict).n||0);
+    if(n>0)return {match:strict,mode:'ALL_CONCEPTS',strict_hits:n};
+  }catch{}
+  return {match:searchFtsQuery(q,'broad'),mode:'RELAXED_CONCEPTS',strict_hits:0};
 }
 function syncSearchEntity(entityIdValue){
   try{
@@ -1321,7 +1331,7 @@ function libraryRows(q='', limit=100, offset=0, sort='stars') {
       ORDER BY ${order} LIMIT ? OFFSET ?`).all(L2_RULESET_VERSION,limit,offset);
   }
   ensureSearchIndex();
-  const match=searchFtsQuery(q);
+  const resolved=resolveSearchMatch(q),match=resolved.match;
   if(!match)return [];
   return db.prepare(`SELECT r.entity_id,r.full_name,r.description,r.stars,r.language,r.license,r.topics_json,r.archived,r.fork,
       r.updated_at_github,r.pushed_at,r.default_branch,r.size_kb,r.open_issues,r.fetched_at,
@@ -1334,14 +1344,14 @@ function libraryRows(q='', limit=100, offset=0, sort='stars') {
     LEFT JOIN l2_profiles l ON l.entity_id=r.entity_id AND l.source_version=?
     WHERE search_fts MATCH ?
     ORDER BY search_rank ASC,coalesce(l.comprehension_score,0) DESC,r.l1_score DESC,r.stars DESC
-    LIMIT ? OFFSET ?`).all(L2_RULESET_VERSION,match,limit,offset);
+    LIMIT ? OFFSET ?`).all(L2_RULESET_VERSION,match,limit,offset).map(x=>({...x,search_mode:resolved.mode}));
 }
 
 function libraryCount(q='') {
   q=String(q||'').trim();
   if(!q)return Number(db.prepare('SELECT COUNT(*) AS n FROM results').get().n);
   ensureSearchIndex();
-  const match=searchFtsQuery(q);if(!match)return 0;
+  const match=resolveSearchMatch(q).match;if(!match)return 0;
   return Number(db.prepare('SELECT COUNT(*) AS n FROM search_fts WHERE search_fts MATCH ?').get(match).n||0);
 }
 
@@ -1487,8 +1497,8 @@ function l2Drilldown(kind='profiles',q='',limit=50,offset=0,sort='score'){
 function chatSearch(q,limit=8){
   q=String(q||'').trim();limit=Math.max(1,Math.min(Number(limit||8),12));
   if(!q)return {q,items:[],total:0};
-  const items=libraryRows(q,limit,0,'relevance');
-  return {q,total:libraryCount(q),items,engine:'FTS5_L1_L2_L3',query:searchFtsQuery(q)};
+  const items=libraryRows(q,limit,0,'relevance'),resolved=resolveSearchMatch(q);
+  return {q,total:libraryCount(q),items,engine:'FTS5_L1_L2_L3',query:resolved.match,search_mode:resolved.mode};
 }
 function resourceById(id) {
   const r = db.prepare(`SELECT * FROM results WHERE entity_id=? OR lower(full_name)=lower(?)`).get(String(id||''), String(id||''));
@@ -2174,7 +2184,6 @@ async function main() {
     // separate below-normal process so SQLite/GitHub work cannot block 8787.
     selftest();
     seed();
-    ensureSearchIndex();
     startDashboard();
     ensureBackgroundWorker();
     startAutonomousUpdates();
