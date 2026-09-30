@@ -11,7 +11,7 @@ const HERE = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(HERE, '..');
 const dataDir = process.env.TLIB_DATA_DIR || join(process.env.LOCALAPPDATA || homedir(), 'TLIB-PC');
 mkdirSync(dataDir, { recursive: true });
-const APP_BUILD = '2026.09.29-v0.11.3-l2-v3-verified';
+const APP_BUILD = '2026.09.30-v0.12.0-retrieval-quality';
 const STARTED_AT = new Date().toISOString();
 function deploymentCommit() {
   try {
@@ -233,8 +233,16 @@ function entityId(fullName) {
   return 'ghpath:' + fullName.toLowerCase();
 }
 
-const TAXONOMY_VERSION='2026.09-v1';
+const TAXONOMY_VERSION='2026.09-v2-functional';
 const THEME_RULES=[
+  ['Développement/Outils IA & Agents', /coding agent|code agent|agent orchestrator|orchestrat(?:e|or).*agent|parallel agents?|agentic coding|worktree.*agent|ide for.*agent|ai orchestrator/],
+  ['Réseau & IoT/Accès distant', /remote desktop|remote access|remote control|screen sharing|teamviewer|\brdp\b|\bvnc\b|zero[- ]trust access/],
+  ['Automatisation & Outils/Workflow', /workflow automation|workflow engine|automation platform|low[- ]code automation|orchestration platform/],
+  ['Données & IA/Moteurs IA locaux', /local ai|localai|local llm|self[- ]hosted llm|llm inference|openai[- ]compatible.*local|run any model/],
+  ['Données & IA/Outils API & agents', /model context protocol|\bmcp server\b|agent tools?|tool calling/],
+  ['Données & IA/Bases de données & GUI', /database gui|database editor|redis gui|sql client|database client/],
+  ['Sauvegarde & Résilience/Sauvegarde', /backup|snapshot|restore|disaster recovery|volume backup/],
+  ['Observabilité & Supervision/Monitoring', /uptime monitor|monitoring platform|observability|telemetry|metrics platform/],
   ['Développement/Langages/Python', /\bpython\b|django|flask|pytorch|numpy|pandas/],
   ['Développement/Langages/JavaScript & TypeScript', /javascript|typescript|node\.?js|npm|deno|bun\b/],
   ['Développement/Langages/JVM', /\bjava\b|kotlin|scala|groovy|clojure/],
@@ -272,14 +280,32 @@ function classifyThemes(x,q){
   if(q.kind==='Catalogue de ressources' && !matches.includes('Catalogues & Curations/Awesome Lists')) matches.push('Catalogues & Curations/Awesome Lists');
   if(q.kind==='Guide / documentation' && !matches.includes('Documentation & Apprentissage/Guides')) matches.push('Documentation & Apprentissage/Guides');
   const uniq=[...new Set(matches)];
-  const primary=uniq[0] || (q.technology && q.technology!=='Domaine à préciser' ? 'Autres/'+q.technology : 'Autres/À classifier');
+  const priority=(p)=>{
+    if(/^Catalogues & Curations\//.test(p))return 120;
+    if(/^Documentation & Apprentissage\//.test(p))return 115;
+    if(/^Développement\/Outils IA & Agents/.test(p))return 112;
+    if(/^Réseau & IoT\/Accès distant/.test(p))return 111;
+    if(/^Sécurité\//.test(p))return 110;
+    if(/^Données & IA\/(Moteurs IA locaux|Bases de données & GUI|Outils API & agents)/.test(p))return 109;
+    if(/^Sauvegarde & Résilience\//.test(p))return 108;
+    if(/^Observabilité & Supervision\//.test(p))return 107;
+    if(/^Données & IA\//.test(p))return 105;
+    if(/^Réseau & IoT\//.test(p))return 100;
+    if(/^Cloud & DevOps\//.test(p))return 95;
+    if(/^Automatisation & Outils\//.test(p))return 90;
+    if(/^Développement\/(Mobile|Web|Desktop)/.test(p))return 80;
+    if(/^Développement\/Langages\//.test(p))return 30;
+    return 60;
+  };
+  const ranked=uniq.map((p,i)=>({p,i,w:priority(p)})).sort((a,b)=>b.w-a.w||a.i-b.i);
+  const primary=ranked[0]?.p || (q.technology && q.technology!=='Domaine à préciser' ? 'Autres/'+q.technology : 'Autres/À classifier');
   const tags=[...new Set([
     ...uniq.flatMap(p=>p.split('/').slice(-2)),
     q.technology!=='Domaine à préciser'?q.technology:'',
     q.kind,
     ...topics.slice(0,12)
   ].filter(Boolean))].slice(0,24);
-  const confidence=Math.min(0.99, uniq.length?0.72+Math.min(0.24,uniq.length*0.06):(q.technology!=='Domaine à préciser'?0.55:0.35));
+  const confidence=Math.min(0.99, uniq.length?0.74+Math.min(0.23,uniq.length*0.05):(q.technology!=='Domaine à préciser'?0.55:0.35));
   return {primary:primary.split('/')[0],path:primary,tags,confidence};
 }
 
