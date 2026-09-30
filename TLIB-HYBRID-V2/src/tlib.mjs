@@ -241,6 +241,7 @@ const THEME_RULES=[
   ['Développement/Outils IA & Agents', /coding agent|code agent|agent orchestrator|orchestrat(?:e|or).*agent|parallel agents?|agentic coding|worktree.*agent|ide for.*agent|ai orchestrator/],
   ['Réseau & IoT/Accès distant', /remote desktop|remote access|remote control|screen sharing|teamviewer|\brdp\b|\bvnc\b|zero[- ]trust access/],
   ['Automatisation & Outils/Workflow', /workflow automation|workflow engine|automation platform|low[- ]code automation|orchestration platform/],
+  ['Développement/API & Tests', /api client|api testing|api development|http client|rest client|graphql.*rest|alternative to postman/],
   ['Données & IA/Moteurs IA locaux', /local ai|localai|local llm|self[- ]hosted llm|llm inference|openai[- ]compatible.*local|run any model/],
   ['Données & IA/Outils API & agents', /model context protocol|\bmcp server\b|agent tools?|tool calling/],
   ['Données & IA/Bases de données & GUI', /database gui|database editor|redis gui|sql client|database client/],
@@ -290,6 +291,7 @@ function classifyThemes(x,q){
     if(/^Réseau & IoT\/Accès distant/.test(p))return 111;
     if(/^Sécurité\//.test(p))return 110;
     if(/^Données & IA\/(Moteurs IA locaux|Bases de données & GUI|Outils API & agents)/.test(p))return 109;
+    if(/^Développement\/API & Tests/.test(p))return 108;
     if(/^Sauvegarde & Résilience\//.test(p))return 108;
     if(/^Observabilité & Supervision\//.test(p))return 107;
     if(/^Données & IA\//.test(p))return 105;
@@ -1228,7 +1230,7 @@ const L2_ROLE_RULES=[
   {id:'coding-agent-orchestrator',rx:/coding agents?|agent orchestrator|orchestrat(?:e|or).*agents?|parallel agents?|agentic coding|worktrees?.*agents?|agents?.*worktrees?|ai orchestrator/,nature:'orchestrateur d’agents de développement',purpose:'Orchestrer plusieurs agents de code, isoler leurs travaux et comparer ou piloter leurs résultats.',audience:'développeurs qui travaillent avec plusieurs agents de code',operation:'Il coordonne plusieurs agents de développement et leurs espaces de travail, puis centralise leur suivi et leurs actions.'},
   {id:'local-ai-engine',rx:/open[- ]source ai engine|localai|local ai engine|local llm|self[- ]hosted llm|llm inference|run any model|openai[- ]compatible.*(?:local|inference)/,nature:'moteur d’intelligence artificielle local et auto-hébergeable',purpose:'Exécuter et exposer localement des modèles d’IA sans dépendre obligatoirement d’un service cloud.',audience:'développeurs et équipes qui veulent exécuter ou intégrer des modèles d’IA localement',operation:'Il exécute des modèles sur la machine ou l’infrastructure de l’utilisateur et les expose via des interfaces programmatiques ou des outils locaux.'},
   {id:'remote-desktop',rx:/remote desktop|alternative to teamviewer|screen sharing|desktop remote control|remote desktop application/,nature:'solution de bureau à distance',purpose:'Accéder à un ordinateur distant, afficher son écran et le contrôler à travers le réseau.',audience:'utilisateurs et administrateurs qui ont besoin de contrôler des machines à distance',operation:'Il relie un client à une machine distante afin d’afficher et contrôler sa session, avec des composants réseau et clients multiplateformes.'},
-  {id:'secure-remote-access',rx:/secure remote access|zero[- ]trust access|vpn replacement|wireguard.*access|remote access.*security|connectivity to apps.*infrastructure/,nature:'plateforme d’accès distant sécurisé',purpose:'Donner un accès distant contrôlé à des applications, appareils ou infrastructures sans exposer directement les ressources.',audience:'équipes réseau, sécurité et exploitation qui gèrent des accès distants',operation:'Il établit des chemins d’accès réseau authentifiés entre utilisateurs, appareils et ressources protégées.'},
+  {id:'secure-remote-access',rx:/secure remote access|zero[- ]trust access|vpn replacement|wireguard.*access|remote access.*(?:security|vpn|wireguard)|(?:security|vpn|wireguard).*remote access|connectivity to apps.*infrastructure/,nature:'plateforme d’accès distant sécurisé',purpose:'Donner un accès distant contrôlé à des applications, appareils ou infrastructures sans exposer directement les ressources.',audience:'équipes réseau, sécurité et exploitation qui gèrent des accès distants',operation:'Il établit des chemins d’accès réseau authentifiés entre utilisateurs, appareils et ressources protégées.'},
   {id:'mobile-automation-mcp',rx:/mcp server.*mobile|mobile automation|automating.*(?:ios|android)|ios.*android.*automation|mobile development and automation/,nature:'serveur d’automatisation et de contrôle d’appareils mobiles',purpose:'Permettre à des agents ou scripts de piloter, tester et inspecter des applications iOS ou Android.',audience:'développeurs mobile, testeurs et intégrateurs d’agents IA',operation:'Il expose des outils structurés pour découvrir les appareils, lancer des applications, lire l’interface et exécuter des gestes ou saisies.'},
   {id:'workflow-automation',rx:/workflow automation|automation platform|workflow engine|low[- ]code automation|automate workflows|400\+ integrations/,nature:'plateforme d’automatisation de workflows',purpose:'Construire et exécuter des workflows reliant plusieurs services, données et actions.',audience:'équipes techniques et métiers qui automatisent des processus',operation:'Il enchaîne des déclencheurs, intégrations et étapes de traitement dans des workflows configurables.'},
   {id:'backup',rx:/backup docker volumes|backup tool|continuous backup|automatic backups?|snapshot and restore|disaster recovery/,nature:'outil de sauvegarde et de restauration',purpose:'Créer, conserver et restaurer des sauvegardes de données ou de volumes.',audience:'administrateurs et utilisateurs qui protègent des données ou services',operation:'Il copie les données vers un stockage cible selon une politique de sauvegarde et fournit un chemin de restauration.'},
@@ -1240,8 +1242,13 @@ const L2_ROLE_RULES=[
 
 function l2PrimaryRole(r,sig={},signals=[]){
   const desc=String(r.description||''),identity=String(sig.identity_excerpt||''),features=Array.isArray(sig.feature_lines)?sig.feature_lines.join(' '):'';
-  const strong=(String(r.full_name||'')+' '+desc+' '+identity+' '+features).toLowerCase();
-  for(const role of L2_ROLE_RULES){if(role.rx.test(strong)){const inDesc=role.rx.test(desc.toLowerCase());return {...role,confidence:inDesc?0.96:0.84};}}
+  const context=[r.full_name,desc,r.topics_json,r.theme_path,r.theme_tags_json,identity,features].filter(Boolean).join(' ').toLowerCase();
+  for(const role of L2_ROLE_RULES){
+    if(role.rx.test(context)){
+      const inDesc=role.rx.test(desc.toLowerCase()),inCore=(String(r.full_name||'')+' '+desc+' '+String(r.topics_json||'')+' '+String(r.theme_path||'')).toLowerCase();
+      return {...role,confidence:inDesc?0.96:role.rx.test(inCore)?0.90:0.84};
+    }
+  }
   if(r.resource_kind==='Catalogue de ressources')return {id:'catalogue',nature:'catalogue de ressources techniques',purpose:'Repérer, comparer et retrouver des ressources techniques dans un domaine donné.',audience:'développeurs et utilisateurs qui explorent un domaine technique',operation:'Il organise des liens et références afin de faciliter leur découverte.',confidence:0.88};
   if(r.resource_kind==='Guide / documentation')return {id:'documentation',nature:'guide ou documentation technique',purpose:'Expliquer une technologie ou une procédure et servir de référence.',audience:'apprenants, développeurs et mainteneurs',operation:'Il organise des explications, exemples et références autour d’un sujet technique.',confidence:0.88};
   if(signals.includes('API / intégration'))return {id:'integration-software',nature:'projet logiciel orienté intégration',purpose:L2_PURPOSE_MAP['API / intégration'],audience:L2_AUDIENCE_MAP['API / intégration'],operation:'Il expose ou consomme des interfaces permettant de relier plusieurs composants logiciels.',confidence:0.62};
@@ -1249,6 +1256,22 @@ function l2PrimaryRole(r,sig={},signals=[]){
   if(signals.includes('Application web'))return {id:'web-app',nature:'application ou service Web',purpose:L2_PURPOSE_MAP['Application web'],audience:L2_AUDIENCE_MAP['Application web'],operation:'Il fournit une interface ou un service accessible à travers des technologies Web.',confidence:0.58};
   if(signals.includes('Ligne de commande / automatisation'))return {id:'cli-tool',nature:'outil technique en ligne de commande ou d’automatisation',purpose:L2_PURPOSE_MAP['Ligne de commande / automatisation'],audience:L2_AUDIENCE_MAP['Ligne de commande / automatisation'],operation:'Il est piloté depuis un terminal ou un script pour automatiser une tâche technique.',confidence:0.58};
   return {id:'generic-software',nature:String(r.resource_kind||'projet logiciel').toLowerCase(),purpose:'Fournir les fonctions décrites par le dépôt ; la finalité principale doit encore être confirmée par des preuves plus profondes.',audience:'utilisateurs techniques du domaine concerné',operation:'Son fonctionnement précis doit encore être confirmé par la documentation et la structure du dépôt.',confidence:0.42};
+}
+function l2PurposeSignals(roleId,signals){
+  const allow={
+    'coding-agent-orchestrator':['API / intégration','Ligne de commande / automatisation','Cloud / DevOps'],
+    'local-ai-engine':['API / intégration','IA / apprentissage automatique','Données / stockage','Bibliothèque / SDK','Cloud / DevOps'],
+    'remote-desktop':['Réseau / communication','Sécurité / authentification','Application mobile'],
+    'secure-remote-access':['Réseau / communication','Sécurité / authentification','Cloud / DevOps'],
+    'mobile-automation-mcp':['Application mobile','API / intégration','Ligne de commande / automatisation'],
+    'workflow-automation':['Ligne de commande / automatisation','API / intégration','Données / stockage','Cloud / DevOps'],
+    'backup':['Données / stockage','Cloud / DevOps'],
+    'api-client':['API / intégration','Réseau / communication','Données / stockage'],
+    'database-gui':['Données / stockage','Application web'],
+    'monitoring':['Observabilité / supervision','Réseau / communication','Cloud / DevOps'],
+    'messaging-bot':['Réseau / communication','API / intégration','Ligne de commande / automatisation']
+  };
+  const wanted=allow[roleId];return wanted?signals.filter(x=>wanted.includes(x)):signals;
 }
 function l2Signals(text){const bag=String(text||'').toLowerCase(),out=[];for(const [label,rx] of L2_SIGNAL_RULES)if(rx.test(bag))out.push(label);return uniqText(out,10)}
 function cleanMarkdownText(text){return String(text||'').replace(/```[\s\S]*?```/g,' ').replace(/!\[[^\]]*\]\([^)]*\)/g,' ').replace(/\[([^\]]+)\]\([^)]*\)/g,'$1').replace(/<[^>]+>/g,' ').replace(/[\t ]+/g,' ').replace(/\r/g,'')}
@@ -1337,7 +1360,8 @@ function l2FrenchDossier(r,sig={signals:[],commands:[],sections:{}},inventory={n
   const signals=uniqText([...l2Signals(baseText),...(Array.isArray(sig.signals)?sig.signals:[])],12);
   const role=l2PrimaryRole(r,sig,signals);
   const tech=r.technology||r.language||langs[0]||'technologie principale non déterminée',nature=l2Nature(r,signals,role);
-  const purposes=uniqText([role.purpose,...signals.map(x=>L2_PURPOSE_MAP[x]).filter(Boolean)],9);
+  const purposeSignals=l2PurposeSignals(role.id,signals);
+  const purposes=uniqText([role.purpose,...purposeSignals.map(x=>L2_PURPOSE_MAP[x]).filter(Boolean)],7);
   const audiences=uniqText([role.audience,...signals.map(x=>L2_AUDIENCE_MAP[x]).filter(Boolean)],9);
   const interfaces=uniqText([signals.includes('Ligne de commande / automatisation')?'Ligne de commande / scripts':'',signals.includes('API / intégration')?'API ou interface d’intégration':'',signals.includes('Application web')?'Interface ou service Web':'',signals.includes('Application mobile')?'Interface ou composant mobile':'',signals.includes('Bibliothèque / SDK')?'Bibliothèque / SDK':''],8);
   const commands=uniqText([...(Array.isArray(sig.commands)?sig.commands:[]),...(facts.commands||[])],14);
