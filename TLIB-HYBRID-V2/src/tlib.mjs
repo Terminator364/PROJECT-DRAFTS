@@ -1219,18 +1219,41 @@ async function l2DeepStep(){
 }
 function l3ActionPackFromDossier(entityId,dossier){
   dossier=dossier&&typeof dossier==='object'?dossier:{};const h=dossier.handoff_l3||{};
-  const commands=Array.isArray(dossier.commandes)?dossier.commandes:[],deps=Array.isArray(dossier.dependances)?dossier.dependances:[],interfaces=Array.isArray(dossier.interfaces_fr)?dossier.interfaces_fr:[],unknowns=Array.isArray(dossier.a_verifier_fr)?dossier.a_verifier_fr:[],limits=Array.isArray(dossier.limites_fr)?dossier.limites_fr:[],uses=Array.isArray(dossier.cas_usage_fr)?dossier.cas_usage_fr:[];
+  const commands=Array.isArray(dossier.commandes)?dossier.commandes:[],deps=Array.isArray(dossier.dependances)?dossier.dependances:[],interfaces=Array.isArray(dossier.interfaces_fr)?dossier.interfaces_fr:[],unknowns=Array.isArray(dossier.a_verifier_fr)?dossier.a_verifier_fr:[],limits=Array.isArray(dossier.limites_fr)?dossier.limites_fr:[],uses=Array.isArray(dossier.cas_usage_fr)?dossier.cas_usage_fr:[],evidence=Array.isArray(dossier.preuves_fr)?dossier.preuves_fr:[],audiences=Array.isArray(dossier.audiences_fr)?dossier.audiences_fr:[];
+  const role=String(dossier.role_fr||dossier.nature_fr||'projet logiciel'),definition=String(dossier.definition_fr||''),confidence=Number(dossier.identity_confidence||0);
   const first=uniqText([...(Array.isArray(h.ce_quon_peut_deja_faire)?h.ce_quon_peut_deja_faire:[]),commands[0]?'Exécuter un test contrôlé avec : '+commands[0]:'',deps.length?'Vérifier la compatibilité des dépendances clés : '+deps.slice(0,5).join(', '):''],8);
-  const testPlan=uniqText([commands.length?'Lancer le projet avec une commande documentée dans un environnement isolé.':'Préparer un environnement isolé avant toute exécution.',interfaces.length?'Tester l’interface principale : '+interfaces.join(', '):'',uses[0]?'Vérifier le cas d’usage prioritaire : '+uses[0]:'','Mesurer succès, erreurs et consommation de ressources.'],8);
+  const testPlan=uniqText([commands.length?'Lancer le projet avec une commande documentée dans un environnement isolé.':'Préparer un environnement isolé avant toute exécution.',interfaces.length?'Tester l’interface principale : '+interfaces.join(', '):'',uses[0]?'Vérifier le cas d’usage prioritaire : '+uses[0]:'','Mesurer succès, erreurs, latence et consommation de ressources.','Comparer le résultat avec au moins une alternative retenue par la recherche TLIB.'],8);
   const integration=uniqText([interfaces.length?'Point d’intégration probable : '+interfaces.join(', '):'',deps.length?'Dépendances à provisionner : '+deps.slice(0,8).join(', '):'','Conserver un mécanisme de rollback avant intégration durable.'],8);
   const risks=uniqText([...limits,...unknowns.map(x=>'À confirmer : '+x)],12);
-  return {schema:1,entity_id:entityId,objective:'Passer de la compréhension L2 à un test ou une intégration contrôlée.',first_actions:first,test_plan:testPlan,integration_plan:integration,risks,blockers:unknowns,source_score:Number(h.score||0),source_ready:Boolean(h.pret)};
+  const bestFor=uniqText([uses[0]||'',uses[1]||'',audiences[0]?'Public pertinent : '+audiences[0]:''],6);
+  const strengths=uniqText([definition,confidence>=0.9?'Identité fonctionnelle fortement confirmée par les preuves du dépôt.':'',commands.length?'Commandes de test ou de lancement disponibles.':'',deps.length?'Dépendances techniques identifiées.':'',interfaces.length?'Interfaces identifiées : '+interfaces.join(', '):'',evidence.length?'Preuves disponibles : '+evidence.slice(-4).join(' ; '):''],8);
+  const selectionChecks=uniqText([unknowns.length?'Lever les inconnues critiques : '+unknowns.slice(0,5).join(', '):'',limits.length?'Vérifier les limites : '+limits.slice(0,4).join(' ; '):'',commands.length?'Confirmer que les commandes sont compatibles avec l’environnement cible.':'Confirmer une procédure de lancement reproductible.',deps.length?'Confirmer que les dépendances sont acceptables pour le projet cible.':''],8);
+  const readiness=commands.length&&confidence>=0.8?(unknowns.length<=1?'TESTABLE':'TESTABLE_AVEC_VERIFICATIONS'):'REVUE_REQUISE';
+  const researchTerms=uniqText([role,dossier.role_id||'',...uses,...interfaces,...audiences,...deps.slice(0,8)],24);
+  return {
+    schema:2,entity_id:entityId,
+    objective:'Passer de la compréhension L2 à la sélection, au test puis à une intégration contrôlée.',
+    relevance_summary:definition,
+    best_for:bestFor,
+    strengths,
+    selection_checks:selectionChecks,
+    readiness,
+    research_terms:researchTerms,
+    first_actions:first,
+    test_plan:testPlan,
+    integration_plan:integration,
+    risks,
+    blockers:unknowns,
+    source_score:Number(h.score||0),
+    source_identity_confidence:confidence,
+    source_ready:Boolean(h.pret)
+  };
 }
 function l3Step(limit=2){
   limit=Math.max(1,Math.min(Number(limit||2),5));
   const rows=db.prepare("SELECT l.entity_id,l.dossier_json FROM l2_profiles l LEFT JOIN l3_actions a ON a.entity_id=l.entity_id WHERE l.source_version=? AND l.l3_ready=1 AND (a.entity_id IS NULL OR a.source_l2_version<>?) ORDER BY l.comprehension_score DESC,l.updated_at ASC LIMIT ?").all(L2_RULESET_VERSION,L2_RULESET_VERSION,limit);
   if(!rows.length)return {done:0,state:'EMPTY'};const stmt=db.prepare("INSERT INTO l3_actions(entity_id,action_json,source_l2_version,updated_at) VALUES(?,?,?,?) ON CONFLICT(entity_id) DO UPDATE SET action_json=excluded.action_json,source_l2_version=excluded.source_l2_version,updated_at=excluded.updated_at");let done=0;
-  for(const r of rows){try{const d=jsonObject(r.dossier_json),pack=l3ActionPackFromDossier(r.entity_id,d);stmt.run(r.entity_id,JSON.stringify(pack),L2_RULESET_VERSION,now());done++}catch(e){event('ERROR','L3_ACTION_ERROR',r.entity_id+' :: '+String(e.message||e))}}
+  for(const r of rows){try{const d=jsonObject(r.dossier_json),pack=l3ActionPackFromDossier(r.entity_id,d);stmt.run(r.entity_id,JSON.stringify(pack),L2_RULESET_VERSION,now());syncSearchEntity(r.entity_id);done++}catch(e){event('ERROR','L3_ACTION_ERROR',r.entity_id+' :: '+String(e.message||e))}}
   if(done)event('INFO','L3_ACTION_OK','+'+done+' pack(s)');return {done,state:done?'OK':'ERROR'};
 }
 function l3Stats(){
