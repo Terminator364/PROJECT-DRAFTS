@@ -1688,7 +1688,7 @@ function chatSearch(q,limit=8){
   const items=ranked.items.slice(0,limit).map(({_title,_l1,_l2,_l3,_hidden,_bm25,...x})=>x);
   return {q,total:ranked.total,items,concepts:ranked.groups,mode:ranked.mode,search_mode:ranked.mode,engine:'FTS5_CONCEPT_RERANK_L1_L2_L3'};
 }
-async function searchAuditSnapshot(){
+async async function searchAuditSnapshot(){
   ensureSearchIndex(true);
   const queries=['android remote control','secure remote access','local ai','coding agent orchestrator','api client','docker backup','typescript automation','database gui','offline first','websocket remote','self hosted monitoring','telegram automation'];
   const results={};
