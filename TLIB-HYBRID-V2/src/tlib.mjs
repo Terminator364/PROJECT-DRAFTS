@@ -460,7 +460,10 @@ function reclassifyExisting() {
       changed++;
     }catch{}
   }
-  if(changed) event('INFO','L1_RECLASSIFY','rows='+changed);
+  if(changed){
+    event('INFO','L1_RECLASSIFY','rows='+changed);
+    rebuildSearchIndex();
+  }
   return changed;
 }
 
@@ -672,6 +675,7 @@ function upsertFixtureResult(x) {
     x.disabled?1:0,x.has_wiki?1:0,x.has_pages?1:0,x.has_discussions?1:0,q.score
   );
   applyExtendedL1(id,x,q);
+  syncSearchEntity(id);
   db.prepare(`UPDATE jobs SET status='DONE', last_error=NULL, updated_at=? WHERE entity_id=?`).run(now(),id);
   return true;
 }
@@ -852,6 +856,7 @@ async function deepL1Step() {
     db.prepare(`UPDATE results SET languages_json=?,latest_release_tag=?,latest_release_at=?,
                 community_health=?,readme_present=?,deep_status='DONE',l1_stage='L1_COMPLETE'
                 WHERE entity_id=?`).run(langJson,releaseTag,releaseAt,health,readme?1:0,row.entity_id);
+    syncSearchEntity(row.entity_id);
     event('INFO','L1_DEEP_OK',row.full_name);
     deepNextAttemptAt=Date.now()+2500;
     return {done:1,state:'OK'};
@@ -886,6 +891,7 @@ function saveLiveResult(job, r) {
     x.disabled?1:0,x.has_wiki?1:0,x.has_pages?1:0,x.has_discussions?1:0,q.score
   );
   applyExtendedL1(job.entity_id,x,q);
+  syncSearchEntity(job.entity_id);
   db.prepare(`UPDATE jobs SET status='DONE', last_error=NULL, updated_at=? WHERE entity_id=?`).run(now(),job.entity_id);
 }
 
@@ -1181,19 +1187,19 @@ function l2Stats(){
 }
 function l2QueueRows(limit=60){
   limit=Math.max(1,Math.min(Number(limit||60),200));
-  const base=db.prepare("SELECT 'BASE_V3' AS queue,r.entity_id,r.full_name,r.technology,r.resource_kind,r.l1_score,r.stars,r.activity_status,r.fetched_at FROM results r LEFT JOIN l2_profiles l ON l.entity_id=r.entity_id WHERE "+l2EligibilitySql('r')+" AND (l.entity_id IS NULL OR coalesce(l.source_version,'')<>?) ORDER BY r.l1_score DESC,r.stars DESC,r.fetched_at ASC LIMIT ?").all(L2_RULESET_VERSION,limit);
+  const base=db.prepare("SELECT 'BASE_V4' AS queue,r.entity_id,r.full_name,r.technology,r.resource_kind,r.l1_score,r.stars,r.activity_status,r.fetched_at FROM results r LEFT JOIN l2_profiles l ON l.entity_id=r.entity_id WHERE "+l2EligibilitySql('r')+" AND (l.entity_id IS NULL OR coalesce(l.source_version,'')<>?) ORDER BY r.l1_score DESC,r.stars DESC,r.fetched_at ASC LIMIT ?").all(L2_RULESET_VERSION,limit);
   if(base.length>=limit)return base;
-  const deep=db.prepare("SELECT 'DEEP_V3' AS queue,r.entity_id,r.full_name,r.technology,r.resource_kind,r.l1_score,r.stars,r.activity_status,l.updated_at AS fetched_at FROM l2_profiles l JOIN results r ON r.entity_id=l.entity_id WHERE l.source_version=? AND l.deep_status IN ('PENDING','RETRY') ORDER BY l.comprehension_score DESC,l.updated_at ASC LIMIT ?").all(L2_RULESET_VERSION,limit-base.length);
+  const deep=db.prepare("SELECT 'DEEP_V4' AS queue,r.entity_id,r.full_name,r.technology,r.resource_kind,r.l1_score,r.stars,r.activity_status,l.updated_at AS fetched_at FROM l2_profiles l JOIN results r ON r.entity_id=l.entity_id WHERE l.source_version=? AND l.deep_status IN ('PENDING','RETRY') ORDER BY l.comprehension_score DESC,l.updated_at ASC LIMIT ?").all(L2_RULESET_VERSION,limit-base.length);
   return base.concat(deep);
 }
 function l2BaseStep(limit=3){
   limit=Math.max(1,Math.min(Number(limit||3),6));
   const rows=db.prepare('SELECT r.* FROM results r LEFT JOIN l2_profiles l ON l.entity_id=r.entity_id WHERE '+l2EligibilitySql('r')+" AND (l.entity_id IS NULL OR coalesce(l.source_version,'')<>?) ORDER BY r.l1_score DESC,r.stars DESC,r.fetched_at ASC LIMIT ?").all(L2_RULESET_VERSION,limit);
   if(!rows.length)return {done:0,state:'EMPTY'};
-  const sql="INSERT INTO l2_profiles(entity_id,human_summary,capabilities_json,use_cases_json,limitations_json,confidence,source,updated_at,stage,deep_status,score,evidence_json,readme_signals_json,attempts,last_error,source_version,dossier_json,comprehension_score,l3_ready,language_ui,deep_sources_json) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ON CONFLICT(entity_id) DO UPDATE SET human_summary=excluded.human_summary,capabilities_json=excluded.capabilities_json,use_cases_json=excluded.use_cases_json,limitations_json=excluded.limitations_json,confidence=excluded.confidence,source=excluded.source,updated_at=excluded.updated_at,stage=excluded.stage,deep_status=excluded.deep_status,score=excluded.score,evidence_json=excluded.evidence_json,readme_signals_json=excluded.readme_signals_json,attempts=excluded.attempts,last_error=excluded.last_error,source_version=excluded.source_version,dossier_json=excluded.dossier_json,comprehension_score=excluded.comprehension_score,l3_ready=excluded.l3_ready,language_ui=excluded.language_ui,deep_sources_json=excluded.deep_sources_json";
+  const sql="INSERT INTO l2_profiles(entity_id,human_summary,capabilities_json,use_cases_json,limitations_json,confidence,source,updated_at,stage,deep_status,score,evidence_json,readme_signals_json,attempts,last_error,source_version,dossier_json,comprehension_score,l3_ready,language_ui,deep_sources_json,retrieval_text) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ON CONFLICT(entity_id) DO UPDATE SET human_summary=excluded.human_summary,capabilities_json=excluded.capabilities_json,use_cases_json=excluded.use_cases_json,limitations_json=excluded.limitations_json,confidence=excluded.confidence,source=excluded.source,updated_at=excluded.updated_at,stage=excluded.stage,deep_status=excluded.deep_status,score=excluded.score,evidence_json=excluded.evidence_json,readme_signals_json=excluded.readme_signals_json,attempts=excluded.attempts,last_error=excluded.last_error,source_version=excluded.source_version,dossier_json=excluded.dossier_json,comprehension_score=excluded.comprehension_score,l3_ready=excluded.l3_ready,language_ui=excluded.language_ui,deep_sources_json=excluded.deep_sources_json,retrieval_text=excluded.retrieval_text";
   const stmt=db.prepare(sql);let done=0;
-  for(const r of rows){try{const p=l2FrenchDossier(r);stmt.run(r.entity_id,p.human_summary,JSON.stringify(p.capabilities),JSON.stringify(p.use_cases),JSON.stringify(p.limitations),p.confidence,'L1_DOSSIER_FR',now(),'BASE',p.deep_status,p.score,JSON.stringify(p.evidence),'{}',0,null,L2_RULESET_VERSION,JSON.stringify(p.dossier),p.score,p.l3_ready,'fr','[]');done++;}catch(e){event('ERROR','L2_BASE_V3_ERROR',String(r.full_name||r.entity_id)+' :: '+String(e.message||e))}}
-  if(done)event('INFO','L2_BASE_V3_OK','+'+done+' dossier(s)');return {done,state:done?'OK':'ERROR'};
+  for(const r of rows){try{const p=l2FrenchDossier(r);stmt.run(r.entity_id,p.human_summary,JSON.stringify(p.capabilities),JSON.stringify(p.use_cases),JSON.stringify(p.limitations),p.confidence,'L1_DOSSIER_FR_V4',now(),'BASE',p.deep_status,p.score,JSON.stringify(p.evidence),'{}',0,null,L2_RULESET_VERSION,JSON.stringify(p.dossier),p.score,p.l3_ready,'fr','[]',p.retrieval_hidden||'');syncSearchEntity(r.entity_id);done++;}catch(e){event('ERROR','L2_BASE_V4_ERROR',String(r.full_name||r.entity_id)+' :: '+String(e.message||e))}}
+  if(done)event('INFO','L2_BASE_V4_OK','+'+done+' dossier(s)');return {done,state:done?'OK':'ERROR'};
 }
 async function l2DeepStep(){
   if(Date.now()<l2DeepNextAttemptAt)return {done:0,state:'WAIT'};if(!githubToken())return {done:0,state:'NO_AUTH'};if(publicRateRemaining!==null&&publicRateRemaining<L2_README_RATE_RESERVE)return {done:0,state:'RESERVE_RATE'};
@@ -1205,10 +1211,11 @@ async function l2DeepStep(){
     if(rr.status!==404&&rr.body&&rr.body.content)decoded=Buffer.from(String(rr.body.content||'').replace(/\s/g,''),String(rr.body.encoding||'base64')).toString('utf8').slice(0,65536);
     const sig=readmeSignals(decoded),inventory=await rootInventory(row.full_name,row.default_branch||'main'),facts=await manifestFacts(row,inventory),p=l2FrenchDossier(row,sig,inventory,facts);
     const deepSources=uniqText([decoded?'README':'',inventory.names.length?'Structure racine':'',...facts.files.map(x=>'Fichier '+x)],12);
-    const sql="UPDATE l2_profiles SET human_summary=?,capabilities_json=?,use_cases_json=?,limitations_json=?,confidence=?,source='L2_V3_README_STRUCTURE_MANIFESTS',updated_at=?,stage='DEEP',deep_status='DONE',score=?,evidence_json=?,readme_signals_json=?,attempts=coalesce(attempts,0)+1,last_error=NULL,source_version=?,dossier_json=?,comprehension_score=?,l3_ready=?,language_ui='fr',deep_sources_json=? WHERE entity_id=?";
-    db.prepare(sql).run(p.human_summary,JSON.stringify(p.capabilities),JSON.stringify(p.use_cases),JSON.stringify(p.limitations),p.confidence,now(),p.score,JSON.stringify(p.evidence),JSON.stringify(sig),L2_RULESET_VERSION,JSON.stringify(p.dossier),p.score,p.l3_ready,JSON.stringify(deepSources),row.entity_id);
-    event('INFO','L2_DEEP_V3_OK',row.full_name+'; score='+p.score+'; l3='+p.l3_ready+'; sources='+deepSources.length);l2DeepNextAttemptAt=Date.now()+4500;return {done:1,state:'OK'};
-  }catch(e){if(e.code==='RATE_LIMIT'){l2DeepNextAttemptAt=Math.max(Date.now()+60000,Number(e.reset||0)*1000+15000);event('WARN','L2_DEEP_V3_RATE_LIMIT','reset='+Number(e.reset||0));return {done:0,state:'RATE_LIMIT'}}db.prepare("UPDATE l2_profiles SET deep_status='RETRY',attempts=coalesce(attempts,0)+1,last_error=?,updated_at=? WHERE entity_id=?").run(String(e.message||e).slice(0,400),now(),row.entity_id);l2DeepNextAttemptAt=Date.now()+15000;event('ERROR','L2_DEEP_V3_ERROR',row.full_name+' :: '+String(e.message||e));return {done:0,state:'ERROR'}}
+    const sql="UPDATE l2_profiles SET human_summary=?,capabilities_json=?,use_cases_json=?,limitations_json=?,confidence=?,source='L2_V4_README_STRUCTURE_MANIFESTS',updated_at=?,stage='DEEP',deep_status='DONE',score=?,evidence_json=?,readme_signals_json=?,attempts=coalesce(attempts,0)+1,last_error=NULL,source_version=?,dossier_json=?,comprehension_score=?,l3_ready=?,language_ui='fr',deep_sources_json=?,retrieval_text=? WHERE entity_id=?";
+    db.prepare(sql).run(p.human_summary,JSON.stringify(p.capabilities),JSON.stringify(p.use_cases),JSON.stringify(p.limitations),p.confidence,now(),p.score,JSON.stringify(p.evidence),JSON.stringify(sig),L2_RULESET_VERSION,JSON.stringify(p.dossier),p.score,p.l3_ready,JSON.stringify(deepSources),p.retrieval_hidden||'',row.entity_id);
+    syncSearchEntity(row.entity_id);
+    event('INFO','L2_DEEP_V4_OK',row.full_name+'; score='+p.score+'; l3='+p.l3_ready+'; role='+String(p.dossier?.role_id||'')+'; sources='+deepSources.length);l2DeepNextAttemptAt=Date.now()+4500;return {done:1,state:'OK'};
+  }catch(e){if(e.code==='RATE_LIMIT'){l2DeepNextAttemptAt=Math.max(Date.now()+60000,Number(e.reset||0)*1000+15000);event('WARN','L2_DEEP_V4_RATE_LIMIT','reset='+Number(e.reset||0));return {done:0,state:'RATE_LIMIT'}}db.prepare("UPDATE l2_profiles SET deep_status='RETRY',attempts=coalesce(attempts,0)+1,last_error=?,updated_at=? WHERE entity_id=?").run(String(e.message||e).slice(0,400),now(),row.entity_id);l2DeepNextAttemptAt=Date.now()+15000;event('ERROR','L2_DEEP_V4_ERROR',row.full_name+' :: '+String(e.message||e));return {done:0,state:'ERROR'}}
 }
 function l3ActionPackFromDossier(entityId,dossier){
   dossier=dossier&&typeof dossier==='object'?dossier:{};const h=dossier.handoff_l3||{};
