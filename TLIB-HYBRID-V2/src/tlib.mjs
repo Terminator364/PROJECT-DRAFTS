@@ -963,7 +963,8 @@ function fixtureL2Canary() {
   console.log(JSON.stringify({ok:true,mode:'l2-fixture',done,summary:statusSnapshot()},null,2));
 }
 
-const L2_RULESET_VERSION='2026.09-v3-dossier';
+const L2_RULESET_VERSION='2026.09-v4-semantic';
+const SEARCH_INDEX_VERSION='2026.09-v2-l1-l2-l3-fts';
 const L2_MIN_L1_SCORE=65;
 const L2_README_RATE_RESERVE=2800;
 const L2_RAW_FILE_MAX=262144;
@@ -976,6 +977,76 @@ function jsonObject(v){try{const x=JSON.parse(v||'{}');return x&&typeof x==='obj
 function uniqText(xs,max=16){return [...new Set(xs.map(x=>String(x||'').trim()).filter(Boolean))].slice(0,max)}
 function frJoin(xs){xs=uniqText(xs,8);return xs.length<2?(xs[0]||''):xs.slice(0,-1).join(', ')+' et '+xs[xs.length-1]}
 function sentence(v){v=String(v||'').trim();return v?v.replace(/\s+/g,' ').replace(/[.;:,\s]+$/,'')+'.':''}
+
+const SEARCH_STOPWORDS=new Set(['a','au','aux','avec','ce','ces','dans','de','des','du','elle','en','et','eux','il','je','la','le','les','leur','lui','ma','mais','me','meme','mes','moi','mon','ne','nos','notre','nous','on','ou','par','pas','pour','qu','que','qui','sa','se','ses','son','sur','ta','te','tes','toi','ton','tu','un','une','vos','votre','vous','the','of','and','or','to','for','with','from','in','on','is','are']);
+function searchNormalize(v){return String(v||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase()}
+function searchConceptGroups(q){
+  let x=searchNormalize(q).replace(/c\+\+/g,' cpp ').replace(/c#/g,' csharp ');
+  const groups=[];
+  const phrases=[
+    [/base(?:s)? de donnees?/g,['database','sql','postgres','mysql','sqlite','redis']],
+    [/intelligence artificielle/g,['ai','llm','artificial','intelligence']],
+    [/ia locale/g,['local','ai','llm','localai','ollama']],
+    [/a distance/g,['remote','distance']],
+    [/auto[- ]?heberg(?:e|ee|er)/g,['selfhosted','self','hosted']],
+    [/ligne de commande/g,['cli','terminal','command']],
+    [/sauvegard(?:e|es)/g,['backup','snapshot','restore']],
+    [/supervision/g,['monitoring','observability','monitor']],
+    [/automatisation/g,['automation','workflow','automate']],
+    [/controle/g,['control','remote','pilotage']],
+    [/telephone/g,['mobile','android','ios']],
+    [/ordinateur/g,['desktop','pc','computer']]
+  ];
+  for(const [rx,alts] of phrases){
+    if(rx.test(x)){groups.push(alts);x=x.replace(rx,' ');}
+  }
+  for(const token of x.split(/[^a-z0-9_.+#-]+/).map(t=>t.replace(/^[-_.]+|[-_.]+$/g,'')).filter(t=>t.length>1&&!SEARCH_STOPWORDS.has(t))){
+    const map={distance:['distance','remote'],sauvegarde:['backup','snapshot','restore'],monitoring:['monitoring','observability','monitor'],android:['android'],mobile:['mobile','android','ios'],telegram:['telegram'],docker:['docker','container'],offline:['offline','localfirst'],local:['local','localai'],agent:['agent','agents'],agents:['agent','agents'],workflow:['workflow','automation'],backup:['backup','snapshot','restore'],remote:['remote','distance'],database:['database','sql','postgres','mysql','sqlite'],gui:['gui','interface']};
+    groups.push(map[token]||[token]);
+  }
+  return groups.slice(0,8);
+}
+function searchFtsQuery(q){
+  const groups=searchConceptGroups(q);
+  if(!groups.length)return '';
+  return groups.map(g=>'('+uniqText(g,8).map(t=>String(t).replace(/[^a-z0-9_.-]/g,'')).filter(Boolean).map(t=>t+'*').join(' OR ')+')').filter(x=>x!=='()').join(' AND ');
+}
+function syncSearchEntity(entityIdValue){
+  try{
+    const r=db.prepare(`SELECT r.entity_id,r.full_name,r.description,r.language,r.license,r.topics_json,r.resource_kind,r.technology,r.content_mode,r.activity_status,r.primary_theme,r.theme_path,r.theme_tags_json,r.l1_summary,
+      l.human_summary,l.capabilities_json,l.use_cases_json,l.limitations_json,l.dossier_json,l.retrieval_text,
+      a.action_json
+      FROM results r
+      LEFT JOIN l2_profiles l ON l.entity_id=r.entity_id AND l.source_version=?
+      LEFT JOIN l3_actions a ON a.entity_id=r.entity_id AND a.source_l2_version=?
+      WHERE r.entity_id=?`).get(L2_RULESET_VERSION,L2_RULESET_VERSION,entityIdValue);
+    db.prepare('DELETE FROM search_fts WHERE entity_id=?').run(entityIdValue);
+    if(!r)return;
+    const l1=[r.description,r.language,r.license,r.topics_json,r.resource_kind,r.technology,r.content_mode,r.activity_status,r.primary_theme,r.theme_path,r.theme_tags_json,r.l1_summary].filter(Boolean).join(' ');
+    const l2=[r.human_summary,r.capabilities_json,r.use_cases_json,r.limitations_json,r.dossier_json].filter(Boolean).join(' ');
+    db.prepare('INSERT INTO search_fts(entity_id,title,l1,l2,l3,hidden) VALUES(?,?,?,?,?,?)').run(r.entity_id,r.full_name||'',l1,l2,r.action_json||'',r.retrieval_text||'');
+  }catch(e){try{event('WARN','SEARCH_SYNC_ERROR',String(entityIdValue)+' :: '+String(e.message||e).slice(0,240))}catch{}}
+}
+function rebuildSearchIndex(){
+  const started=Date.now();
+  db.exec('DELETE FROM search_fts');
+  const rows=db.prepare('SELECT entity_id FROM results').all();
+  const tx=db.transaction((items)=>{for(const r of items)syncSearchEntity(r.entity_id)});
+  tx(rows);
+  db.prepare("INSERT INTO search_meta(key,value) VALUES('index_version',?) ON CONFLICT(key) DO UPDATE SET value=excluded.value").run(SEARCH_INDEX_VERSION);
+  db.prepare("INSERT INTO search_meta(key,value) VALUES('indexed_count',?) ON CONFLICT(key) DO UPDATE SET value=excluded.value").run(String(rows.length));
+  event('INFO','SEARCH_INDEX_REBUILT','rows='+rows.length+'; ms='+(Date.now()-started));
+  return rows.length;
+}
+function ensureSearchIndex(){
+  try{
+    const v=db.prepare("SELECT value FROM search_meta WHERE key='index_version'").get()?.value||'';
+    const indexed=Number(db.prepare('SELECT COUNT(*) AS n FROM search_fts').get().n||0);
+    const total=Number(db.prepare('SELECT COUNT(*) AS n FROM results').get().n||0);
+    if(v!==SEARCH_INDEX_VERSION||indexed!==total)return rebuildSearchIndex();
+    return indexed;
+  }catch{return rebuildSearchIndex()}
+}
 
 const L2_SIGNAL_RULES=[
   ['API / intégration',/\bapi\b|rest|graphql|webhook|sdk|integration/],
