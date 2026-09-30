@@ -1375,30 +1375,20 @@ function libraryRows(q='', limit=100, offset=0, sort='stars') {
       ORDER BY ${order} LIMIT ? OFFSET ?`).all(L2_RULESET_VERSION,limit,offset);
   }
   ensureSearchIndex();
-  const resolved=resolveSearchMatch(q),match=resolved.match;
-  if(!match)return [];
-  return db.prepare(`SELECT r.entity_id,r.full_name,r.description,r.stars,r.language,r.license,r.topics_json,r.archived,r.fork,
-      r.updated_at_github,r.pushed_at,r.default_branch,r.size_kb,r.open_issues,r.fetched_at,
-      r.resource_kind,r.technology,r.content_mode,r.activity_status,r.activity_days,r.l1_quality,r.l1_score,
-      r.primary_theme,r.theme_path,r.theme_tags_json,r.theme_confidence,
-      l.human_summary,l.stage AS l2_stage,l.comprehension_score AS l2_score,l.l3_ready,
-      bm25(search_fts,0.0,10.0,4.0,9.0,6.0,3.0) AS search_rank
-    FROM search_fts
-    JOIN results r ON r.entity_id=search_fts.entity_id
-    LEFT JOIN l2_profiles l ON l.entity_id=r.entity_id AND l.source_version=?
-    WHERE search_fts MATCH ?
-    ORDER BY search_rank ASC,coalesce(l.comprehension_score,0) DESC,r.l1_score DESC,r.stars DESC
-    LIMIT ? OFFSET ?`).all(L2_RULESET_VERSION,match,limit,offset).map(x=>({...x,search_mode:resolved.mode}));
+  const ranked=searchRanked(q).items;
+  let rows=ranked;
+  if(sort==='recent')rows=[...ranked].sort((a,b)=>b.search_score-a.search_score||String(b.pushed_at||'').localeCompare(String(a.pushed_at||'')));
+  else if(sort==='name')rows=[...ranked].sort((a,b)=>b.search_score-a.search_score||String(a.full_name).localeCompare(String(b.full_name)));
+  else if(sort==='stars')rows=[...ranked].sort((a,b)=>b.search_score-a.search_score||Number(b.stars||0)-Number(a.stars||0));
+  return rows.slice(offset,offset+limit).map(({_title,_l1,_l2,_l3,_hidden,_bm25,...x})=>x);
 }
 
 function libraryCount(q='') {
   q=String(q||'').trim();
   if(!q)return Number(db.prepare('SELECT COUNT(*) AS n FROM results').get().n);
   ensureSearchIndex();
-  const match=resolveSearchMatch(q).match;if(!match)return 0;
-  return Number(db.prepare('SELECT COUNT(*) AS n FROM search_fts WHERE search_fts MATCH ?').get(match).n||0);
+  return searchRanked(q).total;
 }
-
 function l2Rows(limit=100) {
   limit=Math.max(1,Math.min(Number(limit||100),500));
   return db.prepare(`SELECT r.entity_id,r.full_name,r.resource_kind,r.technology,r.activity_status,r.stars,
