@@ -151,6 +151,7 @@ ensureL2Column('comprehension_score','INTEGER');
 ensureL2Column('l3_ready','INTEGER');
 ensureL2Column('language_ui','TEXT');
 ensureL2Column('deep_sources_json','TEXT');
+ensureL2Column('retrieval_text','TEXT');
 db.prepare("UPDATE l2_profiles SET stage=coalesce(stage,'BASE'),deep_status=coalesce(deep_status,CASE WHEN source='fixture' THEN 'NOT_APPLICABLE' ELSE 'PENDING' END),attempts=coalesce(attempts,0),source_version=coalesce(source_version,CASE WHEN source='fixture' THEN 'fixture-v1' ELSE 'legacy' END),language_ui=coalesce(language_ui,'fr'),comprehension_score=coalesce(comprehension_score,score,0),l3_ready=coalesce(l3_ready,0)").run();
 
 db.exec(`
@@ -163,6 +164,8 @@ CREATE INDEX IF NOT EXISTS idx_l2_stage_status ON l2_profiles(stage,deep_status,
 CREATE INDEX IF NOT EXISTS idx_l2_score ON l2_profiles(score);
 CREATE TABLE IF NOT EXISTS l3_actions(entity_id TEXT PRIMARY KEY,action_json TEXT NOT NULL,source_l2_version TEXT NOT NULL,updated_at TEXT NOT NULL);
 CREATE INDEX IF NOT EXISTS idx_l3_updated ON l3_actions(updated_at);
+CREATE TABLE IF NOT EXISTS search_meta(key TEXT PRIMARY KEY,value TEXT NOT NULL);
+CREATE VIRTUAL TABLE IF NOT EXISTS search_fts USING fts5(entity_id UNINDEXED,title,l1,l2,l3,hidden,tokenize='unicode61 remove_diacritics 2');
 `);
 
 const now = () => new Date().toISOString();
