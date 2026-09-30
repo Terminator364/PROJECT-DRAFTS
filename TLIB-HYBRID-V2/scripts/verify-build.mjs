@@ -148,6 +148,7 @@ if(html){
   js.includes('data-l2mini-tab="understand"')&&js.includes('data-l2mini-tab="use"')&&js.includes('data-l2mini-tab="architecture"')&&js.includes('data-l2mini-tab="proof"')?ok('l2-v4-nested-dossier-tabs'):fail('l2-v4-nested-dossier-tabs');
   js.includes('dossier.definition_fr')&&js.includes('installation_lancement_fr')&&js.includes('a_verifier_fr')?ok('l2-v4-french-dossier-render'):fail('l2-v4-french-dossier-render');
   markup.includes('V4 sémantique')&&js.includes('identity_confidence')&&js.includes('role_fr')?ok('l2-v4-semantic-identity-ui'):fail('l2-v4-semantic-identity-ui');
+  js.includes('identity_basis_fr')&&js.includes('identity_source')&&js.includes('Pourquoi ce rôle ?')?ok('l2-v4-identity-trace-ui'):fail('l2-v4-identity-trace-ui');
   markup.includes('Recherche locale multiterme dans L1 + L2 V4 + L3')&&js.includes('RELAXED_CONCEPTS')&&js.includes('search_coverage')&&js.includes('pertinence ')?ok('semantic-search-ui'):fail('semantic-search-ui');
   js.includes('l3pack.best_for')&&js.includes('l3pack.strengths')&&js.includes('l3pack.selection_checks')&&js.includes('l3pack.readiness')?ok('l3-decision-ui'):fail('l3-decision-ui');
   markup.includes('<section id="l3" class="section">')&&markup.includes('id="l3Results"')&&markup.includes('data-l3-tab="packs"')?ok('l3-real-workspace'):fail('l3-real-workspace');
@@ -197,18 +198,23 @@ try{
     ['l1-functional-taxonomy',src.includes("TAXONOMY_VERSION='2026.09-v2-functional'")&&src.includes('Développement/Outils IA & Agents')&&src.includes('Réseau & IoT/Accès distant')&&src.includes('priority=(p)=>')],
     ['l1-reclassify-no-downgrade',src.includes("coalesce(deep_status,'')='DONE'")&&src.includes("coalesce(l1_stage,'')='L1_COMPLETE'")&&src.includes("THEN 'L1_COMPLETE'")],
     ['l2-primary-role-engine',src.includes('const L2_ROLE_RULES=')&&src.includes('function l2PrimaryRole')&&src.includes('identity_confidence')&&src.includes('role_id')],
+    ['l2-identity-evidence-trace',src.includes('identity_source')&&src.includes('identity_basis_fr')&&src.includes("README_IDENTITY")&&src.includes("GITHUB_DESCRIPTION")&&src.includes("SIGNAL_FALLBACK")],
     ['l2-role-before-capabilities',src.includes('const role=l2PrimaryRole(r,sig,signals)')&&src.includes("const purposes=uniqText([role.purpose")],
     ['l2-quality-readiness',src.includes('role.confidence>=0.75')&&src.includes('score>=82')&&src.includes('interpretation_version:2')],
     ['search-fts-schema',src.includes('CREATE VIRTUAL TABLE IF NOT EXISTS search_fts USING fts5')&&src.includes('SEARCH_INDEX_VERSION')],
     ['search-fts-ranking',src.includes('bm25(search_fts')&&src.includes('resolveSearchMatch')&&src.includes('ALL_CONCEPTS_AVAILABLE')&&src.includes('RELAXED_CONCEPTS')&&src.includes('searchRanked')&&src.includes('search_coverage')],
     ['search-concept-coverage-gate',src.includes('resolved.strict_hits>0?1')&&src.includes('coverage*180')],
     ['search-legacy-fallback',src.includes('legacy_summary')&&src.includes('legacy_dossier')&&src.includes('legacy_action')&&src.includes('SEARCH_INDEX_VERSION=\'2026.09-v3-semantic-with-legacy-fallback\'')],
-    ['semantic-selftest',src.includes('SEMANTIC_ROLE_FAIL')&&src.includes('SEMANTIC_THEME_FAIL')&&src.includes('SEARCH_CONCEPT_SELFTEST_FAIL')],
+    ['semantic-selftest',src.includes('SEMANTIC_ROLE_FAIL')&&src.includes('SEMANTIC_THEME_FAIL')&&src.includes('SEARCH_CONCEPT_SELFTEST_FAIL')&&src.includes('SEARCH_TOKEN_BOUNDARY_SELFTEST_FAIL')&&src.includes('SEARCH_FRENCH_CONCEPT_SELFTEST_FAIL')],
+    ['search-short-token-boundary',src.includes('function searchFtsTerm')&&src.includes('function searchTextHasTerm')&&src.includes("searchFtsTerm('gui')!=='gui'")],
+    ['search-software-priority',src.includes("kind==='Projet logiciel'?10")&&src.includes("Catalogue de ressources'?-18")],
     ['search-audit-cli',src.includes("cmd === 'search-audit'")&&src.includes('searchAuditSnapshot')&&src.includes('live_readme_probe')],
     ['search-agent-fast-start',src.includes("if (cmd === 'agent')")&&src.includes('startDashboard();')&&!src.slice(src.indexOf("if (cmd === 'agent')"),src.indexOf("throw new Error('UNKNOWN_COMMAND",src.indexOf("if (cmd === 'agent')"))).includes('ensureSearchIndex(')],
     ['search-l1-l2-l3-index',src.includes('syncSearchEntity')&&src.includes('l.dossier_json')&&src.includes('a.action_json')&&src.includes('l.retrieval_text')],
     ['search-bilingual-concepts',src.includes('searchConceptGroups')&&src.includes("['database','sql','postgres','mysql','sqlite','redis']")&&src.includes("['local','ai','llm','localai','ollama']")],
     ['search-background-index',src.includes("if (cmd === 'worker')")&&src.includes('reclassifyExisting();')&&src.includes('ensureSearchIndex(true);')],
+    ['manifest-depth-extraction',src.includes("p==='cargo.toml'")&&src.includes("p==='go.mod'")&&src.includes("p==='pyproject.toml'")&&src.includes("docker compose up")&&src.includes("pip install -r requirements.txt")],
+    ['readme-command-depth',src.includes('pipx|uv|poetry|conda')&&src.includes('helm|kubectl')&&src.includes('matchAll(/\\x60')],
     ['l3-decision-support',src.includes('relevance_summary')&&src.includes('best_for')&&src.includes('selection_checks')&&src.includes('readiness')&&src.includes('research_terms')],
     ['l3-api',src.includes("/api/l3/list")&&src.includes('l3Stats()')]
   ];
