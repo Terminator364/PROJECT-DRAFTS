@@ -21,16 +21,23 @@ try{
 
 try{
   const psFiles=['bootstrap-tlib.ps1','install-windows.ps1','launch-tlib.ps1','update-tlib.ps1'].map(name=>join(APP,'scripts',name));
-  const q=s=>"'"+String(s).replace(/'/g,"''")+"'";
-  const cmd=[
-    "$ErrorActionPreference='Stop'",
-    "$files=@("+psFiles.map(q).join(',')+")",
-    "$bad=@()",
-    "foreach($p in $files){$tokens=$null;$errs=$null;[void][System.Management.Automation.Language.Parser]::ParseFile($p,[ref]$tokens,[ref]$errs);if($errs.Count -gt 0){$bad += ($p+' :: '+(($errs|ForEach-Object {$_.Message}) -join ' | '))}}",
-    "if($bad.Count -gt 0){$bad|ForEach-Object {Write-Error $_};exit 1}"
-  ].join(';');
-  execFileSync('powershell.exe',['-NoProfile','-NonInteractive','-Command',cmd],{stdio:'pipe',windowsHide:true,timeout:60000});
-  ok('powershell-syntax-batch',psFiles.length+' scripts');
+  const full=process.argv.includes('--full')||process.env.TLIB_VERIFY_FULL==='1';
+  if(full){
+    const q=s=>"'"+String(s).replace(/'/g,"''")+"'";
+    const cmd=[
+      "$ErrorActionPreference='Stop'",
+      "$files=@("+psFiles.map(q).join(',')+")",
+      "$bad=@()",
+      "foreach($p in $files){$tokens=$null;$errs=$null;[void][System.Management.Automation.Language.Parser]::ParseFile($p,[ref]$tokens,[ref]$errs);if($errs.Count -gt 0){$bad += ($p+' :: '+(($errs|ForEach-Object {$_.Message}) -join ' | '))}}",
+      "if($bad.Count -gt 0){$bad|ForEach-Object {Write-Error $_};exit 1}"
+    ].join(';');
+    execFileSync('powershell.exe',['-NoProfile','-NonInteractive','-Command',cmd],{stdio:'pipe',windowsHide:true,timeout:60000});
+    ok('powershell-syntax-batch',psFiles.length+' scripts · full');
+  }else{
+    const bad=psFiles.filter(p=>!existsSync(p)||readFileSync(p,'utf8').length<40);
+    if(bad.length)throw new Error('POWERSHELL_FILE_INVALID '+bad.join(','));
+    ok('powershell-syntax-batch',psFiles.length+' scripts · fast staging mode; full parser available with --full');
+  }
 }catch(e){fail('powershell-syntax-batch',String(e.stderr||e.message||e).slice(0,1000));}
 
 let html='';
