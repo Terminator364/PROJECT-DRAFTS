@@ -204,6 +204,7 @@ try{
     ['search-concept-coverage-gate',src.includes('resolved.strict_hits>0?1')&&src.includes('coverage*180')],
     ['search-legacy-fallback',src.includes('legacy_summary')&&src.includes('legacy_dossier')&&src.includes('legacy_action')&&src.includes('SEARCH_INDEX_VERSION=\'2026.09-v3-semantic-with-legacy-fallback\'')],
     ['semantic-selftest',src.includes('SEMANTIC_ROLE_FAIL')&&src.includes('SEMANTIC_THEME_FAIL')&&src.includes('SEARCH_CONCEPT_SELFTEST_FAIL')],
+    ['search-audit-cli',src.includes("cmd === 'search-audit'")&&src.includes('searchAuditSnapshot')&&src.includes('live_readme_probe')],
     ['search-agent-fast-start',src.includes("if (cmd === 'agent')")&&src.includes('startDashboard();')&&!src.slice(src.indexOf("if (cmd === 'agent')"),src.indexOf("throw new Error('UNKNOWN_COMMAND",src.indexOf("if (cmd === 'agent')"))).includes('ensureSearchIndex(')],
     ['search-l1-l2-l3-index',src.includes('syncSearchEntity')&&src.includes('l.dossier_json')&&src.includes('a.action_json')&&src.includes('l.retrieval_text')],
     ['search-bilingual-concepts',src.includes('searchConceptGroups')&&src.includes("['database','sql','postgres','mysql','sqlite','redis']")&&src.includes("['local','ai','llm','localai','ollama']")],
