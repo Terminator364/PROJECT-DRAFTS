@@ -1397,13 +1397,15 @@ function l2Stats(){
   const total=Number(db.prepare('SELECT COUNT(*) AS n FROM l2_profiles WHERE source_version=?').get(L2_RULESET_VERSION).n);
   const base=Number(db.prepare("SELECT COUNT(*) AS n FROM l2_profiles WHERE source_version=? AND coalesce(stage,'BASE')='BASE'").get(L2_RULESET_VERSION).n);
   const deep=Number(db.prepare("SELECT COUNT(*) AS n FROM l2_profiles WHERE source_version=? AND stage='DEEP'").get(L2_RULESET_VERSION).n);
-  const basePending=Number(db.prepare('SELECT COUNT(*) AS n FROM results r LEFT JOIN l2_profiles l ON l.entity_id=r.entity_id WHERE '+l2EligibilitySql('r')+" AND (l.entity_id IS NULL OR coalesce(l.source_version,'')<>?)").get(L2_RULESET_VERSION).n);
+  const legacyRemaining=Number(db.prepare('SELECT COUNT(*) AS n FROM l2_profiles l JOIN results r ON r.entity_id=l.entity_id WHERE '+l2EligibilitySql('r')+" AND coalesce(l.source_version,'')<>?").get(L2_RULESET_VERSION).n);
+  const neverProfiled=Number(db.prepare('SELECT COUNT(*) AS n FROM results r LEFT JOIN l2_profiles l ON l.entity_id=r.entity_id WHERE '+l2EligibilitySql('r')+' AND l.entity_id IS NULL').get().n);
+  const basePending=legacyRemaining+neverProfiled;
   const deepPending=Number(db.prepare("SELECT COUNT(*) AS n FROM l2_profiles WHERE source_version=? AND deep_status IN ('PENDING','RETRY')").get(L2_RULESET_VERSION).n);
   const l3Ready=Number(db.prepare('SELECT COUNT(*) AS n FROM l2_profiles WHERE source_version=? AND l3_ready=1').get(L2_RULESET_VERSION).n);
   const fiveAgo=new Date(Date.now()-5*60*1000).toISOString();
   const last5=Number(db.prepare('SELECT COUNT(*) AS n FROM l2_profiles WHERE source_version=? AND updated_at>=?').get(L2_RULESET_VERSION,fiveAgo).n);
   const avg=Number(db.prepare('SELECT coalesce(avg(comprehension_score),0) AS n FROM l2_profiles WHERE source_version=?').get(L2_RULESET_VERSION).n||0);
-  return {eligible,total,base_done:base,deep_done:deep,base_pending:basePending,deep_pending:deepPending,l3_ready:l3Ready,throughput_per_hour:last5*12,comprehension_avg:Number(avg.toFixed(1)),progress_percent:eligible?Number((Math.min(total,eligible)*100/eligible).toFixed(2)):0,version:L2_RULESET_VERSION};
+  return {eligible,total,base_done:base,deep_done:deep,base_pending:basePending,legacy_remaining:legacyRemaining,never_profiled:neverProfiled,deep_pending:deepPending,l3_ready:l3Ready,throughput_per_hour:last5*12,comprehension_avg:Number(avg.toFixed(1)),progress_percent:eligible?Number((Math.min(total,eligible)*100/eligible).toFixed(2)):0,version:L2_RULESET_VERSION};
 }
 function l2QueueRows(limit=60){
   limit=Math.max(1,Math.min(Number(limit||60),200));
@@ -1688,13 +1690,13 @@ function chatSearch(q,limit=8){
 }
 async function searchAuditSnapshot(){
   ensureSearchIndex(true);
-  const queries=['android remote control','local ai','docker backup','typescript automation','database gui','offline first','websocket remote','self hosted monitoring','telegram automation'];
+  const queries=['android remote control','secure remote access','local ai','coding agent orchestrator','api client','docker backup','typescript automation','database gui','offline first','websocket remote','self hosted monitoring','telegram automation'];
   const results={};
   for(const q of queries){
     const r=searchRanked(q);
     results[q]={mode:r.mode,total:r.total,top:r.items.slice(0,8).map(x=>({full_name:x.full_name,coverage:x.search_coverage,score:x.search_score,l1:x.l1_score,l2:x.l2_score,stage:x.l2_stage,l3_ready:Boolean(x.l3_ready),theme:x.theme_path,summary:String(x.human_summary||x.description||'').slice(0,220)}))};
   }
-  const semanticNames=['stablyai/orca','mudler/LocalAI','firezone/firezone','offen/docker-volume-backup','mobile-next/mobile-mcp'];
+  const semanticNames=['stablyai/orca','mudler/LocalAI','firezone/firezone','rustdesk/rustdesk','getinsomnia/insomnia','offen/docker-volume-backup','mobile-next/mobile-mcp'];
   const samples=[];
   for(const name of semanticNames){
     const r=db.prepare('SELECT * FROM results WHERE lower(full_name)=lower(?)').get(name);
