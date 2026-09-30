@@ -144,9 +144,12 @@ if(html){
   js.includes('loadL2Queue')&&js.includes("if(v==='pipeline')return loadL2Queue()")?ok('l2-ui-lazy-queue'):fail('l2-ui-lazy-queue');
   const l2tabs=[...new Set([...markup.matchAll(/data-l2-tab="([^"]+)"/g)].map(m=>m[1]))];
   l2tabs.length===5?ok('l2-ui-five-subpages',l2tabs.join(',')):fail('l2-ui-five-subpages',String(l2tabs.length));
-  markup.includes('id="l2L3Ready"')&&markup.includes('id="l2Comprehension"')&&markup.includes('V3 dossier')?ok('l2-v3-dashboard'):fail('l2-v3-dashboard');
-  js.includes('data-l2mini-tab="understand"')&&js.includes('data-l2mini-tab="use"')&&js.includes('data-l2mini-tab="architecture"')&&js.includes('data-l2mini-tab="proof"')?ok('l2-v3-nested-dossier-tabs'):fail('l2-v3-nested-dossier-tabs');
-  js.includes('dossier.definition_fr')&&js.includes('installation_lancement_fr')&&js.includes('a_verifier_fr')?ok('l2-v3-french-dossier-render'):fail('l2-v3-french-dossier-render');
+  markup.includes('id="l2L3Ready"')&&markup.includes('id="l2Comprehension"')&&markup.includes('V4 sémantique')?ok('l2-v4-dashboard'):fail('l2-v4-dashboard');
+  js.includes('data-l2mini-tab="understand"')&&js.includes('data-l2mini-tab="use"')&&js.includes('data-l2mini-tab="architecture"')&&js.includes('data-l2mini-tab="proof"')?ok('l2-v4-nested-dossier-tabs'):fail('l2-v4-nested-dossier-tabs');
+  js.includes('dossier.definition_fr')&&js.includes('installation_lancement_fr')&&js.includes('a_verifier_fr')?ok('l2-v4-french-dossier-render'):fail('l2-v4-french-dossier-render');
+  markup.includes('V4 sémantique')&&js.includes('identity_confidence')&&js.includes('role_fr')?ok('l2-v4-semantic-identity-ui'):fail('l2-v4-semantic-identity-ui');
+  markup.includes('Recherche sémantique locale dans L1 + L2 + L3')&&js.includes('RELAXED_CONCEPTS')&&js.includes('classement par pertinence sémantique')?ok('semantic-search-ui'):fail('semantic-search-ui');
+  js.includes('l3pack.best_for')&&js.includes('l3pack.strengths')&&js.includes('l3pack.selection_checks')&&js.includes('l3pack.readiness')?ok('l3-decision-ui'):fail('l3-decision-ui');
   markup.includes('<section id="l3" class="section">')&&markup.includes('id="l3Results"')&&markup.includes('data-l3-tab="packs"')?ok('l3-real-workspace'):fail('l3-real-workspace');
   js.includes('async function loadL3')&&js.includes('/api/l3/list')?ok('l3-ui-data'):fail('l3-ui-data');
   markup.includes('id="phoneSessionList"')&&markup.includes('id="phoneRemainingMax"')&&markup.includes('id="phoneQrType"')?ok('phone-session-dashboard'):fail('phone-session-dashboard');
@@ -184,13 +187,23 @@ try{
     ['l2-drilldown-api',src.includes('function l2Drilldown')&&src.includes("/api/l2/drilldown")],
     ['chat-search-api',src.includes('function chatSearch')&&src.includes("/api/chat/search")],
     ['resource-l2-evidence',src.includes('evidence:parse(l2raw.evidence_json)')&&src.includes('readme_signals:parse(l2raw.readme_signals_json)')],
-    ['l2-v3-ruleset',src.includes("L2_RULESET_VERSION='2026.09-v3-dossier'")],
-    ['l2-v3-french-fields',src.includes('definition_fr')&&src.includes('fonctionnement_fr')&&src.includes('installation_lancement_fr')&&src.includes('preuves_fr')&&src.includes('handoff_l3')],
-    ['l2-v3-deep-sources',src.includes('rootInventory')&&src.includes('manifestFacts')&&src.includes('L2_V3_README_STRUCTURE_MANIFESTS')],
-    ['l2-v3-legacy-rebuild',src.includes("coalesce(l.source_version,'')<>?")&&src.includes('L2_RULESET_VERSION')],
-    ['l2-v3-drill-current-only',src.includes("eligible:{from:")&&src.includes("base_pending:{from:")&&src.includes("AND l.source_version='")&&src.includes("l.entity_id IS NULL")],
-    ['l2-v3-french-ui-data',src.includes("language_ui='fr'")||src.includes("'fr','[]'")],
+    ['l2-v4-ruleset',src.includes("L2_RULESET_VERSION='2026.09-v4-semantic'")],
+    ['l2-v4-french-fields',src.includes('definition_fr')&&src.includes('fonctionnement_fr')&&src.includes('installation_lancement_fr')&&src.includes('preuves_fr')&&src.includes('handoff_l3')],
+    ['l2-v4-deep-sources',src.includes('rootInventory')&&src.includes('manifestFacts')&&src.includes('L2_V4_README_STRUCTURE_MANIFESTS')],
+    ['l2-v4-legacy-rebuild',src.includes("coalesce(l.source_version,'')<>?")&&src.includes('L2_RULESET_VERSION')],
+    ['l2-v4-drill-current-only',src.includes("eligible:{from:")&&src.includes("base_pending:{from:")&&src.includes("AND l.source_version='")&&src.includes("l.entity_id IS NULL")],
+    ['l2-v4-french-ui-data',src.includes("language_ui='fr'")||src.includes("'fr','[]'")],
     ['l3-engine',src.includes('function l3Step')&&src.includes('function l3ActionPackFromDossier')&&src.includes('CREATE TABLE IF NOT EXISTS l3_actions')],
+    ['l1-functional-taxonomy',src.includes("TAXONOMY_VERSION='2026.09-v2-functional'")&&src.includes('Développement/Outils IA & Agents')&&src.includes('Réseau & IoT/Accès distant')&&src.includes('priority=(p)=>')],
+    ['l2-primary-role-engine',src.includes('const L2_ROLE_RULES=')&&src.includes('function l2PrimaryRole')&&src.includes('identity_confidence')&&src.includes('role_id')],
+    ['l2-role-before-capabilities',src.includes('const role=l2PrimaryRole(r,sig,signals)')&&src.includes("const purposes=uniqText([role.purpose")],
+    ['l2-quality-readiness',src.includes('role.confidence>=0.75')&&src.includes('score>=82')&&src.includes('interpretation_version:2')],
+    ['search-fts-schema',src.includes('CREATE VIRTUAL TABLE IF NOT EXISTS search_fts USING fts5')&&src.includes('SEARCH_INDEX_VERSION')],
+    ['search-fts-ranking',src.includes('bm25(search_fts')&&src.includes('resolveSearchMatch')&&src.includes('ALL_CONCEPTS')&&src.includes('RELAXED_CONCEPTS')],
+    ['search-l1-l2-l3-index',src.includes('syncSearchEntity')&&src.includes('l.dossier_json')&&src.includes('a.action_json')&&src.includes('l.retrieval_text')],
+    ['search-bilingual-concepts',src.includes('searchConceptGroups')&&src.includes("['database','sql','postgres','mysql','sqlite','redis']")&&src.includes("['local','ai','llm','localai','ollama']")],
+    ['search-background-index',src.includes("if (cmd === 'worker')")&&src.includes('reclassifyExisting();')&&src.includes('ensureSearchIndex();')],
+    ['l3-decision-support',src.includes('relevance_summary')&&src.includes('best_for')&&src.includes('selection_checks')&&src.includes('readiness')&&src.includes('research_terms')]
     ['l3-api',src.includes("/api/l3/list")&&src.includes('l3Stats()')]
   ];
   for(const [id,pass] of autoChecks) pass?ok(id):fail(id);
