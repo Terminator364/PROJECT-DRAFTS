@@ -195,6 +195,7 @@ try{
     ['l2-v4-french-ui-data',src.includes("language_ui='fr'")||src.includes("'fr','[]'")],
     ['l3-engine',src.includes('function l3Step')&&src.includes('function l3ActionPackFromDossier')&&src.includes('CREATE TABLE IF NOT EXISTS l3_actions')],
     ['l1-functional-taxonomy',src.includes("TAXONOMY_VERSION='2026.09-v2-functional'")&&src.includes('Développement/Outils IA & Agents')&&src.includes('Réseau & IoT/Accès distant')&&src.includes('priority=(p)=>')],
+    ['l1-reclassify-no-downgrade',src.includes("coalesce(deep_status,'')='DONE'")&&src.includes("coalesce(l1_stage,'')='L1_COMPLETE'")&&src.includes("THEN 'L1_COMPLETE'")],
     ['l2-primary-role-engine',src.includes('const L2_ROLE_RULES=')&&src.includes('function l2PrimaryRole')&&src.includes('identity_confidence')&&src.includes('role_id')],
     ['l2-role-before-capabilities',src.includes('const role=l2PrimaryRole(r,sig,signals)')&&src.includes("const purposes=uniqText([role.purpose")],
     ['l2-quality-readiness',src.includes('role.confidence>=0.75')&&src.includes('score>=82')&&src.includes('interpretation_version:2')],
