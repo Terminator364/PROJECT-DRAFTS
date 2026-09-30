@@ -1039,7 +1039,7 @@ function searchConceptGroups(q){
 function searchFtsQuery(q,mode='broad'){
   const groups=searchConceptGroups(q);
   if(!groups.length)return '';
-  const parts=groups.map(g=>'('+uniqText(g,8).map(t=>String(t).replace(/[^a-z0-9_.-]/g,'')).filter(Boolean).map(t=>t+'*').join(' OR ')+')').filter(x=>x!=='()');
+  const parts=groups.map(g=>'('+uniqText(g,8).map(t=>String(t).replace(/[^a-z0-9_]/g,'')).filter(Boolean).map(t=>t+'*').join(' OR ')+')').filter(x=>x!=='()');
   return parts.join(mode==='strict'?' AND ':' OR ');
 }
 function resolveSearchMatch(q){
@@ -1080,13 +1080,13 @@ function searchRanked(q){
       }
       if(best){hits++;semantic+=best;matched.push(bestTerm)}
     }
-    const coverage=hits/groups.length,minCoverage=groups.length<=2?0.5:groups.length<=4?0.5:0.4;
+    const coverage=hits/groups.length,minCoverage=resolved.strict_hits>0?1:(groups.length<=2?0.5:groups.length<=4?0.5:0.4);
     if(coverage<minCoverage)continue;
     const title=searchNormalize(r.full_name),exactTitle=title===phrase?40:title.includes(phrase)?18:0;
     const depthBonus=r.l2_stage==='DEEP'?12:r.l2_stage==='BASE'?4:0;
     const readyBonus=Number(r.l3_ready||0)?5:0;
     const qualityBonus=Math.min(10,Number(r.l2_score||0)/12)+Math.min(6,Number(r.l1_score||0)/18);
-    const score=coverage*100+semantic*3+exactTitle+depthBonus+readyBonus+qualityBonus;
+    const score=coverage*180+semantic*3+exactTitle+depthBonus+readyBonus+qualityBonus;
     scored.push({...r,search_score:Number(score.toFixed(2)),search_coverage:Number(coverage.toFixed(3)),search_hits:hits,search_groups:groups.length,search_terms:matched,search_mode:resolved.mode});
   }
   scored.sort((x,y)=>y.search_score-x.search_score||Number(y.l2_score||0)-Number(x.l2_score||0)||Number(y.l1_score||0)-Number(x.l1_score||0)||Number(y.stars||0)-Number(x.stars||0));
