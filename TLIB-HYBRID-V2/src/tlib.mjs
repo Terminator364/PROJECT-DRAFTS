@@ -984,7 +984,7 @@ function uniqText(xs,max=16){return [...new Set(xs.map(x=>String(x||'').trim()).
 function frJoin(xs){xs=uniqText(xs,8);return xs.length<2?(xs[0]||''):xs.slice(0,-1).join(', ')+' et '+xs[xs.length-1]}
 function sentence(v){v=String(v||'').trim();return v?v.replace(/\s+/g,' ').replace(/[.;:,\s]+$/,'')+'.':''}
 
-const SEARCH_STOPWORDS=new Set(['a','au','aux','avec','ce','ces','dans','de','des','du','elle','en','et','eux','il','je','la','le','les','leur','lui','ma','mais','me','meme','mes','moi','mon','ne','nos','notre','nous','on','ou','par','pas','pour','qu','que','qui','sa','se','ses','son','sur','ta','te','tes','toi','ton','tu','un','une','vos','votre','vous','the','of','and','or','to','for','with','from','in','on','is','are']);
+const SEARCH_STOPWORDS=new Set(['a','au','aux','avec','ce','ces','dans','de','des','du','elle','en','et','eux','il','je','la','le','les','leur','lui','ma','mais','me','meme','mes','moi','mon','ne','nos','notre','nous','on','ou','par','pas','pour','qu','que','qui','sa','se','ses','son','sur','ta','te','tes','toi','ton','tu','un','une','vos','votre','vous','the','of','and','or','to','for','with','from','in','on','is','are','cherche','chercher','trouve','trouver','besoin','veux','voudrais','permet','permettre','faire','utiliser','usage','solution','projet','projets','outil','outils','logiciel','logiciels']);
 function searchNormalize(v){return String(v||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase()}
 function searchConceptGroups(q){
   let x=searchNormalize(q).replace(/c\+\+/g,' cpp ').replace(/c#/g,' csharp ');
@@ -1012,20 +1012,18 @@ function searchConceptGroups(q){
   }
   return groups.slice(0,8);
 }
-function searchFtsQuery(q,mode='strict'){
+function searchFtsQuery(q,mode='broad'){
   const groups=searchConceptGroups(q);
   if(!groups.length)return '';
-  const parts=groups.map(g=>'('+uniqText(g,8).map(t=>String(t).replace(/[^a-z0-9]/g,'')).filter(Boolean).map(t=>t+'*').join(' OR ')+')').filter(x=>x!=='()');
-  return parts.join(mode==='broad'?' OR ':' AND ');
+  const parts=groups.map(g=>'('+uniqText(g,8).map(t=>String(t).replace(/[^a-z0-9_.-]/g,'')).filter(Boolean).map(t=>t+'*').join(' OR ')+')').filter(x=>x!=='()');
+  return parts.join(mode==='strict'?' AND ':' OR ');
 }
 function resolveSearchMatch(q){
-  const strict=searchFtsQuery(q,'strict');
-  if(!strict)return {match:'',mode:'EMPTY'};
-  try{
-    const n=Number(db.prepare('SELECT COUNT(*) AS n FROM search_fts WHERE search_fts MATCH ?').get(strict).n||0);
-    if(n>0)return {match:strict,mode:'ALL_CONCEPTS',strict_hits:n};
-  }catch{}
-  return {match:searchFtsQuery(q,'broad'),mode:'RELAXED_CONCEPTS',strict_hits:0};
+  const groups=searchConceptGroups(q),strict=searchFtsQuery(q,'strict'),broad=searchFtsQuery(q,'broad');
+  if(!broad)return {match:'',mode:'EMPTY',groups};
+  let strictHits=0;
+  try{if(strict)strictHits=Number(db.prepare('SELECT COUNT(*) AS n FROM search_fts WHERE search_fts MATCH ?').get(strict).n||0)}catch{}
+  return {match:broad,mode:strictHits>0?'ALL_CONCEPTS_AVAILABLE':'RELAXED_CONCEPTS',strict_hits:strictHits,groups};
 }
 function syncSearchEntity(entityIdValue){
   try{
