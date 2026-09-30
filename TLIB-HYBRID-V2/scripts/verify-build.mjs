@@ -145,6 +145,7 @@ if(html){
   const l2tabs=[...new Set([...markup.matchAll(/data-l2-tab="([^"]+)"/g)].map(m=>m[1]))];
   l2tabs.length===5?ok('l2-ui-five-subpages',l2tabs.join(',')):fail('l2-ui-five-subpages',String(l2tabs.length));
   markup.includes('id="l2L3Ready"')&&markup.includes('id="l2Comprehension"')&&markup.includes('V4 sémantique')?ok('l2-v4-dashboard'):fail('l2-v4-dashboard');
+  markup.includes('id="l2MigrationLegacy"')&&markup.includes('id="l2NeverProfiled"')&&js.includes('legacy_remaining')&&js.includes('never_profiled')?ok('l2-v4-migration-transparency'):fail('l2-v4-migration-transparency');
   js.includes('data-l2mini-tab="understand"')&&js.includes('data-l2mini-tab="use"')&&js.includes('data-l2mini-tab="architecture"')&&js.includes('data-l2mini-tab="proof"')?ok('l2-v4-nested-dossier-tabs'):fail('l2-v4-nested-dossier-tabs');
   js.includes('dossier.definition_fr')&&js.includes('installation_lancement_fr')&&js.includes('a_verifier_fr')?ok('l2-v4-french-dossier-render'):fail('l2-v4-french-dossier-render');
   markup.includes('V4 sémantique')&&js.includes('identity_confidence')&&js.includes('role_fr')?ok('l2-v4-semantic-identity-ui'):fail('l2-v4-semantic-identity-ui');
@@ -201,11 +202,16 @@ try{
     ['l2-identity-evidence-trace',src.includes('identity_source')&&src.includes('identity_basis_fr')&&src.includes("README_IDENTITY")&&src.includes("GITHUB_DESCRIPTION")&&src.includes("SIGNAL_FALLBACK")],
     ['l2-role-before-capabilities',src.includes('const role=l2PrimaryRole(r,sig,signals)')&&src.includes("const purposes=uniqText([role.purpose")],
     ['l2-quality-readiness',src.includes('role.confidence>=0.75')&&src.includes('score>=82')&&src.includes('interpretation_version:2')],
+    ['l2-v4-migration-stats',src.includes('legacy_remaining:legacyRemaining')&&src.includes('never_profiled:neverProfiled')&&src.includes('const basePending=legacyRemaining+neverProfiled')],
+    ['l2-purpose-role-filter',src.includes('function l2PurposeSignals')&&src.includes("'remote-desktop':['Réseau / communication','Sécurité / authentification','Application mobile']")],
+    ['semantic-real-witnesses',src.includes("description:'Blazing-fast remote access'")&&src.includes("'getinsomnia/insomnia'")&&src.includes("'stablyai/orca'")&&src.includes("'rustdesk/rustdesk'")],
+    ['l1-api-testing-theme',src.includes("'Développement/API & Tests'")&&src.includes('/api client|api testing|api development|http client|rest client/')],
     ['search-fts-schema',src.includes('CREATE VIRTUAL TABLE IF NOT EXISTS search_fts USING fts5')&&src.includes('SEARCH_INDEX_VERSION')],
     ['search-fts-ranking',src.includes('bm25(search_fts')&&src.includes('resolveSearchMatch')&&src.includes('ALL_CONCEPTS_AVAILABLE')&&src.includes('RELAXED_CONCEPTS')&&src.includes('searchRanked')&&src.includes('search_coverage')],
     ['search-concept-coverage-gate',src.includes('resolved.strict_hits>0?1')&&src.includes('coverage*180')],
     ['search-legacy-fallback',src.includes('legacy_summary')&&src.includes('legacy_dossier')&&src.includes('legacy_action')&&src.includes('SEARCH_INDEX_VERSION=\'2026.09-v3-semantic-with-legacy-fallback\'')],
     ['semantic-selftest',src.includes('SEMANTIC_ROLE_FAIL')&&src.includes('SEMANTIC_THEME_FAIL')&&src.includes('SEARCH_CONCEPT_SELFTEST_FAIL')&&src.includes('SEARCH_TOKEN_BOUNDARY_SELFTEST_FAIL')&&src.includes('SEARCH_FRENCH_CONCEPT_SELFTEST_FAIL')],
+    ['semantic-purpose-selftest',src.includes('SEMANTIC_PURPOSE_FILTER_FAIL')&&src.includes('semantic_roles:7')&&src.includes('semantic_themes:4')],
     ['search-short-token-boundary',src.includes('function searchFtsTerm')&&src.includes('function searchTextHasTerm')&&src.includes("searchFtsTerm('gui')!=='gui'")],
     ['search-software-priority',src.includes("kind==='Projet logiciel'?10")&&src.includes("Catalogue de ressources'?-18")],
     ['search-audit-cli',src.includes("cmd === 'search-audit'")&&src.includes('searchAuditSnapshot')&&src.includes('live_readme_probe')],
