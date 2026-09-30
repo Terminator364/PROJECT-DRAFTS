@@ -1,9 +1,9 @@
 {
   "project": "TLIB-HYBRID-V2",
   "branch": "lab/tlib-hybrid-v2",
-  "checkpoint": "V0113_L2_V3_RUNTIME_PROVEN_SEALED",
-  "build_target": "2026.09.29-v0.11.3-l2-v3-verified",
-  "updated_at_utc": "2026-09-29T15:46:24.952Z",
+  "checkpoint": "V0120_RETRIEVAL_QUALITY_AUDIT_PASS_AWAITING_STABLE",
+  "build_target": "2026.09.30-v0.12.0-retrieval-quality",
+  "updated_at_utc": "2026-09-30T09:13:20.393Z",
   "production_l1_enabled": false,
   "apps_script_bridge_enabled": false,
   "github_actions_expected_minutes": 0,
@@ -224,8 +224,8 @@
       "manager_resource_indicators_clickable": true
     }
   },
-  "next_gate": "Long-run quality tuning only. Do not redesign the L2 contract again without measured dossier quality feedback; continue rebuilding remaining legacy L2 profiles into V3.",
-  "sealed": true,
+  "next_gate": "Advance stable to v0.12.0. Let TLIB self-update autonomously. Then verify V4 rebuild, semantic search witnesses on the live corpus, and that L1/L2/L3 continue under the 4GB resource governor.",
+  "sealed": false,
   "last_good_build": "2026.09.29-v0.8.0-mobile-autonomous",
   "last_good_status": "PRESERVED_PRE_ACTIVATION",
   "field_findings": [
@@ -387,11 +387,18 @@
     "v0113_french_l2_dossier": "PASS",
     "v0113_phone_state_schema2": "PASS",
     "v0113_phone_access_qr": "PASS",
-    "v0113_phone_session_persistence": "PASS"
+    "v0113_phone_session_persistence": "PASS",
+    "v0120_node_syntax": "PASS",
+    "v0120_ui_js_syntax": "PASS",
+    "v0120_verifier_syntax": "PASS",
+    "v0120_verify_build": "PASS_ALL",
+    "v0120_semantic_witnesses": "PASS_STATIC_SELFTEST",
+    "v0120_fts_contract": "PASS",
+    "v0120_runtime": "PENDING_AUTONOMOUS_ACTIVATION"
   },
   "seal_scope": "L1_CONTINUITY_L2_V3_BASE_DEEP_L3_ACTION_PHONE_SESSION_PERSISTENCE",
-  "runtime_validated": true,
-  "activation_pending": false,
+  "runtime_validated": false,
+  "activation_pending": true,
   "phone_link": {
     "status": "CODE_SEALED_AWAITING_RUNTIME",
     "manager_entry": "📱 Téléphone / QR",
@@ -562,5 +569,50 @@
       "L1 otherwise"
     ],
     "target": "keep L1 majority while guaranteeing L2-DEEP and L3 opportunities"
+  },
+  "library_quality_audit": {
+    "objective": "Judge whether L1/L2/L3 are actually useful for internal project discovery, not whether counters are high.",
+    "findings": {
+      "l1": "FACTUALLY_USEFUL_BUT_PRIMARY_THEME_NEEDED_FUNCTIONAL_PRIORITY",
+      "l2_base": "USEFUL_FOR_FILTERING_NOT_SUFFICIENT_ALONE_FOR_SELECTION",
+      "l2_deep": "STRONGER_BUT_PRIMARY_ROLE_AND_COMMAND_DEPENDENCY_GAPS_REQUIRED_FIX",
+      "l3": "STRUCTURALLY_COMPLETE_BUT_DEPENDS_ON_L2_SEMANTIC_ACCURACY",
+      "retrieval": "CRITICAL_OLD_DEFECT_PHRASE_SUBSTRING_AND_PARTIAL_L2_ONLY"
+    },
+    "measured_before_fix": {
+      "l1_description_pct": 98.4,
+      "l1_languages_pct": 90.7,
+      "l1_license_pct": 92,
+      "l1_release_pct": 65.1,
+      "l2_base_avg_words": 260,
+      "l2_base_commands_pct": 0,
+      "l2_base_dependencies_pct": 0,
+      "l2_base_installation_pct": 0,
+      "l2_deep_avg_words": 548,
+      "l2_deep_score_avg": 99.4,
+      "l2_deep_installation_pct": 96.7,
+      "l2_deep_commands_pct": 61.1,
+      "l2_deep_dependencies_pct": 32.2,
+      "l2_deep_integrations_pct": 95.7,
+      "l2_deep_deployment_pct": 93.5
+    },
+    "witness_failures_before_fix": {
+      "stablyai/orca": "Primary role was diluted by mobile/automation secondary signals; README says coding-agent orchestration.",
+      "mudler/LocalAI": "Mobile mention could dominate despite local AI engine identity.",
+      "firezone/firezone": "Automation signal could dominate despite secure remote access identity.",
+      "android remote control": "Old search could return zero because it required the whole phrase as a substring."
+    },
+    "fixes_v0120": [
+      "L1 taxonomy v2 prioritizes functional purpose over implementation language.",
+      "L2 semantic v4 identifies a primary role before secondary capabilities.",
+      "README identity excerpt and evidence trace are stored separately.",
+      "L2 readiness requires semantic identity confidence plus deep evidence.",
+      "L3 adds relevance summary, best-for, strengths, selection checks, readiness and research terms.",
+      "SQLite FTS5 indexes L1 + L2 + L3 + hidden README evidence locally.",
+      "Natural-language search is bilingual/conceptual and reranked by concept coverage and evidence depth.",
+      "Legacy L2/L3 may assist retrieval at low hidden weight during V4 migration but are not displayed as validated V4.",
+      "Agent startup does not rebuild the search index; background worker does it at below-normal priority.",
+      "Semantic witness tests prevent Orca/LocalAI/Firezone/API-client classification regressions."
+    ]
   }
 }
