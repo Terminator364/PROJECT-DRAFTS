@@ -84,7 +84,7 @@ async function manifestFor(commit){
   return j;
 }
 function runNode(args,cwd,env={}){
-  return execFileSync(process.execPath,args,{cwd,env:{...process.env,...env},encoding:'utf8',windowsHide:true,stdio:['ignore','pipe','pipe'],timeout:30000});
+  return execFileSync(process.execPath,args,{cwd,env:{...process.env,...env},encoding:'utf8',windowsHide:true,stdio:['ignore','pipe','pipe'],timeout:90000});
 }
 async function health(port=8787,timeout=1500){
   try{
