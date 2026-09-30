@@ -1575,6 +1575,26 @@ function chatSearch(q,limit=8){
   const items=ranked.items.slice(0,limit).map(({_title,_l1,_l2,_l3,_hidden,_bm25,...x})=>x);
   return {q,total:ranked.total,items,concepts:ranked.groups,mode:ranked.mode,search_mode:ranked.mode,engine:'FTS5_CONCEPT_RERANK_L1_L2_L3'};
 }
+function searchAuditSnapshot(){
+  ensureSearchIndex(true);
+  const queries=['android remote control','local ai','docker backup','typescript automation','database gui','offline first','websocket remote','self hosted monitoring','telegram automation'];
+  const results={};
+  for(const q of queries){
+    const r=searchRanked(q);
+    results[q]={mode:r.mode,total:r.total,top:r.items.slice(0,8).map(x=>({full_name:x.full_name,coverage:x.search_coverage,score:x.search_score,l1:x.l1_score,l2:x.l2_score,stage:x.l2_stage,l3_ready:Boolean(x.l3_ready),theme:x.theme_path,summary:String(x.human_summary||x.description||'').slice(0,220)}))};
+  }
+  const semanticSamples=['stablyai/orca','mudler/LocalAI','firezone/firezone','offen/docker-volume-backup','mobile-next/mobile-mcp'];
+  const samples=semanticSamples.map(name=>{
+    const r=db.prepare(`SELECT r.full_name,r.primary_theme,r.theme_path,r.l1_score,l.stage,l.comprehension_score,l.dossier_json,a.action_json
+      FROM results r LEFT JOIN l2_profiles l ON l.entity_id=r.entity_id AND l.source_version=?
+      LEFT JOIN l3_actions a ON a.entity_id=r.entity_id AND a.source_l2_version=?
+      WHERE lower(r.full_name)=lower(?)`).get(L2_RULESET_VERSION,L2_RULESET_VERSION,name);
+    if(!r)return {full_name:name,missing:true};
+    const d=jsonObject(r.dossier_json),a=jsonObject(r.action_json);
+    return {full_name:r.full_name,theme:r.theme_path,l1_score:r.l1_score,l2_stage:r.stage||null,l2_score:r.comprehension_score||null,role:d.role_id||null,definition:d.definition_fr||null,identity_confidence:d.identity_confidence??null,l3_readiness:a.readiness||null};
+  });
+  return {build:APP_BUILD,l2_version:L2_RULESET_VERSION,taxonomy:TAXONOMY_VERSION,search_index:SEARCH_INDEX_VERSION,indexed:Number(db.prepare('SELECT COUNT(*) AS n FROM search_fts').get().n||0),results,samples};
+}
 function resourceById(id) {
   const r = db.prepare(`SELECT * FROM results WHERE entity_id=? OR lower(full_name)=lower(?)`).get(String(id||''), String(id||''));
   if (!r) return null;
@@ -2243,6 +2263,7 @@ async function main() {
   if (cmd === 'selftest') return selftest();
   if (cmd === 'seed') return seed();
   if (cmd === 'reclassify') { console.log(JSON.stringify({ok:true,rows:reclassifyExisting()},null,2)); return; }
+  if (cmd === 'search-audit') { reclassifyExisting(); console.log(JSON.stringify(searchAuditSnapshot(),null,2)); return; }
   if (cmd === 'canary') return canary(Number(argValue('--limit', '10')));
   if (cmd === 'fixture-canary') return fixtureCanary();
   if (cmd === 'fixture-l2') return fixtureL2Canary();
