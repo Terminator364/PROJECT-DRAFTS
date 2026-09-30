@@ -13,7 +13,7 @@
     },
     {
       "path": "src/tlib.mjs",
-      "git_blob_sha": "3eee40bc20a7c322431c8acc76163e44f9fe4345"
+      "git_blob_sha": "34b62546592e4ae044f4e17f827f45dcb055728f"
     },
     {
       "path": "public/index.html",
@@ -37,7 +37,7 @@
     },
     {
       "path": "scripts/verify-build.mjs",
-      "git_blob_sha": "267fffa5ac11918d3279cb7545df6255f9550e05"
+      "git_blob_sha": "7118b096bd86f28a2fb720fec4f3ca4ccd973d84"
     },
     {
       "path": "config/canary-seeds.json",
@@ -97,7 +97,7 @@
     },
     {
       "path": "scripts/slot-update.mjs",
-      "git_blob_sha": "17ba0176b0536f873fc2c93390f6fcb375c769ae"
+      "git_blob_sha": "a60596c720b1e2d71823b5e383233d67218e23fd"
     },
     {
       "path": "scripts/bootstrap-tlib.ps1",
@@ -120,6 +120,6 @@
       "git_blob_sha": "e746a429df4a3c75935686951b4f422b51d1df59"
     }
   ],
-  "updated_at": "2026-09-30T09:13:33.822Z",
-  "build": "2026.09.30-v0.12.0-retrieval-quality"
+  "updated_at": "2026-09-30T09:22:55.605Z",
+  "build": "2026.09.30-v0.12.1-retrieval-quality-fast-verify"
 }
