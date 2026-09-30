@@ -970,7 +970,7 @@ function fixtureL2Canary() {
 }
 
 const L2_RULESET_VERSION='2026.09-v4-semantic';
-const SEARCH_INDEX_VERSION='2026.09-v2-l1-l2-l3-fts';
+const SEARCH_INDEX_VERSION='2026.09-v3-semantic-with-legacy-fallback';
 const L2_MIN_L1_SCORE=65;
 const L2_README_RATE_RESERVE=2800;
 const L2_RAW_FILE_MAX=262144;
@@ -1075,16 +1075,23 @@ function syncSearchEntity(entityIdValue){
   try{
     const r=db.prepare(`SELECT r.entity_id,r.full_name,r.description,r.language,r.license,r.topics_json,r.resource_kind,r.technology,r.content_mode,r.activity_status,r.primary_theme,r.theme_path,r.theme_tags_json,r.l1_summary,
       l.human_summary,l.capabilities_json,l.use_cases_json,l.limitations_json,l.dossier_json,l.retrieval_text,
-      a.action_json
+      lx.human_summary AS legacy_summary,lx.dossier_json AS legacy_dossier,lx.source_version AS legacy_l2_version,
+      a.action_json,ax.action_json AS legacy_action,ax.source_l2_version AS legacy_l3_version
       FROM results r
       LEFT JOIN l2_profiles l ON l.entity_id=r.entity_id AND l.source_version=?
+      LEFT JOIN l2_profiles lx ON lx.entity_id=r.entity_id
       LEFT JOIN l3_actions a ON a.entity_id=r.entity_id AND a.source_l2_version=?
+      LEFT JOIN l3_actions ax ON ax.entity_id=r.entity_id
       WHERE r.entity_id=?`).get(L2_RULESET_VERSION,L2_RULESET_VERSION,entityIdValue);
     db.prepare('DELETE FROM search_fts WHERE entity_id=?').run(entityIdValue);
     if(!r)return;
     const l1=[r.description,r.language,r.license,r.topics_json,r.resource_kind,r.technology,r.content_mode,r.activity_status,r.primary_theme,r.theme_path,r.theme_tags_json,r.l1_summary].filter(Boolean).join(' ');
     const l2=[r.human_summary,r.capabilities_json,r.use_cases_json,r.limitations_json,r.dossier_json].filter(Boolean).join(' ');
-    db.prepare('INSERT INTO search_fts(entity_id,title,l1,l2,l3,hidden) VALUES(?,?,?,?,?,?)').run(r.entity_id,r.full_name||'',l1,l2,r.action_json||'',r.retrieval_text||'');
+    const legacyL2=r.legacy_l2_version&&r.legacy_l2_version!==L2_RULESET_VERSION?[r.legacy_summary,r.legacy_dossier].filter(Boolean).join(' '):'';
+    const legacyL3=r.legacy_l3_version&&r.legacy_l3_version!==L2_RULESET_VERSION?String(r.legacy_action||''):'';
+    const hidden=[r.retrieval_text,legacyL2,legacyL3].filter(Boolean).join(' ');
+    db.prepare('INSERT INTO search_fts(entity_id,title,l1,l2,l3,hidden) VALUES(?,?,?,?,?,?)').run(r.entity_id,r.full_name||'',l1,l2,r.action_json||'',hidden);
+    searchResultCache.clear();
   }catch(e){try{event('WARN','SEARCH_SYNC_ERROR',String(entityIdValue)+' :: '+String(e.message||e).slice(0,240))}catch{}}
 }
 function rebuildSearchIndex(){
@@ -1098,14 +1105,17 @@ function rebuildSearchIndex(){
              trim(coalesce(r.description,'')||' '||coalesce(r.language,'')||' '||coalesce(r.license,'')||' '||coalesce(r.topics_json,'')||' '||coalesce(r.resource_kind,'')||' '||coalesce(r.technology,'')||' '||coalesce(r.content_mode,'')||' '||coalesce(r.activity_status,'')||' '||coalesce(r.primary_theme,'')||' '||coalesce(r.theme_path,'')||' '||coalesce(r.theme_tags_json,'')||' '||coalesce(r.l1_summary,'')),
              trim(coalesce(l.human_summary,'')||' '||coalesce(l.capabilities_json,'')||' '||coalesce(l.use_cases_json,'')||' '||coalesce(l.limitations_json,'')||' '||coalesce(l.dossier_json,'')),
              coalesce(a.action_json,''),
-             coalesce(l.retrieval_text,'')
+             trim(coalesce(l.retrieval_text,'')||' '||CASE WHEN lx.source_version<>? THEN coalesce(lx.human_summary,'')||' '||coalesce(lx.dossier_json,'') ELSE '' END||' '||CASE WHEN ax.source_l2_version<>? THEN coalesce(ax.action_json,'') ELSE '' END)
       FROM results r
       LEFT JOIN l2_profiles l ON l.entity_id=r.entity_id AND l.source_version=?
-      LEFT JOIN l3_actions a ON a.entity_id=r.entity_id AND a.source_l2_version=?`).run(L2_RULESET_VERSION,L2_RULESET_VERSION);
+      LEFT JOIN l2_profiles lx ON lx.entity_id=r.entity_id
+      LEFT JOIN l3_actions a ON a.entity_id=r.entity_id AND a.source_l2_version=?
+      LEFT JOIN l3_actions ax ON ax.entity_id=r.entity_id`).run(L2_RULESET_VERSION,L2_RULESET_VERSION,L2_RULESET_VERSION,L2_RULESET_VERSION);
     const total=Number(db.prepare('SELECT COUNT(*) AS n FROM results').get().n||0);
     db.prepare("INSERT INTO search_meta(key,value) VALUES('index_version',?) ON CONFLICT(key) DO UPDATE SET value=excluded.value").run(SEARCH_INDEX_VERSION);
     db.prepare("INSERT INTO search_meta(key,value) VALUES('indexed_count',?) ON CONFLICT(key) DO UPDATE SET value=excluded.value").run(String(total));
     db.exec('COMMIT');
+    searchResultCache.clear();
     event('INFO','SEARCH_INDEX_REBUILT','rows='+total+'; ms='+(Date.now()-started));
     return total;
   }catch(e){
@@ -1114,14 +1124,18 @@ function rebuildSearchIndex(){
     throw e;
   }
 }
-function ensureSearchIndex(){
+function ensureSearchIndex(force=false){
   try{
     const v=db.prepare("SELECT value FROM search_meta WHERE key='index_version'").get()?.value||'';
     const indexed=Number(db.prepare('SELECT COUNT(*) AS n FROM search_fts').get().n||0);
     const total=Number(db.prepare('SELECT COUNT(*) AS n FROM results').get().n||0);
-    if(v!==SEARCH_INDEX_VERSION||indexed!==total)return rebuildSearchIndex();
+    if(v===SEARCH_INDEX_VERSION&&indexed===total)return indexed;
+    if(force||process.env.TLIB_BACKGROUND_WORKER==='1')return rebuildSearchIndex();
     return indexed;
-  }catch{return rebuildSearchIndex()}
+  }catch{
+    if(force||process.env.TLIB_BACKGROUND_WORKER==='1')return rebuildSearchIndex();
+    return 0;
+  }
 }
 
 const L2_SIGNAL_RULES=[
@@ -2212,7 +2226,7 @@ async function main() {
     selftest();
     seed();
     reclassifyExisting();
-    ensureSearchIndex();
+    ensureSearchIndex(true);
     startWorkerLoop();
     return;
   }
