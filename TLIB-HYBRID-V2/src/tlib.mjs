@@ -432,8 +432,9 @@ function classifyL1(x) {
 function applyExtendedL1(entityIdValue, x, q) {
   db.prepare(`UPDATE results SET
     owner_login=?,owner_type=?,html_url=?,clone_url=?,license_name=?,subscribers_count=?,network_count=?,
-    has_issues=?,has_projects=?,has_downloads=?,is_template=?,l1_summary=?,l1_stage=?,
-    deep_status=coalesce(deep_status,?)
+    has_issues=?,has_projects=?,has_downloads=?,is_template=?,l1_summary=?,
+    l1_stage=CASE WHEN coalesce(deep_status,'')='DONE' OR coalesce(l1_stage,'')='L1_COMPLETE' THEN 'L1_COMPLETE' ELSE ? END,
+    deep_status=CASE WHEN coalesce(deep_status,'')='DONE' THEN 'DONE' ELSE coalesce(deep_status,?) END
     WHERE entity_id=?`).run(
       String(x.owner?.login ?? ''), String(x.owner?.type ?? ''), String(x.html_url ?? ''),
       String(x.clone_url ?? ''), String(x.license?.name ?? ''), Number(x.subscribers_count ?? 0),
