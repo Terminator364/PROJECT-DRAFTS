@@ -2053,7 +2053,8 @@ async function startDashboard() {
       if (u.pathname === '/api/library') {
         const q=u.searchParams.get('q')||'', limit=u.searchParams.get('limit')||100,
               offset=u.searchParams.get('offset')||0, sort=u.searchParams.get('sort')||'stars';
-        return sendJson(res,200,{items:libraryRows(q,limit,offset,sort),total:libraryCount(q),limit:Number(limit),offset:Number(offset),sort});
+        const searchInfo=q?resolveSearchMatch(q):{mode:'BROWSE',match:''};
+        return sendJson(res,200,{items:libraryRows(q,limit,offset,sort),total:libraryCount(q),limit:Number(limit),offset:Number(offset),sort:q?'relevance':sort,search_mode:searchInfo.mode,search_engine:q?'FTS5_L1_L2_L3':'BROWSE'});
       }
       if (u.pathname === '/api/update/status' && req.method === 'GET') return sendJson(res,200,updateStatusSnapshot());
       if (u.pathname === '/api/update/action' && req.method === 'POST') {
