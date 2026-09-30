@@ -489,8 +489,32 @@ function selftest() {
   const row = db.prepare('SELECT full_name FROM jobs WHERE entity_id=?').get(entityId(testName));
   db.prepare('DELETE FROM jobs WHERE entity_id=?').run(entityId(testName));
   if (!row || row.full_name !== testName) throw new Error('SQLITE_READBACK_FAILED');
-  event('INFO', 'SELFTEST_PASS', `node=${process.versions.node}`);
-  console.log(JSON.stringify({ ok: true, node: process.versions.node, sqlite: true, dbPath }, null, 2));
+
+  const roleCases=[
+    [{full_name:'stablyai/orca',description:'An AI agent orchestrator for running multiple coding agents in parallel worktrees.'},{identity_excerpt:'Run coding agents in parallel worktrees and manage terminals.'},'coding-agent-orchestrator'],
+    [{full_name:'mudler/LocalAI',description:'Open source local AI engine, OpenAI compatible and self-hosted.'},{identity_excerpt:'Run models locally with an OpenAI compatible API.'},'local-ai-engine'],
+    [{full_name:'firezone/firezone',description:'Secure remote access platform using zero-trust networking and WireGuard.'},{identity_excerpt:'Connect users to private apps and infrastructure securely.'},'secure-remote-access'],
+    [{full_name:'mobile-next/mobile-mcp',description:'Mobile MCP server for iOS and Android automation.'},{identity_excerpt:'Automate mobile applications and devices.'},'mobile-automation-mcp'],
+    [{full_name:'offen/docker-volume-backup',description:'Backup Docker volumes locally or to S3-compatible storage.'},{identity_excerpt:'Automated backup and restore for Docker volumes.'},'backup']
+  ];
+  for(const [r,sig,expected] of roleCases){
+    const got=l2PrimaryRole(r,sig,l2Signals((r.description||'')+' '+(sig.identity_excerpt||''))).id;
+    if(got!==expected)throw new Error('SEMANTIC_ROLE_FAIL '+r.full_name+' expected='+expected+' got='+got);
+  }
+  const themeCases=[
+    [{full_name:'stablyai/orca',name:'orca',description:'AI agent orchestrator for coding agents and parallel worktrees',language:'TypeScript',topics:['ai','agents']},{kind:'Projet logiciel',technology:'TypeScript'},'Développement/Outils IA & Agents'],
+    [{full_name:'firezone/firezone',name:'firezone',description:'Zero-trust secure remote access platform',language:'Rust',topics:['wireguard','security']},{kind:'Projet logiciel',technology:'Rust'},'Réseau & IoT/Accès distant'],
+    [{full_name:'mudler/LocalAI',name:'LocalAI',description:'Local AI engine and self-hosted LLM inference',language:'Go',topics:['llm','ai']},{kind:'Projet logiciel',technology:'Go'},'Données & IA/Moteurs IA locaux']
+  ];
+  for(const [x,q,expected] of themeCases){
+    const got=classifyThemes(x,q).path;
+    if(got!==expected)throw new Error('SEMANTIC_THEME_FAIL '+x.full_name+' expected='+expected+' got='+got);
+  }
+  const concepts=searchConceptGroups('android remote control');
+  if(concepts.length<3||!searchFtsQuery('android remote control','broad').includes(' OR '))throw new Error('SEARCH_CONCEPT_SELFTEST_FAIL');
+
+  event('INFO', 'SELFTEST_PASS', `node=${process.versions.node}; semantic=5; themes=3; search=PASS`);
+  console.log(JSON.stringify({ ok:true,node:process.versions.node,sqlite:true,semantic_roles:5,semantic_themes:3,search_concepts:true,dbPath }, null, 2));
 }
 
 async function fetchRepo(fullName) {
@@ -1197,7 +1221,7 @@ const L2_ROLE_RULES=[
 
 function l2PrimaryRole(r,sig={},signals=[]){
   const desc=String(r.description||''),identity=String(sig.identity_excerpt||''),features=Array.isArray(sig.feature_lines)?sig.feature_lines.join(' '):'';
-  const strong=(desc+' '+identity+' '+features).toLowerCase();
+  const strong=(String(r.full_name||'')+' '+desc+' '+identity+' '+features).toLowerCase();
   for(const role of L2_ROLE_RULES){if(role.rx.test(strong)){const inDesc=role.rx.test(desc.toLowerCase());return {...role,confidence:inDesc?0.96:0.84};}}
   if(r.resource_kind==='Catalogue de ressources')return {id:'catalogue',nature:'catalogue de ressources techniques',purpose:'Repérer, comparer et retrouver des ressources techniques dans un domaine donné.',audience:'développeurs et utilisateurs qui explorent un domaine technique',operation:'Il organise des liens et références afin de faciliter leur découverte.',confidence:0.88};
   if(r.resource_kind==='Guide / documentation')return {id:'documentation',nature:'guide ou documentation technique',purpose:'Expliquer une technologie ou une procédure et servir de référence.',audience:'apprenants, développeurs et mainteneurs',operation:'Il organise des explications, exemples et références autour d’un sujet technique.',confidence:0.88};
@@ -1544,11 +1568,11 @@ function l2Drilldown(kind='profiles',q='',limit=50,offset=0,sort='score'){
 }
 function chatSearch(q,limit=8){
   q=String(q||'').trim();limit=Math.max(1,Math.min(Number(limit||8),12));
-  if(!q)return {q,items:[],total:0,concepts:[],engine:'FTS5_CONCEPT_RERANK'};
+  if(!q)return {q,items:[],total:0,concepts:[],search_mode:'EMPTY',engine:'FTS5_CONCEPT_RERANK'};
   ensureSearchIndex();
   const ranked=searchRanked(q);
   const items=ranked.items.slice(0,limit).map(({_title,_l1,_l2,_l3,_hidden,_bm25,...x})=>x);
-  return {q,total:ranked.total,items,concepts:ranked.groups,mode:ranked.mode,engine:'FTS5_CONCEPT_RERANK_L1_L2_L3'};
+  return {q,total:ranked.total,items,concepts:ranked.groups,mode:ranked.mode,search_mode:ranked.mode,engine:'FTS5_CONCEPT_RERANK_L1_L2_L3'};
 }
 function resourceById(id) {
   const r = db.prepare(`SELECT * FROM results WHERE entity_id=? OR lower(full_name)=lower(?)`).get(String(id||''), String(id||''));
