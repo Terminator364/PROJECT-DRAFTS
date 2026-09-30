@@ -513,6 +513,7 @@ function selftest() {
   }
   const concepts=searchConceptGroups('android remote control');
   if(concepts.length<3||!searchFtsQuery('android remote control','broad').includes(' OR '))throw new Error('SEARCH_CONCEPT_SELFTEST_FAIL');
+  if(searchTextHasTerm('maikub/flutter_local_notifications','ai')||!searchTextHasTerm('local AI engine','ai')||searchFtsTerm('gui')!=='gui')throw new Error('SEARCH_TOKEN_BOUNDARY_SELFTEST_FAIL');
 
   event('INFO', 'SELFTEST_PASS', `node=${process.versions.node}; semantic=5; themes=3; search=PASS`);
   console.log(JSON.stringify({ ok:true,node:process.versions.node,sqlite:true,semantic_roles:5,semantic_themes:3,search_concepts:true,dbPath }, null, 2));
@@ -1037,10 +1038,20 @@ function searchConceptGroups(q){
   }
   return groups.slice(0,8);
 }
+function searchFtsTerm(term){
+  const t=String(term||'').replace(/[^a-z0-9_]/g,'');
+  return !t?'':(t.length<=3?t:t+'*');
+}
+function searchTextHasTerm(text,term){
+  const t=searchNormalize(term).replace(/[^a-z0-9_]/g,'');if(!t)return false;
+  const tokens=searchNormalize(text).split(/[^a-z0-9_]+/).filter(Boolean);
+  if(t.length<=3)return tokens.includes(t);
+  return tokens.some(x=>x===t||x.startsWith(t));
+}
 function searchFtsQuery(q,mode='broad'){
   const groups=searchConceptGroups(q);
   if(!groups.length)return '';
-  const parts=groups.map(g=>'('+uniqText(g,8).map(t=>String(t).replace(/[^a-z0-9_]/g,'')).filter(Boolean).map(t=>t+'*').join(' OR ')+')').filter(x=>x!=='()');
+  const parts=groups.map(g=>'('+uniqText(g,8).map(searchFtsTerm).filter(Boolean).join(' OR ')+')').filter(x=>x!=='()');
   return parts.join(mode==='strict'?' AND ':' OR ');
 }
 function resolveSearchMatch(q){
@@ -1077,7 +1088,7 @@ function searchRanked(q){
       let best=0,bestTerm='';
       for(const term of group){
         const t=searchNormalize(term);
-        for(const [txt,w] of fields){if(txt.includes(t)&&w>best){best=w;bestTerm=t}}
+        for(const [txt,w] of fields){if(searchTextHasTerm(txt,t)&&w>best){best=w;bestTerm=t}}
       }
       if(best){hits++;semantic+=best;matched.push(bestTerm)}
     }
