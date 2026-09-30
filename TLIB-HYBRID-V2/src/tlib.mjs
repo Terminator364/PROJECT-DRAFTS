@@ -1234,7 +1234,16 @@ function l2PrimaryRole(r,sig={},signals=[]){
 }
 function l2Signals(text){const bag=String(text||'').toLowerCase(),out=[];for(const [label,rx] of L2_SIGNAL_RULES)if(rx.test(bag))out.push(label);return uniqText(out,10)}
 function cleanMarkdownText(text){return String(text||'').replace(/```[\s\S]*?```/g,' ').replace(/!\[[^\]]*\]\([^)]*\)/g,' ').replace(/\[([^\]]+)\]\([^)]*\)/g,'$1').replace(/<[^>]+>/g,' ').replace(/[\t ]+/g,' ').replace(/\r/g,'')}
-function extractReadmeCommands(raw){const out=[];for(const m of String(raw||'').matchAll(/```[^\n]*\n([\s\S]*?)```/g)){for(const line of String(m[1]||'').split(/\r?\n/)){const x=line.trim().replace(/^\$\s*/,'');if(/^(npm|pnpm|yarn|npx|node|bun|python|python3|pip|pip3|uv|poetry|docker|docker-compose|podman|make|cargo|go|dotnet|java|gradle|mvn|powershell|pwsh)\b/i.test(x)&&x.length<180)out.push(x)}}return uniqText(out,12)}
+function extractReadmeCommands(raw){
+  const out=[],accept=(line)=>{
+    const x=String(line||'').trim().replace(/^(?:\$|>|PS>)\s*/i,'');
+    if(!x||x.length>200)return;
+    if(/^(npm|pnpm|yarn|npx|node|bun|python|python3|pip|pip3|pipx|uv|poetry|conda|docker|docker-compose|podman|make|cmake|meson|cargo|go|dotnet|java|gradle|mvn|powershell|pwsh|git|curl|wget|helm|kubectl|brew|apt|apt-get|winget|choco|bash|sh)\b/i.test(x)||/^\.[\\/][^\s]+/.test(x))out.push(x);
+  };
+  for(const m of String(raw||'').matchAll(/```[^\n]*\n([\s\S]*?)```/g))for(const line of String(m[1]||'').split(/\r?\n/))accept(line);
+  for(const m of String(raw||'').matchAll(/\x60([^\x60\n]{3,200})\x60/g))accept(m[1]);
+  return uniqText(out,18);
+}
 function readmeSignals(text){
   const raw=String(text||'').slice(0,65536),clean=cleanMarkdownText(raw);
   const headings=uniqText([...raw.matchAll(/^#{1,3}\s+(.+)$/gm)].map(m=>m[1].replace(/[#*_`]/g,'').trim()),20);
@@ -1249,7 +1258,60 @@ function readmeSignals(text){
 function repoApiBase(fullName){return '/repos/'+String(fullName||'').split('/').map(encodeURIComponent).join('/')}
 async function githubRawText(fullName,branch,path,maxBytes=L2_RAW_FILE_MAX){const url='https://raw.githubusercontent.com/'+String(fullName).split('/').map(encodeURIComponent).join('/')+'/'+encodeURIComponent(String(branch||'main'))+'/'+String(path).split('/').map(encodeURIComponent).join('/');const res=await fetch(url,{headers:{'User-Agent':'TLIB-PC-Agent/0.3'},signal:AbortSignal.timeout(12000)});if(res.status===404)return null;if(!res.ok)throw new Error('RAW_HTTP_'+res.status+' '+path);const len=Number(res.headers.get('content-length')||0);if(len>maxBytes)return null;const txt=await res.text();return txt.length>maxBytes?txt.slice(0,maxBytes):txt}
 async function rootInventory(fullName,branch){const rr=await githubGet(repoApiBase(fullName)+'/contents?ref='+encodeURIComponent(String(branch||'main')),true);if(rr.status===404||!Array.isArray(rr.body))return {names:[],files:[],dirs:[]};const files=rr.body.filter(x=>x&&x.type==='file').map(x=>String(x.name||''));const dirs=rr.body.filter(x=>x&&x.type==='dir').map(x=>String(x.name||''));return {names:files.concat(dirs),files,dirs}}
-async function manifestFacts(r,inventory){const names=new Set((inventory.files||[]).map(x=>String(x).toLowerCase()));const candidates=['package.json','pyproject.toml','requirements.txt','dockerfile','docker-compose.yml','compose.yml','go.mod','cargo.toml'];const selected=candidates.filter(x=>names.has(x)).slice(0,4);const facts={files:selected,commands:[],dependencies:[],scripts:[],services:[],runtime:[],config_files:[],raw_detected:inventory.names||[]};for(const p of selected){try{const actual=(inventory.files||[]).find(x=>String(x).toLowerCase()===p)||p;const txt=await githubRawText(r.full_name,r.default_branch||'main',actual);if(!txt)continue;if(p==='package.json'){let j={};try{j=JSON.parse(txt)}catch{}facts.scripts=uniqText(Object.keys(j.scripts||{}),12);facts.commands=uniqText([...facts.commands,...Object.keys(j.scripts||{}).map(k=>'npm run '+k)],12);facts.dependencies=uniqText([...Object.keys(j.dependencies||{}),...Object.keys(j.peerDependencies||{}),...Object.keys(j.devDependencies||{}).slice(0,8)],20);if(j.engines)facts.runtime.push('Node '+Object.entries(j.engines).map(([k,v])=>k+' '+v).join(', '))}else if(p==='requirements.txt'){facts.dependencies=uniqText([...facts.dependencies,...txt.split(/\r?\n/).map(x=>x.trim().split(/[<=>~!]/)[0]).filter(x=>x&&!x.startsWith('#'))],20);facts.runtime.push('Python')}else if(p==='pyproject.toml'){facts.runtime.push('Python')}else if(p==='go.mod'){const m=txt.match(/^module\s+(.+)$/m);if(m)facts.runtime.push('Go · module '+m[1].trim())}else if(p==='cargo.toml'){facts.runtime.push('Rust / Cargo')}else if(p==='dockerfile'){facts.runtime.push('Docker')}else if(/compose/.test(p)){facts.runtime.push('Docker Compose')}}catch(e){event('WARN','L2_MANIFEST_READ_FAIL',r.full_name+' '+p+' '+String(e.message||e).slice(0,180))}}facts.config_files=uniqText((inventory.files||[]).filter(x=>/^(?:\.env|config|settings|.*\.ya?ml$|.*\.toml$)/i.test(x)),12);return facts}
+async function manifestFacts(r,inventory){
+  const names=new Set((inventory.files||[]).map(x=>String(x).toLowerCase()));
+  const candidates=['package.json','pyproject.toml','requirements.txt','dockerfile','docker-compose.yml','compose.yml','go.mod','cargo.toml'];
+  const selected=candidates.filter(x=>names.has(x)).slice(0,6);
+  const facts={files:selected,commands:[],dependencies:[],scripts:[],services:[],runtime:[],config_files:[],raw_detected:inventory.names||[]};
+  const addDeps=(xs)=>{facts.dependencies=uniqText([...facts.dependencies,...(xs||[])],28)};
+  const addCmd=(xs)=>{facts.commands=uniqText([...facts.commands,...(xs||[])],18)};
+  for(const p of selected){
+    try{
+      const actual=(inventory.files||[]).find(x=>String(x).toLowerCase()===p)||p;
+      const txt=await githubRawText(r.full_name,r.default_branch||'main',actual);if(!txt)continue;
+      if(p==='package.json'){
+        let j={};try{j=JSON.parse(txt)}catch{}
+        const pm=names.has('pnpm-lock.yaml')?'pnpm':names.has('yarn.lock')?'yarn':(names.has('bun.lockb')||names.has('bun.lock'))?'bun':'npm';
+        facts.scripts=uniqText(Object.keys(j.scripts||{}),18);
+        addCmd([pm==='yarn'?'yarn install':pm+' install',...Object.keys(j.scripts||{}).map(k=>pm+' run '+k)]);
+        addDeps([...Object.keys(j.dependencies||{}),...Object.keys(j.peerDependencies||{}),...Object.keys(j.optionalDependencies||{}),...Object.keys(j.devDependencies||{}).slice(0,12)]);
+        facts.runtime.push(j.engines?'Node '+Object.entries(j.engines).map(([k,v])=>k+' '+v).join(', '):'Node.js / JavaScript');
+      }else if(p==='requirements.txt'){
+        addDeps(txt.split(/\r?\n/).map(x=>x.trim().split(/[<=>~!;\[]/)[0]).filter(x=>x&&!x.startsWith('#')&&!x.startsWith('-')));
+        addCmd(['pip install -r requirements.txt']);facts.runtime.push('Python');
+      }else if(p==='pyproject.toml'){
+        facts.runtime.push('Python');
+        const arr=txt.match(/(?:^|\n)\s*dependencies\s*=\s*\[([\s\S]*?)\]/i);
+        if(arr)addDeps([...arr[1].matchAll(/["']([^"']+)["']/g)].map(m=>m[1].split(/[<=>~!;\[]/)[0].trim()));
+        const poetry=txt.match(/\[tool\.poetry\.dependencies\]([\s\S]*?)(?=\n\[|$)/i);
+        if(poetry)addDeps(poetry[1].split(/\r?\n/).map(x=>(x.match(/^\s*([A-Za-z0-9_.-]+)\s*=/)||[])[1]).filter(x=>x&&x.toLowerCase()!=='python'));
+        const scripts=txt.match(/\[(?:project\.scripts|tool\.poetry\.scripts)\]([\s\S]*?)(?=\n\[|$)/i);
+        if(scripts)facts.scripts=uniqText([...facts.scripts,...scripts[1].split(/\r?\n/).map(x=>(x.match(/^\s*([A-Za-z0-9_.-]+)\s*=/)||[])[1]).filter(Boolean)],18);
+        addCmd(['pip install .',...facts.scripts.slice(0,8)]);
+      }else if(p==='go.mod'){
+        const mod=txt.match(/^module\s+(.+)$/m);facts.runtime.push(mod?'Go · module '+mod[1].trim():'Go');
+        const block=txt.match(/require\s*\(([\s\S]*?)\)/m),single=[...txt.matchAll(/^require\s+([^\s]+)\s+/gm)].map(m=>m[1]);
+        const req=block?block[1].split(/\r?\n/).map(x=>x.trim().split(/\s+/)[0]).filter(x=>x&&!x.startsWith('//')):[];
+        addDeps([...req,...single]);addCmd(['go build ./...']);
+      }else if(p==='cargo.toml'){
+        facts.runtime.push('Rust / Cargo');
+        const deps=[];
+        for(const sec of txt.matchAll(/\[(?:dev-|build-)?dependencies(?:\.[^\]]+)?\]([\s\S]*?)(?=\n\[|$)/gi)){deps.push(...sec[1].split(/\r?\n/).map(x=>(x.match(/^\s*([A-Za-z0-9_-]+)\s*=/)||[])[1]).filter(Boolean))}
+        addDeps(deps);addCmd(['cargo build']);
+      }else if(p==='dockerfile'){
+        const images=[...txt.matchAll(/^\s*FROM\s+([^\s]+).*$/gim)].map(m=>m[1]);
+        facts.runtime.push(images.length?'Docker · images '+uniqText(images,4).join(', '):'Docker');addCmd(['docker build .']);
+      }else if(/compose/.test(p)){
+        facts.runtime.push('Docker Compose');addCmd(['docker compose up']);
+        const after=(txt.match(/(?:^|\n)services:\s*\n([\s\S]*?)(?=\n\S|$)/i)||[])[1]||'';
+        facts.services=uniqText([...facts.services,...after.split(/\r?\n/).map(x=>(x.match(/^\s{2,}([A-Za-z0-9_.-]+):\s*(?:#.*)?$/)||[])[1]).filter(Boolean)],16);
+      }
+    }catch(e){event('WARN','L2_MANIFEST_READ_FAIL',r.full_name+' '+p+' '+String(e.message||e).slice(0,180))}
+  }
+  facts.config_files=uniqText((inventory.files||[]).filter(x=>/^(?:\.env|config|settings|.*\.ya?ml$|.*\.toml$)/i.test(x)),12);
+  facts.runtime=uniqText(facts.runtime,10);facts.commands=uniqText(facts.commands,18);facts.dependencies=uniqText(facts.dependencies,28);facts.services=uniqText(facts.services,16);
+  return facts;
+}
 function l2Nature(r,signals,role){return role&&role.nature?role.nature:String(r.resource_kind||'projet logiciel').toLowerCase()}
 function l2FrenchDossier(r,sig={signals:[],commands:[],sections:{}},inventory={names:[],files:[],dirs:[]},facts={files:[],commands:[],dependencies:[],scripts:[],services:[],runtime:[],config_files:[]}){
   const topics=jsonArray(r.topics_json),tags=jsonArray(r.theme_tags_json),langs=Object.keys(jsonObject(r.languages_json));
