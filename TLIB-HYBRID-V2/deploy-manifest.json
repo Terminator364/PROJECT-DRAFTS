@@ -13,7 +13,7 @@
     },
     {
       "path": "src/tlib.mjs",
-      "git_blob_sha": "e1fdd4499159963291b6914ac36cc5c4104db8cf"
+      "git_blob_sha": "0965c55ec184a02583a5531df9539018a965b1df"
     },
     {
       "path": "public/index.html",
@@ -37,7 +37,7 @@
     },
     {
       "path": "scripts/verify-build.mjs",
-      "git_blob_sha": "a8be8906e8fac58d0e6fafb53c4bfac6264cce5f"
+      "git_blob_sha": "1efd0c92763bee0c2fd6b72abd505777d70f8a7b"
     },
     {
       "path": "config/canary-seeds.json",
@@ -120,6 +120,6 @@
       "git_blob_sha": "e746a429df4a3c75935686951b4f422b51d1df59"
     }
   ],
-  "updated_at": "2026-10-01T18:07:25.361Z",
-  "build": "2026.10.01-v0.12.2-self-healing-diagnostics"
+  "updated_at": "2026-10-01T18:15:41.523Z",
+  "build": "2026.10.01-v0.12.3-self-healing-fix"
 }
