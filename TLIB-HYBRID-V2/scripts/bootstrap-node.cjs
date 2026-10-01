@@ -10,6 +10,7 @@ const LASTGOOD=path.join(DATA,'last-good-deployment.json');
 const LOCK=path.join(DATA,'boot.lock');
 const LOG=path.join(DATA,'boot-node.log');
 const ERROR=path.join(DATA,'last-launch-error.json');
+const DIAG=path.join(DATA,'diagnostics.json');
 const UI_STAMP=path.join(DATA,'ui-open.stamp');
 const NO_OPEN=process.argv.includes('--no-open');
 const URL='http://127.0.0.1:8787';
@@ -19,6 +20,16 @@ function log(event,detail=''){
   try{fs.appendFileSync(LOG,new Date().toISOString()+' '+event+(detail?' '+detail:'')+'\n','utf8')}catch{}
 }
 function readJson(p){try{return JSON.parse(fs.readFileSync(p,'utf8'))}catch{return null}}
+function writeDiag(patch={}){
+  try{
+    const prev=readJson(DIAG)||{schema:2};
+    const next={...prev,...patch,schema:2,generated_at:new Date().toISOString(),source:'TLIB_BOOTSTRAP',desktop_commander_required:false};
+    const tmp=DIAG+'.tmp-'+process.pid;
+    fs.writeFileSync(tmp,JSON.stringify(next,null,2)+'\n','utf8');
+    try{fs.renameSync(tmp,DIAG)}catch{fs.writeFileSync(DIAG,JSON.stringify(next,null,2)+'\n','utf8')}
+    return next;
+  }catch{return null}
+}
 function sleep(ms){return new Promise(r=>setTimeout(r,ms))}
 function health(timeout=900){
   return new Promise(resolve=>{
@@ -115,6 +126,7 @@ function acquireLock(){
 
 (async()=>{
   log('BOOT_BEGIN','noOpen='+NO_OPEN);
+  writeDiag({overall:'STARTING',bootstrap:{state:'BEGIN',pid:process.pid,no_open:NO_OPEN}});
   const fd=acquireLock();
   if(fd===null){
     log('BOOT_ALREADY_RUNNING');
@@ -127,6 +139,7 @@ function acquireLock(){
     if(!desired){
       log('NO_VERIFIED_SLOT');
       writeError('NO_VERIFIED_SLOT','No current or last-good verified deployment.');
+      writeDiag({overall:'DEGRADED',bootstrap:{state:'NO_VERIFIED_SLOT'},dashboard:{state:'OFFLINE',healthy:false,last_error:'NO_VERIFIED_SLOT'}});
       return;
     }
 
@@ -134,6 +147,7 @@ function acquireLock(){
     if(!h){await sleep(250);h=await health(1400)}
     if(h&&h.ok&&h.commit===desired.commit){
       log('ALREADY_HEALTHY','pid='+h.pid+' build='+h.build);
+      writeDiag({overall:'HEALTHY',bootstrap:{state:'ALREADY_HEALTHY'},dashboard:{state:'ONLINE',healthy:true,pid:h.pid,build:h.build,commit:h.commit,last_ok_at:new Date().toISOString()}});
       openUI();
       return;
     }
@@ -152,7 +166,8 @@ function acquireLock(){
 
     const totalMB=Math.round(os.totalmem()/1048576);
     const waitMs=totalMB<=6144?14000:9000;
-    startSlot(desired);
+    const spawnedPid=startSlot(desired);
+    writeDiag({overall:'RECOVERING',bootstrap:{state:'AGENT_SPAWNED',spawned_pid:spawnedPid,desired_commit:desired.commit},dashboard:{state:'STARTING',healthy:false}});
     h=await waitHealthy(desired,waitMs);
 
     if(!h&&lastGood&&verifiedSlot(lastGood)&&lastGood.commit!==desired.commit){
@@ -166,14 +181,16 @@ function acquireLock(){
     if(h&&h.ok){
       log('BOOT_READY','pid='+h.pid+' build='+h.build+' commit='+h.commit);
       try{fs.unlinkSync(ERROR)}catch{}
+      writeDiag({overall:'HEALTHY',bootstrap:{state:'BOOT_READY'},dashboard:{state:'ONLINE',healthy:true,pid:h.pid,build:h.build,commit:h.commit,last_ok_at:new Date().toISOString()}});
       openUI();
       return;
     }
 
     log('BOOT_FAILED','commit='+desired.commit);
     writeError('BOOT_FAILED','Worker did not become healthy within '+waitMs+' ms.');
+    writeDiag({overall:'DEGRADED',bootstrap:{state:'BOOT_FAILED',desired_commit:desired.commit,wait_ms:waitMs},dashboard:{state:'OFFLINE',healthy:false,last_error:'BOOT_FAILED'}});
   }finally{
     try{fs.closeSync(fd)}catch{}
     try{fs.unlinkSync(LOCK)}catch{}
   }
-})().catch(e=>{log('BOOT_EXCEPTION',String(e.stack||e));writeError('BOOT_EXCEPTION',String(e.message||e));try{fs.unlinkSync(LOCK)}catch{}});
+})().catch(e=>{log('BOOT_EXCEPTION',String(e.stack||e));writeError('BOOT_EXCEPTION',String(e.message||e));writeDiag({overall:'DEGRADED',bootstrap:{state:'BOOT_EXCEPTION',error:String(e.message||e)},dashboard:{state:'OFFLINE',healthy:false,last_error:'BOOT_EXCEPTION'}});try{fs.unlinkSync(LOCK)}catch{}});
