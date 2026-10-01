@@ -1,5 +1,5 @@
 import http from 'node:http';
-import { mkdirSync, readFileSync, readdirSync, writeFileSync, renameSync } from 'node:fs';
+import { existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync, renameSync } from 'node:fs';
 import { homedir, freemem, totalmem, cpus, networkInterfaces, setPriority, constants as osConstants } from 'node:os';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -11,7 +11,7 @@ const HERE = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(HERE, '..');
 const dataDir = process.env.TLIB_DATA_DIR || join(process.env.LOCALAPPDATA || homedir(), 'TLIB-PC');
 mkdirSync(dataDir, { recursive: true });
-const APP_BUILD = '2026.10.01-v0.12.2-self-healing-diagnostics';
+const APP_BUILD = '2026.10.01-v0.12.3-self-healing-fix';
 const STARTED_AT = new Date().toISOString();
 function deploymentCommit() {
   try {
@@ -2357,7 +2357,7 @@ function diagnosticPipelineSnapshot(){
   try{
     const l1=l1Stats(),l2=l2Stats(),l3=l3Stats();
     return {
-      l1:{total:Number(l1.total||0),complete:Number(l1.complete||0),deep_done:Number(l1.deep_done||0),pending:Number(l1.pending||0)},
+      l1:{total:Number(l1.core||l1.total||0),complete:Number(l1.complete||0),deep_done:Number(l1.deep_done||0),pending:Number(l1.pending||0)},
       l2:{total:Number(l2.total||0),base_done:Number(l2.base_done||0),deep_done:Number(l2.deep_done||0),l3_ready:Number(l2.l3_ready||0),base_pending:Number(l2.base_pending||0),deep_pending:Number(l2.deep_pending||0)},
       l3:{total:Number(l3.total||0),ready:Number(l3.ready||0),pending:Number(l3.pending||0)}
     };
@@ -2441,7 +2441,7 @@ async function dashboardWatchdogTick(){
   dashboardWatchdogFailures++;
   let reason=health&&health.ok?'COMMIT_MISMATCH':'HEALTH_UNREACHABLE';
   if(current?.commit&&current.commit!==APP_COMMIT)reason='WORKER_STALE_AFTER_DEPLOYMENT_CHANGE';
-  dashboardWatchdogLastError=reason;
+  if(reason==='WORKER_STALE_AFTER_DEPLOYMENT_CHANGE')dashboardWatchdogLastError=reason;
   if(reason==='WORKER_STALE_AFTER_DEPLOYMENT_CHANGE'){
     diagnosticPersist({
       overall:'DEGRADED',
@@ -2462,7 +2462,7 @@ async function dashboardWatchdogTick(){
     diagnosticPersist({
       overall:'RECOVERING',
       supervisor:{pid:process.pid,state:'RUNNING',mode:'BACKGROUND_WATCHDOG'},
-      dashboard:{state:'BACKOFF',healthy:false,consecutive_failures:dashboardWatchdogFailures,last_error:reason,restarts_10m:dashboardWatchdogRestarts.length,next_restart_at:new Date(dashboardWatchdogNextRestartAt).toISOString()}
+      dashboard:{state:'BACKOFF',healthy:false,consecutive_failures:dashboardWatchdogFailures,last_error:dashboardWatchdogLastError||reason,restarts_10m:dashboardWatchdogRestarts.length,next_restart_at:new Date(dashboardWatchdogNextRestartAt).toISOString()}
     });
     return;
   }
