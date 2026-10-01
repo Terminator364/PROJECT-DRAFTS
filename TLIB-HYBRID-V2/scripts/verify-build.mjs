@@ -157,6 +157,9 @@ if(html){
   js.includes('dossier.definition_fr')&&js.includes('installation_lancement_fr')&&js.includes('a_verifier_fr')?ok('l2-v4-french-dossier-render'):fail('l2-v4-french-dossier-render');
   markup.includes('V4 sémantique')&&js.includes('identity_confidence')&&js.includes('role_fr')?ok('l2-v4-semantic-identity-ui'):fail('l2-v4-semantic-identity-ui');
   js.includes('identity_basis_fr')&&js.includes('identity_source')&&js.includes('Pourquoi ce rôle ?')?ok('l2-v4-identity-trace-ui'):fail('l2-v4-identity-trace-ui');
+  markup.includes('data-tech-tab="diagnostics"')&&markup.includes('data-tech-pane="diagnostics"')&&markup.includes('id="refreshDiagnostics"')?ok('self-diagnostics-ui'):fail('self-diagnostics-ui');
+  js.includes('async function loadDiagnostics()')&&js.includes("/api/diagnostics")&&js.includes("if(v==='diagnostics')return loadDiagnostics()")?ok('self-diagnostics-ui-runtime'):fail('self-diagnostics-ui-runtime');
+  markup.includes('watchdog local')&&markup.includes('non requis pour update, diagnostic ou reprise courante')?ok('autonomy-policy-ui'):fail('autonomy-policy-ui');
   markup.includes('Recherche locale multiterme dans L1 + L2 V4 + L3')&&js.includes('RELAXED_CONCEPTS')&&js.includes('search_coverage')&&js.includes('pertinence ')?ok('semantic-search-ui'):fail('semantic-search-ui');
   js.includes('l3pack.best_for')&&js.includes('l3pack.strengths')&&js.includes('l3pack.selection_checks')&&js.includes('l3pack.readiness')?ok('l3-decision-ui'):fail('l3-decision-ui');
   markup.includes('<section id="l3" class="section">')&&markup.includes('id="l3Results"')&&markup.includes('data-l3-tab="packs"')?ok('l3-real-workspace'):fail('l3-real-workspace');
@@ -193,6 +196,11 @@ try{
     ['auto-update-interval',src.includes('AUTO_UPDATE_INTERVAL_MS=10*60*1000')],
     ['auto-update-first-check',src.includes('AUTO_UPDATE_FIRST_DELAY_MS=45*1000')],
     ['auto-update-channel',src.includes("channel:'release/tlib-hybrid-v2-stable'")],
+    ['self-diagnostics-endpoint',src.includes("/api/diagnostics")&&src.includes('projectDiagnosticsSnapshot')&&src.includes("desktop_commander_required:false")],
+    ['dashboard-watchdog-core',src.includes('startDashboardWatchdog()')&&src.includes('dashboardWatchdogTick')&&src.includes('DASHBOARD_WATCHDOG_RESTART')],
+    ['dashboard-watchdog-anti-loop',src.includes('dashboardWatchdogRestarts.length>=5')&&src.includes('5*60*1000')&&src.includes('dashboardWatchdogNextRestartAt')],
+    ['dashboard-watchdog-worker-owned',src.includes("if (cmd === 'worker')")&&src.indexOf('startDashboardWatchdog()')>src.indexOf("if (cmd === 'worker')")],
+    ['agent-lifecycle-diagnostics',src.includes('installAgentLifecycleHooks()')&&src.includes('AGENT_UNCAUGHT_EXCEPTION')&&src.includes('agent-lifecycle.jsonl')],
     ['self-diagnostics-api',src.includes("/api/diagnostics")&&src.includes('projectDiagnosticsSnapshot')&&src.includes("desktop_commander_required:false")],
     ['dashboard-watchdog',src.includes('startDashboardWatchdog')&&src.includes('dashboardWatchdogTick')&&src.includes('DASHBOARD_WATCHDOG_RESTART')],
     ['watchdog-fs-import',src.includes("import { existsSync,")&&src.includes("if(!existsSync(entry))throw new Error('CURRENT_ENTRY_MISSING')")],
