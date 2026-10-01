@@ -1,0 +1,125 @@
+{
+  "schema": 1,
+  "product": "TLIB",
+  "root": "TLIB-HYBRID-V2",
+  "files": [
+    {
+      "path": "package.json",
+      "git_blob_sha": "a5a236489d4079e034e19587dc64e9c4301bdac6"
+    },
+    {
+      "path": "RESOURCE_POLICY.md",
+      "git_blob_sha": "b6f4664811f7ca3268de8a40f943974ae4552033"
+    },
+    {
+      "path": "src/tlib.mjs",
+      "git_blob_sha": "0965c55ec184a02583a5531df9539018a965b1df"
+    },
+    {
+      "path": "public/index.html",
+      "git_blob_sha": "ae85500ba00c787fea49d3351f6d674ce4177d09"
+    },
+    {
+      "path": "scripts/install-windows.ps1",
+      "git_blob_sha": "040d6e45e63a2d80cb7be70b4461c28cff45be2e"
+    },
+    {
+      "path": "scripts/launch-tlib.ps1",
+      "git_blob_sha": "96d709ec50e2e31983a557dde65599d67d6c1ffd"
+    },
+    {
+      "path": "scripts/uninstall-windows.ps1",
+      "git_blob_sha": "cb8103d7b6d7a07e90b653e0c1edff3d930eedae"
+    },
+    {
+      "path": "scripts/update-tlib.ps1",
+      "git_blob_sha": "efde8f9062a6f73e7052d3809c5294cbefef8dfb"
+    },
+    {
+      "path": "scripts/verify-build.mjs",
+      "git_blob_sha": "b66d649494896d5e08cd61a18524e423a651cd91"
+    },
+    {
+      "path": "config/canary-seeds.json",
+      "git_blob_sha": "4e8f0939850eb6f4e2ce37b0c9eaad77a4db44f9"
+    },
+    {
+      "path": "config/control-snapshot.json",
+      "git_blob_sha": "ce1fa7c5e7fde3f01ff0db02c1222e072138d2ad"
+    },
+    {
+      "path": "config/l1-batch-a.json",
+      "git_blob_sha": "afd5af6f2d52701c581219ddadf6309a788e9c1f"
+    },
+    {
+      "path": "config/l1-batch-b.json",
+      "git_blob_sha": "cc75388abda25b3fb3fd7aa6b6733b68682fd2e8"
+    },
+    {
+      "path": "config/l1-batch-c.json",
+      "git_blob_sha": "0bfdc1fdb74f3c4c4b5942ff43122c108b05fdb5"
+    },
+    {
+      "path": "config/l1-batch-d.json",
+      "git_blob_sha": "b7d3f67608c6727b311d18e756f7816264a9fe84"
+    },
+    {
+      "path": "config/l1-batch-e.json",
+      "git_blob_sha": "bcc5f9c7290e887d3fbb2e8918ea07a3b02064b2"
+    },
+    {
+      "path": "config/l1-batch-f1.json",
+      "git_blob_sha": "d8021207b7e8e09b9f99b3f8bf9d3402f8bbd6e6"
+    },
+    {
+      "path": "config/l1-batch-f2.json",
+      "git_blob_sha": "071aaef7668e9dc1f746c0ad8dec9bdfe2c92ff1"
+    },
+    {
+      "path": "config/l1-batch-f3.json",
+      "git_blob_sha": "bd2369e019c42ed262381fdfbab7f5577ed159cf"
+    },
+    {
+      "path": "config/l1-batch-f4.json",
+      "git_blob_sha": "f3b4c932fed9c0d73cb83f49198d8d46b6d42d4b"
+    },
+    {
+      "path": "config/l1-fixture-10.json",
+      "git_blob_sha": "01e7ac71d1b136bd477fe657289f3edaa1d64754"
+    },
+    {
+      "path": "config/l1-names-1000.json",
+      "git_blob_sha": "1fc6340483a6dcc96e692ebd207dc309391b5a5f"
+    },
+    {
+      "path": "config/l2-fixture-10.json",
+      "git_blob_sha": "45ead541699809e69af3a422549dda78e6b23efa"
+    },
+    {
+      "path": "scripts/slot-update.mjs",
+      "git_blob_sha": "a60596c720b1e2d71823b5e383233d67218e23fd"
+    },
+    {
+      "path": "scripts/bootstrap-tlib.ps1",
+      "git_blob_sha": "1713264e618591c2c96b75d715280c8017703b43"
+    },
+    {
+      "path": "scripts/bootstrap-node.cjs",
+      "git_blob_sha": "d9bba38f2ada28c8b0c23a5dd07773c8b54af20e"
+    },
+    {
+      "path": "scripts/launch-hidden.vbs",
+      "git_blob_sha": "d455a3da409d684c607ddde4a7643088c45fc083"
+    },
+    {
+      "path": "public/vendor/qrcode.min.js",
+      "git_blob_sha": "993e88f396640f881b69f98db7a4d17401ef83ca"
+    },
+    {
+      "path": "THIRD_PARTY_NOTICES.md",
+      "git_blob_sha": "e746a429df4a3c75935686951b4f422b51d1df59"
+    }
+  ],
+  "updated_at": "2026-10-01T18:27:03.624Z",
+  "build": "2026.10.01-v0.12.3-self-healing-fix"
+}

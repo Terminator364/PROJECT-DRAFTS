@@ -1,0 +1,1437 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TLIB — Bibliothèque intelligente</title>
+<style>
+:root{--bg:#0b1020;--panel:#11182c;--panel2:#17223b;--line:#263451;--text:#f5f7fb;--muted:#9eabc3;--ok:#56d49b;--warn:#f3c969}
+*{box-sizing:border-box}html{scrollbar-color:#334565 #0a1020;scrollbar-width:thin}*::-webkit-scrollbar{width:10px;height:10px}*::-webkit-scrollbar-track{background:#0a1020}*::-webkit-scrollbar-thumb{background:#334565;border-radius:20px;border:2px solid #0a1020}*::-webkit-scrollbar-thumb:hover{background:#48658f}body{margin:0;font-family:"Segoe UI Variable","Segoe UI",Arial,sans-serif;background:radial-gradient(circle at 70% -10%,#172545 0,#0b1020 38%,#080d18 100%);color:var(--text);letter-spacing:.01em}
+.shell{display:grid;grid-template-columns:220px 1fr;min-height:100vh}.side{border-right:1px solid rgba(74,96,137,.35);padding:18px 12px;position:sticky;top:0;height:100vh;background:rgba(7,12,24,.96);backdrop-filter:blur(18px)}
+.brand{display:flex;gap:10px;align-items:center;margin:2px 4px 20px}.logo{width:38px;height:38px;border-radius:11px;background:linear-gradient(145deg,#6fa8ff,#9b8cff);display:grid;place-items:center;font-weight:800;box-shadow:0 8px 25px rgba(88,120,255,.22)}.brand b{display:block;font-size:17px}.brand small{color:var(--muted);font-size:11px}
+.nav{display:grid;gap:4px}.nav button{border:1px solid transparent;background:transparent;color:var(--muted);text-align:left;padding:9px 10px;border-radius:9px;cursor:pointer;font-size:13px;transition:.16s}.nav button:hover{background:#111a2d;color:#fff}.nav button.active{background:linear-gradient(135deg,#172542,#1a2948);border-color:#31496f;color:#fff;box-shadow:inset 3px 0 #7198ff}
+.sidefoot{position:absolute;left:16px;right:16px;bottom:20px;padding:13px;border:1px solid var(--line);border-radius:12px;color:var(--muted);font-size:12px}.dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:7px;background:var(--ok)}
+main{padding:18px 24px 48px;max-width:1480px;width:100%;margin:auto}.top{display:flex;align-items:center;justify-content:space-between;gap:18px;margin-bottom:16px;position:sticky;top:0;z-index:20;padding:10px 0;background:linear-gradient(180deg,rgba(9,14,27,.96),rgba(9,14,27,.78),rgba(9,14,27,0));backdrop-filter:blur(10px)}h1{font-size:25px;margin:0;letter-spacing:-.02em}.subtitle{color:var(--muted);margin-top:4px;font-size:13px}
+.badges{display:flex;gap:8px;flex-wrap:wrap}.badge{padding:8px 10px;border:1px solid var(--line);border-radius:999px;color:var(--muted);font-size:12px}
+.grid{display:grid;gap:12px}.levels{grid-template-columns:repeat(4,minmax(0,1fr))}.card{background:linear-gradient(180deg,rgba(23,34,59,.92),rgba(13,21,38,.94));border:1px solid rgba(55,73,108,.82);border-radius:12px;padding:14px;box-shadow:0 8px 25px rgba(0,0,0,.12)}
+.level{cursor:pointer;transition:.15s;width:100%;text-align:left;color:var(--text);font:inherit}.level:hover{transform:translateY(-2px);border-color:#5576b5}.level .kicker{font-size:12px;color:var(--muted);text-transform:uppercase}.level .num{font-size:28px;font-weight:800;margin:8px 0 2px;font-variant-numeric:tabular-nums;min-height:34px}.level .label{font-weight:700}.level p{margin:8px 0 0;color:var(--muted);font-size:13px;line-height:1.45}
+.state{margin-top:13px;font-size:12px;display:inline-block;padding:6px 8px;border-radius:999px;background:#0d1527;border:1px solid var(--line)}.state.ok{color:var(--ok)}.state.warn{color:var(--warn)}
+.hero{display:grid;grid-template-columns:1.4fr 1fr;gap:16px;margin:16px 0}.hero .big{padding:24px}.hero h2{font-size:25px;margin:0 0 10px}.hero p{color:var(--muted);line-height:1.6}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:13px}.btn{border:1px solid #33496d;background:#16243f;color:#fff;border-radius:8px;padding:8px 11px;cursor:pointer;font-size:13px;transition:.15s}.btn:hover{transform:translateY(-1px);border-color:#6388c9;background:#1d3154}.btn.primary{background:linear-gradient(135deg,#558cff,#7b70ff);border-color:transparent}.btn:disabled{opacity:.5}
+.statusline{display:flex;gap:10px;align-items:center;padding:11px 0;border-bottom:1px solid var(--line)}.statusline:last-child{border:0}.statusline strong{min-width:125px}.statusline span{color:var(--muted)}
+.section{display:none}.section.active{display:block}.searchbar{display:flex;gap:10px;margin:16px 0}.searchbar input,.composer input{flex:1;background:#0b1325;color:#fff;border:1px solid var(--line);border-radius:12px;padding:13px 15px}
+.results{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.tool{cursor:pointer}.tool:hover{border-color:#5278bd}.tool h3{margin:0 0 8px;font-size:16px}.tool p{color:var(--muted);font-size:13px;line-height:1.45;min-height:38px}
+.meta{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.pill{font-size:11px;padding:5px 8px;border-radius:999px;background:#0e172a;color:#bdc7dc;border:1px solid var(--line)}button.pill{cursor:pointer}button.pill:hover{border-color:#6f9eff;color:#fff;background:#162541}.muted{color:var(--muted)}.small{font-size:12px}.live{color:var(--ok);font-weight:700}.pulse{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--ok);margin-right:6px;animation:pulse 1.4s infinite}@keyframes pulse{50%{opacity:.35}}
+.twocol,.manager-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.bigstat{font-size:36px;font-weight:800;font-variant-numeric:tabular-nums;min-height:43px}.value{font-variant-numeric:tabular-nums}
+table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:10px 8px;border-bottom:1px solid var(--line);font-size:13px}th{color:var(--muted)}
+pre{white-space:pre-wrap;word-break:break-word;background:#0a1120;border:1px solid var(--line);border-radius:12px;padding:14px;color:#c9d5eb;max-height:480px;overflow:auto}
+.chatbox{min-height:520px}.bubble{max-width:760px;padding:13px 15px;border-radius:14px;margin:9px 0;line-height:1.5}.bot{background:#17223b}.user{background:#274c86;margin-left:auto}.composer{display:flex;gap:10px;margin-top:20px}
+.detail-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:14px 0}.fact{background:#0d1526;border:1px solid var(--line);padding:12px;border-radius:10px}.fact small{display:block;color:var(--muted);margin-bottom:5px}.notice{border-left:4px solid var(--warn);padding:12px 14px;background:#1b1a14;border-radius:8px;color:#e8dfc5}
+.metricgrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}.metric{cursor:pointer}.metric:hover{border-color:#5576b5}.metric .value{font-size:30px;font-weight:800;margin-top:5px}.progress{height:10px;background:#0a1120;border:1px solid var(--line);border-radius:999px;overflow:hidden}.bar{height:100%;background:linear-gradient(90deg,#5f92ff,#8e7dff);transition:width .5s}.bar.green{background:linear-gradient(90deg,#44c486,#67e0a8)}
+.subnav{display:flex;gap:8px;flex-wrap:wrap;margin:16px 0}.subnav button{border:1px solid var(--line);background:#0e172a;color:var(--muted);padding:8px 11px;border-radius:9px;cursor:pointer}.subnav button.active,.subnav button:hover{color:#fff;border-color:#658bd0;background:#1a2948}.subpane{display:none}.subpane.active{display:block}.kv{display:grid;grid-template-columns:190px 1fr;gap:8px;padding:8px 0;border-bottom:1px solid var(--line)}.kv:last-child{border-bottom:0}.kv span:first-child{color:var(--muted)}
+.facets{display:flex;gap:8px;flex-wrap:wrap}.facet{cursor:pointer}.facet b{margin-left:5px;color:#fff}.eventtable{max-height:460px;overflow:auto}.statusok{color:var(--ok)}.statuswarn{color:var(--warn)}
+.flow{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;align-items:stretch}.flow-node{cursor:pointer;text-align:center;position:relative}.flow-node:hover,.flow-node.active{border-color:#6d96df;background:linear-gradient(180deg,#203154,#111b30)}.flow-node .icon{font-size:24px}.flow-node .flowname{font-weight:800;margin:7px 0}.flow-node .flowstate{font-size:11px;color:var(--muted)}.flow-arrow{display:none}.manager-detail{margin-top:12px;background:#0c1426;border:1px solid var(--line);border-radius:12px;padding:14px}.manager-detail h4{margin:0 0 8px}.manager-detail p{margin:0;color:var(--muted);line-height:1.5}.interactive-card{cursor:pointer;position:relative;transition:.16s}.interactive-card:hover{border-color:#648bd0;transform:translateY(-1px)}.interactive-card:focus{outline:2px solid #7198ff;outline-offset:2px}.interactive-card:after{content:"›";position:absolute;right:12px;top:10px;color:#6f83a7;font-size:20px}.drawer{position:fixed;right:18px;top:18px;bottom:18px;width:min(520px,calc(100vw - 36px));z-index:80;background:#0b1324;border:1px solid #3a527b;border-radius:16px;box-shadow:0 24px 70px rgba(0,0,0,.48);transform:translateX(calc(100% + 40px));transition:.22s;display:flex;flex-direction:column}.drawer.open{transform:translateX(0)}.drawer-head{padding:16px 18px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center}.drawer-body{padding:16px 18px;overflow:auto}.drawer-close{border:0;background:#16243f;color:#fff;border-radius:8px;padding:7px 10px;cursor:pointer}.toast{position:fixed;left:50%;bottom:22px;z-index:100;transform:translate(-50%,20px);opacity:0;background:#152441;border:1px solid #48648f;color:#fff;padding:10px 14px;border-radius:10px;transition:.18s;pointer-events:none}.toast.show{opacity:1;transform:translate(-50%,0)}.clickable-row{cursor:pointer;border-radius:8px;padding:9px 8px;margin:0 -8px;transition:.15s}.clickable-row:hover{background:#121e34}.clickable-row:after{content:"›";float:right;color:#667c9f}.command-trigger{cursor:pointer;background:#111c31}.command-trigger:hover{color:#fff;border-color:#6388c9}.cmd{position:fixed;inset:0;z-index:120;background:rgba(3,7,14,.68);display:none;align-items:flex-start;justify-content:center;padding-top:12vh;backdrop-filter:blur(5px)}.cmd.open{display:flex}.cmdbox{width:min(680px,calc(100vw - 28px));background:#0b1426;border:1px solid #3a527b;border-radius:16px;box-shadow:0 30px 90px rgba(0,0,0,.55);overflow:hidden}.cmdbox input{width:100%;background:#0e1a30;color:#fff;border:0;border-bottom:1px solid var(--line);padding:16px 18px;font-size:16px;outline:none}.cmdlist{max-height:420px;overflow:auto;padding:8px}.cmditem{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:11px 12px;border-radius:10px;cursor:pointer}.cmditem:hover,.cmditem.active{background:#172743}.cmditem small{color:var(--muted)}.source-toolbar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}.source-toolbar input,.source-toolbar select{background:#0b1325;color:#fff;border:1px solid var(--line);border-radius:8px;padding:8px 10px}.audit-pass{color:var(--ok)}.audit-fail{color:#ff8e8e}
+.accordion{padding:0;overflow:hidden}.accordion>summary{list-style:none;cursor:pointer;padding:14px 16px;font-weight:750;display:flex;align-items:center;justify-content:space-between}.accordion>summary::-webkit-details-marker{display:none}.accordion>summary:after{content:"＋";color:var(--muted);font-size:18px}.accordion[open]>summary:after{content:"−"}.accordion>.inside{padding:0 16px 16px;border-top:1px solid var(--line)}.section-intro{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:14px}.section-intro h2{margin:0;font-size:20px}.section-intro p{margin:4px 0 0;color:var(--muted);font-size:13px}.theme-tree{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.theme-card{cursor:pointer}.theme-card:hover{border-color:#698fd4}.theme-card b{display:block;margin-bottom:4px}.theme-card span{font-size:12px;color:var(--muted)}.crumb{display:flex;gap:6px;align-items:center;color:var(--muted);font-size:12px;margin-bottom:8px}.crumb b{color:#dfe8f8}.compact-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}.compact-stat{padding:12px}.compact-stat .n{font-size:25px;font-weight:800;margin-top:4px}.split3{display:grid;grid-template-columns:1.15fr 1fr 1fr;gap:12px}
+@media(max-width:1050px){.flow,.theme-tree,.compact-grid{grid-template-columns:repeat(2,1fr)}.split3{grid-template-columns:1fr}}.progress{height:8px;background:#0b1325;border-radius:999px;overflow:hidden}.bar{height:100%;background:linear-gradient(90deg,#558cff,#7b70ff);transition:width .4s}
+@media(max-width:1050px){.levels,.results{grid-template-columns:repeat(2,1fr)}.hero,.twocol,.manager-grid{grid-template-columns:1fr}}
+.mobile-menu-toggle,.mobile-backdrop,.mobile-bottom-nav{display:none}
+@media(max-width:760px){
+  body{padding-bottom:82px;overflow-x:hidden}
+  .shell{display:block;min-height:100dvh}
+  .side{position:fixed!important;z-index:220;left:0;top:0;bottom:0;width:min(86vw,320px);height:100dvh!important;overflow-y:auto;padding:16px 12px 24px;transform:translateX(-104%);border-right:1px solid #31415f;background:#080e1b;transition:transform .18s ease!important}
+  .side.mobile-open{transform:translateX(0)}
+  .sidefoot{position:static;margin:20px 4px 0}
+  .mobile-backdrop{display:block;position:fixed;z-index:210;inset:0;background:rgba(0,0,0,.55);opacity:0;pointer-events:none;transition:opacity .18s ease}
+  .mobile-backdrop.open{opacity:1;pointer-events:auto}
+  main{padding:10px 12px 92px!important;max-width:none;margin:0}
+  .top{display:block!important;position:sticky;top:0;z-index:90;padding:8px 0 10px;margin-bottom:10px;background:#0b1020!important}
+  .top-main{display:flex;align-items:flex-start;gap:9px;min-width:0}
+  .mobile-menu-toggle{display:grid;place-items:center;flex:0 0 44px;width:44px;height:44px;border:1px solid #36527e;border-radius:12px;background:#14233d;color:#fff;font-size:20px}
+  h1{font-size:21px;line-height:1.16}
+  .subtitle{font-size:12px;line-height:1.35}
+  .top .badges{display:flex;flex-wrap:nowrap;overflow-x:auto;gap:7px;padding:8px 0 2px;scrollbar-width:none}
+  .top .badges::-webkit-scrollbar,.subnav::-webkit-scrollbar{display:none}
+  .top .badge{flex:0 0 auto;font-size:11px;padding:7px 9px}
+  .section-intro{align-items:flex-start;flex-direction:column;gap:8px}
+  .section-intro h2{font-size:20px;line-height:1.2}
+  .hero,.twocol,.manager-grid,.split3,.flow,.phonegrid{grid-template-columns:1fr!important}
+  .levels,.results,.detail-grid,.theme-tree{grid-template-columns:1fr!important}
+  .metricgrid,.compact-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  .card{padding:13px;border-radius:12px}
+  .metric .value,.bigstat{font-size:26px}
+  .compact-stat .n{font-size:23px}
+  .subnav{display:flex;flex-wrap:nowrap;overflow-x:auto;gap:7px;margin:12px -2px;padding:0 2px 5px;scrollbar-width:none}
+  .subnav button{flex:0 0 auto;min-height:42px}
+  .kv{grid-template-columns:1fr;gap:3px}
+  .kv span:first-child{font-size:12px}
+  .searchbar,.composer{flex-direction:column}
+  .searchbar .btn,.composer .btn{width:100%;min-height:44px}
+  .actions .btn{min-height:44px}
+  .chatbox{min-height:420px}
+  .drawer{left:8px;right:8px;top:auto;bottom:82px;width:auto;max-height:72dvh;transform:translateY(calc(100% + 100px));border-radius:16px 16px 12px 12px}
+  .drawer.open{transform:translateY(0)}
+  .qrbox{min-height:0;aspect-ratio:1/1;max-width:320px;width:100%;margin:0 auto}
+  .phonecode{font-size:24px;letter-spacing:.08em;word-break:break-all}
+  .phoneurl{font-size:12px}
+  .eventtable{overflow-x:auto}
+  .eventtable table{min-width:640px}
+  .mobile-bottom-nav{display:grid;position:fixed;z-index:180;left:8px;right:8px;bottom:8px;grid-template-columns:repeat(5,minmax(0,1fr));gap:4px;padding:7px;background:#0c1424;border:1px solid #304566;border-radius:16px;box-shadow:0 14px 40px rgba(0,0,0,.38)!important}
+  .mobile-bottom-nav button{border:0;background:transparent;color:var(--muted);border-radius:10px;padding:7px 3px;display:grid;gap:3px;place-items:center;font-size:17px;min-width:0}
+  .mobile-bottom-nav button span{font-size:10px;white-space:nowrap}
+  .mobile-bottom-nav button.active{background:#172a49;color:#fff}
+}
+@media(max-width:390px){
+  .metricgrid,.compact-grid{grid-template-columns:1fr!important}
+  .top .badge{font-size:10.5px}
+}
+.global-activity{position:fixed;z-index:500;left:0;right:0;top:0;height:3px;opacity:0;pointer-events:none;overflow:hidden;background:transparent}
+.global-activity.busy{opacity:1;background:#101a2c}
+.global-activity .runner{height:100%;width:34%;transform:translateX(-120%);background:linear-gradient(90deg,#558cff,#8e7dff);animation:globalrun 1s linear infinite}
+@keyframes globalrun{to{transform:translateX(360%)}}
+.sr-only{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}
+.subpane.pane-loading{position:relative}
+.subpane.pane-loading:before{content:"";display:block;height:3px;border-radius:999px;margin:0 0 9px;background:linear-gradient(90deg,#558cff 0 30%,#263451 30% 100%);background-size:220% 100%;animation:panerun .85s linear infinite}
+@keyframes panerun{to{background-position:-220% 0}}
+.subnav button.tab-loading:after{content:" · …";color:#9fb9ff}
+.connection-wait{color:var(--warn)!important}
+.update-reconnect{border-left:3px solid #7198ff;padding-left:9px}
+
+/* TLIB FAST RENDER — default for low-RAM Windows PCs */
+body{background:#0b1020}
+.side,.top,.cmd{-webkit-backdrop-filter:none!important;backdrop-filter:none!important}
+.card,.cmdbox,.drawer,.logo{box-shadow:none!important}
+.nav button,.level,.btn,.bar,.interactive-card,.drawer,.toast,.clickable-row{transition:none!important}
+.level:hover,.btn:hover,.interactive-card:hover{transform:none!important}
+.pulse{animation:none!important}
+html{scroll-behavior:auto!important}
+
+
+.phonegrid{display:grid;grid-template-columns:minmax(240px,.8fr) minmax(280px,1.2fr);gap:14px}
+.qrbox{display:grid;place-items:center;min-height:260px;background:#fff;border-radius:16px;padding:16px}
+.qrbox img,.qrbox canvas{max-width:220px!important;width:100%!important;height:auto!important}
+.phonecode{font:700 28px/1.1 ui-monospace,SFMono-Regular,Consolas,monospace;letter-spacing:.12em}
+.phoneurl{word-break:break-all;font-family:ui-monospace,SFMono-Regular,Consolas,monospace}
+.duration-row{display:flex;flex-wrap:wrap;gap:8px}
+.duration-row .btn.active{outline:2px solid #7198ff;outline-offset:1px}
+@media(max-width:820px){.phonegrid{grid-template-columns:1fr}.qrbox{min-height:220px}}
+
+.drill-card{margin-top:12px}
+.drill-nav{display:flex;gap:7px;flex-wrap:wrap;margin:10px 0}
+.drill-nav button{border:1px solid var(--line);background:#0d1729;color:var(--muted);border-radius:9px;padding:8px 10px;cursor:pointer}
+.drill-nav button.active{color:#fff;border-color:#648bd0;background:#172a49}
+.drill-toolbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:10px 0}
+.drill-toolbar input,.drill-toolbar select{background:#0b1325;color:#fff;border:1px solid var(--line);border-radius:8px;padding:9px 10px}
+.drill-toolbar input{min-width:220px;flex:1}
+.drill-summary{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}
+.drill-row{cursor:pointer}
+.drill-row:hover{background:#111d32}
+.drill-empty{padding:20px;text-align:center;color:var(--muted)}
+.progress-hit{display:block;width:100%;border:0;background:transparent;color:inherit;text-align:left;padding:0;cursor:pointer}
+.progress-hit:hover .progress{outline:1px solid #648bd0}
+.kv.actionable{cursor:pointer}
+.kv.actionable:hover{background:#111d32}
+.chat-thinking{opacity:.78}
+.chat-results{display:grid;gap:8px;margin-top:8px}
+.chat-result{border:1px solid var(--line);background:#0d1728;border-radius:10px;padding:10px;cursor:pointer;text-align:left;color:#fff}
+.chat-result:hover{border-color:#648bd0}
+@media(max-width:760px){.drill-toolbar{align-items:stretch}.drill-toolbar input,.drill-toolbar select,.drill-toolbar .btn{width:100%}.drill-nav{flex-wrap:nowrap;overflow-x:auto}.drill-nav button{flex:0 0 auto}}
+
+.phone-session-list{display:grid;gap:10px}
+.phone-session{border:1px solid var(--line);border-radius:12px;padding:12px;background:var(--panel2);cursor:pointer}
+.phone-session:hover{border-color:#648bd0}
+.phone-session .topline{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+.phone-session .remaining{font-size:20px;font-weight:800}
+.phone-session .session-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.phone-status-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:12px}
+.phone-status-grid .fact{min-height:88px}
+@media(max-width:760px){.phone-status-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:390px){.phone-status-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="global-activity" id="globalActivity" aria-hidden="true"><div class="runner"></div></div>
+<div class="sr-only" id="globalActivityText" aria-live="polite">Prêt</div>
+<div class="shell">
+<aside class="side">
+<div class="brand"><div class="logo">T</div><div><b>TLIB</b><small>Bibliothèque intelligente</small></div></div>
+<div class="nav">
+<button class="active" data-view="home">🏠 Accueil</button><button data-view="explore">🔎 Explorer</button><button data-view="l0">🧭 L0 · Repérage</button><button data-view="l1">✅ L1 · Vérification</button><button data-view="l2">🧠 L2 · Compréhension</button><button data-view="l3">🚀 L3 · Action</button><button data-view="talk">💬 Parler à TLIB</button><button data-view="manager">⚙️ Manager</button><button data-view="technical">🛠 Technique</button>
+</div>
+<div class="sidefoot"><span class="dot"></span><span id="sideWorker">PC worker en ligne</span><br><span class="small">Interface locale — PC + téléphone autorisé</span></div>
+</aside>
+<div class="mobile-backdrop" id="mobileBackdrop" aria-hidden="true"></div>
+<main>
+<div class="top"><div class="top-main"><button class="mobile-menu-toggle" id="mobileMenuToggle" type="button" aria-label="Ouvrir le menu" aria-expanded="false">☰</button><button class="btn" id="navBack" title="Retour" style="display:none">←</button><div><h1 id="pageTitle">Ta bibliothèque technique</h1><div class="subtitle" id="pageSubtitle">TLIB transforme des ressources brutes en connaissances utiles.</div></div></div><div class="badges"><button class="badge command-trigger" id="commandOpen">⌘ Actions</button><button class="badge command-trigger" data-go="l0" id="bL0">L0 — …</button><button class="badge command-trigger" data-go="l1" id="bPC">PC — …</button><span class="badge" id="syncBadge">● synchronisation discrète</span></div></div>
+
+<section id="home" class="section active">
+<div class="grid levels" id="levelCards"></div>
+<div class="hero">
+<div class="card big"><h2>Que veux-tu trouver ?</h2><p>Recherche un outil, une technologie ou un besoin. Le PC n'essaie jamais de charger les 120 694 ressources en mémoire : il travaille par lots et garde des checkpoints.</p>
+<div class="searchbar"><input id="homeSearch" placeholder="Ex. Android, Telegram, Node.js, réseau…"><button class="btn primary" id="homeSearchBtn">Rechercher</button></div>
+<div class="actions"><button class="btn" data-go="explore">Explorer la bibliothèque</button><button class="btn" data-go="manager">Voir ce que TLIB fait</button></div></div>
+<div class="card"><h3 style="margin-top:0">Aujourd'hui</h3><div class="statusline clickable-row" data-go="l0"><strong>Repérage</strong><span id="todayL0">…</span></div><div class="statusline clickable-row" data-go="l1"><strong>Vérification</strong><span id="todayL1">…</span></div><div class="statusline clickable-row" data-go="l2"><strong>Compréhension</strong><span id="todayL2">…</span></div><div class="statusline clickable-row" data-go="l3"><strong>Action</strong><span id="todayL3">…</span></div><div class="statusline clickable-row" data-go="technical"><strong>PC</strong><span id="todayPC">…</span></div></div>
+</div>
+<div class="card"><h3 style="margin-top:0">Dernières fiches vérifiées</h3><div id="homeRecent" class="results"></div></div>
+</section>
+
+<section id="l0" class="section">
+<div class="section-intro"><div><div class="crumb"><button class="pill" data-go="home">Accueil</button><span>›</span><b>L0 · Repérage</b></div><h2>Comment TLIB a construit le stock</h2><p>Découverte, provenance, profondeur et anomalies de la génération L0 actuelle.</p></div><button class="btn primary" data-go="l1">Passer à L1</button></div>
+<div class="subnav" id="l0Subnav"><button class="active" data-l0-tab="overview">Vue d’ensemble</button><button data-l0-tab="sources">Sources</button><button data-l0-tab="depth">Profondeur</button><button data-l0-tab="failures">Épuisées</button></div>
+<div class="subpane active" data-l0-pane="overview">
+<div class="compact-grid">
+  <div class="card compact-stat interactive-card" tabindex="0" data-action="l0-entities"><div class="small muted">Ressources uniques</div><div class="n" id="l0Entities">…</div><div class="small muted">dédupliquées · détails</div></div>
+  <div class="card compact-stat interactive-card" tabindex="0" data-action="l0-sources"><div class="small muted">Sources explorées</div><div class="n" id="l0Sources">…</div><div class="small muted">graphe Awesome / GitHub</div></div>
+  <div class="card compact-stat interactive-card" tabindex="0" data-action="l0-done"><div class="small muted">Sources terminées</div><div class="n statusok" id="l0Done">…</div><div class="small muted">traitées avec succès</div></div>
+  <div class="card compact-stat interactive-card" tabindex="0" data-action="l0-failed"><div class="small muted">Sources épuisées</div><div class="n statuswarn" id="l0Failed">…</div><div class="small muted">auditables</div></div>
+</div>
+<div class="split3" style="margin-top:12px">
+  <details class="card accordion" open><summary>🧭 Ce que fait L0</summary><div class="inside"><div class="kv"><span>Découvrir</span><b>liens GitHub et listes spécialisées</b></div><div class="kv"><span>Normaliser</span><b>owner/repo + URL canonique</b></div><div class="kv"><span>Dédupliquer</span><b>un entity_id par dépôt</b></div><div class="kv"><span>Relier</span><b>source → ressource → origine</b></div></div></details>
+  <details class="card accordion"><summary>🕸️ Graphe des sources</summary><div class="inside"><p class="muted">Chaque source conserve son parent, sa profondeur et son nombre de tentatives.</p><button class="btn" data-l0-jump="sources">Explorer les sources</button></div></details>
+  <details class="card accordion"><summary>✅ Gate L0</summary><div class="inside"><p class="muted">Aucune source en attente. Cette génération reste traçable pendant que L1 travaille.</p><button class="btn" data-go="manager">Voir le pipeline</button></div></details>
+</div>
+</div>
+<div class="subpane" data-l0-pane="sources"><div class="card"><div class="section-intro"><div><h3 style="margin:0">Explorateur des 1 811 sources</h3><p>Recherche et filtre sur la vraie SOURCE_FRONTIER.</p></div><div id="l0SourceCount" class="badge">…</div></div><div class="source-toolbar"><input id="l0SourceSearch" placeholder="owner, repo, source, parent…"><select id="l0SourceStatus"><option value="">Tous les états</option><option value="DONE">DONE</option><option value="FAILED">FAILED</option></select><select id="l0SourceDepth"><option value="">Toutes profondeurs</option><option value="0">Profondeur 0</option><option value="1">Profondeur 1</option><option value="2">Profondeur 2</option><option value="3">Profondeur 3</option></select><button class="btn" id="l0SourceRefresh">Actualiser</button></div><div id="l0SourceTable" class="eventtable"></div></div></div>
+<div class="subpane" data-l0-pane="depth"><div class="twocol"><div class="card"><h3 style="margin-top:0">Répartition par profondeur</h3><div id="l0DepthStats"></div></div><div class="card"><h3 style="margin-top:0">Chaîne de découverte</h3><p class="muted">Clique une source dans l’onglet Sources pour voir son parent <code>discovered_from</code> et reconstruire son chemin de découverte.</p><button class="btn primary" data-l0-jump="sources">Ouvrir Sources</button></div></div></div>
+<div class="subpane" data-l0-pane="failures"><div class="card"><div class="section-intro"><div><h3 style="margin:0">Sources épuisées</h3><p>Conservées pour audit ; elles ne disparaissent jamais silencieusement.</p></div><button class="btn" id="l0FailuresRefresh">Recharger</button></div><div id="l0FailuresTable" class="eventtable"></div></div></div>
+</section>
+
+<section id="explore" class="section">
+<div class="card"><h2 style="margin-top:0">Explorer TLIB</h2><div class="muted">Recherche sémantique locale dans L1 + L2 + L3 : décris ton besoin en langage simple. TLIB combine identité, finalités, architecture, commandes, dépendances et plans d’action. Clique aussi sur un tag pour explorer un thème.</div><div class="searchbar"><input id="librarySearch" placeholder="Que cherches-tu ?"><button class="btn primary" id="librarySearchBtn">Chercher</button></div><div class="meta" id="quickFilters"><button class="pill" data-filter="">Tout</button></div><div style="display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin-top:12px"><div id="libraryCount" class="small muted"></div><label class="small muted">Trier&nbsp; <select id="librarySort" style="background:#0b1325;color:#fff;border:1px solid var(--line);border-radius:8px;padding:7px"><option value="stars">Popularité</option><option value="recent">Activité récente</option><option value="verified">Vérifiées récemment</option><option value="complete">Complétude L1</option><option value="name">Nom A→Z</option></select></label></div></div>
+<div id="libraryResults" class="results" style="margin-top:16px"></div><div style="text-align:center;margin-top:14px"><button class="btn" id="libraryMore" style="display:none">Afficher plus</button></div><div id="resourceDetail" class="card" style="display:none;margin-top:16px"></div>
+</section>
+
+<section id="l1" class="section">
+<div class="section-intro"><div><div class="crumb">Accueil <span>›</span> <b>L1 · Vérification totale</b></div><h2>Transformer le stock brut en fiches fiables</h2><p>L1 vérifie, classe et approfondit avant de laisser L2 dépenser de l’analyse sémantique.</p></div><div class="badges"><span class="badge" id="l1SchedulerBadge">ordonnanceur …</span><span class="badge" id="l1QuotaBadge">quota …</span></div></div>
+<div class="subnav" id="l1Subnav">
+  <button class="active" data-l1-tab="overview">Vue d’ensemble</button>
+  <button data-l1-tab="metadata">Métadonnées</button>
+  <button data-l1-tab="themes">Thèmes</button>
+  <button data-l1-tab="insights">Répartition</button>
+  <button data-l1-tab="deep">Approfondissement</button>
+  <button data-l1-tab="recent">Dernières fiches</button>
+  <button data-l1-tab="drill">Détails interactifs</button>
+</div>
+
+<div class="subpane active" data-l1-pane="overview">
+  <div class="metricgrid">
+    <div class="card metric interactive-card" tabindex="0" data-action="l1-all"><div class="small muted">Corpus total L0</div><div class="value" id="l1Target">…</div><div class="small muted">candidats à vérifier</div></div>
+    <div class="card metric interactive-card" tabindex="0" data-action="l1-verified"><div class="small muted">Identités vérifiées</div><div class="value" id="l1Core">…</div><div class="small muted" id="l1CorePct">…</div></div>
+    <div class="card metric interactive-card" tabindex="0" data-action="l1-complete"><div class="small muted">L1 complet applicable</div><div class="value" id="l1Complete">…</div><div class="small muted">prêt pour tri / L2</div></div>
+    <div class="card metric interactive-card" tabindex="0" data-action="l1-deep"><div class="small muted">Vérification profonde</div><div class="value" id="l1Deep">…</div><div class="small muted" id="l1DeepPending">…</div></div>
+  </div>
+  <div class="card" style="margin-top:12px">
+    <div class="section-intro"><div><h3 style="margin:0">Progression</h3><p id="l1ProgressText">…</p></div><div class="live" id="l1Speed">…</div></div>
+    <div class="progress-hit" role="button" tabindex="0" data-l1-drill-open="verified" aria-label="Ouvrir les identités vérifiées">
+      <div class="progress"><div class="bar" id="l1CoreBar" style="width:0"></div></div>
+      <div class="small muted" style="margin:6px 0 12px">Identité + métadonnées principales · cliquer pour détailler</div>
+    </div>
+    <div class="progress-hit" role="button" tabindex="0" data-l1-drill-open="complete" aria-label="Ouvrir les L1 complètes">
+      <div class="progress"><div class="bar green" id="l1CompleteBar" style="width:0"></div></div>
+      <div class="small muted" style="margin-top:6px">L1 complet selon le type de ressource · cliquer pour détailler</div>
+    </div>
+  </div>
+</div>
+
+<div class="subpane" data-l1-pane="drill">
+  <div class="section-intro"><div><h3 id="l1DrillTitle" style="margin:0">Détails L1</h3><p id="l1DrillHelp">Explore les fiches réelles correspondant à l’état sélectionné.</p></div><span class="badge" id="l1DrillCount">…</span></div>
+  <div class="drill-nav" id="l1DrillNav">
+    <button class="active" data-l1-drill="verified">Identités vérifiées</button>
+    <button data-l1-drill="complete">L1 complètes</button>
+    <button data-l1-drill="deep_done">Profondes terminées</button>
+    <button data-l1-drill="deep_pending">Profondes en attente</button>
+    <button data-l1-drill="l2_eligible">Éligibles L2</button>
+  </div>
+  <div class="card drill-card">
+    <div class="drill-toolbar">
+      <input id="l1DrillSearch" placeholder="Nom, technologie, type, thème…">
+      <select id="l1DrillSort"><option value="score">Score L1</option><option value="recent">Plus récentes</option><option value="stars">Popularité</option><option value="name">Nom A→Z</option></select>
+      <button class="btn primary" id="l1DrillSearchBtn">Filtrer</button>
+      <button class="btn" id="l1DrillPrev">← Précédent</button>
+      <button class="btn" id="l1DrillNext">Suivant →</button>
+    </div>
+    <div class="drill-summary" id="l1DrillSummary"></div>
+    <div id="l1DrillResults" class="eventtable"></div>
+  </div>
+</div>
+
+<div class="subpane" data-l1-pane="metadata">
+  <div class="split3">
+    <details class="card accordion" open><summary>Identité & provenance</summary><div class="inside"><div class="kv actionable" data-l1-drill-open="verified"><span>Dépôt</span><b>owner/repo, GitHub ID, Node ID ›</b></div><div class="kv actionable" data-l1-drill-open="verified"><span>État</span><b>public, archive, fork, template, disabled ›</b></div><div class="kv actionable" data-l1-drill-open="verified"><span>Liens</span><b>GitHub, homepage, branche principale ›</b></div></div></details>
+    <details class="card accordion" open><summary>Projet & activité</summary><div class="inside"><div class="kv actionable" data-l1-drill-open="deep_done"><span>Langage</span><b>langage principal + détails si approfondi ›</b></div><div class="kv actionable" data-l1-drill-open="complete"><span>Licence</span><b>SPDX + nom ›</b></div><div class="kv actionable" data-l1-drill-open="deep_done"><span>Dates</span><b>création, update, push, release ›</b></div><div class="kv actionable" data-l1-drill-open="deep_done"><span>Volume</span><b>taille, issues, forks, watchers ›</b></div></div></details>
+    <details class="card accordion" open><summary>Qualité & compréhension mécanique</summary><div class="inside"><div class="kv actionable" data-l1-drill-open="complete"><span>Type</span><b>logiciel, catalogue, guide… ›</b></div><div class="kv actionable" data-l1-drill-open="complete"><span>Résumé L1</span><b>description humaine dérivée sans LLM massif ›</b></div><div class="kv actionable" data-l1-drill-open="complete"><span>Complétude</span><b>score adapté au type de ressource ›</b></div><div class="kv actionable" data-l1-drill-open="deep_done"><span>Communauté</span><b>README, release, health si pertinent ›</b></div></div></details>
+  </div>
+  <div class="notice" style="margin-top:12px">Une “L1 complète” n’est pas un formulaire identique pour tout. Un catalogue Awesome n’a pas besoin des mêmes preuves qu’un projet logiciel exécutable.</div>
+</div>
+
+<div class="subpane" data-l1-pane="themes">
+  <div class="twocol">
+    <div class="card"><h3 style="margin-top:0">Facettes en direct</h3><p class="muted">Clique sur une facette pour ouvrir Explorer avec ce filtre.</p><div id="l1Facets" class="facets"></div></div>
+    <div class="card interactive-card" tabindex="0" data-action="l1-taxonomy"><h3 style="margin-top:0">Version de taxonomie</h3><div class="bigstat" id="taxonomyVersion">…</div><p class="muted">Les thèmes TLIB sont distincts des topics GitHub bruts. Cliquer pour recharger les facettes.</p></div>
+  </div>
+  <div class="card" style="margin-top:12px"><h3 style="margin-top:0">Arbre des thèmes</h3><div id="l1Themes" class="theme-tree"></div></div>
+</div>
+
+<div class="subpane" data-l1-pane="insights">
+  <div class="section-intro"><div><h3 style="margin:0">Répartition du corpus vérifié</h3><p>Voir immédiatement où se concentrent les fiches et où il manque encore de profondeur.</p></div><button class="btn" id="refreshInsights">Actualiser</button></div>
+  <div class="twocol"><div class="card"><h3 style="margin-top:0">Par type</h3><div id="insightTypes"></div></div><div class="card"><h3 style="margin-top:0">Par activité</h3><div id="insightActivity"></div></div></div>
+  <div class="twocol" style="margin-top:12px"><div class="card"><h3 style="margin-top:0">Technologies dominantes</h3><div id="insightTech"></div></div><div class="card"><h3 style="margin-top:0">Langages</h3><div id="insightLanguages"></div></div></div>
+  <div class="twocol" style="margin-top:12px"><div class="card"><h3 style="margin-top:0">Licences</h3><div id="insightLicenses"></div></div><div class="card"><h3 style="margin-top:0">Score L1</h3><div id="insightScores"></div></div></div>
+</div>
+
+<div class="subpane" data-l1-pane="deep">
+  <div class="metricgrid">
+    <div class="card interactive-card" tabindex="0" data-l1-drill-open="deep_done"><div class="small muted">Approfondies</div><div class="value" id="l1DeepDone2">…</div><div class="small muted">langages / release / README / communauté</div></div>
+    <div class="card interactive-card" tabindex="0" data-l1-drill-open="deep_pending"><div class="small muted">En attente</div><div class="value statuswarn" id="l1DeepBacklog">…</div><div class="small muted">dette qualité à résorber</div></div>
+    <div class="card interactive-card" tabindex="0" data-action="manager-queue"><div class="small muted">Ordonnanceur</div><div class="value" id="l1SchedulerMode">…</div><div class="small muted">ouvrir le détail de la file</div></div>
+    <div class="card interactive-card" tabindex="0" data-action="tech-rate"><div class="small muted">Quota GitHub</div><div class="value" id="l1DeepQuota">…</div><div class="small muted">ouvrir quota et cadence</div></div>
+  </div>
+  <div class="card" style="margin-top:12px"><div class="section-intro"><div><h3 style="margin:0">Queue d’approfondissement</h3><p>Les plus anciennes fiches incomplètes sont traitées en priorité.</p></div><button class="btn" id="refreshDeepQueue">Actualiser</button></div><div id="deepQueueTable" class="eventtable"></div></div>
+</div>
+
+<div class="subpane" data-l1-pane="recent">
+  <div class="card"><h3 style="margin-top:0">Dernières vérifications</h3><div id="l1Recent" class="results"></div></div>
+</div>
+</section>
+
+<section id="l2" class="section">
+<div class="section-intro"><div><div class="crumb"><button class="pill" data-go="home">Accueil</button><span>›</span><b>L2 · Compréhension projet</b></div><h2>Comprendre assez pour pouvoir travailler</h2><p>L2 V4 sémantique identifie d’abord le rôle réel du projet, puis combine les preuves L1, le README, la structure du dépôt et les manifestes techniques en un dossier exploitable en français.</p></div><span class="badge" id="l2VersionBadge">V4 sémantique</span></div>
+<div class="subnav" id="l2Subnav"><button class="active" data-l2-tab="overview">Vue d’ensemble</button><button data-l2-tab="profiles">Profils</button><button data-l2-tab="pipeline">Pipeline L2</button><button data-l2-tab="gate">Critères d’entrée</button><button data-l2-tab="design">Structure L2</button></div>
+<div class="subpane active" data-l2-pane="overview">
+  <div class="metricgrid">
+    <div class="card interactive-card" tabindex="0" data-action="l2-profiles"><div class="small muted">Dossiers L2 V4</div><div class="value" id="l2Count">…</div><div class="small muted">dossiers français actuellement reconstruits</div></div>
+    <div class="card interactive-card" tabindex="0" data-l2-drill-open="eligible"><div class="small muted">L1 éligibles</div><div class="value" id="l2Eligible">…</div><div class="small muted">corpus pouvant entrer en L2</div></div>
+    <div class="card interactive-card" tabindex="0" data-l2-drill-open="base_pending"><div class="small muted">Dette V4 totale</div><div class="value statuswarn" id="l2BasePending">…</div><div class="small muted">migration + nouvelles L1</div></div>
+    <div class="card interactive-card" tabindex="0" data-l2-drill-open="base_pending"><div class="small muted">Anciens L2 à réinterpréter</div><div class="value statuswarn" id="l2MigrationLegacy">…</div><div class="small muted">conservés pour recherche pendant la migration</div></div>
+    <div class="card interactive-card" tabindex="0" data-l2-drill-open="base_pending"><div class="small muted">Jamais profilés L2</div><div class="value" id="l2NeverProfiled">…</div><div class="small muted">L1 éligibles entièrement nouvelles</div></div>
+    <div class="card interactive-card" tabindex="0" data-l2-drill-open="deep_done"><div class="small muted">Dossiers approfondis</div><div class="value" id="l2DeepDone">…</div><div class="small muted">README + structure + manifestes</div></div>
+    <div class="card interactive-card" tabindex="0" data-l2-drill-open="l3_ready"><div class="small muted">Prêts à agir / L3</div><div class="value statusok" id="l2L3Ready">…</div><div class="small muted">compréhension suffisamment étayée</div></div>
+    <div class="card interactive-card" tabindex="0" data-l2-drill-open="profiles"><div class="small muted">Compréhension moyenne</div><div class="value" id="l2Comprehension">…</div><div class="small muted">score de dossier V4</div></div>
+    <div class="card interactive-card" tabindex="0" data-l2-jump="pipeline"><div class="small muted">Cadence L2</div><div class="value" id="l2Speed">…</div><div class="small muted">ouvrir le pipeline</div></div>
+    <div class="card interactive-card" tabindex="0" data-l2-jump="pipeline"><div class="small muted">Ordonnanceur</div><div class="value" id="l2Mode">…</div><div class="small muted">ouvrir le pipeline L1 + L2</div></div>
+  </div>
+  <div class="card interactive-card" tabindex="0" data-l2-drill-open="eligible" style="margin-top:12px"><div class="small muted">Progression L2 sur le corpus actuellement éligible</div><div class="progress" style="margin-top:8px"><div class="bar" id="l2ProgressBar" style="width:0%"></div></div><div class="small muted" id="l2ProgressText" style="margin-top:7px">…</div></div>
+  <div class="notice" style="margin-top:12px"><b>Contrat L2 V4 :</b> un dossier doit expliquer en français ce qu’est le projet, sa finalité, son fonctionnement observable, ses interfaces, son installation/lancement, ses dépendances, son architecture, ses intégrations, ses limites, ses preuves et ce qui reste à vérifier. L3 sert ensuite à agir/synthétiser, pas à rattraper une L2 vide.</div>
+</div>
+<div class="subpane" data-l2-pane="profiles">
+  <div class="section-intro"><div><h3 id="l2ProfileTitle" style="margin:0">Profils L2</h3><p id="l2ProfileHelp">Explore les profils réels et leur état dans le pipeline.</p></div><span class="badge" id="l2ProfileCount">…</span></div>
+  <div class="drill-nav" id="l2ProfileNav">
+    <button class="active" data-l2-kind="profiles">Tous les profils</button>
+    <button data-l2-kind="eligible">Éligibles</button>
+    <button data-l2-kind="base_pending">BASE en attente</button>
+    <button data-l2-kind="base_done">BASE produites</button>
+    <button data-l2-kind="deep_pending">DEEP en attente</button>
+    <button data-l2-kind="deep_done">DEEP terminées</button>
+    <button data-l2-kind="l3_ready">Prêts à agir / L3</button>
+  </div>
+  <div class="card drill-card">
+    <div class="drill-toolbar">
+      <input id="l2ProfileSearch" placeholder="Nom, technologie, type…">
+      <select id="l2ProfileSort"><option value="score">Score</option><option value="recent">Plus récentes</option><option value="stars">Popularité</option><option value="name">Nom A→Z</option></select>
+      <button class="btn primary" id="l2ProfileSearchBtn">Filtrer</button>
+      <button class="btn" id="l2ProfilePrev">← Précédent</button>
+      <button class="btn" id="l2ProfileNext">Suivant →</button>
+    </div>
+    <div class="drill-summary" id="l2ProfileSummary"></div>
+    <div id="l2Results" class="eventtable"></div>
+  </div>
+</div>
+<div class="subpane" data-l2-pane="pipeline">
+  <div class="metricgrid">
+    <div class="card interactive-card" tabindex="0" data-l2-drill-open="base_done"><div class="small muted">BASE produites</div><div class="value" id="l2BaseDone">…</div></div>
+    <div class="card interactive-card" tabindex="0" data-l2-drill-open="deep_pending"><div class="small muted">DEEP en attente</div><div class="value statuswarn" id="l2DeepPending">…</div></div>
+    <div class="card interactive-card" tabindex="0" data-l2-drill-open="profiles"><div class="small muted">Compréhension moyenne</div><div class="value" id="l2Confidence">…</div><div class="small muted">score du dossier, pas simple confiance statistique</div></div>
+    <div class="card interactive-card" tabindex="0" data-action="tech-rate"><div class="small muted">Réserve GitHub L2-DEEP</div><div class="value">2 800</div><div class="small muted">ouvrir quota et cadence</div></div>
+  </div>
+  <div class="card" style="margin-top:12px"><div class="section-intro"><div><h3 style="margin:0">Queue L2</h3><p>BASE locale d’abord ; DEEP réseau uniquement après qualification.</p></div><button class="btn" id="refreshL2Queue">Actualiser</button></div><div id="l2QueueTable" class="eventtable"></div></div>
+</div>
+<div class="subpane" data-l2-pane="gate"><div class="split3"><details class="card accordion" open><summary>Qualité minimale</summary><div class="inside"><div class="kv actionable" data-l2-drill-open="eligible"><span>Identité</span><b>vérifiée ›</b></div><div class="kv actionable" data-l2-drill-open="eligible"><span>Type</span><b>classifié ›</b></div><div class="kv actionable" data-l2-drill-open="eligible"><span>Activité</span><b>connue ›</b></div><div class="kv actionable" data-l2-drill-open="eligible"><span>Score L1</span><b>≥ 65 ›</b></div></div></details><details class="card accordion" open><summary>Priorité</summary><div class="inside"><div class="kv actionable" data-l2-drill-open="profiles"><span>Valeur</span><b>usage probable ›</b></div><div class="kv actionable" data-l2-drill-open="deep_done"><span>Signal</span><b>activité / popularité / pertinence ›</b></div><div class="kv actionable" data-l2-drill-open="base_pending"><span>Coût</span><b>analyse à réserver ›</b></div></div></details><details class="card accordion" open><summary>Exclusions</summary><div class="inside"><div class="kv actionable" data-l2-drill-open="eligible"><span>Mort</span><b>archive / obsolète exclue ›</b></div><div class="kv actionable" data-l2-drill-open="profiles"><span>Dupliqué</span><b>profil canonique ›</b></div><div class="kv actionable" data-l2-drill-open="eligible"><span>Inutile</span><b>faible pertinence exclue ›</b></div></div></details></div></div>
+<div class="subpane" data-l2-pane="design"><div class="card"><h3 style="margin-top:0">Dossier L2 V4</h3><p class="muted">Chaque bloc correspond à une information réellement stockée dans le dossier projet et visible dans la fiche complète.</p><div class="detail-grid"><div class="fact interactive-card" tabindex="0" data-l2-drill-open="profiles"><small>Définition</small><b>ce qu’est le projet ›</b></div><div class="fact interactive-card" tabindex="0" data-l2-drill-open="profiles"><small>Finalités</small><b>pourquoi il existe ›</b></div><div class="fact interactive-card" tabindex="0" data-l2-drill-open="profiles"><small>Fonctionnement</small><b>interfaces et flux ›</b></div><div class="fact interactive-card" tabindex="0" data-l2-drill-open="deep_done"><small>Installation</small><b>commandes et configuration ›</b></div><div class="fact interactive-card" tabindex="0" data-l2-drill-open="deep_done"><small>Architecture</small><b>runtime, fichiers, dépendances ›</b></div><div class="fact interactive-card" tabindex="0" data-l2-drill-open="profiles"><small>Cas d’usage</small><b>ce qu’on peut déjà en faire ›</b></div><div class="fact interactive-card" tabindex="0" data-l2-drill-open="deep_done"><small>Limites / inconnues</small><b>ce qui reste à vérifier ›</b></div><div class="fact interactive-card" tabindex="0" data-l2-drill-open="l3_ready"><small>Passerelle L3</small><b>prêt à agir ou blocages ›</b></div></div></div></div>
+</section>
+
+<section id="l3" class="section">
+<div class="section-intro"><div><div class="crumb"><button class="pill" data-go="home">Accueil</button><span>›</span><b>L3 · Action</b></div><h2>Passer de la compréhension à l’action</h2><p>L3 n’explique pas le projet à la place de L2. Il transforme uniquement les dossiers L2 V4 prêts en plans de test et d’intégration.</p></div><span class="badge">L2 → action</span></div>
+<div class="subnav" id="l3Subnav"><button class="active" data-l3-tab="overview">Vue d’ensemble</button><button data-l3-tab="packs">Packs d’action</button><button data-l3-tab="design">Contrat L3</button></div>
+<div class="subpane active" data-l3-pane="overview">
+  <div class="metricgrid">
+    <div class="card interactive-card" tabindex="0" data-l3-jump="packs"><div class="small muted">Dossiers L2 prêts</div><div class="value" id="l3Ready">…</div><div class="small muted">source admissible pour L3</div></div>
+    <div class="card interactive-card" tabindex="0" data-l3-jump="packs"><div class="small muted">Packs L3 produits</div><div class="value" id="l3Total">…</div><div class="small muted">plans locaux d’action</div></div>
+    <div class="card interactive-card" tabindex="0" data-l3-jump="packs"><div class="small muted">En attente</div><div class="value statuswarn" id="l3Pending">…</div><div class="small muted">à transformer depuis L2</div></div>
+    <div class="card interactive-card" tabindex="0" data-l3-jump="packs"><div class="small muted">Progression</div><div class="value" id="l3ProgressPct">…</div><div class="small muted">sur dossiers prêts</div></div>
+  </div>
+  <div class="card" style="margin-top:12px"><div class="progress"><div class="bar green" id="l3ProgressBar" style="width:0%"></div></div><div class="small muted" id="l3ProgressText" style="margin-top:7px">…</div></div>
+</div>
+<div class="subpane" data-l3-pane="packs">
+  <div class="section-intro"><div><h3 style="margin:0">Packs d’action</h3><p>Ouvre un projet pour voir ses premières actions, son plan de test, son plan d’intégration, ses risques et ses blocages.</p></div><button class="btn" id="refreshL3">Actualiser</button></div>
+  <div id="l3Results" class="results"></div>
+</div>
+<div class="subpane" data-l3-pane="design">
+  <div class="card"><h3 style="margin-top:0">Contrat L3</h3><div class="detail-grid">
+    <div class="fact"><small>Entrée</small><b>Dossier L2 V4 prêt à agir</b></div>
+    <div class="fact"><small>Sortie</small><b>Plan de test / intégration</b></div>
+    <div class="fact"><small>Compréhension</small><b>reste la responsabilité de L2</b></div>
+    <div class="fact"><small>Réseau</small><b>aucun appel supplémentaire requis</b></div>
+    <div class="fact"><small>Décision</small><b>risques et blocages explicités</b></div>
+    <div class="fact"><small>But</small><b>rendre le projet immédiatement expérimentable</b></div>
+  </div></div>
+</div>
+</section>
+
+<section id="talk" class="section"><div class="section-intro"><div><div class="crumb"><button class="pill" data-go="home">Accueil</button><span>›</span><b>Parler à TLIB</b></div><h2>Recherche conversationnelle</h2><p>Recherche locale multiterme dans L1 + L2 V4 + L3, avec classement par couverture du besoin et profondeur de preuve.</p></div></div><div class="card chatbox"><div class="meta" id="chatSuggestions"><button class="pill" data-chat="android léger">Android léger</button><button class="pill" data-chat="windows automatisation">Windows automatisation</button><button class="pill" data-chat="telegram">Telegram</button><button class="pill" data-chat="python">Python</button><button class="pill" data-chat="réseau">Réseau</button></div><div id="chatLog"><div class="bubble bot"><b>TLIB</b><br>Dis-moi ce que tu cherches. Je peux déjà interroger les fiches L1 vérifiées et t’emmener vers les ressources correspondantes.</div></div><div class="composer"><input id="chatInput" placeholder="Ex. Trouve-moi des outils Android légers"><button class="btn primary" id="chatSend">Envoyer</button></div></div></section>
+
+<section id="manager" class="section">
+<div class="section-intro"><div><div class="crumb">Accueil <span>›</span> <b>Manager</b></div><h2>Centre de contrôle TLIB</h2><p>Chaque bloc mène vers une sous-page opérationnelle, pas vers un simple texte décoratif.</p></div><div class="badges"><span class="badge" id="mgrBuildBadge" title="__TLIB_BUILD__">UI <span id="mgrUiBuildShort">__TLIB_BUILD__</span></span><button class="btn primary" id="mgrPhoneShortcut">📱 Ouvrir QR téléphone</button><span class="badge" id="mgrSchedulerBadge">ordonnanceur …</span><span class="badge" id="mgrQuotaBadge">quota …</span></div></div>
+<div class="subnav" id="managerSubnav">
+  <button class="active" data-manager-tab="overview">Vue d’ensemble</button>
+  <button data-manager-tab="pipeline">Pipeline</button>
+  <button data-manager-tab="workers">Workers</button>
+  <button data-manager-tab="queue">Queue</button>
+  <button data-manager-tab="reports">Rapports</button>
+  <button data-manager-tab="updates">Mises à jour</button>
+  <button data-manager-tab="phone">📱 Téléphone / QR</button>
+  <button data-manager-tab="maintenance">Maintenance</button>
+</div>
+
+<div class="subpane active" data-manager-pane="overview">
+  <div class="manager-grid">
+    <div class="card interactive-card" tabindex="0" data-action="manager-appscript"><div class="muted small">Apps Script</div><div class="bigstat" id="mgrApps">…</div><p class="muted" id="mgrAppsText"></p><div class="small muted">Ouvrir le moteur cloud / L0</div></div>
+    <div class="card interactive-card" tabindex="0" data-action="manager-pc"><div class="muted small">Worker PC</div><div class="bigstat" style="color:var(--ok)"><span class="pulse"></span>EN LIGNE</div><p class="muted" id="mgrPCText"></p><div class="small live" id="mgrLive"></div><div class="small muted">Runtime, RAM, cadence et GitHub</div></div>
+    <div class="card interactive-card" tabindex="0" data-action="manager-queue"><div class="muted small">File L1</div><div class="bigstat" id="mgrQueue">…</div><p class="muted" id="mgrQueueText"></p><div class="progress"><div class="bar" id="mgrProgress" style="width:0%"></div></div><div class="small muted" id="mgrProgressText" style="margin-top:7px"></div></div>
+    <div class="card interactive-card" tabindex="0" data-action="manager-l2"><div class="muted small">L2 continu</div><div class="bigstat" id="mgrL2">0</div><p class="muted">L2-BASE local + L2-DEEP sélectif pendant que L1 continue.</p><div class="small live">Ouvrir le pipeline L2</div></div>
+    <div class="card interactive-card" tabindex="0" id="mgrPhoneCard"><div class="muted small">Connexion téléphone</div><div class="bigstat">📱 QR</div><p class="muted">Pairage local temporaire, code manuel et sessions 30 min / 3 h / 6 h.</p><div class="small live">Ouvrir Téléphone / QR</div></div>
+  </div>
+  <div class="card" id="projectFeedbackCard" style="margin-top:12px">
+    <div class="section-intro"><div><h3 style="margin:0">Feedback projet TLIB</h3><p>État de la version, de l’auto-update et des derniers contrôles du projet — pas de l’ordinateur entier.</p></div><span class="badge" id="projectSyncBadge">vérification…</span></div>
+    <div class="detail-grid">
+      <div class="fact interactive-card" tabindex="0" data-manager-jump="updates"><small>Interface chargée</small><b id="projectUiBuild">__TLIB_BUILD__ ›</b></div>
+      <div class="fact interactive-card" tabindex="0" data-tech-jump="runtime"><small>Moteur actif</small><b id="projectRuntimeBuild">…</b></div>
+      <div class="fact interactive-card" tabindex="0" data-manager-jump="updates"><small>Canal</small><b id="projectChannel">stable ›</b></div>
+      <div class="fact interactive-card" tabindex="0" data-manager-jump="updates"><small>État update</small><b id="projectUpdateState">…</b></div>
+      <div class="fact interactive-card" tabindex="0" data-manager-jump="updates"><small>Dernier contrôle</small><b id="projectLastCheck">…</b></div>
+      <div class="fact interactive-card" tabindex="0" data-manager-jump="updates"><small>Prochain contrôle</small><b id="projectNextCheck">…</b></div>
+      <div class="fact interactive-card" tabindex="0" data-manager-jump="updates"><small>Dernier résultat</small><b id="projectLastResult">…</b></div>
+      <div class="fact interactive-card" tabindex="0" data-tech-jump="events"><small>Dernier événement</small><b id="projectLastEvent">…</b></div>
+    </div>
+    <div class="progress-hit" role="button" tabindex="0" data-manager-jump="updates" style="margin-top:12px"><div class="progress"><div class="bar" id="projectProgressBar" style="width:0%"></div></div></div>
+    <div class="small muted" id="projectProgressText" style="margin-top:7px">En attente.</div>
+  </div>
+  <div class="card" style="margin-top:12px"><div class="kv actionable" tabindex="0" data-manager-jump="pipeline"><span>Mode de planification</span><b id="mgrSchedulerMode">…</b></div><div class="kv actionable" tabindex="0" data-tech-jump="runtime"><span>Mode ressources</span><b id="mgrEcoMode">…</b></div><div class="kv actionable" tabindex="0" data-tech-jump="events"><span>Raison</span><b id="mgrEcoReason">…</b></div><div class="kv actionable" tabindex="0" data-tech-jump="runtime"><span>RAM libre</span><b id="mgrFreeRam">…</b></div><div class="kv actionable" tabindex="0" data-l1-jump="deep"><span>Dette approfondissement</span><b id="mgrDeepBacklog">…</b></div><div class="kv actionable" tabindex="0" data-action="tech-rate"><span>Quota GitHub restant</span><b id="mgrQuotaRemaining">…</b></div></div>
+</div>
+
+<div class="subpane" data-manager-pane="pipeline">
+  <div class="card"><h3 style="margin-top:0">Architecture en direct</h3><p class="muted">Chaque nœud ci-dessous est cliquable et affiche son rôle + ses accès.</p>
+    <div class="flow">
+      <div class="card flow-node" data-manager-node="appscript"><div class="icon">☁️</div><div class="flowname">Apps Script</div><div class="flowstate" id="flowApps">L0 / contrôle</div></div>
+      <div class="card flow-node" data-manager-node="queue"><div class="icon">📚</div><div class="flowname">Queue TLIB</div><div class="flowstate" id="flowQueue">120 694 tâches</div></div>
+      <div class="card flow-node" data-manager-node="pc"><div class="icon">🖥️</div><div class="flowname">PC Worker</div><div class="flowstate" id="flowPC">L1 autonome</div></div>
+      <div class="card flow-node" data-manager-node="github"><div class="icon">🔐</div><div class="flowname">GitHub</div><div class="flowstate" id="flowGH">auth sécurisée</div></div>
+      <div class="card flow-node" data-manager-node="sqlite"><div class="icon">💾</div><div class="flowname">SQLite</div><div class="flowstate" id="flowDB">checkpoint local</div></div>
+    </div>
+    <div id="mgrNodeDetail" class="manager-detail"><h4>TLIB Hybrid Engine</h4><p>Sélectionne un nœud pour descendre d’un niveau.</p></div>
+  </div>
+  <div class="card" style="margin-top:12px"><h3 style="margin-top:0">Étapes du pipeline</h3><table><thead><tr><th>Niveau</th><th>Nom humain</th><th>Rôle</th><th>État</th></tr></thead><tbody id="pipelineRows"></tbody></table></div>
+</div>
+
+<div class="subpane" data-manager-pane="workers">
+  <div class="split3">
+    <details class="card accordion" open><summary>☁️ Apps Script</summary><div class="inside"><div class="kv"><span>Mission</span><b>L0 + état durable</b></div><div class="kv"><span>Déclencheur</span><b id="workerAppsTrigger">…</b></div><div class="kv"><span>État</span><b id="workerAppsState">…</b></div><button class="btn" data-go="l0">Ouvrir L0</button></div></details>
+    <details class="card accordion" open><summary>🖥️ PC Worker</summary><div class="inside"><div class="kv"><span>Mission</span><b>L1 + approfondissement</b></div><div class="kv"><span>RAM</span><b id="workerPCRam">…</b></div><div class="kv"><span>Cadence</span><b id="workerPCSpeed">…</b></div><button class="btn" data-go="technical">Technique</button></div></details>
+    <details class="card accordion" open><summary>🔐 GitHub</summary><div class="inside"><div class="kv"><span>Auth</span><b id="workerGHAuth">…</b></div><div class="kv"><span>Quota</span><b id="workerGHQuota">…</b></div><div class="kv"><span>Réserve</span><b>1 200 min.</b></div></div></details>
+  </div>
+</div>
+
+<div class="subpane" data-manager-pane="queue">
+  <div class="twocol">
+    <div class="card"><h3 style="margin-top:0">Queue principale</h3><div id="managerQueueDetails"></div><button class="btn primary" data-go="l1">Ouvrir L1</button></div>
+    <div class="card"><h3 style="margin-top:0">Dette de qualité</h3><div id="managerDeepDetails"></div><button class="btn" data-manager-tab-jump="deep">Voir l’approfondissement</button></div>
+  </div>
+</div>
+
+<div class="subpane" data-manager-pane="reports">
+  <div class="section-intro"><div><h3>Rapports régénérés à la demande</h3><p>Chaque téléchargement est construit avec l’état actuel du moteur.</p></div><button class="btn" id="refreshReports">Actualiser l’état</button></div>
+  <div class="results">
+    <div class="card"><div class="small muted">Vue système</div><h3>Rapport Manager</h3><p class="muted">L0/L1/L2, cadence, worker, quota et état global.</p><a class="btn primary" href="/api/report?type=manager" download>Télécharger PDF</a></div>
+    <div class="card"><div class="small muted">Découverte</div><h3>Rapport L0</h3><p class="muted">Sources, drainage, réussites et sources épuisées.</p><a class="btn primary" href="/api/report?type=l0" download>Télécharger PDF</a></div>
+    <div class="card"><div class="small muted">Qualité</div><h3>Rapport L1</h3><p class="muted">Vérifiées, complètes, approfondies, dette et ordonnanceur.</p><a class="btn primary" href="/api/report?type=l1" download>Télécharger PDF</a></div>
+    <div class="card"><div class="small muted">Diagnostic</div><h3>Rapport Technique</h3><p class="muted">Node, PID, RAM, GitHub et SQLite.</p><a class="btn primary" href="/api/report?type=technical" download>Télécharger PDF</a></div>
+  </div>
+  <div class="small muted" id="reportsFreshness" style="margin-top:12px">État courant : …</div>
+</div>
+
+<div class="subpane" data-manager-pane="updates">
+  <div class="section-intro"><div><h3>Mises à jour sûres</h3><p>Préparation hors-ligne, vérification avant activation et rollback automatique si la nouvelle version ne répond pas.</p></div><button class="btn" id="updateRefreshBtn">Actualiser</button></div>
+  <div class="metricgrid">
+    <div class="card"><div class="small muted">Build actif</div><div class="value" id="updateBuild">…</div><div class="small muted" id="updateCommit">…</div></div>
+    <div class="card"><div class="small muted">Dernière bonne version</div><div class="value" id="updateLastGood">…</div><div class="small muted">rollback cible</div></div>
+    <div class="card"><div class="small muted">Mise à jour préparée</div><div class="value" id="updatePending">…</div><div class="small muted" id="updatePendingDetail">…</div></div>
+    <div class="card"><div class="small muted">Auto-update</div><div class="value statusok" id="updateAutoMode">ACTIF</div><div class="small muted" id="updateAutoDetail">canal stable · contrôle toutes les 10 min</div></div>
+  </div>
+  <div class="twocol" style="margin-top:12px">
+    <div class="card"><h3 style="margin-top:0">Actions</h3><p class="muted">“Vérifier” prépare une version sans interrompre TLIB. “Appliquer” n’est disponible que si une version a déjà passé les tests.</p><div class="actions"><button class="btn primary" id="updateStageBtn">Vérifier les mises à jour</button><button class="btn" id="updateApplyBtn">Appliquer la version préparée</button><button class="btn" id="updateRepairBtn">Réparer le moteur courant</button></div><div class="progress" style="margin-top:14px"><div class="bar" id="updateProgressBar" style="width:0%"></div></div><div class="small muted" id="updateProgressText" style="margin-top:7px">En attente.</div><div class="small muted" id="updateActionState" style="margin-top:10px"></div></div>
+    <div class="card"><h3 style="margin-top:0">Garanties</h3><div class="kv"><span>Ancienne version</span><b>reste disponible jusqu’au health-check</b></div><div class="kv"><span>Base SQLite</span><b>hors du code, jamais remplacée</b></div><div class="kv"><span>Échec activation</span><b>rollback automatique</b></div><div class="kv"><span>Double updater</span><b>verrou exclusif</b></div><div class="kv"><span>Version fantôme</span><b>commit vérifié par /api/health</b></div></div>
+  </div>
+  <div class="card" style="margin-top:12px"><h3 style="margin-top:0">Historique récent</h3><div id="updateAudit" class="eventtable"></div></div>
+</div>
+
+<div class="subpane" data-manager-pane="phone">
+  <div class="section-intro"><div><h3>Connexion téléphone</h3><p>Pairage temporaire sur le même Wi‑Fi, puis session locale persistante pendant 30 min, 3 h ou 6 h. Le statut ci-dessous survit aux rechargements de page.</p></div><div class="badges"><span class="badge" id="phoneModeBadge">inactif</span><span class="badge" id="phoneSessionBadge">0 session</span></div></div>
+  <div class="phone-status-grid">
+    <div class="fact interactive-card" tabindex="0" id="phoneStatusSessionsCard"><small>Sessions actives</small><b id="phoneSessions">0</b></div>
+    <div class="fact interactive-card" tabindex="0" id="phoneStatusRemainingCard"><small>Temps restant max.</small><b id="phoneRemainingMax">—</b></div>
+    <div class="fact interactive-card" tabindex="0" id="phoneStatusPairCard"><small>Pairage</small><b id="phonePairState">Aucun</b></div>
+    <div class="fact interactive-card" tabindex="0" id="phoneStatusModeCard"><small>Mode téléphone</small><b>Lecture seule</b></div>
+  </div>
+  <div class="phonegrid">
+    <div class="card">
+      <div class="section-intro"><div><h3 id="phoneQrTitle" style="margin:0">QR téléphone</h3><p id="phoneQrHelp">Crée un pairage ou utilise le QR d’accès d’une session déjà active.</p></div><span class="badge" id="phoneQrType">aucun</span></div>
+      <div class="qrbox" id="phoneQr"><div class="muted">Aucun QR à afficher.</div></div>
+      <div class="small muted" id="phoneQrExpiry" style="margin-top:10px">Aucun QR actif.</div>
+      <div class="card" style="margin-top:12px;background:var(--panel2)">
+        <div class="small muted">Code manuel de pairage</div><div class="phonecode" id="phoneCode">Aucun code en attente</div>
+        <div class="small muted" style="margin-top:10px">Adresse TLIB sur le réseau local</div><div class="phoneurl" id="phoneUrl">—</div>
+      </div>
+    </div>
+    <div class="card">
+      <h3 style="margin-top:0">Créer ou renouveler un pairage</h3>
+      <p class="muted">Le QR de pairage n’est valable que quelques minutes. Une fois le téléphone autorisé, sa session garde la durée choisie et apparaît dans la liste en dessous.</p>
+      <div class="duration-row" id="phoneDurations">
+        <button class="btn active" data-phone-minutes="30">30 min</button>
+        <button class="btn" data-phone-minutes="180">3 h</button>
+        <button class="btn" data-phone-minutes="360">6 h</button>
+      </div>
+      <div class="actions" style="margin-top:12px"><button class="btn primary" id="phoneCreateBtn">Créer / renouveler le QR</button><button class="btn" id="phoneRefreshBtn">Actualiser</button><button class="btn" id="phoneRevokeBtn">Révoquer toutes les sessions</button></div>
+      <div class="kv" style="margin-top:12px"><span>IP locale</span><b id="phoneLanIp">—</b></div>
+      <div class="kv"><span>Expiration la plus tardive</span><b id="phoneSessionExpiry">—</b></div>
+      <div class="notice" style="margin-top:12px">Le téléphone reste en <b>lecture seule</b> : navigation, recherche et consultation sont autorisées ; mises à jour et maintenance restent réservées au PC.</div>
+      <div class="small muted" id="phoneState" style="margin-top:10px"></div>
+    </div>
+  </div>
+  <div class="card" style="margin-top:12px">
+    <div class="section-intro"><div><h3 style="margin:0">Sessions actives</h3><p>Chaque session est indépendante et peut être inspectée ou révoquée séparément.</p></div><span class="badge" id="phoneSessionsLiveBadge">0 active</span></div>
+    <div id="phoneSessionList" class="phone-session-list"><div class="muted">Aucune session active.</div></div>
+  </div>
+</div>
+
+<div class="subpane" data-manager-pane="maintenance">
+  <div class="twocol">
+    <div class="card"><h3 style="margin-top:0">Actions sûres</h3><p class="muted">Les actions destructives restent absentes de cette interface.</p><div class="actions"><button class="btn" id="refreshManager">Actualiser</button><button class="btn" id="runFixture">Rejouer le canary L1</button><button class="btn" id="runL2">Recharger le canary L2</button></div><div id="actionMessage" class="small muted" style="margin-top:10px"></div></div>
+    <div class="card"><h3 style="margin-top:0">Politique d’automatisation</h3><div class="kv"><span>Autopilote</span><b>voie normale</b></div><div class="kv"><span>Diagnostic</span><b class="statusok">interne et autonome</b></div><div class="kv"><span>Auto-réparation UI</span><b class="statusok">watchdog local</b></div><div class="kv"><span>Desktop Commander</span><b>non requis pour update, diagnostic ou reprise courante</b></div><div class="kv"><span>Secrets</span><b>jamais dans Drive/GitHub</b></div><div class="actions"><button class="btn" data-tech-jump="diagnostics">Ouvrir l’autodiagnostic</button></div></div>
+  </div>
+</div>
+</section>
+
+<section id="technical" class="section">
+<div class="section-intro"><div><div class="crumb">Accueil <span>›</span> <b>Technique</b></div><h2>Diagnostic du moteur</h2><p>D’abord les états lisibles et actionnables ; les données brutes restent au dernier niveau.</p></div></div>
+<div class="subnav" id="techSubnav"><button class="active" data-tech-tab="runtime">Runtime</button><button data-tech-tab="diagnostics">Autodiagnostic</button><button data-tech-tab="queue">Queue</button><button data-tech-tab="events">Événements</button><button data-tech-tab="storage">Stockage</button><button data-tech-tab="ui">Audit interface</button><button data-tech-tab="raw">Audit brut</button></div>
+<div class="subpane active" data-tech-pane="runtime">
+  <div class="metricgrid">
+    <div class="card interactive-card" tabindex="0" data-action="tech-runtime"><div class="small muted">Processus Node</div><div class="value" id="techNode">…</div><div class="small muted" id="techPid">…</div></div>
+    <div class="card interactive-card" tabindex="0" data-action="tech-memory"><div class="small muted">RAM worker</div><div class="value" id="techRam">…</div><div class="small muted">moteur uniquement</div></div>
+    <div class="card interactive-card" tabindex="0" data-action="tech-auth"><div class="small muted">Authentification GitHub</div><div class="value" id="techAuth">…</div><div class="small muted">secret masqué</div></div>
+    <div class="card interactive-card" tabindex="0" data-action="tech-rate"><div class="small muted">Quota GitHub</div><div class="value" id="techRate">…</div><div class="small muted" id="techNext">…</div></div>
+  </div>
+  <div class="card" style="margin-top:12px"><h3 style="margin-top:0">Santé du moteur</h3><div id="techHealth"></div></div><div class="card" style="margin-top:12px"><h3 style="margin-top:0">Gouverneur de ressources</h3><div id="techGovernor"></div><div class="small muted">TLIB ralentit ou se met en pause avant de concurrencer le travail de premier plan.</div></div>
+</div>
+<div class="subpane" data-tech-pane="diagnostics">
+  <div class="section-intro"><div><h3 style="margin:0">Autodiagnostic TLIB</h3><p>Produit et maintenu localement par TLIB. Aucun outil distant n’est nécessaire.</p></div><button class="btn" id="refreshDiagnostics">Actualiser</button></div>
+  <div class="metricgrid">
+    <div class="card"><div class="small muted">État global</div><div class="value" id="diagOverall">…</div><div class="small muted" id="diagGenerated">…</div></div>
+    <div class="card"><div class="small muted">Interface / port 8787</div><div class="value" id="diagDashboard">…</div><div class="small muted" id="diagDashboardDetail">…</div></div>
+    <div class="card"><div class="small muted">Watchdog</div><div class="value" id="diagWatchdog">…</div><div class="small muted" id="diagRestart">…</div></div>
+    <div class="card"><div class="small muted">Outil distant requis</div><div class="value statusok">NON</div><div class="small muted">diagnostic et reprise locale</div></div>
+  </div>
+  <div class="twocol" style="margin-top:12px">
+    <div class="card"><h3 style="margin-top:0">Composants</h3><div id="diagComponents"></div></div>
+    <div class="card"><h3 style="margin-top:0">Derniers incidents</h3><div id="diagErrors"></div></div>
+  </div>
+  <div class="notice" style="margin-top:12px">Si l’interface locale disparaît mais que le worker vit encore, le watchdog la détecte et relance l’agent automatiquement avec anti-boucle et temporisation.</div>
+</div>
+<div class="subpane" data-tech-pane="queue"><div class="card"><h3 style="margin-top:0">Queue complète</h3><div id="techQueue"></div></div></div>
+<div class="subpane" data-tech-pane="events"><div class="card"><h3 style="margin-top:0">Journal d’événements</h3><div class="subnav"><button class="active" data-event-filter="ALL">Tous</button><button data-event-filter="INFO">Info</button><button data-event-filter="WARN">Alertes</button><button data-event-filter="ERROR">Erreurs</button></div><div id="techEvents" class="eventtable"></div></div></div>
+<div class="subpane" data-tech-pane="storage"><div class="twocol"><div class="card"><h3 style="margin-top:0">SQLite</h3><div id="techStorage"></div></div><div class="card"><h3 style="margin-top:0">Durabilité</h3><div class="kv"><span>Mode</span><b>WAL</b></div><div class="kv"><span>Reprise</span><b>après coupure</b></div><div class="kv"><span>Secrets</span><b>hors base et hors Drive</b></div></div></div></div>
+<div class="subpane" data-tech-pane="ui"><div class="card"><div class="section-intro"><div><h3 style="margin:0">Auditeur d’interactions</h3><p>Détecte les contrôles sans cible, doublons d’ID et vues manquantes.</p></div><button class="btn primary" id="runUiAuditBtn">Lancer l’audit</button></div><div id="uiAuditResult"></div></div></div><div class="subpane" data-tech-pane="raw"><div class="twocol"><pre id="rawStatus">…</pre><pre id="rawEvents">…</pre></div></div>
+</section>
+
+</main></div>
+<div id="commandPalette" class="cmd" aria-hidden="true"><div class="cmdbox"><input id="commandInput" placeholder="Aller à L1, ouvrir Manager, chercher Android…"><div class="cmdlist" id="commandList"></div></div></div><aside id="detailDrawer" class="drawer" aria-hidden="true"><div class="drawer-head"><div><div class="small muted" id="drawerKicker">Détail</div><h3 id="drawerTitle" style="margin:2px 0 0">TLIB</h3></div><button class="drawer-close" id="drawerClose">Fermer ✕</button></div><div class="drawer-body" id="drawerBody"></div></aside>
+<div id="toast" class="toast">Action effectuée</div>
+<nav class="mobile-bottom-nav" id="mobileBottomNav" aria-label="Navigation mobile">
+  <button type="button" data-go="home" data-mobile-view="home">🏠<span>Accueil</span></button>
+  <button type="button" data-go="explore" data-mobile-view="explore">🔎<span>Explorer</span></button>
+  <button type="button" data-go="l1" data-mobile-view="l1">✅<span>L1</span></button>
+  <button type="button" data-go="manager" data-mobile-view="manager">⚙️<span>Manager</span></button>
+  <button type="button" id="mobileMore">☰<span>Menu</span></button>
+</nav>
+<script src="/vendor/qrcode.min.js"></script>
+<script>
+var STATUS=null,FIRST_L1=null,LAST_L1=null,LIB_OFFSET=0,LIB_QUERY='',LIB_TOTAL=0,LIB_LIMIT=60,NAV_HISTORY=[],CURRENT_VIEW='home';
+var L1_DRILL_KIND='verified',L1_DRILL_BAND='',L1_DRILL_OFFSET=0,L1_DRILL_LIMIT=40;
+var L2_PROFILE_KIND='profiles',L2_PROFILE_OFFSET=0,L2_PROFILE_LIMIT=40;
+const PAGE_BUILD='__TLIB_BUILD__',PAGE_COMMIT='__TLIB_COMMIT__';
+let UI_RUNTIME_RELOAD_PENDING=false;
+function el(s){return document.querySelector(s)} function els(s){return Array.from(document.querySelectorAll(s))}
+function fmt(n){return Number(n||0).toLocaleString('fr-FR')}
+function mustEl(s){var x=el(s);if(!x)throw new Error('UI_ELEMENT_MISSING '+s);return x}
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
+function human(s){var m={DONE:'Terminé',CANARY:'Test en cours',DESIGNED:'Conçu',LATER:'Plus tard'};return m[s]||s||'—'}
+function shortBuild(b){b=String(b||'—');var m=b.match(/v\d+\.\d+(?:\.\d+)?(?:-[\w-]+)?/);return m?m[0]:b}
+function ensureUiRuntimeSync(build,commit){
+  if(!build||build===PAGE_BUILD)return true;
+  if(UI_RUNTIME_RELOAD_PENDING)return false;
+  UI_RUNTIME_RELOAD_PENDING=true;
+  toast('Nouvelle version détectée · rechargement…');
+  if(el('#syncBadge')){el('#syncBadge').textContent='● nouvelle version · rechargement…';el('#syncBadge').classList.add('connection-wait')}
+  setTimeout(function(){location.reload()},900);
+  return false;
+}
+function cls(s){return s==='DONE'?'ok':s==='CANARY'?'warn':''}
+var API_ACTIVE=0,API_LAST_OK=Date.now();
+function setGlobalActivity(on,text){
+  API_ACTIVE=Math.max(0,API_ACTIVE+(on?1:-1));
+  var a=el('#globalActivity'),t=el('#globalActivityText');
+  if(a){a.classList.toggle('busy',API_ACTIVE>0);a.setAttribute('aria-hidden',API_ACTIVE>0?'false':'true')}
+  if(t)t.textContent=text||(API_ACTIVE>0?'Chargement en cours':'Prêt');
+}
+function uiSleep(ms){return new Promise(function(r){setTimeout(r,ms)})}
+async function api(path,opts){
+  opts=opts||{};
+  var method=String(opts.method||'GET').toUpperCase(),attempts=method==='GET'?3:1,last=null;
+  setGlobalActivity(true,'Chargement '+path);
+  try{
+    for(var i=0;i<attempts;i++){
+      try{
+        var r=await fetch(path,Object.assign({cache:'no-store'},opts));
+        var text=await r.text(),j={};
+        try{j=text?JSON.parse(text):{}}catch(e){j={message:text.slice(0,300)}}
+        if(!r.ok)throw new Error(j.message||j.error||('HTTP '+r.status));
+        API_LAST_OK=Date.now();return j;
+      }catch(e){
+        last=e;
+        if(i<attempts-1&&method==='GET'){await uiSleep(i===0?450:1100);continue}
+        throw e;
+      }
+    }
+    throw last||new Error('Erreur réseau');
+  }finally{setGlobalActivity(false,'Prêt')}
+}
+var PHONE_MINUTES=30,PHONE_STATUS=null,PHONE_TICK_TIMER=null;
+function phoneDate(v){if(!v)return '—';try{return new Date(v).toLocaleString('fr-FR',{hour:'2-digit',minute:'2-digit',day:'2-digit',month:'2-digit',year:'numeric'})}catch(e){return '—'}}
+function phoneDurationLabel(minutes){minutes=Number(minutes||0);if(minutes===360)return '6 h';if(minutes===180)return '3 h';if(minutes===30)return '30 min';if(minutes>=60)return Math.floor(minutes/60)+' h '+(minutes%60?minutes%60+' min':'');return minutes+' min'}
+function phoneRemainingSeconds(expires){var t=Date.parse(expires||'');return Number.isFinite(t)?Math.max(0,Math.floor((t-Date.now())/1000)):0}
+function phoneRemainingLabel(sec){sec=Math.max(0,Number(sec||0));var h=Math.floor(sec/3600),m=Math.floor((sec%3600)/60),s=sec%60;if(h)return h+' h '+String(m).padStart(2,'0')+' min';if(m)return m+' min '+String(s).padStart(2,'0')+' s';return s+' s'}
+function renderPhoneCountdowns(){
+  var sessions=PHONE_STATUS&&Array.isArray(PHONE_STATUS.sessions)?PHONE_STATUS.sessions:[],max=0,latest=null;
+  sessions.forEach(function(x){var sec=phoneRemainingSeconds(x.expires_at);max=Math.max(max,sec);if(!latest||Date.parse(x.expires_at)>Date.parse(latest.expires_at))latest=x});
+  textIf('#phoneRemainingMax',sessions.length?phoneRemainingLabel(max):'—');
+  textIf('#phoneSessionExpiry',latest?phoneDate(latest.expires_at):'—');
+  els('#phoneSessionList [data-session-expiry]').forEach(function(n){n.textContent=phoneRemainingLabel(phoneRemainingSeconds(n.dataset.sessionExpiry))});
+}
+function bindPhoneSessionCards(){
+  els('#phoneSessionList [data-phone-session]').forEach(function(card){
+    var open=function(e){if(e&&e.target&&e.target.closest('[data-revoke-phone-session]'))return;var id=card.dataset.phoneSession,s=(PHONE_STATUS.sessions||[]).find(function(x){return String(x.id)===String(id)});if(!s)return;openDrawer('Session téléphone '+String(id).slice(0,8),'Manager · téléphone',kvLine('État','ACTIVE')+kvLine('Durée initiale',phoneDurationLabel(s.duration_minutes))+kvLine('Créée',phoneDate(s.created_at))+kvLine('Expire',phoneDate(s.expires_at))+kvLine('Temps restant',phoneRemainingLabel(phoneRemainingSeconds(s.expires_at)))+kvLine('Dernière activité',phoneDate(s.last_seen))+'<div class="actions"><button class="btn warn" data-revoke-phone-session="'+esc(s.id)+'">Révoquer cette session</button></div>');bindPhoneRevokeButtons()};
+    card.onclick=open;card.onkeydown=function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();open(e)}};
+  });
+  bindPhoneRevokeButtons();
+}
+function bindPhoneRevokeButtons(){
+  els('[data-revoke-phone-session]').forEach(function(b){if(b.dataset.boundRevoke)return;b.dataset.boundRevoke='1';b.onclick=function(e){e.preventDefault();e.stopPropagation();revokePhoneSessionUI(b.dataset.revokePhoneSession)}});
+}
+function renderPhoneStatus(s){
+  PHONE_STATUS=s||{};var pair=s&&s.pair,sessions=s&&Array.isArray(s.sessions)?s.sessions:[],hasSession=sessions.length>0;
+  textIf('#phoneLanIp',s&&s.lan_ip?s.lan_ip:'indisponible');
+  textIf('#phoneSessions',fmt(sessions.length));
+  textIf('#phoneSessionBadge',fmt(sessions.length)+' session'+(sessions.length>1?'s':''));
+  textIf('#phoneSessionsLiveBadge',fmt(sessions.length)+' active'+(sessions.length>1?'s':''));
+  textIf('#phoneModeBadge',s&&s.enabled?'actif':'inactif');
+  textIf('#phoneUrl',s&&s.base_url?s.base_url:'—');
+  textIf('#phoneCode',pair&&pair.code?pair.code:'Aucun code en attente');
+  textIf('#phonePairState',pair?'QR prêt · '+phoneDurationLabel(pair.minutes):'Aucun pairage en attente');
+  var qrText=pair&&pair.qr_url?pair.qr_url:(hasSession&&s.access_qr_url?s.access_qr_url:null),qrType=pair?'PAIRAGE':hasSession?'ACCÈS':'AUCUN';
+  textIf('#phoneQrType',qrType.toLowerCase());
+  textIf('#phoneQrTitle',pair?'QR de pairage':hasSession?'QR d’accès TLIB':'QR téléphone');
+  textIf('#phoneQrHelp',pair?'À scanner pour autoriser un nouveau téléphone. Ce QR est temporaire et à usage unique.':hasSession?'À scanner depuis un téléphone déjà autorisé pour rouvrir TLIB sur le réseau local.':'Crée un pairage pour autoriser un téléphone.');
+  textIf('#phoneQrExpiry',pair?'Pairage valable jusqu’à '+phoneDate(pair.offer_expires_at):hasSession?'QR d’accès disponible tant qu’une session autorisée reste active.':'Aucun QR actif.');
+  var box=el('#phoneQr');if(box){
+    box.innerHTML='';
+    if(qrText&&window.QRCode)new QRCode(box,{text:qrText,width:220,height:220,colorDark:'#05070b',colorLight:'#ffffff',correctLevel:QRCode.CorrectLevel.M});
+    else box.innerHTML='<div class="muted">'+(s&&s.lan_ip?'Aucune session ni pairage actif.':'Aucune IP Wi‑Fi/LAN privée détectée.')+'</div>';
+  }
+  var list=el('#phoneSessionList');
+  if(list)list.innerHTML=sessions.length?sessions.slice().sort(function(a,b){return Date.parse(b.expires_at)-Date.parse(a.expires_at)}).map(function(x){
+    return '<div class="phone-session" role="button" tabindex="0" data-phone-session="'+esc(x.id)+'"><div class="topline"><div><div class="small muted">Session '+esc(String(x.id).slice(0,8))+'</div><b>'+phoneDurationLabel(x.duration_minutes)+'</b></div><div class="remaining" data-session-expiry="'+esc(x.expires_at)+'">'+phoneRemainingLabel(phoneRemainingSeconds(x.expires_at))+'</div></div><div class="detail-grid" style="margin-top:10px"><div class="fact"><small>Créée</small><b>'+phoneDate(x.created_at)+'</b></div><div class="fact"><small>Expire</small><b>'+phoneDate(x.expires_at)+'</b></div><div class="fact"><small>Dernière activité</small><b>'+phoneDate(x.last_seen)+'</b></div><div class="fact"><small>Accès</small><b>Lecture seule</b></div></div><div class="session-actions"><button class="btn" data-revoke-phone-session="'+esc(x.id)+'">Révoquer cette session</button></div></div>';
+  }).join(''):'<div class="muted">Aucune session active.</div>';
+  textIf('#phoneState',s&&s.read_only?'Accès téléphone : lecture seule · état de session persistant sur le PC.':'');
+  renderPhoneCountdowns();bindPhoneSessionCards();
+  if(PHONE_TICK_TIMER)clearInterval(PHONE_TICK_TIMER);
+  PHONE_TICK_TIMER=setInterval(renderPhoneCountdowns,1000);
+}
+async function loadPhoneStatus(){
+  try{var s=await api('/api/mobile/status');renderPhoneStatus(s);return s}
+  catch(e){textIf('#phoneState','Erreur : '+e.message);return null}
+}
+async function createPhonePair(){
+  var b=el('#phoneCreateBtn');if(b)b.disabled=true;textIf('#phoneState','Création du pairage…');
+  try{var s=await api('/api/mobile/pair?minutes='+PHONE_MINUTES,{method:'POST'});renderPhoneStatus(s);toast('QR de pairage prêt')}
+  catch(e){textIf('#phoneState','Impossible de créer le QR : '+e.message)}
+  finally{if(b)b.disabled=false}
+}
+async function revokePhoneSessionUI(id){
+  if(!id)return;
+  try{var s=await api('/api/mobile/session/revoke?id='+encodeURIComponent(id),{method:'POST'});closeDrawer();renderPhoneStatus(s);toast('Session révoquée')}
+  catch(e){textIf('#phoneState','Révocation de la session impossible : '+e.message)}
+}
+async function revokePhone(){
+  var b=el('#phoneRevokeBtn');if(b)b.disabled=true;
+  try{var s=await api('/api/mobile/revoke',{method:'POST'});renderPhoneStatus(s);toast('Toutes les sessions téléphone ont été révoquées')}
+  catch(e){textIf('#phoneState','Révocation impossible : '+e.message)}
+  finally{if(b)b.disabled=false}
+}
+
+var LAST_INTERACTION_SIGNAL=0;
+function signalInteraction(){
+  var n=Date.now();
+  if(n-LAST_INTERACTION_SIGNAL<5000)return;
+  LAST_INTERACTION_SIGNAL=n;
+  try{fetch('/api/interaction',{method:'POST',cache:'no-store',keepalive:true}).catch(function(){})}catch(e){}
+}
+function toast(msg){var t=el('#toast');if(!t)return;t.textContent=msg;t.classList.add('show');clearTimeout(toast._t);toast._t=setTimeout(function(){t.classList.remove('show')},1400)}
+function mobileMode(){return window.matchMedia&&window.matchMedia('(max-width:760px)').matches}
+function openMobileMenu(){var s=el('.side'),b=el('#mobileBackdrop'),t=el('#mobileMenuToggle');if(!s)return;s.classList.add('mobile-open');if(b)b.classList.add('open');if(t)t.setAttribute('aria-expanded','true')}
+function closeMobileMenu(){var s=el('.side'),b=el('#mobileBackdrop'),t=el('#mobileMenuToggle');if(!s)return;s.classList.remove('mobile-open');if(b)b.classList.remove('open');if(t)t.setAttribute('aria-expanded','false')}
+function syncMobileNav(v){els('#mobileBottomNav [data-mobile-view]').forEach(function(b){b.classList.toggle('active',b.dataset.mobileView===v)})}
+textIf('#mgrUiBuildShort',shortBuild(PAGE_BUILD));
+function openDrawer(title,kicker,html){el('#drawerTitle').textContent=title;el('#drawerKicker').textContent=kicker||'Détail';el('#drawerBody').innerHTML=html;el('#detailDrawer').classList.add('open');el('#detailDrawer').setAttribute('aria-hidden','false');toast(title)}
+function closeDrawer(){el('#detailDrawer').classList.remove('open');el('#detailDrawer').setAttribute('aria-hidden','true')}
+function kvLine(a,b){return '<div class="kv"><span>'+esc(a)+'</span><b>'+esc(b)+'</b></div>'}
+function handleAction(action){
+  if(!STATUS)return;
+  var s=STATUS,q=s.pc_worker.queue||{},st=s.pc_worker.l1_stats||{},rt=s.pc_worker.runtime||{};
+  var html='';
+  if(action==='manager-appscript'){html=kvLine('État',s.apps_script.status)+kvLine('L0',fmt(s.apps_script.entity_count)+' ressources')+kvLine('Sources',fmt(s.apps_script.source_count||0))+kvLine('Terminées',fmt(s.apps_script.source_done||0))+kvLine('Épuisées',fmt(s.apps_script.source_failed||0))+'<div class="actions"><button class="btn primary" data-drawer-go="l0">Ouvrir L0</button><button class="btn" data-drawer-go="technical">Diagnostics</button></div>';openDrawer('Apps Script','Manager · moteur cloud',html)}
+  else if(action==='manager-pc'){html=kvLine('État','EN LIGNE')+kvLine('PID',rt.pid||'—')+kvLine('RAM',fmt(rt.rss_mb||0)+' Mo')+kvLine('Uptime',fmt(rt.uptime_seconds||0)+' s')+kvLine('Cadence',fmt(st.throughput_per_hour||0)+' fiches/h')+kvLine('GitHub',s.pc_worker.github_auth_mode||'—')+'<div class="actions"><button class="btn primary" data-drawer-go="technical">Ouvrir Technique</button><button class="btn" data-drawer-go="l1">Voir L1</button></div>';openDrawer('Worker PC','Manager · exécution locale',html)}
+  else if(action==='manager-queue'){html=kvLine('Total',fmt(s.pc_worker.staged_names||0))+kvLine('Terminées',fmt(q.DONE||0))+kvLine('En attente',fmt(q.PENDING||0))+kvLine('En cours',fmt(q.RUNNING||0))+kvLine('Échecs',fmt(q.FAILED||0))+'<div class="actions"><button class="btn primary" data-drawer-go="l1">Ouvrir L1</button></div>';openDrawer('File L1','Manager · queue',html)}
+  else if(action==='manager-l2'){show('l2');clickSubtab('#l2Subnav','data-l2-tab','pipeline');return}
+  else if(action==='tech-runtime'){html=kvLine('Node','v'+String(rt.node||'—'))+kvLine('PID',rt.pid||'—')+kvLine('Uptime',fmt(rt.uptime_seconds||0)+' s')+kvLine('Autopilote',s.pc_worker.autopilot?'Actif':'Inactif');openDrawer('Runtime','Technique · processus',html)}
+  else if(action==='tech-memory'){html=kvLine('RAM worker',fmt(rt.rss_mb||0)+' Mo')+kvLine('Base SQLite',s.pc_worker.database||'—')+'<p class="muted">La mémoire affichée est celle du moteur TLIB Node, pas celle du navigateur.</p>';openDrawer('Mémoire','Technique · ressources',html)}
+  else if(action==='tech-auth'){html=kvLine('Mode',s.pc_worker.github_auth_mode||'—')+kvLine('Secret','Non affiché / trousseau Windows')+kvLine('Quota restant',fmt(s.pc_worker.public_rate_remaining||0));openDrawer('GitHub','Technique · authentification',html)}
+  else if(action==='tech-rate'){html=kvLine('Restant',fmt(s.pc_worker.public_rate_remaining||0))+kvLine('Réserve TLIB','≥ 1 200')+kvLine('Approfondissement','ralenti sous 1 800')+kvLine('Prochaine tentative',s.pc_worker.public_next_attempt_at?new Date(s.pc_worker.public_next_attempt_at).toLocaleTimeString('fr-FR'):'adaptative');openDrawer('Quota GitHub','Technique · cadence',html)}
+  else if(action==='l0-entities'){html=kvLine('Ressources uniques',fmt(s.apps_script.entity_count||0))+kvLine('Sources',fmt(s.apps_script.source_count||0))+kvLine('Déduplication','entity_id canonique owner/repo')+'<div class="actions"><button class="btn primary" data-drawer-go="explore">Explorer</button><button class="btn" data-drawer-go="l1">Voir L1</button></div>';openDrawer('Stock L0','L0 · ressources découvertes',html)}
+  else if(action==='l0-sources'){html=kvLine('Sources explorées',fmt(s.apps_script.source_count||0))+kvLine('Terminées',fmt(s.apps_script.source_done||0))+kvLine('Épuisées',fmt(s.apps_script.source_failed||0))+kvLine('En attente',fmt(s.apps_script.source_pending||0));openDrawer('Sources L0','L0 · graphe de découverte',html)}
+  else if(action==='l0-done'){html=kvLine('Sources réussies',fmt(s.apps_script.source_done||0))+kvLine('État','Drainage terminé')+'<p class="muted">Ces sources ont été parcourues et leurs ressources normalisées dans la génération L0 actuelle.</p>';openDrawer('Sources terminées','L0 · réussite',html)}
+  else if(action==='l0-failed'){html=kvLine('Sources épuisées',fmt(s.apps_script.source_failed||0))+kvLine('Sources en attente',fmt(s.apps_script.source_pending||0))+'<p class="muted">“Épuisée” signifie que les tentatives prévues ont été consommées. Elles restent tracées pour audit et n’empêchent pas L1.</p><div class="actions"><button class="btn" data-drawer-go="technical">Ouvrir diagnostics</button></div>';openDrawer('Sources épuisées','L0 · audit',html)}
+  else if(action==='l1-taxonomy'){show('l1');clickSubtab('#l1Subnav','data-l1-tab','themes');return}
+  else if(action==='l1-all'){openL1Drill('verified');return}
+  else if(action==='l1-verified'){openL1Drill('verified');return}
+  else if(action==='l1-complete'){openL1Drill('complete');return}
+  else if(action==='l1-deep'){openL1Drill('deep_done');return}
+  else if(action==='l2-profiles'){openL2Drill('profiles');return}
+  else if(action==='l2-input'){openL2Drill('eligible');return}
+  else if(action==='l2-goal'){show('l2');clickSubtab('#l2Subnav','data-l2-tab','design');return}
+  else if(action==='l2-ai'){show('l2');clickSubtab('#l2Subnav','data-l2-tab','pipeline');return}
+  bindDrawerActions();
+}
+function bindDrawerActions(){els('[data-drawer-go]').forEach(function(b){b.onclick=function(){closeDrawer();show(b.dataset.drawerGo);if(b.dataset.drawerGo==='l1')loadFacets();if(b.dataset.drawerGo==='l2')loadL2()}})}
+function show(v,opts){opts=opts||{};var target=el('#'+v);if(!target){console.error('TLIB VIEW MISSING',v);toast('Page introuvable : '+v);return false;}if(v!==CURRENT_VIEW&&!opts.noHistory){NAV_HISTORY.push(CURRENT_VIEW);if(NAV_HISTORY.length>30)NAV_HISTORY.shift()}CURRENT_VIEW=v;var back=el('#navBack');if(back)back.style.display=NAV_HISTORY.length?'inline-block':'none';els('.section').forEach(function(x){x.classList.toggle('active',x.id===v)});els('.nav button').forEach(function(x){x.classList.toggle('active',x.dataset.view===v)});var t={home:['Ta bibliothèque technique','TLIB transforme des ressources brutes en connaissances utiles.'],l0:['L0 · Repérage','Voir comment le stock brut a été découvert, normalisé et dédupliqué.'],explore:['Explorer TLIB','Cherche, filtre et ouvre les fiches de ta bibliothèque.'],l1:['L1 · Vérification totale','Identifier et qualifier au maximum avant d’envoyer quoi que ce soit vers L2.'],l2:['L2 · Compréhension','Comprendre le projet assez profondément pour pouvoir travailler avec.'],l3:['L3 · Action','Transformer les dossiers L2 prêts en plans de test et d’intégration.'],talk:['Parler à TLIB','Recherche conversationnelle locale.'],manager:['Manager TLIB','Piloter le moteur, la cadence et les files sans lire du code.'],technical:['Technique','Diagnostic structuré, métriques et audit brut en dernier niveau.']};el('#pageTitle').textContent=t[v][0];el('#pageSubtitle').textContent=t[v][1];try{localStorage.setItem('tlib.view',v)}catch(e){}syncMobileNav(v);if(mobileMode())closeMobileMenu();signalInteraction();return true}
+els('.nav button').forEach(function(b){b.onclick=function(){
+  var v=b.dataset.view;show(v);if(mobileMode())closeMobileMenu();
+  if(v==='explore'&&!el('#libraryResults').children.length){requestAnimationFrame(function(){loadLibrary('',false);loadFacets();});}
+}});
+function tagButton(v,label){return '<button class="pill tag-filter" data-tag="'+esc(v)+'">'+esc(label||v)+'</button>'}
+function toolCard(x){
+  var type=x.resource_kind||'Ressource GitHub',tech=x.technology||x.language||'',activity=x.activity_status||'';
+  var d=String(x.human_summary||'').trim();if(!d)d=type+(tech?' consacré à '+tech:'')+'. '+(activity?activity+'.':'Fiche L1 vérifiée.');
+  var mode=x.search_mode==='RELAXED_CONCEPTS'?'<span class="pill">↗ recherche élargie</span>':x.search_mode==='ALL_CONCEPTS_AVAILABLE'?'<span class="pill">🎯 tous les concepts trouvés</span>':'';
+  var rel=x.search_coverage!=null?'<span class="pill">pertinence '+Math.round(Number(x.search_coverage)*100)+'%</span>':'';
+  var depth=x.l2_stage==='DEEP'?'<span class="pill">🧠 L2 profond</span>':x.human_summary?'<span class="pill">🧠 L2</span>':'';
+  return '<div class="card tool" data-id="'+esc(x.entity_id)+'"><div class="small muted">'+esc(type)+'</div><h3>'+esc(x.full_name)+'</h3><p>'+esc(d.slice(0,220))+'</p><div class="meta"><span class="pill">✓ L1 vérifié</span>'+depth+(x.l3_ready?'<span class="pill">🚀 prêt L3</span>':'')+rel+mode+(tech?tagButton(tech,tech):'')+(activity?tagButton(activity,activity):'')+'</div></div>';
+}
+function bindTagFilters(root){(root||document).querySelectorAll('.tag-filter').forEach(function(b){b.onclick=function(e){e.stopPropagation();filterByTag(b.dataset.tag)}})}
+async function filterByTag(tag){show('explore');el('#librarySearch').value=tag||'';await loadLibrary(tag||'',false)}
+async function loadLibrary(q,append){
+  q=q||'';append=Boolean(append);
+  if(!append){LIB_OFFSET=0;LIB_QUERY=q;el('#libraryResults').innerHTML='';}
+  var sort=el('#librarySort')?el('#librarySort').value:'stars',j;
+  try{j=await api('/api/library?q='+encodeURIComponent(q)+'&limit='+LIB_LIMIT+'&offset='+LIB_OFFSET+'&sort='+encodeURIComponent(sort))}
+  catch(e){if(el('#libraryResults'))el('#libraryResults').innerHTML='<div class="notice">Bibliothèque indisponible : '+esc(e.message||e)+'</div>';toast('Bibliothèque indisponible');return []}
+  LIB_TOTAL=Number(j.total||0);
+  if(!append&&j.items.length===0)el('#libraryResults').innerHTML='<div class="card muted">Aucun résultat local.</div>';
+  else el('#libraryResults').insertAdjacentHTML('beforeend',j.items.map(toolCard).join(''));
+  LIB_OFFSET+=j.items.length;
+  var sm=j.search_mode||(j.items&&j.items[0]&&j.items[0].search_mode)||'';var smtxt=q?(sm==='RELAXED_CONCEPTS'?' · recherche élargie car aucun résultat ne couvrait tous les concepts':' · classement par pertinence sémantique L1 + L2 + L3'):'';el('#libraryCount').textContent=fmt(LIB_OFFSET)+' affichée(s) sur '+fmt(LIB_TOTAL)+' ressource(s) correspondante(s)'+smtxt+'.';
+  el('#libraryMore').style.display=LIB_OFFSET<LIB_TOTAL?'inline-block':'none';
+  els('#libraryResults .tool').forEach(function(x){if(!x.dataset.bound){x.dataset.bound='1';x.onclick=function(){loadResource(x.dataset.id)}}});
+  bindTagFilters(el('#libraryResults'));return j.items
+}
+async function loadFacets(force){
+  if(!force&&cacheFresh('facets',90000))return;
+  try{
+    var f=await api('/api/facets');
+    var tech=(f.technologies||[]).slice(0,16);
+    el('#quickFilters').innerHTML='<button class="pill" data-filter="">Tout</button>'+tech.map(function(x){return '<button class="pill" data-filter="'+esc(x.value)+'">'+esc(x.value)+' <b>'+fmt(x.n)+'</b></button>'}).join('');
+    els('#quickFilters [data-filter]').forEach(function(b){b.onclick=function(){filterByTag(b.dataset.filter)}});
+    cacheMark('facets');
+    el('#l1Facets').innerHTML=(f.types||[]).map(function(x){return '<button class="pill facet tag-filter" data-tag="'+esc(x.value)+'">'+esc(x.value)+' <b>'+fmt(x.n)+'</b></button>'}).join('')+(f.activities||[]).map(function(x){return '<button class="pill facet tag-filter" data-tag="'+esc(x.value)+'">'+esc(x.value)+' <b>'+fmt(x.n)+'</b></button>'}).join('');
+    el('#l1Themes').innerHTML=(f.themes||[]).map(function(x){return '<div class="card theme-card tag-filter" data-tag="'+esc(x.value)+'"><b>'+esc(x.value)+'</b><span>'+fmt(x.n)+' fiche(s) classée(s)</span></div>'}).join('');
+    el('#taxonomyVersion').textContent='taxonomie '+String(f.taxonomy_version||'—');
+    bindTagFilters(el('#l1Facets'));bindTagFilters(el('#l1Themes'));
+  }catch(e){toast('Filtres indisponibles : '+String(e.message||e));throw e}
+}
+const L1_DRILL_META={
+  verified:['Identités vérifiées','Toutes les fiches L1 dont l’identité GitHub et les métadonnées principales sont déjà présentes.'],
+  complete:['L1 complètes','Fiches ayant atteint le niveau de complétude adapté à leur type de ressource.'],
+  deep_done:['Vérifications profondes terminées','Logiciels dont les signaux profonds pertinents ont été vérifiés.'],
+  deep_pending:['Vérifications profondes en attente','Dette profonde encore à traiter ou à retenter.'],
+  l2_eligible:['Éligibles L2','Fiches L1 complètes, non archivées, non désactivées et avec score suffisant pour L2.']
+};
+const L2_DRILL_META={
+  profiles:['Tous les profils L2','Profils L2 déjà produits, BASE ou DEEP.'],
+  eligible:['L1 éligibles à L2','Ressources qui satisfont aujourd’hui le gate d’entrée L2.'],
+  base_pending:['L2-BASE en attente','Ressources éligibles qui n’ont pas encore reçu leur profil BASE local.'],
+  base_done:['L2-BASE produites','Profils construits localement à partir de la L1 qualifiée.'],
+  deep_pending:['L2-DEEP en attente','Profils sélectionnés pour une lecture README approfondie.'],
+  deep_done:['L2-DEEP terminées','Dossiers dont le README, la structure racine et les manifestes disponibles ont été analysés.'],
+  l3_ready:['Prêts à agir / L3','Dossiers V4 suffisamment étayés pour être utilisés directement ou alimenter une couche L3.']
+};
+function clickSubtab(root,attr,value){var b=el(root+' ['+attr+'="'+value+'"]');if(b){b.click();return true}return false}
+function bindOpenResourceRows(rootSelector){
+  els(rootSelector+' [data-id]').forEach(function(r){
+    if(r.dataset.boundResource)return;r.dataset.boundResource='1';
+    var open=function(){show('explore');loadResource(r.dataset.id)};
+    r.onclick=open;r.onkeydown=function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();open()}};
+  });
+}
+function syncL1DrillNav(){els('#l1DrillNav [data-l1-drill]').forEach(function(b){b.classList.toggle('active',b.dataset.l1Drill===L1_DRILL_KIND)})}
+async function loadL1Drill(){
+  syncL1DrillNav();
+  var meta=L1_DRILL_META[L1_DRILL_KIND]||L1_DRILL_META.verified;
+  textIf('#l1DrillTitle',meta[0]+(L1_DRILL_BAND?' · score '+L1_DRILL_BAND:''));textIf('#l1DrillHelp',meta[1]);
+  var q=el('#l1DrillSearch')?el('#l1DrillSearch').value.trim():'',sort=el('#l1DrillSort')?el('#l1DrillSort').value:'score';
+  var url='/api/l1/drilldown?kind='+encodeURIComponent(L1_DRILL_KIND)+'&q='+encodeURIComponent(q)+'&sort='+encodeURIComponent(sort)+'&band='+encodeURIComponent(L1_DRILL_BAND)+'&limit='+L1_DRILL_LIMIT+'&offset='+L1_DRILL_OFFSET;
+  try{
+    var j=await api(url),items=j.items||[],from=j.total?j.offset+1:0,to=Math.min(j.total,j.offset+items.length);
+    textIf('#l1DrillCount',fmt(j.total)+' fiche(s)');
+    el('#l1DrillSummary').innerHTML='<span class="pill">'+fmt(j.total)+' au total</span><span class="pill">'+fmt(from)+'–'+fmt(to)+'</span>'+(j.band?'<span class="pill">score '+esc(j.band)+'</span>':'')+(q?'<span class="pill">filtre : '+esc(q)+'</span>':'');
+    el('#l1DrillPrev').disabled=j.offset<=0;el('#l1DrillNext').disabled=j.offset+items.length>=j.total;
+    el('#l1DrillResults').innerHTML=items.length?'<table><thead><tr><th>Ressource</th><th>Type</th><th>Technologie</th><th>Score</th><th>État L1</th><th>Deep</th><th>L2</th></tr></thead><tbody>'+items.map(function(x){return '<tr class="drill-row" tabindex="0" data-id="'+esc(x.entity_id)+'"><td><b>'+esc(x.full_name)+'</b><div class="small muted">★ '+fmt(x.stars||0)+'</div></td><td>'+esc(x.resource_kind||'—')+'</td><td>'+esc(x.technology||'—')+'</td><td>'+fmt(x.l1_score||0)+'/100</td><td>'+esc(x.l1_stage||'—')+'</td><td>'+esc(x.deep_status||'—')+'</td><td>'+(x.has_l2?'🧠 oui':'—')+'</td></tr>'}).join('')+'</tbody></table>':'<div class="drill-empty">Aucune fiche pour ce filtre.</div>';
+    bindOpenResourceRows('#l1DrillResults');return j;
+  }catch(e){el('#l1DrillResults').innerHTML='<div class="notice">Détail L1 indisponible : '+esc(e.message||e)+'</div>';throw e}
+}
+function openL1Drill(kind,band){
+  L1_DRILL_KIND=L1_DRILL_META[kind]?kind:'verified';L1_DRILL_BAND=band||'';L1_DRILL_OFFSET=0;
+  show('l1');syncL1DrillNav();clickSubtab('#l1Subnav','data-l1-tab','drill');
+}
+function syncL2ProfileNav(){els('#l2ProfileNav [data-l2-kind]').forEach(function(b){b.classList.toggle('active',b.dataset.l2Kind===L2_PROFILE_KIND)})}
+async function loadL2Drill(){
+  syncL2ProfileNav();var meta=L2_DRILL_META[L2_PROFILE_KIND]||L2_DRILL_META.profiles;
+  textIf('#l2ProfileTitle',meta[0]);textIf('#l2ProfileHelp',meta[1]);
+  var q=el('#l2ProfileSearch')?el('#l2ProfileSearch').value.trim():'',sort=el('#l2ProfileSort')?el('#l2ProfileSort').value:'score';
+  var url='/api/l2/drilldown?kind='+encodeURIComponent(L2_PROFILE_KIND)+'&q='+encodeURIComponent(q)+'&sort='+encodeURIComponent(sort)+'&limit='+L2_PROFILE_LIMIT+'&offset='+L2_PROFILE_OFFSET;
+  try{
+    var j=await api(url),items=j.items||[],from=j.total?j.offset+1:0,to=Math.min(j.total,j.offset+items.length);
+    textIf('#l2ProfileCount',fmt(j.total)+' élément(s)');
+    el('#l2ProfileSummary').innerHTML='<span class="pill">'+fmt(j.total)+' au total</span><span class="pill">'+fmt(from)+'–'+fmt(to)+'</span>'+(q?'<span class="pill">filtre : '+esc(q)+'</span>':'');
+    el('#l2ProfilePrev').disabled=j.offset<=0;el('#l2ProfileNext').disabled=j.offset+items.length>=j.total;
+    el('#l2Results').innerHTML=items.length?'<table><thead><tr><th>Ressource</th><th>Type</th><th>Technologie</th><th>L1</th><th>Dossier L2</th><th>Approfondissement</th><th>Compréhension</th><th>Action</th></tr></thead><tbody>'+items.map(function(x){var stage=x.l2_stage==='DEEP'?'Approfondi':x.l2_stage==='BASE'?'Base V4':'À produire',deep=x.l2_deep_status==='DONE'?'Terminé':x.l2_deep_status==='PENDING'?'En attente':x.l2_deep_status==='RETRY'?'À retenter':'Non requis',score=x.l2_score==null?'—':fmt(x.l2_score)+'/100';return '<tr class="drill-row" tabindex="0" data-id="'+esc(x.entity_id)+'"><td><b>'+esc(x.full_name)+'</b><div class="small muted">★ '+fmt(x.stars||0)+'</div></td><td>'+esc(x.resource_kind||'—')+'</td><td>'+esc(x.technology||'—')+'</td><td>'+fmt(x.l1_score||0)+'/100</td><td>'+esc(stage)+'</td><td>'+esc(deep)+'</td><td>'+esc(score)+'</td><td>'+(x.l3_ready?'✅ prêt':'à compléter')+'</td></tr>'}).join('')+'</tbody></table>':'<div class="drill-empty">Aucun élément pour ce filtre.</div>';
+    bindOpenResourceRows('#l2Results');return j;
+  }catch(e){el('#l2Results').innerHTML='<div class="notice">Exploration L2 indisponible : '+esc(e.message||e)+'</div>';throw e}
+}
+function openL2Drill(kind){
+  L2_PROFILE_KIND=L2_DRILL_META[kind]?kind:'profiles';L2_PROFILE_OFFSET=0;show('l2');syncL2ProfileNav();clickSubtab('#l2Subnav','data-l2-tab','profiles');
+}
+async function loadL2(force){return loadL2Drill()}
+async function loadL2Queue(){
+  try{
+    var j=await api('/api/l2/queue?limit=80'),items=j.items||[],st=j.stats||{},box=el('#l2QueueTable');
+    textIf('#l2BaseDone',fmt(st.base_done||0));textIf('#l2DeepPending',fmt(st.deep_pending||0));textIf('#l2Confidence',fmt(st.comprehension_avg||0)+'/100');textIf('#l2L3Ready',fmt(st.l3_ready||0));textIf('#l2Comprehension',fmt(st.comprehension_avg||0)+'/100');textIf('#l2MigrationLegacy',fmt(st.legacy_remaining||0));textIf('#l2NeverProfiled',fmt(st.never_profiled||0));textIf('#l2BasePending',fmt(st.base_pending||0));textIf('#l2VersionBadge','V4 · sémantique · français');
+    box.innerHTML=items.length?'<table><thead><tr><th>File</th><th>Ressource</th><th>Technologie</th><th>Score L1</th><th>État</th></tr></thead><tbody>'+items.map(function(x){return '<tr class="drill-row" tabindex="0" data-id="'+esc(x.entity_id)+'"><td><span class="pill">'+esc(x.queue||'—')+'</span></td><td><b>'+esc(x.full_name||'—')+'</b></td><td>'+esc(x.technology||'—')+'</td><td>'+fmt(x.l1_score||0)+'</td><td>'+esc(x.activity_status||'—')+'</td></tr>'}).join('')+'</tbody></table>':'<div class="notice">Queue L2 vide.</div>';
+    bindOpenResourceRows('#l2QueueTable');return j;
+  }catch(e){if(el('#l2QueueTable'))el('#l2QueueTable').innerHTML='<div class="notice">Queue L2 indisponible : '+esc(e.message||e)+'</div>';throw e}
+}
+async function loadL3(){
+  try{
+    var j=await api('/api/l3/list?limit=120'),st=j.stats||{},items=j.items||[];
+    textIf('#l3Ready',fmt(st.ready||0));textIf('#l3Total',fmt(st.total||0));textIf('#l3Pending',fmt(st.pending||0));textIf('#l3ProgressPct',Number(st.progress_percent||0).toFixed(1)+'%');
+    widthIf('#l3ProgressBar',Math.min(100,Number(st.progress_percent||0))+'%');textIf('#l3ProgressText',fmt(st.total||0)+' / '+fmt(st.ready||0)+' dossiers prêts transformés en packs d’action');
+    var box=el('#l3Results');if(box)box.innerHTML=items.length?items.map(function(x){var a=x.action||{},first=Array.isArray(a.first_actions)?a.first_actions:[],risk=Array.isArray(a.risks)?a.risks:[];return '<div class="card tool" tabindex="0" data-l3-resource="'+esc(x.entity_id)+'"><div class="small muted">Compréhension L2 '+fmt(x.comprehension_score||0)+'/100</div><h3>'+esc(x.full_name)+'</h3><p>'+esc(a.objective||'Pack d’action disponible.')+'</p><div class="meta"><span class="pill">'+esc(x.resource_kind||'Projet')+'</span><span class="pill">'+esc(x.technology||'—')+'</span><span class="pill">'+fmt(first.length)+' action(s)</span><span class="pill">'+fmt(risk.length)+' risque(s)</span></div></div>'}).join(''):'<div class="notice">Aucun dossier L2 n’est encore assez étayé pour produire un pack L3. L2 continue son approfondissement.</div>';
+    els('#l3Results [data-l3-resource]').forEach(function(c){var go=function(){show('explore');loadResource(c.dataset.l3Resource)};c.onclick=go;c.onkeydown=function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();go()}}});
+    return j;
+  }catch(e){if(el('#l3Results'))el('#l3Results').innerHTML='<div class="notice">L3 indisponible : '+esc(e.message||e)+'</div>';throw e}
+}
+function bindDetailTabs(root){
+  var buttons=Array.from(root.querySelectorAll('[data-detail-tab]'));
+  buttons.forEach(function(b){b.onclick=function(){buttons.forEach(function(z){z.classList.toggle('active',z===b)});Array.from(root.querySelectorAll('.subpane')).forEach(function(p){p.classList.toggle('active',p.dataset.detailPane===b.dataset.detailTab)})}});
+}
+function l2ListHtml(items,emptyText,copyMode){
+  items=Array.isArray(items)?items.filter(Boolean):[];
+  if(!items.length)return '<div class="muted">'+esc(emptyText||'Aucune information confirmée.')+'</div>';
+  return '<div class="stack-list">'+items.map(function(v){return copyMode?'<button type="button" class="kv actionable copy-line" data-copy="'+esc(v)+'"><span>'+esc(v)+'</span><b>Copier</b></button>':'<div class="kv"><span>'+esc(v)+'</span><b>✓</b></div>'}).join('')+'</div>';
+}
+function bindL2MiniTabs(root){
+  var bs=Array.from(root.querySelectorAll('[data-l2mini-tab]')),ps=Array.from(root.querySelectorAll('[data-l2mini-pane]'));
+  bs.forEach(function(b){b.onclick=function(){bs.forEach(function(x){x.classList.toggle('active',x===b)});ps.forEach(function(p){p.classList.toggle('active',p.dataset.l2miniPane===b.dataset.l2miniTab);p.hidden=p.dataset.l2miniPane!==b.dataset.l2miniTab})}});
+}
+async function loadResource(id){
+  var x,d=el('#resourceDetail');
+  try{x=await api('/api/resource?id='+encodeURIComponent(id))}
+  catch(e){if(d){d.style.display='block';d.innerHTML='<div class="notice">Fiche indisponible : '+esc(e.message||e)+'</div>'}toast('Fiche indisponible');return null}
+  var topics=Array.isArray(x.topics)?x.topics:[];d.style.display='block';
+  var tech=x.technology||x.language||'technologie à préciser',kind=x.resource_kind||'Ressource GitHub';
+  var l2=x.l2||null,dossier=l2&&l2.dossier&&typeof l2.dossier==='object'?l2.dossier:{};
+  var summary=dossier.definition_fr||(l2&&l2.human_summary)||('« '+x.full_name+' » est '+kind.toLowerCase()+' basé sur '+tech+'. Le dossier L2 V4 est encore en reconstruction.');
+  var langs={};try{langs=JSON.parse(x.languages_json||'{}')}catch(e){}
+  var stage=l2?(l2.stage==='DEEP'?'Approfondi':l2.stage==='BASE'?'Base V4':'À préciser'):'Non produit';
+  var deep=l2?(l2.deep_status==='DONE'?'Terminé':l2.deep_status==='PENDING'?'En attente':l2.deep_status==='RETRY'?'À retenter':'Non requis'):'Non produit';
+  var score=l2?Number(l2.comprehension_score||l2.score||0):0;
+  var l3=l2&&Number(l2.l3_ready||0)===1;
+  var finalites=Array.isArray(dossier.finalites_fr)?dossier.finalites_fr:[],audiences=Array.isArray(dossier.audiences_fr)?dossier.audiences_fr:[],interfaces=Array.isArray(dossier.interfaces_fr)?dossier.interfaces_fr:[];
+  var setup=Array.isArray(dossier.installation_lancement_fr)?dossier.installation_lancement_fr:[],commands=Array.isArray(dossier.commandes)?dossier.commandes:[],arch=Array.isArray(dossier.architecture_fr)?dossier.architecture_fr:[];
+  var deps=Array.isArray(dossier.dependances)?dossier.dependances:[],integrations=Array.isArray(dossier.integrations_fr)?dossier.integrations_fr:[],deployment=Array.isArray(dossier.deploiement_fr)?dossier.deploiement_fr:[];
+  var cases=Array.isArray(dossier.cas_usage_fr)?dossier.cas_usage_fr:[],limits=Array.isArray(dossier.limites_fr)?dossier.limites_fr:[],preuves=Array.isArray(dossier.preuves_fr)?dossier.preuves_fr:[],unknowns=Array.isArray(dossier.a_verifier_fr)?dossier.a_verifier_fr:[];
+  var handoff=dossier.handoff_l3&&typeof dossier.handoff_l3==='object'?dossier.handoff_l3:{},canDo=Array.isArray(handoff.ce_quon_peut_deja_faire)?handoff.ce_quon_peut_deja_faire:[],blocks=Array.isArray(handoff.blocages)?handoff.blocages:[],deepSources=l2&&Array.isArray(l2.deep_sources)?l2.deep_sources:[];var roleFr=dossier.role_fr||dossier.nature_fr||'À confirmer',identityConf=dossier.identity_confidence==null?null:Math.round(Number(dossier.identity_confidence)*100),identityBasis=dossier.identity_basis_fr||'Preuve d’identité non encore qualifiée.',identitySource=dossier.identity_source||'À confirmer';
+  var l3pack=x.l3&&x.l3.action&&typeof x.l3.action==='object'?x.l3.action:null;
+  d.innerHTML='<button class="btn" id="closeDetail" style="float:right">Fermer</button><div class="small muted">✓ '+esc(x.l1_quality||'Identité vérifiée')+' · L1 '+fmt(x.l1_score||0)+'/100 · '+(l2?'L2 V4 '+fmt(score)+'/100':'L2 V4 en attente')+'</div><h2>'+esc(x.full_name)+'</h2><p style="font-size:16px;line-height:1.65">'+esc(summary)+'</p>'+
+  '<div class="subnav"><button class="active" data-detail-tab="overview">Vue générale</button><button data-detail-tab="l1">L1 complet</button><button data-detail-tab="l2">L2 · dossier projet</button><button data-detail-tab="l3">L3 · action</button><button data-detail-tab="technical">Technique</button></div>'+
+  '<div class="subpane active" data-detail-pane="overview"><div class="detail-grid"><div class="fact"><small>Type</small><b>'+esc(kind)+'</b></div><div class="fact"><small>Domaine</small><b>'+esc(tech)+'</b></div><div class="fact"><small>Activité</small><b>'+esc(x.activity_status||'Inconnue')+'</b></div><div class="fact"><small>Licence</small><b>'+esc(x.license_name||x.license||'Non indiquée')+'</b></div><div class="fact"><small>Popularité</small><b>★ '+fmt(x.stars)+'</b></div><div class="fact"><small>État L2</small><b>'+esc(stage)+'</b></div></div><h3>Classement TLIB</h3><div class="meta">'+(x.theme_path?tagButton(x.theme_path,x.theme_path):'<span class="muted">À classifier</span>')+'</div><h3>Topics GitHub</h3><div class="meta">'+(topics.length?topics.map(function(t){return tagButton(t,t)}).join(''):'<span class="muted">Aucun topic exposé.</span>')+'</div><div class="actions"><a class="btn primary" target="_blank" rel="noopener" href="https://github.com/'+esc(x.full_name)+'">Ouvrir sur GitHub</a>'+(x.homepage?'<a class="btn" target="_blank" rel="noopener" href="'+esc(x.homepage)+'">Site du projet</a>':'')+'</div></div>'+
+  '<div class="subpane" data-detail-pane="l1"><div class="detail-grid"><div class="fact"><small>Créé</small><b>'+esc((x.created_at_github||'—').slice(0,10))+'</b></div><div class="fact"><small>Dernier push</small><b>'+esc((x.pushed_at||'—').slice(0,10))+'</b></div><div class="fact"><small>Branche</small><b>'+esc(x.default_branch||'—')+'</b></div><div class="fact"><small>Taille</small><b>'+fmt(x.size_kb)+' Ko</b></div><div class="fact"><small>Forks</small><b>'+fmt(x.forks_count||0)+'</b></div><div class="fact"><small>Issues ouvertes</small><b>'+fmt(x.open_issues||0)+'</b></div><div class="fact"><small>Abonnés / watchers</small><b>'+fmt(x.subscribers_count||x.watchers_count||0)+'</b></div><div class="fact"><small>Profil communauté</small><b>'+(x.community_health==null?'À approfondir':fmt(x.community_health)+'%')+'</b></div><div class="fact"><small>README</small><b>'+(x.readme_present==null?'À vérifier':x.readme_present?'Présent':'Non détecté')+'</b></div><div class="fact"><small>Release récente</small><b>'+esc(x.latest_release_tag||'Aucune / à vérifier')+'</b></div><div class="fact"><small>Langages</small><b>'+esc(Object.keys(langs).slice(0,5).join(', ')||x.language||'Non applicable / à vérifier')+'</b></div><div class="fact"><small>Approfondissement L1</small><b>'+esc(x.deep_status==='DONE'?'Terminé':x.deep_status==='RETRY'?'À retenter':'En attente')+'</b></div></div></div>'+
+  '<div class="subpane" data-detail-pane="l2">'+
+    '<div class="detail-grid"><div class="fact"><small>Dossier</small><b>'+esc(stage)+'</b></div><div class="fact"><small>Rôle principal</small><b>'+esc(roleFr)+'</b></div><div class="fact"><small>Confiance identité</small><b>'+(identityConf==null?'—':fmt(identityConf)+'%')+'</b></div><div class="fact"><small>Source identité</small><b>'+esc(String(identitySource).replace(/_/g,' '))+'</b></div><div class="fact"><small>Approfondissement</small><b>'+esc(deep)+'</b></div><div class="fact"><small>Compréhension</small><b>'+fmt(score)+'/100</b></div><div class="fact"><small>Langue UI</small><b>Français</b></div><div class="fact"><small>Prêt à agir</small><b>'+(l3?'Oui ✅':'Pas encore')+'</b></div><div class="fact"><small>Version moteur</small><b>'+esc(l2&&l2.source_version||'V4 en attente')+'</b></div></div><div class="notice" style="margin-top:12px"><b>Pourquoi ce rôle ?</b> '+esc(identityBasis)+'</div>'+
+    '<div class="subnav" style="margin-top:12px"><button class="active" data-l2mini-tab="understand">Comprendre</button><button data-l2mini-tab="use">Utiliser</button><button data-l2mini-tab="architecture">Architecture</button><button data-l2mini-tab="proof">Preuves / L3</button></div>'+
+    '<div class="l2mini-pane active" data-l2mini-pane="understand"><h3>Ce qu’est le projet</h3><p>'+esc(dossier.definition_fr||'Dossier V4 en cours de reconstruction.')+'</p><h3>Comment il fonctionne</h3><p>'+esc(dossier.fonctionnement_fr||'Fonctionnement encore à confirmer.')+'</p><h3>Finalités</h3>'+l2ListHtml(finalites,'Finalités encore à confirmer.')+'<h3>Publics concernés</h3>'+l2ListHtml(audiences,'Public cible encore à confirmer.')+'<h3>Interfaces</h3>'+l2ListHtml(interfaces,'Interface principale encore à confirmer.')+'</div>'+
+    '<div class="l2mini-pane" data-l2mini-pane="use" hidden><h3>Installation / lancement</h3>'+l2ListHtml(setup,'Aucune procédure confirmée.')+'<h3>Commandes confirmées ou déduites</h3>'+l2ListHtml(commands,'Aucune commande confirmée.',true)+'<h3>Cas d’usage concrets</h3>'+l2ListHtml(cases,'Cas d’usage encore à confirmer.')+'<h3>Intégrations</h3>'+l2ListHtml(integrations,'Aucune intégration confirmée.')+'<h3>Déploiement</h3>'+l2ListHtml(deployment,'Mode de déploiement encore à confirmer.')+'</div>'+
+    '<div class="l2mini-pane" data-l2mini-pane="architecture" hidden><h3>Architecture observable</h3>'+l2ListHtml(arch,'Architecture encore à approfondir.')+'<h3>Dépendances principales</h3>'+l2ListHtml(deps,'Dépendances encore à approfondir.')+'<h3>Sources profondes utilisées</h3>'+l2ListHtml(deepSources,'Pas encore de source profonde V4.')+'</div>'+
+    '<div class="l2mini-pane" data-l2mini-pane="proof" hidden><h3>Preuves utilisées</h3>'+l2ListHtml(preuves,'Aucune preuve profonde supplémentaire.')+'<h3>Limites</h3>'+l2ListHtml(limits,'Aucune limite enregistrée.')+'<h3>À vérifier avant décision</h3>'+l2ListHtml(unknowns,'Aucun blocage majeur identifié.')+'<h3>Ce que L2 permet déjà de faire</h3>'+l2ListHtml(canDo,'Le dossier doit encore être approfondi.')+'<div class="notice" style="margin-top:12px"><b>Passerelle L3 :</b> '+(l3?'ce dossier est suffisamment étayé pour alimenter une couche d’action / synthèse.':'ce dossier n’est pas encore déclaré prêt. Blocages : '+esc(blocks.join(' · ')||'preuves insuffisantes'))+'</div></div>'+
+  '</div>'+
+  '<div class="subpane" data-detail-pane="l3">'+(l3pack?'<div class="notice"><b>Objectif :</b> '+esc(l3pack.objective||'Passer à une expérimentation contrôlée.')+'</div><div class="detail-grid" style="margin-top:12px"><div class="fact"><small>État de préparation</small><b>'+esc(String(l3pack.readiness||'REVUE_REQUISE').replace(/_/g,' '))+'</b></div><div class="fact"><small>Confiance identité source</small><b>'+fmt(Math.round(Number(l3pack.source_identity_confidence||0)*100))+'%</b></div></div><h3>Pertinent pour</h3>'+l2ListHtml(l3pack.best_for||[],'Cas de sélection à préciser.')+'<h3>Forces utiles au choix</h3>'+l2ListHtml(l3pack.strengths||[],'Forces encore à confirmer.')+'<h3>À vérifier avant de choisir</h3>'+l2ListHtml(l3pack.selection_checks||[],'Aucune vérification supplémentaire déclarée.')+'<h3>Premières actions</h3>'+l2ListHtml(l3pack.first_actions||[],'Aucune action produite.')+'<h3>Plan de test</h3>'+l2ListHtml(l3pack.test_plan||[],'Aucun plan de test produit.')+'<h3>Plan d’intégration</h3>'+l2ListHtml(l3pack.integration_plan||[],'Aucun plan d’intégration produit.')+'<h3>Risques</h3>'+l2ListHtml(l3pack.risks||[],'Aucun risque supplémentaire recensé.')+'<h3>Blocages</h3>'+l2ListHtml(l3pack.blockers||[],'Aucun blocage déclaré.'):'<div class="notice">Aucun pack L3 pour ce projet. Le dossier L2 doit d’abord être marqué prêt à agir.</div>')+'</div>'+
+  '<div class="subpane" data-detail-pane="technical"><div class="detail-grid"><div class="fact"><small>GitHub ID</small><b>'+esc(x.github_id||'—')+'</b></div><div class="fact"><small>Node ID</small><b>'+esc(x.node_id||'—')+'</b></div><div class="fact"><small>Langage GitHub</small><b>'+esc(x.language||'Aucun principal détecté')+'</b></div><div class="fact"><small>Archivé</small><b>'+(x.archived?'Oui':'Non')+'</b></div><div class="fact"><small>Fork</small><b>'+(x.fork?'Oui':'Non')+'</b></div><div class="fact"><small>Visibilité</small><b>'+esc(x.visibility||'—')+'</b></div></div><details><summary class="muted" style="cursor:pointer">JSON GitHub brut</summary><pre>'+esc(x.raw_json||'{}')+'</pre></details></div>';
+  el('#closeDetail').onclick=function(){d.style.display='none'};bindTagFilters(d);bindDetailTabs(d);bindL2MiniTabs(d);
+  els('#resourceDetail [data-copy]').forEach(function(b){b.onclick=function(){var v=b.dataset.copy||'';if(navigator.clipboard&&v)navigator.clipboard.writeText(v).then(function(){toast('Copié')}).catch(function(){toast('Copie impossible')})}});
+  d.scrollIntoView({behavior:'auto',block:'start'});return x;
+}
+function bindPaneTabs(buttonSelector,paneSelector,buttonKey,paneKey,onChange){
+  var buttons=els(buttonSelector),panes=els(paneSelector);
+  if(!buttons.length||!panes.length)return;
+  function activate(value,source){
+    var matched=false;
+    buttons.forEach(function(x){
+      var active=x.dataset[buttonKey]===value;
+      x.classList.toggle('active',active);
+      x.setAttribute('aria-selected',active?'true':'false');
+      x.setAttribute('tabindex',active?'0':'-1');
+    });
+    panes.forEach(function(p){
+      var active=p.dataset[paneKey]===value;
+      p.classList.toggle('active',active);
+      p.hidden=!active;
+      if(active)matched=true;
+    });
+    if(!matched){
+      var first=panes[0],fallback=first.dataset[paneKey];
+      if(fallback&&fallback!==value)return activate(fallback,null);
+    }
+    signalInteraction();
+    if(typeof onChange==='function'){
+      var activePane=panes.find(function(p){return p.dataset[paneKey]===value});
+      var pending;
+      try{pending=onChange(value,source)}catch(e){toast('Erreur : '+String(e.message||e))}
+      if(pending&&typeof pending.then==='function'){
+        if(source){source.classList.add('tab-loading');source.setAttribute('aria-busy','true')}
+        if(activePane){activePane.classList.add('pane-loading');activePane.setAttribute('aria-busy','true')}
+        pending.catch(function(e){toast('Chargement impossible : '+String(e.message||e))}).finally(function(){
+          if(source){source.classList.remove('tab-loading');source.removeAttribute('aria-busy')}
+          if(activePane){activePane.classList.remove('pane-loading');activePane.removeAttribute('aria-busy')}
+        });
+      }
+    }
+  }
+  buttons.forEach(function(b){
+    b.setAttribute('role','tab');
+    b.onclick=function(){activate(b.dataset[buttonKey],b)};
+    b.onkeydown=function(e){
+      if(e.key!=='ArrowRight'&&e.key!=='ArrowLeft'&&e.key!=='Home'&&e.key!=='End')return;
+      e.preventDefault();
+      var i=buttons.indexOf(b),n=i;
+      if(e.key==='ArrowRight')n=(i+1)%buttons.length;
+      if(e.key==='ArrowLeft')n=(i-1+buttons.length)%buttons.length;
+      if(e.key==='Home')n=0;
+      if(e.key==='End')n=buttons.length-1;
+      buttons[n].focus();activate(buttons[n].dataset[buttonKey],buttons[n]);
+    };
+  });
+  var initial=(buttons.find(function(b){return b.classList.contains('active')})||buttons[0]).dataset[buttonKey];
+  activate(initial,null);
+}
+var LOAD_CACHE={};
+function cacheFresh(key,ttl){
+  ttl=ttl||60000;
+  return LOAD_CACHE[key] && (Date.now()-LOAD_CACHE[key])<ttl;
+}
+function cacheMark(key){LOAD_CACHE[key]=Date.now();}
+function cacheClear(key){delete LOAD_CACHE[key];}
+
+function insightList(rows,limit){
+  return (rows||[]).slice(0,limit||12).map(function(x){return '<div class="kv clickable-row insight-filter" data-insight="'+esc(x.value)+'"><span>'+esc(x.value||'—')+'</span><b>'+fmt(x.n)+'</b></div>'}).join('')||'<div class="muted">Pas encore de données.</div>';
+}
+async function loadL1Insights(force){
+  if(!force&&cacheFresh('l1-insights',60000))return;
+  try{
+    var j=await api('/api/l1/insights');
+    el('#insightTypes').innerHTML=insightList(j.by_type,12);
+    el('#insightActivity').innerHTML=insightList(j.by_activity,12);
+    el('#insightTech').innerHTML=insightList(j.by_technology,15);
+    el('#insightLanguages').innerHTML=insightList(j.by_language,15);
+    el('#insightLicenses').innerHTML=insightList(j.by_license,15);
+    el('#insightScores').innerHTML=Object.entries(j.score_buckets||{}).map(function(x){return '<div class="kv clickable-row" tabindex="0" data-score-band="'+esc(x[0])+'"><span>'+esc(x[0])+'</span><b>'+fmt(x[1])+' ›</b></div>'}).join('');
+    els('.insight-filter').forEach(function(x){x.onclick=function(){filterByTag(x.dataset.insight)}});
+    els('#insightScores [data-score-band]').forEach(function(x){var go=function(){openL1Drill('verified',x.dataset.scoreBand)};x.onclick=go;x.onkeydown=function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();go()}}});
+    cacheMark('l1-insights');
+  }catch(e){toast('Répartition L1 indisponible')}
+}
+async function loadDeepQueue(force){
+  if(!force&&cacheFresh('l1-deep',45000))return;
+  try{
+    var j=await api('/api/l1/deep?state=pending&limit=50');
+    el('#deepQueueTable').innerHTML='<table><thead><tr><th>Ressource</th><th>Technologie</th><th>État</th><th>Score L1</th></tr></thead><tbody>'+j.items.map(function(x){return '<tr class="deep-row" data-id="'+esc(x.entity_id)+'" style="cursor:pointer"><td><b>'+esc(x.full_name)+'</b></td><td>'+esc(x.technology||'—')+'</td><td>'+esc(x.deep_status||'PENDING')+'</td><td>'+fmt(x.l1_score||0)+'/100</td></tr>'}).join('')+'</tbody></table>';
+    els('#deepQueueTable .deep-row').forEach(function(r){r.onclick=function(){show('explore');loadResource(r.dataset.id)}});
+    cacheMark('l1-deep');
+  }catch(e){el('#deepQueueTable').innerHTML='<div class="muted">Impossible de charger la queue profonde.</div>'}
+}
+async function loadL0Sources(opts){
+  opts=opts||{};
+  var q=el('#l0SourceSearch')?el('#l0SourceSearch').value:'';
+  var status=opts.status!==undefined?opts.status:(el('#l0SourceStatus')?el('#l0SourceStatus').value:'');
+  var depth=el('#l0SourceDepth')?el('#l0SourceDepth').value:'';
+  try{
+    var j=await api('/api/l0/sources?q='+encodeURIComponent(q)+'&status='+encodeURIComponent(status||'')+'&depth='+encodeURIComponent(depth||'')+'&limit=200');
+    textIf('#l0SourceCount',fmt(j.filtered_total)+' / '+fmt(j.total));
+    if(el('#l0DepthStats'))el('#l0DepthStats').innerHTML=Object.entries(j.by_depth||{}).sort(function(a,b){return Number(a[0])-Number(b[0])}).map(function(x){return '<div class="kv clickable-row" data-depth-filter="'+esc(x[0])+'"><span>Profondeur '+esc(x[0])+'</span><b>'+fmt(x[1])+'</b></div>'}).join('');
+    var table='<table><thead><tr><th>Source</th><th>État</th><th>Prof.</th><th>Parent</th><th>Tentatives</th></tr></thead><tbody>'+j.items.map(function(x){return '<tr class="l0-source-row" data-repo="'+esc((x.owner||'')+'/'+(x.repo||''))+'"><td><b>'+esc((x.owner||'')+'/'+(x.repo||''))+'</b><div class="small muted">'+esc(x.source_id||'')+'</div></td><td class="'+(x.status==='DONE'?'statusok':'statuswarn')+'">'+esc(x.status||'')+'</td><td>'+esc(x.depth||'0')+'</td><td>'+esc(x.discovered_from||'—')+'</td><td>'+fmt(x.attempts||0)+'</td></tr>'}).join('')+'</tbody></table>';
+    if(el('#l0SourceTable'))el('#l0SourceTable').innerHTML=table;
+    if(el('#l0FailuresTable')){
+      var failed=status==='FAILED'?j:await api('/api/l0/sources?status=FAILED&limit=200');
+      el('#l0FailuresTable').innerHTML='<table><thead><tr><th>Source</th><th>Profondeur</th><th>Parent</th><th>Tentatives</th></tr></thead><tbody>'+failed.items.map(function(x){return '<tr><td><b>'+esc((x.owner||'')+'/'+(x.repo||''))+'</b></td><td>'+esc(x.depth||'')+'</td><td>'+esc(x.discovered_from||'—')+'</td><td>'+fmt(x.attempts||0)+'</td></tr>'}).join('')+'</tbody></table>';
+    }
+    els('[data-depth-filter]').forEach(function(x){x.onclick=function(){el('#l0SourceDepth').value=x.dataset.depthFilter;var b=el('#l0Subnav [data-l0-tab="sources"]');if(b)b.click();loadL0Sources()}});
+    els('#l0SourceTable .l0-source-row').forEach(function(r){r.onclick=function(){filterByTag(r.dataset.repo)}});
+  }catch(e){if(el('#l0SourceTable'))el('#l0SourceTable').innerHTML='<div class="notice">Impossible de charger les sources L0 : '+esc(e.message)+'</div>'}
+}
+async function loadUpdateStatus(){
+  try{
+    var u=await api('/api/update/status');
+    textIf('#updateBuild',u.active&&u.active.build||'—');
+    textIf('#updateCommit',u.active&&u.active.commit?u.active.commit.slice(0,12):'—');
+    textIf('#updateLastGood',u.last_good&&u.last_good.build?u.last_good.build:(u.last_good&&u.last_good.commit?u.last_good.commit.slice(0,12):'Aucune encore'));
+    textIf('#updatePending',u.pending_available?'PRÊTE':'Aucune');
+    textIf('#updatePendingDetail',u.pending&&(u.pending.commit||u.pending.target)?String(u.pending.commit||u.pending.target).slice(0,12)+' · vérifiée · '+esc(u.scheme||'SLOT_V1'):'aucune version en attente');
+    var pr=u.progress||{};
+    widthIf('#updateProgressBar',Math.max(0,Math.min(100,Number(pr.percent||0)))+'%');
+    textIf('#updateProgressText',pr.phase?(String(pr.phase).replace(/_/g,' ')+' · '+fmt(pr.percent||0)+'% · '+String(pr.detail||'')):'En attente.');
+    var au=u.automatic_update||{};
+    textIf('#updateAutoMode',au.enabled?'ACTIF':'INACTIF');
+    textIf('#updateAutoDetail',au.enabled?('canal stable · '+fmt(au.interval_minutes||10)+' min · '+String(au.last_result||'en attente').replace(/_/g,' ').toLowerCase()):'désactivé');
+    var audit=(u.audit||[]).slice().reverse();
+    if(el('#updateAudit'))el('#updateAudit').innerHTML='<table><thead><tr><th>Heure</th><th>Événement</th><th>État</th><th>Détail</th></tr></thead><tbody>'+audit.map(function(x){return '<tr><td>'+esc((x.at||'').replace('T',' ').slice(0,19))+'</td><td><b>'+esc(x.event||'')+'</b></td><td class="'+(x.status==='PASS'?'statusok':x.status==='FAIL'||x.status==='CRITICAL'?'audit-fail':'')+'">'+esc(x.status||'')+'</td><td>'+esc(String(x.detail||'').slice(0,120))+'</td></tr>'}).join('')+'</tbody></table>';
+    el('#updateApplyBtn').disabled=!u.pending_available;
+    return u;
+  }catch(e){
+    if(UPDATE_EXPECT_RESTART||updatePollTimer){
+      if(el('#updateActionState')){el('#updateActionState').textContent='TLIB redémarre · reconnexion automatique…';el('#updateActionState').classList.add('update-reconnect')}
+      textIf('#updateProgressText','RESTART · reconnexion automatique…');
+      if(el('#syncBadge')){el('#syncBadge').textContent='● reconnexion…';el('#syncBadge').classList.add('connection-wait')}
+      return {transient:true,error:String(e.message||e)};
+    }
+    if(el('#updateActionState'))el('#updateActionState').textContent='État updater indisponible : '+e.message;
+    return null;
+  }
+}
+async function loadProjectFeedback(){
+  try{
+    var u=await api('/api/update/status'),a=u.automatic_update||{},p=u.progress||{},audit=u.audit||[];
+    var active=u.active||u.current||{};
+    textIf('#projectUiBuild',PAGE_BUILD);
+    textIf('#projectRuntimeBuild',active.build||'—');
+    textIf('#projectChannel',a.channel||'release/tlib-hybrid-v2-stable');
+    var sync=(active.build===PAGE_BUILD);
+    textIf('#projectSyncBadge',sync?'UI ↔ moteur synchronisés':'interface périmée');
+    var sb=el('#projectSyncBadge');if(sb)sb.className='badge '+(sync?'ok':'warn');
+    var state=u.pending_available?'VERSION PRÊTE':(a.running?'VÉRIFICATION EN COURS':String(a.last_result||'EN ATTENTE').replace(/_/g,' '));
+    textIf('#projectUpdateState',state);
+    textIf('#projectLastCheck',a.last_check_at?new Date(a.last_check_at).toLocaleTimeString('fr-FR'):'—');
+    textIf('#projectNextCheck',a.next_check_at?new Date(a.next_check_at).toLocaleTimeString('fr-FR'):'—');
+    textIf('#projectLastResult',String(a.last_result||'—').replace(/_/g,' '));
+    var last=audit.length?audit[audit.length-1]:null;
+    textIf('#projectLastEvent',last?(last.event+' · '+last.status):'—');
+    widthIf('#projectProgressBar',Math.max(0,Math.min(100,Number(p.percent||0)))+'%');
+    textIf('#projectProgressText',p.phase?(String(p.phase).replace(/_/g,' ')+' · '+fmt(p.percent||0)+'% · '+String(p.detail||'')):'En attente.');
+    ensureUiRuntimeSync(active.build,active.commit);
+    return u;
+  }catch(e){
+    textIf('#projectSyncBadge','feedback indisponible');
+    return null;
+  }
+}
+var updatePollTimer=null,UPDATE_EXPECT_RESTART=false;
+function pageBuild(){var b=el('#mgrBuildBadge');return b?(b.getAttribute('title')||''):''}
+function stopUpdatePolling(){if(updatePollTimer){clearTimeout(updatePollTimer);updatePollTimer=null}}
+function startUpdatePolling(){
+  stopUpdatePolling();
+  async function tick(){
+    var u=await loadUpdateStatus(),p=u&&u.progress,phase=String(p&&p.phase||'');
+    if(u&&!u.transient){
+      if(el('#syncBadge')){el('#syncBadge').classList.remove('connection-wait')}
+      if(el('#updateActionState'))el('#updateActionState').classList.remove('update-reconnect');
+      if(u.active&&u.active.build&&UPDATE_EXPECT_RESTART&&u.active.build!==pageBuild()){
+        textIf('#updateActionState','Mise à jour terminée · chargement de la nouvelle interface…');
+        stopUpdatePolling();setTimeout(function(){location.reload()},700);return;
+      }
+      if(['DONE','READY','ERROR','ROLLED_BACK'].includes(phase)){
+        UPDATE_EXPECT_RESTART=false;stopUpdatePolling();return;
+      }
+    }
+    updatePollTimer=setTimeout(tick,1000);
+  }
+  updatePollTimer=setTimeout(tick,350);
+}
+async function triggerUpdate(mode){
+  var state=el('#updateActionState');if(state)state.textContent='Commande '+mode+' envoyée…';
+  if(mode==='Apply')UPDATE_EXPECT_RESTART=true;
+  startUpdatePolling();
+  try{
+    await api('/api/update/action?mode='+encodeURIComponent(mode),{method:'POST'});
+    if(state)state.textContent=mode==='Stage'?'Vérification lancée en arrière-plan. TLIB reste disponible.':mode==='Apply'?'Activation lancée. Le moteur peut redémarrer quelques secondes.':'Réparation lancée.';
+    if(mode==='Stage')setTimeout(loadUpdateStatus,4000);
+    if(mode==='Repair')setTimeout(loadUpdateStatus,3500);
+    if(mode==='Apply')setTimeout(function(){if(!UPDATE_EXPECT_RESTART)backgroundRefresh()},6500);
+  }catch(e){if(state)state.textContent='Échec : '+e.message}
+}
+function runInteractionAudit(exercise){
+  var issues=[],checks=0;
+  var ids=Array.from(document.querySelectorAll('[id]')).map(function(x){return x.id}),seen={};
+  ids.forEach(function(id){checks++;seen[id]=(seen[id]||0)+1});Object.keys(seen).forEach(function(id){if(seen[id]>1)issues.push('ID dupliqué : '+id)});
+  document.querySelectorAll('[data-view]').forEach(function(x){checks++;if(!el('#'+x.dataset.view))issues.push('Vue manquante : '+x.dataset.view)});
+  document.querySelectorAll('[data-go]').forEach(function(x){checks++;if(!el('#'+x.dataset.go))issues.push('Cible data-go manquante : '+x.dataset.go)});
+  [['l0','l0'],['l1','l1'],['l2','l2'],['l3','l3'],['manager','manager'],['tech','tech']].forEach(function(def){
+    var buttons=Array.from(document.querySelectorAll('[data-'+def[0]+'-tab]'));
+    var panes=Array.from(document.querySelectorAll('[data-'+def[1]+'-pane]'));
+    buttons.forEach(function(b){
+      checks++;
+      var key=b.getAttribute('data-'+def[0]+'-tab');
+      var target=document.querySelector('[data-'+def[1]+'-pane="'+key+'"]');
+      if(!target){issues.push('Sous-page manquante '+def[0]+' : '+key);return}
+      if(exercise){
+        b.click();
+        var visible=panes.filter(function(p){return p.classList.contains('active')&&!p.hidden});
+        if(visible.length!==1||visible[0]!==target)issues.push('Activation cassée '+def[0]+' : '+key+' (visibles='+visible.length+')');
+      }
+    });
+    if(exercise){var first=buttons[0];if(first)first.click();}
+  });
+  var required=['homeSearchBtn','librarySearchBtn','drawerClose','chatSend','refreshDeepQueue','refreshL2Queue','refreshL3','navBack','commandOpen','runUiAuditBtn','updateStageBtn','updateApplyBtn','updateRepairBtn','mobileMenuToggle','mobileBottomNav','globalActivity','updateProgressBar','l1DrillSearchBtn','l1DrillPrev','l1DrillNext','l1DrillResults','l2ProfileSearchBtn','l2ProfilePrev','l2ProfileNext','l2Results','l3Results','phoneSessionList','phoneRemainingMax','phoneQrType'];
+  required.forEach(function(id){checks++;if(!document.getElementById(id))issues.push('Contrôle essentiel absent : '+id)});
+  checks++;if(typeof api!=='function'||!String(api).includes('attempts=method'))issues.push('Contrat retry API absent');
+  checks++;if(typeof bindPaneTabs!=='function'||!String(bindPaneTabs).includes('pane-loading'))issues.push('Contrat chargement sous-page absent');
+  checks++;if(typeof startUpdatePolling!=='function'||!String(startUpdatePolling).includes('location.reload'))issues.push('Contrat reconnexion update absent');
+  checks++;if(!el('#mobileBottomNav')||els('#mobileBottomNav [data-mobile-view]').length<4)issues.push('Navigation mobile incomplète');
+  checks++;if(typeof openL1Drill!=='function'||typeof loadL1Drill!=='function')issues.push('Drill-down L1 absent');
+  checks++;if(typeof openL2Drill!=='function'||typeof loadL2Drill!=='function')issues.push('Drill-down L2 absent');
+  checks++;if(typeof sendChatQuery!=='function'||String(sendChatQuery).indexOf('/api/chat/search')<0)issues.push('Recherche chat dédiée absente');
+  checks++;if(els('[data-l1-drill-open]').length<6)issues.push('Trop peu de portes interactives L1');
+  checks++;if(els('[data-l2-drill-open]').length<5)issues.push('Trop peu de portes interactives L2');
+  checks++;if(typeof loadL3!=='function'||!el('#l3Results'))issues.push('Workspace L3 absent');
+  checks++;if(els('[data-l3-jump]').length<4)issues.push('Navigation L3 insuffisante');
+  checks++;if(typeof renderPhoneCountdowns!=='function'||!el('#phoneSessionList'))issues.push('Gestionnaire de sessions téléphone incomplet');
+  checks++;if(!String(loadResource).includes('data-l2mini-tab="understand"')||!String(loadResource).includes('installation_lancement_fr'))issues.push('Dossier L2 V4 incomplet');
+  var pass=issues.length===0;
+  el('#uiAuditResult').innerHTML='<div class="metricgrid"><div class="card"><div class="small muted">Contrôles vérifiés</div><div class="value">'+fmt(checks)+'</div></div><div class="card"><div class="small muted">Défauts détectés</div><div class="value '+(pass?'audit-pass':'audit-fail')+'">'+fmt(issues.length)+'</div></div><div class="card"><div class="small muted">Résultat</div><div class="value '+(pass?'audit-pass':'audit-fail')+'">'+(pass?'PASS':'À CORRIGER')+'</div></div><div class="card"><div class="small muted">Horodatage</div><div class="value" style="font-size:18px">'+new Date().toLocaleTimeString('fr-FR')+'</div></div></div>'+(issues.length?'<div class="card" style="margin-top:12px"><h3>Défauts</h3>'+issues.map(function(x){return '<div class="kv"><span>⚠</span><b>'+esc(x)+'</b></div>'}).join('')+'</div>':'<div class="notice" style="margin-top:12px;border-left-color:var(--ok)">Aucune cible de navigation ou sous-page manquante détectée dans le DOM actuel.</div>');
+  return {pass:pass,checks:checks,issues:issues};
+}
+var COMMANDS=[
+  {label:'Accueil',hint:'Vue principale',view:'home'},
+  {label:'Explorer',hint:'Recherche dans TLIB',view:'explore'},
+  {label:'L0 · Repérage',hint:'Sources et découverte',view:'l0'},
+  {label:'L1 · Vérification',hint:'Métadonnées et approfondissement',view:'l1'},
+  {label:'L2 · Compréhension',hint:'Dossiers projet français',view:'l2'},
+  {label:'L3 · Action',hint:'Plans de test et intégration',view:'l3'},
+  {label:'Parler à TLIB',hint:'Recherche conversationnelle',view:'talk'},
+  {label:'Manager',hint:'Pipeline, workers, rapports',view:'manager'},
+  {label:'Technique',hint:'Runtime, queue, audit',view:'technical'}
+];
+function renderCommands(q){
+  q=String(q||'').toLowerCase();
+  var rows=COMMANDS.filter(function(x){return !q||(x.label+' '+x.hint).toLowerCase().includes(q)});
+  if(!rows.length&&q)rows=[{label:'Rechercher “'+q+'”',hint:'dans Explorer',search:q}];
+  el('#commandList').innerHTML=rows.map(function(x,i){return '<div class="cmditem '+(i===0?'active':'')+'" data-cmd-index="'+i+'"><div><b>'+esc(x.label)+'</b><div><small>'+esc(x.hint)+'</small></div></div><span>↵</span></div>'}).join('');
+  els('#commandList [data-cmd-index]').forEach(function(row){row.onclick=function(){var x=rows[Number(row.dataset.cmdIndex)];closeCommand();if(x.view){show(x.view);if(x.view==='explore'&&!el('#libraryResults').children.length){requestAnimationFrame(function(){loadLibrary('',false);loadFacets();});}}else if(x.search){show('explore');el('#librarySearch').value=x.search;loadLibrary(x.search,false)}}});
+  el('#commandList').dataset.rows=JSON.stringify(rows);
+}
+function openCommand(){el('#commandPalette').classList.add('open');el('#commandPalette').setAttribute('aria-hidden','false');el('#commandInput').value='';renderCommands('');setTimeout(function(){el('#commandInput').focus()},20)}
+function closeCommand(){el('#commandPalette').classList.remove('open');el('#commandPalette').setAttribute('aria-hidden','true')}
+function renderStatus(s){STATUS=s;var st=s.pc_worker.l1_stats||{},q=s.pc_worker.queue||{},rt=s.pc_worker.runtime||{};var ls=[['L0',s.levels.l0||{}],['L1',s.levels.l1||{}],['L2',s.levels.l2||{}],['L3',s.levels.l3||{}]];el('#levelCards').innerHTML=ls.map(function(a){var k=a[0],v=a[1];return '<button type="button" class="card level" data-level="'+k+'" aria-label="Ouvrir '+k+' '+esc(v.label||k)+'"><div class="kicker">'+k+'</div><div class="num">'+fmt(v.count)+'</div><div class="label">'+esc(v.label||k)+'</div><p>'+esc(v.help||'')+'</p><span class="state '+cls(v.state)+'">'+human(v.state)+'</span></button>'}).join('');el('#bL0').textContent='L0 — '+fmt(s.apps_script.entity_count)+' repérées';el('#bPC').textContent='PC — '+fmt(s.pc_worker.local_l1_results)+' fiches L1 locales';el('#todayL0').textContent=fmt(s.apps_script.entity_count)+' ressources · '+fmt(s.apps_script.source_count||0)+' sources · 0 en attente';el('#l0Entities').textContent=fmt(s.apps_script.entity_count||0);el('#l0Sources').textContent=fmt(s.apps_script.source_count||0);el('#l0Done').textContent=fmt(s.apps_script.source_done||0);el('#l0Failed').textContent=fmt(s.apps_script.source_failed||0);el('#todayL1').textContent=fmt(s.pc_worker.local_l1_results)+' fiches vérifiées · autopilote local '+(s.pc_worker.autopilot?'actif':'inactif');el('#todayL2').textContent=fmt(s.pc_worker.local_l2_profiles)+' dossier(s) L2 V4';var l3s=s.pc_worker.l3_stats||{};el('#todayL3').textContent=fmt(l3s.total||0)+' pack(s) d’action · '+fmt(l3s.pending||0)+' en attente';el('#l3Ready').textContent=fmt(l3s.ready||0);el('#l3Total').textContent=fmt(l3s.total||0);el('#l3Pending').textContent=fmt(l3s.pending||0);el('#l3ProgressPct').textContent=Number(l3s.progress_percent||0).toFixed(1)+'%';widthIf('#l3ProgressBar',Math.min(100,Number(l3s.progress_percent||0))+'%');textIf('#l3ProgressText',fmt(l3s.total||0)+' / '+fmt(l3s.ready||0)+' dossiers prêts transformés en packs d’action');el('#todayPC').textContent='Worker local actif · SQLite · '+fmt(s.pc_worker.staged_names||0)+' tâches L1 préparées';el('#mgrApps').textContent=s.apps_script.status==='L0_DRAINED'?'L0 FINI':String(s.apps_script.status||'—');el('#mgrAppsText').textContent='Apps Script conserve L0, les checkpoints et le contrôle. Son ancien L1 reste '+(s.apps_script.l1_enabled?'activé':'désactivé')+' car le PC Worker exécute maintenant L1.';el('#mgrPCText').textContent=fmt(s.pc_worker.local_l1_results)+' fiches L1 vérifiées · '+fmt(s.pc_worker.local_l2_profiles)+' dossiers L2 V4 · '+fmt((s.pc_worker.l3_stats||{}).total||0)+' packs L3 · GitHub '+String(s.pc_worker.github_auth_mode||'—').replace(/_/g,' ').toLowerCase()+'.';if(FIRST_L1===null)FIRST_L1=Number(s.pc_worker.local_l1_results||0);var gain=Number(s.pc_worker.local_l1_results||0)-FIRST_L1;el('#mgrLive').textContent='Progression depuis ouverture : +'+fmt(gain)+' · autopilote '+(s.pc_worker.autopilot?'actif':'inactif');el('#mgrQueue').textContent=fmt(Object.values(q).reduce(function(a,b){return a+Number(b||0)},0));el('#mgrQueueText').textContent=fmt(q.PENDING||0)+' en attente · '+fmt(q.DONE||0)+' terminées · '+fmt(s.pc_worker.staged_names||0)+' noms chargés depuis la file TLIB.';var base=Math.max(1,Number(s.pc_worker.staged_names||0));var done=Number(s.pc_worker.local_l1_results||0);var pct=Math.min(100,(done/base)*100);el('#mgrProgress').style.width=pct.toFixed(1)+'%';el('#mgrProgressText').textContent='Phase actuelle : '+fmt(done)+' / '+fmt(base)+' vérifiées ('+pct.toFixed(1)+' %). Le corpus L0 complet reste '+fmt(s.apps_script.entity_count||0)+'.';el('#mgrL2').textContent=fmt(s.pc_worker.local_l2_profiles);el('#mgrSchedulerMode').textContent=String(s.pc_worker.scheduler_mode||'—').replace(/_/g,' ');el('#mgrDeepBacklog').textContent=fmt(s.pc_worker.deep_backlog||st.deep_pending||0);el('#mgrQuotaRemaining').textContent=fmt(s.pc_worker.public_rate_remaining||0);el('#mgrSchedulerBadge').textContent='ordonnanceur '+String(s.pc_worker.scheduler_mode||'—').replace(/_/g,' ').toLowerCase();el('#mgrQuotaBadge').textContent='GitHub '+fmt(s.pc_worker.public_rate_remaining||0);el('#workerAppsTrigger').textContent=fmt(s.apps_script.trigger_every_minutes||0)+' min';el('#workerAppsState').textContent=s.apps_script.status||'—';el('#workerPCRam').textContent=fmt((s.pc_worker.runtime||{}).rss_mb||0)+' Mo';el('#workerPCSpeed').textContent=fmt(st.throughput_per_hour||0)+'/h';el('#workerGHAuth').textContent=s.pc_worker.github_auth_mode||'—';el('#workerGHQuota').textContent=fmt(s.pc_worker.public_rate_remaining||0);el('#managerQueueDetails').innerHTML='<div class="kv"><span>Terminées</span><b>'+fmt(q.DONE||0)+'</b></div><div class="kv"><span>En attente</span><b>'+fmt(q.PENDING||0)+'</b></div><div class="kv"><span>En cours</span><b>'+fmt(q.RUNNING||0)+'</b></div><div class="kv"><span>Échecs</span><b>'+fmt(q.FAILED||0)+'</b></div>';el('#managerDeepDetails').innerHTML='<div class="kv"><span>Approfondies</span><b>'+fmt(st.deep_done||0)+'</b></div><div class="kv"><span>En attente</span><b>'+fmt(s.pc_worker.deep_backlog||st.deep_pending||0)+'</b></div><div class="kv"><span>Mode</span><b>'+esc(String(s.pc_worker.scheduler_mode||'—').replace(/_/g,' '))+'</b></div>';el('#reportsFreshness').textContent='État courant : '+new Date().toLocaleString('fr-FR');
+  var target=Number(st.target||s.apps_script.entity_count||0);
+  el('#l1Target').textContent=fmt(target);el('#l1Core').textContent=fmt(st.core||0);el('#l1Complete').textContent=fmt(st.complete||0);el('#l1Deep').textContent=fmt(st.deep_done||0);el('#l1DeepPending').textContent=fmt(st.deep_pending||0)+' approfondissement(s) en attente';
+  el('#l1CorePct').textContent=Number(st.core_percent||0).toFixed(2)+'% du corpus';el('#l1ProgressText').textContent=fmt(st.core||0)+' / '+fmt(target)+' identités vérifiées · '+fmt(st.complete||0)+' L1 complets';
+  el('#l1CoreBar').style.width=Math.min(100,Number(st.core_percent||0))+'%';el('#l1CompleteBar').style.width=Math.min(100,Number(st.complete_percent||0))+'%';el('#l1Speed').textContent='≈ '+fmt(st.throughput_per_hour||0)+' fiches/h sur les 5 dernières minutes';el('#l1SchedulerMode').textContent=String(s.pc_worker.scheduler_mode||'—').replace(/_/g,' ');el('#l1DeepDone2').textContent=fmt(st.deep_done||0);el('#l1DeepBacklog').textContent=fmt(s.pc_worker.deep_backlog||st.deep_pending||0);el('#l1DeepQuota').textContent=fmt(s.pc_worker.public_rate_remaining||0);el('#l1SchedulerBadge').textContent='ordonnanceur '+String(s.pc_worker.scheduler_mode||'—').replace(/_/g,' ').toLowerCase();el('#l1QuotaBadge').textContent='GitHub '+fmt(s.pc_worker.public_rate_remaining||0);
+  var l2s=s.pc_worker.l2_stats||{};
+  el('#l2Count').textContent=fmt(s.pc_worker.local_l2_profiles||0);
+  textIf('#l2Eligible',fmt(l2s.eligible||0));textIf('#l2BasePending',fmt(l2s.base_pending||0));textIf('#l2MigrationLegacy',fmt(l2s.legacy_remaining||0));textIf('#l2NeverProfiled',fmt(l2s.never_profiled||0));textIf('#l2DeepDone',fmt(l2s.deep_done||0));
+  textIf('#l2Speed',fmt(l2s.throughput_per_hour||0)+'/h');textIf('#l2Mode',String(s.pc_worker.scheduler_mode||'—').replace(/_/g,' '));
+  textIf('#l2BaseDone',fmt(l2s.base_done||0));textIf('#l2DeepPending',fmt(l2s.deep_pending||0));textIf('#l2Confidence',fmt(l2s.comprehension_avg||0)+'/100');textIf('#l2L3Ready',fmt(l2s.l3_ready||0));textIf('#l2Comprehension',fmt(l2s.comprehension_avg||0)+'/100');textIf('#l2VersionBadge','V4 · sémantique · français');
+  widthIf('#l2ProgressBar',Math.min(100,Number(l2s.progress_percent||0))+'%');
+  textIf('#l2ProgressText',fmt(l2s.total||0)+' / '+fmt(l2s.eligible||0)+' dossiers V4 reconstruits ('+Number(l2s.progress_percent||0).toFixed(1)+' %) · '+fmt(l2s.legacy_remaining||0)+' ancien(s) L2 à réinterpréter · '+fmt(l2s.never_profiled||0)+' L1 jamais profilée(s)');
+  el('#l1Recent').innerHTML=(s.recent||[]).slice(0,9).map(function(x){x.entity_id='ghpath:'+String(x.full_name).toLowerCase();return toolCard(x)}).join('');els('#l1Recent .tool').forEach(function(x){x.onclick=function(){show('explore');loadResource(x.dataset.id)}});bindTagFilters(el('#l1Recent'));
+  el('#techNode').textContent='v'+String(rt.node||'—');el('#techPid').textContent='PID '+String(rt.pid||'—')+' · uptime '+fmt(rt.uptime_seconds||0)+' s';el('#techRam').textContent=fmt(rt.rss_mb||0)+' Mo';el('#techAuth').textContent=String(s.pc_worker.github_auth_mode||'—').replace(/_/g,' ');el('#techRate').textContent=s.pc_worker.public_rate_remaining==null?'—':fmt(s.pc_worker.public_rate_remaining);el('#techNext').textContent=s.pc_worker.public_next_attempt_at?'prochaine tentative '+new Date(s.pc_worker.public_next_attempt_at).toLocaleTimeString('fr-FR'):'cadence adaptative';
+  el('#techHealth').innerHTML='<div class="kv"><span>Worker</span><b class="statusok">EN LIGNE</b></div><div class="kv"><span>SQLite</span><b>'+esc(s.pc_worker.database||'—')+'</b></div><div class="kv"><span>Autopilote</span><b>'+(s.pc_worker.autopilot?'Actif':'Inactif')+'</b></div><div class="kv"><span>Erreurs 24h</span><b>'+fmt(st.errors_24h||0)+'</b></div>';
+  el('#techQueue').innerHTML='<div class="kv"><span>Chargées</span><b>'+fmt(s.pc_worker.staged_names||0)+'</b></div><div class="kv"><span>Terminées</span><b>'+fmt(q.DONE||0)+'</b></div><div class="kv"><span>En attente</span><b>'+fmt(q.PENDING||0)+'</b></div><div class="kv"><span>En cours</span><b>'+fmt(q.RUNNING||0)+'</b></div><div class="kv"><span>Échec</span><b>'+fmt(q.FAILED||0)+'</b></div>';el('#techStorage').innerHTML='<div class="kv"><span>Base</span><b>'+esc(s.pc_worker.database||'—')+'</b></div><div class="kv"><span>Mode</span><b>SQLite WAL</b></div><div class="kv"><span>Queue persistée</span><b>'+fmt(s.pc_worker.staged_names||0)+'</b></div>';el('#flowApps').textContent=(s.apps_script.status==='L0_DRAINED'?'L0 terminé':'L0 actif')+' · contrôle';el('#flowQueue').textContent=fmt(s.pc_worker.staged_names||0)+' tâches';el('#flowPC').textContent=fmt(st.core||0)+' L1 · '+fmt(st.throughput_per_hour||0)+'/h';el('#flowGH').textContent=String(s.pc_worker.github_auth_mode||'—').replace(/_/g,' ');el('#flowDB').textContent=fmt(rt.rss_mb||0)+' Mo RAM · durable';
+  renderTechEvents('ALL');el('#pipelineRows').innerHTML=ls.map(function(a){var k=a[0],v=a[1];return '<tr data-pipeline="'+k+'" style="cursor:pointer"><td><b>'+k+'</b></td><td>'+esc(v.label||'')+'</td><td>'+esc(v.help||'')+'</td><td>'+human(v.state)+'</td></tr>'}).join('');els('#pipelineRows [data-pipeline]').forEach(function(r){r.onclick=function(){var k=r.dataset.pipeline;if(k==='L0'){show('l0');loadL0Sources()}else if(k==='L1'){show('l1');loadFacets();loadDeepQueue()}else if(k==='L2'){show('l2');loadL2()}else if(k==='L3'){show('l3');loadL3()}else show('manager')}});el('#rawStatus').textContent=JSON.stringify(s,null,2);el('#rawEvents').textContent=(s.events||[]).map(function(e){return e.at+'  '+e.level+'  '+e.event+'  '+(e.detail||'')}).join('\n')||'Aucun événement.';el('#homeRecent').innerHTML=(s.recent||[]).slice(0,6).map(function(x){x.entity_id='ghpath:'+String(x.full_name).toLowerCase();return toolCard(x)}).join('');els('#homeRecent .tool').forEach(function(x){x.onclick=async function(){show('explore');await loadResource(x.dataset.id)}});bindTagFilters(el('#homeRecent'));if(LAST_L1!==null&&Number(s.pc_worker.local_l1_results)>LAST_L1){el('#bPC').classList.add('live');setTimeout(function(){el('#bPC').classList.remove('live')},1200)}LAST_L1=Number(s.pc_worker.local_l1_results||0)}
+async function loadDiagnostics(){
+  try{
+    var d=await api('/api/diagnostics');
+    textIf('#diagOverall',String(d.overall||'HEALTHY').replace(/_/g,' '));
+    textIf('#diagGenerated',d.generated_at?'mis à jour '+new Date(d.generated_at).toLocaleTimeString('fr-FR'):'—');
+    var dash=d.dashboard||{},sup=d.supervisor||{},bg=d.background_worker||{},rt=d.runtime_marker||{};
+    textIf('#diagDashboard',dash.healthy===false?'HORS LIGNE':String(dash.state||'EN LIGNE').replace(/_/g,' '));
+    textIf('#diagDashboardDetail',(dash.pid?'PID '+dash.pid+' · ':'')+(dash.last_error?dash.last_error:(dash.last_ok_at?'dernier succès '+new Date(dash.last_ok_at).toLocaleTimeString('fr-FR'):'port 8787')));
+    textIf('#diagWatchdog',String(sup.state||'ACTIF').replace(/_/g,' '));
+    textIf('#diagRestart',dash.last_restart_at?'dernière reprise '+new Date(dash.last_restart_at).toLocaleTimeString('fr-FR')+' · '+fmt(dash.restarts_10m||0)+' / 10 min':'aucune reprise récente');
+    var pipe=d.pipeline||{},l1=pipe.l1||{},l2=pipe.l2||{},l3=pipe.l3||{};
+    if(el('#diagComponents'))el('#diagComponents').innerHTML=
+      '<div class="kv"><span>Agent UI</span><b class="'+(dash.healthy===false?'statuswarn':'statusok')+'">'+esc(dash.healthy===false?'hors ligne':'en ligne')+'</b></div>'+
+      '<div class="kv"><span>Worker fond</span><b class="'+(bg.alive===false?'statuswarn':'statusok')+'">'+esc(bg.alive===false?'arrêté':'actif')+'</b></div>'+
+      '<div class="kv"><span>Runtime marker</span><b>'+esc(rt.alive===false?'ancien / arrêté':'cohérent')+'</b></div>'+
+      '<div class="kv"><span>L1</span><b>'+fmt(l1.total||0)+' · '+fmt(l1.complete||0)+' complètes</b></div>'+
+      '<div class="kv"><span>L2 V4</span><b>'+fmt(l2.total||0)+' · '+fmt(l2.deep_done||0)+' profondes</b></div>'+
+      '<div class="kv"><span>L3</span><b>'+fmt(l3.total||0)+' packs</b></div>'+
+      '<div class="kv"><span>Index recherche</span><b>'+fmt((d.search||{}).indexed_count||0)+'</b></div>';
+    var errs=Array.isArray(d.recent_errors)?d.recent_errors:[];
+    if(el('#diagErrors'))el('#diagErrors').innerHTML=errs.length?errs.slice(0,8).map(function(x){return '<div class="statusline"><strong>'+esc(x.event||x.level||'Incident')+'</strong><span>'+esc(x.detail||'')+'</span></div>'}).join(''):'<div class="muted">Aucun incident récent.</div>';
+    return d;
+  }catch(e){
+    textIf('#diagOverall','INDISPONIBLE');textIf('#diagGenerated','Erreur : '+e.message);
+    return null;
+  }
+}
+function bindManagerNodes(){
+  var detail=el('#mgrNodeDetail');if(!detail)return;
+  var descriptions={
+    appscript:['Apps Script','Le cloud Google garde L0, les états durables et les contrôles. Son ancien chemin L1 reste fermé pour éviter de dupliquer le travail du PC.'],
+    queue:['Queue TLIB','La génération L0 actuelle contient 120 694 ressources. Toute cette file a été chargée localement sur le PC avec reprise par SQLite.'],
+    pc:['PC Worker','Le PC prend les tâches une par une, interroge GitHub, classifie, calcule les métadonnées et approfondit certains projets. Desktop Commander n’est pas dans la boucle normale.'],
+    github:['GitHub sécurisé','Le worker réutilise l’authentification GitHub CLI déjà stockée dans le trousseau Windows. Le token n’est ni copié dans Drive, ni dans le dépôt, ni affiché dans l’interface.'],
+    sqlite:['SQLite local','La queue et les résultats sont persistés localement en WAL. Une coupure du Wi-Fi ou un arrêt du PC ne remet pas L1 à zéro.']
+  };
+  els('[data-manager-node]').forEach(function(n){n.onclick=function(){els('[data-manager-node]').forEach(function(x){x.classList.toggle('active',x===n)});var d=descriptions[n.dataset.managerNode];detail.innerHTML='<h4>'+d[0]+'</h4><p>'+d[1]+'</p>'}});
+}
+function renderTechEvents(filter){
+  if(!STATUS)return;var rows=(STATUS.events||[]).filter(function(e){return filter==='ALL'||e.level===filter});
+  el('#techEvents').innerHTML='<table><thead><tr><th>Heure</th><th>Niveau</th><th>Événement</th><th>Détail</th></tr></thead><tbody>'+rows.map(function(e){return '<tr><td>'+esc(new Date(e.at).toLocaleTimeString('fr-FR'))+'</td><td>'+esc(e.level)+'</td><td><b>'+esc(e.event)+'</b></td><td>'+esc(e.detail||'')+'</td></tr>'}).join('')+'</tbody></table>';
+}
+function textIf(id,value){var x=el(id);if(x&&x.textContent!==String(value))x.textContent=String(value)}
+function widthIf(id,value){var x=el(id);if(x&&x.style.width!==value)x.style.width=value}
+function backgroundRender(s){
+  STATUS=s;
+  var st=s.pc_worker.l1_stats||{},q=s.pc_worker.queue||{},rt=s.pc_worker.runtime||{};
+  textIf('#bL0','L0 — '+fmt(s.apps_script.entity_count)+' repérées');
+  textIf('#bPC','PC — '+fmt(s.pc_worker.local_l1_results)+' fiches L1');
+  textIf('#todayL0',fmt(s.apps_script.entity_count)+' ressources · '+fmt(s.apps_script.source_count||0)+' sources · 0 en attente');
+  textIf('#todayL1',fmt(s.pc_worker.local_l1_results)+' fiches vérifiées · autopilote '+(s.pc_worker.autopilot?'actif':'inactif'));
+  textIf('#todayL2',fmt(s.pc_worker.local_l2_profiles)+' dossier(s) L2 V4');var l3s=s.pc_worker.l3_stats||{};textIf('#todayL3',fmt(l3s.total||0)+' pack(s) d’action · '+fmt(l3s.pending||0)+' en attente');textIf('#l3Ready',fmt(l3s.ready||0));textIf('#l3Total',fmt(l3s.total||0));textIf('#l3Pending',fmt(l3s.pending||0));textIf('#l3ProgressPct',Number(l3s.progress_percent||0).toFixed(1)+'%');widthIf('#l3ProgressBar',Math.min(100,Number(l3s.progress_percent||0))+'%');textIf('#l3ProgressText',fmt(l3s.total||0)+' / '+fmt(l3s.ready||0)+' dossiers prêts transformés en packs d’action');
+  textIf('#todayPC','Worker local actif · '+fmt(s.pc_worker.staged_names||0)+' tâches L1 préparées');
+
+  ['L0','L1','L2','L3'].forEach(function(k){
+    var card=el('.level[data-level="'+k+'"]'),v=s.levels[(k.toLowerCase())]||{};
+    if(card){
+      var n=card.querySelector('.num'),state=card.querySelector('.state');
+      if(n)n.textContent=fmt(v.count||0);
+      if(state)state.textContent=human(v.state);
+    }
+  });
+
+  textIf('#mgrApps',s.apps_script.status==='L0_DRAINED'?'L0 FINI':String(s.apps_script.status||'—'));
+  textIf('#mgrL2',fmt(s.pc_worker.local_l2_profiles));
+  var l2s=s.pc_worker.l2_stats||{};textIf('#l2Count',fmt(s.pc_worker.local_l2_profiles||0));textIf('#l2Eligible',fmt(l2s.eligible||0));textIf('#l2BasePending',fmt(l2s.base_pending||0));textIf('#l2MigrationLegacy',fmt(l2s.legacy_remaining||0));textIf('#l2NeverProfiled',fmt(l2s.never_profiled||0));textIf('#l2DeepDone',fmt(l2s.deep_done||0));textIf('#l2L3Ready',fmt(l2s.l3_ready||0));textIf('#l2Comprehension',fmt(l2s.comprehension_avg||0)+'/100');textIf('#l2Speed',fmt(l2s.throughput_per_hour||0)+'/h');textIf('#l2Mode',String(s.pc_worker.scheduler_mode||'—').replace(/_/g,' '));textIf('#l2BaseDone',fmt(l2s.base_done||0));textIf('#l2DeepPending',fmt(l2s.deep_pending||0));textIf('#l2Confidence',fmt(l2s.comprehension_avg||0)+'/100');widthIf('#l2ProgressBar',Math.min(100,Number(l2s.progress_percent||0))+'%');textIf('#l2ProgressText',fmt(l2s.total||0)+' / '+fmt(l2s.eligible||0)+' dossiers V4 reconstruits · '+fmt(l2s.legacy_remaining||0)+' ancien(s) à réinterpréter · '+fmt(l2s.never_profiled||0)+' jamais profilée(s)');textIf('#l2VersionBadge','V4 · sémantique · français');
+  textIf('#mgrSchedulerMode',String(s.pc_worker.scheduler_mode||'—').replace(/_/g,' '));
+  textIf('#mgrDeepBacklog',fmt(s.pc_worker.deep_backlog||st.deep_pending||0));
+  textIf('#mgrQuotaRemaining',fmt(s.pc_worker.public_rate_remaining||0));var gov=s.pc_worker.resource_governor||{};textIf('#mgrEcoMode',String(gov.mode||'—').replace(/_/g,' '));textIf('#mgrEcoReason',String(gov.reason||'—'));textIf('#mgrFreeRam',gov.free_mb!=null?fmt(gov.free_mb)+' Mo':'—');if(el('#techGovernor'))el('#techGovernor').innerHTML='<div class="kv"><span>Profil</span><b>'+esc(gov.profile||'—')+'</b></div><div class="kv"><span>Mode</span><b>'+esc(String(gov.mode||'—').replace(/_/g,' '))+'</b></div><div class="kv"><span>RAM système utilisée</span><b>'+esc(gov.used_pct==null?'—':gov.used_pct+' %')+'</b></div><div class="kv"><span>RAM libre</span><b>'+esc(gov.free_mb==null?'—':fmt(gov.free_mb)+' Mo')+'</b></div><div class="kv"><span>RAM TLIB</span><b>'+esc(gov.rss_mb==null?'—':fmt(gov.rss_mb)+' Mo')+'</b></div><div class="kv"><span>CPU système</span><b>'+esc(gov.cpu_pct==null?'—':gov.cpu_pct+' %')+'</b></div><div class="kv"><span>Score de pression</span><b>'+esc(gov.pressure_score==null?'—':gov.pressure_score+'/100')+'</b></div><div class="kv"><span>Délai de travail</span><b>'+esc(gov.delay_ms==null?'—':fmt(gov.delay_ms)+' ms')+'</b></div><div class="kv"><span>Raison</span><b>'+esc(gov.reason||'—')+'</b></div><div class="notice" style="margin-top:10px">Sur un PC 4–6 Go, 80–95 % de RAM système utilisée est considéré comme courant. TLIB ne ralentit fortement que si plusieurs signaux montrent qu’il contribue réellement à la pression.</div>';
+  textIf('#workerPCRam',fmt(rt.rss_mb||0)+' Mo');
+  textIf('#workerPCSpeed',fmt(st.throughput_per_hour||0)+'/h');
+  textIf('#workerGHQuota',fmt(s.pc_worker.public_rate_remaining||0));
+
+  var base=Math.max(1,Number(s.pc_worker.staged_names||0)),done=Number(s.pc_worker.local_l1_results||0),pct=Math.min(100,(done/base)*100);
+  textIf('#mgrQueue',fmt(Object.values(q).reduce(function(a,b){return a+Number(b||0)},0)));
+  textIf('#mgrProgressText','Phase actuelle : '+fmt(done)+' / '+fmt(base)+' vérifiées ('+pct.toFixed(1)+' %)');
+  widthIf('#mgrProgress',pct.toFixed(1)+'%');
+
+  textIf('#l1Core',fmt(st.core||0));
+  textIf('#l1Complete',fmt(st.complete||0));
+  textIf('#l1Deep',fmt(st.deep_done||0));
+  textIf('#l1DeepPending',fmt(st.deep_pending||0)+' approfondissement(s) en attente');
+  textIf('#l1CorePct',Number(st.core_percent||0).toFixed(2)+'% du corpus');
+  textIf('#l1ProgressText',fmt(st.core||0)+' / '+fmt(st.target||s.apps_script.entity_count||0)+' identités vérifiées · '+fmt(st.complete||0)+' L1 complets');
+  textIf('#l1Speed','≈ '+fmt(st.throughput_per_hour||0)+' fiches/h');
+  textIf('#l1SchedulerMode',String(s.pc_worker.scheduler_mode||'—').replace(/_/g,' '));
+  textIf('#l1DeepDone2',fmt(st.deep_done||0));
+  textIf('#l1DeepBacklog',fmt(s.pc_worker.deep_backlog||st.deep_pending||0));
+  textIf('#l1DeepQuota',fmt(s.pc_worker.public_rate_remaining||0));
+  widthIf('#l1CoreBar',Math.min(100,Number(st.core_percent||0))+'%');
+  widthIf('#l1CompleteBar',Math.min(100,Number(st.complete_percent||0))+'%');
+
+  textIf('#techRam',fmt(rt.rss_mb||0)+' Mo');
+  textIf('#techRate',s.pc_worker.public_rate_remaining==null?'—':fmt(s.pc_worker.public_rate_remaining));
+  textIf('#flowPC',fmt(st.core||0)+' L1 · '+fmt(st.throughput_per_hour||0)+'/h');
+
+  textIf('#syncBadge','● synchronisé '+new Date().toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'}));
+}
+async function refresh(){try{var s=await api('/api/status');ensureUiRuntimeSync(s.build,s.commit);renderStatus(s);el('#sideWorker').textContent='PC worker en ligne';if(CURRENT_VIEW==='manager')loadProjectFeedback()}catch(e){el('#sideWorker').textContent='Interface en erreur';console.error('TLIB UI ERROR',e);toast('Erreur interface : '+String(e.message||e))}}
+async function backgroundRefresh(){try{var s=await api('/api/status');ensureUiRuntimeSync(s.build,s.commit);backgroundRender(s);el('#sideWorker').textContent='PC worker en ligne';if(CURRENT_VIEW==='manager')loadProjectFeedback()}catch(e){el('#sideWorker').textContent='Synchronisation en attente'}}
+el('#homeSearchBtn').onclick=async function(){show('explore');el('#librarySearch').value=el('#homeSearch').value;await loadLibrary(el('#homeSearch').value,false)}
+el('#homeSearch').addEventListener('keydown',function(e){if(e.key==='Enter')el('#homeSearchBtn').click()})
+el('#librarySearchBtn').onclick=function(){loadLibrary(el('#librarySearch').value,false)}
+el('#librarySearch').addEventListener('keydown',function(e){if(e.key==='Enter')loadLibrary(e.target.value,false)})
+el('#librarySort').onchange=function(){loadLibrary(LIB_QUERY||el('#librarySearch').value,false)}
+el('#libraryMore').onclick=function(){loadLibrary(LIB_QUERY,true)}
+var searchTimer=null;el('#librarySearch').addEventListener('input',function(e){clearTimeout(searchTimer);searchTimer=setTimeout(function(){loadLibrary(e.target.value)},350)})
+els('[data-phone-minutes]').forEach(function(b){b.onclick=function(){PHONE_MINUTES=Number(b.dataset.phoneMinutes||30);els('[data-phone-minutes]').forEach(function(x){x.classList.toggle('active',x===b)})}});
+el('#phoneCreateBtn').onclick=createPhonePair;
+el('#phoneRefreshBtn').onclick=loadPhoneStatus;
+el('#phoneRevokeBtn').onclick=revokePhone;
+function openPhoneSessionArea(){var x=el('#phoneSessionList');if(x)x.scrollIntoView({behavior:'smooth',block:'start'})}
+el('#phoneStatusSessionsCard').onclick=openPhoneSessionArea;el('#phoneStatusSessionsCard').onkeydown=function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();openPhoneSessionArea()}};
+el('#phoneStatusRemainingCard').onclick=openPhoneSessionArea;el('#phoneStatusRemainingCard').onkeydown=el('#phoneStatusSessionsCard').onkeydown;
+el('#phoneStatusPairCard').onclick=function(){var x=el('#phoneQr');if(x)x.scrollIntoView({behavior:'smooth',block:'center'})};el('#phoneStatusPairCard').onkeydown=function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();el('#phoneStatusPairCard').click()}};
+el('#phoneStatusModeCard').onclick=function(){openDrawer('Mode téléphone','Manager · sécurité',kvLine('Accès','Lecture seule')+kvLine('Mises à jour','PC uniquement')+kvLine('Maintenance','PC uniquement')+kvLine('Portée','Navigation, recherche et consultation'))};el('#phoneStatusModeCard').onkeydown=function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();el('#phoneStatusModeCard').click()}};
+function openManagerPhone(){var t=el('#managerSubnav [data-manager-tab="phone"]');if(t){t.click();requestAnimationFrame(function(){var p=el('[data-manager-pane="phone"]');if(p)p.scrollIntoView({behavior:'auto',block:'start'})})}}
+el('#mgrPhoneShortcut').onclick=openManagerPhone;
+el('#mgrPhoneCard').onclick=openManagerPhone;
+el('#mgrPhoneCard').onkeydown=function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();openManagerPhone()}};
+el('#refreshManager').onclick=refresh
+el('#refreshDiagnostics').onclick=loadDiagnostics
+el('#runFixture').onclick=async function(){var b=el('#runFixture'),m=el('#actionMessage');b.disabled=true;m.textContent='Test L1 local en cours…';try{var j=await api('/api/action/fixture-canary',{method:'POST'});m.textContent=j.message||'Terminé.';renderStatus(j.status)}catch(e){m.textContent='Erreur : '+e.message}finally{b.disabled=false}}
+el('#runL2').onclick=async function(){var b=el('#runL2'),m=el('#actionMessage');b.disabled=true;m.textContent='Chargement du canary L2…';try{var j=await api('/api/action/fixture-l2',{method:'POST'});m.textContent=j.message||'Terminé.';renderStatus(j.status)}catch(e){m.textContent='Erreur : '+e.message}finally{b.disabled=false}}
+var CHAT_BUSY=false,CHAT_SEQ=0;
+function chatScroll(){var l=el('#chatLog');if(l)l.scrollTop=l.scrollHeight}
+function bindChatResults(root){(root||document).querySelectorAll('[data-chat-resource]').forEach(function(b){if(b.dataset.bound)return;b.dataset.bound='1';b.onclick=function(){show('explore');loadResource(b.dataset.chatResource)}})}
+async function sendChatQuery(qOverride){
+  if(CHAT_BUSY)return;
+  var input=el('#chatInput'),q=String(qOverride!==undefined?qOverride:input.value).trim();if(!q)return;
+  CHAT_BUSY=true;var btn=el('#chatSend'),old=btn.textContent;btn.disabled=true;btn.textContent='Recherche…';
+  el('#chatLog').insertAdjacentHTML('beforeend','<div class="bubble user">'+esc(q)+'</div>');
+  if(input)input.value='';
+  var id='chatThinking'+(++CHAT_SEQ);
+  el('#chatLog').insertAdjacentHTML('beforeend','<div class="bubble bot chat-thinking" id="'+id+'"><b>TLIB</b><br>Recherche conceptuelle dans L1 + L2 V4 + L3…</div>');chatScroll();
+  try{
+    var j=await api('/api/chat/search?q='+encodeURIComponent(q)+'&limit=8'),items=j.items||[],box=el('#'+id);
+    if(!items.length){box.classList.remove('chat-thinking');box.innerHTML='<b>TLIB</b><br>Aucun résultat local pour <b>'+esc(q)+'</b>. Le corpus continue de progresser en arrière-plan.';return}
+    box.classList.remove('chat-thinking');
+    var searchNote=j.search_mode==='RELAXED_CONCEPTS'?' <span class="small muted">Recherche élargie : TLIB a classé les meilleures couvertures partielles du besoin.</span>':' <span class="small muted">Tous les concepts ont au moins une correspondance dans le corpus.</span>';box.innerHTML='<b>TLIB</b><br>'+fmt(j.total||items.length)+' correspondance(s).'+searchNote+'<div class="chat-results">'+items.map(function(x){var cov=x.search_coverage==null?'':(' · pertinence '+Math.round(Number(x.search_coverage)*100)+'%');return '<button type="button" class="chat-result" data-chat-resource="'+esc(x.entity_id)+'"><b>'+esc(x.full_name)+'</b><div class="small muted">'+esc(x.resource_kind||'Ressource')+' · '+esc(x.technology||x.language||'—')+(x.l2_stage==='DEEP'?' · 🧠 L2 profond':x.human_summary?' · 🧠 L2':' · ✓ L1')+(x.l3_ready?' · 🚀 prêt L3':'')+cov+'</div><div class="small">'+esc(String(x.human_summary||x.description||'').slice(0,220))+'</div></button>'}).join('')+'</div>';
+    bindChatResults(box);
+  }catch(e){var box=el('#'+id);if(box){box.classList.remove('chat-thinking');box.innerHTML='<b>TLIB</b><br><span class="statuswarn">Recherche impossible :</span> '+esc(e.message||e)+'<br><span class="small muted">Tu peux réessayer sans quitter cette page.</span>'}}
+  finally{CHAT_BUSY=false;btn.disabled=false;btn.textContent=old;chatScroll()}
+}
+el('#chatSend').onclick=function(){sendChatQuery()};
+el('#chatInput').addEventListener('keydown',function(e){if(e.key==='Enter'){e.preventDefault();sendChatQuery()}})
+els('[data-event-filter]').forEach(function(b){b.onclick=function(){els('[data-event-filter]').forEach(function(x){x.classList.toggle('active',x===b)});renderTechEvents(b.dataset.eventFilter)}})
+el('#drawerClose').onclick=closeDrawer;
+el('#mobileMenuToggle').onclick=openMobileMenu;
+el('#mobileBackdrop').onclick=closeMobileMenu;
+el('#mobileMore').onclick=openMobileMenu;
+document.addEventListener('click',function(e){
+  var level=e.target.closest('.level[data-level]');
+  if(level){
+    var k=level.dataset.level;
+    if(k==='L0')show('l0');
+    else if(k==='L1')show('l1');
+    else if(k==='L2')show('l2');
+    else if(k==='L3')show('l3');
+    else show('manager');
+    return;
+  }
+  var go=e.target.closest('[data-go]');
+  if(go){var gv=go.dataset.go;show(gv);if(gv==='explore'&&!el('#libraryResults').children.length){requestAnimationFrame(function(){loadLibrary('',false);loadFacets();});}return;}
+  var l1d=e.target.closest('[data-l1-drill-open]');if(l1d){e.preventDefault();openL1Drill(l1d.dataset.l1DrillOpen);return}
+  var l2d=e.target.closest('[data-l2-drill-open]');if(l2d){e.preventDefault();openL2Drill(l2d.dataset.l2DrillOpen);return}
+  var l2j=e.target.closest('[data-l2-jump]');if(l2j){e.preventDefault();show('l2');clickSubtab('#l2Subnav','data-l2-tab',l2j.dataset.l2Jump);return}
+  var l3j=e.target.closest('[data-l3-jump]');if(l3j){e.preventDefault();show('l3');clickSubtab('#l3Subnav','data-l3-tab',l3j.dataset.l3Jump);return}
+  var mj=e.target.closest('[data-manager-jump]');if(mj){e.preventDefault();show('manager');clickSubtab('#managerSubnav','data-manager-tab',mj.dataset.managerJump);return}
+  var tj=e.target.closest('[data-tech-jump]');if(tj){e.preventDefault();show('technical');clickSubtab('#techSubnav','data-tech-tab',tj.dataset.techJump);return}
+  var lj=e.target.closest('[data-l1-jump]');if(lj){e.preventDefault();show('l1');clickSubtab('#l1Subnav','data-l1-tab',lj.dataset.l1Jump);return}
+  var a=e.target.closest('[data-action]');if(a){e.preventDefault();handleAction(a.dataset.action)}
+});
+document.addEventListener('keydown',function(e){
+  if(e.key==='Escape'){closeDrawer();closeMobileMenu();return}
+  if(e.key!=='Enter'&&e.key!==' ')return;
+  var t=e.target.closest('[data-action],[data-l1-drill-open],[data-l2-drill-open],[data-l2-jump],[data-l3-jump],[data-manager-jump],[data-tech-jump],[data-l1-jump]');
+  if(!t)return;e.preventDefault();
+  if(t.dataset.l1DrillOpen)return openL1Drill(t.dataset.l1DrillOpen);
+  if(t.dataset.l2DrillOpen)return openL2Drill(t.dataset.l2DrillOpen);
+  if(t.dataset.l2Jump){show('l2');clickSubtab('#l2Subnav','data-l2-tab',t.dataset.l2Jump);return}
+  if(t.dataset.l3Jump){show('l3');clickSubtab('#l3Subnav','data-l3-tab',t.dataset.l3Jump);return}
+  if(t.dataset.managerJump){show('manager');clickSubtab('#managerSubnav','data-manager-tab',t.dataset.managerJump);return}
+  if(t.dataset.techJump){show('technical');clickSubtab('#techSubnav','data-tech-tab',t.dataset.techJump);return}
+  if(t.dataset.l1Jump){show('l1');clickSubtab('#l1Subnav','data-l1-tab',t.dataset.l1Jump);return}
+  if(t.dataset.action)handleAction(t.dataset.action);
+});
+bindManagerNodes();
+bindPaneTabs('#l0Subnav [data-l0-tab]','[data-l0-pane]','l0Tab','l0Pane',function(v){if(v==='sources'||v==='depth'||v==='failures')return loadL0Sources(v==='failures'?{status:'FAILED'}:{});});
+bindPaneTabs('#l1Subnav [data-l1-tab]','[data-l1-pane]','l1Tab','l1Pane',function(v){if(v==='insights')return loadL1Insights();if(v==='deep')return loadDeepQueue();if(v==='themes')return loadFacets();if(v==='drill')return loadL1Drill();});
+bindPaneTabs('#l2Subnav [data-l2-tab]','[data-l2-pane]','l2Tab','l2Pane',function(v){if(v==='profiles')return loadL2();if(v==='pipeline')return loadL2Queue();});
+bindPaneTabs('#l3Subnav [data-l3-tab]','[data-l3-pane]','l3Tab','l3Pane',function(v){if(v==='overview'||v==='packs')return loadL3();});
+bindPaneTabs('#managerSubnav [data-manager-tab]','[data-manager-pane]','managerTab','managerPane',function(v){if(v==='overview')return loadProjectFeedback();if(v==='updates')return Promise.all([loadUpdateStatus(),loadProjectFeedback()]);if(v==='phone')return loadPhoneStatus();});
+bindPaneTabs('#techSubnav [data-tech-tab]','[data-tech-pane]','techTab','techPane',function(v){if(v==='events'&&STATUS)return renderTechEvents('ALL');if(v==='diagnostics')return loadDiagnostics();});
+el('#refreshDeepQueue').onclick=function(){cacheClear('l1-deep');loadDeepQueue(true)};
+el('#refreshL2Queue').onclick=loadL2Queue;
+el('#refreshL3').onclick=loadL3;
+el('#refreshInsights').onclick=loadL1Insights;
+els('#l1DrillNav [data-l1-drill]').forEach(function(b){b.onclick=function(){L1_DRILL_KIND=b.dataset.l1Drill;L1_DRILL_BAND='';L1_DRILL_OFFSET=0;loadL1Drill()}});
+el('#l1DrillSearchBtn').onclick=function(){L1_DRILL_OFFSET=0;loadL1Drill()};
+el('#l1DrillSearch').addEventListener('keydown',function(e){if(e.key==='Enter'){e.preventDefault();L1_DRILL_OFFSET=0;loadL1Drill()}});
+el('#l1DrillSort').onchange=function(){L1_DRILL_OFFSET=0;loadL1Drill()};
+el('#l1DrillPrev').onclick=function(){L1_DRILL_OFFSET=Math.max(0,L1_DRILL_OFFSET-L1_DRILL_LIMIT);loadL1Drill()};
+el('#l1DrillNext').onclick=function(){L1_DRILL_OFFSET+=L1_DRILL_LIMIT;loadL1Drill()};
+els('#l2ProfileNav [data-l2-kind]').forEach(function(b){b.onclick=function(){L2_PROFILE_KIND=b.dataset.l2Kind;L2_PROFILE_OFFSET=0;loadL2Drill()}});
+el('#l2ProfileSearchBtn').onclick=function(){L2_PROFILE_OFFSET=0;loadL2Drill()};
+el('#l2ProfileSearch').addEventListener('keydown',function(e){if(e.key==='Enter'){e.preventDefault();L2_PROFILE_OFFSET=0;loadL2Drill()}});
+el('#l2ProfileSort').onchange=function(){L2_PROFILE_OFFSET=0;loadL2Drill()};
+el('#l2ProfilePrev').onclick=function(){L2_PROFILE_OFFSET=Math.max(0,L2_PROFILE_OFFSET-L2_PROFILE_LIMIT);loadL2Drill()};
+el('#l2ProfileNext').onclick=function(){L2_PROFILE_OFFSET+=L2_PROFILE_LIMIT;loadL2Drill()};
+el('#l0SourceRefresh').onclick=function(){loadL0Sources()};
+el('#l0FailuresRefresh').onclick=function(){loadL0Sources({status:'FAILED'})};
+el('#l0SourceStatus').onchange=function(){loadL0Sources()};
+el('#l0SourceDepth').onchange=function(){loadL0Sources()};
+var l0Timer=null;el('#l0SourceSearch').oninput=function(){clearTimeout(l0Timer);l0Timer=setTimeout(loadL0Sources,250)};
+els('[data-l0-jump]').forEach(function(b){b.onclick=function(){var t=el('#l0Subnav [data-l0-tab="'+b.dataset.l0Jump+'"]');if(t)t.click();loadL0Sources()}});
+els('#chatSuggestions [data-chat]').forEach(function(b){b.onclick=function(){sendChatQuery(b.dataset.chat)}});
+el('#runUiAuditBtn').onclick=function(){runInteractionAudit(true)};
+el('#commandOpen').onclick=openCommand;
+el('#commandInput').oninput=function(){renderCommands(this.value)};
+el('#commandInput').onkeydown=function(e){if(e.key==='Enter'){var first=el('#commandList .cmditem');if(first)first.click()}if(e.key==='Escape')closeCommand()};
+el('#commandPalette').onclick=function(e){if(e.target===this)closeCommand()};
+el('#navBack').onclick=function(){var v=NAV_HISTORY.pop();if(v){show(v,{noHistory:true});this.style.display=NAV_HISTORY.length?'inline-block':'none'}};
+document.addEventListener('keydown',function(e){if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='k'){e.preventDefault();openCommand()}if(e.key==='Escape')closeCommand()});
+el('#refreshReports').onclick=async function(){await refresh();toast('Rapports actualisés')};
+el('#updateRefreshBtn').onclick=loadUpdateStatus;
+el('#updateStageBtn').onclick=function(){triggerUpdate('Stage')};
+el('#updateApplyBtn').onclick=function(){if(confirm('Appliquer la version déjà vérifiée ? TLIB redémarrera automatiquement et reviendra en arrière si le health-check échoue.'))triggerUpdate('Apply')};
+el('#updateRepairBtn').onclick=function(){triggerUpdate('Repair')};
+syncMobileNav(CURRENT_VIEW);
+els('[data-manager-tab-jump]').forEach(function(b){b.onclick=function(){show('l1');var t=el('#l1Subnav [data-l1-tab="'+b.dataset.managerTabJump+'"]');if(t)t.click();if(b.dataset.managerTabJump==='deep')loadDeepQueue()}});
+async function runUiSelfTest(){
+  var checks=[];
+  try{
+    await refresh();await loadFacets();
+    show('manager');
+    var m=el('[data-action="manager-appscript"]');m.click();checks.push(['manager-card',el('#detailDrawer').classList.contains('open')&&el('#drawerTitle').textContent==='Apps Script']);closeDrawer();
+    var node=el('[data-manager-node="pc"]');node.click();checks.push(['manager-flow',el('#mgrNodeDetail').textContent.indexOf('PC Worker')>=0]);
+    show('home');var l0=el('.level[data-level="L0"]');l0.click();checks.push(['home-l0',el('#l0').classList.contains('active')]);
+    show('technical');var tq=el('[data-action="tech-rate"]');tq.click();checks.push(['technical-card',el('#detailDrawer').classList.contains('open')]);closeDrawer();
+    show('l1');var lc=el('[data-action="l1-complete"]');lc.click();await uiSleep(80);checks.push(['l1-drill-route',el('#l1').classList.contains('active')&&el('[data-l1-pane="drill"]').classList.contains('active')&&L1_DRILL_KIND==='complete']);
+    var l1j=await api('/api/l1/drilldown?kind=complete&limit=2');checks.push(['l1-drill-data',Array.isArray(l1j.items)&&Number(l1j.total)>=l1j.items.length]);
+    openL2Drill('eligible');await uiSleep(80);checks.push(['l2-drill-route',el('#l2').classList.contains('active')&&el('[data-l2-pane="profiles"]').classList.contains('active')&&L2_PROFILE_KIND==='eligible']);
+    var l2j=await api('/api/l2/drilldown?kind=eligible&limit=2');checks.push(['l2-drill-data',Array.isArray(l2j.items)&&Number(l2j.total)>=l2j.items.length]);
+    var cj=await api('/api/chat/search?q=telegram&limit=2');checks.push(['chat-dedicated-search',Array.isArray(cj.items)]);
+  }catch(e){checks.push(['exception',false,String(e)])}
+  var ok=checks.every(function(x){return x[1]});
+  var old=document.getElementById('uiSelfTestResult');if(old)old.remove();
+  var out=document.createElement('div');out.id='uiSelfTestResult';out.dataset.pass=String(ok);out.style.display='none';out.textContent=JSON.stringify(checks);document.body.appendChild(out);
+}
+refresh();setTimeout(function(){runInteractionAudit(false);try{var v=localStorage.getItem('tlib.view');if(v&&el('#'+v))show(v,{noHistory:true})}catch(e){}},900);if(new URLSearchParams(location.search).get('selftest')==='1')setTimeout(runUiSelfTest,1800);
+setInterval(backgroundRefresh,60000);
+document.addEventListener('visibilitychange',function(){if(!document.hidden)backgroundRefresh()});
+</script>
+</body></html>
