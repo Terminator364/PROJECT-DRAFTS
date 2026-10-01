@@ -513,14 +513,14 @@ html{scroll-behavior:auto!important}
 <div class="subpane" data-manager-pane="maintenance">
   <div class="twocol">
     <div class="card"><h3 style="margin-top:0">Actions sûres</h3><p class="muted">Les actions destructives restent absentes de cette interface.</p><div class="actions"><button class="btn" id="refreshManager">Actualiser</button><button class="btn" id="runFixture">Rejouer le canary L1</button><button class="btn" id="runL2">Recharger le canary L2</button></div><div id="actionMessage" class="small muted" style="margin-top:10px"></div></div>
-    <div class="card"><h3 style="margin-top:0">Politique d’automatisation</h3><div class="kv"><span>Autopilote</span><b>voie normale</b></div><div class="kv"><span>Desktop Commander</span><b>bootstrap / réparation seulement</b></div><div class="kv"><span>Secrets</span><b>jamais dans Drive/GitHub</b></div></div>
+    <div class="card"><h3 style="margin-top:0">Politique d’automatisation</h3><div class="kv"><span>Autopilote</span><b>voie normale</b></div><div class="kv"><span>Diagnostic</span><b class="statusok">interne et autonome</b></div><div class="kv"><span>Auto-réparation UI</span><b class="statusok">watchdog local</b></div><div class="kv"><span>Desktop Commander</span><b>non requis pour update, diagnostic ou reprise courante</b></div><div class="kv"><span>Secrets</span><b>jamais dans Drive/GitHub</b></div><div class="actions"><button class="btn" data-go="technical" data-tech-jump="diagnostics">Ouvrir l’autodiagnostic</button></div></div>
   </div>
 </div>
 </section>
 
 <section id="technical" class="section">
 <div class="section-intro"><div><div class="crumb">Accueil <span>›</span> <b>Technique</b></div><h2>Diagnostic du moteur</h2><p>D’abord les états lisibles et actionnables ; les données brutes restent au dernier niveau.</p></div></div>
-<div class="subnav" id="techSubnav"><button class="active" data-tech-tab="runtime">Runtime</button><button data-tech-tab="queue">Queue</button><button data-tech-tab="events">Événements</button><button data-tech-tab="storage">Stockage</button><button data-tech-tab="ui">Audit interface</button><button data-tech-tab="raw">Audit brut</button></div>
+<div class="subnav" id="techSubnav"><button class="active" data-tech-tab="runtime">Runtime</button><button data-tech-tab="diagnostics">Autodiagnostic</button><button data-tech-tab="queue">Queue</button><button data-tech-tab="events">Événements</button><button data-tech-tab="storage">Stockage</button><button data-tech-tab="ui">Audit interface</button><button data-tech-tab="raw">Audit brut</button></div>
 <div class="subpane active" data-tech-pane="runtime">
   <div class="metricgrid">
     <div class="card interactive-card" tabindex="0" data-action="tech-runtime"><div class="small muted">Processus Node</div><div class="value" id="techNode">…</div><div class="small muted" id="techPid">…</div></div>
@@ -529,6 +529,20 @@ html{scroll-behavior:auto!important}
     <div class="card interactive-card" tabindex="0" data-action="tech-rate"><div class="small muted">Quota GitHub</div><div class="value" id="techRate">…</div><div class="small muted" id="techNext">…</div></div>
   </div>
   <div class="card" style="margin-top:12px"><h3 style="margin-top:0">Santé du moteur</h3><div id="techHealth"></div></div><div class="card" style="margin-top:12px"><h3 style="margin-top:0">Gouverneur de ressources</h3><div id="techGovernor"></div><div class="small muted">TLIB ralentit ou se met en pause avant de concurrencer le travail de premier plan.</div></div>
+</div>
+<div class="subpane" data-tech-pane="diagnostics">
+  <div class="section-intro"><div><h3 style="margin:0">Autodiagnostic TLIB</h3><p>Produit et maintenu localement par TLIB. Aucun outil distant n’est nécessaire.</p></div><button class="btn" id="refreshDiagnostics">Actualiser</button></div>
+  <div class="metricgrid">
+    <div class="card"><div class="small muted">État global</div><div class="value" id="diagOverall">…</div><div class="small muted" id="diagGenerated">…</div></div>
+    <div class="card"><div class="small muted">Interface / port 8787</div><div class="value" id="diagDashboard">…</div><div class="small muted" id="diagDashboardDetail">…</div></div>
+    <div class="card"><div class="small muted">Watchdog</div><div class="value" id="diagWatchdog">…</div><div class="small muted" id="diagRestart">…</div></div>
+    <div class="card"><div class="small muted">Outil distant requis</div><div class="value statusok">NON</div><div class="small muted">diagnostic et reprise locale</div></div>
+  </div>
+  <div class="twocol" style="margin-top:12px">
+    <div class="card"><h3 style="margin-top:0">Composants</h3><div id="diagComponents"></div></div>
+    <div class="card"><h3 style="margin-top:0">Derniers incidents</h3><div id="diagErrors"></div></div>
+  </div>
+  <div class="notice" style="margin-top:12px">Si l’interface locale disparaît mais que le worker vit encore, le watchdog la détecte et relance l’agent automatiquement avec anti-boucle et temporisation.</div>
 </div>
 <div class="subpane" data-tech-pane="queue"><div class="card"><h3 style="margin-top:0">Queue complète</h3><div id="techQueue"></div></div></div>
 <div class="subpane" data-tech-pane="events"><div class="card"><h3 style="margin-top:0">Journal d’événements</h3><div class="subnav"><button class="active" data-event-filter="ALL">Tous</button><button data-event-filter="INFO">Info</button><button data-event-filter="WARN">Alertes</button><button data-event-filter="ERROR">Erreurs</button></div><div id="techEvents" class="eventtable"></div></div></div>
@@ -1166,6 +1180,33 @@ function renderStatus(s){STATUS=s;var st=s.pc_worker.l1_stats||{},q=s.pc_worker.
   el('#techHealth').innerHTML='<div class="kv"><span>Worker</span><b class="statusok">EN LIGNE</b></div><div class="kv"><span>SQLite</span><b>'+esc(s.pc_worker.database||'—')+'</b></div><div class="kv"><span>Autopilote</span><b>'+(s.pc_worker.autopilot?'Actif':'Inactif')+'</b></div><div class="kv"><span>Erreurs 24h</span><b>'+fmt(st.errors_24h||0)+'</b></div>';
   el('#techQueue').innerHTML='<div class="kv"><span>Chargées</span><b>'+fmt(s.pc_worker.staged_names||0)+'</b></div><div class="kv"><span>Terminées</span><b>'+fmt(q.DONE||0)+'</b></div><div class="kv"><span>En attente</span><b>'+fmt(q.PENDING||0)+'</b></div><div class="kv"><span>En cours</span><b>'+fmt(q.RUNNING||0)+'</b></div><div class="kv"><span>Échec</span><b>'+fmt(q.FAILED||0)+'</b></div>';el('#techStorage').innerHTML='<div class="kv"><span>Base</span><b>'+esc(s.pc_worker.database||'—')+'</b></div><div class="kv"><span>Mode</span><b>SQLite WAL</b></div><div class="kv"><span>Queue persistée</span><b>'+fmt(s.pc_worker.staged_names||0)+'</b></div>';el('#flowApps').textContent=(s.apps_script.status==='L0_DRAINED'?'L0 terminé':'L0 actif')+' · contrôle';el('#flowQueue').textContent=fmt(s.pc_worker.staged_names||0)+' tâches';el('#flowPC').textContent=fmt(st.core||0)+' L1 · '+fmt(st.throughput_per_hour||0)+'/h';el('#flowGH').textContent=String(s.pc_worker.github_auth_mode||'—').replace(/_/g,' ');el('#flowDB').textContent=fmt(rt.rss_mb||0)+' Mo RAM · durable';
   renderTechEvents('ALL');el('#pipelineRows').innerHTML=ls.map(function(a){var k=a[0],v=a[1];return '<tr data-pipeline="'+k+'" style="cursor:pointer"><td><b>'+k+'</b></td><td>'+esc(v.label||'')+'</td><td>'+esc(v.help||'')+'</td><td>'+human(v.state)+'</td></tr>'}).join('');els('#pipelineRows [data-pipeline]').forEach(function(r){r.onclick=function(){var k=r.dataset.pipeline;if(k==='L0'){show('l0');loadL0Sources()}else if(k==='L1'){show('l1');loadFacets();loadDeepQueue()}else if(k==='L2'){show('l2');loadL2()}else if(k==='L3'){show('l3');loadL3()}else show('manager')}});el('#rawStatus').textContent=JSON.stringify(s,null,2);el('#rawEvents').textContent=(s.events||[]).map(function(e){return e.at+'  '+e.level+'  '+e.event+'  '+(e.detail||'')}).join('\n')||'Aucun événement.';el('#homeRecent').innerHTML=(s.recent||[]).slice(0,6).map(function(x){x.entity_id='ghpath:'+String(x.full_name).toLowerCase();return toolCard(x)}).join('');els('#homeRecent .tool').forEach(function(x){x.onclick=async function(){show('explore');await loadResource(x.dataset.id)}});bindTagFilters(el('#homeRecent'));if(LAST_L1!==null&&Number(s.pc_worker.local_l1_results)>LAST_L1){el('#bPC').classList.add('live');setTimeout(function(){el('#bPC').classList.remove('live')},1200)}LAST_L1=Number(s.pc_worker.local_l1_results||0)}
+async function loadDiagnostics(){
+  try{
+    var d=await api('/api/diagnostics');
+    textIf('#diagOverall',String(d.overall||'HEALTHY').replace(/_/g,' '));
+    textIf('#diagGenerated',d.generated_at?'mis à jour '+new Date(d.generated_at).toLocaleTimeString('fr-FR'):'—');
+    var dash=d.dashboard||{},sup=d.supervisor||{},bg=d.background_worker||{},rt=d.runtime_marker||{};
+    textIf('#diagDashboard',dash.healthy===false?'HORS LIGNE':String(dash.state||'EN LIGNE').replace(/_/g,' '));
+    textIf('#diagDashboardDetail',(dash.pid?'PID '+dash.pid+' · ':'')+(dash.last_error?dash.last_error:(dash.last_ok_at?'dernier succès '+new Date(dash.last_ok_at).toLocaleTimeString('fr-FR'):'port 8787')));
+    textIf('#diagWatchdog',String(sup.state||'ACTIF').replace(/_/g,' '));
+    textIf('#diagRestart',dash.last_restart_at?'dernière reprise '+new Date(dash.last_restart_at).toLocaleTimeString('fr-FR')+' · '+fmt(dash.restarts_10m||0)+' / 10 min':'aucune reprise récente');
+    var pipe=d.pipeline||{},l1=pipe.l1||{},l2=pipe.l2||{},l3=pipe.l3||{};
+    if(el('#diagComponents'))el('#diagComponents').innerHTML=
+      '<div class="kv"><span>Agent UI</span><b class="'+(dash.healthy===false?'statuswarn':'statusok')+'">'+esc(dash.healthy===false?'hors ligne':'en ligne')+'</b></div>'+
+      '<div class="kv"><span>Worker fond</span><b class="'+(bg.alive===false?'statuswarn':'statusok')+'">'+esc(bg.alive===false?'arrêté':'actif')+'</b></div>'+
+      '<div class="kv"><span>Runtime marker</span><b>'+esc(rt.alive===false?'ancien / arrêté':'cohérent')+'</b></div>'+
+      '<div class="kv"><span>L1</span><b>'+fmt(l1.total||0)+' · '+fmt(l1.complete||0)+' complètes</b></div>'+
+      '<div class="kv"><span>L2 V4</span><b>'+fmt(l2.total||0)+' · '+fmt(l2.deep_done||0)+' profondes</b></div>'+
+      '<div class="kv"><span>L3</span><b>'+fmt(l3.total||0)+' packs</b></div>'+
+      '<div class="kv"><span>Index recherche</span><b>'+fmt((d.search||{}).indexed_count||0)+'</b></div>';
+    var errs=Array.isArray(d.recent_errors)?d.recent_errors:[];
+    if(el('#diagErrors'))el('#diagErrors').innerHTML=errs.length?errs.slice(0,8).map(function(x){return '<div class="statusline"><strong>'+esc(x.event||x.level||'Incident')+'</strong><span>'+esc(x.detail||'')+'</span></div>'}).join(''):'<div class="muted">Aucun incident récent.</div>';
+    return d;
+  }catch(e){
+    textIf('#diagOverall','INDISPONIBLE');textIf('#diagGenerated','Erreur : '+e.message);
+    return null;
+  }
+}
 function bindManagerNodes(){
   var detail=el('#mgrNodeDetail');if(!detail)return;
   var descriptions={
@@ -1260,6 +1301,7 @@ el('#mgrPhoneShortcut').onclick=openManagerPhone;
 el('#mgrPhoneCard').onclick=openManagerPhone;
 el('#mgrPhoneCard').onkeydown=function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();openManagerPhone()}};
 el('#refreshManager').onclick=refresh
+el('#refreshDiagnostics').onclick=loadDiagnostics
 el('#runFixture').onclick=async function(){var b=el('#runFixture'),m=el('#actionMessage');b.disabled=true;m.textContent='Test L1 local en cours…';try{var j=await api('/api/action/fixture-canary',{method:'POST'});m.textContent=j.message||'Terminé.';renderStatus(j.status)}catch(e){m.textContent='Erreur : '+e.message}finally{b.disabled=false}}
 el('#runL2').onclick=async function(){var b=el('#runL2'),m=el('#actionMessage');b.disabled=true;m.textContent='Chargement du canary L2…';try{var j=await api('/api/action/fixture-l2',{method:'POST'});m.textContent=j.message||'Terminé.';renderStatus(j.status)}catch(e){m.textContent='Erreur : '+e.message}finally{b.disabled=false}}
 var CHAT_BUSY=false,CHAT_SEQ=0;
@@ -1331,7 +1373,7 @@ bindPaneTabs('#l1Subnav [data-l1-tab]','[data-l1-pane]','l1Tab','l1Pane',functio
 bindPaneTabs('#l2Subnav [data-l2-tab]','[data-l2-pane]','l2Tab','l2Pane',function(v){if(v==='profiles')return loadL2();if(v==='pipeline')return loadL2Queue();});
 bindPaneTabs('#l3Subnav [data-l3-tab]','[data-l3-pane]','l3Tab','l3Pane',function(v){if(v==='overview'||v==='packs')return loadL3();});
 bindPaneTabs('#managerSubnav [data-manager-tab]','[data-manager-pane]','managerTab','managerPane',function(v){if(v==='overview')return loadProjectFeedback();if(v==='updates')return Promise.all([loadUpdateStatus(),loadProjectFeedback()]);if(v==='phone')return loadPhoneStatus();});
-bindPaneTabs('#techSubnav [data-tech-tab]','[data-tech-pane]','techTab','techPane',function(v){if(v==='events'&&STATUS)renderTechEvents('ALL');});
+bindPaneTabs('#techSubnav [data-tech-tab]','[data-tech-pane]','techTab','techPane',function(v){if(v==='events'&&STATUS)return renderTechEvents('ALL');if(v==='diagnostics')return loadDiagnostics();});
 el('#refreshDeepQueue').onclick=function(){cacheClear('l1-deep');loadDeepQueue(true)};
 el('#refreshL2Queue').onclick=loadL2Queue;
 el('#refreshL3').onclick=loadL3;
