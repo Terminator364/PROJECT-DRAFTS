@@ -1,9 +1,9 @@
 {
   "project": "TLIB-HYBRID-V2",
   "branch": "lab/tlib-hybrid-v2",
-  "checkpoint": "V0121_RETRIEVAL_QUALITY_VERIFIED_AWAITING_AUTONOMOUS_ACTIVATION",
-  "build_target": "2026.09.30-v0.12.1-retrieval-quality-fast-verify",
-  "updated_at_utc": "2026-09-30T09:22:50.273Z",
+  "checkpoint": "V0122_SELF_HEALING_DIAGNOSTICS_VERIFIED_AWAITING_ACTIVATION",
+  "build_target": "2026.10.01-v0.12.2-self-healing-diagnostics",
+  "updated_at_utc": "2026-10-01T18:07:17.643Z",
   "production_l1_enabled": false,
   "apps_script_bridge_enabled": false,
   "github_actions_expected_minutes": 0,
@@ -225,7 +225,7 @@
       "manager_resource_indicators_clickable": true
     }
   },
-  "next_gate": "Advance stable to v0.12.1. Existing v0.11.3 updater will stage with the fast verifier under its 30s limit. Then prove live V4 migration and semantic retrieval.",
+  "next_gate": "Fast-forward stable to v0.12.2, bootstrap the currently dead v0.12.1 agent once, let its own updater activate v0.12.2, then inject one dashboard stop and prove the v0.12.2 worker restores it without external repair.",
   "sealed": false,
   "last_good_build": "2026.09.29-v0.8.0-mobile-autonomous",
   "last_good_status": "PRESERVED_PRE_ACTIVATION",
@@ -403,7 +403,18 @@
     "v0121_fast_verifier": "PASS",
     "v0121_full_verifier": "PASS",
     "v0121_node_syntax": "PASS",
-    "v0121_runtime": "PENDING_AUTONOMOUS_ACTIVATION"
+    "v0121_runtime": "PENDING_AUTONOMOUS_ACTIVATION",
+    "v0122_node_syntax": "PASS",
+    "v0122_bootstrap_syntax": "PASS",
+    "v0122_ui_js_syntax": "PASS",
+    "v0122_full_verifier": "PASS",
+    "v0122_full_verifier_seconds": 2.41,
+    "v0122_watchdog_contract": "PASS",
+    "v0122_watchdog_anti_loop": "PASS",
+    "v0122_self_diagnostics_api": "PASS",
+    "v0122_self_diagnostics_ui": "PASS",
+    "v0122_bootstrap_self_diagnostics": "PASS",
+    "v0122_runtime": "PENDING_AUTONOMOUS_ACTIVATION_AND_FAILURE_INJECTION"
   },
   "seal_scope": "L1_CONTINUITY_L2_V3_BASE_DEEP_L3_ACTION_PHONE_SESSION_PERSISTENCE",
   "runtime_validated": false,
@@ -623,5 +634,30 @@
       "Agent startup does not rebuild the search index; background worker does it at below-normal priority.",
       "Semantic witness tests prevent Orca/LocalAI/Firezone/API-client classification regressions."
     ]
+  },
+  "self_healing": {
+    "diagnostics_file": "%LOCALAPPDATA%\\TLIB-PC\\diagnostics.json",
+    "lifecycle_file": "%LOCALAPPDATA%\\TLIB-PC\\agent-lifecycle.jsonl",
+    "remote_tool_required": false,
+    "dashboard_probe_seconds": 15,
+    "initial_confirmation_failures": 2,
+    "restart_backoff_seconds": 30,
+    "restart_limit": "5 restarts / 10 min then 5 min cooldown",
+    "bootstrap_diagnostics": true,
+    "manager_diagnostics_ui": true,
+    "recovery_scope": [
+      "dashboard/agent loss while worker remains alive",
+      "launcher boot diagnosis",
+      "persistent component state",
+      "recent project errors"
+    ],
+    "update_diagnostics_phone_and_pipeline": true
+  },
+  "incident_20261001": {
+    "symptom": "127.0.0.1:8787 ERR_CONNECTION_REFUSED while background worker remained alive",
+    "observed_active_build": "2026.09.30-v0.12.1-retrieval-quality-fast-verify",
+    "diagnosis": "agent/dashboard process absent; background worker alive; port 8787 not listening",
+    "data_loss_observed": false,
+    "remediation": "v0.12.2 adds worker-owned dashboard watchdog plus persistent autonomous diagnostics"
   }
 }
