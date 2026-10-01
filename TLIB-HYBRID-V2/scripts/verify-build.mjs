@@ -96,7 +96,7 @@ if(html){
   const legacyFound=legacyBindings.filter(x=>js.includes(x));
   legacyFound.length?fail('ui-router-no-legacy',legacyFound.join(' || ')):ok('ui-router-no-legacy');
 
-  const essentials=['navBack','commandOpen','homeSearchBtn','librarySearchBtn','chatSend','refreshDeepQueue','refreshL2Queue','refreshL3','runUiAuditBtn','drawerClose','phoneCreateBtn','phoneRefreshBtn','phoneRevokeBtn','phoneQr','phoneSessionList','phoneRemainingMax','phonePairState','mgrPhoneShortcut','mgrPhoneCard','mgrBuildBadge','updateAutoMode','updateAutoDetail','updateProgressBar','updateProgressText','l2ProgressBar','l2QueueTable','l2L3Ready','l2Comprehension','l1DrillSearchBtn','l1DrillPrev','l1DrillNext','l1DrillResults','l2ProfileSearchBtn','l2ProfilePrev','l2ProfileNext','l2Results','l3Ready','l3Total','l3Pending','l3ProgressBar','l3Results'];
+  const essentials=['navBack','commandOpen','homeSearchBtn','librarySearchBtn','chatSend','refreshDeepQueue','refreshL2Queue','refreshL3','refreshDiagnostics','runUiAuditBtn','drawerClose','phoneCreateBtn','phoneRefreshBtn','phoneRevokeBtn','phoneQr','phoneSessionList','phoneRemainingMax','phonePairState','mgrPhoneShortcut','mgrPhoneCard','mgrBuildBadge','updateAutoMode','updateAutoDetail','updateProgressBar','updateProgressText','l2ProgressBar','l2QueueTable','l2L3Ready','l2Comprehension','l1DrillSearchBtn','l1DrillPrev','l1DrillNext','l1DrillResults','l2ProfileSearchBtn','l2ProfilePrev','l2ProfileNext','l2Results','l3Ready','l3Total','l3Pending','l3ProgressBar','l3Results'];
 
   // Global actionability contract: no visible control may ship dead.
   const declarativeButtonAttrs=['data-view','data-go','data-action','data-l0-tab','data-l1-tab','data-l2-tab','data-l3-tab','data-manager-tab','data-tech-tab','data-detail-tab','data-l2mini-tab','data-chat','data-phone-minutes','data-event-filter','data-l0-jump','data-depth-filter','data-filter','data-tag','data-drawer-go','data-manager-node','data-manager-tab-jump','data-cmd-index','data-mobile-view','data-l1-drill-open','data-l1-drill','data-l2-drill-open','data-l2-kind','data-l2-jump','data-l3-jump','data-score-band','data-chat-resource','data-manager-jump','data-tech-jump','data-l1-jump'];
@@ -165,7 +165,15 @@ if(html){
   js.includes('phoneRemainingLabel')&&js.includes('setInterval(renderPhoneCountdowns,1000)')?ok('phone-live-countdown'):fail('phone-live-countdown');
   js.includes('/api/mobile/session/revoke')&&js.includes('data-revoke-phone-session')?ok('phone-individual-revoke'):fail('phone-individual-revoke');
   js.includes('access_qr_url')&&js.includes("qrType=pair?'PAIRAGE':hasSession?'ACCÈS':'AUCUN'")?ok('phone-access-qr'):fail('phone-access-qr');
+  markup.includes('data-tech-tab="diagnostics"')&&markup.includes('data-tech-pane="diagnostics"')&&markup.includes('id="diagOverall"')?ok('self-diagnostics-ui'):fail('self-diagnostics-ui');
+  js.includes("api('/api/diagnostics')")&&js.includes('loadDiagnostics')&&js.includes("if(v==='diagnostics')return loadDiagnostics()")?ok('self-diagnostics-ui-data'):fail('self-diagnostics-ui-data');
+  markup.includes('Desktop Commander</span><b>non requis pour update, diagnostic ou reprise courante</b>')?ok('self-diagnostics-no-remote-policy'):fail('self-diagnostics-no-remote-policy');
 }
+
+try{
+  const boot=readFileSync(join(APP,'scripts','bootstrap-node.cjs'),'utf8');
+  boot.includes("const DIAG=path.join(DATA,'diagnostics.json')")&&boot.includes('writeDiag({overall:')&&boot.includes("desktop_commander_required:false")?ok('bootstrap-self-diagnostics'):fail('bootstrap-self-diagnostics');
+}catch(e){fail('bootstrap-self-diagnostics',e.message)}
 
 try{
   const qr=readFileSync(join(APP,'public','vendor','qrcode.min.js'),'utf8');
@@ -185,6 +193,12 @@ try{
     ['auto-update-interval',src.includes('AUTO_UPDATE_INTERVAL_MS=10*60*1000')],
     ['auto-update-first-check',src.includes('AUTO_UPDATE_FIRST_DELAY_MS=45*1000')],
     ['auto-update-channel',src.includes("channel:'release/tlib-hybrid-v2-stable'")],
+    ['self-diagnostics-api',src.includes("/api/diagnostics")&&src.includes('projectDiagnosticsSnapshot')&&src.includes("desktop_commander_required:false")],
+    ['dashboard-watchdog',src.includes('startDashboardWatchdog')&&src.includes('dashboardWatchdogTick')&&src.includes('DASHBOARD_WATCHDOG_RESTART')],
+    ['watchdog-anti-loop',src.includes('dashboardWatchdogRestarts.length>=5')&&src.includes('RESTART_LIMIT')&&src.includes('dashboardWatchdogNextRestartAt')],
+    ['watchdog-worker-path',src.includes("if (cmd === 'worker')")&&src.includes('startDashboardWatchdog();')],
+    ['agent-lifecycle-log',src.includes('installAgentLifecycleHooks')&&src.includes('AGENT_UNCAUGHT_EXCEPTION')&&src.includes('AGENT_EXIT')],
+    ['diagnostics-persistent-file',src.includes("DIAGNOSTICS_FILE=join(dataDir,'diagnostics.json')")&&src.includes('writeJsonAtomic')],
     ['l2-continuous-base-v4',src.includes('function l2BaseStep')&&src.includes("'L1_DOSSIER_FR_V4'")&&src.includes('dossier_json')&&src.includes('retrieval_text')],
     ['l2-continuous-deep',src.includes('async function l2DeepStep')&&src.includes('L2_README_RATE_RESERVE=2800')],
     ['l2-continuous-scheduler',src.includes('async function scheduledPipelineStep')&&src.includes("return 'PARALLEL_L1_L2'")],
