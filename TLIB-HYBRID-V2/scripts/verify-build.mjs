@@ -195,6 +195,8 @@ try{
     ['auto-update-channel',src.includes("channel:'release/tlib-hybrid-v2-stable'")],
     ['self-diagnostics-api',src.includes("/api/diagnostics")&&src.includes('projectDiagnosticsSnapshot')&&src.includes("desktop_commander_required:false")],
     ['dashboard-watchdog',src.includes('startDashboardWatchdog')&&src.includes('dashboardWatchdogTick')&&src.includes('DASHBOARD_WATCHDOG_RESTART')],
+    ['watchdog-fs-import',src.includes("import { existsSync,")&&src.includes("if(!existsSync(entry))throw new Error('CURRENT_ENTRY_MISSING')")],
+    ['diagnostic-l1-total',src.includes("l1:{total:Number(l1.core||l1.total||0)")],
     ['watchdog-anti-loop',src.includes('dashboardWatchdogRestarts.length>=5')&&src.includes('RESTART_LIMIT')&&src.includes('dashboardWatchdogNextRestartAt')],
     ['watchdog-worker-path',src.includes("if (cmd === 'worker')")&&src.includes('startDashboardWatchdog();')],
     ['agent-lifecycle-log',src.includes('installAgentLifecycleHooks')&&src.includes('AGENT_UNCAUGHT_EXCEPTION')&&src.includes('AGENT_EXIT')],
