@@ -37,7 +37,7 @@
     },
     {
       "path": "scripts/verify-build.mjs",
-      "git_blob_sha": "1efd0c92763bee0c2fd6b72abd505777d70f8a7b"
+      "git_blob_sha": "b66d649494896d5e08cd61a18524e423a651cd91"
     },
     {
       "path": "config/canary-seeds.json",
@@ -120,6 +120,6 @@
       "git_blob_sha": "e746a429df4a3c75935686951b4f422b51d1df59"
     }
   ],
-  "updated_at": "2026-10-01T18:15:41.523Z",
+  "updated_at": "2026-10-01T18:27:03.624Z",
   "build": "2026.10.01-v0.12.3-self-healing-fix"
 }
