@@ -1,9 +1,9 @@
 {
   "project": "TLIB-HYBRID-V2",
   "branch": "lab/tlib-hybrid-v2",
-  "checkpoint": "V0123_SELF_HEALING_RUNTIME_PROVEN_SEALED",
+  "checkpoint": "V0123_SELF_HEALING_VERIFIED_AWAITING_RUNTIME_ACTIVATION",
   "build_target": "2026.10.01-v0.12.3-self-healing-fix",
-  "updated_at_utc": "2026-10-01T18:21:13.175Z",
+  "updated_at_utc": "2026-10-01T18:26:50.438Z",
   "production_l1_enabled": false,
   "apps_script_bridge_enabled": false,
   "github_actions_expected_minutes": 0,
@@ -225,8 +225,8 @@
       "manager_resource_indicators_clickable": true
     }
   },
-  "next_gate": "Observe long-run stability. Routine update, diagnosis and dashboard recovery are internal to TLIB; external remote tooling is not part of the runtime dependency chain.",
-  "sealed": true,
+  "next_gate": "Publish stable, recover current agent once, then let TLIB autonomous updater activate v0.12.3. Prove /api/diagnostics and watchdog recovery before sealing.",
+  "sealed": false,
   "last_good_build": "2026.09.29-v0.8.0-mobile-autonomous",
   "last_good_status": "PRESERVED_PRE_ACTIVATION",
   "field_findings": [
@@ -421,18 +421,22 @@
     "v0123_diagnostic_l1_total": "PASS",
     "v0123_full_verifier": "PASS",
     "v0123_watchdog_runtime": "PENDING_SECOND_FAILURE_INJECTION",
-    "v0123_runtime": "PASS",
+    "v0123_runtime": "PENDING_ACTIVATION",
     "v0123_failure_injection": "PASS",
     "v0123_agent_before_pid": 10224,
     "v0123_agent_after_pid": 6500,
     "v0123_watchdog_restart_count_10m": 1,
     "v0123_watchdog_recovery_reason": "HEALTH_UNREACHABLE",
     "v0123_diagnostics_overall": "HEALTHY",
-    "v0123_desktop_commander_required_for_runtime_diagnostics": false
+    "v0123_desktop_commander_required_for_runtime_diagnostics": false,
+    "v0123_source_syntax": "PASS",
+    "v0123_bootstrap_syntax": "PASS",
+    "v0123_ui_syntax": "PASS",
+    "v0123_verify_build": "PASS_EXCEPT_FIXED_REDUNDANT_ASSERTION_REQUIRES_FINAL_RUN"
   },
   "seal_scope": "L1_CONTINUITY_L2_V3_BASE_DEEP_L3_ACTION_PHONE_SESSION_PERSISTENCE",
-  "runtime_validated": true,
-  "activation_pending": false,
+  "runtime_validated": false,
+  "activation_pending": true,
   "phone_link": {
     "status": "CODE_SEALED_AWAITING_RUNTIME",
     "manager_entry": "📱 Téléphone / QR",
@@ -650,32 +654,13 @@
     ]
   },
   "self_healing": {
-    "diagnostics_file": "%LOCALAPPDATA%\\TLIB-PC\\diagnostics.json",
-    "lifecycle_file": "%LOCALAPPDATA%\\TLIB-PC\\agent-lifecycle.jsonl",
-    "remote_tool_required": false,
-    "dashboard_probe_seconds": 15,
-    "initial_confirmation_failures": 2,
-    "restart_backoff_seconds": 30,
-    "restart_limit": "5 restarts / 10 min then 5 min cooldown",
-    "bootstrap_diagnostics": true,
-    "manager_diagnostics_ui": true,
-    "recovery_scope": [
-      "dashboard/agent loss while worker remains alive",
-      "launcher boot diagnosis",
-      "persistent component state",
-      "recent project errors"
-    ],
-    "update_diagnostics_phone_and_pipeline": true,
-    "runtime_proof": {
-      "worker_pid": 16844,
-      "killed_agent_pid": 10224,
-      "recovered_agent_pid": 6500,
-      "watchdog_spawn_at": "2026-10-01T18:19:23.495Z",
-      "recovered_online_at": "2026-10-01T18:19:24.846Z",
-      "recovery_seconds_after_spawn": 1.351,
-      "diagnostics_file_state": "HEALTHY",
-      "data_loss_observed": false
-    }
+    "desktop_commander_required_for_runtime_diagnostics": false,
+    "persistent_diagnostics_file": "%LOCALAPPDATA%\\TLIB-PC\\diagnostics.json",
+    "api": "/api/diagnostics",
+    "watchdog": "background worker supervises dashboard/agent on port 8787",
+    "restart_policy": "2 failed probes before restart; 30s backoff; max 5 restarts/10m then 5m cooldown",
+    "lifecycle_log": "%LOCALAPPDATA%\\TLIB-PC\\agent-lifecycle.jsonl",
+    "bootstrap_diagnostics": true
   },
   "incident_20261001": {
     "symptom": "127.0.0.1:8787 ERR_CONNECTION_REFUSED while background worker remained alive",
