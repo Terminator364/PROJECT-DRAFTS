@@ -11,7 +11,7 @@ const HERE = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(HERE, '..');
 const dataDir = process.env.TLIB_DATA_DIR || join(process.env.LOCALAPPDATA || homedir(), 'TLIB-PC');
 mkdirSync(dataDir, { recursive: true });
-const APP_BUILD = '2026.09.30-v0.12.1-retrieval-quality-fast-verify';
+const APP_BUILD = '2026.10.01-v0.12.2-self-healing-diagnostics';
 const STARTED_AT = new Date().toISOString();
 function deploymentCommit() {
   try {
@@ -758,6 +758,8 @@ async function githubGet(path, allow404=false) {
 
 const UI_ACTIVITY_FILE=join(dataDir,'ui-active.txt');
 const BG_WORKER_FILE=join(dataDir,'background-worker.json');
+const DIAGNOSTICS_FILE=join(dataDir,'diagnostics.json');
+const AGENT_LIFECYCLE_FILE=join(dataDir,'agent-lifecycle.jsonl');
 let lastCpuTimes=null;
 let lastInteractiveRequestAt=Date.now();
 let lastExplicitInteractionAt=0;
@@ -2227,6 +2229,7 @@ async function startDashboard() {
         return sendJson(res,200,revokePhoneSession(u.searchParams.get('id')||''));
       }
       if (u.pathname === '/api/interaction' && req.method === 'POST') return sendJson(res,200,{ok:true});
+      if (u.pathname === '/api/diagnostics') return sendJson(res,200,projectDiagnosticsSnapshot());
       if (u.pathname === '/api/status') return sendJson(res,200,statusSnapshot());
       if (u.pathname === '/api/version') return sendJson(res,200,{product:'TLIB',build:APP_BUILD,pid:process.pid,node:process.versions.node});
       if (u.pathname === '/api/library') {
@@ -2299,8 +2302,10 @@ async function startDashboard() {
     // remain resident as a RAM-consuming ghost process.
     setTimeout(()=>process.exit(2),50);
   });
+  server.on('close',()=>{appendAgentLifecycle('DASHBOARD_SERVER_CLOSE',{port});});
   server.listen(port, '0.0.0.0', () => {
     writeRuntimeMarker();
+    appendAgentLifecycle('DASHBOARD_ONLINE',{port});
     const lan=privateLanIpv4();
     event('INFO','DASHBOARD_STARTED','0.0.0.0:' + port + '; lan='+(lan||'none')+'; build=' + APP_BUILD + '; commit=' + APP_COMMIT);
     console.log('TLIB dashboard: http://127.0.0.1:' + port + ' [' + APP_BUILD + ']');
@@ -2310,6 +2315,208 @@ async function startDashboard() {
 
 function pidAlive(pid){
   try{process.kill(Number(pid),0);return true}catch{return false}
+}
+
+function appendAgentLifecycle(eventName,detail={}){
+  try{
+    const row={at:now(),event:String(eventName||'UNKNOWN'),build:APP_BUILD,commit:APP_COMMIT,pid:process.pid,detail};
+    writeFileSync(AGENT_LIFECYCLE_FILE,JSON.stringify(row)+'\n',{encoding:'utf8',flag:'a'});
+  }catch{}
+}
+function writeJsonAtomic(path,value){
+  try{
+    const tmp=path+'.tmp-'+process.pid+'-'+Date.now();
+    writeFileSync(tmp,JSON.stringify(value,null,2)+'\n','utf8');
+    try{renameSync(tmp,path)}catch{writeFileSync(path,JSON.stringify(value,null,2)+'\n','utf8')}
+    return true;
+  }catch{return false}
+}
+function diagnosticPersist(patch={}){
+  const prev=readJsonSafe(DIAGNOSTICS_FILE,{schema:1});
+  const next={
+    ...prev,
+    ...patch,
+    schema:2,
+    generated_at:now(),
+    build:APP_BUILD,
+    commit:APP_COMMIT
+  };
+  writeJsonAtomic(DIAGNOSTICS_FILE,next);
+  return next;
+}
+async function probeDashboardHealth(timeoutMs=1200){
+  try{
+    const port=Number(process.env.TLIB_DASHBOARD_PORT||8787);
+    const res=await fetch('http://127.0.0.1:'+port+'/api/health',{signal:AbortSignal.timeout(Math.max(300,Number(timeoutMs||1200))),headers:{'cache-control':'no-store'}});
+    if(!res.ok)return null;
+    const body=await res.json();
+    return body&&body.ok?body:null;
+  }catch{return null}
+}
+function diagnosticPipelineSnapshot(){
+  try{
+    const l1=l1Stats(),l2=l2Stats(),l3=l3Stats();
+    return {
+      l1:{total:Number(l1.total||0),complete:Number(l1.complete||0),deep_done:Number(l1.deep_done||0),pending:Number(l1.pending||0)},
+      l2:{total:Number(l2.total||0),base_done:Number(l2.base_done||0),deep_done:Number(l2.deep_done||0),l3_ready:Number(l2.l3_ready||0),base_pending:Number(l2.base_pending||0),deep_pending:Number(l2.deep_pending||0)},
+      l3:{total:Number(l3.total||0),ready:Number(l3.ready||0),pending:Number(l3.pending||0)}
+    };
+  }catch(e){return {error:String(e.message||e)}}
+}
+function projectDiagnosticsSnapshot(){
+  const persisted=readJsonSafe(DIAGNOSTICS_FILE,{schema:2});
+  const current=readJsonSafe(join(dataDir,'current-deployment.json'),null);
+  const runtime=readJsonSafe(join(dataDir,'runtime.json'),null);
+  const background=readJsonSafe(BG_WORKER_FILE,null);
+  const lastError=readJsonSafe(join(dataDir,'last-launch-error.json'),null);
+  const progress=readJsonSafe(join(dataDir,'slot-update-progress.json'),null);
+  let search={};
+  try{
+    search={
+      index_version:db.prepare("SELECT value FROM search_meta WHERE key='index_version'").get()?.value||null,
+      indexed_count:Number(db.prepare('SELECT COUNT(*) AS n FROM search_fts').get().n||0)
+    };
+  }catch(e){search={error:String(e.message||e)}}
+  let recentErrors=[];
+  try{recentErrors=db.prepare("SELECT at,level,event,detail FROM events WHERE level IN ('WARN','ERROR','FATAL') ORDER BY id DESC LIMIT 12").all()}catch{}
+  return {
+    ...persisted,
+    generated_at:now(),
+    source:'TLIB_SELF_DIAGNOSTICS',
+    desktop_commander_required:false,
+    active_agent:{pid:process.pid,alive:true,build:APP_BUILD,commit:APP_COMMIT,started_at:STARTED_AT,port:Number(process.env.TLIB_DASHBOARD_PORT||8787)},
+    current_deployment:current,
+    runtime_marker:runtime?{...runtime,alive:pidAlive(runtime.pid)}:null,
+    background_worker:background?{...background,alive:pidAlive(background.pid)}:null,
+    pipeline:diagnosticPipelineSnapshot(),
+    resource_governor:governorState,
+    search,
+    update_progress:progress,
+    last_launch_error:lastError,
+    recent_errors:recentErrors
+  };
+}
+let dashboardWatchdogFailures=0;
+let dashboardWatchdogRestarts=[];
+let dashboardWatchdogLastHealthyAt=0;
+let dashboardWatchdogLastRestartAt=0;
+let dashboardWatchdogNextRestartAt=0;
+let dashboardWatchdogLastError='';
+async function spawnAgentFromWatchdog(reason){
+  const current=readJsonSafe(join(dataDir,'current-deployment.json'),null);
+  if(!current?.commit||!current?.path)throw new Error('NO_CURRENT_DEPLOYMENT');
+  if(current.commit!==APP_COMMIT)throw new Error('STALE_WORKER_CURRENT_COMMIT_MISMATCH '+current.commit);
+  const entry=join(current.path,'src','tlib.mjs');
+  if(!existsSync(entry))throw new Error('CURRENT_ENTRY_MISSING');
+  const child=spawn(process.execPath,[entry,'agent'],{
+    cwd:current.path,detached:true,windowsHide:true,stdio:'ignore',
+    env:{...process.env,TLIB_DATA_DIR:dataDir,TLIB_DEPLOYMENT_COMMIT:current.commit,TLIB_RECOVERY_REASON:String(reason||'watchdog')}
+  });
+  child.unref();
+  dashboardWatchdogLastRestartAt=Date.now();
+  dashboardWatchdogRestarts.push(dashboardWatchdogLastRestartAt);
+  dashboardWatchdogNextRestartAt=Date.now()+30000;
+  appendAgentLifecycle('WATCHDOG_AGENT_SPAWN',{child_pid:child.pid,reason});
+  event('WARN','DASHBOARD_WATCHDOG_RESTART','pid='+child.pid+'; reason='+String(reason||'unknown'));
+  return child.pid;
+}
+async function dashboardWatchdogTick(){
+  const current=readJsonSafe(join(dataDir,'current-deployment.json'),null);
+  const health=await probeDashboardHealth(1200);
+  const nowMs=Date.now();
+  dashboardWatchdogRestarts=dashboardWatchdogRestarts.filter(t=>nowMs-t<10*60*1000);
+  if(health&&health.ok&&(!current?.commit||health.commit===current.commit)){
+    dashboardWatchdogFailures=0;
+    dashboardWatchdogLastHealthyAt=nowMs;
+    dashboardWatchdogLastError='';
+    diagnosticPersist({
+      overall:'HEALTHY',
+      supervisor:{pid:process.pid,state:'RUNNING',mode:'BACKGROUND_WATCHDOG'},
+      dashboard:{state:'ONLINE',healthy:true,pid:health.pid,build:health.build,commit:health.commit,port:Number(process.env.TLIB_DASHBOARD_PORT||8787),last_ok_at:new Date(nowMs).toISOString(),consecutive_failures:0,restarts_10m:dashboardWatchdogRestarts.length,last_restart_at:dashboardWatchdogLastRestartAt?new Date(dashboardWatchdogLastRestartAt).toISOString():null},
+      pipeline:diagnosticPipelineSnapshot(),
+      resource_governor:governorState
+    });
+    return;
+  }
+  dashboardWatchdogFailures++;
+  let reason=health&&health.ok?'COMMIT_MISMATCH':'HEALTH_UNREACHABLE';
+  if(current?.commit&&current.commit!==APP_COMMIT)reason='WORKER_STALE_AFTER_DEPLOYMENT_CHANGE';
+  dashboardWatchdogLastError=reason;
+  if(reason==='WORKER_STALE_AFTER_DEPLOYMENT_CHANGE'){
+    diagnosticPersist({
+      overall:'DEGRADED',
+      supervisor:{pid:process.pid,state:'STALE_WORKER',mode:'BACKGROUND_WATCHDOG'},
+      dashboard:{state:'WAITING_CURRENT_RUNTIME',healthy:false,consecutive_failures:dashboardWatchdogFailures,last_error:reason,restarts_10m:dashboardWatchdogRestarts.length}
+    });
+    return;
+  }
+  if(dashboardWatchdogFailures<2){
+    diagnosticPersist({
+      overall:'SUSPECT',
+      supervisor:{pid:process.pid,state:'RUNNING',mode:'BACKGROUND_WATCHDOG'},
+      dashboard:{state:'SUSPECT',healthy:false,consecutive_failures:dashboardWatchdogFailures,last_error:reason,restarts_10m:dashboardWatchdogRestarts.length}
+    });
+    return;
+  }
+  if(nowMs<dashboardWatchdogNextRestartAt){
+    diagnosticPersist({
+      overall:'RECOVERING',
+      supervisor:{pid:process.pid,state:'RUNNING',mode:'BACKGROUND_WATCHDOG'},
+      dashboard:{state:'BACKOFF',healthy:false,consecutive_failures:dashboardWatchdogFailures,last_error:reason,restarts_10m:dashboardWatchdogRestarts.length,next_restart_at:new Date(dashboardWatchdogNextRestartAt).toISOString()}
+    });
+    return;
+  }
+  if(dashboardWatchdogRestarts.length>=5){
+    dashboardWatchdogNextRestartAt=nowMs+5*60*1000;
+    event('ERROR','DASHBOARD_WATCHDOG_LIMIT','5 restarts/10m; cooldown=5m');
+    diagnosticPersist({
+      overall:'DEGRADED',
+      supervisor:{pid:process.pid,state:'RUNNING',mode:'BACKGROUND_WATCHDOG'},
+      dashboard:{state:'RESTART_LIMIT',healthy:false,consecutive_failures:dashboardWatchdogFailures,last_error:reason,restarts_10m:dashboardWatchdogRestarts.length,next_restart_at:new Date(dashboardWatchdogNextRestartAt).toISOString()}
+    });
+    return;
+  }
+  try{
+    if(health?.pid&&health.commit!==current?.commit&&pidAlive(health.pid)){
+      try{process.kill(Number(health.pid),'SIGTERM')}catch{}
+      await new Promise(r=>setTimeout(r,650));
+    }
+    const pid=await spawnAgentFromWatchdog(reason);
+    diagnosticPersist({
+      overall:'RECOVERING',
+      supervisor:{pid:process.pid,state:'RUNNING',mode:'BACKGROUND_WATCHDOG'},
+      dashboard:{state:'RESTART_TRIGGERED',healthy:false,spawned_pid:pid,consecutive_failures:dashboardWatchdogFailures,last_error:reason,restarts_10m:dashboardWatchdogRestarts.length,last_restart_at:new Date(dashboardWatchdogLastRestartAt).toISOString(),next_restart_at:new Date(dashboardWatchdogNextRestartAt).toISOString()}
+    });
+  }catch(e){
+    dashboardWatchdogLastError=String(e.message||e);
+    dashboardWatchdogNextRestartAt=nowMs+60000;
+    event('ERROR','DASHBOARD_WATCHDOG_RESTART_FAIL',dashboardWatchdogLastError);
+    diagnosticPersist({
+      overall:'DEGRADED',
+      supervisor:{pid:process.pid,state:'RUNNING',mode:'BACKGROUND_WATCHDOG'},
+      dashboard:{state:'RESTART_FAILED',healthy:false,consecutive_failures:dashboardWatchdogFailures,last_error:dashboardWatchdogLastError,restarts_10m:dashboardWatchdogRestarts.length,next_restart_at:new Date(dashboardWatchdogNextRestartAt).toISOString()}
+    });
+  }
+}
+function startDashboardWatchdog(){
+  let timer=null,running=false;
+  const schedule=(ms)=>{try{clearTimeout(timer)}catch{};timer=setTimeout(tick,Math.max(3000,Number(ms||15000)));try{timer.unref()}catch{}};
+  const tick=async()=>{
+    if(running){schedule(5000);return}
+    running=true;
+    try{await dashboardWatchdogTick()}catch(e){event('ERROR','DASHBOARD_WATCHDOG_ERROR',String(e.message||e))}
+    finally{running=false;schedule(15000)}
+  };
+  diagnosticPersist({overall:'STARTING',supervisor:{pid:process.pid,state:'ARMED',mode:'BACKGROUND_WATCHDOG'},dashboard:{state:'CHECK_PENDING',healthy:null}});
+  schedule(5000);
+}
+function installAgentLifecycleHooks(){
+  appendAgentLifecycle('AGENT_STARTING',{recovery_reason:String(process.env.TLIB_RECOVERY_REASON||'normal')});
+  process.once('SIGTERM',()=>{appendAgentLifecycle('AGENT_SIGTERM');try{event('INFO','AGENT_SIGTERM','requested')}catch{};process.exit(0)});
+  process.once('SIGINT',()=>{appendAgentLifecycle('AGENT_SIGINT');process.exit(0)});
+  process.on('uncaughtException',(e)=>{appendAgentLifecycle('AGENT_UNCAUGHT_EXCEPTION',{error:String(e?.stack||e)});try{event('FATAL','AGENT_UNCAUGHT_EXCEPTION',String(e?.stack||e))}catch{};setTimeout(()=>process.exit(1),50)});
+  process.on('unhandledRejection',(e)=>{appendAgentLifecycle('AGENT_UNHANDLED_REJECTION',{error:String(e?.stack||e)});try{event('ERROR','AGENT_UNHANDLED_REJECTION',String(e?.stack||e))}catch{}});
+  process.on('exit',(code)=>appendAgentLifecycle('AGENT_EXIT',{code}));
 }
 function readBackgroundWorker(){
   try{return JSON.parse(readFileSync(BG_WORKER_FILE,'utf8'))}catch{return null}
@@ -2393,10 +2600,12 @@ async function main() {
     seed();
     reclassifyExisting();
     ensureSearchIndex(true);
+    startDashboardWatchdog();
     startWorkerLoop();
     return;
   }
   if (cmd === 'agent') {
+    installAgentLifecycleHooks();
     // UI/server stays at normal OS priority. Background enrichment runs in a
     // separate below-normal process so SQLite/GitHub work cannot block 8787.
     selftest();
