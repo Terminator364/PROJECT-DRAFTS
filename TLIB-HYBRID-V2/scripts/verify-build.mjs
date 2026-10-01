@@ -199,7 +199,7 @@ try{
     ['self-diagnostics-endpoint',src.includes("/api/diagnostics")&&src.includes('projectDiagnosticsSnapshot')&&src.includes("desktop_commander_required:false")],
     ['dashboard-watchdog-core',src.includes('startDashboardWatchdog()')&&src.includes('dashboardWatchdogTick')&&src.includes('DASHBOARD_WATCHDOG_RESTART')],
     ['dashboard-watchdog-anti-loop',src.includes('dashboardWatchdogRestarts.length>=5')&&src.includes('5*60*1000')&&src.includes('dashboardWatchdogNextRestartAt')],
-    ['dashboard-watchdog-worker-owned',src.includes("if (cmd === 'worker')")&&src.indexOf('startDashboardWatchdog()')>src.indexOf("if (cmd === 'worker')")],
+    ['dashboard-watchdog-worker-owned',/if \(cmd === 'worker'\)[\s\S]{0,900}startDashboardWatchdog\(\);/.test(src)],
     ['agent-lifecycle-diagnostics',src.includes('installAgentLifecycleHooks()')&&src.includes('AGENT_UNCAUGHT_EXCEPTION')&&src.includes('agent-lifecycle.jsonl')],
     ['self-diagnostics-api',src.includes("/api/diagnostics")&&src.includes('projectDiagnosticsSnapshot')&&src.includes("desktop_commander_required:false")],
     ['dashboard-watchdog',src.includes('startDashboardWatchdog')&&src.includes('dashboardWatchdogTick')&&src.includes('DASHBOARD_WATCHDOG_RESTART')],
