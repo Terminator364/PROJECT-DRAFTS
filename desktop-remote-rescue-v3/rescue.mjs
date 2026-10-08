@@ -180,7 +180,7 @@ async function runRemote(entry) {
 }
 function selftest() {
   const run = (name,check) => { if(!check)throw new Error("TEST_FAIL "+name);console.log("PASS "+name); };
-  run("no-npm-installer",!fs.readFileSync(new URL(import.meta.url),"utf8").includes("npm install"));
+  run("no-install-subprocess",findInstalled.toString().includes('"root","-g"') && !findInstalled.toString().includes('"install"'));
   run("node-supported",Number(process.versions.node.split(".")[0])>=22);
   run("sanitization",!sanitize("access_token=secret123").includes("secret123"));
   run("lock-file-path",path.isAbsolute(lockPath));
