@@ -2,6 +2,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import os from "node:os";
+import { fileURLToPath } from "node:url";
 import { spawn, execFileSync } from "node:child_process";
 
 const args = new Set(process.argv.slice(2));
@@ -83,7 +84,7 @@ function findInstalled() {
 }
 function verifyNode() {
   const major=Number(process.versions.node.split(".")[0]);
-  if(major<22)throw new Error("Node "+process.version+" is too old for the installed Desktop Commander 0.2.52 (needs 22.12+).");
+  if(major<22||(major===22&&Number(process.versions.node.split(".")[1])<12))throw new Error("Node "+process.version+" is too old for Desktop Commander 0.2.52 (needs 22.12+).");
 }
 async function localMcpProbe(entry,timeoutMs=localTimeout) {
   // MCP stdio JSON-RPC framing, no external SDK/npm required.
@@ -128,7 +129,7 @@ function setStartupIfOnline() {
   if(!appData)return;
   const startup=path.join(appData,"Microsoft","Windows","Start Menu","Programs","Startup");
   const cmdFile=path.join(startup,"Blessing-Remote-Rescue.cmd");
-  const sourceCmd=path.join(path.dirname(new URL(import.meta.url).pathname),"RUN_RESCUE.cmd");
+  const sourceCmd=path.join(path.dirname(fileURLToPath(import.meta.url)),"RUN_RESCUE.cmd");
   // Node file URLs on Windows must use fileURLToPath, not URL.pathname.
   if(!fs.existsSync(sourceCmd))return;
   fs.mkdirSync(startup,{recursive:true});
@@ -162,7 +163,7 @@ async function runRemote(entry) {
             if(!auth){auth=true;state("AUTH_REQUIRED","Confirm browser verification once. Existing saved login has not been deleted.");}
           }
           if(/Desktop Commander Remote is connected|Status:\s*Online|Presence tracked .*visible as online/i.test(line)){
-            if(!online){online=true;readiness=true;state("ONLINE","Remote reported online; process PID "+child.pid);setStartupIfOnline();}
+            if(!online){online=true;readiness=true;state("ONLINE_REPORTED","Remote says online; confirm via remote service. PID "+child.pid);setStartupIfOnline();}
           }
         }
       }
