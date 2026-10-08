@@ -129,11 +129,16 @@ function setStartupIfOnline() {
   if(!appData)return;
   const startup=path.join(appData,"Microsoft","Windows","Start Menu","Programs","Startup");
   const cmdFile=path.join(startup,"Blessing-Remote-Rescue.cmd");
-  const sourceCmd=path.join(path.dirname(fileURLToPath(import.meta.url)),"RUN_RESCUE.cmd");
-  // Node file URLs on Windows must use fileURLToPath, not URL.pathname.
+  const sourceRoot=path.dirname(fileURLToPath(import.meta.url));
+  const sourceCmd=path.join(sourceRoot,"RUN_RESCUE.cmd");
+  const sourceJs=fileURLToPath(import.meta.url);
   if(!fs.existsSync(sourceCmd))return;
+  const stable=path.join(stateDir,"bin");
+  fs.mkdirSync(stable,{recursive:true});
+  fs.copyFileSync(sourceCmd,path.join(stable,"RUN_RESCUE.cmd"));
+  fs.copyFileSync(sourceJs,path.join(stable,"rescue.mjs"));
   fs.mkdirSync(startup,{recursive:true});
-  const text="@echo off\r\nstart \"Blessing Remote Rescue\" /min cmd.exe /d /c call \""+sourceCmd+"\"\r\n";
+  const text="@echo off\r\nstart \"Blessing Remote Rescue\" /min node.exe \""+path.join(stable,"rescue.mjs")+"\"\r\n";
   fs.writeFileSync(cmdFile,text,"utf8");
 }
 async function runRemote(entry) {
