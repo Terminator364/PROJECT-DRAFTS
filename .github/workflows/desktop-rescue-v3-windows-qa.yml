@@ -1,3 +1,4 @@
+# revision 2: use parser-safe check for no runtime npm install
 name: Desktop Commander Remote Rescue V3 Windows QA
 
 on:
