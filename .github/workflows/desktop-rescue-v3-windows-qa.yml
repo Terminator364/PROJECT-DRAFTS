@@ -1,4 +1,4 @@
-# revision 4: verified autostart, single ZIP from Actions with direct one-click files
+# revision 5: corrected isolated Startup regression assertion
 name: Desktop Commander Remote Rescue V3 Windows QA
 
 on:
