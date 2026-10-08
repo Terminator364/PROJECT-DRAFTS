@@ -1,24 +1,21 @@
-# État de consolidation — 2026-10-08
+# Migration documentaire — état au 8 octobre 2026
 
-## Éléments réellement exécutés
-- Une racine documentaire canonique Matrice a été créée sur Google Drive.
-- Quatre dossiers historiques non centraux (références V1.x, recherche V3, protocoles, audit feature) ont été déplacés avec conservation de leurs identifiants et contrôle des parents.
-- La Library ChatGPT a été consolidée en un seul dossier racine Matrice visible après recensement paginé. Treize anciens dossiers ont été rangés sous ce dossier.
-- Les trois catégories directes de Library contiennent 143 fichiers Matrice/MAXV/ISI (79 état, 36 versions, 28 science), avec lecture de vérification.
-- Un registre privé des emplacements et identifiants est conservé dans le Drive; il ne doit pas être reproduit dans ce dépôt public.
+**Registre détaillé privé dans le Drive du projet.** Ne pas publier de listes de fichiers propriétaires, d'identifiants Google Drive ni de statistiques de modèle ici.
 
-## Bloqueurs du gate de nettoyage final
-- Les anciens hubs Drive de Direction/RetD/Work, les workers, les entrées de restauration et les dépôts utilisateur ont des contrats de chemin et/ou de parent historique à vérifier avant déplacement.
-- Aucun doublon n'a été supprimé sans preuve actuelle de survivant et d'absence de dépendance.
-- L'inventaire exhaustif du contenu de tous les sous-dossiers Drive n'est pas terminé.
+## Travail vérifié
 
-## Bornes scientifiques et produit
-- Aucune fusion des moteurs et aucune promotion de modèle.
-- Aucune exécution de pari ni publication de datasets privés.
-- Dernier état de référence confirmé avant migration: W5-053 S106 OPEN; ROUTED_15 inchangé.
-- Prochaine phase = audit differential/manifest / liens de dépendance / dossier unique terminé, puis seulement proposition d'architecture cible.
+- Consolidation de la racine Library ChatGPT : les dossiers historiques pertinents et **148 fichiers de premier niveau** liés au projet y ont été rangés avec contrôle de présence.
+- Consolidation Drive en conservant la racine opérationnelle historique : la nouvelle zone de travail est placée sous ce hub afin d'éviter la rupture d'anciens pointeurs.
+- Déplacements d'archives, de protocoles et de corpus documentaires réalisés avec conservation des IDs.
+- Registre privé de provenance créé, contenant les entrées détaillées et les emplacements après déplacement.
 
-## CI / Déploiement
-- Pas de GitHub Actions automatique.
-- Pas de runners ni d'installer lors de cette passe.
-- Dépôt permanent privé seulement après GO explicite et vérification de la chaîne de provenance.
+## Toujours ouvert
+
+- Audit des dépendances des automatisations, raccourcis et dépôts utilisateurs périphériques.
+- Inventaire exhaustif et SHA-256 pour distinguer vrais doublons et versions distinctes.
+- Vérification de la reproductibilité des moteurs et de leurs datasets.
+- Aucune purge irréversible ou fusion des modèles à ce stade.
+
+## Confidentialité et CI
+
+Dépôt public : documentation méthodologique seulement; aucune donnée brute ni résultat propriétaire. Zéro GitHub Actions hébergé lancé.
