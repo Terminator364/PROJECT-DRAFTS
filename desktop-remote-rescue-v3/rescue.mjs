@@ -141,6 +141,29 @@ function setStartupIfOnline() {
   const text="@echo off\r\nstart \"Blessing Remote Rescue\" /min node.exe \""+path.join(stable,"rescue.mjs")+"\"\r\n";
   fs.writeFileSync(cmdFile,text,"utf8");
 }
+function stopExistingRemoteLaunchers() {
+  // A previous Remote-only launcher can hold an old auth session open.
+  // Scope restart narrowly to Node commands that mention Desktop Commander
+  // and have the actual CLI subcommand "remote". Never kill general Node apps.
+  if(process.platform!=="win32" || CI)return;
+  const ps=String.raw`Get-CimInstance Win32_Process -Filter "Name='node.exe'" |
+    Where-Object { $_.CommandLine -and $_.CommandLine -match 'desktop-commander'
+      -and $_.CommandLine -match '(^|\s)remote(\s|$)' } |
+    Select-Object -ExpandProperty ProcessId`;
+  try{
+    const output=execFileSync("powershell.exe",["-NoProfile","-NonInteractive","-Command",ps],{
+      encoding:"utf8",timeout:10000,windowsHide:true
+    });
+    const ids=output.split(/\s+/).map(Number).filter(n=>Number.isInteger(n)&&n>0&&n!==process.pid);
+    for(const pid of new Set(ids)){
+      try{
+        execFileSync("taskkill.exe",["/PID",String(pid),"/T","/F"],{timeout:7000,stdio:"ignore",windowsHide:true});
+        log("Stopped previous Desktop Commander Remote launcher PID "+pid);
+      }catch(e){log("Could not stop previous Remote launcher PID "+pid+": "+e.message);}
+    }
+  }catch(e){log("Remote process scan skipped: "+e.message);}
+}
+
 async function runRemote(entry) {
   let attempts=0;
   while(!shouldStop && attempts<3){
@@ -208,6 +231,7 @@ async function main(){
     if(!probe.ok){state("LOCAL_MCP_FAILED",probe.reason);return;}
     state("LOCAL_MCP_PASS",probe.reason);
     if(args.has("--probe"))return;
+    stopExistingRemoteLaunchers();
     await runRemote(entry);
   }catch(err){state("FAILED",err?.stack||String(err));process.exitCode=1;}
   finally{release();}
