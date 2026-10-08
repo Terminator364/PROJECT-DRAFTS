@@ -1,0 +1,84 @@
+name: Desktop Commander Remote Rescue V3 Windows QA
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - feat/remote-desktop-rescue-oneclick-verified
+    paths:
+      - .github/workflows/desktop-rescue-v3-windows-qa.yml
+
+permissions:
+  contents: read
+
+jobs:
+  windows-qa:
+    runs-on: windows-2022
+    timeout-minutes: 12
+    env:
+      RESCUE_SIM_RAM_MB: "4096"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Native syntax and offline lifecycle scenarios
+        shell: pwsh
+        run: |
+          node --version
+          node --check desktop-remote-rescue-v3/rescue.mjs
+          node --check desktop-remote-rescue-v3/test-rescue.mjs
+          node --check desktop-remote-rescue-v3/mock-entry.mjs
+          node desktop-remote-rescue-v3/test-rescue.mjs
+          if ($LASTEXITCODE -ne 0) { throw "RESCUE_V3_MOCK_FAIL" }
+      - name: Install official local Desktop Commander only on CI Windows
+        shell: pwsh
+        run: |
+          $ErrorActionPreference='Stop'
+          $dest=Join-Path $env:RUNNER_TEMP 'Mock Lenovo Profile With Spaces\npm-pinned'
+          New-Item -ItemType Directory -Force -Path $dest | Out-Null
+          npm install --prefix "$dest" --no-audit --no-fund --ignore-scripts "@wonderwhy-er/desktop-commander@0.2.52"
+          if ($LASTEXITCODE -ne 0) { throw "OFFICIAL_PACKAGE_CI_INSTALL_FAIL" }
+          $entry=Join-Path $dest 'node_modules\@wonderwhy-er\desktop-commander\dist\index.js'
+          if (-not (Test-Path -LiteralPath $entry)) { throw "OFFICIAL_INDEX_MISSING" }
+          "RESCUE_TEST_ENTRY=$entry" | Out-File -FilePath $env:GITHUB_ENV -Append -Encoding utf8
+          Write-Host "PASS OFFICIAL_PACKAGE_CI_INSTALL"
+      - name: Probe real local MCP on native Windows
+        shell: pwsh
+        env:
+          RESCUE_TEST_MODE: "1"
+        run: |
+          $ErrorActionPreference='Stop'
+          $env:RESCUE_STATE_DIR=Join-Path $env:RUNNER_TEMP 'Rescue Actual MCP With Spaces'
+          node desktop-remote-rescue-v3/rescue.mjs --probe
+          if ($LASTEXITCODE -ne 0) { throw "REAL_LOCAL_MCP_PROBE_FAIL" }
+          $s=Get-Content -LiteralPath (Join-Path $env:RESCUE_STATE_DIR 'status.json') -Raw | ConvertFrom-Json
+          if ($s.status -ne 'LOCAL_MCP_PASS') { throw "MCP_STATE_NOT_PASS" }
+          Write-Host "PASS REAL_LOCAL_MCP_PROBE"
+      - name: Verify official Remote CLI without authenticating
+        shell: pwsh
+        run: |
+          $ErrorActionPreference='Stop'
+          & node $env:RESCUE_TEST_ENTRY remote --help
+          if ($LASTEXITCODE -ne 0) { throw "REMOTE_HELP_FAIL" }
+          Write-Host "PASS OFFICIAL_REMOTE_CLI_HELP"
+      - name: Package exactly one-click files
+        shell: pwsh
+        run: |
+          $ErrorActionPreference='Stop'
+          $stage=Join-Path $env:RUNNER_TEMP 'RESCUE_V3_RELEASE'
+          New-Item -ItemType Directory -Force -Path $stage | Out-Null
+          Copy-Item desktop-remote-rescue-v3/RUN_RESCUE.cmd $stage
+          Copy-Item desktop-remote-rescue-v3/rescue.mjs $stage
+          Copy-Item desktop-remote-rescue-v3/README.md $stage
+          $zip=Join-Path $PWD 'Desktop_Commander_Remote_Rescue_V3_Windows_QA.zip'
+          Compress-Archive -Path (Join-Path $stage '*') -DestinationPath $zip -Force
+          if (-not (Test-Path -LiteralPath $zip)) { throw "ZIP_MISSING" }
+          Get-FileHash -Algorithm SHA256 -LiteralPath $zip | Format-List
+          Write-Host 'PASS RELEASE_PACKAGE'
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Desktop_Commander_Remote_Rescue_V3_Windows_QA
+          path: Desktop_Commander_Remote_Rescue_V3_Windows_QA.zip
+          retention-days: 7
+          if-no-files-found: error
