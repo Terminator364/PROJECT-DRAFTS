@@ -1,4 +1,4 @@
-# revision 3: durable autostart and narrow old-Remote cleanup qualification
+# revision 4: verified autostart, single ZIP from Actions with direct one-click files
 name: Desktop Commander Remote Rescue V3 Windows QA
 
 on:
@@ -63,23 +63,23 @@ jobs:
           & node $env:RESCUE_TEST_ENTRY remote --help
           if ($LASTEXITCODE -ne 0) { throw "REMOTE_HELP_FAIL" }
           Write-Host "PASS OFFICIAL_REMOTE_CLI_HELP"
-      - name: Package exactly one-click files
+      - name: Package one-extraction release
         shell: pwsh
         run: |
           $ErrorActionPreference='Stop'
-          $stage=Join-Path $env:RUNNER_TEMP 'RESCUE_V3_RELEASE'
+          $stage=Join-Path $PWD 'Desktop_Commander_Remote_Rescue_V3_RELEASE'
           New-Item -ItemType Directory -Force -Path $stage | Out-Null
           Copy-Item desktop-remote-rescue-v3/RUN_RESCUE.cmd $stage
           Copy-Item desktop-remote-rescue-v3/rescue.mjs $stage
           Copy-Item desktop-remote-rescue-v3/README.md $stage
-          $zip=Join-Path $PWD 'Desktop_Commander_Remote_Rescue_V3_Windows_QA.zip'
-          Compress-Archive -Path (Join-Path $stage '*') -DestinationPath $zip -Force
-          if (-not (Test-Path -LiteralPath $zip)) { throw "ZIP_MISSING" }
-          Get-FileHash -Algorithm SHA256 -LiteralPath $zip | Format-List
-          Write-Host 'PASS RELEASE_PACKAGE'
+          foreach($f in @('RUN_RESCUE.cmd','rescue.mjs','README.md')){
+            if (-not (Test-Path (Join-Path $stage $f))) { throw "MISSING_RELEASE_FILE_$f" }
+          }
+          Get-FileHash -Algorithm SHA256 (Join-Path $stage 'rescue.mjs') | Format-List
+          Write-Host 'PASS SINGLE_EXTRACTION_RELEASE'
       - uses: actions/upload-artifact@v4
         with:
-          name: Desktop_Commander_Remote_Rescue_V3_Windows_QA
-          path: Desktop_Commander_Remote_Rescue_V3_Windows_QA.zip
+          name: Desktop_Commander_Remote_Rescue_V3_ONE_CLICK
+          path: Desktop_Commander_Remote_Rescue_V3_RELEASE/
           retention-days: 7
           if-no-files-found: error
