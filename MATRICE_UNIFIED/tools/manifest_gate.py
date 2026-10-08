@@ -20,6 +20,25 @@ def valid_path(path: str, root: str) -> bool:
     rel = p[len(r) + 1:].split("/")
     return all(part not in ("", ".", "..") for part in rel)
 
+def hash_verified_record(item: dict[str, Any]) -> bool:
+    """Compute SHA-256 of the *actual* readable local bytes, never trust flags alone."""
+    expected = str(item.get("sha256", "")).lower()
+    local_file = item.get("local_file")
+    if not HASH.fullmatch(expected) or not isinstance(local_file, str) or not local_file:
+        return False
+    try:
+        path = Path(local_file)
+        if not path.is_file():
+            return False
+        digest = hashlib.sha256()
+        with path.open("rb") as handle:
+            for block in iter(lambda: handle.read(1024 * 1024), b""):
+                digest.update(block)
+        return digest.hexdigest() == expected
+    except (OSError, ValueError):
+        return False
+
+
 def audit(manifest: dict[str, Any]) -> dict[str, Any]:
     """Fail closed on ambiguous migrations, shadow duplicates, or missing bytes."""
     root = str(manifest.get("canonical_root", "")).strip()
@@ -47,7 +66,7 @@ def audit(manifest: dict[str, Any]) -> dict[str, Any]:
             deps = ["UNKNOWN"]
         if action not in {"PRESERVE", "REFERENCE", "MOVE", "DELETE", "OVERWRITE"}:
             failures.append(f"{item_id}: invalid action {action}")
-        if action in DANGEROUS and (role in PROTECTED or item.get("active", False)):
+        if action in DANGEROUS and (any(role == r or role.startswith(r + "_") for r in PROTECTED) or item.get("active", False)):
             failures.append(f"{item_id}: active/protected item cannot be mutated")
         if action == "MOVE":
             dest = str(item.get("target_path", ""))
@@ -65,12 +84,12 @@ def audit(manifest: dict[str, Any]) -> dict[str, Any]:
                 failures.append(f"{item_id}: independent survivor unavailable")
             elif survivor.get("action", "PRESERVE").upper() == "DELETE":
                 failures.append(f"{item_id}: survivor is also scheduled for deletion")
-            if not HASH.fullmatch(ownhash) or not item.get("byte_verified"):
+            if not HASH.fullmatch(ownhash) or not hash_verified_record(item):
                 failures.append(f"{item_id}: verified SHA-256 of source missing")
-            if not survivor or str(survivor.get("sha256", "")).lower() != ownhash or not survivor.get("byte_verified"):
+            if not survivor or str(survivor.get("sha256", "")).lower() != ownhash or not hash_verified_record(survivor):
                 failures.append(f"{item_id}: byte-identical survivor not verified")
-            if deps or item.get("absolute_path_reference"):
-                failures.append(f"{item_id}: cannot delete referenced item")
+            if deps or item.get("absolute_path_reference") or not item.get("reference_scan_complete"):
+                failures.append(f"{item_id}: cannot delete without dependency-scan clearance")
         if action == "OVERWRITE":
             failures.append(f"{item_id}: overwrite forbidden in dry-run migration")
     return {"ok": not failures, "items_checked": len(records), "failures": failures,
