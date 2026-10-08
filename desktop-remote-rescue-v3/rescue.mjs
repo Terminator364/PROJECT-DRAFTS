@@ -124,7 +124,7 @@ async function localMcpProbe(entry,timeoutMs=localTimeout) {
   });
 }
 function setStartupIfOnline() {
-  if(CI)return;
+  if(CI && process.env.RESCUE_TEST_ALLOW_STARTUP!=="1")return;
   const appData=process.env.APPDATA;
   if(!appData)return;
   const startup=path.join(appData,"Microsoft","Windows","Start Menu","Programs","Startup");
@@ -214,6 +214,12 @@ function selftest() {
   run("lock-file-path",path.isAbsolute(lockPath));
   run("status-file-path",path.isAbsolute(statePath));
   run("startup-only-after-online",setStartupIfOnline.toString().includes("if(CI)return"));
+  if(CI && process.env.RESCUE_TEST_ALLOW_STARTUP==="1") {
+    setStartupIfOnline();
+    const expected=path.join(process.env.APPDATA,"Microsoft","Windows","Start Menu","Programs","Startup","Blessing-Remote-Rescue.cmd");
+    if(!fs.existsSync(expected)||!fs.existsSync(path.join(stateDir,"bin","rescue.mjs")))throw new Error("STARTUP_COPY_NOT_CREATED");
+    console.log("PASS isolated-Windows-startup");
+  }
   log("SELFTEST_PASS");
 }
 async function main(){
