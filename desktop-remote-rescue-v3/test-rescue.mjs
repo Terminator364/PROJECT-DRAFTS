@@ -25,8 +25,8 @@ function run(extraArgs=[],vars={},max=7000,stopOn){
   });
 }
 try{
-  const st=await run(["--selftest"]);
-  assert.equal(st.status,0,st.out+" "+st.err);console.log("PASS SELFTEST");
+  const st=await run(["--selftest"],{RESCUE_TEST_ALLOW_STARTUP:"1",APPDATA:path.join(temp,"Fake User AppData With Spaces")});
+  assert.equal(st.status,0,st.out+" "+st.err);console.log("PASS SELFTEST + ISOLATED STARTUP");
   const probe=await run(["--probe"],{},10000);
   assert.equal(probe.status,0,probe.out+" "+probe.err);
   assert.match(probe.out,/LOCAL_MCP_PASS/);console.log("PASS MCP MOCK PROBE");
