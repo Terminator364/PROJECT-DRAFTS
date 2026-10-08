@@ -1,4 +1,4 @@
-# revision 2: use parser-safe check for no runtime npm install
+# revision 3: durable autostart and narrow old-Remote cleanup qualification
 name: Desktop Commander Remote Rescue V3 Windows QA
 
 on:
