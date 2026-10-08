@@ -213,7 +213,7 @@ function selftest() {
   run("sanitization",!sanitize("access_token=secret123").includes("secret123"));
   run("lock-file-path",path.isAbsolute(lockPath));
   run("status-file-path",path.isAbsolute(statePath));
-  run("startup-only-after-online",setStartupIfOnline.toString().includes("if(CI)return"));
+  run("startup-only-after-online",setStartupIfOnline.toString().includes("RESCUE_TEST_ALLOW_STARTUP"));
   if(CI && process.env.RESCUE_TEST_ALLOW_STARTUP==="1") {
     setStartupIfOnline();
     const expected=path.join(process.env.APPDATA,"Microsoft","Windows","Start Menu","Programs","Startup","Blessing-Remote-Rescue.cmd");
