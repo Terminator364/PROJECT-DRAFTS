@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>BCP Rescue Lab — téléphone / USB / audio</title>
+<style>
+:root{color-scheme:dark;font:15px/1.5 system-ui,-apple-system,Segoe UI,sans-serif;background:#0c1220;color:#e9f2ff}
+*{box-sizing:border-box}body{margin:0}header{padding:30px max(20px,calc((100vw - 1200px)/2));border-bottom:1px solid #34435a;background:linear-gradient(110deg,#192b49,#101a2d)}
+header h1{font-size:clamp(25px,4vw,38px);margin:0 0 6px}p{margin:6px 0;color:#afc3dc}.eyebrow{color:#66dbf2;font-weight:700;text-transform:uppercase;letter-spacing:.13em;font-size:12px}
+.notice{background:#493714;border:1px solid #a07728;color:#ffe8a9;border-radius:12px;padding:10px 14px;margin-top:14px}
+main{max-width:1200px;margin:auto;padding:20px;display:grid;gap:20px;grid-template-columns:minmax(240px,1fr) minmax(320px,1.5fr)}
+.card{background:#151f31;border:1px solid #2d415c;padding:20px;border-radius:18px}
+h2{font-size:19px;margin:0 0 16px}h3{font-size:15px;margin:12px 0 4px;color:#d9e7fa}
+.phone{max-width:330px;margin:10px auto 25px;border:8px solid #050a14;border-radius:35px;min-height:360px;padding:23px 18px;background:linear-gradient(140deg,#173c66,#101728);box-shadow:0 20px 50px #0005}
+.phone-top{width:85px;height:7px;background:#060d17;border-radius:10px;margin:-14px auto 30px}
+.large-icon{font-size:54px;text-align:center;margin:15px}.phone .headline{text-align:center;font-size:22px;font-weight:800;margin:0}
+.statusline{text-align:center;margin:8px 0 25px;color:#b5c9dd}
+.device{display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid #34465f}
+.toggle{display:flex;gap:10px;align-items:center;padding:9px 0;cursor:pointer}.toggle input{accent-color:#4ccedf;width:19px;height:19px}
+button{border:0;border-radius:11px;background:#4ac8dd;color:#062032;font-weight:800;padding:12px 16px;cursor:pointer;margin:5px 5px 5px 0}
+button.secondary{background:#2b3f5a;color:#eaf4ff}button:focus-visible,input:focus-visible{outline:2px solid #fff}
+#log{min-height:190px;max-height:290px;overflow:auto;background:#080f1d;border:1px solid #2b3f5a;padding:12px;border-radius:12px;font:13px/1.65 ui-monospace,Consolas,monospace;white-space:pre-wrap}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.metric{border:1px solid #34465f;border-radius:12px;padding:11px;background:#0c1728}
+.metric strong{display:block;font-size:20px}.metric small{color:#afc4d9}
+.range{width:100%;accent-color:#66dbf2}.providers{grid-column:1/-1}.tools{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+.tool{border:1px solid #2d415c;border-radius:12px;padding:12px}.tool a{color:#87e9ff;font-weight:700}
+footer{max-width:1200px;margin:auto;color:#9ab1cc;padding:0 20px 24px}
+@media(max-width:760px){main{grid-template-columns:1fr}.providers{grid-column:auto}.grid{grid-template-columns:1fr 1fr}}
+</style></head>
+<body>
+<header><span class="eyebrow">BCP · Rescue Bridge · laboratoire</span><h1>Simulateur téléphone ↔ USB ↔ PC</h1>
+<p>Manipule les pannes, teste le relais virtuel, le son synthétique et le diagnostic Windows fictif.</p>
+<div class="notice"><strong>SIMULATION UNIQUEMENT.</strong> Aucun accès à ton ordinateur réel, aucune APK, aucun appareil USB ni connecteur ChatGPT actif.</div></header>
+<main>
+<section class="card"><h2>📱 Téléphone Android virtuel</h2>
+<div class="phone"><div class="phone-top"></div><div class="large-icon">📲</div>
+<div class="headline">B-Edge Rescue</div><div id="phone-line" class="statusline">Connexion simulée</div>
+<div class="device"><span>Batterie</span><strong id="battery-label">70 %</strong></div>
+<div class="device"><span>Internet mobile</span><strong id="net-label">Actif</strong></div>
+<div class="device"><span>Câble USB</span><strong id="cable-label">Connecté</strong></div>
+<div class="device"><span>Agent PC</span><strong id="agent-label">Actif</strong></div></div>
+<label class="toggle"><input id="internet" type="checkbox" checked> Internet du téléphone</label>
+<label class="toggle"><input id="cable" type="checkbox" checked> Câble USB branché</label>
+<label class="toggle"><input id="tether" type="checkbox" checked> Partage de connexion USB (données)</label>
+<label class="toggle"><input id="awake" type="checkbox" checked> PC allumé et réveillé</label>
+<label class="toggle"><input id="paired" type="checkbox" checked> Appairage autorisé</label>
+<label class="toggle"><input id="agent" type="checkbox" checked> Agent Windows actif</label>
+<label class="toggle"><input id="guardian" type="checkbox" checked> Superviseur Windows indépendant</label>
+<label style="display:block;margin-top:12px">Batterie du téléphone : <output id="battery-value">70 %</output></label>
+<input class="range" id="battery" type="range" min="0" max="100" value="70">
+</section>
+<section class="card"><h2>🖥️ Diagnostics et scénarios</h2>
+<div class="grid">
+<div class="metric"><small>Transport</small><strong id="link-status">USB IP</strong></div>
+<div class="metric"><small>PC cloud</small><strong id="pc-cloud">Hors ligne*</strong></div>
+<div class="metric"><small>Agent</small><strong id="agent-status">Actif</strong></div>
+<div class="metric"><small>Missions réelles exécutées</small><strong>0</strong></div>
+</div>
+<p>* Pour démontrer qu'un réseau Internet Windows n'est pas indispensable si le relais téléphone/USB fonctionne.</p>
+<button id="diagnose">Diagnostiquer</button>
+<button class="secondary" id="repair">Réparer l'agent virtuel</button>
+<button class="secondary" id="reset">Réinitialiser</button>
+<h3>Journal des événements simulés</h3><div id="log" aria-live="polite"></div>
+<hr style="border:0;border-top:1px solid #34465f;margin:22px 0">
+<h2>🎙️ Simulation audio</h2>
+<p>Générateur de tonalité locale (440 Hz). Le son provient du navigateur, pas du microphone réel.</p>
+<label class="toggle"><input id="mute" type="checkbox"> Micro virtuel muet</label>
+<label class="toggle"><input id="loss" type="checkbox"> Paquets audio perdus (simulation)</label>
+<label>Gain : <output id="gain-val">50%</output></label>
+<input class="range" type="range" id="gain" min="0" max="150" value="50">
+<button id="audio">Émettre un son synthétique</button>
+<div class="grid">
+<div class="metric"><small>Amplitude relative</small><strong id="audio-amplitude">0.50</strong></div>
+<div class="metric"><small>Etat audio</small><strong id="audio-status">Repos</strong></div>
+</div>
+<p>Pour de vrais tests micro Android, utilise Android Emulator avec ses contrôles audio ou le téléphone physique.</p>
+</section>
+<section class="card providers"><h2>🔧 Applications et projets étudiés</h2>
+<p>Références techniques : aucun de ces logiciels n'est installé par cette page ni raccordé à ChatGPT.</p>
+<div class="tools">
+<div class="tool"><a href="https://github.com/Ylianst/MeshCentral" target="_blank" rel="noopener">MeshCentral</a><p>Bureau, terminal, fichiers et flotte d'agents.</p></div>
+<div class="tool"><a href="https://github.com/rustdesk/rustdesk" target="_blank" rel="noopener">RustDesk</a><p>Accès graphique et assistance distante.</p></div>
+<div class="tool"><a href="https://github.com/apache/guacamole-client" target="_blank" rel="noopener">Guacamole</a><p>Passerelle navigateur RDP/VNC/SSH.</p></div>
+<div class="tool"><a href="https://github.com/dwservice/agent" target="_blank" rel="noopener">DWService</a><p>Agent distant depuis le navigateur, avec dépendance réseau.</p></div>
+<div class="tool"><a href="https://github.com/Genymobile/scrcpy" target="_blank" rel="noopener">scrcpy</a><p>Contrôler Android depuis le PC : sens inverse.</p></div>
+<div class="tool"><a href="https://github.com/LizardByte/Sunshine" target="_blank" rel="noopener">Sunshine / Moonlight</a><p>Vidéo et audio interactifs à faible latence.</p></div>
+</div></section>
+</main><footer>Laboratoire isolé · BCP / ChatGPT-PC · pas une certification terrain · pas de réseau sortant automatique</footer>
+<script>
+(() => {
+const $ = id => document.getElementById(id);
+const fields=["internet","cable","tether","awake","paired","agent","guardian"];
+const initial={internet:true,cable:true,tether:true,awake:true,paired:true,agent:true,guardian:true};
+const log=(msg)=>{const d=document.createElement("div");d.textContent=new Date().toLocaleTimeString("fr-FR")+"  "+msg;$("log").prepend(d);};
+function reason(){
+if(!$("internet").checked)return "PHONE_CLOUD_OFFLINE";
+if(!$("cable").checked)return "USB_CABLE_UNPLUGGED";
+if(!$("tether").checked)return "USB_DATA_UNAVAILABLE";
+if(!$("awake").checked)return "PC_ASLEEP";
+if(+$("battery").value<=2)return "PHONE_BATTERY_CRITICAL";
+if(!$("paired").checked)return "NOT_PAIRED";
+if(!$("agent").checked)return "PC_AGENT_DOWN";
+return "VIRTUAL_AGENT_RESPONSE";
+}
+function paint(){
+const r=reason(),ready=r==="VIRTUAL_AGENT_RESPONSE";
+$("phone-line").textContent=ready?"Liaison virtuelle active":r;
+$("battery-label").textContent=$("battery").value+" %";$("battery-value").textContent=$("battery-label").textContent;
+$("net-label").textContent=$("internet").checked?"Actif":"Coupé";
+$("cable-label").textContent=$("cable").checked?"Branché":"Débranché";
+$("agent-label").textContent=$("agent").checked?"Actif":"Arrêté";
+$("link-status").textContent=ready?"USB IP":"Indisponible";
+$("agent-status").textContent=$("agent").checked?"Actif":"Hors service";
+$("gain-val").textContent=$("gain").value+"%";
+$("audio-amplitude").textContent=(+$("gain").value/100).toFixed(2);
+}
+fields.forEach(id=>$(id).addEventListener("change",()=>{paint();log("Condition modifiée : "+id);}));
+["battery","gain"].forEach(id=>$(id).addEventListener("input",paint));
+$("diagnose").onclick=()=>{const r=reason();log((r==="VIRTUAL_AGENT_RESPONSE"?"SUCCESS : ":"BLOQUÉ : ")+r);paint();};
+$("repair").onclick=()=>{if(!$("guardian").checked){log("FAILED : SUPERVISOR_DOWN");return;}if(!$("cable").checked||!$("tether").checked||!$("awake").checked){log("FAILED : transport USB indisponible");return;}
+if(!confirm("Autoriser la réparation de l'AGENT VIRTUEL uniquement ?")){log("Réparation refusée");return;}
+$("agent").checked=true;paint();log("SUCCESS : SUPERVISOR_RECOVERY_SIMULATED (aucune action Windows réelle)");};
+$("reset").onclick=()=>{fields.forEach(id=>$(id).checked=initial[id]);$("battery").value=70;$("gain").value=50;$("mute").checked=false;$("loss").checked=false;paint();log("Laboratoire réinitialisé");};
+$("audio").onclick=async()=>{
+const win=window.AudioContext||window.webkitAudioContext;
+if(!win){log("AudioContext non disponible dans ce navigateur");return;}
+const ctx=new win(),osc=ctx.createOscillator(),gain=ctx.createGain();
+const silenced=$("mute").checked||$("loss").checked;
+osc.frequency.value=440;osc.type="sine";gain.gain.value=silenced?0:Math.min(0.3,+$("gain").value/500);
+osc.connect(gain);gain.connect(ctx.destination);osc.start();osc.stop(ctx.currentTime+0.32);
+$("audio-status").textContent=silenced?"Silence simulé":"440 Hz";
+log("AUDIO : "+(silenced?"silence / perte":"tonalité 440 Hz")+", gain="+$("gain").value+"% (navigateur seulement)");
+osc.onended=()=>{ctx.close();};
+};
+paint();log("LAB READY — scénario virtuel, aucun PC réel connecté");
+})();
+</script></body></html>

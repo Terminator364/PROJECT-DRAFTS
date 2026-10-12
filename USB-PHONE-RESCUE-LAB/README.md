@@ -7,6 +7,7 @@ No GitHub-hosted CI; the repository-wide `AGENTS.md` cost policy applies.
 ## Purpose
 A fault-injection laboratory for a proposed ChatGPT -> authenticated mission channel -> Android B-Edge -> USB network -> Windows rescue agent. It is NOT an Android Emulator, a Windows emulator, an APK, an installation package, or a new ChatGPT connector.
 
+- `demo.html`: zero-install interactive French lab UI with virtual Android/USB/PC faults, optional synthetic Web Audio beep, and remote-app links. No live PC connector.
 - `bridge_lab.py`: deterministic protocol model with authenticated, device-bound envelopes; anti-replay; explicit approval; virtual sandbox; linked transport and guardian failures; offline queue.
 - `audio_sim.py`: synthetic PCM and optional WAV generation, mute, clipping, low volume, 20-ms packet-loss simulation.
 - `display_sim.py`: synthetic RGB frames, simulated black screen, frozen desktop and dropped video frames; optional PPM. NEVER a real screenshot.
