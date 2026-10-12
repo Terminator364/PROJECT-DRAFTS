@@ -1,0 +1,59 @@
+name: BCP USB Rescue R3 — APK beta (déclenchement manuel)
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  validation-and-apk:
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    steps:
+      - name: Checkout exact R3 construction
+        uses: actions/checkout@v4
+        with:
+          ref: work/usb-phone-rescue-lab-2026-10-12
+          persist-credentials: false
+      - name: Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - name: Run offline-first regression tests before downloading Android SDK
+        working-directory: USB-PHONE-RESCUE-LAB/r3-src
+        run: |
+          python3 -m unittest discover -s tests -q
+      - name: Android build tools
+        uses: android-actions/setup-android@v3
+      - name: Android SDK 35
+        run: sdkmanager 'platforms;android-35' 'build-tools;35.0.0'
+      - name: Gradle 8.9
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.9'
+      - name: Build native R3 debug APK
+        working-directory: USB-PHONE-RESCUE-LAB/r3-src/android
+        run: gradle --no-daemon --stacktrace :app:assembleDebug
+      - name: Verify APK, package identity and certificate
+        shell: bash
+        run: |
+          set -euo pipefail
+          APK="USB-PHONE-RESCUE-LAB/r3-src/android/app/build/outputs/apk/debug/app-debug.apk"
+          test -s "$APK"
+          if [[ ! -f "${ANDROID_HOME}/build-tools/35.0.0/apksigner" ]]; then echo 'apksigner missing'; exit 1; fi
+          "${ANDROID_HOME}/build-tools/35.0.0/apksigner" verify --verbose --print-certs "$APK" | tee apk-certificate.txt
+          "${ANDROID_HOME}/build-tools/35.0.0/aapt" dump badging "$APK" | grep '^package: name=' | tee apk-package.txt
+          grep -F "name='com.blessing.rescuebridge'" apk-package.txt
+          sha256sum "$APK" | tee apk-sha256.txt
+          echo 'DEBUG CERTIFICATE IS RUNNER GENERATED: not a durable in-place update identity' | tee apk-signing-limits.txt
+      - name: Export APK and verification receipts
+        uses: actions/upload-artifact@v4
+        with:
+          name: BCP-USB-Rescue-R3-DEBUG-not-durable-signed
+          path: |
+            USB-PHONE-RESCUE-LAB/r3-src/android/app/build/outputs/apk/debug/app-debug.apk
+            apk-certificate.txt
+            apk-package.txt
+            apk-sha256.txt
+            apk-signing-limits.txt
+          retention-days: 7
+          if-no-files-found: error
