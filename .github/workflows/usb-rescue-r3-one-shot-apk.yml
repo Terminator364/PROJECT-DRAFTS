@@ -1,13 +1,9 @@
 name: BCP USB Rescue R3.1 — one-shot APK certification
 
-# Exceptional owner-requested one-shot build, NOT a general push CI trigger.
-# The only trigger is a unique release marker in a dedicated feature branch.
+# One-shot release already completed successfully (GitHub run 38270239525).
+# Automatic triggering is disabled again. Future builds require explicit approval.
 on:
-  push:
-    branches:
-      - work/usb-phone-rescue-lab-2026-10-12
-    paths:
-      - 'USB-PHONE-RESCUE-LAB/r3_1-src/ci-release-trigger-20261012*.txt'
+  workflow_dispatch:
 
 permissions:
   contents: read
