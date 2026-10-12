@@ -22,13 +22,13 @@ jobs:
           $ErrorActionPreference='Stop'
           $archive='experiments/Blessing-BookHarvester-V1.4.8-Sources.zip'
           $got=(Get-FileHash -LiteralPath $archive -Algorithm SHA256).Hash.ToLowerInvariant()
-          if($got -ne 'a2fc24a1f5a1bc3fccb00123c5505e1fbab5006b1147df8b25f67b8cec1af2be'){throw "Source mismatch: $got"}
+          if($got -ne '43556dc9c41b1e0bfbfff940e25fc21d0bb2c9a5a200a555062668037dd1cac7'){throw "Source mismatch: $got"}
           New-Item -ItemType Directory 'experiments/bookharvester-v148/unpacked' -Force | Out-Null
           Expand-Archive $archive 'experiments/bookharvester-v148/unpacked' -Force
       - name: Install dependencies
         shell: pwsh
         run: python -m pip install -r requirements-qa.txt
-      - name: Test one-click, real HTTP loopback, rollback, 236 chapters and recovery
+      - name: Test 92 Python cases incl. safe redirects, one-click, 236 chapters and recovery
         shell: pwsh
         run: python -m pytest -q tests --junitxml=qa-v148.xml
       - name: Test multibrowser extension code
