@@ -1,10 +1,7 @@
 name: BCP USB Rescue PC R3.1 — standalone Windows installer, one-shot
+# One-shot build passed (GitHub Actions run 38272674075). No automatic triggers.
 on:
-  push:
-    branches:
-      - work/usb-phone-rescue-lab-2026-10-12
-    paths:
-      - 'USB-PHONE-RESCUE-LAB/windows-standalone-r3_1/BUILD_ONCE_20261012.txt'
+  workflow_dispatch:
 permissions:
   contents: read
 concurrency:
