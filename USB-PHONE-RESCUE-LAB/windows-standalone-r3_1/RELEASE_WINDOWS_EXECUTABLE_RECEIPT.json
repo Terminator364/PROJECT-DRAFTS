@@ -1,0 +1,41 @@
+{
+  "schema": "bcp-usb-rescue.windows-product/1",
+  "version": "R3.1-pilot",
+  "date": "2026-10-12",
+  "result": "STANDALONE_WINDOWS_INSTALLER_BUILT_TESTED_ON_GITHUB_WINDOWS_RUNNER",
+  "installer": {
+    "name": "BCP-USB-Rescue-PC.exe",
+    "bytes": 20972921,
+    "sha256": "ed0bcd5e176e38acf4033c10ca5c5b44c5ccfbe3ef5b9c660d8d428b0e2f344c"
+  },
+  "agent": {
+    "name": "BCP-Rescue-Agent.exe",
+    "bytes": 9798654,
+    "sha256": "38182e213c014b7a1a627ae7f7999f2df2a344bf28d535d5efb7e30dda9c26d7"
+  },
+  "build": {
+    "run_id": 38272674075,
+    "run_url": "https://github.com/Terminator364/PROJECT-DRAFTS/actions/runs/38272674075",
+    "artifact_id": 11757941067,
+    "sha": "8f2ce41aab0428713eaf877f1b16f51de75b0b29",
+    "conclusion": "success",
+    "checks": [
+      "Python setup tests passed",
+      "PowerShell scripts parsed on Windows",
+      "PyInstaller agent and GUI installer built",
+      "GUI installer self-test passed on Windows",
+      "compiled agent local HTTP GET /health responded protocol 1",
+      "hashes independently checked after artifact download",
+      "PE header MZ checked"
+    ]
+  },
+  "limits": [
+    "No field test on MBMPC",
+    "No physical USB tether field test",
+    "No Android-to-Windows actual handshake on Samsung",
+    "Executable unsigned at publisher level; Windows SmartScreen may warn",
+    "HMAC-authenticated HTTP does not encrypt data; use private USB only",
+    "ChatGPT remote control is not implemented"
+  ],
+  "next": "Install on MBMPC, plug USB, enable Android USB tethering, register IP, key and port 8766 on installed Android APK."
+}
