@@ -1,0 +1,1 @@
+One-shot R3.1 Android build attempt 2: eliminate obsolete sdkmanager tools package. Earlier run 38270050489 failed before Gradle. Commit must trigger no other workflows.
