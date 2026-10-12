@@ -1,9 +1,6 @@
 name: BookHarvester V1.4.6 one-shot Windows identity-gate QA
 on:
   workflow_dispatch:
-  push:
-    branches: [feat/bookharvester-v146-identity-gates-20261012]
-    paths: ['.github/workflows/bookharvester-v146-qa.yml']
 permissions:
   contents: read
 jobs:
