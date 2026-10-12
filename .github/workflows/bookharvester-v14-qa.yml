@@ -1,8 +1,5 @@
 name: Blessing BookHarvester V1.4 Multibrowser Windows QA
 on:
-  push:
-    branches: [feat/bookharvester-v14-random3-multibrowser-20261012]
-    paths: ['.github/workflows/bookharvester-v14-qa.yml']
   workflow_dispatch:
 permissions:
   contents: read
