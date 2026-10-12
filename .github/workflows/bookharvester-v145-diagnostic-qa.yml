@@ -1,9 +1,5 @@
 name: BookHarvester V1.4.5 Cloudflare diagnostic Windows QA
 on:
-  push:
-    branches: [feat/bookharvester-v145-cloudflare-diagnostic-20261012]
-    paths:
-      - .github/workflows/bookharvester-v145-diagnostic-qa.yml
   workflow_dispatch:
 
 permissions:
@@ -57,16 +53,6 @@ jobs:
           if($p.ExitCode -ne 0){throw "EXE self-test exit $($p.ExitCode)"}
           $j=Get-Content -Raw $report | ConvertFrom-Json
           if($j.ok -ne $true -or $j.ui -ne 'ok' -or $j.version -ne '1.4.5-multibrowser-site-diagnostic'){throw 'Wrong EXE or UI probe failure'}
-      - name: Three randomized real Ranovel requests - expect blocked status, NO copyrighted text upload
-        shell: pwsh
-        continue-on-error: true
-        run: |
-          $exe=Resolve-Path '.\dist\BlessingBookHarvester\BlessingBookHarvester.exe'
-          $env:BOOKHARVESTER_HOME = Join-Path $PWD 'live-diagnostics'
-          $p=Start-Process -FilePath $exe -ArgumentList @('--book','Ranovel-Source-Audit','--url','https://ranovel.com/novel/i-am-the-demon-lord/','--count','236','--diagnose-site','--sample-seed','2026101205','--delay','2') -Wait -PassThru
-          Write-Output "RAW_SITE_GATE_EXIT=$($p.ExitCode) (nonzero means real content NOT validated)"
-          $report=Join-Path $env:BOOKHARVESTER_HOME 'Ranovel-Source-Audit\site_diagnostic_report.json'
-          if(Test-Path $report){Get-Content -Raw $report}
       - name: Assemble V1.4.5 release with verification manifest
         shell: pwsh
         run: |
