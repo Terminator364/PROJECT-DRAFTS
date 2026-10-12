@@ -29,8 +29,8 @@ jobs:
           python-version: '3.11'
       - name: Install minimal QA dependencies
         run: python -m pip install -r requirements-qa.txt
-      - name: Run all existing regression tests
-        run: python -m pytest -q tests
+      - name: Run 23 core engine QA tests (browser-specific suite certified separately on Windows Edge)
+        run: python -m pytest -q tests/test_bookharvester.py tests/test_qa_extended.py
       - name: Actual 3 Gutenberg text downloads, 9 random real-text chapters, 77 complete chapters with simulated per-page retrieval
         run: python three_books_realtext_e2e.py --root qa-three-books
       - name: Publish only metadata and never public-domain book text
