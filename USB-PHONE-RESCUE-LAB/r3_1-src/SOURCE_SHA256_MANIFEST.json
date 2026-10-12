@@ -1,0 +1,224 @@
+{
+  "apk_present": false,
+  "checksums_are_file_bytes": true,
+  "files": {
+    ".github/workflows/build-android-rescue.yml": {
+      "bytes": 1905,
+      "sha256": "4052bf524043cdbb1656c2e7cf4862c6f32ac4905d7ac29356dbefe8a7eb767d"
+    },
+    ".gitignore": {
+      "bytes": 157,
+      "sha256": "34f91c57e1acd1ef00eb92943ea0d2a81c2eda8ea755cc3f7e61f6a908fccef1"
+    },
+    "DIAGNOSTIC-PC.cmd": {
+      "bytes": 209,
+      "sha256": "ef89269cad1b56afc2c19fe3a4531ff476318eb89cbde512659c6853cbf792b3"
+    },
+    "INSTALLER-PC.cmd": {
+      "bytes": 207,
+      "sha256": "6b01c56d8d6268cd1cc1652e293e088755c3335380ac60b453855277caea326a"
+    },
+    "LISEZ-MOI-AVANT-INSTALLATION.txt": {
+      "bytes": 1301,
+      "sha256": "287e49d15da1584cba81c60703d84debecb563bdafa9eee0c25dbd618d01eedf"
+    },
+    "README.md": {
+      "bytes": 4952,
+      "sha256": "c210959fca704e3a7e60e4a9a503b8f2e010cb4f7e52ef653287eeccbd44a2e0"
+    },
+    "RELEASE_STATUS.md": {
+      "bytes": 1540,
+      "sha256": "f4c56942c5ba9aeaf5086a9121e614a9b0a120c467533bed3a1e7da554442151"
+    },
+    "UX_AUDIT_R3.md": {
+      "bytes": 3559,
+      "sha256": "d2de60048ec8c78dc735a3c3837589f652182981337d1e4fb2562880e8ac056b"
+    },
+    "android/app/build.gradle": {
+      "bytes": 472,
+      "sha256": "5a53160c9a5f870c8e310b9e85270a7f3efd85314fabaef0fb468eec7fc5657a"
+    },
+    "android/app/src/main/AndroidManifest.xml": {
+      "bytes": 834,
+      "sha256": "9cc2eb7ae0a0c7ccdb0350986d2e93257e1545373ee04efd6efbb7460dfc0666"
+    },
+    "android/app/src/main/java/com/blessing/rescuebridge/BridgeClient.java": {
+      "bytes": 3973,
+      "sha256": "3aa4bd02b6a1a786ceba92a7c3f07b49b2bfebc82908de2aa064a6ed6d22bc73"
+    },
+    "android/app/src/main/java/com/blessing/rescuebridge/BridgeProtocol.java": {
+      "bytes": 2447,
+      "sha256": "3d6688847649ebafcc02a6345326792718bb91044439fe7a20d9e4d7fbd9ce21"
+    },
+    "android/app/src/main/java/com/blessing/rescuebridge/LocalLinkInspector.java": {
+      "bytes": 1608,
+      "sha256": "0bbe026e9612e44a2191110cd4ce2367920bc8160255230690bced7b3bbce0b8"
+    },
+    "android/app/src/main/java/com/blessing/rescuebridge/MainActivity.java": {
+      "bytes": 23899,
+      "sha256": "1db49ba30500e25bd0f874ca403b8f43c2a982c5f35d4ea755dbddd5bf0d4a28"
+    },
+    "android/app/src/main/java/com/blessing/rescuebridge/MissionPolicy.java": {
+      "bytes": 1373,
+      "sha256": "d7fba784472e88e653fecfa9e49f3fcfcd6e63f60817047be1bf6cd1bb3b0bda"
+    },
+    "android/app/src/main/java/com/blessing/rescuebridge/RescueAdvisor.java": {
+      "bytes": 2674,
+      "sha256": "f30dc6529716d6b26dc471a5c579f9fa9eb4b24438bab1a0d508236afa4b9224"
+    },
+    "android/app/src/main/java/com/blessing/rescuebridge/SecurePairingStore.java": {
+      "bytes": 3117,
+      "sha256": "e0dcbc747d32ac2552e726b831f740d0c3accbb383917a512889ccb71ba43192"
+    },
+    "android/app/src/main/res/drawable/rescue_background.xml": {
+      "bytes": 277,
+      "sha256": "123e496193ca60eb7e834e0e63e58fc04fd12cd6f4e4352b56527801d448927b"
+    },
+    "android/app/src/main/res/drawable/rescue_foreground.xml": {
+      "bytes": 645,
+      "sha256": "1d5a19fae8762aa90c3a0e70a0e3304fff68a6e1695d30475af2cf5e317cf461"
+    },
+    "android/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml": {
+      "bytes": 222,
+      "sha256": "689c72cc10be4b5eb5e8df426c91756490866eb6d8afd0b210f62737549a3a08"
+    },
+    "android/build.gradle": {
+      "bytes": 73,
+      "sha256": "c3c0cf04da0fc239f391c774554d97d890018ab6e37e87cc62f6070d0c8c9909"
+    },
+    "android/gradle.properties": {
+      "bytes": 76,
+      "sha256": "fb298af7d84d0e20523e7172625a8d975a11efa043c573ca97f8997a0e84fb5f"
+    },
+    "android/settings.gradle": {
+      "bytes": 273,
+      "sha256": "1cb8830f132b02924f3bf0f5b88e0e87353bc8c56e6972c91d8843c6873318d3"
+    },
+    "reports/qa_cycles.json": {
+      "bytes": 6720,
+      "sha256": "85ae1016c688cd7ebca622026b5ff236aa6ebf902763702b99f452c1a4125fe7"
+    },
+    "run_qa.py": {
+      "bytes": 2111,
+      "sha256": "7440148ee7426f25c639e83d1f9e07ad65f0bcf8b699ae4fe2822515478f115a"
+    },
+    "tests/BridgeInteropCli.java": {
+      "bytes": 1871,
+      "sha256": "42358b8c7aee0b195f7d3ecce1273cea6b1abc75a7eb83ba746c9bcc88251f7c"
+    },
+    "tests/java/MissionPolicyProbe.java": {
+      "bytes": 868,
+      "sha256": "2a1335f50849bfc72a2bf704dbd754c31ea2886da9cbfcb79f18cc34ef2321ff"
+    },
+    "tests/java/ParseAndroidJava.java": {
+      "bytes": 1339,
+      "sha256": "fcf2144a588b61471a5ad9b6210d0ca756fa425c6143e8cc33b8ae1a0cbe21d3"
+    },
+    "tests/java/ProtocolProbe.java": {
+      "bytes": 788,
+      "sha256": "684791a8189c04b011b91dfea25c3f262c094861b7ffdd8207c273c1bb683578"
+    },
+    "tests/java/RescueAdvisorProbe.java": {
+      "bytes": 1225,
+      "sha256": "3c278d25f421d3d56f95a6082ce1dde2826ddf562c415d66bf81b7d88aa2e6cf"
+    },
+    "tests/test_agent.py": {
+      "bytes": 5054,
+      "sha256": "8d3940bebcb63e1d76f4894d69e698d55bef9ac58d344508d6c64013d162944e"
+    },
+    "tests/test_android_interop.py": {
+      "bytes": 3616,
+      "sha256": "a5b585af9c6fe66296865ee58dc92659794cd27e4779c23e4abd4e5e34003226"
+    },
+    "tests/test_fault_cycles.py": {
+      "bytes": 3413,
+      "sha256": "56a8e130c43115aa3b6d74e794fe50889502254a80242db80bdcb73af2489871"
+    },
+    "tests/test_java_interop.py": {
+      "bytes": 1664,
+      "sha256": "16a0544cb36f55bda2c88f879758041db5c1a51d49d799ae5d55de31502ef778"
+    },
+    "tests/test_mission_generator.py": {
+      "bytes": 941,
+      "sha256": "bf9a3120ce225dde7aa24968c89fdd9d9919a1bffc97c3da3cd5936c2ef9de8b"
+    },
+    "tests/test_mission_policy.py": {
+      "bytes": 1580,
+      "sha256": "d4b72fc493bb04deca7d9e28717699b8eb3b97f51b6bcecd0a6ee515916bab5f"
+    },
+    "tests/test_usb_readiness.py": {
+      "bytes": 4126,
+      "sha256": "078a692b84f7581231536f4b577b540ca7fc216a2ce0f5c711691cab09275439"
+    },
+    "tests/test_user_experience.py": {
+      "bytes": 3871,
+      "sha256": "b2718d1abef23f3bce22ada4d59bc5a3eea8dbb99791ecee901639c6cef294f1"
+    },
+    "tests/test_windows_install_contract.py": {
+      "bytes": 894,
+      "sha256": "45cbe1bf29b9a79e1d541092ac7c08e672a5bba3c752974da08e07c30e5038b9"
+    },
+    "tools_mission_generator.py": {
+      "bytes": 1689,
+      "sha256": "b5f24cfbdccb9d912f9771038f2ab183ab7699ce09bbc736358fbbfa839a9a1b"
+    },
+    "windows/DIAGNOSTIC.cmd": {
+      "bytes": 278,
+      "sha256": "a4fd61c6c0356daa1ec5aabe5ca5d20355f5e7ff06b6a19619480880696106c2"
+    },
+    "windows/FIX-USB-FIREWALL.cmd": {
+      "bytes": 379,
+      "sha256": "335cd3bfb076430cd56b057b24f28a5bb136f796ba490264ac83d6ea2d767665"
+    },
+    "windows/Fix-UsbFirewall.ps1": {
+      "bytes": 3316,
+      "sha256": "3d82b997188c0bbeb175437624ffb0fbaca966602fe7281dce5de75883951149"
+    },
+    "windows/INSTALLER.cmd": {
+      "bytes": 315,
+      "sha256": "220ee4ba6d01d6780bc180c460ecb48c2f4fd245c73bb7c4a755b2283f4f02bc"
+    },
+    "windows/Install-Rescue.ps1": {
+      "bytes": 3568,
+      "sha256": "9ec57a5e5635aa6011dbe188f0ea808a1fd0254cab779f634a152ee55d9eaffa"
+    },
+    "windows/REMOVE-USB-FIREWALL.cmd": {
+      "bytes": 284,
+      "sha256": "41b906b42016a17a78d5c4abb627aa90be1a3a149f9a93d3cd36a6d11d94b84b"
+    },
+    "windows/REMOVE.cmd": {
+      "bytes": 337,
+      "sha256": "89eeeccfd248eefe1217d5f673307f5cfaca9793936ba9aa2148a0a6890600da"
+    },
+    "windows/Request-UsbFirewall.ps1": {
+      "bytes": 608,
+      "sha256": "12161b2b1ec6f581b8b2d3f252a1126cebbf111e88bb5034cbbfc69ba1703b27"
+    },
+    "windows/SHOW-PAIRING-KEY.cmd": {
+      "bytes": 444,
+      "sha256": "f00ffb9867b9c04af19e9b05f3db8cf88d7699c11b1da70d482ae344b4496bbb"
+    },
+    "windows/START-NOW.cmd": {
+      "bytes": 152,
+      "sha256": "a6836c04ec64f809d5f11f1e02a5731ed06bc47e75f8698e64ab9333b04365f9"
+    },
+    "windows/Start-Bridge.ps1": {
+      "bytes": 5318,
+      "sha256": "21fe3df72485c489f1d30a787fc631e5e2de5d0ac65ec585fc7bd711607b63d2"
+    },
+    "windows/USB-READINESS.cmd": {
+      "bytes": 190,
+      "sha256": "3cf302c14f3f34508eb4d0ad0098be7cec81520117b8f4632c48d551443cbf26"
+    },
+    "windows/Usb-Readiness.ps1": {
+      "bytes": 2326,
+      "sha256": "85bb2ed4f2a4fd703bc4fdd548c9f646ac8e0c5ab4e848c1d0b1907be6fb8d3e"
+    },
+    "windows/bridge_agent.py": {
+      "bytes": 11355,
+      "sha256": "c5830391cc7378eea383d9be5a0ce2628a3000ccfadcdd0226305f02cc56be2c"
+    }
+  },
+  "manifest_self_excluded": true,
+  "schema": "bcp-rescue-r3_1-manifest/1"
+}

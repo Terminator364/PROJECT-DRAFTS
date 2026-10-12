@@ -1,0 +1,4 @@
+@echo off
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File "%~dp0Start-Bridge.ps1"
+if errorlevel 1 echo Guardian error. See details above.
+pause

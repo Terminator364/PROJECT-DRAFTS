@@ -1,0 +1,24 @@
+BCP USB Rescue R3.1 — PILOTE (12 octobre 2026)
+
+CE ZIP CONTIENT LE CODE SOURCE ANDROID, LES TESTS ET L'AGENT WINDOWS.
+IL NE CONTIENT PAS D'APK : compilation Android non encore validée.
+
+Ordinateur Windows :
+1. Extraire le ZIP UNE FOIS dans un dossier unique.
+2. Si Python 3.10+ est déjà installé, lancer INSTALLER-PC.cmd.
+3. Brancher le téléphone et activer Partage de connexion USB dans Android.
+4. Lancer windows\START-NOW.cmd puis windows\DIAGNOSTIC.cmd.
+   Si le diagnostic indique une connexion entrante bloquee, lancer UNIQUEMENT
+   sur accord explicite windows\FIX-USB-FIREWALL.cmd (UAC Windows).
+5. Lire la clé Windows localement avec windows\SHOW-PAIRING-KEY.cmd.
+
+Android : après compilation par GitHub Actions, installer l'APK uniquement si
+son empreinte et sa signature ont été vérifiées et si son certificat est
+compatible avec l'APK déjà installée. La signature debug CI varie selon runner.
+
+IMPORTANT : sans chiffrement de transport, ne pas utiliser sur un Wi-Fi public,
+ne pas transférer de données médicales ou privées, ni exposer le port au Web.
+La liaison ne donne PAS automatiquement à ChatGPT accès à Windows.
+
+Pour les tests : python run_qa.py (JDK nécessaire à certains tests).
+Voir UX_AUDIT_R3.md et RELEASE_STATUS.md pour les limites et les preuves.
