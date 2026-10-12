@@ -44,7 +44,7 @@ def main():
         return save("robots_disallow_or_unavailable",2)
     cat=None
     try:
-        with tempfile.TemporaryDirectory(prefix="bookharvester-browser-check-") as temp:
+        with tempfile.TemporaryDirectory(prefix="bookharvester-browser-check-", ignore_cleanup_errors=True) as temp:
             root=Path(temp)
             cat=bh.Catalog(root/"library.sqlite3")
             cat.plan(BOOK,urls,"novel",expected_end=3)
@@ -61,7 +61,8 @@ def main():
                         if response is None or response.status in (401,403,407,429,451):
                             row["error"]="access_blocked"
                             result["chapters"].append(row)
-                            return save("site_restricted_in_chrome",3)
+                            cat.connection.close();cat=None
+                        return save("site_restricted_in_chrome",3)
                         markup=tab.content()
                         row["css_candidates"]=describe(markup)
                         title,body=bh.extract_text(markup,min_chars=350)
@@ -76,12 +77,14 @@ def main():
                         row["error_type"]=type(exc).__name__
                         row["error"]=str(exc)[:150]
                         if row not in result["chapters"]:result["chapters"].append(row)
+                        cat.connection.close();cat=None
                         return save("chrome_or_dom_failure",4)
                 browser.close()
             inv=bh.inventory(cat,BOOK)
             result["inventory"]={k:inv[k] for k in ["ok","total","expected","complete","pending","duplicates","integrity_errors"]}
             if not inv["complete"] or len({c.get("sha256_prefix") for c in result["chapters"]})!=3:
-                return save("integrity_failure",5)
+                cat.connection.close();cat=None
+                        return save("integrity_failure",5)
             epub=bh.export_epub(BOOK,root,root/"test.epub")
             pdf=bh.export_pdf(BOOK,root,root/"test.pdf")
             with ZipFile(epub) as z:
@@ -89,7 +92,8 @@ def main():
             pages=len(PdfReader(str(pdf)).pages)
             result["export"]={"epub_chapters":n_epub,"pdf_pages":pages}
             if n_epub!=3 or pages<3:
-                return save("export_failure",6)
+                cat.connection.close();cat=None
+                        return save("export_failure",6)
             result["status"]="PASS"
             cat.connection.close()
             cat=None
