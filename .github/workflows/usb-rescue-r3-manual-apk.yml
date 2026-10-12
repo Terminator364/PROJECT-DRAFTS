@@ -1,4 +1,4 @@
-name: BCP USB Rescue R3 — APK beta (déclenchement manuel)
+name: BCP USB Rescue R3.1 — APK beta (déclenchement manuel)
 on:
   workflow_dispatch:
 permissions:
@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 18
     steps:
-      - name: Checkout exact R3 construction
+      - name: Checkout exact R3.1 source branch
         uses: actions/checkout@v4
         with:
           ref: work/usb-phone-rescue-lab-2026-10-12
@@ -19,7 +19,7 @@ jobs:
           distribution: temurin
           java-version: '17'
       - name: Run offline-first regression tests before downloading Android SDK
-        working-directory: USB-PHONE-RESCUE-LAB/r3-src
+        working-directory: USB-PHONE-RESCUE-LAB/r3_1-src
         run: |
           python3 -m unittest discover -s tests -q
       - name: Android build tools
@@ -30,14 +30,14 @@ jobs:
         uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: '8.9'
-      - name: Build native R3 debug APK
-        working-directory: USB-PHONE-RESCUE-LAB/r3-src/android
+      - name: Build native R3.1 debug APK
+        working-directory: USB-PHONE-RESCUE-LAB/r3_1-src/android
         run: gradle --no-daemon --stacktrace :app:assembleDebug
       - name: Verify APK, package identity and certificate
         shell: bash
         run: |
           set -euo pipefail
-          APK="USB-PHONE-RESCUE-LAB/r3-src/android/app/build/outputs/apk/debug/app-debug.apk"
+          APK="USB-PHONE-RESCUE-LAB/r3_1-src/android/app/build/outputs/apk/debug/app-debug.apk"
           test -s "$APK"
           if [[ ! -f "${ANDROID_HOME}/build-tools/35.0.0/apksigner" ]]; then echo 'apksigner missing'; exit 1; fi
           "${ANDROID_HOME}/build-tools/35.0.0/apksigner" verify --verbose --print-certs "$APK" | tee apk-certificate.txt
@@ -48,9 +48,9 @@ jobs:
       - name: Export APK and verification receipts
         uses: actions/upload-artifact@v4
         with:
-          name: BCP-USB-Rescue-R3-DEBUG-not-durable-signed
+          name: BCP-USB-Rescue-R3.1-DEBUG-not-durable-signed
           path: |
-            USB-PHONE-RESCUE-LAB/r3-src/android/app/build/outputs/apk/debug/app-debug.apk
+            USB-PHONE-RESCUE-LAB/r3_1-src/android/app/build/outputs/apk/debug/app-debug.apk
             apk-certificate.txt
             apk-package.txt
             apk-sha256.txt
