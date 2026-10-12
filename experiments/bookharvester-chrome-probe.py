@@ -62,7 +62,7 @@ def main():
                             row["error"]="access_blocked"
                             result["chapters"].append(row)
                             cat.connection.close();cat=None
-                        return save("site_restricted_in_chrome",3)
+                            return save("site_restricted_in_chrome",3)
                         markup=tab.content()
                         row["css_candidates"]=describe(markup)
                         title,body=bh.extract_text(markup,min_chars=350)
@@ -84,7 +84,7 @@ def main():
             result["inventory"]={k:inv[k] for k in ["ok","total","expected","complete","pending","duplicates","integrity_errors"]}
             if not inv["complete"] or len({c.get("sha256_prefix") for c in result["chapters"]})!=3:
                 cat.connection.close();cat=None
-                        return save("integrity_failure",5)
+                return save("integrity_failure",5)
             epub=bh.export_epub(BOOK,root,root/"test.epub")
             pdf=bh.export_pdf(BOOK,root,root/"test.pdf")
             with ZipFile(epub) as z:
@@ -93,7 +93,7 @@ def main():
             result["export"]={"epub_chapters":n_epub,"pdf_pages":pages}
             if n_epub!=3 or pages<3:
                 cat.connection.close();cat=None
-                        return save("export_failure",6)
+                return save("export_failure",6)
             result["status"]="PASS"
             cat.connection.close()
             cat=None
