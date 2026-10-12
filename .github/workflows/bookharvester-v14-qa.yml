@@ -19,9 +19,9 @@ jobs:
         working-directory: .
         shell: pwsh
         run: |
-          $source='experiments/Blessing-BookHarvester-V1.4.2-Sources.zip'
+          $source='experiments/Blessing-BookHarvester-V1.4.3-Sources.zip'
           $sha=(Get-FileHash -Algorithm SHA256 $source).Hash.ToLowerInvariant()
-          if ($sha -ne '335734a78db9ee959833d293f9ede7b86ef69e51ee686fae47d9eb914b1827d1') { throw "Source SHA256 invalid $sha" }
+          if ($sha -ne '30928e896730c8e51d37b8911b27225d7711390ad4b0e2ca5831686b67af8e8c') { throw "Source SHA256 invalid $sha" }
           New-Item -ItemType Directory 'experiments/BH-V14' -Force | Out-Null
           Expand-Archive -LiteralPath $source -DestinationPath 'experiments/BH-V14' -Force
       - uses: actions/setup-python@v5
