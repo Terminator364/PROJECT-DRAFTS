@@ -1,9 +1,5 @@
 name: BookHarvester V1.4.8 RC2 Windows one-time release QA
 on:
-  push:
-    branches: [feat/bookharvester-v148-rc2-94tests-windows-20261012]
-    paths:
-      - 'experiments/Blessing-BookHarvester-V1.4.8-RC2-94tests-Sources.zip'
   workflow_dispatch:
 permissions:
   contents: read
