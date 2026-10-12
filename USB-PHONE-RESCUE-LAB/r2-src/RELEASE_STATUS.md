@@ -4,7 +4,7 @@
 - Android Java sources (native Activity, USB-network client, AndroidKeyStore pairing, HMAC protocol).
 - Windows Python bounded agent, persisted SQLite anti-replay, audit log and atomic test-workspace writes.
 - Current-user Windows installer/USB-tether guardian script with circuit-breaker.
-- Three local QA cycles, 28 tests per cycle: 84/84 passed after correcting package/manifest mismatch.
+- Three local QA cycles, 32 tests per cycle: 96/96 passed after correcting package/manifest mismatch.
 - JVM/Python protocol interoperability, 50 signed status calls, 20 Unicode file round-trips and refusal tests.
 - Source ZIP built, SHA-256 recorded separately.
 
