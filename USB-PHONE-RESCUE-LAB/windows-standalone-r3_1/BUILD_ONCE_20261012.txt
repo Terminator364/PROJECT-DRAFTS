@@ -1,1 +1,3 @@
 Authorized one-shot Windows installer build, 2026-10-12. Compile two standalone .exe files; test bridge on Windows loopback; deliver verified artifact. Do not install or run on MBMPC via remote access.
+
+Attempt 2: use Start-Process -Wait to inspect true Windows GUI exit status. 2026-10-12.
