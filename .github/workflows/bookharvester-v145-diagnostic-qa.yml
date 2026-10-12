@@ -73,10 +73,23 @@ jobs:
           $ErrorActionPreference='Stop'
           New-Item -ItemType Directory release -Force | Out-Null
           Copy-Item '.\dist\BlessingBookHarvester' '.\release\BookHarvesterApp' -Recurse
-          Copy-Item '.\edge-extension' '.\release\Chromium-Extension' -Recurse
+          Copy-Item '.\edge-extension' '.\release\Edge-Extension' -Recurse
           Copy-Item '.\Install-Portable.ps1', '.\Install-Portable.bat' '.\release'
+          $installer=(Resolve-Path '.\release\Install-Portable.ps1').Path
+          $source=[System.IO.File]::ReadAllText($installer)
+          if(-not $source.Contains('app-v1.4.0')){throw 'Baseline install path changed; stop'}
+          $source=$source.Replace('app-v1.4.0','app-v1.4.5').Replace('self-test-1.4.0','self-test-1.4.5').Replace('BookHarvester V1.4 -','BookHarvester V1.4.5 -')
+          [System.IO.File]::WriteAllText($installer,$source)
           $hash=(Get-FileHash '.\release\BookHarvesterApp\BlessingBookHarvester.exe' -Algorithm SHA256).Hash.ToLowerInvariant()
           Set-Content -Encoding ASCII '.\release\SHA256.txt' $hash
+          & powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File '.\release\Install-Portable.ps1'
+          if($LASTEXITCODE -ne 0){throw 'Installer failed'}
+          $target=Join-Path $env:LOCALAPPDATA 'BlessingBookHarvester\app-v1.4.5\BlessingBookHarvester.exe'
+          if(!(Test-Path -LiteralPath $target)){throw 'V1.4.5 isolated folder missing'}
+          $lnk=Join-Path ([Environment]::GetFolderPath('Desktop')) 'Blessing BookHarvester.lnk'
+          if(!(Test-Path -LiteralPath $lnk)){throw 'Desktop shortcut missing'}
+          $actual=(New-Object -ComObject WScript.Shell).CreateShortcut($lnk).TargetPath
+          if($actual -ne $target){throw 'Wrong shortcut target'}
           Compress-Archive '.\release\*' '.\Blessing-BookHarvester-Windows-V1.4.5.zip' -Force
       - uses: actions/upload-artifact@v4
         if: always()
