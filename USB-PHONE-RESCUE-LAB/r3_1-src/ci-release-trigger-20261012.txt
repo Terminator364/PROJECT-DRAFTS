@@ -1,0 +1,4 @@
+BCP USB RESCUE R3.1
+Purpose: ONE owner-authorized CI build to obtain the Android installable APK.
+Requested: 2026-10-12
+Only this unique marker path triggers the exceptional build.
