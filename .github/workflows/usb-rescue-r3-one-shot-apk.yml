@@ -1,0 +1,83 @@
+name: BCP USB Rescue R3.1 — one-shot APK certification
+
+# Exceptional owner-requested one-shot build, NOT a general push CI trigger.
+# The only trigger is a unique release marker in a dedicated feature branch.
+on:
+  push:
+    branches:
+      - work/usb-phone-rescue-lab-2026-10-12
+    paths:
+      - 'USB-PHONE-RESCUE-LAB/r3_1-src/ci-release-trigger-20261012*.txt'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: usb-rescue-r3-one-shot
+  cancel-in-progress: false
+
+jobs:
+  build-apk:
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - name: Verify canonical R3.1 source and portable tests
+        shell: bash
+        run: |
+          set -euo pipefail
+          cd USB-PHONE-RESCUE-LAB/r3_1-src
+          python3 -m unittest discover -s tests -q
+          python3 - <<'PY'
+          import pathlib,hashlib,json
+          root=pathlib.Path('.')
+          assert (root/'android/app/build.gradle').is_file()
+          assert (root/'android/app/src/main/java/com/blessing/rescuebridge/MainActivity.java').is_file()
+          assert 'com.blessing.rescuebridge' in (root/'android/app/build.gradle').read_text()
+          assert 'versionCode 3' in (root/'android/app/build.gradle').read_text()
+          print('R3.1 identity and source present')
+          PY
+      - uses: android-actions/setup-android@v3
+      - name: Install Android SDK API 35
+        shell: bash
+        run: |
+          set -euo pipefail
+          yes | sdkmanager --licenses > /dev/null || true
+          sdkmanager 'platforms;android-35' 'build-tools;35.0.0'
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.9'
+      - name: Compile R3.1 debug APK
+        shell: bash
+        run: |
+          set -euo pipefail
+          gradle --no-daemon --stacktrace -p USB-PHONE-RESCUE-LAB/r3_1-src/android :app:assembleDebug
+      - name: Verify real APK signature, package and integrity
+        shell: bash
+        run: |
+          set -euo pipefail
+          APK=USB-PHONE-RESCUE-LAB/r3_1-src/android/app/build/outputs/apk/debug/app-debug.apk
+          test -s "$APK"
+          "${ANDROID_HOME}/build-tools/35.0.0/apksigner" verify --verbose --print-certs "$APK" | tee apk-certification.txt
+          "${ANDROID_HOME}/build-tools/35.0.0/aapt" dump badging "$APK" | grep '^package:' | tee apk-package.txt
+          grep -F "name='com.blessing.rescuebridge'" apk-package.txt
+          sha256sum "$APK" | tee apk-sha256.txt
+          unzip -t "$APK" | tail -3 | tee apk-archive-integrity.txt
+      - name: Upload APK and verification receipts
+        uses: actions/upload-artifact@v4
+        with:
+          name: BCP-USB-Rescue-R3.1-Android-APK
+          path: |
+            USB-PHONE-RESCUE-LAB/r3_1-src/android/app/build/outputs/apk/debug/app-debug.apk
+            apk-certification.txt
+            apk-package.txt
+            apk-sha256.txt
+            apk-archive-integrity.txt
+          retention-days: 14
+          if-no-files-found: error
