@@ -1,0 +1,84 @@
+name: BookHarvester V1.4.7 one-click Windows release gate
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  windows-once:
+    runs-on: windows-latest
+    timeout-minutes: 11
+    defaults:
+      run:
+        working-directory: experiments/bookharvester-v147/unpacked
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Verify source ZIP checksum and unpack
+        shell: pwsh
+        working-directory: .
+        run: |
+          $ErrorActionPreference='Stop'
+          $zip='experiments/Blessing-BookHarvester-V1.4.7-Sources.zip'
+          $sha=(Get-FileHash -LiteralPath $zip -Algorithm SHA256).Hash.ToLowerInvariant()
+          if($sha -ne 'c29788aab689ae33eae5d157e7ed54d2788def328781da989bed6cc5d0ea65cd'){throw "Source checksum mismatch: $sha"}
+          New-Item -ItemType Directory 'experiments/bookharvester-v147/unpacked' -Force | Out-Null
+          Expand-Archive $zip 'experiments/bookharvester-v147/unpacked' -Force
+      - name: Install dependencies for QA and EXE
+        shell: pwsh
+        run: python -m pip install -r requirements-qa.txt
+      - name: Run end-to-end oneclick, random 3, complete books and recovery tests
+        shell: pwsh
+        run: python -m pytest -q tests --junitxml=qa-v147.xml
+      - name: Test Chromium extension state machine
+        shell: pwsh
+        run: |
+          node tests/edge_worker_test.cjs
+          if($LASTEXITCODE -ne 0){throw 'Chromium worker test failed'}
+          node tests/edge_random_test.cjs
+          if($LASTEXITCODE -ne 0){throw 'Chromium random 3 test failed'}
+          node tests/edge_identity_test.cjs
+          if($LASTEXITCODE -ne 0){throw 'Chapter identity test failed'}
+      - name: Build ONE desktop shortcut program (portable Windows)
+        shell: pwsh
+        run: pyinstaller --clean --noconfirm --onedir --windowed --name BlessingBookHarvester bookharvester.py
+      - name: Smoke test the real GUI layout and runtime in packaged EXE
+        shell: pwsh
+        run: |
+          $ErrorActionPreference='Stop'
+          $exe=Resolve-Path '.\dist\BlessingBookHarvester\BlessingBookHarvester.exe'
+          $report=Join-Path $PWD 'real-gui-v147.json'
+          $p=Start-Process -FilePath $exe -ArgumentList @('--self-test','--ui-probe','--ui-layout-probe','--self-test-report',('"' + $report + '"')) -PassThru
+          if(-not $p.WaitForExit(45000)){try{$p.Kill()}catch{};throw 'Executable UI timeout'}
+          if($p.ExitCode -ne 0 -or !(Test-Path -LiteralPath $report)){throw "UI program failed $($p.ExitCode)"}
+          $j=Get-Content -Raw $report | ConvertFrom-Json
+          if($j.ok -ne $true -or $j.ui -ne 'ok' -or $j.ui_layout -ne 'ok' -or $j.version -ne '1.4.7-oneclick-desktop'){throw 'One-click GUI proof missing'}
+      - name: Assemble release, run actual Windows installer and verify desktop
+        shell: pwsh
+        run: |
+          $ErrorActionPreference='Stop'
+          New-Item -ItemType Directory 'release' -Force | Out-Null
+          Copy-Item '.\dist\BlessingBookHarvester' '.\release\BookHarvesterApp' -Recurse
+          Copy-Item '.\edge-extension' '.\release\Edge-Extension' -Recurse
+          Copy-Item '.\Install-Portable.ps1','.\Install-Portable.bat' '.\release'
+          Copy-Item '.\README.md' '.\release'
+          & powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File '.\release\Install-Portable.ps1'
+          if($LASTEXITCODE -ne 0){throw 'Installer returned failure'}
+          $target=Join-Path $env:LOCALAPPDATA 'BlessingBookHarvester\app-v1.4.7\BlessingBookHarvester.exe'
+          $link=Join-Path ([Environment]::GetFolderPath('Desktop')) 'Blessing BookHarvester.lnk'
+          if(!(Test-Path $target) -or !(Test-Path $link)){throw 'Program or shortcut not installed'}
+          $actual=(New-Object -ComObject WScript.Shell).CreateShortcut($link).TargetPath
+          if($actual -ne $target){throw 'Shortcut points to wrong version'}
+          if(!(Test-Path (Join-Path $env:LOCALAPPDATA 'BlessingBookHarvester\Chromium-Extension\manifest.json'))){throw 'Optional extension missing'}
+          (Get-FileHash '.\release\BookHarvesterApp\BlessingBookHarvester.exe' -Algorithm SHA256).Hash.ToLowerInvariant() | Set-Content '.\release\SHA256.txt' -Encoding ASCII
+          Compress-Archive '.\release\*' '.\Blessing-BookHarvester-Windows-V1.4.7.zip' -Force
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: BookHarvester-Windows-OneClick-V1.4.7
+          path: |
+            experiments/bookharvester-v147/unpacked/Blessing-BookHarvester-Windows-V1.4.7.zip
+            experiments/bookharvester-v147/unpacked/qa-v147.xml
+            experiments/bookharvester-v147/unpacked/real-gui-v147.json
+          retention-days: 6
