@@ -25,6 +25,9 @@ jobs:
           if($sha -ne 'c29788aab689ae33eae5d157e7ed54d2788def328781da989bed6cc5d0ea65cd'){throw "Source checksum mismatch: $sha"}
           New-Item -ItemType Directory 'experiments/bookharvester-v147/unpacked' -Force | Out-Null
           Expand-Archive $zip 'experiments/bookharvester-v147/unpacked' -Force
+      - name: Apply fail-closed integrity fix before qualification
+        shell: pwsh
+        run: python ..\failclosed_overlay.py
       - name: Install dependencies for QA and EXE
         shell: pwsh
         run: python -m pip install -r requirements-qa.txt
