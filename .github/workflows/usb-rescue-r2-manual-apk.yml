@@ -1,0 +1,64 @@
+name: BCP USB Rescue R2 APK - Manual Only
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  android-debug-apk:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout dedicated R2 source branch
+        uses: actions/checkout@v4
+        with:
+          ref: work/usb-phone-rescue-lab-2026-10-12
+          persist-credentials: false
+
+      - name: Verify and extract Android project
+        shell: bash
+        run: |
+          set -euo pipefail
+          base64 -d USB-PHONE-RESCUE-LAB/r2/android-source.tar.gz.base64 > /tmp/rescue-r2-android.tgz
+          echo "3e885ffbe69bee33d7c355de7d6509906d9dddff627ac1698572e7dcf5ea769c  /tmp/rescue-r2-android.tgz" | sha256sum -c -
+          tar -tzf /tmp/rescue-r2-android.tgz | grep -E '^android/'
+          tar -xzf /tmp/rescue-r2-android.tgz -C .
+
+      - name: Setup JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Install Android API 35
+        shell: bash
+        run: sdkmanager "platforms;android-35" "build-tools;35.0.0"
+
+      - name: Setup Gradle 8.9
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: "8.9"
+
+      - name: Compile debug APK
+        working-directory: android
+        shell: bash
+        run: gradle --no-daemon --stacktrace :app:assembleDebug
+
+      - name: Verify APK file and hash
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -s android/app/build/outputs/apk/debug/app-debug.apk
+          sha256sum android/app/build/outputs/apk/debug/app-debug.apk
+
+      - name: Save installable APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: BCP-USB-Rescue-R2-debug-APK
+          path: android/app/build/outputs/apk/debug/app-debug.apk
+          retention-days: 14
+          if-no-files-found: error
