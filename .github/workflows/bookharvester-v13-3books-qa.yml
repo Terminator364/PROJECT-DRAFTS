@@ -1,11 +1,6 @@
 name: BookHarvester V1.3 - 3 complete public-domain books A-to-Z
 on:
   workflow_dispatch:
-  push:
-    branches: [feat/bookharvester-v13-3books-qa-20261012]
-    paths:
-      - '.github/workflows/bookharvester-v13-3books-qa.yml'
-      - 'experiments/BookHarvester-V13-3Books-QA-Sources.zip'
 permissions:
   contents: read
 jobs:
