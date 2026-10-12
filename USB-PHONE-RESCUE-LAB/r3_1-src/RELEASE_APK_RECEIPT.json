@@ -1,0 +1,33 @@
+{
+  "schema": "bcp-usb-rescue.android-build-receipt/1",
+  "date": "2026-10-12",
+  "status": "APK_DEBUG_COMPILED_SIGNED_NOT_FIELD_TESTED",
+  "app_id": "com.blessing.rescuebridge",
+  "version_code": 3,
+  "version_name": "0.3.1-usb-readiness",
+  "apk_name": "BCP-USB-Rescue-R3.1.apk",
+  "apk_size_bytes": 33568,
+  "apk_sha256": "0597094d711acc479d5d7e1387da0ba36891942a62842b3dfe1e816fad2f7fee",
+  "signing_scheme": "v2",
+  "debug_signing_certificate_sha256": "1ca2eab5a8855d97050e3ede84d51fc14d03994478cf92091452fbe1e4954978",
+  "signing_identity_warning": "GitHub runner generated Android Debug certificate; future in-place upgrade requires matching signing key. Establish private durable release keystore before non-debug distribution.",
+  "github_run_id": 38270239525,
+  "github_run_url": "https://github.com/Terminator364/PROJECT-DRAFTS/actions/runs/38270239525",
+  "github_source_commit": "bb952aededb2081b65707b144ee9d229703d438f",
+  "github_artifact_id": 11756288126,
+  "tests_before_build": "PASSED",
+  "verified_by": [
+    "GitHub Actions job successful",
+    "apksigner APK Signature Scheme v2 verified",
+    "aapt package identity checked",
+    "sha256 receipt matched local extracted APK",
+    "ZIP integrity checked",
+    "classes.dex and classes2.dex present"
+  ],
+  "field_gates": {
+    "real_Samsung_install": "NOT_RUN",
+    "real_Windows_USB": "NOT_RUN",
+    "chatgpt_control": "NOT_IMPLEMENTED"
+  },
+  "one_shot_ci": "DISABLED_AFTER_SUCCESS"
+}
