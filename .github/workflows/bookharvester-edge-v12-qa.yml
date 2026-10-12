@@ -56,7 +56,8 @@ jobs:
         run: |
           $ErrorActionPreference='Stop'
           Copy-Item '.\dist\BlessingBookHarvester' '.\BookHarvesterApp' -Recurse
-          Copy-Item '.\edge-extension' '.\Edge-Extension' -Recurse
+          # On Windows filenames are case-insensitive: edge-extension == Edge-Extension.
+          if (!(Test-Path '.\Edge-Extension\manifest.json')) { throw 'Edge extension missing' }
           & powershell.exe -NoProfile -ExecutionPolicy Bypass -File '.\Install-Portable.ps1'
           if ($LASTEXITCODE -ne 0) { throw 'Portable installer returned nonzero' }
           $shortcut=Join-Path ([Environment]::GetFolderPath('Desktop')) 'Blessing BookHarvester.lnk'
