@@ -1,0 +1,112 @@
+{
+  "schema": "usb-rescue-lab.remote-tools/1",
+  "verified_repository_metadata": "2026-10-12",
+  "note": "The catalog compares possibilities. This lab does not install or invoke any listed application. No source code is copied or relicensed.",
+  "tools": [
+    {
+      "id": "desktop-commander-mcp",
+      "repo": "wonderwhy-er/DesktopCommanderMCP",
+      "role": "command_and_files",
+      "platform": "PC",
+      "phone_usb_bridge": false,
+      "assessment": "Strong PC execution model; current remote channel outage is the problem to bypass.",
+      "priority": "REFERENCE"
+    },
+    {
+      "id": "meshcentral",
+      "repo": "Ylianst/MeshCentral",
+      "role": "device_management_terminal_files_desktop",
+      "platform": "PC_SERVER_WEB",
+      "phone_usb_bridge": false,
+      "assessment": "Useful reference for supervised remote shell, service and desktop management; deployment is more complex.",
+      "priority": "HIGH"
+    },
+    {
+      "id": "rustdesk",
+      "repo": "rustdesk/rustdesk",
+      "role": "interactive_remote_desktop",
+      "platform": "ANDROID_WINDOWS",
+      "phone_usb_bridge": false,
+      "assessment": "Good manual fallback for screen and keyboard, not a ChatGPT command API. Relays or reachable network still required.",
+      "priority": "HIGH"
+    },
+    {
+      "id": "guacamole",
+      "repo": "apache/guacamole-client",
+      "role": "browser_gateway_rdp_vnc_ssh",
+      "platform": "BROWSER_SERVER",
+      "phone_usb_bridge": false,
+      "assessment": "Best for browser access to existing RDP/VNC/SSH servers; separate infrastructure required.",
+      "priority": "MEDIUM"
+    },
+    {
+      "id": "dwservice",
+      "repo": "dwservice/agent",
+      "role": "web_remote_control_agent",
+      "platform": "PC_BROWSER",
+      "phone_usb_bridge": false,
+      "assessment": "Potential manual cloud fallback; not independent of Internet.",
+      "priority": "MEDIUM"
+    },
+    {
+      "id": "sunshine",
+      "repo": "LizardByte/Sunshine",
+      "role": "low_latency_desktop_stream_host",
+      "platform": "PC",
+      "phone_usb_bridge": false,
+      "assessment": "Useful for real-time video/audio evaluation, not filesystem/task automation.",
+      "priority": "LOW"
+    },
+    {
+      "id": "moonlight-android",
+      "repo": "moonlight-stream/moonlight-android",
+      "role": "low_latency_stream_client",
+      "platform": "ANDROID",
+      "phone_usb_bridge": false,
+      "assessment": "Companion to Sunshine for graphical streaming.",
+      "priority": "LOW"
+    },
+    {
+      "id": "scrcpy",
+      "repo": "Genymobile/scrcpy",
+      "role": "android_screen_control_from_pc",
+      "platform": "PC_TO_ANDROID",
+      "phone_usb_bridge": false,
+      "assessment": "Reverse direction: controls phone from PC. Valuable for Android testing but not PC control from ChatGPT.",
+      "priority": "TEST_TOOL"
+    }
+  ],
+  "proposed_internal_adapters": [
+    {
+      "id": "usb-tether-network",
+      "transport": "Android USB tethering / local TCP",
+      "status": "DESIGN",
+      "needs": "real USB RNDIS/NCM enumeration and TLS pairing"
+    },
+    {
+      "id": "adb-reverse",
+      "transport": "ADB forward/reverse ports",
+      "status": "OPTIONAL_DEVELOPER_MODE",
+      "needs": "USB debugging, host ADB service and trust dialog"
+    },
+    {
+      "id": "lan-tls",
+      "transport": "private LAN / hotspot over TLS",
+      "status": "DESIGN",
+      "needs": "same reachable LAN, local listener, pairing"
+    },
+    {
+      "id": "offline-job-spool",
+      "transport": "durable signed job/results archive",
+      "status": "DESIGN",
+      "needs": "supported authenticated ChatGPT-side ingress/egress"
+    }
+  ],
+  "boundaries": [
+    "No vendor application is silently installed, cloned or exposed as an automatic shell.",
+    "Third-party protocols do not magically expose a supported ChatGPT connector.",
+    "A USB cable without networking or ADB is not equivalent to a bidirectional command channel.",
+    "Every field claim requires Windows + actual target Android device evidence.",
+    "Licenses of each upstream project must be reviewed before reusing code."
+  ]
+}
