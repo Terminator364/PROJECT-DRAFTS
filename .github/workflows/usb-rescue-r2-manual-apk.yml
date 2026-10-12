@@ -45,6 +45,11 @@ jobs:
           distribution: temurin
           java-version: "17"
 
+      - name: Run R2 protocol, recovery, and JVM interoperability tests
+        working-directory: USB-PHONE-RESCUE-LAB/r2-src
+        shell: bash
+        run: python3 -m unittest discover -s tests -q
+
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
 
