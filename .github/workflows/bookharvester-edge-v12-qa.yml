@@ -1,0 +1,108 @@
+name: Blessing BookHarvester V1.2 Microsoft Edge QA
+on:
+  workflow_dispatch:
+  push:
+    branches: [feat/bookharvester-edge-v12-qa-20261012]
+    paths:
+      - '.github/workflows/bookharvester-edge-v12-qa.yml'
+permissions:
+  contents: read
+jobs:
+  qualify-edge-windows:
+    runs-on: windows-latest
+    timeout-minutes: 15
+    defaults:
+      run:
+        working-directory: experiments/bookharvester-edge-v12
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify SHA256 and extract source archive
+        shell: pwsh
+        working-directory: .
+        run: |
+          $ErrorActionPreference='Stop'
+          $package = 'experiments/Blessing-BookHarvester-V1.2.0-Edge-Sources.zip'
+          $sha=(Get-FileHash -LiteralPath $package -Algorithm SHA256).Hash.ToLowerInvariant()
+          if ($sha -ne '797012ba0a19723790eb636b3bf86fcccfffc1dda003ea99ec6b615a3dcf9e87') { throw 'Source archive SHA256 mismatch' }
+          New-Item -ItemType Directory -Path 'experiments/bookharvester-edge-v12' -Force | Out-Null
+          Expand-Archive -LiteralPath $package -DestinationPath 'experiments/bookharvester-edge-v12' -Force
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install QA dependencies and Playwright (reuse installed MS Edge)
+        shell: pwsh
+        run: python -m pip install -r requirements-qa.txt "playwright>=1.50,<2"
+      - name: Run offline, Edge-browser, extension state-machine and 236 chapters QA
+        shell: pwsh
+        run: |
+          python -m pytest -q tests --junitxml=qa-v12.xml
+          if ($LASTEXITCODE -ne 0) { throw 'Offline/Edge functional suite failed' }
+      - name: Package Windows portable folder with Edge importer
+        shell: pwsh
+        run: pyinstaller --clean --noconfirm --onedir --windowed --hidden-import=edge_bundle --name BlessingBookHarvester bookharvester.py
+      - name: Run compiled EXE self-check, including Tkinter UI, with timeout
+        shell: pwsh
+        run: |
+          $ErrorActionPreference='Stop'
+          $exe=Resolve-Path '.\dist\BlessingBookHarvester\BlessingBookHarvester.exe'
+          $report=Join-Path $PWD 'exe-probe-v12.json'
+          $p=Start-Process -FilePath $exe -ArgumentList @('--self-test','--ui-probe','--self-test-report',('"'+$report+'"')) -PassThru
+          if (-not $p.WaitForExit(40000)) { try { $p.Kill() } catch {} ; throw 'EXE UI probe timed out' }
+          if ($p.ExitCode -ne 0 -or !(Test-Path $report)) { throw ('EXE check failed: '+$p.ExitCode) }
+          $probe=Get-Content -Raw -LiteralPath $report | ConvertFrom-Json
+          if ($probe.ok -ne $true -or $probe.ui -ne 'ok') { throw 'Tkinter GUI failed in built EXE' }
+      - name: Real installer, desktop shortcut and Edge extension folder smoke
+        shell: pwsh
+        run: |
+          $ErrorActionPreference='Stop'
+          Copy-Item '.\dist\BlessingBookHarvester' '.\BookHarvesterApp' -Recurse
+          Copy-Item '.\edge-extension' '.\Edge-Extension' -Recurse
+          & powershell.exe -NoProfile -ExecutionPolicy Bypass -File '.\Install-Portable.ps1'
+          if ($LASTEXITCODE -ne 0) { throw 'Portable installer returned nonzero' }
+          $shortcut=Join-Path ([Environment]::GetFolderPath('Desktop')) 'Blessing BookHarvester.lnk'
+          if (!(Test-Path -LiteralPath $shortcut)) { throw 'Desktop shortcut not created' }
+          $target=(New-Object -ComObject WScript.Shell).CreateShortcut($shortcut).TargetPath
+          if (!(Test-Path -LiteralPath $target)) { throw 'Shortcut EXE target missing' }
+          if (!(Test-Path (Join-Path $env:LOCALAPPDATA 'BlessingBookHarvester\Edge-Extension\manifest.json'))) { throw 'Edge extension missing after install' }
+      - name: Compiled EXE import/export smoke of three synthetic chapters
+        shell: pwsh
+        run: |
+          $ErrorActionPreference='Stop'
+          $env:BOOKHARVESTER_HOME=Join-Path $env:RUNNER_TEMP 'BH_EDGE_SMOKE'
+          @'
+          import json,hashlib
+          from pathlib import Path
+          chapters=[]
+          for n in range(1,4):
+              text=(f'This is synthetic sample chapter {n}, not a copyrighted book. '*7)
+              chapters.append(dict(number=n,title=f'Chapter {n}',url=f'https://books.example.org/chapter-{n}/',text=text,sha256=hashlib.sha256(text.encode()).hexdigest()))
+          Path('fixture-three-edge.json').write_text(json.dumps(dict(schema='blessing-bookharvester-edge-v1',book='Edge Trial',origin='https://books.example.org',expected_end=3,chapters=chapters)),encoding='utf-8')
+          '@ | python -
+          $fixture=Join-Path $PWD 'fixture-three-edge.json'
+          $exe=Resolve-Path '.\BookHarvesterApp\BlessingBookHarvester.exe'
+          $p=Start-Process -FilePath $exe -ArgumentList @('--book','"Edge Trial"','--import-edge',('"'+$fixture+'"'),'--export','pdf') -PassThru
+          if (-not $p.WaitForExit(40000)) { try { $p.Kill() } catch {} ; throw 'Compiled import/export timed out' }
+          if ($p.ExitCode -ne 0) { throw ('Compiled import/export failed '+$p.ExitCode) }
+          $output=Join-Path $env:BOOKHARVESTER_HOME 'Edge-Trial\Edge-Trial.pdf'
+          if (!(Test-Path $output)) { throw '3 chapters PDF missing' }
+          python -c "from pypdf import PdfReader; import sys; r=PdfReader(sys.argv[1]); text=' '.join((p.extract_text() or '') for p in r.pages); assert len(r.pages)>=4 and all(('Chapter '+str(i)) in text for i in range(1,4)); print('PDF_3_CHAPTERS_OK, pages=',len(r.pages))" "$output"
+          if ($LASTEXITCODE -ne 0) { throw 'PDF verified text missing' }
+      - name: Package Windows release and SHA256
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Path '.\release' -Force | Out-Null
+          Copy-Item '.\BookHarvesterApp' '.\release\BookHarvesterApp' -Recurse
+          Copy-Item '.\Edge-Extension' '.\release\Edge-Extension' -Recurse
+          Copy-Item '.\Install-Portable.ps1', '.\Install-Portable.bat', '.\README.md' '.\release'
+          Get-FileHash '.\release\BookHarvesterApp\BlessingBookHarvester.exe' -Algorithm SHA256 | Format-List | Out-File '.\release\SHA256.txt'
+          Compress-Archive -Path '.\release\*' -DestinationPath '.\Blessing-BookHarvester-Windows-Edge-V1.2.0.zip' -CompressionLevel Optimal -Force
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: Blessing-BookHarvester-Windows-Edge-V1.2.0
+          path: |
+            experiments/bookharvester-edge-v12/Blessing-BookHarvester-Windows-Edge-V1.2.0.zip
+            experiments/bookharvester-edge-v12/qa-v12.xml
+            experiments/bookharvester-edge-v12/exe-probe-v12.json
+          if-no-files-found: warn
+          retention-days: 5
