@@ -37,7 +37,7 @@ def run():
         checks=[{"number":n,"allowed":a,"robot_result":note} for n,u in targets for a,note in [robots_allowed(u)]]
         report["robots"]=checks
         if not all(x["allowed"] for x in checks): return finish("robots_stop",2)
-        with tempfile.TemporaryDirectory() as temporary:
+        with tempfile.TemporaryDirectory(ignore_cleanup_errors=True) as temporary:
             root=Path(temporary)
             result=bh.retrieve(TITLE,root,BASE,"novel",count=3,delay=1,event=lambda msg: print("APP:"+msg))
             cat=bh.Catalog(root/"library.sqlite3")
