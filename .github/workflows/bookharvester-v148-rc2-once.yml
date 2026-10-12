@@ -1,5 +1,9 @@
 name: BookHarvester V1.4.8 RC2 Windows one-time release QA
 on:
+  push:
+    branches: [feat/bookharvester-v148-rc2-94tests-windows-20261012]
+    paths:
+      - 'experiments/bookharvester-v148-rc2-recheck.marker'
   workflow_dispatch:
 permissions:
   contents: read
@@ -27,7 +31,7 @@ jobs:
           Expand-Archive $archive 'experiments/bookharvester-v148/unpacked' -Force
       - name: Install dependencies
         shell: pwsh
-        run: python -m pip install -r requirements-qa.txt
+        run: python -m pip install -r requirements-qa.txt "playwright>=1.50,<2"
       - name: Test 94 Python cases incl. safe redirects, one-click, 236 chapters and recovery
         shell: pwsh
         run: python -m pytest -q tests --junitxml=qa-v148.xml
