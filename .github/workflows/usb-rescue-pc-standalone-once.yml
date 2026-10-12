@@ -1,0 +1,124 @@
+name: BCP USB Rescue PC R3.1 — standalone Windows installer, one-shot
+on:
+  push:
+    branches:
+      - work/usb-phone-rescue-lab-2026-10-12
+    paths:
+      - 'USB-PHONE-RESCUE-LAB/windows-standalone-r3_1/BUILD_ONCE_20261012.txt'
+permissions:
+  contents: read
+concurrency:
+  group: usb-rescue-pc-build-once
+  cancel-in-progress: false
+jobs:
+  standalone-windows:
+    runs-on: windows-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Prepare standalone Windows payload
+        shell: pwsh
+        run: |
+          $ErrorActionPreference='Stop'
+          $project='USB-PHONE-RESCUE-LAB/windows-standalone-r3_1'
+          $existing='USB-PHONE-RESCUE-LAB/r3_1-src/windows'
+          New-Item -ItemType Directory -Path "$project/windows" -Force | Out-Null
+          Copy-Item -Path "$existing/*" -Destination "$project/windows" -Recurse -Force
+          Copy-Item -Path "$project/overrides/*" -Destination "$project/windows" -Force
+          if(-not (Test-Path "$project/windows/bridge_agent.py")){ throw 'Windows agent missing' }
+      - name: Test installer and PowerShell syntax before packaging
+        shell: pwsh
+        run: |
+          $ErrorActionPreference='Stop'
+          $project='USB-PHONE-RESCUE-LAB/windows-standalone-r3_1'
+          python -m unittest discover -s "$project/tests" -v
+          if($LASTEXITCODE -ne 0){ throw 'Python install tests failed' }
+          foreach($file in @("$project/windows/Start-Bridge.ps1","$project/windows/Install-Rescue.ps1","$project/windows/Fix-UsbFirewall.ps1")) {
+            $tokens=$null; $errors=$null
+            [System.Management.Automation.Language.Parser]::ParseFile((Resolve-Path $file),[ref]$tokens,[ref]$errors) | Out-Null
+            if(@($errors).Count -gt 0){ throw "PowerShell syntax error in $file : $($errors[0])" }
+            Write-Host "PASS PowerShell syntax: $file"
+          }
+      - name: Install fixed PyInstaller
+        shell: pwsh
+        run: |
+          python -m pip install --disable-pip-version-check 'pyinstaller==6.16.0'
+          if($LASTEXITCODE -ne 0){ throw 'PyInstaller install failed' }
+      - name: Compile embedded Windows bridge agent
+        shell: pwsh
+        working-directory: USB-PHONE-RESCUE-LAB/windows-standalone-r3_1
+        run: |
+          $ErrorActionPreference='Stop'
+          python -m PyInstaller --noconfirm --clean --onefile --console --name BCP-Rescue-Agent --distpath out windows/bridge_agent.py
+          if($LASTEXITCODE -ne 0){throw 'Windows bridge compilation failed'}
+          Copy-Item -LiteralPath 'out/BCP-Rescue-Agent.exe' -Destination 'windows/bridge_agent.exe' -Force
+          if(-not (Test-Path windows/bridge_agent.exe)){throw 'Agent executable missing'}
+      - name: Compile graphical one-file PC installer
+        shell: pwsh
+        working-directory: USB-PHONE-RESCUE-LAB/windows-standalone-r3_1
+        run: |
+          $ErrorActionPreference='Stop'
+          python -m PyInstaller --noconfirm --clean --onefile --windowed --name BCP-USB-Rescue-PC --add-data "windows;windows" --distpath out setup_pc.py
+          if($LASTEXITCODE -ne 0){throw 'Windows installer compilation failed'}
+          if(-not (Test-Path out/BCP-USB-Rescue-PC.exe)){throw 'Installer exe missing'}
+      - name: Real Windows smoke test — executable and local HTTP health
+        shell: pwsh
+        working-directory: USB-PHONE-RESCUE-LAB/windows-standalone-r3_1
+        run: |
+          $ErrorActionPreference='Stop'
+          $ui=(Resolve-Path out/BCP-USB-Rescue-PC.exe).Path
+          $agent=(Resolve-Path out/BCP-Rescue-Agent.exe).Path
+          $uiInfo=Get-Item $ui
+          $agentInfo=Get-Item $agent
+          if($uiInfo.Length -lt 4000000 -or $agentInfo.Length -lt 3000000){throw 'Binary unexpectedly small'}
+          & $ui --self-test
+          if($LASTEXITCODE -ne 0){throw 'Packaged installer self-test failed'}
+          & $agent --help | Select-String 'bind'
+          if($LASTEXITCODE -ne 0){throw 'Compiled agent CLI failed'}
+          $state=Join-Path $env:RUNNER_TEMP 'bcp-usb-state'
+          $workspace=Join-Path $env:RUNNER_TEMP 'bcp-usb-workspace'
+          New-Item -ItemType Directory -Path $state,$workspace -Force | Out-Null
+          $args=@('--bind','127.0.0.1','--port','8766','--state',('"' + $state + '"'),'--workspace',('"' + $workspace + '"'))
+          $p=Start-Process -FilePath $agent -ArgumentList $args -PassThru -WindowStyle Hidden
+          try {
+            $worked=$false
+            1..15 | ForEach-Object {
+              if(-not $worked) {
+                Start-Sleep -Milliseconds 750
+                try {
+                  $health=Invoke-RestMethod -Uri 'http://127.0.0.1:8766/health' -TimeoutSec 2
+                  if($health.ok -eq $true -and $health.protocol -eq 1){$worked=$true}
+                }catch{}
+              }
+            }
+            if(-not $worked){throw 'Real compiled bridge did not answer localhost health'}
+            Write-Host 'PASS: compiled Windows agent HTTP health on loopback'
+          } finally {
+            Stop-Process -Id $p.Id -Force -ErrorAction SilentlyContinue
+          }
+      - name: Create integrity report
+        shell: pwsh
+        working-directory: USB-PHONE-RESCUE-LAB/windows-standalone-r3_1
+        run: |
+          $ErrorActionPreference='Stop'
+          $paths=@('out/BCP-USB-Rescue-PC.exe','out/BCP-Rescue-Agent.exe')
+          $records=@(foreach($p in $paths){ $f=Get-Item $p; $h=Get-FileHash -Path $p -Algorithm SHA256; [pscustomobject]@{file=$f.Name;bytes=$f.Length;sha256=$h.Hash.ToLowerInvariant()} })
+          $records | ConvertTo-Json -Depth 3 | Set-Content -Path out/SHA256-RECEIPTS.json -Encoding utf8
+          Copy-Item -LiteralPath README_FR.txt -Destination out/LISEZ-MOI.txt
+          Get-Content out/SHA256-RECEIPTS.json
+      - name: Deliver actual Windows executable
+        uses: actions/upload-artifact@v4
+        with:
+          name: BCP-USB-Rescue-PC-R3.1-INSTALLER-ET-AGENT
+          path: |
+            USB-PHONE-RESCUE-LAB/windows-standalone-r3_1/out/BCP-USB-Rescue-PC.exe
+            USB-PHONE-RESCUE-LAB/windows-standalone-r3_1/out/BCP-Rescue-Agent.exe
+            USB-PHONE-RESCUE-LAB/windows-standalone-r3_1/out/SHA256-RECEIPTS.json
+            USB-PHONE-RESCUE-LAB/windows-standalone-r3_1/out/LISEZ-MOI.txt
+          retention-days: 14
+          if-no-files-found: error
