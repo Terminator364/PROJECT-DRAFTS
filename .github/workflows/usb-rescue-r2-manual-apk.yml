@@ -22,8 +22,22 @@ jobs:
           set -euo pipefail
           base64 -d USB-PHONE-RESCUE-LAB/r2/android-source.tar.gz.base64 > /tmp/rescue-r2-android.tgz
           echo "3e885ffbe69bee33d7c355de7d6509906d9dddff627ac1698572e7dcf5ea769c  /tmp/rescue-r2-android.tgz" | sha256sum -c -
+          mkdir -p /tmp/rescue-r2-bundle
           tar -tzf /tmp/rescue-r2-android.tgz | grep -E '^android/'
-          tar -xzf /tmp/rescue-r2-android.tgz -C .
+          tar -xzf /tmp/rescue-r2-android.tgz -C /tmp/rescue-r2-bundle
+          python3 - <<'PY'
+          from pathlib import Path
+          bundle=Path('/tmp/rescue-r2-bundle/android')
+          readable=Path('USB-PHONE-RESCUE-LAB/r2-src/android')
+          originals=sorted(p.relative_to(bundle) for p in bundle.rglob('*') if p.is_file())
+          published=sorted(p.relative_to(readable) for p in readable.rglob('*') if p.is_file())
+          assert originals == published, 'Android source inventory mismatch'
+          for item in originals:
+              a=(bundle/item).read_bytes().removesuffix(b'\\n')
+              b=(readable/item).read_bytes().removesuffix(b'\\n')
+              assert a == b, 'Android source differs from immutable bundle: '+str(item)
+          print('SOURCE VERIFIED:',len(originals),'files')
+          PY
 
       - name: Setup JDK 17
         uses: actions/setup-java@v4
@@ -44,7 +58,7 @@ jobs:
           gradle-version: "8.9"
 
       - name: Compile debug APK
-        working-directory: android
+        working-directory: USB-PHONE-RESCUE-LAB/r2-src/android
         shell: bash
         run: gradle --no-daemon --stacktrace :app:assembleDebug
 
@@ -52,13 +66,13 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          test -s android/app/build/outputs/apk/debug/app-debug.apk
-          sha256sum android/app/build/outputs/apk/debug/app-debug.apk
+          test -s USB-PHONE-RESCUE-LAB/r2-src/android/app/build/outputs/apk/debug/app-debug.apk
+          sha256sum USB-PHONE-RESCUE-LAB/r2-src/android/app/build/outputs/apk/debug/app-debug.apk
 
       - name: Save installable APK
         uses: actions/upload-artifact@v4
         with:
           name: BCP-USB-Rescue-R2-debug-APK
-          path: android/app/build/outputs/apk/debug/app-debug.apk
+          path: USB-PHONE-RESCUE-LAB/r2-src/android/app/build/outputs/apk/debug/app-debug.apk
           retention-days: 14
           if-no-files-found: error
