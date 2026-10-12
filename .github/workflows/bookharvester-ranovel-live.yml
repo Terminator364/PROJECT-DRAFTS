@@ -1,16 +1,15 @@
-name: BookHarvester - LIVE Ranovel 3 chapters
+name: BookHarvester - LIVE Ranovel Chrome verification
 on:
   workflow_dispatch:
   push:
     branches: [feat/bookharvester-ranovel-live-20261012]
-    paths:
-      - '.github/workflows/bookharvester-ranovel-live.yml'
+    paths: ['.github/workflows/bookharvester-ranovel-live.yml']
 permissions:
   contents: read
 jobs:
-  real-pages:
+  chrome-real-pages:
     runs-on: windows-latest
-    timeout-minutes: 6
+    timeout-minutes: 8
     defaults:
       run:
         working-directory: experiments/bookharvester-live-check
@@ -19,27 +18,26 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      - name: Prepare actual BookHarvester extraction engine
+      - name: Reuse exactly the BookHarvester source previously qualified on Windows
         shell: pwsh
         working-directory: .
         run: |
           New-Item -ItemType Directory 'experiments/bookharvester-live-check' -Force | Out-Null
           Expand-Archive -LiteralPath 'experiments/Blessing-BookHarvester-Sources-V1.1.zip' -DestinationPath 'experiments/bookharvester-live-check' -Force
-          Copy-Item 'experiments/bookharvester-ranovel-live-probe.py' 'experiments/bookharvester-live-check/probe.py'
-      - name: Install lightweight reader / verifier dependencies
+          Copy-Item 'experiments/bookharvester-chrome-probe.py' 'experiments/bookharvester-live-check/chrome_probe.py'
+      - name: Install browser driver library (use existing Chrome, no browser download)
+        shell: pwsh
+        run: python -m pip install -r requirements.txt "pypdf>=5,<7" "playwright>=1.50,<2"
+      - name: Open three real chapters in unmodified Chrome and audit DOM/PDF/EPUB
         shell: pwsh
         run: |
-          python -m pip install -r requirements.txt "pypdf>=5,<7"
-      - name: Attempt 3 real source chapters and verify EPUB/PDF
-        shell: pwsh
-        run: |
-          python probe.py
-          if ($LASTEXITCODE -ne 0) { throw "Live website compatibility not proven (exit $LASTEXITCODE)" }
-      - name: Report metadata only - NEVER archive novel text
+          python chrome_probe.py
+          if ($LASTEXITCODE -ne 0) { throw "Real Chrome access / content verification failed (exit $LASTEXITCODE)" }
+      - name: Publish diagnostic metadata only; never publish book text
         uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: bookharvester-ranovel-live-report
-          path: experiments/bookharvester-live-check/live-probe-report.json
+          name: bookharvester-ranovel-real-chrome-report
+          path: experiments/bookharvester-live-check/chrome-live-report.json
           if-no-files-found: warn
           retention-days: 4
