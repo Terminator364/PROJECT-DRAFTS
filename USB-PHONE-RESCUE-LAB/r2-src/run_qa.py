@@ -18,7 +18,7 @@ def run():
         files[str(p.relative_to(ROOT))]=hashlib.sha256(p.read_bytes()).hexdigest()
     report={'schema':'BCP_USB_RESCUE_R2_QA/1','scope':'WINDOWS_AGENT_LOOPBACK_AND_JAVA_PROTOCOL_ONLY',
       'cycles':results,'all_passed':len(results)==3 and all(c['passed'] for c in results),
-      'tests_per_cycle':28,'platform':platform.platform(),'elapsed_seconds':round(time.monotonic()-start,2),
+      'tests_per_cycle':32,'platform':platform.platform(),'elapsed_seconds':round(time.monotonic()-start,2),
       'android_sdk_available':bool(os.environ.get('ANDROID_HOME') or os.environ.get('ANDROID_SDK_ROOT')),
       'gradle_binary_available':bool(shutil.which('gradle')),
       'apk_built':False,'usb_android_mbmpc_tested':False,'real_android_emulator_tested':False,
