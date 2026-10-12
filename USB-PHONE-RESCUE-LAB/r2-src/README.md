@@ -70,3 +70,22 @@ Il faut générer un vrai horodatage d'expiration dans les 24 heures lorsque la 
 Le tunnel actuel utilise **HTTP + HMAC** : il authentifie les messages et les réponses mais **ne chiffre pas le contenu en transit**. À employer uniquement sur un réseau USB privé de test, jamais sur un LAN hostile ou Internet. Avant une sortie de type production, ajouter TLS 1.3 avec épinglage du certificat, séparation des autorisations, révocation, règles Windows minimales, limitation des requêtes, validation sur l'appareil réel et tests UI Android.
 
 Les tests locaux certifient seulement les propriétés exécutées, pas la disponibilité de ton PC lorsqu'il est éteint, ni la fiabilité d'une liaison USB jamais testée sur MBMPC.
+
+## Compilation GitHub R2, sans déclencheur automatique
+
+Les fichiers Java, Gradle, Windows et tests sont aussi déposés dans
+`Terminator364/PROJECT-DRAFTS`, branche `work/usb-phone-rescue-lab-2026-10-12`,
+sous `USB-PHONE-RESCUE-LAB/r2-src/`.
+
+Workflow GitHub Actions **manuel uniquement** sur la branche principale :
+`https://github.com/Terminator364/PROJECT-DRAFTS/actions/workflows/usb-rescue-r2-manual-apk.yml`
+
+Ouvrir ce lien, choisir `Run workflow` (workflow sur `main`). Le job vérifie l'archive,
+compare les dix fichiers Android lisibles, lance la suite Python/JVM, compile
+avec JDK 17 / SDK 35 / Gradle 8.9, puis sauvegarde le fichier `app-debug.apk`
+sous l'artefact `BCP-USB-Rescue-R2-debug-APK` en cas de succès. Il faut
+**constater un run réussi et télécharger cet artefact** avant d'affirmer
+qu'un APK existe. L'application ne dispose pas encore de signature stable pour
+une distribution pérenne ; les APK de débogage ne constituent pas une version de production.
+
+Ne pas activer de déclencheur CI automatique ni contourner la politique `AGENTS.md`.
