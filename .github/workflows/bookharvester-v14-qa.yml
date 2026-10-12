@@ -1,0 +1,118 @@
+name: Blessing BookHarvester V1.4 Multibrowser Windows QA
+on:
+  push:
+    branches: [feat/bookharvester-v14-random3-multibrowser-20261012]
+    paths: ['.github/workflows/bookharvester-v14-qa.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: windows-latest
+    timeout-minutes: 18
+    defaults:
+      run:
+        working-directory: experiments/BH-V14
+    steps:
+      - uses: actions/checkout@v4
+      - name: Unpack and hash-verify exact V1.4 source
+        working-directory: .
+        shell: pwsh
+        run: |
+          $source='experiments/Blessing-BookHarvester-V1.4-Sources.zip'
+          $sha=(Get-FileHash -Algorithm SHA256 $source).Hash.ToLowerInvariant()
+          if ($sha -ne 'c1885d5cdaaf0759a081a647316b448c676b9c26977d1a41952f6c853eb910e4') { throw "Source SHA256 invalid $sha" }
+          New-Item -ItemType Directory 'experiments/BH-V14' -Force | Out-Null
+          Expand-Archive -LiteralPath $source -DestinationPath 'experiments/BH-V14' -Force
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install test dependencies (browser already on Windows)
+        shell: pwsh
+        run: python -m pip install -r requirements-qa.txt "playwright>=1.50,<2"
+      - name: Random 3 chapters, 236 chapters, extension state, blockers and recovery
+        shell: pwsh
+        run: |
+          python -m pytest tests -q --junitxml=qa-v14.xml
+          if ($LASTEXITCODE -ne 0) { throw 'Random sample / regression test failure' }
+          node --check edge-extension/background.js
+          node --check edge-extension/popup.js
+          node tests/edge_random_test.cjs
+          if ($LASTEXITCODE -ne 0) { throw 'Randomized Chromium extension test failure' }
+      - name: Three complete books - 77 real public domain chapters and PDF/EPUB
+        shell: pwsh
+        run: |
+          python three_books_realtext_e2e.py --root three-books-qa
+          if ($LASTEXITCODE -ne 0) { throw 'Three complete book acceptance failed' }
+      - name: Build portable Windows EXE
+        shell: pwsh
+        run: pyinstaller --clean --noconfirm --onedir --windowed --hidden-import=edge_bundle --name BlessingBookHarvester bookharvester.py
+      - name: EXE runtime and tkinter UI bounded probe
+        shell: pwsh
+        run: |
+          $ErrorActionPreference='Stop'
+          $exe=Resolve-Path '.\dist\BlessingBookHarvester\BlessingBookHarvester.exe'
+          $report=Join-Path $PWD 'exe-probe.json'
+          $p=Start-Process -FilePath $exe -ArgumentList @('--self-test','--ui-probe','--self-test-report',('"'+$report+'"')) -PassThru
+          if (-not $p.WaitForExit(40000)) { try{$p.Kill()}catch{}; throw 'EXE startup timeout' }
+          if ($p.ExitCode -ne 0 -or !(Test-Path $report)) { throw ('EXE failed exit '+$p.ExitCode) }
+          $j=Get-Content -Raw $report | ConvertFrom-Json
+          if ($j.ok -ne $true -or $j.ui -ne 'ok') { throw 'GUI selftest failed' }
+      - name: Install portable V1.4 and inspect actual desktop shortcut + browser-independent extension
+        shell: pwsh
+        run: |
+          $ErrorActionPreference='Stop'
+          Copy-Item '.\dist\BlessingBookHarvester' '.\BookHarvesterApp' -Recurse
+          & powershell.exe -NoProfile -ExecutionPolicy Bypass -File '.\Install-Portable.ps1'
+          if ($LASTEXITCODE -ne 0) { throw 'Installer exit failure' }
+          $lnk=Join-Path ([Environment]::GetFolderPath('Desktop')) 'Blessing BookHarvester.lnk'
+          if (!(Test-Path $lnk)) { throw 'Desktop shortcut missing' }
+          $target=(New-Object -ComObject WScript.Shell).CreateShortcut($lnk).TargetPath
+          if (!(Test-Path $target)) { throw 'Broken shortcut' }
+          $ext=Join-Path $env:LOCALAPPDATA 'BlessingBookHarvester\Chromium-Extension\manifest.json'
+          if (!(Test-Path $ext)) { throw 'Chromium extension package not installed' }
+          $manifest=Get-Content -Raw $ext | ConvertFrom-Json
+          if ($manifest.version -ne '1.4.0') { throw 'Browser-extension version mismatch' }
+      - name: Simulate 3 sampled imports into the compiled EXE and validate generated PDF
+        shell: pwsh
+        run: |
+          $ErrorActionPreference='Stop'
+          $env:BOOKHARVESTER_HOME=Join-Path $env:RUNNER_TEMP 'BH_V14_IMPORT_TEST'
+          @'
+          import json,hashlib
+          from pathlib import Path
+          chapters=[]
+          for n in (17,91,204):
+              text=(f'Chapter {n} unique public test fixture, with sufficient narrative content and dialogs. '*8)
+              chapters.append(dict(number=n,title=f'Chapter {n}',url=f'https://books.example.org/chapter-{n}/',text=text,sha256=hashlib.sha256(text.encode()).hexdigest()))
+          Path('fixture-3-random.json').write_text(json.dumps(dict(schema='blessing-bookharvester-edge-v1',book='Three Noncontiguous',origin='https://books.example.org',expected_end=236,chapters=chapters)),encoding='utf-8')
+          '@ | python -
+          $exe=Resolve-Path '.\BookHarvesterApp\BlessingBookHarvester.exe'
+          $bundle=Join-Path $PWD 'fixture-3-random.json'
+          $p=Start-Process -FilePath $exe -ArgumentList @('--book','"Three Noncontiguous"','--import-edge',('"'+$bundle+'"'),'--export','pdf','--partial') -PassThru
+          if (-not $p.WaitForExit(40000)) { try{$p.Kill()}catch{}; throw 'EXE import/export timeout' }
+          if ($p.ExitCode -ne 0) { throw ('EXE import/export failed '+$p.ExitCode) }
+          $pdf=Join-Path $env:BOOKHARVESTER_HOME 'Three-Noncontiguous\Three-Noncontiguous.pdf'
+          if (!(Test-Path $pdf)) { throw 'No PDF after 3 random chapters' }
+          python -c "from pypdf import PdfReader; import sys; r=PdfReader(sys.argv[1]); t=' '.join((p.extract_text() or '') for p in r.pages); assert len(r.pages)>=4 and all(('Chapter '+str(n)) in t for n in (17,91,204)); assert 'INCOMPLET' in t; print('PASS: Random 3 distinct chapters, PDF labeled INCOMPLET',len(r.pages))" "$pdf"
+          if ($LASTEXITCODE -ne 0) { throw 'Partial PDF content failed' }
+      - name: Assemble Windows V1.4 release and SHA-256
+        shell: pwsh
+        run: |
+          $ErrorActionPreference='Stop'
+          New-Item -ItemType Directory '.\release' -Force | Out-Null
+          Copy-Item '.\BookHarvesterApp' '.\release\BookHarvesterApp' -Recurse
+          Copy-Item '.\edge-extension' '.\release\Edge-Extension' -Recurse
+          Copy-Item '.\Install-Portable.ps1','.\Install-Portable.bat','.\README.md' '.\release'
+          (Get-FileHash '.\release\BookHarvesterApp\BlessingBookHarvester.exe' -Algorithm SHA256).Hash.ToLowerInvariant() | Set-Content '.\release\EXE_SHA256.txt'
+          Compress-Archive -Path '.\release\*' -DestinationPath '.\Blessing-BookHarvester-Windows-Multibrowser-V1.4.zip' -CompressionLevel Optimal -Force
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: BookHarvester-Windows-Multibrowser-V1.4
+          path: |
+            experiments/BH-V14/Blessing-BookHarvester-Windows-Multibrowser-V1.4.zip
+            experiments/BH-V14/qa-v14.xml
+            experiments/BH-V14/exe-probe.json
+            experiments/BH-V14/three-books-qa/qa-report.json
+          retention-days: 7
