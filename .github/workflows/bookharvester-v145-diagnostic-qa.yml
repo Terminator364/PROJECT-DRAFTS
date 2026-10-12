@@ -1,0 +1,90 @@
+name: BookHarvester V1.4.5 Cloudflare diagnostic Windows QA
+on:
+  push:
+    branches: [feat/bookharvester-v145-cloudflare-diagnostic-20261012]
+    paths:
+      - .github/workflows/bookharvester-v145-diagnostic-qa.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  one-windows-checkpoint:
+    runs-on: windows-latest
+    timeout-minutes: 12
+    defaults:
+      run:
+        working-directory: experiments/bookharvester-v145/unpacked
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Verify and unpack V1.4.4 baseline, apply V1.4.5 patch
+        shell: pwsh
+        working-directory: .
+        run: |
+          $ErrorActionPreference='Stop'
+          $archive='experiments/Blessing-BookHarvester-V1.4.4-Sources.zip'
+          $digest=(Get-FileHash $archive -Algorithm SHA256).Hash.ToLowerInvariant()
+          if ($digest -ne 'c5eb3ee962b3c64979732d6e0e21d38c61ef229dc95f0aa09905b1815f525073') { throw 'Unexpected V1.4.4 source' }
+          New-Item -ItemType Directory 'experiments/bookharvester-v145/unpacked' -Force | Out-Null
+          Expand-Archive $archive -DestinationPath 'experiments/bookharvester-v145/unpacked' -Force
+          Copy-Item 'experiments/bookharvester-v145/site_audit.py' 'experiments/bookharvester-v145/unpacked/site_audit.py'
+          Copy-Item 'experiments/bookharvester-v145/test_site_audit.py' 'experiments/bookharvester-v145/unpacked/test_site_audit.py'
+          Copy-Item 'experiments/bookharvester-v145/apply_patch_v145.py' 'experiments/bookharvester-v145/unpacked/apply_patch_v145.py'
+          Push-Location 'experiments/bookharvester-v145/unpacked'
+          try { python apply_patch_v145.py; if($LASTEXITCODE -ne 0){throw 'Patch failed'} }
+          finally { Pop-Location }
+      - name: Dependencies for package and unit tests
+        shell: pwsh
+        run: python -m pip install -r requirements-qa.txt
+      - name: Core plus cloudflare and false-positive tests
+        shell: pwsh
+        run: python -m pytest -q tests test_site_audit.py --junitxml=qa-v145.xml
+      - name: Windows EXE portable compilation
+        shell: pwsh
+        run: pyinstaller --clean --noconfirm --onedir --windowed --name BlessingBookHarvester bookharvester.py
+      - name: Exercise EXE self-test and Tkinter UI under bounded timeout
+        shell: pwsh
+        run: |
+          $ErrorActionPreference='Stop'
+          $exe=Resolve-Path '.\dist\BlessingBookHarvester\BlessingBookHarvester.exe'
+          $report=Join-Path $PWD 'self-test-v145.json'
+          $p=Start-Process -FilePath $exe -ArgumentList @('--self-test','--ui-probe','--self-test-report',('"' + $report + '"')) -PassThru
+          if(-not $p.WaitForExit(45000)){try{$p.Kill()}catch{};throw 'EXE startup timeout'}
+          if($p.ExitCode -ne 0){throw "EXE self-test exit $($p.ExitCode)"}
+          $j=Get-Content -Raw $report | ConvertFrom-Json
+          if($j.ok -ne $true -or $j.ui -ne 'ok' -or $j.version -ne '1.4.5-multibrowser-site-diagnostic'){throw 'Wrong EXE or UI probe failure'}
+      - name: Three randomized real Ranovel requests - expect blocked status, NO copyrighted text upload
+        shell: pwsh
+        continue-on-error: true
+        run: |
+          $exe=Resolve-Path '.\dist\BlessingBookHarvester\BlessingBookHarvester.exe'
+          $env:BOOKHARVESTER_HOME = Join-Path $PWD 'live-diagnostics'
+          $p=Start-Process -FilePath $exe -ArgumentList @('--book','Ranovel-Source-Audit','--url','https://ranovel.com/novel/i-am-the-demon-lord/','--count','236','--diagnose-site','--sample-seed','2026101205','--delay','2') -Wait -PassThru
+          Write-Output "RAW_SITE_GATE_EXIT=$($p.ExitCode) (nonzero means real content NOT validated)"
+          $report=Join-Path $env:BOOKHARVESTER_HOME 'Ranovel-Source-Audit\site_diagnostic_report.json'
+          if(Test-Path $report){Get-Content -Raw $report}
+      - name: Assemble V1.4.5 release with verification manifest
+        shell: pwsh
+        run: |
+          $ErrorActionPreference='Stop'
+          New-Item -ItemType Directory release -Force | Out-Null
+          Copy-Item '.\dist\BlessingBookHarvester' '.\release\BookHarvesterApp' -Recurse
+          Copy-Item '.\edge-extension' '.\release\Chromium-Extension' -Recurse
+          Copy-Item '.\Install-Portable.ps1', '.\Install-Portable.bat' '.\release'
+          $hash=(Get-FileHash '.\release\BookHarvesterApp\BlessingBookHarvester.exe' -Algorithm SHA256).Hash.ToLowerInvariant()
+          Set-Content -Encoding ASCII '.\release\SHA256.txt' $hash
+          Compress-Archive '.\release\*' '.\Blessing-BookHarvester-Windows-V1.4.5.zip' -Force
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: BookHarvester-V1.4.5-Windows-and-QA
+          path: |
+            experiments/bookharvester-v145/unpacked/Blessing-BookHarvester-Windows-V1.4.5.zip
+            experiments/bookharvester-v145/unpacked/qa-v145.xml
+            experiments/bookharvester-v145/unpacked/self-test-v145.json
+            experiments/bookharvester-v145/unpacked/live-diagnostics/Ranovel-Source-Audit/site_diagnostic_report.json
+          retention-days: 4
