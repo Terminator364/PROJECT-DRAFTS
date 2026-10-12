@@ -39,7 +39,7 @@ jobs:
           finally { Pop-Location }
       - name: Dependencies for package and unit tests
         shell: pwsh
-        run: python -m pip install -r requirements-qa.txt
+        run: python -m pip install -r requirements-qa.txt "playwright>=1.50,<2"
       - name: Core plus cloudflare and false-positive tests
         shell: pwsh
         run: python -m pytest -q tests test_site_audit.py --junitxml=qa-v145.xml
