@@ -76,8 +76,10 @@ jobs:
           $uiInfo=Get-Item $ui
           $agentInfo=Get-Item $agent
           if($uiInfo.Length -lt 4000000 -or $agentInfo.Length -lt 3000000){throw 'Binary unexpectedly small'}
-          & $ui --self-test
-          if($LASTEXITCODE -ne 0){throw 'Packaged installer self-test failed'}
+          # Windows GUI executables return asynchronously when invoked with & from pwsh.
+          # Start-Process -Wait -PassThru observes the real exit code instead.
+          $uiTest=Start-Process -FilePath $ui -ArgumentList '--self-test' -Wait -PassThru
+          if($uiTest.ExitCode -ne 0){throw "Packaged installer self-test failed: exit=$($uiTest.ExitCode)"}
           & $agent --help | Select-String 'bind'
           if($LASTEXITCODE -ne 0){throw 'Compiled agent CLI failed'}
           $state=Join-Path $env:RUNNER_TEMP 'bcp-usb-state'
