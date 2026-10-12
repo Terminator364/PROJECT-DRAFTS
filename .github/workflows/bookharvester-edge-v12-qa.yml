@@ -1,10 +1,6 @@
 name: Blessing BookHarvester V1.2 Microsoft Edge QA
 on:
   workflow_dispatch:
-  push:
-    branches: [feat/bookharvester-edge-v12-qa-20261012]
-    paths:
-      - '.github/workflows/bookharvester-edge-v12-qa.yml'
 permissions:
   contents: read
 jobs:
