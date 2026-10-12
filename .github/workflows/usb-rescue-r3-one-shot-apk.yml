@@ -43,13 +43,19 @@ jobs:
           assert 'versionCode 3' in (root/'android/app/build.gradle').read_text()
           print('R3.1 identity and source present')
           PY
-      - uses: android-actions/setup-android@v3
-      - name: Install Android SDK API 35
+      - name: Verify preinstalled Android SDK, install only missing components
         shell: bash
         run: |
           set -euo pipefail
-          yes | sdkmanager --licenses > /dev/null || true
-          sdkmanager 'platforms;android-35' 'build-tools;35.0.0'
+          echo "ANDROID_HOME=$ANDROID_HOME"
+          test -d "$ANDROID_HOME/cmdline-tools"
+          SDKMGR="$(find "$ANDROID_HOME/cmdline-tools" -name sdkmanager -type f | sort -V | tail -1)"
+          test -x "$SDKMGR"
+          if [[ ! -d "$ANDROID_HOME/platforms/android-35" || ! -x "$ANDROID_HOME/build-tools/35.0.0/aapt" ]]; then
+            "$SDKMGR" 'platforms;android-35' 'build-tools;35.0.0'
+          fi
+          test -f "$ANDROID_HOME/platforms/android-35/android.jar"
+          test -x "$ANDROID_HOME/build-tools/35.0.0/apksigner"
       - uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: '8.9'
