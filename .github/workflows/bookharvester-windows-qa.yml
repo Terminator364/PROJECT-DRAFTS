@@ -1,0 +1,77 @@
+name: BookHarvester Windows install QA (one job)
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [feat/bookharvester-qa-20261012]
+    paths:
+      - 'experiments/Blessing-BookHarvester-Sources-V1.1.zip'
+      - '.github/workflows/bookharvester-windows-qa.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  qualify-windows:
+    runs-on: windows-latest
+    timeout-minutes: 16
+    defaults:
+      run:
+        working-directory: experiments/blessing-bookharvester
+    steps:
+      - uses: actions/checkout@v4
+      - name: Extract staged source package
+        shell: pwsh
+        working-directory: .
+        run: |
+          $sha=(Get-FileHash -Algorithm SHA256 'experiments/Blessing-BookHarvester-Sources-V1.1.zip').Hash.ToLowerInvariant()
+          if ($sha -ne '97067accc040c02aa6d3feef17ccfa9a8ae25be946b973c8ed2f4c0c1f105ddb') { throw 'Source ZIP hash mismatch' }
+          New-Item -ItemType Directory -Path 'experiments/blessing-bookharvester' -Force | Out-Null
+          Expand-Archive -LiteralPath 'experiments/Blessing-BookHarvester-Sources-V1.1.zip' -DestinationPath 'experiments/blessing-bookharvester' -Force
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install QA dependencies
+        run: python -m pip install -r requirements-qa.txt
+      - name: Offline unit and synthetic 236 chapter tests
+        run: python -m pytest tests -q --junitxml=qa-report.xml
+      - name: Build one-click portable Windows app
+        run: pyinstaller --clean --noconfirm --onefile --windowed --name BlessingBookHarvester bookharvester.py
+      - name: Validate packaged program and Tk interface
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $exe = Resolve-Path '.\dist\BlessingBookHarvester.exe'
+          $report = Join-Path $PWD 'package-smoke.json'
+          $p = Start-Process -FilePath $exe -ArgumentList @('--self-test','--ui-probe','--self-test-report','"' + $report + '"') -PassThru -Wait
+          if ($p.ExitCode -ne 0) { throw "Portable EXE exit code $($p.ExitCode)" }
+          $body = Get-Content -Raw -LiteralPath $report | ConvertFrom-Json
+          if ($body.ok -ne $true -or $body.ui -ne 'ok') { throw 'PyInstaller/Tk smoke test failed' }
+      - name: Install with actual portable installer and inspect shortcut
+        shell: pwsh
+        run: |
+          Copy-Item .\dist\BlessingBookHarvester.exe .\BlessingBookHarvester.exe -Force
+          & powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\Install-Portable.ps1
+          if ($LASTEXITCODE -ne 0) { throw 'Installer returned non-zero status' }
+          $lnk = Join-Path ([Environment]::GetFolderPath('Desktop')) 'Blessing BookHarvester.lnk'
+          if (!(Test-Path -LiteralPath $lnk)) { throw 'Desktop shortcut missing' }
+          $shortcut=(New-Object -ComObject WScript.Shell).CreateShortcut($lnk)
+          if (!(Test-Path -LiteralPath $shortcut.TargetPath)) { throw 'Shortcut target missing' }
+          if ($shortcut.TargetPath -notlike '*BlessingBookHarvester.exe') { throw 'Shortcut points to wrong executable' }
+          $probe=Join-Path $env:LOCALAPPDATA 'BlessingBookHarvester\self-test.json'
+          if (!(Test-Path -LiteralPath $probe)) { throw 'Installed app did not generate self test report' }
+      - name: Assemble release archive with SHA-256
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Path .\release -Force | Out-Null
+          Copy-Item .\BlessingBookHarvester.exe, .\Install-Portable.bat, .\Install-Portable.ps1, .\README.md -Destination .\release
+          Get-FileHash .\release\BlessingBookHarvester.exe -Algorithm SHA256 | Format-List | Out-File .\release\SHA256.txt
+          Compress-Archive -Path .\release\* -DestinationPath .\Blessing-BookHarvester-Windows-V1.1.zip -CompressionLevel Optimal -Force
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Blessing-BookHarvester-Windows-V1.1
+          path: |
+            experiments/blessing-bookharvester/Blessing-BookHarvester-Windows-V1.1.zip
+            experiments/blessing-bookharvester/qa-report.xml
+            experiments/blessing-bookharvester/package-smoke.json
+          retention-days: 7
