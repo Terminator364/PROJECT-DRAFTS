@@ -1,0 +1,30 @@
+{
+  "schema": "moteur-blessing/rice-recovery-checkpoint/v1",
+  "date": "2026-10-16",
+  "trigger": "MOTEUR|CONTINUE",
+  "status": "RICE_FORMULA_OBJECTIVE_NOT_YET_MET",
+  "underlying_engine": "MB1 V4, V1.1.2 original unchanged",
+  "proven_problem": {
+    "catalogue_worlds": 62,
+    "catalogue_roles": {"PREDICTOR_CANDIDATE": 55, "GATE": 4, "PRIOR": 1, "OUTPUT_ONLY": 2},
+    "recipe_inputs": 240,
+    "candidate_formulas": 140,
+    "cross_mechanisms": 12,
+    "pilot_fixtures": 4,
+    "world_names_present_per_fixture": 62,
+    "world_inputs_supplied_per_fixture": 0,
+    "computed_cross_mechanisms_per_fixture": 0,
+    "fitted_models_per_fixture": 0,
+    "old_engine_output": "REFERENCE_ONLY_NO_SPORTS_TRAINING labelled as ic_percent"
+  },
+  "correction_scope": "Fail-closed research-pilot guard and full-scope requirements contract; full 62-world predictive model still missing",
+  "correction_tests_passed": 13,
+  "end_to_end_old_engine_safe_cli_passed": 4,
+  "all_four_pilot_full_ic_percent": null,
+  "all_four_pilot_baselines_preserved_separately": true,
+  "PIT_validation": "NOT_PROVEN",
+  "model_validation": "NOT_PROVEN",
+  "scientific_status": "EXPERIMENTAL_NOT_APPROVED",
+  "next_priority": "Map the complete 62-world recipe->measurement->dependency->scenario->train->IC pipeline, then genuine PIT data and chronological OOS tests",
+  "do_not_claim": ["62 worlds numerically used in previous pilot", "any completed full personalized IC", "sport model approved", "corrective guard solves all formulas"]
+}
