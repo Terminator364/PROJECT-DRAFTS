@@ -34,3 +34,6 @@ Adapter le contrat 112 à MATRICE en remplaçant la grille par les **62 mondes c
 
 ### Rapport de transfert — Étape 7
 La recherche de chemins et l'audit DAG sont **réutilisables conceptuellement** pour MATRICE. Il faut interdire tout arc partant d'une variable post-coup d'envoi vers les features pré-match, distinguer héritage de source/corrélation/causalité, et publier les mondes encore **non reliés** au calcul de l'IC. Ne jamais compter un contrôle de faisabilité (qualité de source, présence d'une donnée, validation de cohérence) comme bonus sportif ; ne jamais corriger artificiellement un graphe en ajoutant une dépendance sans justification.
+
+## Résultat étape 9 — point d'attention pour MATRICE
+Un IC numérique peut être calculé par simulation Monte-Carlo si les hypothèses et la cible proxy sont spécifiées ; mais **un IC numérique n'est pas automatiquement un IC fiable**. Le laboratoire RIZ112 V9 propose `IC_DEMO` sur `Q*_DEMO`; les chiffres ne doivent pas devenir un score sportif. La fonction de validation doit distinguer `CALCULATED_ASSUMPTION_DEMO` de `CALIBRATED_REAL_OUTCOME`, garder les origines temporelles PIT, séparer les observables futures et évaluer par validation chronologique et ablation. La couche 112 rôles évite les cases silencieusement omises, sans inventer une influence quantitative.
