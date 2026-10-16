@@ -58,5 +58,27 @@
     "do_not_overwrite_source"
   ],
   "next_gate": "MB-1",
-  "pc_archive_extracted": false
+  "pc_archive_extracted": false,
+  "checkpoints": {
+    "last_verified_date": "2026-10-16",
+    "workspace_created": true,
+    "documentation_synced_to_windows": true,
+    "archive_extracted_on_windows": false,
+    "github_documentation_created": true,
+    "archive_zip_integrity_verified": true,
+    "delivery_sha256_matched": true,
+    "tests_rerun_in_chatgpt_sandbox": {
+      "suites": {
+        "base": 46,
+        "v11": 45,
+        "v111": 30,
+        "v112": 48
+      },
+      "total": 169,
+      "result": "PASS"
+    },
+    "windows_test_execution": "NOT_RUN",
+    "model_sports_validation": "NOT_PROVEN"
+  },
+  "sources_note": "GitHub holds the continuity documents. Engine ZIP remains available via ChatGPT Delivery; do not infer that the archive has been transferred/extracted to Windows."
 }
