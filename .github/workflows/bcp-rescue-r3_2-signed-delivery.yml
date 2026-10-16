@@ -1,10 +1,6 @@
 name: BCP USB Rescue R3.2 - one-shot signed APK delivery
 on:
-  push:
-    branches:
-      - work/usb-phone-rescue-lab-2026-10-12
-    paths:
-      - USB-PHONE-RESCUE-LAB/ci-r32-signed-delivery-20261016.txt
+  workflow_dispatch:
 permissions:
   contents: read
 jobs:
