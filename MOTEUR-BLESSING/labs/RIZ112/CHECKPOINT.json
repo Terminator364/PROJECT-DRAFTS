@@ -1,16 +1,16 @@
 {
   "schema": "riz112/master-continuity/v5",
   "project": "RIZ112_lab_to_MATRICE",
-  "date": "2026-10-16",
-  "stage": 9,
-  "status": "STEP9_EXECUTABLE_IC_DEMO_ONLY__SCIENTIFIC_IC_NOT_VALIDATED",
+  "date": "2026-10-17",
+  "stage": 10,
+  "status": "STEP10_CASE_BY_CASE_IC_INFLUENCE_AUDITED__TARGET_GATE_PATCHED__SCIENCE_NOT_APPROVED",
   "continuity_code": "RIZ112|CONTINUE",
   "master": "CAHIER_MERE.md",
   "mandate": "MANDAT_FINITION_112.md",
   "mandate_active": true,
   "journal": {
-    "events": 49,
-    "head": "b441dfb43206c00a7f6628558d7ba7ad1c5e04360ab5c41345caa38c1eac47ff"
+    "events": 54,
+    "head": "d98bca2a5df7883da6a0d710791c01ff5a96e3e27dd9272e1a1e86cc43614d18"
   },
   "cases": {
     "catalogued": 112,
@@ -51,7 +51,7 @@
     "calibrated_ic": null,
     "status": "NOT_VALIDATED"
   },
-  "next": "To convert IC_DEMO to real IC: define and approve observable Q>=85 rubric, collect date-frozen prestart packets with measured independent poststart Q labels, fit+calibrate and validate OOS; ensure no invented effects for unmeasured 112 roles.",
+  "next": "Fully define Q (quality target), collect actual trials and calibrate. Do not misrepresent 112 tracked roles as 112 IC effects. Quantify conditional policies/actions only when evidence exists.",
   "matrice": {
     "sports_engine_modified": false,
     "transfer_only_methods": true,
@@ -73,7 +73,7 @@
   "scientific_ic_percent": null,
   "real_Q_probability_percent": null,
   "last_user_directive": "D016_FINISH_ENGINE_AND_EMIT_IC",
-  "latest_code": "step9/ic_simulation_v1.py",
+  "latest_code": "step10/ic_integrity_v10.py",
   "latest_contract": "step9/DEMONSTRATION_CONTRACT.json",
   "quality_proxy": "Q*_DEMO 4 unvalidated dimensions, threshold 85",
   "probabilities_demo_percent": {
@@ -86,5 +86,21 @@
     "A_alternate_proxy_scale": 38.2
   },
   "real_labeled_cooking_trials": 0,
-  "quality_rubric_user_approved": false
+  "quality_rubric_user_approved": false,
+  "latest_case_audit": "step10/INTERVENTIONS_112_STAGE9.json",
+  "step10": {
+    "one_at_a_time_cases_tested": 112,
+    "ic_demo_changed": 11,
+    "abstentions_original": 5,
+    "v9_ic_demo_unchanged": 92,
+    "derived_not_directly_mutable": 4,
+    "v10_quality_targets_frozen": 14,
+    "quality_contract_hash": "f8069c0f12dda329bc24b5e215ad6d885803cd9b21a9be920fca9b16337889e8",
+    "results_on_A_3000_MC": "IC influence conditional on this single synthetic baseline",
+    "tests_new": 20,
+    "tests_total": 205,
+    "tests_passed": 205,
+    "independent_empirical_quality_trials": 0,
+    "science_approved": false
+  }
 }
