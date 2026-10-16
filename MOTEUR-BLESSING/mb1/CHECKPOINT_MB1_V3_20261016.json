@@ -1,0 +1,83 @@
+{
+  "schema": "moteur-blessing/mb1/v3-continuity",
+  "date": "2026-10-16",
+  "trigger": "MOTEUR|CONTINUE",
+  "status": "MB1_V3_ENGINEERING_DONE__SCIENTIFIC_PIT_PENDING",
+  "source_version": "V1.1.2",
+  "source_zip_sha256": "5ef731d6ee4b5edb8a741c59a565d4f7363be84eb9225e814345cb0a04fe89e0",
+  "all_legacy_members_integrity_verified": true,
+  "original_members": 100,
+  "mb1_v2_members": 8,
+  "mb1_v3_added": 6,
+  "full_members": 114,
+  "parameters": 62,
+  "candidate_formulas": 140,
+  "numeric_fields": 240,
+  "proposals": 372,
+  "v2_crosswalk": {
+    "DIRECT_DESIGN": 25,
+    "PARTIAL_CONTEXT": 50,
+    "NOT_LINKED": 297
+  },
+  "v3_evidence_lanes": 11,
+  "v3_overlap_warning_groups": 12,
+  "v3_new_files_sha256": {
+    "requirements_plan_v3.py": "7455be86f2df54549dda96090c4fe9f36235f44a789d71a683b39b0e7b006ade",
+    "evidence_vault_v1.py": "ad4f1bd46302a3358c102d18dfc6b42fc4a3ce1ff99e888caff45e82700639a7",
+    "test_mb1_v3.py": "3db959f8eaedcefd9fc78024cb6f95cc8dc5a91ba811f75a634d338f2548e260",
+    "REQUIREMENTS_WORKPLAN_V3_20261016.json": "81465d850fb87d0e04ef885e47cdfb5c60e0dc0d798e454e7c4213a2ddc5fc2f",
+    "CHECKPOINT_V3_20261016.json": "47c7d4ad9cab983c23a4c7c3083df07b3b9e9283ae7507e54bc649ff75a3afb7"
+  },
+  "v3_full_zip": {
+    "file": "MOTEUR_BLESSING_V1_1_2_MB1_V3_2026-10-16.zip",
+    "bytes": 12298556,
+    "sha256": "3c1bd3369309101ffdb11f41b4e62270c65f028ff138935b4058e35cf3042baa",
+    "drive_url": "https://drive.google.com/file/d/1Lj5vQgLP-SAs3gx0CZIw-gNMB_pJ6wI6/view?usp=drivesdk"
+  },
+  "v3_patch_zip": {
+    "file": "MOTEUR_BLESSING_MB1_V3_PATCH_2026-10-16.zip",
+    "bytes": 26032,
+    "sha256": "b5f4ac43127a931ea1b0b5247ccd53161015a049902bfc415fa4990acd764865",
+    "drive_url": "https://drive.google.com/file/d/1OrYvWLYtwjRjWp6nADtkrmybjVBdC88t/view?usp=drivesdk"
+  },
+  "drive_folder": {
+    "id": "1t_53nvyzLAD_wmPCo8AKwB21QgDuKGaX",
+    "url": "https://drive.google.com/drive/folders/1t_53nvyzLAD_wmPCo8AKwB21QgDuKGaX",
+    "sharing": "NOT_SHARED"
+  },
+  "library_copies": [
+    "/MOTEUR_BLESSING/MB1_V3_2026-10-16/MOTEUR_BLESSING_V1_1_2_MB1_V3_2026-10-16.zip",
+    "/MOTEUR_BLESSING/MB1_V3_2026-10-16/MOTEUR_BLESSING_MB1_V3_PATCH_2026-10-16.zip"
+  ],
+  "unit_tests": {
+    "historical": 169,
+    "mb1_v2": 18,
+    "mb1_v3": 28,
+    "total": 215,
+    "passed": 215,
+    "failed": 0,
+    "environment": "ChatGPT container, Python 3.13 / Linux"
+  },
+  "windows": {
+    "computer": "MBMPC",
+    "online_last_seen": true,
+    "terminal_working": true,
+    "python": "3.12.10",
+    "github_https_access": true,
+    "zip_full_installed": false,
+    "unit_tests": "NOT_RUN"
+  },
+  "evidence_status": {
+    "genuine_source_pit_authenticated": false,
+    "independent_real_OOS": false,
+    "source_lanes_available_verified": false,
+    "scientific_model_status": "EXPERIMENTAL_NOT_APPROVED",
+    "no_new_scoring_effect": true
+  },
+  "next": [
+    "Source-level temporal proof and authentic independent capture",
+    "Deduplicate raw primitive lineages before feature building",
+    "Chronological independently scored real validation against baselines",
+    "Windows runtime reproduction after verified transfer of ZIP"
+  ]
+}
