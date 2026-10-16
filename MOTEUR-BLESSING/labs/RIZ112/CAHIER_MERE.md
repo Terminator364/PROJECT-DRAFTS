@@ -147,3 +147,20 @@ Ne jamais remplacer cette chaîne par une baseline de fréquence ou une moyenne 
 **Revalidation de tous les tests : 141/141 PASS** en environnement Python 3.13/Linux (22 historiques étape 4 sous leur arborescence originale ; 31 étape 5 ; 10 journal ; 42 étape 6 ; 36 nouveaux tests étape 7). La première tentative de lancer les tests historiques depuis le mauvais répertoire avait généré des erreurs d'import/chemin ; la méthode reproductible correcte utilise l'archive originale étape 4 et les 22 tests passent sans modification de leurs sources.
 
 **Aucune expérience réelle, aucun barème Q approuvé, aucun entraînement, aucun IC légitime.** Projet sportif MATRICE inchangé. La transposition devra employer la même détection de dépendances rétrogrades, cycles, faisabilité et chemin réellement calculé avant de revendiquer une couverture des 62 mondes.
+
+
+## 11. Correction utilisateur sur les « paliers » — 16 octobre 2026
+
+**[DIRECTIVE DE L'UTILISATEUR, formulation conservée dans le journal]** : « Donc tu n'as toujours pas fini de me... je n'était pas, c'est si compliqué que ça pour les faire. Parce que là on y va par paliers. Et d'ailleurs faudrait écrire dans le caim. » L'expression « caim » est interprétée comme **Cahier mère** dans ce projet ; cette interprétation n'est pas présentée comme une citation reformulée.
+
+**[RECONNAISSANCE DU MANQUEMENT]** : la structure des 112 cases était construite, mais les réponses répétaient des annonces de progrès en confondant l'inventaire, la validation de contrat et la contribution démontrée. En étape 7, seules 50 cases sur 112 possédaient un chemin *déclaratif* jusqu'à Q112, alors que 62 n'avaient pas ce chemin, dont 4 avec un calcul numérique isolé. Même ces 50 chemins ne prouvent aucun effet empirique. La frustration de l'utilisateur est donc liée à un écart de livraison réel, pas à une simple incompréhension.
+
+**[DÉCISION RÉVISÉE D014]** : les paliers sont des **moyens de contrôle** et non des livrables autosuffisants. Leur répétition ne doit pas devenir une justification pour éviter de finir le moteur fonctionnel. À la reprise, priorité à un **lot de raccordement complet des 62 cas** et à l'audit des 50 autres selon leurs rôles réels, pas à un nouveau palier décoratif. Chaque cas aura une observation ou action initiale, une route mathématique/conditionnelle/contrôle ou un contrat de cible, une sortie observable et un test de mutation ; chaque chemin non démontré sera identifié. Interdiction d'ajouter une flèche causale fictive ou un malus arbitraire pour remplir un tableau.
+
+**[DÉFINITION DE « TERMINÉ » — deux portes séparées]** :
+- **Fin du moteur fonctionnel de laboratoire** : les 112 cases possèdent des effets de traitement réellement exécutés, adaptés à leur rôle (y compris les 14 critères-cibles sans fuite temporelle), et des essais de mutation prouvent leurs conséquences de traitement pertinentes. Une action facultative peut rester inactive dans un dossier : son branchement doit être testé lorsqu'elle est applicable.
+- **Fin du moteur prédictif fiable** : barème de qualité Q approuvé, données de préparations réelles appariées avant/après cuisson, équations identifiées ou modèle statistique entraîné, validation hors-échantillon et calibration de P(Q≥85). Aucun IC légitime avant cette seconde porte.
+
+**[ÉTAT À NE PAS MASQUER]** : 112/112 contrats de rôle traités, 17 chemins numériques simplifiés (15 moteurs initiaux + 2 dérivés), 62 absences de chemin Q (25 préalables, 26 actions, 11 corrections), 14 résultats comme cibles et non entrées, 141/141 tests logiciels antérieurs, zéro effet scientifique validé, IC `null`. Cette directive a été enregistrée, mais **le travail de raccordement des 62 n'est pas affirmé terminé dans cette entrée**.
+
+**[TRANSFERT MATRICE]** : cette distinction est impérative : 62 mondes répertoriés ne garantissent pas qu'un match a été analysé à travers eux. L'IC Over 1,5 doit être issu uniquement des mécanismes réellement calculés, admissibles en pré-match, et validés ; les gardes et les définitions de résultat ne deviennent pas des prédicteurs par décret.
