@@ -1,0 +1,115 @@
+name: Public Remote OneClick Windows QA
+on:
+  push:
+    paths:
+      - "tools/dc_oneclick_qa/**"
+      - "tests/dc_oneclick_qa/**"
+      - "ci-migration/**"
+      - "tools/ci_public_source_policy.py"
+      - ".github/workflows/remote-oneclick-public-qa.yml"
+  pull_request:
+    paths:
+      - "tools/dc_oneclick_qa/**"
+      - "tests/dc_oneclick_qa/**"
+      - "ci-migration/**"
+      - "tools/ci_public_source_policy.py"
+      - ".github/workflows/remote-oneclick-public-qa.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: remote-oneclick-public-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  windows-qa:
+    runs-on: ${{ matrix.os }}
+    env:
+      SUITE: ${{ matrix.suite }}
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-2022, windows-2025]
+        suite: [g1, g4, g5, g6]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fail-closed inventory and privacy boundary
+        shell: pwsh
+        run: python tools/ci_public_source_policy.py
+      - name: Python isolated unit tests
+        shell: pwsh
+        run: |
+          python -m py_compile tools/dc_oneclick_qa/reconnect_contract.py tests/dc_oneclick_qa/test_contract.py
+          python -m unittest discover -s tests/dc_oneclick_qa -p "test_*.py" -v
+      - name: Compile G1 G4 G5 G6 and stress executables
+        shell: pwsh
+        run: |
+          $ErrorActionPreference='Stop'
+          $vswhere=Join-Path ([Environment]::GetFolderPath('ProgramFilesX86')) 'Microsoft Visual Studio\Installer\vswhere.exe'
+          if(-not (Test-Path $vswhere)){throw "vswhere missing"}
+          $vs=& $vswhere -latest -products '*' -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 -property installationPath
+          if(-not $vs){throw "MSVC x64 compiler missing"}
+          $setup=Join-Path $vs 'Common7\Tools\VsDevCmd.bat'
+          New-Item -ItemType Directory -Force tools/dc_oneclick_qa/bin | Out-Null
+          $root='tools\dc_oneclick_qa'
+          $common='cl /nologo /W4 /O1 /MT /EHsc /utf-8 /DUNICODE /D_UNICODE /D_WIN32_WINNT=0x0A00 '
+          $builds=@(
+            ($common+$root+'\remote_native.cpp /link /SUBSYSTEM:WINDOWS /OUT:'+$root+'\bin\MBMPC-Remote-OneClick.exe winhttp.lib psapi.lib user32.lib gdi32.lib kernel32.lib'),
+            ($common+$root+'\remote_native_g4.cpp /link /SUBSYSTEM:WINDOWS /OUT:'+$root+'\bin\MBMPC-Remote-OneClick-G4.exe winhttp.lib psapi.lib user32.lib gdi32.lib kernel32.lib'),
+            ($common+$root+'\remote_native_g5.cpp /link /SUBSYSTEM:WINDOWS /OUT:'+$root+'\bin\MBMPC-Remote-OneClick-G5.exe wlanapi.lib ole32.lib uuid.lib winhttp.lib user32.lib gdi32.lib kernel32.lib'),
+            ('cl /nologo /W4 /O1 /MT /EHsc '+$root+'\g5_policy_matrix_test.cpp /Fe:'+$root+'\bin\G5-Policy-Matrix.exe'),
+            ($common+$root+'\remote_native_g6.cpp /link /SUBSYSTEM:WINDOWS /OUT:'+$root+'\bin\MBMPC-Remote-OneClick-G6.exe wlanapi.lib ole32.lib uuid.lib winhttp.lib user32.lib gdi32.lib kernel32.lib shell32.lib'),
+            ($common+$root+'\g6_profile_stress_test.cpp /link /OUT:'+$root+'\bin\G6-Profile-Stress.exe')
+          )
+          switch($env:SUITE) {
+            'g1' { $builds=@($builds[0]) }
+            'g4' { $builds=@($builds[1]) }
+            'g5' { $builds=@($builds[2],$builds[3]) }
+            'g6' { $builds=@($builds[4],$builds[5]) }
+            default {throw 'Unknown isolated suite'}
+          }
+          foreach($c in $builds){
+            & cmd.exe /d /c ('call "' + $setup + '" -arch=amd64 && ' + $c)
+            if($LASTEXITCODE -ne 0){throw "Compile failed: $c"}
+          }
+          foreach($name in @('MBMPC-Remote-OneClick-G4.exe','MBMPC-Remote-OneClick-G5.exe','MBMPC-Remote-OneClick-G6.exe')){
+            if(-not (Test-Path "tools/dc_oneclick_qa/bin/$name")){continue}
+            $bytes=(Get-Item "tools/dc_oneclick_qa/bin/$name").Length
+            if($bytes -gt 460000){throw "Low-RAM size ceiling exceeded for $name = $bytes"}
+            Get-FileHash "tools/dc_oneclick_qa/bin/$name" -Algorithm SHA256 | Format-List
+          }
+      - name: Isolated variant-specific Windows real-executable synthetic QA
+        shell: pwsh
+        run: |
+          $ErrorActionPreference='Stop'
+          $p="$env:GITHUB_WORKSPACE\tools\dc_oneclick_qa"
+          function Invoke-Isolated($script) {
+            & pwsh -NoProfile -NonInteractive -File $script
+            if($LASTEXITCODE -ne 0){throw "Lab failed: $script ($LASTEXITCODE)"}
+          }
+          switch($env:SUITE) {
+            'g1' { Invoke-Isolated "$p\windows_native_test.ps1" }
+            'g4' { Invoke-Isolated "$p\windows_native_g4_test.ps1" }
+            'g5' {
+              & "$p\bin\G5-Policy-Matrix.exe"
+              if($LASTEXITCODE -ne 0){throw 'G5 policy matrix failed'}
+              Invoke-Isolated "$p\g5_windows_lab.ps1"
+            }
+            'g6' {
+              & "$p\bin\G6-Profile-Stress.exe"
+              if($LASTEXITCODE -ne 0){throw 'G6 profile stress failed'}
+              Invoke-Isolated "$p\g6_parallel_settings_lab.ps1"
+              Invoke-Isolated "$p\g6_windows_lab.ps1"
+              Invoke-Isolated "$p\g6_fastpath_lab.ps1"
+              Invoke-Isolated "$p\g6_ui_settings_lab.ps1"
+            }
+            default { throw 'Unknown isolated variant' }
+          }
+      - name: Store only the G6 verified executable for one day
+        if: matrix.os == 'windows-2022' && matrix.suite == 'g6'
+        uses: actions/upload-artifact@v4
+        with:
+          name: public-OneClick-G6-${{ github.sha }}
+          path: tools/dc_oneclick_qa/bin/MBMPC-Remote-OneClick-G6.exe
+          if-no-files-found: error
+          retention-days: 1
