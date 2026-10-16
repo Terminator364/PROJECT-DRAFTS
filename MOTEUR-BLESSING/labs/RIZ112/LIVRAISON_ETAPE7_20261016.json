@@ -1,0 +1,38 @@
+{
+  "schema": "riz112/stage7/final-delivery/v1",
+  "date": "2026-10-16",
+  "reprise_code": "RIZ112|CONTINUE",
+  "canonical_checkpoint": "MOTEUR-BLESSING/labs/RIZ112/CHECKPOINT.json",
+  "canonical_master": "MOTEUR-BLESSING/labs/RIZ112/CAHIER_MERE.md",
+  "journal": {"events": 36, "head": "57e99aa02e1d5ec4d5ff3acbee8f206215394f2eeaf8996d1fbea513e19fae95"},
+  "archive": {
+    "name": "RIZ112_CAHIER_MERE_ETAPE7_FINAL_SYNCHRO_2026-10-16.zip",
+    "bytes": 173276,
+    "members": 69,
+    "sha256": "8baeebc62b4fd2278ff60146780388b942c577b78d37998023bdd6183f07ddae"
+  },
+  "source_sync": {
+    "github": "Terminator364/PROJECT-DRAFTS/main/MOTEUR-BLESSING/labs/RIZ112",
+    "drive_file": "https://drive.google.com/file/d/111i8Q183ah4hYWXbTsFeHdZuRuWk2XO6/view?usp=drivesdk",
+    "drive_folder": "https://drive.google.com/drive/folders/1oMXQp39wS0xaygFt2SWm7hII77fHxedP",
+    "drive_bytes_verified": 173276,
+    "drive_shared": false,
+    "library_file_id": "libfile_d3114052a9b8819199d654cfcc52ec0d",
+    "windows_state": "MBMPC OFFLINE; V7 not synced or tested"
+  },
+  "case_study": {
+    "nodes": 112,
+    "declared_edges": 169,
+    "rejected_backward_poststart_arcs": 17,
+    "rejected_reverse_action_arcs": 2,
+    "remaining_structural_candidate_arcs": 150,
+    "cases_with_hypothetical_path_to_Q112": 50,
+    "cases_without_path_to_Q112": 62,
+    "physical_numeric_cases_without_Q112_link": ["014", "037", "038", "043"],
+    "feasibility_checks": 10,
+    "validated_effects_on_Q": 0
+  },
+  "tests": {"step4": 22, "step5": 31, "journal": 10, "step6": 42, "step7": 36, "passed": 141, "total": 141, "windows": "NOT_RUN"},
+  "science": {"actual_rice_trials": 0, "approved_Q_rubric": false, "calibrated_IC_percent": null, "sport_MATRICE_modified": false},
+  "next": "Resolve graph and experimental evidence gaps; do not create 62 fictional associations; define valid Q and collect real paired experiments."
+}
