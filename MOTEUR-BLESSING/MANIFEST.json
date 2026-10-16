@@ -202,6 +202,11 @@
     "archive_sha256": "1dca77c3bb458ae8d3074c7bedd2798b0fb5af5b1cfb5c6b272e7e6e20f3c201",
     "drive_folder": "https://drive.google.com/drive/folders/1oMXQp39wS0xaygFt2SWm7hII77fHxedP",
     "windows_stage5_sync": "NOT_DONE_PC_OFFLINE",
-    "lab_distinct_from_sports_model": true
+    "lab_distinct_from_sports_model": true,
+    "archive_final_sha256": "6fc5c03d44a605781c66e8f561ed3c1a5fc76ad00c21026cbe98b86a64dbf06b",
+    "archive_final_bytes": 87045,
+    "archive_final_drive_url": "https://drive.google.com/file/d/1JRFayl6zSgQfyQoJBdxj62I97v4vQ1AL/view?usp=drivesdk",
+    "journal_events": 23,
+    "journal_head": "dba05a6ddea8f0f156cc991dc5c7932c69470da481c72a3fc507d0911a794b9a"
   }
 }
