@@ -1,16 +1,16 @@
 {
-  "schema": "riz112/master-continuity/v4",
+  "schema": "riz112/master-continuity/v5",
   "project": "RIZ112_lab_to_MATRICE",
   "date": "2026-10-16",
-  "stage": 8,
-  "status": "STAGE8_D014_62_EXECUTABLE_ROUTINGS__Q_AND_IC_NOT_COMPLETED",
+  "stage": 9,
+  "status": "STEP9_EXECUTABLE_IC_DEMO_ONLY__SCIENTIFIC_IC_NOT_VALIDATED",
   "continuity_code": "RIZ112|CONTINUE",
   "master": "CAHIER_MERE.md",
   "mandate": "MANDAT_FINITION_112.md",
   "mandate_active": true,
   "journal": {
-    "events": 45,
-    "head": "a0152341199c6107a78bfe7e63a95e6d364951ab46810d6be7cb38041d3c3a9c"
+    "events": 49,
+    "head": "b441dfb43206c00a7f6628558d7ba7ad1c5e04360ab5c41345caa38c1eac47ff"
   },
   "cases": {
     "catalogued": 112,
@@ -25,7 +25,12 @@
     "cases_with_validated_Q_effect": 0,
     "forecast_044_NO_FORMULA": true,
     "poststart_labels_used_as_predictor": 0,
-    "scientific_IC": null
+    "scientific_IC": null,
+    "all_112_roles_traced": true,
+    "routes_D014_62": true,
+    "simulated_quality_proxy_dimensions": 4,
+    "actual_quality_dimensions_unmodeled": 10,
+    "scientifically_validated_quality_effects": 0
   },
   "tests": {
     "old_step4": 22,
@@ -34,10 +39,11 @@
     "old_step6": 42,
     "old_step7": 36,
     "new_step8": 19,
-    "total": 160,
-    "passed": 160,
+    "total": 185,
+    "passed": 185,
     "environment": "ChatGPT container Linux Python 3.13.5",
-    "windows": "NOT_TESTED"
+    "windows": "NOT_TESTED",
+    "step9": 25
   },
   "scientific": {
     "quality_rubric_approved": false,
@@ -45,10 +51,11 @@
     "calibrated_ic": null,
     "status": "NOT_VALIDATED"
   },
-  "next": "Do NOT stop at 62 typed routes: close actual mechanism/target links with justified empirical or physical laws, document Q rubric, obtain prestart/afterstart real data, validate IC; preserve D014 mandate.",
+  "next": "To convert IC_DEMO to real IC: define and approve observable Q>=85 rubric, collect date-frozen prestart packets with measured independent poststart Q labels, fit+calibrate and validate OOS; ensure no invented effects for unmeasured 112 roles.",
   "matrice": {
     "sports_engine_modified": false,
-    "transfer_only_methods": true
+    "transfer_only_methods": true,
+    "copy_food_coefficients": false
   },
   "mirrors": {
     "github": "MASTER_AND_CODE_PUBLISHED_PENDING_FINAL_CHECKPOINT_UPDATE",
@@ -62,5 +69,22 @@
     "bytes": 206876,
     "sha256_source": "0571e6723fd082f26e67c511acf58ea7d7f79c78e859587adab4a941bb177a62",
     "remote_sha_verified": false
-  }
+  },
+  "scientific_ic_percent": null,
+  "real_Q_probability_percent": null,
+  "last_user_directive": "D016_FINISH_ENGINE_AND_EMIT_IC",
+  "latest_code": "step9/ic_simulation_v1.py",
+  "latest_contract": "step9/DEMONSTRATION_CONTRACT.json",
+  "quality_proxy": "Q*_DEMO 4 unvalidated dimensions, threshold 85",
+  "probabilities_demo_percent": {
+    "A": 62.4,
+    "B": 36.83,
+    "C": 0.1
+  },
+  "sensitivity_demo_percent": {
+    "A_minus_60g": 44.87,
+    "A_alternate_proxy_scale": 38.2
+  },
+  "real_labeled_cooking_trials": 0,
+  "quality_rubric_user_approved": false
 }
