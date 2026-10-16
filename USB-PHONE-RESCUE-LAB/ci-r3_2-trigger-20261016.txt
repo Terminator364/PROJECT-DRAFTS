@@ -1,0 +1,1 @@
+One exceptional R3.2 owner-requested Android build. Source archive SHA256=c38ea9698b045295e8716ab3b1c1b0b269b6996ba2753bc1a112a647dfd7bb99. The output remains unsigned until locally signed on MBMPC. Release marker used once only.
