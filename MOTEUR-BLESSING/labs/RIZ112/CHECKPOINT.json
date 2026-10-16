@@ -43,7 +43,7 @@
     "ic_interpretation": false
   },
   "journal_events_initial": 17,
-  "journal_head": "01f55b2b923d94a35675c1c5e8f70b34d36dbaab222aa75d0c64eba6509c4808",
+  "journal_head": "dba05a6ddea8f0f156cc991dc5c7932c69470da481c72a3fc507d0911a794b9a",
   "original_archive": {
     "name": "RIZ112_ETAPE4_Noyau_Mathematique_2026-10-16.zip",
     "sha256": "5e28c684e0cd2743db8e95c7ced0625bbfd05d8fd02fc559e4663424e7c52764"
@@ -65,5 +65,13 @@
     "Archive/GitHub/Library are checkpoints only; updates happen during conversations, NOT in background",
     "All earlier conversations summarized from available context; not full transcript",
     "Journal hash-chain is not independent historical timestamp attestation"
-  ]
+  ],
+  "journal_events_current": 23,
+  "sync": {
+    "github": "PUBLISHED",
+    "drive": "INITIAL_SNAPSHOT_VERIFIED; FINAL_PENDING",
+    "chatgpt_library": "INITIAL_SNAPSHOT_PUBLISHED",
+    "windows": "OFFLINE_NOT_SYNCED",
+    "pending": "publish final closure snapshot"
+  }
 }
