@@ -1,0 +1,1135 @@
+{
+  "schema": "riz112/stage7/112-gap-ledger/v1",
+  "case_count": 112,
+  "status_counts": {
+    "FUTURE_TARGET_MEASUREMENT_ONLY": 14,
+    "NOT_CONNECTED_TO_Q112_IN_DECLARED_GRAPH": 58,
+    "STRUCTURAL_HYPOTHESIS_NO_NUMERIC_EFFECT": 23,
+    "TOY_PHYSICAL_OR_DERIVED_PATH_NOT_VALIDATED": 17
+  },
+  "rationale": "No forced path insertion for coverage; 112 cases must be documented but future labels are never predictors",
+  "cases": [
+    {
+      "id": "001",
+      "name": "Masse de riz disponible",
+      "role_input_contract": "SOURCE_ATTESTED_PRESTART_OR_UNKNOWN",
+      "v7_graph_relation_status": "TOY_PHYSICAL_OR_DERIVED_PATH_NOT_VALIDATED",
+      "reaches_final_Q112_in_declarative_graph": true,
+      "physical_numeric_path_toy_only": true,
+      "empirical_effect_on_Q_validated": false,
+      "next_step": "Bench-test the existing approximation against repeated real observations"
+    },
+    {
+      "id": "002",
+      "name": "Eau potable disponible",
+      "role_input_contract": "SOURCE_ATTESTED_PRESTART_OR_UNKNOWN",
+      "v7_graph_relation_status": "NOT_CONNECTED_TO_Q112_IN_DECLARED_GRAPH",
+      "reaches_final_Q112_in_declarative_graph": false,
+      "physical_numeric_path_toy_only": false,
+      "empirical_effect_on_Q_validated": false,
+      "next_step": "Editorially identify justified directed dependencies and evidence; do not fabricate link to reach 112"
+    },
+    {
+      "id": "003",
+      "name": "Sel disponible",
+      "role_input_contract": "SOURCE_ATTESTED_PRESTART_OR_UNKNOWN",
+      "v7_graph_relation_status": "STRUCTURAL_HYPOTHESIS_NO_NUMERIC_EFFECT",
+      "reaches_final_Q112_in_declarative_graph": true,
+      "physical_numeric_path_toy_only": false,
+      "empirical_effect_on_Q_validated": false,
+      "next_step": "Define physical/statistical law and independent evidence before numerical scoring"
+    },
+    {
+      "id": "004",
+      "name": "Matière grasse éventuelle",
+      "role_input_contract": "SOURCE_ATTESTED_PRESTART_OR_UNKNOWN",
+      "v7_graph_relation_status": "NOT_CONNECTED_TO_Q112_IN_DECLARED_GRAPH",
+      "reaches_final_Q112_in_declarative_graph": false,
+      "physical_numeric_path_toy_only": false,
+      "empirical_effect_on_Q_validated": false,
+      "next_step": "Editorially identify justified directed dependencies and evidence; do not fabricate link to reach 112"
+    },
+    {
+      "id": "005",
+      "name": "Eau de rinçage disponible",
+      "role_input_contract": "SOURCE_ATTESTED_PRESTART_OR_UNKNOWN",
+      "v7_graph_relation_status": "NOT_CONNECTED_TO_Q112_IN_DECLARED_GRAPH",
+      "reaches_final_Q112_in_declarative_graph": false,
+      "physical_numeric_path_toy_only": false,
+      "empirical_effect_on_Q_validated": false,
+      "next_step": "Editorially identify justified directed dependencies and evidence; do not fabricate link to reach 112"
+    },
+    {
+      "id": "006",
+      "name": "Source d’énergie",
+      "role_input_contract": "SOURCE_ATTESTED_PRESTART_OR_UNKNOWN",
+      "v7_graph_relation_status": "STRUCTURAL_HYPOTHESIS_NO_NUMERIC_EFFECT",
+      "reaches_final_Q112_in_declarative_graph": true,
+      "physical_numeric_path_toy_only": false,
+      "empirical_effect_on_Q_validated": false,
+      "next_step": "Define physical/statistical law and independent evidence before numerical scoring"
+    },
+    {
+      "id": "007",
+      "name": "Fiabilité de la source d’énergie",
+      "role_input_contract": "SOURCE_ATTESTED_PRESTART_OR_UNKNOWN",
+      "v7_graph_relation_status": "NOT_CONNECTED_TO_Q112_IN_DECLARED_GRAPH",
+      "reaches_final_Q112_in_declarative_graph": false,
+      "physical_numeric_path_toy_only": false,
+      "empirical_effect_on_Q_validated": false,
+      "next_step": "Editorially identify justified directed dependencies and evidence; do not fabricate link to reach 112"
+    },
+    {
+      "id": "008",
+      "name": "Capacité de la casserole",
+      "role_input_contract": "SOURCE_ATTESTED_PRESTART_OR_UNKNOWN",
+      "v7_graph_relation_status": "NOT_CONNECTED_TO_Q112_IN_DECLARED_GRAPH",
+      "reaches_final_Q112_in_declarative_graph": false,
+      "physical_numeric_path_toy_only": false,
+      "empirical_effect_on_Q_validated": false,
+      "next_step": "Editorially identify justified directed dependencies and evidence; do not fabricate link to reach 112"
+    },
+    {
+      "id": "009",
+      "name": "Diamètre de la casserole",
+      "role_input_contract": "SOURCE_ATTESTED_PRESTART_OR_UNKNOWN",
+      "v7_graph_relation_status": "NOT_CONNECTED_TO_Q112_IN_DECLARED_GRAPH",
+      "reaches_final_Q112_in_declarative_graph": false,
+      "physical_numeric_path_toy_only": false,
+      "empirical_effect_on_Q_validated": false,
+      "next_step": "Editorially identify justified directed dependencies and evidence; do not fabricate link to reach 112"
+    },
+    {
+      "id": "010",
+      "name": "Matériau de la casserole",
+      "role_input_contract": "SOURCE_ATTESTED_PRESTART_OR_UNKNOWN",
+      "v7_graph_relation_status": "STRUCTURAL_HYPOTHESIS_NO_NUMERIC_EFFECT",
+      "reaches_final_Q112_in_declarative_graph": true,
+      "physical_numeric_path_toy_only": false,
+      "empirical_effect_on_Q_validated": false,
+      "next_step": "Define physical/statistical law and independent evidence before numerical scoring"
+    },
+    {
+      "id": "011",
+      "name": "Épaisseur du fond",
+      "role_input_contract": "SOURCE_ATTESTED_PRESTART_OR_UNKNOWN",
+      "v7_graph_relation_status": "STRUCTURAL_HYPOTHESIS_NO_NUMERIC_EFFECT",
+      "reaches_final_Q112_in_declarative_graph": true,
+      "physical_numeric_path_toy_only": false,
+      "empirical_effect_on_Q_validated": false,
+      "next_step": "Define physical/statistical law and independent evidence before numerical scoring"
+    },
+    {
+      "id": "012",
+      "name": "État du fond",
+      "role_input_contract": "SOURCE_ATTESTED_PRESTART_OR_UNKNOWN",
+      "v7_graph_relation_status": "NOT_CONNECTED_TO_Q112_IN_DECLARED_GRAPH",
+      "reaches_final_Q112_in_declarative_graph": false,
+      "physical_numeric_path_toy_only": false,
+      "empirical_effect_on_Q_validated": false,
+      "next_step": "Editorially identify justified directed dependencies and evidence; do not fabricate link to reach 112"
+    },
+    {
+      "id": "013",
+      "name": "Présence du couvercle",
+      "role_input_contract": "SOURCE_ATTESTED_PRESTART_OR_UNKNOWN",
+      "v7_graph_relation_status": "NOT_CONNECTED_TO_Q112_IN_DECLARED_GRAPH",
+      "reaches_final_Q112_in_declarative_graph": false,
+      "physical_numeric_path_toy_only": false,
+      "empirical_effect_on_Q_validated": false,
+      "next_step": "Editorially identify justified directed dependencies and evidence; do not fabricate link to reach 112"
+    },
+    {
+      "id": "014",
+      "name": "Ajustement du couvercle",
+      "role_input_contract": "SOURCE_ATTESTED_PRESTART_OR_UNKNOWN",
+      "v7_graph_relation_status": "TOY_PHYSICAL_OR_DERIVED_PATH_NOT_VALIDATED",
+      "reaches_final_Q112_in_declarative_graph": false,
+      "physical_numeric_path_toy_only": true,
+      "empirical_effect_on_Q_validated": false,
+      "next_step": "Bench-test the existing approximation against repeated real observations"
+    },
+    {
+      "id": "015",
+      "name": "Évacuation de la vapeur",
+      "role_input_contract": "SOURCE_ATTESTED_PRESTART_OR_UNKNOWN",
+      "v7_graph_relation_status": "NOT_CONNECTED_TO_Q112_IN_DECLARED_GRAPH",
+      "reaches_final_Q112_in_declarative_graph": false,
+      "physical_numeric_path_toy_only": false,
+      "empirical_effect_on_Q_validated": false,
+      "next_step": "Editorially identify justified directed dependencies and evidence; do not fabricate link to reach 112"
+    },
+    {
+      "id": "016",
+      "name": "Type de foyer",
+      "role_input_contract": "SOURCE_ATTESTED_PRESTART_OR_UNKNOWN",
+      "v7_graph_relation_status": "NOT_CONNECTED_TO_Q112_IN_DECLARED_GRAPH",
+      "reaches_final_Q112_in_declarative_graph": false,
+      "physical_numeric_path_toy_only": false,
+      "empirical_effect_on_Q_validated": false,
+      "next_step": "Editorially identify justified directed dependencies and evidence; do not fabricate link to reach 112"
+    },
+    {
+      "id": "017",
+      "name": "Réglage de puissance",
+      "role_input_contract": "SOURCE_ATTESTED_PRESTART_OR_UNKNOWN",
+      "v7_graph_relation_status": "NOT_CONNECTED_TO_Q112_IN_DECLARED_GRAPH",
+      "reaches_final_Q112_in_declarative_graph": false,
+      "physical_numeric_path_toy_only": false,
+      "empirical_effect_on_Q_validated": false,
+      "next_step": "Editorially identify justified directed dependencies and evidence; do not fabricate link to reach 112"
+    },
+    {
+      "id": "018",
+      "name": "Répartition de la chaleur",
+      "role_input_contract": "SOURCE_ATTESTED_PRESTART_OR_UNKNOWN",
+      "v7_graph_relation_status": "STRUCTURAL_HYPOTHESIS_NO_NUMERIC_EFFECT",
+      "reaches_final_Q112_in_declarative_graph": true,
+      "physical_numeric_path_toy_only": false,
+      "empirical_effect_on_Q_validated": false,
+      "next_step": "Define physical/statistical law and independent evidence before numerical scoring"
+    },
+    {
+      "id": "019",
+      "name": "Balance",
+      "role_input_contract": "SOURCE_ATTESTED_PRESTART_OR_UNKNOWN",
+      "v7_graph_relation_status": "NOT_CONNECTED_TO_Q112_IN_DECLARED_GRAPH",
+      "reaches_final_Q112_in_declarative_graph": false,
+      "physical_numeric_path_toy_only": false,
+      "empirical_effect_on_Q_validated": false,
+      "next_step": "Editorially identify justified directed dependencies and evidence; do not fabricate link to reach 112"
+    },
+    {
+      "id": "020",
+      "name": "Instrument de mesure de l’eau",
+      "role_input_contract": "SOURCE_ATTESTED_PRESTART_OR_UNKNOWN",
+      "v7_graph_relation_status": "NOT_CONNECTED_TO_Q112_IN_DECLARED_GRAPH",
+      "reaches_final_Q112_in_declarative_graph": false,
+      "physical_numeric_path_toy_only": false,
+      "empirical_effect_on_Q_validated": false,
+      "next_step": "Editorially identify justified directed dependencies and evidence; do not fabricate link to reach 112"
+    },
+    {
+      "id": "021",
+      "name": "Passoire",
+      "role_input_contract": "SOURCE_ATTESTED_PRESTART_OR_UNKNOWN",
+      "v7_graph_relation_status": "NOT_CONNECTED_TO_Q112_IN_DECLARED_GRAPH",
+      "reaches_final_Q112_in_declarative_graph": false,
+      "physical_numeric_path_toy_only": false,
+      "empirical_effect_on_Q_validated": false,
+      "next_step": "Editorially identify justified directed dependencies and evidence; do not fabricate link to reach 112"
+    },
+    {
+      "id": "022",
+      "name": "Ustensile pour remuer",
+      "role_input_contract": "SOURCE_ATTESTED_PRESTART_OR_UNKNOWN",
+      "v7_graph_relation_status": "STRUCTURAL_HYPOTHESIS_NO_NUMERIC_EFFECT",
+      "reaches_final_Q112_in_declarative_graph": true,
+      "physical_numeric_path_toy_only": false,
+      "empirical_effect_on_Q_validated": false,
+      "next_step": "Define physical/statistical law and independent evidence before numerical scoring"
+    },
+    {
+      "id": "023",
+      "name": "Récipient de service",
+      "role_input_contract": "SOURCE_ATTESTED_PRESTART_OR_UNKNOWN",
+      "v7_graph_relation_status": "STRUCTURAL_HYPOTHESIS_NO_NUMERIC_EFFECT",
+      "reaches_final_Q112_in_declarative_graph": true,
+      "physical_numeric_path_toy_only": false,
+      "empirical_effect_on_Q_validated": false,
+      "next_step": "Define physical/statistical law and independent evidence before numerical scoring"
+    },
+    {
+      "id": "024",
+      "name": "Variété",
+      "role_input_contract": "SOURCE_ATTESTED_PRESTART_OR_UNKNOWN",
+      "v7_graph_relation_status": "TOY_PHYSICAL_OR_DERIVED_PATH_NOT_VALIDATED",
+      "reaches_final_Q112_in_declarative_graph": true,
+      "physical_numeric_path_toy_only": true,
+      "empirical_effect_on_Q_validated": false,
+      "next_step": "Bench-test the existing approximation against repeated real observations"
+    },
+    {
+      "id": "025",
+      "name": "Longueur des grains",
+      "role_input_contract": "SOURCE_ATTESTED_PRESTART_OR_UNKNOWN",
+      "v7_graph_relation_status": "STRUCTURAL_HYPOTHESIS_NO_NUMERIC_EFFECT",
+      "reaches_final_Q112_in_declarative_graph": true,
+      "physical_numeric_path_toy_only": false,
+      "empirical_effect_on_Q_validated": false,
+      "next_step": "Define physical/statistical law and independent evidence before numerical scoring"
+    },
+    {
+      "id": "026",
+      "name": "Traitement du riz",
+      "role_input_contract": "SOURCE_ATTESTED_PRESTART_OR_UNKNOWN",
+      "v7_graph_relation_status": "NOT_CONNECTED_TO_Q112_IN_DECLARED_GRAPH",
+      "reaches_final_Q112_in_declarative_graph": false,
+      "physical_numeric_path_toy_only": false,
+      "empirical_effect_on_Q_validated": false,
+      "next_step": "Editorially identify justified directed dependencies and evidence; do not fabricate link to reach 112"
+    },
+    {
+      "id": "027",
+      "name": "Lot et provenance",
+      "role_input_contract": "SOURCE_ATTESTED_PRESTART_OR_UNKNOWN",
+      "v7_graph_relation_status": "NOT_CONNECTED_TO_Q112_IN_DECLARED_GRAPH",
+      "reaches_final_Q112_in_declarative_graph": false,
+      "physical_numeric_path_toy_only": false,
+      "empirical_effect_on_Q_validated": false,
+      "next_step": "Editorially identify justified directed dependencies and evidence; do not fabricate link to reach 112"
+    },
+    {
+      "id": "028",
+      "name": "Ancienneté et conservation",
+      "role_input_contract": "SOURCE_ATTESTED_PRESTART_OR_UNKNOWN",
+      "v7_graph_relation_status": "NOT_CONNECTED_TO_Q112_IN_DECLARED_GRAPH",
+      "reaches_final_Q112_in_declarative_graph": false,
+      "physical_numeric_path_toy_only": false,
+      "empirical_effect_on_Q_validated": false,
+      "next_step": "Editorially identify justified directed dependencies and evidence; do not fabricate link to reach 112"
+    },
+    {
+      "id": "029",
+      "name": "Grains cassés",
+      "role_input_contract": "SOURCE_ATTESTED_PRESTART_OR_UNKNOWN",
+      "v7_graph_relation_status": "STRUCTURAL_HYPOTHESIS_NO_NUMERIC_EFFECT",
+      "reaches_final_Q112_in_declarative_graph": true,
+      "physical_numeric_path_toy_only": false,
+      "empirical_effect_on_Q_validated": false,
+      "next_step": "Define physical/statistical law and independent evidence before numerical scoring"
+    },
+    {
+      "id": "030",
+      "name": "Amidon de surface",
+      "role_input_contract": "SOURCE_ATTESTED_PRESTART_OR_UNKNOWN",
+      "v7_graph_relation_status": "TOY_PHYSICAL_OR_DERIVED_PATH_NOT_VALIDATED",
+      "reaches_final_Q112_in_declarative_graph": true,
+      "physical_numeric_path_toy_only": true,
+      "empirical_effect_on_Q_validated": false,
+      "next_step": "Bench-test the existing approximation against repeated real observations"
+    },
+    {
+      "id": "031",
+      "name": "Impuretés",
+      "role_input_contract": "SOURCE_ATTESTED_PRESTART_OR_UNKNOWN",
+      "v7_graph_relation_status": "STRUCTURAL_HYPOTHESIS_NO_NUMERIC_EFFECT",
+      "reaches_final_Q112_in_declarative_graph": true,
+      "physical_numeric_path_toy_only": false,
+      "empirical_effect_on_Q_validated": false,
+      "next_step": "Define physical/statistical law and independent evidence before numerical scoring"
+    },
+    {
+      "id": "032",
+      "name": "Humidité initiale",
+      "role_input_contract": "SOURCE_ATTESTED_PRESTART_OR_UNKNOWN",
+      "v7_graph_relation_status": "NOT_CONNECTED_TO_Q112_IN_DECLARED_GRAPH",
+      "reaches_final_Q112_in_declarative_graph": false,
+      "physical_numeric_path_toy_only": false,
+      "empirical_effect_on_Q_validated": false,
+      "next_step": "Editorially identify justified directed dependencies and evidence; do not fabricate link to reach 112"
+    },
+    {
+      "id": "033",
+      "name": "Capacité et vitesse d’absorption",
+      "role_input_contract": "SOURCE_ATTESTED_PRESTART_OR_UNKNOWN",
+      "v7_graph_relation_status": "TOY_PHYSICAL_OR_DERIVED_PATH_NOT_VALIDATED",
+      "reaches_final_Q112_in_declarative_graph": true,
+      "physical_numeric_path_toy_only": true,
+      "empirical_effect_on_Q_validated": false,
+      "next_step": "Bench-test the existing approximation against repeated real observations"
+    },
+    {
+      "id": "034",
+      "name": "Comportement à la gélatinisation",
+      "role_input_contract": "SOURCE_ATTESTED_PRESTART_OR_UNKNOWN",
+      "v7_graph_relation_status": "TOY_PHYSICAL_OR_DERIVED_PATH_NOT_VALIDATED",
+      "reaches_final_Q112_in_declarative_graph": true,
+      "physical_numeric_path_toy_only": true,
+      "empirical_effect_on_Q_validated": false,
+      "next_step": "Bench-test the existing approximation against repeated real observations"
+    },
+    {
+      "id": "035",
+      "name": "Eau ajoutée",
+      "role_input_contract": "SOURCE_ATTESTED_PRESTART_OR_UNKNOWN",
+      "v7_graph_relation_status": "TOY_PHYSICAL_OR_DERIVED_PATH_NOT_VALIDATED",
+      "reaches_final_Q112_in_declarative_graph": true,
+      "physical_numeric_path_toy_only": true,
+      "empirical_effect_on_Q_validated": false,
+      "next_step": "Bench-test the existing approximation against repeated real observations"
+    },
+    {
+      "id": "036",
+      "name": "Eau résiduelle après rinçage",
+      "role_input_contract": "SOURCE_ATTESTED_PRESTART_OR_UNKNOWN",
+      "v7_graph_relation_status": "TOY_PHYSICAL_OR_DERIVED_PATH_NOT_VALIDATED",
+      "reaches_final_Q112_in_declarative_graph": true,
+      "physical_numeric_path_toy_only": true,
+      "empirical_effect_on_Q_validated": false,
+      "next_step": "Bench-test the existing approximation against repeated real observations"
+    },
+    {
+      "id": "037",
+      "name": "Température initiale de l’eau",
+      "role_input_contract": "SOURCE_ATTESTED_PRESTART_OR_UNKNOWN",
+      "v7_graph_relation_status": "TOY_PHYSICAL_OR_DERIVED_PATH_NOT_VALIDATED",
+      "reaches_final_Q112_in_declarative_graph": false,
+      "physical_numeric_path_toy_only": true,
+      "empirical_effect_on_Q_validated": false,
+      "next_step": "Bench-test the existing approximation against repeated real observations"
+    },
+    {
+      "id": "038",
+      "name": "Température initiale du riz",
+      "role_input_contract": "SOURCE_ATTESTED_PRESTART_OR_UNKNOWN",
+      "v7_graph_relation_status": "TOY_PHYSICAL_OR_DERIVED_PATH_NOT_VALIDATED",
+      "reaches_final_Q112_in_declarative_graph": false,
+      "physical_numeric_path_toy_only": true,
+      "empirical_effect_on_Q_validated": false,
+      "next_step": "Bench-test the existing approximation against repeated real observations"
+    },
+    {
+      "id": "039",
+      "name": "Température ambiante",
+      "role_input_contract": "SOURCE_ATTESTED_PRESTART_OR_UNKNOWN",
+      "v7_graph_relation_status": "STRUCTURAL_HYPOTHESIS_NO_NUMERIC_EFFECT",
+      "reaches_final_Q112_in_declarative_graph": true,
+      "physical_numeric_path_toy_only": false,
+      "empirical_effect_on_Q_validated": false,
+      "next_step": "Define physical/statistical law and independent evidence before numerical scoring"
+    },
+    {
+      "id": "040",
+      "name": "Altitude et pression",
+      "role_input_contract": "SOURCE_ATTESTED_PRESTART_OR_UNKNOWN",
+      "v7_graph_relation_status": "NOT_CONNECTED_TO_Q112_IN_DECLARED_GRAPH",
+      "reaches_final_Q112_in_declarative_graph": false,
+      "physical_numeric_path_toy_only": false,
+      "empirical_effect_on_Q_validated": false,
+      "next_step": "Editorially identify justified directed dependencies and evidence; do not fabricate link to reach 112"
+    },
+    {
+      "id": "041",
+      "name": "Puissance choisie",
+      "role_input_contract": "SOURCE_ATTESTED_PRESTART_OR_UNKNOWN",
+      "v7_graph_relation_status": "TOY_PHYSICAL_OR_DERIVED_PATH_NOT_VALIDATED",
+      "reaches_final_Q112_in_declarative_graph": true,
+      "physical_numeric_path_toy_only": true,
+      "empirical_effect_on_Q_validated": false,
+      "next_step": "Bench-test the existing approximation against repeated real observations"
+    },
+    {
+      "id": "042",
+      "name": "Transfert thermique",
+      "role_input_contract": "SOURCE_ATTESTED_PRESTART_OR_UNKNOWN",
+      "v7_graph_relation_status": "TOY_PHYSICAL_OR_DERIVED_PATH_NOT_VALIDATED",
+      "reaches_final_Q112_in_declarative_graph": true,
+      "physical_numeric_path_toy_only": true,
+      "empirical_effect_on_Q_validated": false,
+      "next_step": "Bench-test the existing approximation against repeated real observations"
+    },
+    {
+      "id": "043",
+      "name": "Moment d’ébullition",
+      "role_input_contract": "DERIVED_WITH_PARTIAL_OR_MISSING_FORMULA",
+      "v7_graph_relation_status": "TOY_PHYSICAL_OR_DERIVED_PATH_NOT_VALIDATED",
+      "reaches_final_Q112_in_declarative_graph": false,
+      "physical_numeric_path_toy_only": true,
+      "empirical_effect_on_Q_validated": false,
+      "next_step": "Bench-test the existing approximation against repeated real observations"
+    },
+    {
+      "id": "044",
+      "name": "Stabilité du frémissement",
+      "role_input_contract": "DERIVED_WITH_PARTIAL_OR_MISSING_FORMULA",
+      "v7_graph_relation_status": "NOT_CONNECTED_TO_Q112_IN_DECLARED_GRAPH",
+      "reaches_final_Q112_in_declarative_graph": false,
+      "physical_numeric_path_toy_only": false,
+      "empirical_effect_on_Q_validated": false,
+      "next_step": "Editorially identify justified directed dependencies and evidence; do not fabricate link to reach 112"
+    },
+    {
+      "id": "045",
+      "name": "Évaporation estimée",
+      "role_input_contract": "SOURCE_ATTESTED_PRESTART_OR_UNKNOWN",
+      "v7_graph_relation_status": "TOY_PHYSICAL_OR_DERIVED_PATH_NOT_VALIDATED",
+      "reaches_final_Q112_in_declarative_graph": true,
+      "physical_numeric_path_toy_only": true,
+      "empirical_effect_on_Q_validated": false,
+      "next_step": "Bench-test the existing approximation against repeated real observations"
+    },
+    {
+      "id": "046",
+      "name": "Fuites de vapeur",
+      "role_input_contract": "DERIVED_WITH_PARTIAL_OR_MISSING_FORMULA",
+      "v7_graph_relation_status": "NOT_CONNECTED_TO_Q112_IN_DECLARED_GRAPH",
+      "reaches_final_Q112_in_declarative_graph": false,
+      "physical_numeric_path_toy_only": false,
+      "empirical_effect_on_Q_validated": false,
+      "next_step": "Editorially identify justified directed dependencies and evidence; do not fabricate link to reach 112"
+    },
+    {
+      "id": "047",
+      "name": "Durée de cuisson envisagée",
+      "role_input_contract": "SOURCE_ATTESTED_PRESTART_OR_UNKNOWN",
+      "v7_graph_relation_status": "TOY_PHYSICAL_OR_DERIVED_PATH_NOT_VALIDATED",
+      "reaches_final_Q112_in_declarative_graph": true,
+      "physical_numeric_path_toy_only": true,
+      "empirical_effect_on_Q_validated": false,
+      "next_step": "Bench-test the existing approximation against repeated real observations"
+    },
+    {
+      "id": "048",
+      "name": "Bilan hydrique prévisionnel",
+      "role_input_contract": "DERIVED_WITH_PARTIAL_OR_MISSING_FORMULA",
+      "v7_graph_relation_status": "TOY_PHYSICAL_OR_DERIVED_PATH_NOT_VALIDATED",
+      "reaches_final_Q112_in_declarative_graph": true,
+      "physical_numeric_path_toy_only": true,
+      "empirical_effect_on_Q_validated": false,
+      "next_step": "Bench-test the existing approximation against repeated real observations"
+    },
+    {
+      "id": "049",
+      "name": "Vérifier les portions",
+      "role_input_contract": "PREDECLARED_ACTION_NOT_ACTUAL_EVENT",
+      "v7_graph_relation_status": "STRUCTURAL_HYPOTHESIS_NO_NUMERIC_EFFECT",
+      "reaches_final_Q112_in_declarative_graph": true,
+      "physical_numeric_path_toy_only": false,
+      "empirical_effect_on_Q_validated": false,
+      "next_step": "Define physical/statistical law and independent evidence before numerical scoring"
+    },
+    {
+      "id": "050",
+      "name": "Peser le riz",
+      "role_input_contract": "PREDECLARED_ACTION_NOT_ACTUAL_EVENT",
+      "v7_graph_relation_status": "NOT_CONNECTED_TO_Q112_IN_DECLARED_GRAPH",
+      "reaches_final_Q112_in_declarative_graph": false,
+      "physical_numeric_path_toy_only": false,
+      "empirical_effect_on_Q_validated": false,
+      "next_step": "Editorially identify justified directed dependencies and evidence; do not fabricate link to reach 112"
+    },
+    {
+      "id": "051",
+      "name": "Trier et inspecter",
+      "role_input_contract": "PREDECLARED_ACTION_NOT_ACTUAL_EVENT",
+      "v7_graph_relation_status": "NOT_CONNECTED_TO_Q112_IN_DECLARED_GRAPH",
+      "reaches_final_Q112_in_declarative_graph": false,
+      "physical_numeric_path_toy_only": false,
+      "empirical_effect_on_Q_validated": false,
+      "next_step": "Editorially identify justified directed dependencies and evidence; do not fabricate link to reach 112"
+    },
+    {
+      "id": "052",
+      "name": "Choisir la méthode",
+      "role_input_contract": "PREDECLARED_ACTION_NOT_ACTUAL_EVENT",
+      "v7_graph_relation_status": "NOT_CONNECTED_TO_Q112_IN_DECLARED_GRAPH",
+      "reaches_final_Q112_in_declarative_graph": false,
+      "physical_numeric_path_toy_only": false,
+      "empirical_effect_on_Q_validated": false,
+      "next_step": "Editorially identify justified directed dependencies and evidence; do not fabricate link to reach 112"
+    },
+    {
+      "id": "053",
+      "name": "Préparer le dosage initial",
+      "role_input_contract": "PREDECLARED_ACTION_NOT_ACTUAL_EVENT",
+      "v7_graph_relation_status": "NOT_CONNECTED_TO_Q112_IN_DECLARED_GRAPH",
+      "reaches_final_Q112_in_declarative_graph": false,
+      "physical_numeric_path_toy_only": false,
+      "empirical_effect_on_Q_validated": false,
+      "next_step": "Editorially identify justified directed dependencies and evidence; do not fabricate link to reach 112"
+    },
+    {
+      "id": "054",
+      "name": "Décider du rinçage",
+      "role_input_contract": "PREDECLARED_ACTION_NOT_ACTUAL_EVENT",
+      "v7_graph_relation_status": "TOY_PHYSICAL_OR_DERIVED_PATH_NOT_VALIDATED",
+      "reaches_final_Q112_in_declarative_graph": true,
+      "physical_numeric_path_toy_only": true,
+      "empirical_effect_on_Q_validated": false,
+      "next_step": "Bench-test the existing approximation against repeated real observations"
+    },
+    {
+      "id": "055",
+      "name": "Premier rinçage",
+      "role_input_contract": "PREDECLARED_ACTION_NOT_ACTUAL_EVENT",
+      "v7_graph_relation_status": "NOT_CONNECTED_TO_Q112_IN_DECLARED_GRAPH",
+      "reaches_final_Q112_in_declarative_graph": false,
+      "physical_numeric_path_toy_only": false,
+      "empirical_effect_on_Q_validated": false,
+      "next_step": "Editorially identify justified directed dependencies and evidence; do not fabricate link to reach 112"
+    },
+    {
+      "id": "056",
+      "name": "Rinçage complémentaire",
+      "role_input_contract": "PREDECLARED_ACTION_NOT_ACTUAL_EVENT",
+      "v7_graph_relation_status": "NOT_CONNECTED_TO_Q112_IN_DECLARED_GRAPH",
+      "reaches_final_Q112_in_declarative_graph": false,
+      "physical_numeric_path_toy_only": false,
+      "empirical_effect_on_Q_validated": false,
+      "next_step": "Editorially identify justified directed dependencies and evidence; do not fabricate link to reach 112"
+    },
+    {
+      "id": "057",
+      "name": "Égouttage",
+      "role_input_contract": "PREDECLARED_ACTION_NOT_ACTUAL_EVENT",
+      "v7_graph_relation_status": "NOT_CONNECTED_TO_Q112_IN_DECLARED_GRAPH",
+      "reaches_final_Q112_in_declarative_graph": false,
+      "physical_numeric_path_toy_only": false,
+      "empirical_effect_on_Q_validated": false,
+      "next_step": "Editorially identify justified directed dependencies and evidence; do not fabricate link to reach 112"
+    },
+    {
+      "id": "058",
+      "name": "Évaluer l’eau retenue",
+      "role_input_contract": "PREDECLARED_ACTION_NOT_ACTUAL_EVENT",
+      "v7_graph_relation_status": "NOT_CONNECTED_TO_Q112_IN_DECLARED_GRAPH",
+      "reaches_final_Q112_in_declarative_graph": false,
+      "physical_numeric_path_toy_only": false,
+      "empirical_effect_on_Q_validated": false,
+      "next_step": "Editorially identify justified directed dependencies and evidence; do not fabricate link to reach 112"
+    },
+    {
+      "id": "059",
+      "name": "Mettre le riz dans la casserole",
+      "role_input_contract": "PREDECLARED_ACTION_NOT_ACTUAL_EVENT",
+      "v7_graph_relation_status": "NOT_CONNECTED_TO_Q112_IN_DECLARED_GRAPH",
+      "reaches_final_Q112_in_declarative_graph": false,
+      "physical_numeric_path_toy_only": false,
+      "empirical_effect_on_Q_validated": false,
+      "next_step": "Editorially identify justified directed dependencies and evidence; do not fabricate link to reach 112"
+    },
+    {
+      "id": "060",
+      "name": "Ajouter l’eau",
+      "role_input_contract": "PREDECLARED_ACTION_NOT_ACTUAL_EVENT",
+      "v7_graph_relation_status": "NOT_CONNECTED_TO_Q112_IN_DECLARED_GRAPH",
+      "reaches_final_Q112_in_declarative_graph": false,
+      "physical_numeric_path_toy_only": false,
+      "empirical_effect_on_Q_validated": false,
+      "next_step": "Editorially identify justified directed dependencies and evidence; do not fabricate link to reach 112"
+    },
+    {
+      "id": "061",
+      "name": "Ajouter le sel",
+      "role_input_contract": "PREDECLARED_ACTION_NOT_ACTUAL_EVENT",
+      "v7_graph_relation_status": "STRUCTURAL_HYPOTHESIS_NO_NUMERIC_EFFECT",
+      "reaches_final_Q112_in_declarative_graph": true,
+      "physical_numeric_path_toy_only": false,
+      "empirical_effect_on_Q_validated": false,
+      "next_step": "Define physical/statistical law and independent evidence before numerical scoring"
+    },
+    {
+      "id": "062",
+      "name": "Ajouter la matière grasse",
+      "role_input_contract": "PREDECLARED_ACTION_NOT_ACTUAL_EVENT",
+      "v7_graph_relation_status": "NOT_CONNECTED_TO_Q112_IN_DECLARED_GRAPH",
+      "reaches_final_Q112_in_declarative_graph": false,
+      "physical_numeric_path_toy_only": false,
+      "empirical_effect_on_Q_validated": false,
+      "next_step": "Editorially identify justified directed dependencies and evidence; do not fabricate link to reach 112"
+    },
+    {
+      "id": "063",
+      "name": "Vérifier la capacité",
+      "role_input_contract": "PREDECLARED_ACTION_NOT_ACTUAL_EVENT",
+      "v7_graph_relation_status": "NOT_CONNECTED_TO_Q112_IN_DECLARED_GRAPH",
+      "reaches_final_Q112_in_declarative_graph": false,
+      "physical_numeric_path_toy_only": false,
+      "empirical_effect_on_Q_validated": false,
+      "next_step": "Editorially identify justified directed dependencies and evidence; do not fabricate link to reach 112"
+    },
+    {
+      "id": "064",
+      "name": "Positionner le couvercle",
+      "role_input_contract": "PREDECLARED_ACTION_NOT_ACTUAL_EVENT",
+      "v7_graph_relation_status": "NOT_CONNECTED_TO_Q112_IN_DECLARED_GRAPH",
+      "reaches_final_Q112_in_declarative_graph": false,
+      "physical_numeric_path_toy_only": false,
+      "empirical_effect_on_Q_validated": false,
+      "next_step": "Editorially identify justified directed dependencies and evidence; do not fabricate link to reach 112"
+    },
+    {
+      "id": "065",
+      "name": "Démarrer la chauffe",
+      "role_input_contract": "PREDECLARED_ACTION_NOT_ACTUAL_EVENT",
+      "v7_graph_relation_status": "NOT_CONNECTED_TO_Q112_IN_DECLARED_GRAPH",
+      "reaches_final_Q112_in_declarative_graph": false,
+      "physical_numeric_path_toy_only": false,
+      "empirical_effect_on_Q_validated": false,
+      "next_step": "Editorially identify justified directed dependencies and evidence; do not fabricate link to reach 112"
+    },
+    {
+      "id": "066",
+      "name": "Amener à ébullition",
+      "role_input_contract": "PREDECLARED_ACTION_NOT_ACTUAL_EVENT",
+      "v7_graph_relation_status": "NOT_CONNECTED_TO_Q112_IN_DECLARED_GRAPH",
+      "reaches_final_Q112_in_declarative_graph": false,
+      "physical_numeric_path_toy_only": false,
+      "empirical_effect_on_Q_validated": false,
+      "next_step": "Editorially identify justified directed dependencies and evidence; do not fabricate link to reach 112"
+    },
+    {
+      "id": "067",
+      "name": "Observer mousse et débordement",
+      "role_input_contract": "PREDECLARED_ACTION_NOT_ACTUAL_EVENT",
+      "v7_graph_relation_status": "NOT_CONNECTED_TO_Q112_IN_DECLARED_GRAPH",
+      "reaches_final_Q112_in_declarative_graph": false,
+      "physical_numeric_path_toy_only": false,
+      "empirical_effect_on_Q_validated": false,
+      "next_step": "Editorially identify justified directed dependencies and evidence; do not fabricate link to reach 112"
+    },
+    {
+      "id": "068",
+      "name": "Réduire le feu et couvrir",
+      "role_input_contract": "PREDECLARED_ACTION_NOT_ACTUAL_EVENT",
+      "v7_graph_relation_status": "NOT_CONNECTED_TO_Q112_IN_DECLARED_GRAPH",
+      "reaches_final_Q112_in_declarative_graph": false,
+      "physical_numeric_path_toy_only": false,
+      "empirical_effect_on_Q_validated": false,
+      "next_step": "Editorially identify justified directed dependencies and evidence; do not fabricate link to reach 112"
+    },
+    {
+      "id": "069",
+      "name": "Maintenir le régime thermique",
+      "role_input_contract": "PREDECLARED_ACTION_NOT_ACTUAL_EVENT",
+      "v7_graph_relation_status": "STRUCTURAL_HYPOTHESIS_NO_NUMERIC_EFFECT",
+      "reaches_final_Q112_in_declarative_graph": true,
+      "physical_numeric_path_toy_only": false,
+      "empirical_effect_on_Q_validated": false,
+      "next_step": "Define physical/statistical law and independent evidence before numerical scoring"
+    },
+    {
+      "id": "070",
+      "name": "Gérer le couvercle",
+      "role_input_contract": "PREDECLARED_ACTION_NOT_ACTUAL_EVENT",
+      "v7_graph_relation_status": "NOT_CONNECTED_TO_Q112_IN_DECLARED_GRAPH",
+      "reaches_final_Q112_in_declarative_graph": false,
+      "physical_numeric_path_toy_only": false,
+      "empirical_effect_on_Q_validated": false,
+      "next_step": "Editorially identify justified directed dependencies and evidence; do not fabricate link to reach 112"
+    },
+    {
+      "id": "071",
+      "name": "Limiter l’agitation",
+      "role_input_contract": "PREDECLARED_ACTION_NOT_ACTUAL_EVENT",
+      "v7_graph_relation_status": "STRUCTURAL_HYPOTHESIS_NO_NUMERIC_EFFECT",
+      "reaches_final_Q112_in_declarative_graph": true,
+      "physical_numeric_path_toy_only": false,
+      "empirical_effect_on_Q_validated": false,
+      "next_step": "Define physical/statistical law and independent evidence before numerical scoring"
+    },
+    {
+      "id": "072",
+      "name": "Suivre l’hydratation",
+      "role_input_contract": "PREDECLARED_ACTION_NOT_ACTUAL_EVENT",
+      "v7_graph_relation_status": "NOT_CONNECTED_TO_Q112_IN_DECLARED_GRAPH",
+      "reaches_final_Q112_in_declarative_graph": false,
+      "physical_numeric_path_toy_only": false,
+      "empirical_effect_on_Q_validated": false,
+      "next_step": "Editorially identify justified directed dependencies and evidence; do not fabricate link to reach 112"
+    },
+    {
+      "id": "073",
+      "name": "Déterminer la fin de chauffe",
+      "role_input_contract": "PREDECLARED_ACTION_NOT_ACTUAL_EVENT",
+      "v7_graph_relation_status": "NOT_CONNECTED_TO_Q112_IN_DECLARED_GRAPH",
+      "reaches_final_Q112_in_declarative_graph": false,
+      "physical_numeric_path_toy_only": false,
+      "empirical_effect_on_Q_validated": false,
+      "next_step": "Editorially identify justified directed dependencies and evidence; do not fabricate link to reach 112"
+    },
+    {
+      "id": "074",
+      "name": "Couper le feu",
+      "role_input_contract": "PREDECLARED_ACTION_NOT_ACTUAL_EVENT",
+      "v7_graph_relation_status": "NOT_CONNECTED_TO_Q112_IN_DECLARED_GRAPH",
+      "reaches_final_Q112_in_declarative_graph": false,
+      "physical_numeric_path_toy_only": false,
+      "empirical_effect_on_Q_validated": false,
+      "next_step": "Editorially identify justified directed dependencies and evidence; do not fabricate link to reach 112"
+    },
+    {
+      "id": "075",
+      "name": "Commencer le repos",
+      "role_input_contract": "PREDECLARED_ACTION_NOT_ACTUAL_EVENT",
+      "v7_graph_relation_status": "NOT_CONNECTED_TO_Q112_IN_DECLARED_GRAPH",
+      "reaches_final_Q112_in_declarative_graph": false,
+      "physical_numeric_path_toy_only": false,
+      "empirical_effect_on_Q_validated": false,
+      "next_step": "Editorially identify justified directed dependencies and evidence; do not fabricate link to reach 112"
+    },
+    {
+      "id": "076",
+      "name": "Respecter le repos",
+      "role_input_contract": "PREDECLARED_ACTION_NOT_ACTUAL_EVENT",
+      "v7_graph_relation_status": "NOT_CONNECTED_TO_Q112_IN_DECLARED_GRAPH",
+      "reaches_final_Q112_in_declarative_graph": false,
+      "physical_numeric_path_toy_only": false,
+      "empirical_effect_on_Q_validated": false,
+      "next_step": "Editorially identify justified directed dependencies and evidence; do not fabricate link to reach 112"
+    },
+    {
+      "id": "077",
+      "name": "Égrainer",
+      "role_input_contract": "PREDECLARED_ACTION_NOT_ACTUAL_EVENT",
+      "v7_graph_relation_status": "STRUCTURAL_HYPOTHESIS_NO_NUMERIC_EFFECT",
+      "reaches_final_Q112_in_declarative_graph": true,
+      "physical_numeric_path_toy_only": false,
+      "empirical_effect_on_Q_validated": false,
+      "next_step": "Define physical/statistical law and independent evidence before numerical scoring"
+    },
+    {
+      "id": "078",
+      "name": "Examiner l’humidité finale",
+      "role_input_contract": "PREDECLARED_ACTION_NOT_ACTUAL_EVENT",
+      "v7_graph_relation_status": "NOT_CONNECTED_TO_Q112_IN_DECLARED_GRAPH",
+      "reaches_final_Q112_in_declarative_graph": false,
+      "physical_numeric_path_toy_only": false,
+      "empirical_effect_on_Q_validated": false,
+      "next_step": "Editorially identify justified directed dependencies and evidence; do not fabricate link to reach 112"
+    },
+    {
+      "id": "079",
+      "name": "Décider d’une finition",
+      "role_input_contract": "PREDECLARED_ACTION_NOT_ACTUAL_EVENT",
+      "v7_graph_relation_status": "NOT_CONNECTED_TO_Q112_IN_DECLARED_GRAPH",
+      "reaches_final_Q112_in_declarative_graph": false,
+      "physical_numeric_path_toy_only": false,
+      "empirical_effect_on_Q_validated": false,
+      "next_step": "Editorially identify justified directed dependencies and evidence; do not fabricate link to reach 112"
+    },
+    {
+      "id": "080",
+      "name": "Ouvrir pour servir",
+      "role_input_contract": "PREDECLARED_ACTION_NOT_ACTUAL_EVENT",
+      "v7_graph_relation_status": "NOT_CONNECTED_TO_Q112_IN_DECLARED_GRAPH",
+      "reaches_final_Q112_in_declarative_graph": false,
+      "physical_numeric_path_toy_only": false,
+      "empirical_effect_on_Q_validated": false,
+      "next_step": "Editorially identify justified directed dependencies and evidence; do not fabricate link to reach 112"
+    },
+    {
+      "id": "081",
+      "name": "Transférer le riz",
+      "role_input_contract": "PREDECLARED_ACTION_NOT_ACTUAL_EVENT",
+      "v7_graph_relation_status": "STRUCTURAL_HYPOTHESIS_NO_NUMERIC_EFFECT",
+      "reaches_final_Q112_in_declarative_graph": true,
+      "physical_numeric_path_toy_only": false,
+      "empirical_effect_on_Q_validated": false,
+      "next_step": "Define physical/statistical law and independent evidence before numerical scoring"
+    },
+    {
+      "id": "082",
+      "name": "Répartir deux portions",
+      "role_input_contract": "PREDECLARED_ACTION_NOT_ACTUAL_EVENT",
+      "v7_graph_relation_status": "STRUCTURAL_HYPOTHESIS_NO_NUMERIC_EFFECT",
+      "reaches_final_Q112_in_declarative_graph": true,
+      "physical_numeric_path_toy_only": false,
+      "empirical_effect_on_Q_validated": false,
+      "next_step": "Define physical/statistical law and independent evidence before numerical scoring"
+    },
+    {
+      "id": "083",
+      "name": "Contrôler la température de service",
+      "role_input_contract": "PREDECLARED_ACTION_NOT_ACTUAL_EVENT",
+      "v7_graph_relation_status": "STRUCTURAL_HYPOTHESIS_NO_NUMERIC_EFFECT",
+      "reaches_final_Q112_in_declarative_graph": true,
+      "physical_numeric_path_toy_only": false,
+      "empirical_effect_on_Q_validated": false,
+      "next_step": "Define physical/statistical law and independent evidence before numerical scoring"
+    },
+    {
+      "id": "084",
+      "name": "Limiter le délai",
+      "role_input_contract": "PREDECLARED_ACTION_NOT_ACTUAL_EVENT",
+      "v7_graph_relation_status": "STRUCTURAL_HYPOTHESIS_NO_NUMERIC_EFFECT",
+      "reaches_final_Q112_in_declarative_graph": true,
+      "physical_numeric_path_toy_only": false,
+      "empirical_effect_on_Q_validated": false,
+      "next_step": "Define physical/statistical law and independent evidence before numerical scoring"
+    },
+    {
+      "id": "085",
+      "name": "Présenter le résultat",
+      "role_input_contract": "PREDECLARED_ACTION_NOT_ACTUAL_EVENT",
+      "v7_graph_relation_status": "STRUCTURAL_HYPOTHESIS_NO_NUMERIC_EFFECT",
+      "reaches_final_Q112_in_declarative_graph": true,
+      "physical_numeric_path_toy_only": false,
+      "empirical_effect_on_Q_validated": false,
+      "next_step": "Define physical/statistical law and independent evidence before numerical scoring"
+    },
+    {
+      "id": "086",
+      "name": "Excès d’eau",
+      "role_input_contract": "PREDECLARED_TRIGGER_POLICY_NOT_ACTUAL_CORRECTION",
+      "v7_graph_relation_status": "NOT_CONNECTED_TO_Q112_IN_DECLARED_GRAPH",
+      "reaches_final_Q112_in_declarative_graph": false,
+      "physical_numeric_path_toy_only": false,
+      "empirical_effect_on_Q_validated": false,
+      "next_step": "Editorially identify justified directed dependencies and evidence; do not fabricate link to reach 112"
+    },
+    {
+      "id": "087",
+      "name": "Manque d’eau",
+      "role_input_contract": "PREDECLARED_TRIGGER_POLICY_NOT_ACTUAL_CORRECTION",
+      "v7_graph_relation_status": "NOT_CONNECTED_TO_Q112_IN_DECLARED_GRAPH",
+      "reaches_final_Q112_in_declarative_graph": false,
+      "physical_numeric_path_toy_only": false,
+      "empirical_effect_on_Q_validated": false,
+      "next_step": "Editorially identify justified directed dependencies and evidence; do not fabricate link to reach 112"
+    },
+    {
+      "id": "088",
+      "name": "Chaleur excessive",
+      "role_input_contract": "PREDECLARED_TRIGGER_POLICY_NOT_ACTUAL_CORRECTION",
+      "v7_graph_relation_status": "NOT_CONNECTED_TO_Q112_IN_DECLARED_GRAPH",
+      "reaches_final_Q112_in_declarative_graph": false,
+      "physical_numeric_path_toy_only": false,
+      "empirical_effect_on_Q_validated": false,
+      "next_step": "Editorially identify justified directed dependencies and evidence; do not fabricate link to reach 112"
+    },
+    {
+      "id": "089",
+      "name": "Chaleur insuffisante",
+      "role_input_contract": "PREDECLARED_TRIGGER_POLICY_NOT_ACTUAL_CORRECTION",
+      "v7_graph_relation_status": "NOT_CONNECTED_TO_Q112_IN_DECLARED_GRAPH",
+      "reaches_final_Q112_in_declarative_graph": false,
+      "physical_numeric_path_toy_only": false,
+      "empirical_effect_on_Q_validated": false,
+      "next_step": "Editorially identify justified directed dependencies and evidence; do not fabricate link to reach 112"
+    },
+    {
+      "id": "090",
+      "name": "Couvercle inadapté",
+      "role_input_contract": "PREDECLARED_TRIGGER_POLICY_NOT_ACTUAL_CORRECTION",
+      "v7_graph_relation_status": "NOT_CONNECTED_TO_Q112_IN_DECLARED_GRAPH",
+      "reaches_final_Q112_in_declarative_graph": false,
+      "physical_numeric_path_toy_only": false,
+      "empirical_effect_on_Q_validated": false,
+      "next_step": "Editorially identify justified directed dependencies and evidence; do not fabricate link to reach 112"
+    },
+    {
+      "id": "091",
+      "name": "Évaporation excessive",
+      "role_input_contract": "PREDECLARED_TRIGGER_POLICY_NOT_ACTUAL_CORRECTION",
+      "v7_graph_relation_status": "NOT_CONNECTED_TO_Q112_IN_DECLARED_GRAPH",
+      "reaches_final_Q112_in_declarative_graph": false,
+      "physical_numeric_path_toy_only": false,
+      "empirical_effect_on_Q_validated": false,
+      "next_step": "Editorially identify justified directed dependencies and evidence; do not fabricate link to reach 112"
+    },
+    {
+      "id": "092",
+      "name": "Frémissement instable",
+      "role_input_contract": "PREDECLARED_TRIGGER_POLICY_NOT_ACTUAL_CORRECTION",
+      "v7_graph_relation_status": "NOT_CONNECTED_TO_Q112_IN_DECLARED_GRAPH",
+      "reaches_final_Q112_in_declarative_graph": false,
+      "physical_numeric_path_toy_only": false,
+      "empirical_effect_on_Q_validated": false,
+      "next_step": "Editorially identify justified directed dependencies and evidence; do not fabricate link to reach 112"
+    },
+    {
+      "id": "093",
+      "name": "Débordement",
+      "role_input_contract": "PREDECLARED_TRIGGER_POLICY_NOT_ACTUAL_CORRECTION",
+      "v7_graph_relation_status": "NOT_CONNECTED_TO_Q112_IN_DECLARED_GRAPH",
+      "reaches_final_Q112_in_declarative_graph": false,
+      "physical_numeric_path_toy_only": false,
+      "empirical_effect_on_Q_validated": false,
+      "next_step": "Editorially identify justified directed dependencies and evidence; do not fabricate link to reach 112"
+    },
+    {
+      "id": "094",
+      "name": "Riz attaché ou brûlé",
+      "role_input_contract": "PREDECLARED_TRIGGER_POLICY_NOT_ACTUAL_CORRECTION",
+      "v7_graph_relation_status": "STRUCTURAL_HYPOTHESIS_NO_NUMERIC_EFFECT",
+      "reaches_final_Q112_in_declarative_graph": true,
+      "physical_numeric_path_toy_only": false,
+      "empirical_effect_on_Q_validated": false,
+      "next_step": "Define physical/statistical law and independent evidence before numerical scoring"
+    },
+    {
+      "id": "095",
+      "name": "Grains agglutinés",
+      "role_input_contract": "PREDECLARED_TRIGGER_POLICY_NOT_ACTUAL_CORRECTION",
+      "v7_graph_relation_status": "NOT_CONNECTED_TO_Q112_IN_DECLARED_GRAPH",
+      "reaches_final_Q112_in_declarative_graph": false,
+      "physical_numeric_path_toy_only": false,
+      "empirical_effect_on_Q_validated": false,
+      "next_step": "Editorially identify justified directed dependencies and evidence; do not fabricate link to reach 112"
+    },
+    {
+      "id": "096",
+      "name": "Grains trop fermes",
+      "role_input_contract": "PREDECLARED_TRIGGER_POLICY_NOT_ACTUAL_CORRECTION",
+      "v7_graph_relation_status": "NOT_CONNECTED_TO_Q112_IN_DECLARED_GRAPH",
+      "reaches_final_Q112_in_declarative_graph": false,
+      "physical_numeric_path_toy_only": false,
+      "empirical_effect_on_Q_validated": false,
+      "next_step": "Editorially identify justified directed dependencies and evidence; do not fabricate link to reach 112"
+    },
+    {
+      "id": "097",
+      "name": "Riz pâteux",
+      "role_input_contract": "PREDECLARED_TRIGGER_POLICY_NOT_ACTUAL_CORRECTION",
+      "v7_graph_relation_status": "NOT_CONNECTED_TO_Q112_IN_DECLARED_GRAPH",
+      "reaches_final_Q112_in_declarative_graph": false,
+      "physical_numeric_path_toy_only": false,
+      "empirical_effect_on_Q_validated": false,
+      "next_step": "Editorially identify justified directed dependencies and evidence; do not fabricate link to reach 112"
+    },
+    {
+      "id": "098",
+      "name": "Situation non récupérable",
+      "role_input_contract": "PREDECLARED_TRIGGER_POLICY_NOT_ACTUAL_CORRECTION",
+      "v7_graph_relation_status": "STRUCTURAL_HYPOTHESIS_NO_NUMERIC_EFFECT",
+      "reaches_final_Q112_in_declarative_graph": true,
+      "physical_numeric_path_toy_only": false,
+      "empirical_effect_on_Q_validated": false,
+      "next_step": "Define physical/statistical law and independent evidence before numerical scoring"
+    },
+    {
+      "id": "099",
+      "name": "Salubrité et sécurité alimentaire",
+      "role_input_contract": "POSTSTART_LABEL_NOT_PRESTART_INPUT",
+      "v7_graph_relation_status": "FUTURE_TARGET_MEASUREMENT_ONLY",
+      "reaches_final_Q112_in_declarative_graph": true,
+      "physical_numeric_path_toy_only": false,
+      "empirical_effect_on_Q_validated": false,
+      "next_step": "Define and preregister reproducible poststart measurement; do not use as input"
+    },
+    {
+      "id": "100",
+      "name": "Quantité effective",
+      "role_input_contract": "POSTSTART_LABEL_NOT_PRESTART_INPUT",
+      "v7_graph_relation_status": "FUTURE_TARGET_MEASUREMENT_ONLY",
+      "reaches_final_Q112_in_declarative_graph": true,
+      "physical_numeric_path_toy_only": false,
+      "empirical_effect_on_Q_validated": false,
+      "next_step": "Define and preregister reproducible poststart measurement; do not use as input"
+    },
+    {
+      "id": "101",
+      "name": "Tendreté",
+      "role_input_contract": "POSTSTART_LABEL_NOT_PRESTART_INPUT",
+      "v7_graph_relation_status": "FUTURE_TARGET_MEASUREMENT_ONLY",
+      "reaches_final_Q112_in_declarative_graph": true,
+      "physical_numeric_path_toy_only": false,
+      "empirical_effect_on_Q_validated": false,
+      "next_step": "Define and preregister reproducible poststart measurement; do not use as input"
+    },
+    {
+      "id": "102",
+      "name": "Séparation des grains",
+      "role_input_contract": "POSTSTART_LABEL_NOT_PRESTART_INPUT",
+      "v7_graph_relation_status": "FUTURE_TARGET_MEASUREMENT_ONLY",
+      "reaches_final_Q112_in_declarative_graph": true,
+      "physical_numeric_path_toy_only": false,
+      "empirical_effect_on_Q_validated": false,
+      "next_step": "Define and preregister reproducible poststart measurement; do not use as input"
+    },
+    {
+      "id": "103",
+      "name": "Homogénéité",
+      "role_input_contract": "POSTSTART_LABEL_NOT_PRESTART_INPUT",
+      "v7_graph_relation_status": "FUTURE_TARGET_MEASUREMENT_ONLY",
+      "reaches_final_Q112_in_declarative_graph": true,
+      "physical_numeric_path_toy_only": false,
+      "empirical_effect_on_Q_validated": false,
+      "next_step": "Define and preregister reproducible poststart measurement; do not use as input"
+    },
+    {
+      "id": "104",
+      "name": "Intégrité des grains",
+      "role_input_contract": "POSTSTART_LABEL_NOT_PRESTART_INPUT",
+      "v7_graph_relation_status": "FUTURE_TARGET_MEASUREMENT_ONLY",
+      "reaches_final_Q112_in_declarative_graph": true,
+      "physical_numeric_path_toy_only": false,
+      "empirical_effect_on_Q_validated": false,
+      "next_step": "Define and preregister reproducible poststart measurement; do not use as input"
+    },
+    {
+      "id": "105",
+      "name": "Absence d’eau libre excessive",
+      "role_input_contract": "POSTSTART_LABEL_NOT_PRESTART_INPUT",
+      "v7_graph_relation_status": "FUTURE_TARGET_MEASUREMENT_ONLY",
+      "reaches_final_Q112_in_declarative_graph": true,
+      "physical_numeric_path_toy_only": false,
+      "empirical_effect_on_Q_validated": false,
+      "next_step": "Define and preregister reproducible poststart measurement; do not use as input"
+    },
+    {
+      "id": "106",
+      "name": "Absence de zones brûlées",
+      "role_input_contract": "POSTSTART_LABEL_NOT_PRESTART_INPUT",
+      "v7_graph_relation_status": "FUTURE_TARGET_MEASUREMENT_ONLY",
+      "reaches_final_Q112_in_declarative_graph": true,
+      "physical_numeric_path_toy_only": false,
+      "empirical_effect_on_Q_validated": false,
+      "next_step": "Define and preregister reproducible poststart measurement; do not use as input"
+    },
+    {
+      "id": "107",
+      "name": "Température de service",
+      "role_input_contract": "POSTSTART_LABEL_NOT_PRESTART_INPUT",
+      "v7_graph_relation_status": "FUTURE_TARGET_MEASUREMENT_ONLY",
+      "reaches_final_Q112_in_declarative_graph": true,
+      "physical_numeric_path_toy_only": false,
+      "empirical_effect_on_Q_validated": false,
+      "next_step": "Define and preregister reproducible poststart measurement; do not use as input"
+    },
+    {
+      "id": "108",
+      "name": "Goût",
+      "role_input_contract": "POSTSTART_LABEL_NOT_PRESTART_INPUT",
+      "v7_graph_relation_status": "FUTURE_TARGET_MEASUREMENT_ONLY",
+      "reaches_final_Q112_in_declarative_graph": true,
+      "physical_numeric_path_toy_only": false,
+      "empirical_effect_on_Q_validated": false,
+      "next_step": "Define and preregister reproducible poststart measurement; do not use as input"
+    },
+    {
+      "id": "109",
+      "name": "Arôme",
+      "role_input_contract": "POSTSTART_LABEL_NOT_PRESTART_INPUT",
+      "v7_graph_relation_status": "FUTURE_TARGET_MEASUREMENT_ONLY",
+      "reaches_final_Q112_in_declarative_graph": true,
+      "physical_numeric_path_toy_only": false,
+      "empirical_effect_on_Q_validated": false,
+      "next_step": "Define and preregister reproducible poststart measurement; do not use as input"
+    },
+    {
+      "id": "110",
+      "name": "Aspect visuel",
+      "role_input_contract": "POSTSTART_LABEL_NOT_PRESTART_INPUT",
+      "v7_graph_relation_status": "FUTURE_TARGET_MEASUREMENT_ONLY",
+      "reaches_final_Q112_in_declarative_graph": true,
+      "physical_numeric_path_toy_only": false,
+      "empirical_effect_on_Q_validated": false,
+      "next_step": "Define and preregister reproducible poststart measurement; do not use as input"
+    },
+    {
+      "id": "111",
+      "name": "Maintien de la qualité",
+      "role_input_contract": "POSTSTART_LABEL_NOT_PRESTART_INPUT",
+      "v7_graph_relation_status": "FUTURE_TARGET_MEASUREMENT_ONLY",
+      "reaches_final_Q112_in_declarative_graph": true,
+      "physical_numeric_path_toy_only": false,
+      "empirical_effect_on_Q_validated": false,
+      "next_step": "Define and preregister reproducible poststart measurement; do not use as input"
+    },
+    {
+      "id": "112",
+      "name": "Évaluation globale et décision",
+      "role_input_contract": "POSTSTART_LABEL_NOT_PRESTART_INPUT",
+      "v7_graph_relation_status": "FUTURE_TARGET_MEASUREMENT_ONLY",
+      "reaches_final_Q112_in_declarative_graph": true,
+      "physical_numeric_path_toy_only": false,
+      "empirical_effect_on_Q_validated": false,
+      "next_step": "Define and preregister reproducible poststart measurement; do not use as input"
+    }
+  ],
+  "user_mandate": "Give every case a useful justified role in final predictive system without fake numeric effects",
+  "next_gate": "Specify/measure missing physical or statistical relations and preregister Q before collecting real trials"
+}
