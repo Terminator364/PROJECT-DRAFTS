@@ -1,0 +1,573 @@
+{
+  "schema": "riz112/feedback/remaining-62/v1",
+  "source": "step7/GAPS_112_V7.json",
+  "date": "2026-10-16",
+  "count": 62,
+  "status": "REQUIRES_FUNCTIONAL_WIRING_NOT_PROMOTED",
+  "role_counts": {
+    "SOURCE_OR_RESOURCE_TO_FEASIBILITY_OR_MECHANISM": 22,
+    "PRESTART_FORECAST_MECHANISM_PENDING": 3,
+    "PLANNED_ACTION_PATH_PENDING": 26,
+    "CONDITIONAL_POLICY_BRANCH_PENDING": 11
+  },
+  "cases": {
+    "002": {
+      "name": "Eau potable disponible",
+      "status": "UNRESOLVED",
+      "route_to_validate": "SOURCE_OR_RESOURCE_TO_FEASIBILITY_OR_MECHANISM",
+      "must_prove": "Explicit executable data/constraint/physical equation or justified target relation; no decorative edge",
+      "missing_in_last_declared_Q_graph": true,
+      "measured_Q_effect_validated": false,
+      "scientific_ic_contribution": "UNDETERMINED"
+    },
+    "004": {
+      "name": "Matière grasse éventuelle",
+      "status": "UNRESOLVED",
+      "route_to_validate": "SOURCE_OR_RESOURCE_TO_FEASIBILITY_OR_MECHANISM",
+      "must_prove": "Explicit executable data/constraint/physical equation or justified target relation; no decorative edge",
+      "missing_in_last_declared_Q_graph": true,
+      "measured_Q_effect_validated": false,
+      "scientific_ic_contribution": "UNDETERMINED"
+    },
+    "005": {
+      "name": "Eau de rinçage disponible",
+      "status": "UNRESOLVED",
+      "route_to_validate": "SOURCE_OR_RESOURCE_TO_FEASIBILITY_OR_MECHANISM",
+      "must_prove": "Explicit executable data/constraint/physical equation or justified target relation; no decorative edge",
+      "missing_in_last_declared_Q_graph": true,
+      "measured_Q_effect_validated": false,
+      "scientific_ic_contribution": "UNDETERMINED"
+    },
+    "007": {
+      "name": "Fiabilité de la source d’énergie",
+      "status": "UNRESOLVED",
+      "route_to_validate": "SOURCE_OR_RESOURCE_TO_FEASIBILITY_OR_MECHANISM",
+      "must_prove": "Explicit executable data/constraint/physical equation or justified target relation; no decorative edge",
+      "missing_in_last_declared_Q_graph": true,
+      "measured_Q_effect_validated": false,
+      "scientific_ic_contribution": "UNDETERMINED"
+    },
+    "008": {
+      "name": "Capacité de la casserole",
+      "status": "UNRESOLVED",
+      "route_to_validate": "SOURCE_OR_RESOURCE_TO_FEASIBILITY_OR_MECHANISM",
+      "must_prove": "Explicit executable data/constraint/physical equation or justified target relation; no decorative edge",
+      "missing_in_last_declared_Q_graph": true,
+      "measured_Q_effect_validated": false,
+      "scientific_ic_contribution": "UNDETERMINED"
+    },
+    "009": {
+      "name": "Diamètre de la casserole",
+      "status": "UNRESOLVED",
+      "route_to_validate": "SOURCE_OR_RESOURCE_TO_FEASIBILITY_OR_MECHANISM",
+      "must_prove": "Explicit executable data/constraint/physical equation or justified target relation; no decorative edge",
+      "missing_in_last_declared_Q_graph": true,
+      "measured_Q_effect_validated": false,
+      "scientific_ic_contribution": "UNDETERMINED"
+    },
+    "012": {
+      "name": "État du fond",
+      "status": "UNRESOLVED",
+      "route_to_validate": "SOURCE_OR_RESOURCE_TO_FEASIBILITY_OR_MECHANISM",
+      "must_prove": "Explicit executable data/constraint/physical equation or justified target relation; no decorative edge",
+      "missing_in_last_declared_Q_graph": true,
+      "measured_Q_effect_validated": false,
+      "scientific_ic_contribution": "UNDETERMINED"
+    },
+    "013": {
+      "name": "Présence du couvercle",
+      "status": "UNRESOLVED",
+      "route_to_validate": "SOURCE_OR_RESOURCE_TO_FEASIBILITY_OR_MECHANISM",
+      "must_prove": "Explicit executable data/constraint/physical equation or justified target relation; no decorative edge",
+      "missing_in_last_declared_Q_graph": true,
+      "measured_Q_effect_validated": false,
+      "scientific_ic_contribution": "UNDETERMINED"
+    },
+    "014": {
+      "name": "Ajustement du couvercle",
+      "status": "UNRESOLVED",
+      "route_to_validate": "SOURCE_OR_RESOURCE_TO_FEASIBILITY_OR_MECHANISM",
+      "must_prove": "Explicit executable data/constraint/physical equation or justified target relation; no decorative edge",
+      "missing_in_last_declared_Q_graph": true,
+      "measured_Q_effect_validated": false,
+      "scientific_ic_contribution": "UNDETERMINED"
+    },
+    "015": {
+      "name": "Évacuation de la vapeur",
+      "status": "UNRESOLVED",
+      "route_to_validate": "SOURCE_OR_RESOURCE_TO_FEASIBILITY_OR_MECHANISM",
+      "must_prove": "Explicit executable data/constraint/physical equation or justified target relation; no decorative edge",
+      "missing_in_last_declared_Q_graph": true,
+      "measured_Q_effect_validated": false,
+      "scientific_ic_contribution": "UNDETERMINED"
+    },
+    "016": {
+      "name": "Type de foyer",
+      "status": "UNRESOLVED",
+      "route_to_validate": "SOURCE_OR_RESOURCE_TO_FEASIBILITY_OR_MECHANISM",
+      "must_prove": "Explicit executable data/constraint/physical equation or justified target relation; no decorative edge",
+      "missing_in_last_declared_Q_graph": true,
+      "measured_Q_effect_validated": false,
+      "scientific_ic_contribution": "UNDETERMINED"
+    },
+    "017": {
+      "name": "Réglage de puissance",
+      "status": "UNRESOLVED",
+      "route_to_validate": "SOURCE_OR_RESOURCE_TO_FEASIBILITY_OR_MECHANISM",
+      "must_prove": "Explicit executable data/constraint/physical equation or justified target relation; no decorative edge",
+      "missing_in_last_declared_Q_graph": true,
+      "measured_Q_effect_validated": false,
+      "scientific_ic_contribution": "UNDETERMINED"
+    },
+    "019": {
+      "name": "Balance",
+      "status": "UNRESOLVED",
+      "route_to_validate": "SOURCE_OR_RESOURCE_TO_FEASIBILITY_OR_MECHANISM",
+      "must_prove": "Explicit executable data/constraint/physical equation or justified target relation; no decorative edge",
+      "missing_in_last_declared_Q_graph": true,
+      "measured_Q_effect_validated": false,
+      "scientific_ic_contribution": "UNDETERMINED"
+    },
+    "020": {
+      "name": "Instrument de mesure de l’eau",
+      "status": "UNRESOLVED",
+      "route_to_validate": "SOURCE_OR_RESOURCE_TO_FEASIBILITY_OR_MECHANISM",
+      "must_prove": "Explicit executable data/constraint/physical equation or justified target relation; no decorative edge",
+      "missing_in_last_declared_Q_graph": true,
+      "measured_Q_effect_validated": false,
+      "scientific_ic_contribution": "UNDETERMINED"
+    },
+    "021": {
+      "name": "Passoire",
+      "status": "UNRESOLVED",
+      "route_to_validate": "SOURCE_OR_RESOURCE_TO_FEASIBILITY_OR_MECHANISM",
+      "must_prove": "Explicit executable data/constraint/physical equation or justified target relation; no decorative edge",
+      "missing_in_last_declared_Q_graph": true,
+      "measured_Q_effect_validated": false,
+      "scientific_ic_contribution": "UNDETERMINED"
+    },
+    "026": {
+      "name": "Traitement du riz",
+      "status": "UNRESOLVED",
+      "route_to_validate": "SOURCE_OR_RESOURCE_TO_FEASIBILITY_OR_MECHANISM",
+      "must_prove": "Explicit executable data/constraint/physical equation or justified target relation; no decorative edge",
+      "missing_in_last_declared_Q_graph": true,
+      "measured_Q_effect_validated": false,
+      "scientific_ic_contribution": "UNDETERMINED"
+    },
+    "027": {
+      "name": "Lot et provenance",
+      "status": "UNRESOLVED",
+      "route_to_validate": "SOURCE_OR_RESOURCE_TO_FEASIBILITY_OR_MECHANISM",
+      "must_prove": "Explicit executable data/constraint/physical equation or justified target relation; no decorative edge",
+      "missing_in_last_declared_Q_graph": true,
+      "measured_Q_effect_validated": false,
+      "scientific_ic_contribution": "UNDETERMINED"
+    },
+    "028": {
+      "name": "Ancienneté et conservation",
+      "status": "UNRESOLVED",
+      "route_to_validate": "SOURCE_OR_RESOURCE_TO_FEASIBILITY_OR_MECHANISM",
+      "must_prove": "Explicit executable data/constraint/physical equation or justified target relation; no decorative edge",
+      "missing_in_last_declared_Q_graph": true,
+      "measured_Q_effect_validated": false,
+      "scientific_ic_contribution": "UNDETERMINED"
+    },
+    "032": {
+      "name": "Humidité initiale",
+      "status": "UNRESOLVED",
+      "route_to_validate": "SOURCE_OR_RESOURCE_TO_FEASIBILITY_OR_MECHANISM",
+      "must_prove": "Explicit executable data/constraint/physical equation or justified target relation; no decorative edge",
+      "missing_in_last_declared_Q_graph": true,
+      "measured_Q_effect_validated": false,
+      "scientific_ic_contribution": "UNDETERMINED"
+    },
+    "037": {
+      "name": "Température initiale de l’eau",
+      "status": "UNRESOLVED",
+      "route_to_validate": "SOURCE_OR_RESOURCE_TO_FEASIBILITY_OR_MECHANISM",
+      "must_prove": "Explicit executable data/constraint/physical equation or justified target relation; no decorative edge",
+      "missing_in_last_declared_Q_graph": true,
+      "measured_Q_effect_validated": false,
+      "scientific_ic_contribution": "UNDETERMINED"
+    },
+    "038": {
+      "name": "Température initiale du riz",
+      "status": "UNRESOLVED",
+      "route_to_validate": "SOURCE_OR_RESOURCE_TO_FEASIBILITY_OR_MECHANISM",
+      "must_prove": "Explicit executable data/constraint/physical equation or justified target relation; no decorative edge",
+      "missing_in_last_declared_Q_graph": true,
+      "measured_Q_effect_validated": false,
+      "scientific_ic_contribution": "UNDETERMINED"
+    },
+    "040": {
+      "name": "Altitude et pression",
+      "status": "UNRESOLVED",
+      "route_to_validate": "SOURCE_OR_RESOURCE_TO_FEASIBILITY_OR_MECHANISM",
+      "must_prove": "Explicit executable data/constraint/physical equation or justified target relation; no decorative edge",
+      "missing_in_last_declared_Q_graph": true,
+      "measured_Q_effect_validated": false,
+      "scientific_ic_contribution": "UNDETERMINED"
+    },
+    "043": {
+      "name": "Moment d’ébullition",
+      "status": "UNRESOLVED",
+      "route_to_validate": "PRESTART_FORECAST_MECHANISM_PENDING",
+      "must_prove": "Explicit executable data/constraint/physical equation or justified target relation; no decorative edge",
+      "missing_in_last_declared_Q_graph": true,
+      "measured_Q_effect_validated": false,
+      "scientific_ic_contribution": "UNDETERMINED"
+    },
+    "044": {
+      "name": "Stabilité du frémissement",
+      "status": "UNRESOLVED",
+      "route_to_validate": "PRESTART_FORECAST_MECHANISM_PENDING",
+      "must_prove": "Explicit executable data/constraint/physical equation or justified target relation; no decorative edge",
+      "missing_in_last_declared_Q_graph": true,
+      "measured_Q_effect_validated": false,
+      "scientific_ic_contribution": "UNDETERMINED"
+    },
+    "046": {
+      "name": "Fuites de vapeur",
+      "status": "UNRESOLVED",
+      "route_to_validate": "PRESTART_FORECAST_MECHANISM_PENDING",
+      "must_prove": "Explicit executable data/constraint/physical equation or justified target relation; no decorative edge",
+      "missing_in_last_declared_Q_graph": true,
+      "measured_Q_effect_validated": false,
+      "scientific_ic_contribution": "UNDETERMINED"
+    },
+    "050": {
+      "name": "Peser le riz",
+      "status": "UNRESOLVED",
+      "route_to_validate": "PLANNED_ACTION_PATH_PENDING",
+      "must_prove": "Explicit executable data/constraint/physical equation or justified target relation; no decorative edge",
+      "missing_in_last_declared_Q_graph": true,
+      "measured_Q_effect_validated": false,
+      "scientific_ic_contribution": "UNDETERMINED"
+    },
+    "051": {
+      "name": "Trier et inspecter",
+      "status": "UNRESOLVED",
+      "route_to_validate": "PLANNED_ACTION_PATH_PENDING",
+      "must_prove": "Explicit executable data/constraint/physical equation or justified target relation; no decorative edge",
+      "missing_in_last_declared_Q_graph": true,
+      "measured_Q_effect_validated": false,
+      "scientific_ic_contribution": "UNDETERMINED"
+    },
+    "052": {
+      "name": "Choisir la méthode",
+      "status": "UNRESOLVED",
+      "route_to_validate": "PLANNED_ACTION_PATH_PENDING",
+      "must_prove": "Explicit executable data/constraint/physical equation or justified target relation; no decorative edge",
+      "missing_in_last_declared_Q_graph": true,
+      "measured_Q_effect_validated": false,
+      "scientific_ic_contribution": "UNDETERMINED"
+    },
+    "053": {
+      "name": "Préparer le dosage initial",
+      "status": "UNRESOLVED",
+      "route_to_validate": "PLANNED_ACTION_PATH_PENDING",
+      "must_prove": "Explicit executable data/constraint/physical equation or justified target relation; no decorative edge",
+      "missing_in_last_declared_Q_graph": true,
+      "measured_Q_effect_validated": false,
+      "scientific_ic_contribution": "UNDETERMINED"
+    },
+    "055": {
+      "name": "Premier rinçage",
+      "status": "UNRESOLVED",
+      "route_to_validate": "PLANNED_ACTION_PATH_PENDING",
+      "must_prove": "Explicit executable data/constraint/physical equation or justified target relation; no decorative edge",
+      "missing_in_last_declared_Q_graph": true,
+      "measured_Q_effect_validated": false,
+      "scientific_ic_contribution": "UNDETERMINED"
+    },
+    "056": {
+      "name": "Rinçage complémentaire",
+      "status": "UNRESOLVED",
+      "route_to_validate": "PLANNED_ACTION_PATH_PENDING",
+      "must_prove": "Explicit executable data/constraint/physical equation or justified target relation; no decorative edge",
+      "missing_in_last_declared_Q_graph": true,
+      "measured_Q_effect_validated": false,
+      "scientific_ic_contribution": "UNDETERMINED"
+    },
+    "057": {
+      "name": "Égouttage",
+      "status": "UNRESOLVED",
+      "route_to_validate": "PLANNED_ACTION_PATH_PENDING",
+      "must_prove": "Explicit executable data/constraint/physical equation or justified target relation; no decorative edge",
+      "missing_in_last_declared_Q_graph": true,
+      "measured_Q_effect_validated": false,
+      "scientific_ic_contribution": "UNDETERMINED"
+    },
+    "058": {
+      "name": "Évaluer l’eau retenue",
+      "status": "UNRESOLVED",
+      "route_to_validate": "PLANNED_ACTION_PATH_PENDING",
+      "must_prove": "Explicit executable data/constraint/physical equation or justified target relation; no decorative edge",
+      "missing_in_last_declared_Q_graph": true,
+      "measured_Q_effect_validated": false,
+      "scientific_ic_contribution": "UNDETERMINED"
+    },
+    "059": {
+      "name": "Mettre le riz dans la casserole",
+      "status": "UNRESOLVED",
+      "route_to_validate": "PLANNED_ACTION_PATH_PENDING",
+      "must_prove": "Explicit executable data/constraint/physical equation or justified target relation; no decorative edge",
+      "missing_in_last_declared_Q_graph": true,
+      "measured_Q_effect_validated": false,
+      "scientific_ic_contribution": "UNDETERMINED"
+    },
+    "060": {
+      "name": "Ajouter l’eau",
+      "status": "UNRESOLVED",
+      "route_to_validate": "PLANNED_ACTION_PATH_PENDING",
+      "must_prove": "Explicit executable data/constraint/physical equation or justified target relation; no decorative edge",
+      "missing_in_last_declared_Q_graph": true,
+      "measured_Q_effect_validated": false,
+      "scientific_ic_contribution": "UNDETERMINED"
+    },
+    "062": {
+      "name": "Ajouter la matière grasse",
+      "status": "UNRESOLVED",
+      "route_to_validate": "PLANNED_ACTION_PATH_PENDING",
+      "must_prove": "Explicit executable data/constraint/physical equation or justified target relation; no decorative edge",
+      "missing_in_last_declared_Q_graph": true,
+      "measured_Q_effect_validated": false,
+      "scientific_ic_contribution": "UNDETERMINED"
+    },
+    "063": {
+      "name": "Vérifier la capacité",
+      "status": "UNRESOLVED",
+      "route_to_validate": "PLANNED_ACTION_PATH_PENDING",
+      "must_prove": "Explicit executable data/constraint/physical equation or justified target relation; no decorative edge",
+      "missing_in_last_declared_Q_graph": true,
+      "measured_Q_effect_validated": false,
+      "scientific_ic_contribution": "UNDETERMINED"
+    },
+    "064": {
+      "name": "Positionner le couvercle",
+      "status": "UNRESOLVED",
+      "route_to_validate": "PLANNED_ACTION_PATH_PENDING",
+      "must_prove": "Explicit executable data/constraint/physical equation or justified target relation; no decorative edge",
+      "missing_in_last_declared_Q_graph": true,
+      "measured_Q_effect_validated": false,
+      "scientific_ic_contribution": "UNDETERMINED"
+    },
+    "065": {
+      "name": "Démarrer la chauffe",
+      "status": "UNRESOLVED",
+      "route_to_validate": "PLANNED_ACTION_PATH_PENDING",
+      "must_prove": "Explicit executable data/constraint/physical equation or justified target relation; no decorative edge",
+      "missing_in_last_declared_Q_graph": true,
+      "measured_Q_effect_validated": false,
+      "scientific_ic_contribution": "UNDETERMINED"
+    },
+    "066": {
+      "name": "Amener à ébullition",
+      "status": "UNRESOLVED",
+      "route_to_validate": "PLANNED_ACTION_PATH_PENDING",
+      "must_prove": "Explicit executable data/constraint/physical equation or justified target relation; no decorative edge",
+      "missing_in_last_declared_Q_graph": true,
+      "measured_Q_effect_validated": false,
+      "scientific_ic_contribution": "UNDETERMINED"
+    },
+    "067": {
+      "name": "Observer mousse et débordement",
+      "status": "UNRESOLVED",
+      "route_to_validate": "PLANNED_ACTION_PATH_PENDING",
+      "must_prove": "Explicit executable data/constraint/physical equation or justified target relation; no decorative edge",
+      "missing_in_last_declared_Q_graph": true,
+      "measured_Q_effect_validated": false,
+      "scientific_ic_contribution": "UNDETERMINED"
+    },
+    "068": {
+      "name": "Réduire le feu et couvrir",
+      "status": "UNRESOLVED",
+      "route_to_validate": "PLANNED_ACTION_PATH_PENDING",
+      "must_prove": "Explicit executable data/constraint/physical equation or justified target relation; no decorative edge",
+      "missing_in_last_declared_Q_graph": true,
+      "measured_Q_effect_validated": false,
+      "scientific_ic_contribution": "UNDETERMINED"
+    },
+    "070": {
+      "name": "Gérer le couvercle",
+      "status": "UNRESOLVED",
+      "route_to_validate": "PLANNED_ACTION_PATH_PENDING",
+      "must_prove": "Explicit executable data/constraint/physical equation or justified target relation; no decorative edge",
+      "missing_in_last_declared_Q_graph": true,
+      "measured_Q_effect_validated": false,
+      "scientific_ic_contribution": "UNDETERMINED"
+    },
+    "072": {
+      "name": "Suivre l’hydratation",
+      "status": "UNRESOLVED",
+      "route_to_validate": "PLANNED_ACTION_PATH_PENDING",
+      "must_prove": "Explicit executable data/constraint/physical equation or justified target relation; no decorative edge",
+      "missing_in_last_declared_Q_graph": true,
+      "measured_Q_effect_validated": false,
+      "scientific_ic_contribution": "UNDETERMINED"
+    },
+    "073": {
+      "name": "Déterminer la fin de chauffe",
+      "status": "UNRESOLVED",
+      "route_to_validate": "PLANNED_ACTION_PATH_PENDING",
+      "must_prove": "Explicit executable data/constraint/physical equation or justified target relation; no decorative edge",
+      "missing_in_last_declared_Q_graph": true,
+      "measured_Q_effect_validated": false,
+      "scientific_ic_contribution": "UNDETERMINED"
+    },
+    "074": {
+      "name": "Couper le feu",
+      "status": "UNRESOLVED",
+      "route_to_validate": "PLANNED_ACTION_PATH_PENDING",
+      "must_prove": "Explicit executable data/constraint/physical equation or justified target relation; no decorative edge",
+      "missing_in_last_declared_Q_graph": true,
+      "measured_Q_effect_validated": false,
+      "scientific_ic_contribution": "UNDETERMINED"
+    },
+    "075": {
+      "name": "Commencer le repos",
+      "status": "UNRESOLVED",
+      "route_to_validate": "PLANNED_ACTION_PATH_PENDING",
+      "must_prove": "Explicit executable data/constraint/physical equation or justified target relation; no decorative edge",
+      "missing_in_last_declared_Q_graph": true,
+      "measured_Q_effect_validated": false,
+      "scientific_ic_contribution": "UNDETERMINED"
+    },
+    "076": {
+      "name": "Respecter le repos",
+      "status": "UNRESOLVED",
+      "route_to_validate": "PLANNED_ACTION_PATH_PENDING",
+      "must_prove": "Explicit executable data/constraint/physical equation or justified target relation; no decorative edge",
+      "missing_in_last_declared_Q_graph": true,
+      "measured_Q_effect_validated": false,
+      "scientific_ic_contribution": "UNDETERMINED"
+    },
+    "078": {
+      "name": "Examiner l’humidité finale",
+      "status": "UNRESOLVED",
+      "route_to_validate": "PLANNED_ACTION_PATH_PENDING",
+      "must_prove": "Explicit executable data/constraint/physical equation or justified target relation; no decorative edge",
+      "missing_in_last_declared_Q_graph": true,
+      "measured_Q_effect_validated": false,
+      "scientific_ic_contribution": "UNDETERMINED"
+    },
+    "079": {
+      "name": "Décider d’une finition",
+      "status": "UNRESOLVED",
+      "route_to_validate": "PLANNED_ACTION_PATH_PENDING",
+      "must_prove": "Explicit executable data/constraint/physical equation or justified target relation; no decorative edge",
+      "missing_in_last_declared_Q_graph": true,
+      "measured_Q_effect_validated": false,
+      "scientific_ic_contribution": "UNDETERMINED"
+    },
+    "080": {
+      "name": "Ouvrir pour servir",
+      "status": "UNRESOLVED",
+      "route_to_validate": "PLANNED_ACTION_PATH_PENDING",
+      "must_prove": "Explicit executable data/constraint/physical equation or justified target relation; no decorative edge",
+      "missing_in_last_declared_Q_graph": true,
+      "measured_Q_effect_validated": false,
+      "scientific_ic_contribution": "UNDETERMINED"
+    },
+    "086": {
+      "name": "Excès d’eau",
+      "status": "UNRESOLVED",
+      "route_to_validate": "CONDITIONAL_POLICY_BRANCH_PENDING",
+      "must_prove": "Explicit executable data/constraint/physical equation or justified target relation; no decorative edge",
+      "missing_in_last_declared_Q_graph": true,
+      "measured_Q_effect_validated": false,
+      "scientific_ic_contribution": "UNDETERMINED"
+    },
+    "087": {
+      "name": "Manque d’eau",
+      "status": "UNRESOLVED",
+      "route_to_validate": "CONDITIONAL_POLICY_BRANCH_PENDING",
+      "must_prove": "Explicit executable data/constraint/physical equation or justified target relation; no decorative edge",
+      "missing_in_last_declared_Q_graph": true,
+      "measured_Q_effect_validated": false,
+      "scientific_ic_contribution": "UNDETERMINED"
+    },
+    "088": {
+      "name": "Chaleur excessive",
+      "status": "UNRESOLVED",
+      "route_to_validate": "CONDITIONAL_POLICY_BRANCH_PENDING",
+      "must_prove": "Explicit executable data/constraint/physical equation or justified target relation; no decorative edge",
+      "missing_in_last_declared_Q_graph": true,
+      "measured_Q_effect_validated": false,
+      "scientific_ic_contribution": "UNDETERMINED"
+    },
+    "089": {
+      "name": "Chaleur insuffisante",
+      "status": "UNRESOLVED",
+      "route_to_validate": "CONDITIONAL_POLICY_BRANCH_PENDING",
+      "must_prove": "Explicit executable data/constraint/physical equation or justified target relation; no decorative edge",
+      "missing_in_last_declared_Q_graph": true,
+      "measured_Q_effect_validated": false,
+      "scientific_ic_contribution": "UNDETERMINED"
+    },
+    "090": {
+      "name": "Couvercle inadapté",
+      "status": "UNRESOLVED",
+      "route_to_validate": "CONDITIONAL_POLICY_BRANCH_PENDING",
+      "must_prove": "Explicit executable data/constraint/physical equation or justified target relation; no decorative edge",
+      "missing_in_last_declared_Q_graph": true,
+      "measured_Q_effect_validated": false,
+      "scientific_ic_contribution": "UNDETERMINED"
+    },
+    "091": {
+      "name": "Évaporation excessive",
+      "status": "UNRESOLVED",
+      "route_to_validate": "CONDITIONAL_POLICY_BRANCH_PENDING",
+      "must_prove": "Explicit executable data/constraint/physical equation or justified target relation; no decorative edge",
+      "missing_in_last_declared_Q_graph": true,
+      "measured_Q_effect_validated": false,
+      "scientific_ic_contribution": "UNDETERMINED"
+    },
+    "092": {
+      "name": "Frémissement instable",
+      "status": "UNRESOLVED",
+      "route_to_validate": "CONDITIONAL_POLICY_BRANCH_PENDING",
+      "must_prove": "Explicit executable data/constraint/physical equation or justified target relation; no decorative edge",
+      "missing_in_last_declared_Q_graph": true,
+      "measured_Q_effect_validated": false,
+      "scientific_ic_contribution": "UNDETERMINED"
+    },
+    "093": {
+      "name": "Débordement",
+      "status": "UNRESOLVED",
+      "route_to_validate": "CONDITIONAL_POLICY_BRANCH_PENDING",
+      "must_prove": "Explicit executable data/constraint/physical equation or justified target relation; no decorative edge",
+      "missing_in_last_declared_Q_graph": true,
+      "measured_Q_effect_validated": false,
+      "scientific_ic_contribution": "UNDETERMINED"
+    },
+    "095": {
+      "name": "Grains agglutinés",
+      "status": "UNRESOLVED",
+      "route_to_validate": "CONDITIONAL_POLICY_BRANCH_PENDING",
+      "must_prove": "Explicit executable data/constraint/physical equation or justified target relation; no decorative edge",
+      "missing_in_last_declared_Q_graph": true,
+      "measured_Q_effect_validated": false,
+      "scientific_ic_contribution": "UNDETERMINED"
+    },
+    "096": {
+      "name": "Grains trop fermes",
+      "status": "UNRESOLVED",
+      "route_to_validate": "CONDITIONAL_POLICY_BRANCH_PENDING",
+      "must_prove": "Explicit executable data/constraint/physical equation or justified target relation; no decorative edge",
+      "missing_in_last_declared_Q_graph": true,
+      "measured_Q_effect_validated": false,
+      "scientific_ic_contribution": "UNDETERMINED"
+    },
+    "097": {
+      "name": "Riz pâteux",
+      "status": "UNRESOLVED",
+      "route_to_validate": "CONDITIONAL_POLICY_BRANCH_PENDING",
+      "must_prove": "Explicit executable data/constraint/physical equation or justified target relation; no decorative edge",
+      "missing_in_last_declared_Q_graph": true,
+      "measured_Q_effect_validated": false,
+      "scientific_ic_contribution": "UNDETERMINED"
+    }
+  }
+}
