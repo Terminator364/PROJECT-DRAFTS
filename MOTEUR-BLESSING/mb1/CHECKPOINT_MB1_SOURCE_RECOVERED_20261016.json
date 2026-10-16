@@ -1,0 +1,39 @@
+{
+  "schema": "moteur-blessing/mb1/checkpoint/v2",
+  "date": "2026-10-16",
+  "status": "PARTIAL_DESIGN_RECONCILIATION_DONE",
+  "gate": "MB-1",
+  "archive_found": true,
+  "archive_verified_sha256": "5ef731d6ee4b5edb8a741c59a565d4f7363be84eb9225e814345cb0a04fe89e0",
+  "archive_zip_original_untouched": true,
+  "baseline_tests": {
+    "total": 169,
+    "passed": 169,
+    "environment": "ChatGPT Linux, not Windows"
+  },
+  "new_tests": {
+    "total": 18,
+    "passed": 18,
+    "environment": "ChatGPT container"
+  },
+  "worlds": 62,
+  "fields": 240,
+  "formulas": 140,
+  "subparameter_proposals": 372,
+  "refined_crosswalk": {
+    "direct_design": 25,
+    "partial_context": 50,
+    "not_linked": 297,
+    "legacy_downgrades": 13
+  },
+  "MB1_enriched_archive_sha256": "192cdae0a2d551b550abb4a6821f75bf2eef9a5d1d0e2d48cb80bc08252deed6",
+  "MB1_patch_archive_sha256": "e801039186cea972e3f1cc64781258a9ddf4730a58063fc2beeb3099af50c91c",
+  "MB1_structured_report_sha256": "7a643c4cec0a8f49898e2f26be7013b66704242d5952248332c7fbcfe0a4332a",
+  "source_location": "Project attachment / ChatGPT container, not GitHub archive or Windows filesystem",
+  "scientific_status": "EXPERIMENTAL_NOT_APPROVED",
+  "real_pre_match_archive_PIT_verified": false,
+  "Windows_archive_extracted": false,
+  "Windows_test_execution": "NOT_RUN",
+  "delivery_receipt_for_new_archive": null,
+  "next": "PIT source acquisition feasibility -> primitive and double-counting schemas -> independent chronological OOS validation; no model promotion."
+}
