@@ -157,5 +157,19 @@
       "Windows_archive_sha256_verified": true,
       "Windows_extracted_files": 124
     }
+  },
+  "latest_reality_pilot": "MOTEUR-BLESSING/mb1/pilots/20261016_four_matches/CHECKPOINT_PILOT_4MATCH_20261016.json",
+  "pilot_oct16": {
+    "completed": true,
+    "number_fixtures": 4,
+    "historical": 2,
+    "present": 1,
+    "future": 1,
+    "engine": "V1.1.2 within MB1 V4",
+    "reference_only": true,
+    "independently_verified_historical_PIT": false,
+    "scientific_status": "EXPERIMENTAL_NOT_APPROVED",
+    "bundle_sha256": "dd2a856bc490a15dc57fc55109b0ec48972cd0d8264e9e0f8f59c1810a9cbbf6",
+    "drive_url": "https://drive.google.com/file/d/1h2uYsbwkWwu_hRtkeHrbcFSmRCRQkhiY/view?usp=drivesdk"
   }
 }
