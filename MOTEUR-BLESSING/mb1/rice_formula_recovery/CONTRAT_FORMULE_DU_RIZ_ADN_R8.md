@@ -49,3 +49,11 @@ P3 — Collecte des données historiques PIT, calcul sur matchs en mode rétrosp
 P4 — Seulement alors autoriser l'expression « moteur complet et IC ». Ne pas modifier l'ADN R8 ni ses règles pré-match.
 
 **État global après ce correctif : `RICE_FORMULA_OBJECTIVE_NOT_YET_MET`; moteur V4 `EXPERIMENTAL_NOT_APPROVED`.**
+
+## Interface opérationnelle protégée (ajout)
+
+`run_prematch_safe.py` exécute **le vrai `code/moteur_v112.py`** sur un packet, puis applique le contrat d'intégrité. Il préserve l'ancien calcul dans `raw_engine_percentage_preserved_for_audit_only`, mais n'expose plus de `full_match_specific_ic_percent` inventé.
+
+Exemple : `python run_prematch_safe.py --engine-root <dossier_source_v4> --packet <packet_prematch.json> --output <audit.json>`.
+
+**Quatre exécutions réelles de bout en bout PASS** avec les quatre packets du pilote ; dans les quatre cas, sortie `ABSTAIN_RICE_FORMULA_NOT_INTEGRATED`, `full_match_specific_ic_percent=null`. Cette interface est une protection, **pas** une implémentation de toutes les interactions prédictives demandées.
