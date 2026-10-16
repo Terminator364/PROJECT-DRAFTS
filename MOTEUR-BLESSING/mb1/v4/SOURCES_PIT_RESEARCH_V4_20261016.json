@@ -1,0 +1,11 @@
+{
+  "schema":"MOTEUR_MB1_V4_EXTERNAL_SOURCE_CANDIDATE_RESEARCH",
+  "retrieval_date":"2026-10-16",
+  "all_sources_pre_match_capture_proven":false,
+  "all_sources_approved_for_bulk_ingest":false,
+  "candidates":[
+    {"name":"Open-Meteo Single Runs API", "url":"https://open-meteo.com/en/docs/previous-runs-api", "lane":"WEATHER_FORECAST", "feasibility":"ARCHIVED_RUNS_BY_MODEL_INITIALIZATION_TIME", "danger":"reanalysis or stitched hindsight forecasts are not automatically usable as prematch snapshots", "legal_access":"API terms and request limits need explicit review before automated data ingestion", "implemented_collector":false},
+    {"name":"StatsBomb Open Data", "url":"https://github.com/hudl/open-data", "lane":"TACTICAL_EVENT", "feasibility":"HISTORICAL_EVENTS_AND_LINEUPS_AVAILABLE_FOR_SELECTED_MATCHES", "danger":"public historical event dumps do not prove which event outputs were accessible by an earlier kickoff; training history must exclude matches not ended and captured before target freeze", "legal_access":"review repo terms, attribution and redistribution conditions", "implemented_collector":false},
+    {"name":"Football-Data UK", "url":"https://football-data.co.uk/data", "lane":"MATCH_HISTORY", "feasibility":"FREE_CSV_HISTORICAL_RESULTS_AND_MATCH_STATS", "danger":"publication/capture timestamps and exact historical versions need independent archiving", "legal_access":"site restricts automated scraping/AI training products; do not bulk import without permission", "implemented_collector":false}
+  ]
+}
