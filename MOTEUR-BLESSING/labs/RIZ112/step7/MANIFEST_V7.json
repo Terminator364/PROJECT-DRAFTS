@@ -1,0 +1,359 @@
+{
+  "schema": "riz112/stage7/file-manifest/v1",
+  "source_stage6_sha256": "34887c8ecd5d5e0475b8b03267592e1856c633455b41ff0c8f567860217ac3cb",
+  "case_total": 112,
+  "existing_file_same": 49,
+  "existing_file_updated": [
+    "RIZ112_CAHIER_MERE_20261016/CAHIER_MERE.md",
+    "RIZ112_CAHIER_MERE_20261016/CHECKPOINT.json",
+    "RIZ112_CAHIER_MERE_20261016/DECISIONS.md",
+    "RIZ112_CAHIER_MERE_20261016/TRANSFERT_MATRICE.md",
+    "RIZ112_CAHIER_MERE_20261016/journal/JOURNAL_EVENEMENTS.jsonl"
+  ],
+  "new_files": [
+    "RIZ112_CAHIER_MERE_20261016/step7/AUDIT_CINQ_CYCLES_ETAPE7.md",
+    "RIZ112_CAHIER_MERE_20261016/step7/A_couvercle_ajuste_v7_report.json",
+    "RIZ112_CAHIER_MERE_20261016/step7/B_couvercle_fuyant_v7_report.json",
+    "RIZ112_CAHIER_MERE_20261016/step7/CHECKPOINT_ETAPE7.json",
+    "RIZ112_CAHIER_MERE_20261016/step7/C_chaleur_faible_v7_report.json",
+    "RIZ112_CAHIER_MERE_20261016/step7/GAPS_112_V7.json",
+    "RIZ112_CAHIER_MERE_20261016/step7/README_ETAPE7.md",
+    "RIZ112_CAHIER_MERE_20261016/step7/TESTS_COMPLETS_V7.log",
+    "RIZ112_CAHIER_MERE_20261016/step7/build_stage7.py",
+    "RIZ112_CAHIER_MERE_20261016/step7/graph_governor.py",
+    "RIZ112_CAHIER_MERE_20261016/step7/test_gap_ledger.py",
+    "RIZ112_CAHIER_MERE_20261016/step7/test_graph_governor.py"
+  ],
+  "files": [
+    {
+      "relative_path": "AUDIT_5_CYCLES_ETAPE5.md",
+      "bytes": 3267,
+      "sha256": "42fba3ed31b724c274a081aadaf0e1146fa00763f20638d266beb3932b7fef0b"
+    },
+    {
+      "relative_path": "CAHIER_MERE.md",
+      "bytes": 20191,
+      "sha256": "a225ab6d7914228dbc497feebf87643c6743ae46436ad3499a20d3fce99dff2c"
+    },
+    {
+      "relative_path": "CHECKPOINT.json",
+      "bytes": 2908,
+      "sha256": "c728d8ab43ea8955b697bddfa3699efa48992c25e9528c1014114ac0fca7a92a"
+    },
+    {
+      "relative_path": "DECISIONS.md",
+      "bytes": 3540,
+      "sha256": "372b5a206335ac7374ff78ca883285edef435de10d216374ddfa525f81758551"
+    },
+    {
+      "relative_path": "MANIFEST_FICHIERS.json",
+      "bytes": 5760,
+      "sha256": "fdc6b31dce9fb0d54ff95b66b69ba57148f4609d7b805c91e87bb14dae983976"
+    },
+    {
+      "relative_path": "PROTOCOLE_SYNCHRONISATION.md",
+      "bytes": 1520,
+      "sha256": "c26ea27b34ba9a10baf3e3dfe469fc4707437ad7ae201ef4178d3f43427597d8"
+    },
+    {
+      "relative_path": "README.md",
+      "bytes": 2282,
+      "sha256": "c5eb29b2bf1004a3d54f11426986cb24fd62a440b638d0c3f7ccacb7c7762bea"
+    },
+    {
+      "relative_path": "SYNCHRONISATION_ETAPE5.md",
+      "bytes": 1849,
+      "sha256": "3717d44b501b5b4711cdbf938b352bc691d35f756910b331af7538a197e7f936"
+    },
+    {
+      "relative_path": "SYNCHRONISATION_ETAPE6.md",
+      "bytes": 1492,
+      "sha256": "12ec0f5778c95b1911fce10f85c677587abe49a6fbfd95738920d8dd7d050783"
+    },
+    {
+      "relative_path": "TESTS_JOURNAL_FINAL.log",
+      "bytes": 779,
+      "sha256": "c98eeb6046aa169572a9d520e893f7200b8683d0fff33bd23e4710860a3adaf5"
+    },
+    {
+      "relative_path": "TESTS_ORIGINAL_STEP4_FINAL.log",
+      "bytes": 2083,
+      "sha256": "4f751ec2fdd7cdd7b9e41f7c3c7037ce2a69004fe3ba851465e38fe10c4fffc0"
+    },
+    {
+      "relative_path": "TESTS_STEP5_FINAL.log",
+      "bytes": 3344,
+      "sha256": "ea4638fa5a28a21528dc9eccd5742704b6836c3c9c6d911174ceedf489c3c36a"
+    },
+    {
+      "relative_path": "TRANSFERT_MATRICE.md",
+      "bytes": 4291,
+      "sha256": "c3850d0ed46fe93e4b12df706da4ce59780f44117bf8153cd3692e1a0d7e9080"
+    },
+    {
+      "relative_path": "journal/JOURNAL_EVENEMENTS.jsonl",
+      "bytes": 17948,
+      "sha256": "0c401c62b0e0f6322a544097321150a022e1e94075bdf03c435efbf938d1b364"
+    },
+    {
+      "relative_path": "journal/TESTS_JOURNAL.log",
+      "bytes": 779,
+      "sha256": "c98eeb6046aa169572a9d520e893f7200b8683d0fff33bd23e4710860a3adaf5"
+    },
+    {
+      "relative_path": "journal/journal_tool.py",
+      "bytes": 3196,
+      "sha256": "b986f8c1b25a31b312011e0ed2f30d230e2c5a5b8135e6da3aa0ee210b44884b"
+    },
+    {
+      "relative_path": "journal/seed_events.py",
+      "bytes": 4668,
+      "sha256": "7e67b1493903951bb97c0d63dfbacda04c9c963cc248b05d1cb1dfc39df5519e"
+    },
+    {
+      "relative_path": "journal/test_journal.py",
+      "bytes": 1989,
+      "sha256": "da65a2593f66926276524b3b083a077d82bc2e596436692e1178b36335fd9828"
+    },
+    {
+      "relative_path": "reference/ORIGINAL_ETAPE4.zip",
+      "bytes": 29039,
+      "sha256": "5e28c684e0cd2743db8e95c7ced0625bbfd05d8fd02fc559e4663424e7c52764"
+    },
+    {
+      "relative_path": "reference/step4/CATALOGUE_112_ROLES_ETAPE4.json",
+      "bytes": 26988,
+      "sha256": "8da5d8fa5a7ab1b00e3ca3a35c5d2724b2c01505f7ae7b88eb79496c020fe6ba"
+    },
+    {
+      "relative_path": "reference/step4/exemples/A_couvercle_ajuste.json",
+      "bytes": 3029,
+      "sha256": "97df0aca4fbf93070cbf116b54d3ddbf280639a04cae85093667280a3fea5923"
+    },
+    {
+      "relative_path": "reference/step4/exemples/A_resultat.json",
+      "bytes": 7513,
+      "sha256": "69ac93b822e8cb9e192628c293fcea20b498aff4c5c936a693183b74ea1e226e"
+    },
+    {
+      "relative_path": "reference/step4/exemples/B_couvercle_fuyant.json",
+      "bytes": 3029,
+      "sha256": "4c5f9271faf97eb4b1dca14a270113d23f17c85053566ba763671c85fd1dce3f"
+    },
+    {
+      "relative_path": "reference/step4/exemples/B_resultat.json",
+      "bytes": 7620,
+      "sha256": "baed987edf1c05d6a8cf814ff8abda2a1012571a3dba0fe82b29aef3081338e1"
+    },
+    {
+      "relative_path": "reference/step4/exemples/C_chaleur_faible.json",
+      "bytes": 3028,
+      "sha256": "3eca7bbced4dbc28f30470d9e1ea840692de2e13d3ffcf53dd92a6ff642fe63e"
+    },
+    {
+      "relative_path": "reference/step4/exemples/C_resultat.json",
+      "bytes": 7647,
+      "sha256": "c5a3a5d725d5ce013d073da82af385a4319e0ab1a77c6356d1ff4c00185b7c18"
+    },
+    {
+      "relative_path": "reference/step4/exemples/D_eau_inconnue.json",
+      "bytes": 3026,
+      "sha256": "2b48a1a431b43e6de3097597aee2047e1c756d450a915ea4fe4b9e67c9a6e35e"
+    },
+    {
+      "relative_path": "reference/step4/riz112.py",
+      "bytes": 12401,
+      "sha256": "40f87242187fa42c08e07794777c786247b91e063468d1f5b2d19219e1947543"
+    },
+    {
+      "relative_path": "reference/step4/test_compare.py",
+      "bytes": 799,
+      "sha256": "e9f4c922d0f4014fc7b36539dc1fdc684eac2f987cea7f6e4e89e741f4decc3f"
+    },
+    {
+      "relative_path": "reference/step4/test_riz112.py",
+      "bytes": 4982,
+      "sha256": "c8c0d804330ec02a0bb176e27749850432d828eab2043b4e571a9f8765cfc1ff"
+    },
+    {
+      "relative_path": "step5/EXEMPLE_FEATURES_SANS_IC.json",
+      "bytes": 1681,
+      "sha256": "9133fb207bdfb3ab38b800c7fc27d19eec08776a4adf8934e5bd464b00341518"
+    },
+    {
+      "relative_path": "step5/EXEMPLE_INTERACTION_2X2.json",
+      "bytes": 411,
+      "sha256": "207db99a3b9532b53ba57599ce1118a06145f10fbc60d8e59ddd2e94add1e0aa"
+    },
+    {
+      "relative_path": "step5/TESTS_ETAPE5.log",
+      "bytes": 3344,
+      "sha256": "1e62b6265efc7d75896d5b269821282118bb0ba136df62d424184bcf8be9ba09"
+    },
+    {
+      "relative_path": "step5/interaction_2x2.py",
+      "bytes": 1993,
+      "sha256": "ff96e07be5f445eed045ab21445379ce10679d235d41ae5a5652a48e72d96b4e"
+    },
+    {
+      "relative_path": "step5/qualite_contrat_v1.json",
+      "bytes": 1711,
+      "sha256": "1dec6e77415f2380e02c2df0d295a4d35eee02958ca4af1838a984a8ecb4e10c"
+    },
+    {
+      "relative_path": "step5/study_design.py",
+      "bytes": 9077,
+      "sha256": "97ff92af5b7be28ba7698900ed8f1ab68154bc9a504e0562e6c0bd5792b4dc60"
+    },
+    {
+      "relative_path": "step5/test_study_design.py",
+      "bytes": 6773,
+      "sha256": "5578d1432a13a3e7a645595f9da2df0cd5f6a7e45d9baffef760ce4536b8e6e9"
+    },
+    {
+      "relative_path": "step6/AUDIT_CINQ_CYCLES_ETAPE6.md",
+      "bytes": 2210,
+      "sha256": "6831ad744957da28286816dabd4616f433f535cb77abe3c0b0ac3e37a8145a4d"
+    },
+    {
+      "relative_path": "step6/CHECKPOINT_ETAPE6.json",
+      "bytes": 3088,
+      "sha256": "deb0b99c1162a520e98bfeedbd04efdab27a2b25556fa48b6a2e5e9b10fa446f"
+    },
+    {
+      "relative_path": "step6/README_ETAPE6.md",
+      "bytes": 4266,
+      "sha256": "c9da6eaa8249b6b3a291ffe1ef47dd90810aecf38453f78a1aaa48df177cb947"
+    },
+    {
+      "relative_path": "step6/ROADMAP_112_CASES.json",
+      "bytes": 48621,
+      "sha256": "4b92a2b8eaefbf761ae712642ed8a6d1ca9c78c27f9ab94f6ed24c8e8e3ddd12"
+    },
+    {
+      "relative_path": "step6/TESTS_112_V6.log",
+      "bytes": 141,
+      "sha256": "956de74c150166e64621388ce64b088601e72de0d56967b4d12c04d71fa4cf29"
+    },
+    {
+      "relative_path": "step6/TEST_JOURNAL_V6.log",
+      "bytes": 109,
+      "sha256": "006ac55040db8bd82eeb2e5abab682d80dc719e313b23af3bbac2921bafb69a1"
+    },
+    {
+      "relative_path": "step6/TEST_STAGE4_V6.log",
+      "bytes": 121,
+      "sha256": "5b04ea09c0319911715acdac442b8d8f4a06920fd3eeb2892aea92d3bfddf09c"
+    },
+    {
+      "relative_path": "step6/TEST_STAGE5_V6.log",
+      "bytes": 130,
+      "sha256": "a4e349ded32cd1907c9f82ece5603d06ab060a2195c6d9522934ca2838aa83b1"
+    },
+    {
+      "relative_path": "step6/build_examples.py",
+      "bytes": 3097,
+      "sha256": "29578264759751a03c56153f2b3c60f978338ce24f2bea1f6086d5a08c72f404"
+    },
+    {
+      "relative_path": "step6/engine112.py",
+      "bytes": 16810,
+      "sha256": "fd4a4ed6cd4c233e8d03dd80963251d4a3137fdc3472e5e1a31c22b659ac0da9"
+    },
+    {
+      "relative_path": "step6/examples/A_couvercle_ajuste_112.json",
+      "bytes": 23045,
+      "sha256": "87bbd06d7264a35f7d0dbfa6fd4c81ebe9272a37cb3766b52b59ea17be0c9f4c"
+    },
+    {
+      "relative_path": "step6/examples/A_couvercle_ajuste_trace.json",
+      "bytes": 65005,
+      "sha256": "c3c60d7b94e7d13176082dc15d46aa0efcb65a04827d16d174a69755a7faf9ab"
+    },
+    {
+      "relative_path": "step6/examples/B_couvercle_fuyant_112.json",
+      "bytes": 23045,
+      "sha256": "32254de425ca85310262db39d893891042ba5ca0d4e822a61a580eb44a495761"
+    },
+    {
+      "relative_path": "step6/examples/B_couvercle_fuyant_trace.json",
+      "bytes": 65012,
+      "sha256": "5ff1a79022a0f361409b79d544fa4b0b4dbf865e82af263f58ac382caf32339d"
+    },
+    {
+      "relative_path": "step6/examples/C_chaleur_faible_112.json",
+      "bytes": 23045,
+      "sha256": "aa7e8d2ec89266aee6059541b35c59cbcf7b214fc8174aef513b1f23acbe7523"
+    },
+    {
+      "relative_path": "step6/examples/C_chaleur_faible_trace.json",
+      "bytes": 65029,
+      "sha256": "7216f20f5afa305f2d7e481f441737ac94568806b5354c09b0dd6b8360b97ac9"
+    },
+    {
+      "relative_path": "step6/test_engine112.py",
+      "bytes": 9521,
+      "sha256": "b3e6a61cc19177b89645f20542be743e6ef63c74ef743d19ce1ea6e9a09c4ef6"
+    },
+    {
+      "relative_path": "step7/AUDIT_CINQ_CYCLES_ETAPE7.md",
+      "bytes": 2317,
+      "sha256": "e0c20c31bf5e6f9bc82240b16f9d62a7750bc78c49065f58cd499355eadec8bf"
+    },
+    {
+      "relative_path": "step7/A_couvercle_ajuste_v7_report.json",
+      "bytes": 13229,
+      "sha256": "7e09515822e51274905aceee21471b8242456d364de386594a03116e3ddc7ddd"
+    },
+    {
+      "relative_path": "step7/B_couvercle_fuyant_v7_report.json",
+      "bytes": 13229,
+      "sha256": "00c569073cfcbd51a481a6e6249d7aee08589b7418c51ccf92f3c2d83040d2b8"
+    },
+    {
+      "relative_path": "step7/CHECKPOINT_ETAPE7.json",
+      "bytes": 2908,
+      "sha256": "c728d8ab43ea8955b697bddfa3699efa48992c25e9528c1014114ac0fca7a92a"
+    },
+    {
+      "relative_path": "step7/C_chaleur_faible_v7_report.json",
+      "bytes": 13229,
+      "sha256": "a601b46e44dd8b07e75d6c41a3a76b35536ad2bc25ebc3a5dba669cbdb0327ec"
+    },
+    {
+      "relative_path": "step7/GAPS_112_V7.json",
+      "bytes": 54297,
+      "sha256": "10016876d4b24e6307ea172043a7903947d878013845356f0db364bdae05d123"
+    },
+    {
+      "relative_path": "step7/README_ETAPE7.md",
+      "bytes": 1499,
+      "sha256": "e730b159bed6ee1eb6d02f0a1b4d02af488c4d1d5016204f8d3f79d094756991"
+    },
+    {
+      "relative_path": "step7/TESTS_COMPLETS_V7.log",
+      "bytes": 490,
+      "sha256": "e18c044e363f025021c7e968f91a1842f741077e3e97f3aefc460fc240ce245b"
+    },
+    {
+      "relative_path": "step7/build_stage7.py",
+      "bytes": 3518,
+      "sha256": "f5a491beeee15970f8877c9575fc242730eca485ec16bd73ce5bdf1f38365373"
+    },
+    {
+      "relative_path": "step7/graph_governor.py",
+      "bytes": 8319,
+      "sha256": "69f6fa18f856efc70bdea39b4ac0f241cde2e6e548f6a79d9c120b6eebe4353b"
+    },
+    {
+      "relative_path": "step7/test_gap_ledger.py",
+      "bytes": 1141,
+      "sha256": "12fa76aa32b0bd4321163308fce801ad58973cca3c5d116b4a1f66b9d6b30ed3"
+    },
+    {
+      "relative_path": "step7/test_graph_governor.py",
+      "bytes": 5668,
+      "sha256": "4d28c1dffdc328a9cf4b0e7ac95f825da9141b2df6795bc9bf08630fb8171468"
+    }
+  ]
+}
