@@ -127,7 +127,9 @@
       "windows_test_log_sha256": "dfaa510bfaf6c5551085f464613263c21c2ce6de2ef3526d5ef3df65b808c085",
       "windows_evidence_json_sha256": "ab8f1a34442fc96b645ef27e63a20900c266e51d93e39c189f142f2835db26c5",
       "windows_evidence_on_drive_mounted": true,
-      "windows_evidence_server_visibility": "PENDING_VERIFICATION"
+      "windows_evidence_server_visibility": "VERIFIED",
+      "windows_evidence_drive_url": "https://drive.google.com/file/d/11sPhnV-t4xSxrDPrr37OoEvtSwzC3MDJ/view?usp=drivesdk",
+      "windows_test_log_drive_url": "https://drive.google.com/file/d/1IN6jLf0HSIzn5IimWjfBM9GttUvkyIAu/view?usp=drivesdk"
     }
   }
 }
