@@ -1,0 +1,117 @@
+{
+  "schema": "moteur-blessing/pilot-four-matches/v1",
+  "date": "2026-10-16",
+  "project": "Moteur Blessing",
+  "gate": "MB-1 V4",
+  "model_status": "EXPERIMENTAL_NOT_APPROVED",
+  "engine_archive_sha256": "b0c09a45ec2a4f3d6d8fb8b0efaaf6c039b11b0083fcf789e84b2b90818eddb2",
+  "sample_design": {
+    "window": "2026-09-16/2026-10-16",
+    "historical_candidate_population": "All ten English Premier League matchweek 6 matches 2026-10-10 through 2026-10-12",
+    "random_seed": 20261016,
+    "past_samples": 2,
+    "present_samples": 1,
+    "future_samples": 1
+  },
+  "four": [
+    {
+      "match": "Chelsea — Bournemouth",
+      "kickoff_utc": "2026-10-10T14:00:00Z",
+      "reference_ic_percent": 75.13396,
+      "prior_n": 10,
+      "prior_lambda": 2.7,
+      "prior_empirical_over15_fraction": 0.6,
+      "final_90_score": "5-1",
+      "actual_over15": true,
+      "strict_historical_PIT_capture": false
+    },
+    {
+      "match": "Liverpool — Manchester City",
+      "kickoff_utc": "2026-10-11T15:30:00Z",
+      "reference_ic_percent": 75.13396,
+      "prior_n": 10,
+      "prior_lambda": 2.7,
+      "prior_empirical_over15_fraction": 0.6,
+      "final_90_score": "0-3",
+      "actual_over15": true,
+      "strict_historical_PIT_capture": false
+    },
+    {
+      "match": "Eintracht Frankfurt — 1. FC Köln",
+      "kickoff_utc": "2026-10-16T18:30:00Z",
+      "reference_ic_percent": 89.993385,
+      "prior_n": 9,
+      "prior_lambda": 3.888888888888889,
+      "prior_empirical_over15_fraction": 0.8888888888888888,
+      "final_90_score": null,
+      "actual_over15": null,
+      "independent_PIT_authentication": false,
+      "three_game_GF_GA": {
+        "Frankfurt": [
+          1.666667,
+          3
+        ],
+        "Koln": [
+          1.333333,
+          1.333333
+        ]
+      }
+    },
+    {
+      "match": "Everton — Chelsea",
+      "kickoff_utc": "2026-10-17T11:30:00Z",
+      "reference_ic_percent": 82.216367,
+      "prior_n": 20,
+      "prior_lambda": 3.15,
+      "prior_empirical_over15_fraction": 0.8,
+      "final_90_score": null,
+      "actual_over15": null,
+      "independent_PIT_authentication": false,
+      "three_game_GF_GA": {
+        "Everton": [
+          1,
+          0.666667
+        ],
+        "Chelsea": [
+          2.333333,
+          2
+        ]
+      }
+    }
+  ],
+  "model_run": {
+    "engine": "code/moteur_v112.py",
+    "model_file": null,
+    "status": "REFERENCE_ONLY_NO_SPORTS_TRAINING",
+    "candidate_formulas": 140,
+    "worlds": 62,
+    "numeric_observations_populated": 0,
+    "mechanisms_computed": 0,
+    "validated_prediction": false
+  },
+  "checks": {
+    "reference_runs": 4,
+    "empty_prior_abstentions": 4,
+    "target_score_input_rejections": 4,
+    "late_publication_rejections": 4,
+    "independent_poisson_agreements": 4,
+    "postmatch_archive_gate_rejections": 2,
+    "prospective_team_primitive_summaries": 2
+  },
+  "important_findings": [
+    "Source manuscripts transcribed after the historical fixtures were already played cannot be independently certified as point-in-time evidence at the historical freeze date.",
+    "V1.1.2 strict evidence validation currently permits a backfilled post-match source with plausible declared publication time and an actual SHA256 of TODAY's reconstruction; this is a scientific gate weakness, not proof.",
+    "V4 temporal primitives refuse the historical backfills, distinguishing 'observed current result' from provably prior capture.",
+    "Prospective baseline percentages ignore team profiles entirely. Only candidate primitives GF/GA are populated separately; no weights were activated.",
+    "Sources are scored only through Poisson league prior; no retrospective hit rate / Brier is claimed from these two matches."
+  ],
+  "bundle": {
+    "sha256": "dd2a856bc490a15dc57fc55109b0ec48972cd0d8264e9e0f8f59c1810a9cbbf6",
+    "size_bytes": 37408,
+    "members": 24,
+    "drive_url": "https://drive.google.com/file/d/1h2uYsbwkWwu_hRtkeHrbcFSmRCRQkhiY/view?usp=drivesdk",
+    "storage": "private Google Drive + user-downloadable ChatGPT artifact",
+    "windows_installed": false
+  },
+  "next": "Enforce original provider byte capture <= freeze via authenticated immutable evidence and source lineage, then repeat chronological OOS; retain ABSTAIN for true unproven PIT."
+}
