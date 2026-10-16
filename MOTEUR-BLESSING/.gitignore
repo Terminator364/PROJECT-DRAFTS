@@ -1,0 +1,17 @@
+# Espaces de travail locaux, archives livrees et donnees hors GitHub public
+__pycache__/
+*.py[cod]
+.venv/
+.env
+.env.*
+data/raw/
+data/private/
+outputs/
+logs/
+versions/
+*.zip
+*.7z
+*.exe
+*.apk
+*.bak
+*.tmp
