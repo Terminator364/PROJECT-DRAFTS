@@ -1,0 +1,1134 @@
+{
+  "schema": "riz112/step6/future-work/v1",
+  "date": "2026-10-16",
+  "cases": [
+    {
+      "id": "001",
+      "name": "Masse de riz disponible",
+      "family": "matiere",
+      "role": "PRESTART",
+      "implemented_operation": "VALIDATE_PRESTART_AND_BIND_DRIVER",
+      "toy_physics_numeric_path": true,
+      "scientific_effect_validated": false,
+      "blocker_to_calibrated_IC": "Calibrer les mécanismes à partir de mesures physiques réelles; pas un effet de qualité prouvé"
+    },
+    {
+      "id": "002",
+      "name": "Eau potable disponible",
+      "family": "matiere",
+      "role": "PRESTART",
+      "implemented_operation": "VALIDATE_PRESTART_CONTEXT_NO_QUANTIFIED_EFFECT",
+      "toy_physics_numeric_path": false,
+      "scientific_effect_validated": false,
+      "blocker_to_calibrated_IC": "Définir mesure/contrainte/variable de contexte et dépendance justifiée; disponibilité pré-T0"
+    },
+    {
+      "id": "003",
+      "name": "Sel disponible",
+      "family": "matiere",
+      "role": "PRESTART",
+      "implemented_operation": "VALIDATE_PRESTART_CONTEXT_NO_QUANTIFIED_EFFECT",
+      "toy_physics_numeric_path": false,
+      "scientific_effect_validated": false,
+      "blocker_to_calibrated_IC": "Définir mesure/contrainte/variable de contexte et dépendance justifiée; disponibilité pré-T0"
+    },
+    {
+      "id": "004",
+      "name": "Matière grasse éventuelle",
+      "family": "matiere",
+      "role": "PRESTART",
+      "implemented_operation": "VALIDATE_PRESTART_CONTEXT_NO_QUANTIFIED_EFFECT",
+      "toy_physics_numeric_path": false,
+      "scientific_effect_validated": false,
+      "blocker_to_calibrated_IC": "Définir mesure/contrainte/variable de contexte et dépendance justifiée; disponibilité pré-T0"
+    },
+    {
+      "id": "005",
+      "name": "Eau de rinçage disponible",
+      "family": "matiere",
+      "role": "PRESTART",
+      "implemented_operation": "VALIDATE_PRESTART_CONTEXT_NO_QUANTIFIED_EFFECT",
+      "toy_physics_numeric_path": false,
+      "scientific_effect_validated": false,
+      "blocker_to_calibrated_IC": "Définir mesure/contrainte/variable de contexte et dépendance justifiée; disponibilité pré-T0"
+    },
+    {
+      "id": "006",
+      "name": "Source d’énergie",
+      "family": "matiere",
+      "role": "PRESTART",
+      "implemented_operation": "VALIDATE_PRESTART_CONTEXT_NO_QUANTIFIED_EFFECT",
+      "toy_physics_numeric_path": false,
+      "scientific_effect_validated": false,
+      "blocker_to_calibrated_IC": "Définir mesure/contrainte/variable de contexte et dépendance justifiée; disponibilité pré-T0"
+    },
+    {
+      "id": "007",
+      "name": "Fiabilité de la source d’énergie",
+      "family": "matiere",
+      "role": "PRESTART",
+      "implemented_operation": "VALIDATE_PRESTART_CONTEXT_NO_QUANTIFIED_EFFECT",
+      "toy_physics_numeric_path": false,
+      "scientific_effect_validated": false,
+      "blocker_to_calibrated_IC": "Définir mesure/contrainte/variable de contexte et dépendance justifiée; disponibilité pré-T0"
+    },
+    {
+      "id": "008",
+      "name": "Capacité de la casserole",
+      "family": "materiel",
+      "role": "PRESTART",
+      "implemented_operation": "VALIDATE_PRESTART_CONTEXT_NO_QUANTIFIED_EFFECT",
+      "toy_physics_numeric_path": false,
+      "scientific_effect_validated": false,
+      "blocker_to_calibrated_IC": "Définir mesure/contrainte/variable de contexte et dépendance justifiée; disponibilité pré-T0"
+    },
+    {
+      "id": "009",
+      "name": "Diamètre de la casserole",
+      "family": "materiel",
+      "role": "PRESTART",
+      "implemented_operation": "VALIDATE_PRESTART_CONTEXT_NO_QUANTIFIED_EFFECT",
+      "toy_physics_numeric_path": false,
+      "scientific_effect_validated": false,
+      "blocker_to_calibrated_IC": "Définir mesure/contrainte/variable de contexte et dépendance justifiée; disponibilité pré-T0"
+    },
+    {
+      "id": "010",
+      "name": "Matériau de la casserole",
+      "family": "materiel",
+      "role": "PRESTART",
+      "implemented_operation": "VALIDATE_PRESTART_CONTEXT_NO_QUANTIFIED_EFFECT",
+      "toy_physics_numeric_path": false,
+      "scientific_effect_validated": false,
+      "blocker_to_calibrated_IC": "Définir mesure/contrainte/variable de contexte et dépendance justifiée; disponibilité pré-T0"
+    },
+    {
+      "id": "011",
+      "name": "Épaisseur du fond",
+      "family": "materiel",
+      "role": "PRESTART",
+      "implemented_operation": "VALIDATE_PRESTART_CONTEXT_NO_QUANTIFIED_EFFECT",
+      "toy_physics_numeric_path": false,
+      "scientific_effect_validated": false,
+      "blocker_to_calibrated_IC": "Définir mesure/contrainte/variable de contexte et dépendance justifiée; disponibilité pré-T0"
+    },
+    {
+      "id": "012",
+      "name": "État du fond",
+      "family": "materiel",
+      "role": "PRESTART",
+      "implemented_operation": "VALIDATE_PRESTART_CONTEXT_NO_QUANTIFIED_EFFECT",
+      "toy_physics_numeric_path": false,
+      "scientific_effect_validated": false,
+      "blocker_to_calibrated_IC": "Définir mesure/contrainte/variable de contexte et dépendance justifiée; disponibilité pré-T0"
+    },
+    {
+      "id": "013",
+      "name": "Présence du couvercle",
+      "family": "materiel",
+      "role": "PRESTART",
+      "implemented_operation": "VALIDATE_PRESTART_CONTEXT_NO_QUANTIFIED_EFFECT",
+      "toy_physics_numeric_path": false,
+      "scientific_effect_validated": false,
+      "blocker_to_calibrated_IC": "Définir mesure/contrainte/variable de contexte et dépendance justifiée; disponibilité pré-T0"
+    },
+    {
+      "id": "014",
+      "name": "Ajustement du couvercle",
+      "family": "materiel",
+      "role": "PRESTART",
+      "implemented_operation": "VALIDATE_PRESTART_AND_BIND_DRIVER",
+      "toy_physics_numeric_path": true,
+      "scientific_effect_validated": false,
+      "blocker_to_calibrated_IC": "Calibrer les mécanismes à partir de mesures physiques réelles; pas un effet de qualité prouvé"
+    },
+    {
+      "id": "015",
+      "name": "Évacuation de la vapeur",
+      "family": "materiel",
+      "role": "PRESTART",
+      "implemented_operation": "VALIDATE_PRESTART_CONTEXT_NO_QUANTIFIED_EFFECT",
+      "toy_physics_numeric_path": false,
+      "scientific_effect_validated": false,
+      "blocker_to_calibrated_IC": "Définir mesure/contrainte/variable de contexte et dépendance justifiée; disponibilité pré-T0"
+    },
+    {
+      "id": "016",
+      "name": "Type de foyer",
+      "family": "materiel",
+      "role": "PRESTART",
+      "implemented_operation": "VALIDATE_PRESTART_CONTEXT_NO_QUANTIFIED_EFFECT",
+      "toy_physics_numeric_path": false,
+      "scientific_effect_validated": false,
+      "blocker_to_calibrated_IC": "Définir mesure/contrainte/variable de contexte et dépendance justifiée; disponibilité pré-T0"
+    },
+    {
+      "id": "017",
+      "name": "Réglage de puissance",
+      "family": "materiel",
+      "role": "PRESTART",
+      "implemented_operation": "VALIDATE_PRESTART_CONTEXT_NO_QUANTIFIED_EFFECT",
+      "toy_physics_numeric_path": false,
+      "scientific_effect_validated": false,
+      "blocker_to_calibrated_IC": "Définir mesure/contrainte/variable de contexte et dépendance justifiée; disponibilité pré-T0"
+    },
+    {
+      "id": "018",
+      "name": "Répartition de la chaleur",
+      "family": "materiel",
+      "role": "PRESTART",
+      "implemented_operation": "VALIDATE_PRESTART_CONTEXT_NO_QUANTIFIED_EFFECT",
+      "toy_physics_numeric_path": false,
+      "scientific_effect_validated": false,
+      "blocker_to_calibrated_IC": "Définir mesure/contrainte/variable de contexte et dépendance justifiée; disponibilité pré-T0"
+    },
+    {
+      "id": "019",
+      "name": "Balance",
+      "family": "materiel",
+      "role": "PRESTART",
+      "implemented_operation": "VALIDATE_PRESTART_CONTEXT_NO_QUANTIFIED_EFFECT",
+      "toy_physics_numeric_path": false,
+      "scientific_effect_validated": false,
+      "blocker_to_calibrated_IC": "Définir mesure/contrainte/variable de contexte et dépendance justifiée; disponibilité pré-T0"
+    },
+    {
+      "id": "020",
+      "name": "Instrument de mesure de l’eau",
+      "family": "materiel",
+      "role": "PRESTART",
+      "implemented_operation": "VALIDATE_PRESTART_CONTEXT_NO_QUANTIFIED_EFFECT",
+      "toy_physics_numeric_path": false,
+      "scientific_effect_validated": false,
+      "blocker_to_calibrated_IC": "Définir mesure/contrainte/variable de contexte et dépendance justifiée; disponibilité pré-T0"
+    },
+    {
+      "id": "021",
+      "name": "Passoire",
+      "family": "materiel",
+      "role": "PRESTART",
+      "implemented_operation": "VALIDATE_PRESTART_CONTEXT_NO_QUANTIFIED_EFFECT",
+      "toy_physics_numeric_path": false,
+      "scientific_effect_validated": false,
+      "blocker_to_calibrated_IC": "Définir mesure/contrainte/variable de contexte et dépendance justifiée; disponibilité pré-T0"
+    },
+    {
+      "id": "022",
+      "name": "Ustensile pour remuer",
+      "family": "materiel",
+      "role": "PRESTART",
+      "implemented_operation": "VALIDATE_PRESTART_CONTEXT_NO_QUANTIFIED_EFFECT",
+      "toy_physics_numeric_path": false,
+      "scientific_effect_validated": false,
+      "blocker_to_calibrated_IC": "Définir mesure/contrainte/variable de contexte et dépendance justifiée; disponibilité pré-T0"
+    },
+    {
+      "id": "023",
+      "name": "Récipient de service",
+      "family": "materiel",
+      "role": "PRESTART",
+      "implemented_operation": "VALIDATE_PRESTART_CONTEXT_NO_QUANTIFIED_EFFECT",
+      "toy_physics_numeric_path": false,
+      "scientific_effect_validated": false,
+      "blocker_to_calibrated_IC": "Définir mesure/contrainte/variable de contexte et dépendance justifiée; disponibilité pré-T0"
+    },
+    {
+      "id": "024",
+      "name": "Variété",
+      "family": "riz",
+      "role": "PRESTART",
+      "implemented_operation": "VALIDATE_PRESTART_AND_BIND_DRIVER",
+      "toy_physics_numeric_path": true,
+      "scientific_effect_validated": false,
+      "blocker_to_calibrated_IC": "Calibrer les mécanismes à partir de mesures physiques réelles; pas un effet de qualité prouvé"
+    },
+    {
+      "id": "025",
+      "name": "Longueur des grains",
+      "family": "riz",
+      "role": "PRESTART",
+      "implemented_operation": "VALIDATE_PRESTART_CONTEXT_NO_QUANTIFIED_EFFECT",
+      "toy_physics_numeric_path": false,
+      "scientific_effect_validated": false,
+      "blocker_to_calibrated_IC": "Définir mesure/contrainte/variable de contexte et dépendance justifiée; disponibilité pré-T0"
+    },
+    {
+      "id": "026",
+      "name": "Traitement du riz",
+      "family": "riz",
+      "role": "PRESTART",
+      "implemented_operation": "VALIDATE_PRESTART_CONTEXT_NO_QUANTIFIED_EFFECT",
+      "toy_physics_numeric_path": false,
+      "scientific_effect_validated": false,
+      "blocker_to_calibrated_IC": "Définir mesure/contrainte/variable de contexte et dépendance justifiée; disponibilité pré-T0"
+    },
+    {
+      "id": "027",
+      "name": "Lot et provenance",
+      "family": "riz",
+      "role": "PRESTART",
+      "implemented_operation": "VALIDATE_PRESTART_CONTEXT_NO_QUANTIFIED_EFFECT",
+      "toy_physics_numeric_path": false,
+      "scientific_effect_validated": false,
+      "blocker_to_calibrated_IC": "Définir mesure/contrainte/variable de contexte et dépendance justifiée; disponibilité pré-T0"
+    },
+    {
+      "id": "028",
+      "name": "Ancienneté et conservation",
+      "family": "riz",
+      "role": "PRESTART",
+      "implemented_operation": "VALIDATE_PRESTART_CONTEXT_NO_QUANTIFIED_EFFECT",
+      "toy_physics_numeric_path": false,
+      "scientific_effect_validated": false,
+      "blocker_to_calibrated_IC": "Définir mesure/contrainte/variable de contexte et dépendance justifiée; disponibilité pré-T0"
+    },
+    {
+      "id": "029",
+      "name": "Grains cassés",
+      "family": "riz",
+      "role": "PRESTART",
+      "implemented_operation": "VALIDATE_PRESTART_CONTEXT_NO_QUANTIFIED_EFFECT",
+      "toy_physics_numeric_path": false,
+      "scientific_effect_validated": false,
+      "blocker_to_calibrated_IC": "Définir mesure/contrainte/variable de contexte et dépendance justifiée; disponibilité pré-T0"
+    },
+    {
+      "id": "030",
+      "name": "Amidon de surface",
+      "family": "riz",
+      "role": "PRESTART",
+      "implemented_operation": "VALIDATE_PRESTART_AND_BIND_DRIVER",
+      "toy_physics_numeric_path": true,
+      "scientific_effect_validated": false,
+      "blocker_to_calibrated_IC": "Calibrer les mécanismes à partir de mesures physiques réelles; pas un effet de qualité prouvé"
+    },
+    {
+      "id": "031",
+      "name": "Impuretés",
+      "family": "riz",
+      "role": "PRESTART",
+      "implemented_operation": "VALIDATE_PRESTART_CONTEXT_NO_QUANTIFIED_EFFECT",
+      "toy_physics_numeric_path": false,
+      "scientific_effect_validated": false,
+      "blocker_to_calibrated_IC": "Définir mesure/contrainte/variable de contexte et dépendance justifiée; disponibilité pré-T0"
+    },
+    {
+      "id": "032",
+      "name": "Humidité initiale",
+      "family": "riz",
+      "role": "PRESTART",
+      "implemented_operation": "VALIDATE_PRESTART_CONTEXT_NO_QUANTIFIED_EFFECT",
+      "toy_physics_numeric_path": false,
+      "scientific_effect_validated": false,
+      "blocker_to_calibrated_IC": "Définir mesure/contrainte/variable de contexte et dépendance justifiée; disponibilité pré-T0"
+    },
+    {
+      "id": "033",
+      "name": "Capacité et vitesse d’absorption",
+      "family": "riz",
+      "role": "PRESTART",
+      "implemented_operation": "VALIDATE_PRESTART_AND_BIND_DRIVER",
+      "toy_physics_numeric_path": true,
+      "scientific_effect_validated": false,
+      "blocker_to_calibrated_IC": "Calibrer les mécanismes à partir de mesures physiques réelles; pas un effet de qualité prouvé"
+    },
+    {
+      "id": "034",
+      "name": "Comportement à la gélatinisation",
+      "family": "riz",
+      "role": "PRESTART",
+      "implemented_operation": "VALIDATE_PRESTART_AND_BIND_DRIVER",
+      "toy_physics_numeric_path": true,
+      "scientific_effect_validated": false,
+      "blocker_to_calibrated_IC": "Calibrer les mécanismes à partir de mesures physiques réelles; pas un effet de qualité prouvé"
+    },
+    {
+      "id": "035",
+      "name": "Eau ajoutée",
+      "family": "conditions",
+      "role": "PRESTART",
+      "implemented_operation": "VALIDATE_PRESTART_AND_BIND_DRIVER",
+      "toy_physics_numeric_path": true,
+      "scientific_effect_validated": false,
+      "blocker_to_calibrated_IC": "Calibrer les mécanismes à partir de mesures physiques réelles; pas un effet de qualité prouvé"
+    },
+    {
+      "id": "036",
+      "name": "Eau résiduelle après rinçage",
+      "family": "conditions",
+      "role": "PRESTART",
+      "implemented_operation": "VALIDATE_PRESTART_AND_BIND_DRIVER",
+      "toy_physics_numeric_path": true,
+      "scientific_effect_validated": false,
+      "blocker_to_calibrated_IC": "Calibrer les mécanismes à partir de mesures physiques réelles; pas un effet de qualité prouvé"
+    },
+    {
+      "id": "037",
+      "name": "Température initiale de l’eau",
+      "family": "conditions",
+      "role": "PRESTART",
+      "implemented_operation": "VALIDATE_PRESTART_AND_BIND_DRIVER",
+      "toy_physics_numeric_path": true,
+      "scientific_effect_validated": false,
+      "blocker_to_calibrated_IC": "Calibrer les mécanismes à partir de mesures physiques réelles; pas un effet de qualité prouvé"
+    },
+    {
+      "id": "038",
+      "name": "Température initiale du riz",
+      "family": "conditions",
+      "role": "PRESTART",
+      "implemented_operation": "VALIDATE_PRESTART_AND_BIND_DRIVER",
+      "toy_physics_numeric_path": true,
+      "scientific_effect_validated": false,
+      "blocker_to_calibrated_IC": "Calibrer les mécanismes à partir de mesures physiques réelles; pas un effet de qualité prouvé"
+    },
+    {
+      "id": "039",
+      "name": "Température ambiante",
+      "family": "conditions",
+      "role": "PRESTART",
+      "implemented_operation": "VALIDATE_PRESTART_CONTEXT_NO_QUANTIFIED_EFFECT",
+      "toy_physics_numeric_path": false,
+      "scientific_effect_validated": false,
+      "blocker_to_calibrated_IC": "Définir mesure/contrainte/variable de contexte et dépendance justifiée; disponibilité pré-T0"
+    },
+    {
+      "id": "040",
+      "name": "Altitude et pression",
+      "family": "conditions",
+      "role": "PRESTART",
+      "implemented_operation": "VALIDATE_PRESTART_CONTEXT_NO_QUANTIFIED_EFFECT",
+      "toy_physics_numeric_path": false,
+      "scientific_effect_validated": false,
+      "blocker_to_calibrated_IC": "Définir mesure/contrainte/variable de contexte et dépendance justifiée; disponibilité pré-T0"
+    },
+    {
+      "id": "041",
+      "name": "Puissance choisie",
+      "family": "conditions",
+      "role": "PRESTART",
+      "implemented_operation": "VALIDATE_PRESTART_AND_BIND_DRIVER",
+      "toy_physics_numeric_path": true,
+      "scientific_effect_validated": false,
+      "blocker_to_calibrated_IC": "Calibrer les mécanismes à partir de mesures physiques réelles; pas un effet de qualité prouvé"
+    },
+    {
+      "id": "042",
+      "name": "Transfert thermique",
+      "family": "conditions",
+      "role": "PRESTART",
+      "implemented_operation": "VALIDATE_PRESTART_AND_BIND_DRIVER",
+      "toy_physics_numeric_path": true,
+      "scientific_effect_validated": false,
+      "blocker_to_calibrated_IC": "Calibrer les mécanismes à partir de mesures physiques réelles; pas un effet de qualité prouvé"
+    },
+    {
+      "id": "043",
+      "name": "Moment d’ébullition",
+      "family": "conditions",
+      "role": "FORECAST",
+      "implemented_operation": "READ_PHYSICAL_NODE_T_boiling",
+      "toy_physics_numeric_path": true,
+      "scientific_effect_validated": false,
+      "blocker_to_calibrated_IC": "Calibrer les mécanismes à partir de mesures physiques réelles; pas un effet de qualité prouvé"
+    },
+    {
+      "id": "044",
+      "name": "Stabilité du frémissement",
+      "family": "conditions",
+      "role": "FORECAST",
+      "implemented_operation": "REFUSE_INVENT_STABILITY",
+      "toy_physics_numeric_path": false,
+      "scientific_effect_validated": false,
+      "blocker_to_calibrated_IC": "Établir loi/mesure de prévision indépendante; ne pas importer événement futur"
+    },
+    {
+      "id": "045",
+      "name": "Évaporation estimée",
+      "family": "conditions",
+      "role": "PRESTART",
+      "implemented_operation": "VALIDATE_PRESTART_AND_BIND_DRIVER",
+      "toy_physics_numeric_path": true,
+      "scientific_effect_validated": false,
+      "blocker_to_calibrated_IC": "Calibrer les mécanismes à partir de mesures physiques réelles; pas un effet de qualité prouvé"
+    },
+    {
+      "id": "046",
+      "name": "Fuites de vapeur",
+      "family": "conditions",
+      "role": "FORECAST",
+      "implemented_operation": "READ_LID_MULTIPLIER_NOT_REAL_STEAM",
+      "toy_physics_numeric_path": false,
+      "scientific_effect_validated": false,
+      "blocker_to_calibrated_IC": "Établir loi/mesure de prévision indépendante; ne pas importer événement futur"
+    },
+    {
+      "id": "047",
+      "name": "Durée de cuisson envisagée",
+      "family": "conditions",
+      "role": "PRESTART",
+      "implemented_operation": "VALIDATE_PRESTART_AND_BIND_DRIVER",
+      "toy_physics_numeric_path": true,
+      "scientific_effect_validated": false,
+      "blocker_to_calibrated_IC": "Calibrer les mécanismes à partir de mesures physiques réelles; pas un effet de qualité prouvé"
+    },
+    {
+      "id": "048",
+      "name": "Bilan hydrique prévisionnel",
+      "family": "conditions",
+      "role": "DERIVED",
+      "implemented_operation": "HYDRIC_BALANCE_W_after_AND_shortfall",
+      "toy_physics_numeric_path": true,
+      "scientific_effect_validated": false,
+      "blocker_to_calibrated_IC": "Calibrer les mécanismes à partir de mesures physiques réelles; pas un effet de qualité prouvé"
+    },
+    {
+      "id": "049",
+      "name": "Vérifier les portions",
+      "family": "actions",
+      "role": "PRESTART_ACTION_PLAN",
+      "implemented_operation": "EVALUATE_DECLARED_FUTURE_PLAN_WITHOUT_CLAIMING_EXECUTION",
+      "toy_physics_numeric_path": false,
+      "scientific_effect_validated": false,
+      "blocker_to_calibrated_IC": "Spécifier protocole planifié, adhérence incertaine et éventuel lien conditionnel causal"
+    },
+    {
+      "id": "050",
+      "name": "Peser le riz",
+      "family": "actions",
+      "role": "PRESTART_ACTION_PLAN",
+      "implemented_operation": "EVALUATE_DECLARED_FUTURE_PLAN_WITHOUT_CLAIMING_EXECUTION",
+      "toy_physics_numeric_path": false,
+      "scientific_effect_validated": false,
+      "blocker_to_calibrated_IC": "Spécifier protocole planifié, adhérence incertaine et éventuel lien conditionnel causal"
+    },
+    {
+      "id": "051",
+      "name": "Trier et inspecter",
+      "family": "actions",
+      "role": "PRESTART_ACTION_PLAN",
+      "implemented_operation": "EVALUATE_DECLARED_FUTURE_PLAN_WITHOUT_CLAIMING_EXECUTION",
+      "toy_physics_numeric_path": false,
+      "scientific_effect_validated": false,
+      "blocker_to_calibrated_IC": "Spécifier protocole planifié, adhérence incertaine et éventuel lien conditionnel causal"
+    },
+    {
+      "id": "052",
+      "name": "Choisir la méthode",
+      "family": "actions",
+      "role": "PRESTART_ACTION_PLAN",
+      "implemented_operation": "EVALUATE_DECLARED_FUTURE_PLAN_WITHOUT_CLAIMING_EXECUTION",
+      "toy_physics_numeric_path": false,
+      "scientific_effect_validated": false,
+      "blocker_to_calibrated_IC": "Spécifier protocole planifié, adhérence incertaine et éventuel lien conditionnel causal"
+    },
+    {
+      "id": "053",
+      "name": "Préparer le dosage initial",
+      "family": "actions",
+      "role": "PRESTART_ACTION_PLAN",
+      "implemented_operation": "EVALUATE_DECLARED_FUTURE_PLAN_WITHOUT_CLAIMING_EXECUTION",
+      "toy_physics_numeric_path": false,
+      "scientific_effect_validated": false,
+      "blocker_to_calibrated_IC": "Spécifier protocole planifié, adhérence incertaine et éventuel lien conditionnel causal"
+    },
+    {
+      "id": "054",
+      "name": "Décider du rinçage",
+      "family": "actions",
+      "role": "PRESTART_ACTION_PLAN",
+      "implemented_operation": "EVALUATE_DECLARED_FUTURE_PLAN_WITHOUT_CLAIMING_EXECUTION",
+      "toy_physics_numeric_path": true,
+      "scientific_effect_validated": false,
+      "blocker_to_calibrated_IC": "Calibrer les mécanismes à partir de mesures physiques réelles; pas un effet de qualité prouvé"
+    },
+    {
+      "id": "055",
+      "name": "Premier rinçage",
+      "family": "actions",
+      "role": "PRESTART_ACTION_PLAN",
+      "implemented_operation": "EVALUATE_DECLARED_FUTURE_PLAN_WITHOUT_CLAIMING_EXECUTION",
+      "toy_physics_numeric_path": false,
+      "scientific_effect_validated": false,
+      "blocker_to_calibrated_IC": "Spécifier protocole planifié, adhérence incertaine et éventuel lien conditionnel causal"
+    },
+    {
+      "id": "056",
+      "name": "Rinçage complémentaire",
+      "family": "actions",
+      "role": "PRESTART_ACTION_PLAN",
+      "implemented_operation": "EVALUATE_DECLARED_FUTURE_PLAN_WITHOUT_CLAIMING_EXECUTION",
+      "toy_physics_numeric_path": false,
+      "scientific_effect_validated": false,
+      "blocker_to_calibrated_IC": "Spécifier protocole planifié, adhérence incertaine et éventuel lien conditionnel causal"
+    },
+    {
+      "id": "057",
+      "name": "Égouttage",
+      "family": "actions",
+      "role": "PRESTART_ACTION_PLAN",
+      "implemented_operation": "EVALUATE_DECLARED_FUTURE_PLAN_WITHOUT_CLAIMING_EXECUTION",
+      "toy_physics_numeric_path": false,
+      "scientific_effect_validated": false,
+      "blocker_to_calibrated_IC": "Spécifier protocole planifié, adhérence incertaine et éventuel lien conditionnel causal"
+    },
+    {
+      "id": "058",
+      "name": "Évaluer l’eau retenue",
+      "family": "actions",
+      "role": "PRESTART_ACTION_PLAN",
+      "implemented_operation": "EVALUATE_DECLARED_FUTURE_PLAN_WITHOUT_CLAIMING_EXECUTION",
+      "toy_physics_numeric_path": false,
+      "scientific_effect_validated": false,
+      "blocker_to_calibrated_IC": "Spécifier protocole planifié, adhérence incertaine et éventuel lien conditionnel causal"
+    },
+    {
+      "id": "059",
+      "name": "Mettre le riz dans la casserole",
+      "family": "actions",
+      "role": "PRESTART_ACTION_PLAN",
+      "implemented_operation": "EVALUATE_DECLARED_FUTURE_PLAN_WITHOUT_CLAIMING_EXECUTION",
+      "toy_physics_numeric_path": false,
+      "scientific_effect_validated": false,
+      "blocker_to_calibrated_IC": "Spécifier protocole planifié, adhérence incertaine et éventuel lien conditionnel causal"
+    },
+    {
+      "id": "060",
+      "name": "Ajouter l’eau",
+      "family": "actions",
+      "role": "PRESTART_ACTION_PLAN",
+      "implemented_operation": "EVALUATE_DECLARED_FUTURE_PLAN_WITHOUT_CLAIMING_EXECUTION",
+      "toy_physics_numeric_path": false,
+      "scientific_effect_validated": false,
+      "blocker_to_calibrated_IC": "Spécifier protocole planifié, adhérence incertaine et éventuel lien conditionnel causal"
+    },
+    {
+      "id": "061",
+      "name": "Ajouter le sel",
+      "family": "actions",
+      "role": "PRESTART_ACTION_PLAN",
+      "implemented_operation": "EVALUATE_DECLARED_FUTURE_PLAN_WITHOUT_CLAIMING_EXECUTION",
+      "toy_physics_numeric_path": false,
+      "scientific_effect_validated": false,
+      "blocker_to_calibrated_IC": "Spécifier protocole planifié, adhérence incertaine et éventuel lien conditionnel causal"
+    },
+    {
+      "id": "062",
+      "name": "Ajouter la matière grasse",
+      "family": "actions",
+      "role": "PRESTART_ACTION_PLAN",
+      "implemented_operation": "EVALUATE_DECLARED_FUTURE_PLAN_WITHOUT_CLAIMING_EXECUTION",
+      "toy_physics_numeric_path": false,
+      "scientific_effect_validated": false,
+      "blocker_to_calibrated_IC": "Spécifier protocole planifié, adhérence incertaine et éventuel lien conditionnel causal"
+    },
+    {
+      "id": "063",
+      "name": "Vérifier la capacité",
+      "family": "actions",
+      "role": "PRESTART_ACTION_PLAN",
+      "implemented_operation": "EVALUATE_DECLARED_FUTURE_PLAN_WITHOUT_CLAIMING_EXECUTION",
+      "toy_physics_numeric_path": false,
+      "scientific_effect_validated": false,
+      "blocker_to_calibrated_IC": "Spécifier protocole planifié, adhérence incertaine et éventuel lien conditionnel causal"
+    },
+    {
+      "id": "064",
+      "name": "Positionner le couvercle",
+      "family": "actions",
+      "role": "PRESTART_ACTION_PLAN",
+      "implemented_operation": "EVALUATE_DECLARED_FUTURE_PLAN_WITHOUT_CLAIMING_EXECUTION",
+      "toy_physics_numeric_path": false,
+      "scientific_effect_validated": false,
+      "blocker_to_calibrated_IC": "Spécifier protocole planifié, adhérence incertaine et éventuel lien conditionnel causal"
+    },
+    {
+      "id": "065",
+      "name": "Démarrer la chauffe",
+      "family": "actions",
+      "role": "PRESTART_ACTION_PLAN",
+      "implemented_operation": "EVALUATE_DECLARED_FUTURE_PLAN_WITHOUT_CLAIMING_EXECUTION",
+      "toy_physics_numeric_path": false,
+      "scientific_effect_validated": false,
+      "blocker_to_calibrated_IC": "Spécifier protocole planifié, adhérence incertaine et éventuel lien conditionnel causal"
+    },
+    {
+      "id": "066",
+      "name": "Amener à ébullition",
+      "family": "actions",
+      "role": "PRESTART_ACTION_PLAN",
+      "implemented_operation": "EVALUATE_DECLARED_FUTURE_PLAN_WITHOUT_CLAIMING_EXECUTION",
+      "toy_physics_numeric_path": false,
+      "scientific_effect_validated": false,
+      "blocker_to_calibrated_IC": "Spécifier protocole planifié, adhérence incertaine et éventuel lien conditionnel causal"
+    },
+    {
+      "id": "067",
+      "name": "Observer mousse et débordement",
+      "family": "actions",
+      "role": "PRESTART_ACTION_PLAN",
+      "implemented_operation": "EVALUATE_DECLARED_FUTURE_PLAN_WITHOUT_CLAIMING_EXECUTION",
+      "toy_physics_numeric_path": false,
+      "scientific_effect_validated": false,
+      "blocker_to_calibrated_IC": "Spécifier protocole planifié, adhérence incertaine et éventuel lien conditionnel causal"
+    },
+    {
+      "id": "068",
+      "name": "Réduire le feu et couvrir",
+      "family": "actions",
+      "role": "PRESTART_ACTION_PLAN",
+      "implemented_operation": "EVALUATE_DECLARED_FUTURE_PLAN_WITHOUT_CLAIMING_EXECUTION",
+      "toy_physics_numeric_path": false,
+      "scientific_effect_validated": false,
+      "blocker_to_calibrated_IC": "Spécifier protocole planifié, adhérence incertaine et éventuel lien conditionnel causal"
+    },
+    {
+      "id": "069",
+      "name": "Maintenir le régime thermique",
+      "family": "actions",
+      "role": "PRESTART_ACTION_PLAN",
+      "implemented_operation": "EVALUATE_DECLARED_FUTURE_PLAN_WITHOUT_CLAIMING_EXECUTION",
+      "toy_physics_numeric_path": false,
+      "scientific_effect_validated": false,
+      "blocker_to_calibrated_IC": "Spécifier protocole planifié, adhérence incertaine et éventuel lien conditionnel causal"
+    },
+    {
+      "id": "070",
+      "name": "Gérer le couvercle",
+      "family": "actions",
+      "role": "PRESTART_ACTION_PLAN",
+      "implemented_operation": "EVALUATE_DECLARED_FUTURE_PLAN_WITHOUT_CLAIMING_EXECUTION",
+      "toy_physics_numeric_path": false,
+      "scientific_effect_validated": false,
+      "blocker_to_calibrated_IC": "Spécifier protocole planifié, adhérence incertaine et éventuel lien conditionnel causal"
+    },
+    {
+      "id": "071",
+      "name": "Limiter l’agitation",
+      "family": "actions",
+      "role": "PRESTART_ACTION_PLAN",
+      "implemented_operation": "EVALUATE_DECLARED_FUTURE_PLAN_WITHOUT_CLAIMING_EXECUTION",
+      "toy_physics_numeric_path": false,
+      "scientific_effect_validated": false,
+      "blocker_to_calibrated_IC": "Spécifier protocole planifié, adhérence incertaine et éventuel lien conditionnel causal"
+    },
+    {
+      "id": "072",
+      "name": "Suivre l’hydratation",
+      "family": "actions",
+      "role": "PRESTART_ACTION_PLAN",
+      "implemented_operation": "EVALUATE_DECLARED_FUTURE_PLAN_WITHOUT_CLAIMING_EXECUTION",
+      "toy_physics_numeric_path": false,
+      "scientific_effect_validated": false,
+      "blocker_to_calibrated_IC": "Spécifier protocole planifié, adhérence incertaine et éventuel lien conditionnel causal"
+    },
+    {
+      "id": "073",
+      "name": "Déterminer la fin de chauffe",
+      "family": "actions",
+      "role": "PRESTART_ACTION_PLAN",
+      "implemented_operation": "EVALUATE_DECLARED_FUTURE_PLAN_WITHOUT_CLAIMING_EXECUTION",
+      "toy_physics_numeric_path": false,
+      "scientific_effect_validated": false,
+      "blocker_to_calibrated_IC": "Spécifier protocole planifié, adhérence incertaine et éventuel lien conditionnel causal"
+    },
+    {
+      "id": "074",
+      "name": "Couper le feu",
+      "family": "actions",
+      "role": "PRESTART_ACTION_PLAN",
+      "implemented_operation": "EVALUATE_DECLARED_FUTURE_PLAN_WITHOUT_CLAIMING_EXECUTION",
+      "toy_physics_numeric_path": false,
+      "scientific_effect_validated": false,
+      "blocker_to_calibrated_IC": "Spécifier protocole planifié, adhérence incertaine et éventuel lien conditionnel causal"
+    },
+    {
+      "id": "075",
+      "name": "Commencer le repos",
+      "family": "actions",
+      "role": "PRESTART_ACTION_PLAN",
+      "implemented_operation": "EVALUATE_DECLARED_FUTURE_PLAN_WITHOUT_CLAIMING_EXECUTION",
+      "toy_physics_numeric_path": false,
+      "scientific_effect_validated": false,
+      "blocker_to_calibrated_IC": "Spécifier protocole planifié, adhérence incertaine et éventuel lien conditionnel causal"
+    },
+    {
+      "id": "076",
+      "name": "Respecter le repos",
+      "family": "actions",
+      "role": "PRESTART_ACTION_PLAN",
+      "implemented_operation": "EVALUATE_DECLARED_FUTURE_PLAN_WITHOUT_CLAIMING_EXECUTION",
+      "toy_physics_numeric_path": false,
+      "scientific_effect_validated": false,
+      "blocker_to_calibrated_IC": "Spécifier protocole planifié, adhérence incertaine et éventuel lien conditionnel causal"
+    },
+    {
+      "id": "077",
+      "name": "Égrainer",
+      "family": "actions",
+      "role": "PRESTART_ACTION_PLAN",
+      "implemented_operation": "EVALUATE_DECLARED_FUTURE_PLAN_WITHOUT_CLAIMING_EXECUTION",
+      "toy_physics_numeric_path": false,
+      "scientific_effect_validated": false,
+      "blocker_to_calibrated_IC": "Spécifier protocole planifié, adhérence incertaine et éventuel lien conditionnel causal"
+    },
+    {
+      "id": "078",
+      "name": "Examiner l’humidité finale",
+      "family": "actions",
+      "role": "PRESTART_ACTION_PLAN",
+      "implemented_operation": "EVALUATE_DECLARED_FUTURE_PLAN_WITHOUT_CLAIMING_EXECUTION",
+      "toy_physics_numeric_path": false,
+      "scientific_effect_validated": false,
+      "blocker_to_calibrated_IC": "Spécifier protocole planifié, adhérence incertaine et éventuel lien conditionnel causal"
+    },
+    {
+      "id": "079",
+      "name": "Décider d’une finition",
+      "family": "actions",
+      "role": "PRESTART_ACTION_PLAN",
+      "implemented_operation": "EVALUATE_DECLARED_FUTURE_PLAN_WITHOUT_CLAIMING_EXECUTION",
+      "toy_physics_numeric_path": false,
+      "scientific_effect_validated": false,
+      "blocker_to_calibrated_IC": "Spécifier protocole planifié, adhérence incertaine et éventuel lien conditionnel causal"
+    },
+    {
+      "id": "080",
+      "name": "Ouvrir pour servir",
+      "family": "actions",
+      "role": "PRESTART_ACTION_PLAN",
+      "implemented_operation": "EVALUATE_DECLARED_FUTURE_PLAN_WITHOUT_CLAIMING_EXECUTION",
+      "toy_physics_numeric_path": false,
+      "scientific_effect_validated": false,
+      "blocker_to_calibrated_IC": "Spécifier protocole planifié, adhérence incertaine et éventuel lien conditionnel causal"
+    },
+    {
+      "id": "081",
+      "name": "Transférer le riz",
+      "family": "actions",
+      "role": "PRESTART_ACTION_PLAN",
+      "implemented_operation": "EVALUATE_DECLARED_FUTURE_PLAN_WITHOUT_CLAIMING_EXECUTION",
+      "toy_physics_numeric_path": false,
+      "scientific_effect_validated": false,
+      "blocker_to_calibrated_IC": "Spécifier protocole planifié, adhérence incertaine et éventuel lien conditionnel causal"
+    },
+    {
+      "id": "082",
+      "name": "Répartir deux portions",
+      "family": "actions",
+      "role": "PRESTART_ACTION_PLAN",
+      "implemented_operation": "EVALUATE_DECLARED_FUTURE_PLAN_WITHOUT_CLAIMING_EXECUTION",
+      "toy_physics_numeric_path": false,
+      "scientific_effect_validated": false,
+      "blocker_to_calibrated_IC": "Spécifier protocole planifié, adhérence incertaine et éventuel lien conditionnel causal"
+    },
+    {
+      "id": "083",
+      "name": "Contrôler la température de service",
+      "family": "actions",
+      "role": "PRESTART_ACTION_PLAN",
+      "implemented_operation": "EVALUATE_DECLARED_FUTURE_PLAN_WITHOUT_CLAIMING_EXECUTION",
+      "toy_physics_numeric_path": false,
+      "scientific_effect_validated": false,
+      "blocker_to_calibrated_IC": "Spécifier protocole planifié, adhérence incertaine et éventuel lien conditionnel causal"
+    },
+    {
+      "id": "084",
+      "name": "Limiter le délai",
+      "family": "actions",
+      "role": "PRESTART_ACTION_PLAN",
+      "implemented_operation": "EVALUATE_DECLARED_FUTURE_PLAN_WITHOUT_CLAIMING_EXECUTION",
+      "toy_physics_numeric_path": false,
+      "scientific_effect_validated": false,
+      "blocker_to_calibrated_IC": "Spécifier protocole planifié, adhérence incertaine et éventuel lien conditionnel causal"
+    },
+    {
+      "id": "085",
+      "name": "Présenter le résultat",
+      "family": "actions",
+      "role": "PRESTART_ACTION_PLAN",
+      "implemented_operation": "EVALUATE_DECLARED_FUTURE_PLAN_WITHOUT_CLAIMING_EXECUTION",
+      "toy_physics_numeric_path": false,
+      "scientific_effect_validated": false,
+      "blocker_to_calibrated_IC": "Spécifier protocole planifié, adhérence incertaine et éventuel lien conditionnel causal"
+    },
+    {
+      "id": "086",
+      "name": "Excès d’eau",
+      "family": "corrections",
+      "role": "PRESTART_BRANCH_POLICY",
+      "implemented_operation": "REGISTER_CONDITIONAL_BRANCH_UNQUANTIFIED_NO_FUTURE_EVENT",
+      "toy_physics_numeric_path": false,
+      "scientific_effect_validated": false,
+      "blocker_to_calibrated_IC": "Quantifier probabilité déclenchement et effet conjoint, jamais prétendre action réalisée"
+    },
+    {
+      "id": "087",
+      "name": "Manque d’eau",
+      "family": "corrections",
+      "role": "PRESTART_BRANCH_POLICY",
+      "implemented_operation": "REGISTER_CONDITIONAL_BRANCH_UNQUANTIFIED_NO_FUTURE_EVENT",
+      "toy_physics_numeric_path": false,
+      "scientific_effect_validated": false,
+      "blocker_to_calibrated_IC": "Quantifier probabilité déclenchement et effet conjoint, jamais prétendre action réalisée"
+    },
+    {
+      "id": "088",
+      "name": "Chaleur excessive",
+      "family": "corrections",
+      "role": "PRESTART_BRANCH_POLICY",
+      "implemented_operation": "REGISTER_CONDITIONAL_BRANCH_UNQUANTIFIED_NO_FUTURE_EVENT",
+      "toy_physics_numeric_path": false,
+      "scientific_effect_validated": false,
+      "blocker_to_calibrated_IC": "Quantifier probabilité déclenchement et effet conjoint, jamais prétendre action réalisée"
+    },
+    {
+      "id": "089",
+      "name": "Chaleur insuffisante",
+      "family": "corrections",
+      "role": "PRESTART_BRANCH_POLICY",
+      "implemented_operation": "REGISTER_CONDITIONAL_BRANCH_UNQUANTIFIED_NO_FUTURE_EVENT",
+      "toy_physics_numeric_path": false,
+      "scientific_effect_validated": false,
+      "blocker_to_calibrated_IC": "Quantifier probabilité déclenchement et effet conjoint, jamais prétendre action réalisée"
+    },
+    {
+      "id": "090",
+      "name": "Couvercle inadapté",
+      "family": "corrections",
+      "role": "PRESTART_BRANCH_POLICY",
+      "implemented_operation": "REGISTER_CONDITIONAL_BRANCH_UNQUANTIFIED_NO_FUTURE_EVENT",
+      "toy_physics_numeric_path": false,
+      "scientific_effect_validated": false,
+      "blocker_to_calibrated_IC": "Quantifier probabilité déclenchement et effet conjoint, jamais prétendre action réalisée"
+    },
+    {
+      "id": "091",
+      "name": "Évaporation excessive",
+      "family": "corrections",
+      "role": "PRESTART_BRANCH_POLICY",
+      "implemented_operation": "REGISTER_CONDITIONAL_BRANCH_UNQUANTIFIED_NO_FUTURE_EVENT",
+      "toy_physics_numeric_path": false,
+      "scientific_effect_validated": false,
+      "blocker_to_calibrated_IC": "Quantifier probabilité déclenchement et effet conjoint, jamais prétendre action réalisée"
+    },
+    {
+      "id": "092",
+      "name": "Frémissement instable",
+      "family": "corrections",
+      "role": "PRESTART_BRANCH_POLICY",
+      "implemented_operation": "REGISTER_CONDITIONAL_BRANCH_UNQUANTIFIED_NO_FUTURE_EVENT",
+      "toy_physics_numeric_path": false,
+      "scientific_effect_validated": false,
+      "blocker_to_calibrated_IC": "Quantifier probabilité déclenchement et effet conjoint, jamais prétendre action réalisée"
+    },
+    {
+      "id": "093",
+      "name": "Débordement",
+      "family": "corrections",
+      "role": "PRESTART_BRANCH_POLICY",
+      "implemented_operation": "REGISTER_CONDITIONAL_BRANCH_UNQUANTIFIED_NO_FUTURE_EVENT",
+      "toy_physics_numeric_path": false,
+      "scientific_effect_validated": false,
+      "blocker_to_calibrated_IC": "Quantifier probabilité déclenchement et effet conjoint, jamais prétendre action réalisée"
+    },
+    {
+      "id": "094",
+      "name": "Riz attaché ou brûlé",
+      "family": "corrections",
+      "role": "PRESTART_BRANCH_POLICY",
+      "implemented_operation": "REGISTER_CONDITIONAL_BRANCH_UNQUANTIFIED_NO_FUTURE_EVENT",
+      "toy_physics_numeric_path": false,
+      "scientific_effect_validated": false,
+      "blocker_to_calibrated_IC": "Quantifier probabilité déclenchement et effet conjoint, jamais prétendre action réalisée"
+    },
+    {
+      "id": "095",
+      "name": "Grains agglutinés",
+      "family": "corrections",
+      "role": "PRESTART_BRANCH_POLICY",
+      "implemented_operation": "REGISTER_CONDITIONAL_BRANCH_UNQUANTIFIED_NO_FUTURE_EVENT",
+      "toy_physics_numeric_path": false,
+      "scientific_effect_validated": false,
+      "blocker_to_calibrated_IC": "Quantifier probabilité déclenchement et effet conjoint, jamais prétendre action réalisée"
+    },
+    {
+      "id": "096",
+      "name": "Grains trop fermes",
+      "family": "corrections",
+      "role": "PRESTART_BRANCH_POLICY",
+      "implemented_operation": "REGISTER_CONDITIONAL_BRANCH_UNQUANTIFIED_NO_FUTURE_EVENT",
+      "toy_physics_numeric_path": false,
+      "scientific_effect_validated": false,
+      "blocker_to_calibrated_IC": "Quantifier probabilité déclenchement et effet conjoint, jamais prétendre action réalisée"
+    },
+    {
+      "id": "097",
+      "name": "Riz pâteux",
+      "family": "corrections",
+      "role": "PRESTART_BRANCH_POLICY",
+      "implemented_operation": "REGISTER_CONDITIONAL_BRANCH_UNQUANTIFIED_NO_FUTURE_EVENT",
+      "toy_physics_numeric_path": false,
+      "scientific_effect_validated": false,
+      "blocker_to_calibrated_IC": "Quantifier probabilité déclenchement et effet conjoint, jamais prétendre action réalisée"
+    },
+    {
+      "id": "098",
+      "name": "Situation non récupérable",
+      "family": "corrections",
+      "role": "PRESTART_BRANCH_POLICY",
+      "implemented_operation": "REGISTER_CONDITIONAL_BRANCH_UNQUANTIFIED_NO_FUTURE_EVENT",
+      "toy_physics_numeric_path": false,
+      "scientific_effect_validated": false,
+      "blocker_to_calibrated_IC": "Quantifier probabilité déclenchement et effet conjoint, jamais prétendre action réalisée"
+    },
+    {
+      "id": "099",
+      "name": "Salubrité et sécurité alimentaire",
+      "family": "sortie",
+      "role": "POSTSTART_TARGET_NOT_FEATURE",
+      "implemented_operation": "DEFINE_FUTURE_LABEL_OR_VETO_EXCLUDE_AS_PREDICTOR",
+      "toy_physics_numeric_path": false,
+      "scientific_effect_validated": false,
+      "blocker_to_calibrated_IC": "Préenregistrer indicateur poststart de Q et protocole de mesure reproductible; zéro fuite"
+    },
+    {
+      "id": "100",
+      "name": "Quantité effective",
+      "family": "sortie",
+      "role": "POSTSTART_TARGET_NOT_FEATURE",
+      "implemented_operation": "DEFINE_FUTURE_LABEL_OR_VETO_EXCLUDE_AS_PREDICTOR",
+      "toy_physics_numeric_path": false,
+      "scientific_effect_validated": false,
+      "blocker_to_calibrated_IC": "Préenregistrer indicateur poststart de Q et protocole de mesure reproductible; zéro fuite"
+    },
+    {
+      "id": "101",
+      "name": "Tendreté",
+      "family": "sortie",
+      "role": "POSTSTART_TARGET_NOT_FEATURE",
+      "implemented_operation": "DEFINE_FUTURE_LABEL_OR_VETO_EXCLUDE_AS_PREDICTOR",
+      "toy_physics_numeric_path": false,
+      "scientific_effect_validated": false,
+      "blocker_to_calibrated_IC": "Préenregistrer indicateur poststart de Q et protocole de mesure reproductible; zéro fuite"
+    },
+    {
+      "id": "102",
+      "name": "Séparation des grains",
+      "family": "sortie",
+      "role": "POSTSTART_TARGET_NOT_FEATURE",
+      "implemented_operation": "DEFINE_FUTURE_LABEL_OR_VETO_EXCLUDE_AS_PREDICTOR",
+      "toy_physics_numeric_path": false,
+      "scientific_effect_validated": false,
+      "blocker_to_calibrated_IC": "Préenregistrer indicateur poststart de Q et protocole de mesure reproductible; zéro fuite"
+    },
+    {
+      "id": "103",
+      "name": "Homogénéité",
+      "family": "sortie",
+      "role": "POSTSTART_TARGET_NOT_FEATURE",
+      "implemented_operation": "DEFINE_FUTURE_LABEL_OR_VETO_EXCLUDE_AS_PREDICTOR",
+      "toy_physics_numeric_path": false,
+      "scientific_effect_validated": false,
+      "blocker_to_calibrated_IC": "Préenregistrer indicateur poststart de Q et protocole de mesure reproductible; zéro fuite"
+    },
+    {
+      "id": "104",
+      "name": "Intégrité des grains",
+      "family": "sortie",
+      "role": "POSTSTART_TARGET_NOT_FEATURE",
+      "implemented_operation": "DEFINE_FUTURE_LABEL_OR_VETO_EXCLUDE_AS_PREDICTOR",
+      "toy_physics_numeric_path": false,
+      "scientific_effect_validated": false,
+      "blocker_to_calibrated_IC": "Préenregistrer indicateur poststart de Q et protocole de mesure reproductible; zéro fuite"
+    },
+    {
+      "id": "105",
+      "name": "Absence d’eau libre excessive",
+      "family": "sortie",
+      "role": "POSTSTART_TARGET_NOT_FEATURE",
+      "implemented_operation": "DEFINE_FUTURE_LABEL_OR_VETO_EXCLUDE_AS_PREDICTOR",
+      "toy_physics_numeric_path": false,
+      "scientific_effect_validated": false,
+      "blocker_to_calibrated_IC": "Préenregistrer indicateur poststart de Q et protocole de mesure reproductible; zéro fuite"
+    },
+    {
+      "id": "106",
+      "name": "Absence de zones brûlées",
+      "family": "sortie",
+      "role": "POSTSTART_TARGET_NOT_FEATURE",
+      "implemented_operation": "DEFINE_FUTURE_LABEL_OR_VETO_EXCLUDE_AS_PREDICTOR",
+      "toy_physics_numeric_path": false,
+      "scientific_effect_validated": false,
+      "blocker_to_calibrated_IC": "Préenregistrer indicateur poststart de Q et protocole de mesure reproductible; zéro fuite"
+    },
+    {
+      "id": "107",
+      "name": "Température de service",
+      "family": "sortie",
+      "role": "POSTSTART_TARGET_NOT_FEATURE",
+      "implemented_operation": "DEFINE_FUTURE_LABEL_OR_VETO_EXCLUDE_AS_PREDICTOR",
+      "toy_physics_numeric_path": false,
+      "scientific_effect_validated": false,
+      "blocker_to_calibrated_IC": "Préenregistrer indicateur poststart de Q et protocole de mesure reproductible; zéro fuite"
+    },
+    {
+      "id": "108",
+      "name": "Goût",
+      "family": "sortie",
+      "role": "POSTSTART_TARGET_NOT_FEATURE",
+      "implemented_operation": "DEFINE_FUTURE_LABEL_OR_VETO_EXCLUDE_AS_PREDICTOR",
+      "toy_physics_numeric_path": false,
+      "scientific_effect_validated": false,
+      "blocker_to_calibrated_IC": "Préenregistrer indicateur poststart de Q et protocole de mesure reproductible; zéro fuite"
+    },
+    {
+      "id": "109",
+      "name": "Arôme",
+      "family": "sortie",
+      "role": "POSTSTART_TARGET_NOT_FEATURE",
+      "implemented_operation": "DEFINE_FUTURE_LABEL_OR_VETO_EXCLUDE_AS_PREDICTOR",
+      "toy_physics_numeric_path": false,
+      "scientific_effect_validated": false,
+      "blocker_to_calibrated_IC": "Préenregistrer indicateur poststart de Q et protocole de mesure reproductible; zéro fuite"
+    },
+    {
+      "id": "110",
+      "name": "Aspect visuel",
+      "family": "sortie",
+      "role": "POSTSTART_TARGET_NOT_FEATURE",
+      "implemented_operation": "DEFINE_FUTURE_LABEL_OR_VETO_EXCLUDE_AS_PREDICTOR",
+      "toy_physics_numeric_path": false,
+      "scientific_effect_validated": false,
+      "blocker_to_calibrated_IC": "Préenregistrer indicateur poststart de Q et protocole de mesure reproductible; zéro fuite"
+    },
+    {
+      "id": "111",
+      "name": "Maintien de la qualité",
+      "family": "sortie",
+      "role": "POSTSTART_TARGET_NOT_FEATURE",
+      "implemented_operation": "DEFINE_FUTURE_LABEL_OR_VETO_EXCLUDE_AS_PREDICTOR",
+      "toy_physics_numeric_path": false,
+      "scientific_effect_validated": false,
+      "blocker_to_calibrated_IC": "Préenregistrer indicateur poststart de Q et protocole de mesure reproductible; zéro fuite"
+    },
+    {
+      "id": "112",
+      "name": "Évaluation globale et décision",
+      "family": "sortie",
+      "role": "POSTSTART_TARGET_NOT_FEATURE",
+      "implemented_operation": "DEFINE_FUTURE_LABEL_OR_VETO_EXCLUDE_AS_PREDICTOR",
+      "toy_physics_numeric_path": false,
+      "scientific_effect_validated": false,
+      "blocker_to_calibrated_IC": "Préenregistrer indicateur poststart de Q et protocole de mesure reproductible; zéro fuite"
+    }
+  ],
+  "total": 112,
+  "validated_case_numeric_effects": 0,
+  "lab_physical_numeric_inputs": 15,
+  "two_derivations_from_same_mechanisms": [
+    "043",
+    "048"
+  ],
+  "no_claim_all_cases_caused_IC": true
+}
