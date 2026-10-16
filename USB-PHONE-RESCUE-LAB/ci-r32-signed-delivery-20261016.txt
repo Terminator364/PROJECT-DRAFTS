@@ -1,1 +1,2 @@
 Single approved transfer of MBMPC-signed R3.2 Android package to ChatGPT, with SHA256 and certificate checks. Secret signing key remains on Windows. Trigger once.
+Delivery marker activated by user mandate on 2026-10-16. Previous commit had CI skip marker.
