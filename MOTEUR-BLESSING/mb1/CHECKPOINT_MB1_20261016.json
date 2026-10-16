@@ -1,0 +1,59 @@
+{
+  "schema": "moteur-blessing/mb1/checkpoint/v1",
+  "project": "Moteur Blessing",
+  "date": "2026-10-16",
+  "gate": "MB-1",
+  "status": "PARTIAL_NOT_COMPLETE",
+  "source_engine": "V1.1.2",
+  "unmodified_engine": true,
+  "github": "Terminator364/PROJECT-DRAFTS",
+  "files_added": [
+    "mb1/START_20261016.md",
+    "mb1/inspect_v112.py",
+    "mb1/test_inspect_v112.py",
+    "mb1/README.md"
+  ],
+  "tests_new": {
+    "location": "ChatGPT container (not MBMPC)",
+    "total": 11,
+    "passed": 11,
+    "failed": 0,
+    "archive_used": "synthetic controlled fixtures only",
+    "exact_source_verified_with_git_hash_object": true,
+    "inspector_git_blob": "3fbb7028cec7d71e525937bda8abc773a0f5f67f",
+    "test_git_blob": "1add70d1eddc72fe93a9ba72722551e90b405d11"
+  },
+  "r8_catalogue": {
+    "source_blob": "3a82746f649bd820f5c0cec671ca88205133f92d",
+    "worlds": 62,
+    "unique_ids": 62,
+    "unique_names": 62,
+    "contiguous_order": true,
+    "legacy": 45,
+    "extensions": 17,
+    "all_score_inactive": true,
+    "all_numeric_effects_null": true
+  },
+  "archive_original": {
+    "receipt": "R-9YPJ87CMENDW",
+    "sha256": "5ef731d6ee4b5edb8a741c59a565d4f7363be84eb9225e814345cb0a04fe89e0",
+    "bytes": 12241975,
+    "available_in_current_runtime": false,
+    "inspected_in_this_reprise": false
+  },
+  "pc": {
+    "device": "MBMPC",
+    "status_seen": "Online",
+    "ping_confirmed": true,
+    "files_list_call": "TIMEOUT",
+    "windows_test": "NOT_RUN"
+  },
+  "scientific": {
+    "out_of_sample_real_validation": "NOT_PROVEN",
+    "PIT_313": "NOT_VERIFIED",
+    "synthetic_brier_candidate": 0.385073,
+    "synthetic_brier_baseline": 0.376084,
+    "status": "EXPERIMENTAL_NOT_APPROVED"
+  },
+  "next": "Obtenir accès réel au ZIP V1.1.2 et inventorier schémas/registre 372, sans activer scoring."
+}
