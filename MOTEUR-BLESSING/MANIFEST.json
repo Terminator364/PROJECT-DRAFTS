@@ -58,12 +58,12 @@
     "do_not_overwrite_source"
   ],
   "next_gate": "MB-1",
-  "pc_archive_extracted": false,
+  "pc_archive_extracted": true,
   "checkpoints": {
     "last_verified_date": "2026-10-16",
     "workspace_created": true,
     "documentation_synced_to_windows": true,
-    "archive_extracted_on_windows": false,
+    "archive_extracted_on_windows": true,
     "github_documentation_created": true,
     "archive_zip_integrity_verified": true,
     "delivery_sha256_matched": true,
@@ -77,15 +77,15 @@
       "total": 169,
       "result": "PASS"
     },
-    "windows_test_execution": "V4_TWO_SMOKE_TESTS_PASS__FULL_SUITE_NOT_RUN",
+    "windows_test_execution": "MB1_V4_WINDOWS_FULL_257_PASS",
     "model_sports_validation": "NOT_PROVEN",
     "recovered_V112_archive_read_in_chatgpt_container": true,
     "pc_mb1_v3_zip_sha256": "3c1bd3369309101ffdb11f41b4e62270c65f028ff138935b4058e35cf3042baa"
   },
-  "sources_note": "V4 GitHub source files and JSON reports SHA-reconciled to tested container artifacts. Full and patch ZIP stored privately in Google Drive and ChatGPT Library. Two Python 3.12 smoke tests executed on MBMPC; no full bundle/257 test run there. Real PIT and OOS remain not verified.",
+  "sources_note": "V4 full archive transferred from user private mounted G: Drive to versioned Windows Documents folder, exact SHA256 verified, 124 files extracted, five suites 46+45+30+48+88=257/257 passed on MBMPC Python 3.12.10 with exit code 0. Original V1.1.2 and older files preserved. Real independent PIT and OOS unproven: NO scientific promotion.",
   "latest_specialized_checkpoint": "MOTEUR-BLESSING/mb1/CHECKPOINT_MB1_V4_20261016.json",
   "mb1": {
-    "status": "MB1_V4_ENGINEERING_COMPLETE_PIT_PENDING",
+    "status": "MB1_V4_ENGINEERING_WINDOWS_REPRODUCED_PIT_VALIDATION_PENDING",
     "source": "V1.1.2",
     "inspected_engine_archive_this_session": true,
     "new_read_only_inspector_git_blob": "3fbb7028cec7d71e525937bda8abc773a0f5f67f",
@@ -144,7 +144,7 @@
       "historical_calculation_prototypes": 2,
       "software_tests_ChatGPT_Python_3_Linux_pass": 257,
       "Windows_smoke_tests_pass": 2,
-      "Windows_full_suite": "NOT_RUN",
+      "Windows_full_suite": "PASS_257_257",
       "full_zip_sha256": "b0c09a45ec2a4f3d6d8fb8b0efaaf6c039b11b0083fcf789e84b2b90818eddb2",
       "full_zip_members": 124,
       "full_zip_bytes": 12327244,
@@ -153,7 +153,9 @@
       "drive_full_zip": "https://drive.google.com/file/d/1SOlHTy8W5jOHnHkvuY2a0fXAYrdSFA4X/view?usp=drivesdk",
       "github_v4_code": "MOTEUR-BLESSING/mb1/v4/",
       "certified_PIT_sources": 0,
-      "model_status": "EXPERIMENTAL_NOT_APPROVED"
+      "model_status": "EXPERIMENTAL_NOT_APPROVED",
+      "Windows_archive_sha256_verified": true,
+      "Windows_extracted_files": 124
     }
   }
 }
