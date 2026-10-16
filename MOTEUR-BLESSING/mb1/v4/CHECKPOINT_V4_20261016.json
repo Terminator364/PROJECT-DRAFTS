@@ -1,0 +1,53 @@
+{
+  "schema": "moteur-blessing/mb1/v4-package-checkpoint",
+  "date": "2026-10-16",
+  "current_gate": "MB-1",
+  "status": "V4_ENGINEERING_PARTIAL__SCIENTIFIC_NOT_APPROVED",
+  "source_full_zip_SHA256": "3c1bd3369309101ffdb11f41b4e62270c65f028ff138935b4058e35cf3042baa",
+  "original_v112_SHA256": "5ef731d6ee4b5edb8a741c59a565d4f7363be84eb9225e814345cb0a04fe89e0",
+  "previous_zip_members": 114,
+  "new_v4_files": 10,
+  "worlds": 62,
+  "proposals": 372,
+  "unlinked": 297,
+  "V4_research_priorities": {
+    "governance": 24,
+    "basic_history": 55,
+    "specialist": 206,
+    "derived_output": 12
+  },
+  "V4_explicit_governance_contracts": 24,
+  "prototype_semantic_scope": [
+    "SCORING_HISTORY::R01",
+    "REST_CONGESTION::R01"
+  ],
+  "prototype_PIT_independently_authenticated": false,
+  "model_scoring_authorized": false,
+  "software_tests": {
+    "v112": 169,
+    "mb1_v2": 18,
+    "mb1_v3": 28,
+    "mb1_v4": 42,
+    "total": 257,
+    "passed": 257,
+    "environment": "ChatGPT Python 3 Linux"
+  },
+  "file_sha256": {
+    "contract_gate_v4.py": "74f3b9269c9b38d340b1209e637c69f5b3964ef972d282e2fec93108a83c0f6d",
+    "temporal_primitives_v4.py": "4ac304e7f4f630b1157a4e50a076b691631172e71f27948b800c9aaf2220ee53",
+    "backlog_297_v4.py": "13faa4383df9868b2c120f484b44c9131dda8b7878e3b34e5303c4096a24cc4f",
+    "test_mb1_v4.py": "03398707a9bd16baacd3964579e592ecc5a7e2dc9852fd41b1c059192e945556",
+    "TYPED_GATE_CONTRACTS_V4_20261016.json": "2656f9595da5a8c24e6efecb165632c68fa43adc28198e81d03be73782c1f582",
+    "BACKLOG_297_V4_20261016.json": "8fad51f69ef1804468398bb33db36145f13e81aeac75c5936f2846d36ed8db1e",
+    "SOURCES_PIT_RESEARCH_V4_20261016.json": "a1f8dabd362a8dd0147581b0ad6356fefd86da03a45fea770b692ecca75d2d22",
+    "AUDIT_5_CYCLES_V4_20261016.md": "d30f6adfbc2925ca92d71ecd73c10975d2a80bbdad8b053f9eee1bd5d85cfe8d",
+    "README_V4_20261016.md": "daedfa7f638a84d1d53b1bd9ed284114f232bbc6894e44d44b96e4991b3fed05"
+  },
+  "model_scientific_status": "EXPERIMENTAL_NOT_APPROVED",
+  "next": [
+    "Independent prematch capture documentation",
+    "Source-lane licensing review",
+    "True chronological OOS real match evaluation",
+    "Windows full bundle reproduction"
+  ]
+}
