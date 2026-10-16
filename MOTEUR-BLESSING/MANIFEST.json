@@ -58,12 +58,12 @@
     "do_not_overwrite_source"
   ],
   "next_gate": "MB-1",
-  "pc_archive_extracted": false,
+  "pc_archive_extracted": true,
   "checkpoints": {
     "last_verified_date": "2026-10-16",
     "workspace_created": true,
     "documentation_synced_to_windows": true,
-    "archive_extracted_on_windows": false,
+    "archive_extracted_on_windows": true,
     "github_documentation_created": true,
     "archive_zip_integrity_verified": true,
     "delivery_sha256_matched": true,
@@ -77,14 +77,15 @@
       "total": 169,
       "result": "PASS"
     },
-    "windows_test_execution": "NOT_RUN",
+    "windows_test_execution": "PASS_215_215",
     "model_sports_validation": "NOT_PROVEN",
-    "recovered_V112_archive_read_in_chatgpt_container": true
+    "recovered_V112_archive_read_in_chatgpt_container": true,
+    "pc_mb1_v3_zip_sha256": "3c1bd3369309101ffdb11f41b4e62270c65f028ff138935b4058e35cf3042baa"
   },
-  "sources_note": "V1.1.2 original ZIP authenticated and extended through MB1 V2 and V3, complete archive in private Drive and ChatGPT Library. Only continuity docs live in GitHub; no complete engine ZIP on Windows yet. No PIT proof, no real OOS.",
-  "latest_specialized_checkpoint": "MOTEUR-BLESSING/mb1/CHECKPOINT_MB1_V3_20261016.json",
+  "sources_note": "MB1-V3 full ZIP authenticated and installed by Drive Desktop mount on Windows MBMPC into versioned engine folder, 215/215 Windows unittest passed. GitHub holds continuity documents, full ZIP in private Drive and ChatGPT Library, also on MBMPC. Historical independent PIT and real OOS NOT verified; model EXPERIMENTAL_NOT_APPROVED.",
+  "latest_specialized_checkpoint": "MOTEUR-BLESSING/mb1/CHECKPOINT_MB1_V3_WINDOWS_VALIDATED_20261016.json",
   "mb1": {
-    "status": "MB1_V3_ENGINEERING_DONE__SCIENTIFIC_PIT_PENDING",
+    "status": "MB1_V3_ENGINEERING_WINDOWS_VERIFIED__SCIENTIFIC_PIT_PENDING",
     "source": "V1.1.2",
     "inspected_engine_archive_this_session": true,
     "new_read_only_inspector_git_blob": "3fbb7028cec7d71e525937bda8abc773a0f5f67f",
@@ -110,7 +111,7 @@
       "proposed_evidence_lanes": 11,
       "tests_v3_passed": 28,
       "all_software_tests_rerun_passed": 215,
-      "windows_tests": "NOT_RUN",
+      "windows_tests": "PASS_215_215",
       "real_pre_match_PIT_verified": false,
       "scientific_effects_activated": 0,
       "complete_zip_sha256": "3c1bd3369309101ffdb11f41b4e62270c65f028ff138935b4058e35cf3042baa",
@@ -118,7 +119,15 @@
       "complete_zip_bytes": 12298556,
       "Drive_folder": "https://drive.google.com/drive/folders/1t_53nvyzLAD_wmPCo8AKwB21QgDuKGaX",
       "Drive_full_zip": "https://drive.google.com/file/d/1Lj5vQgLP-SAs3gx0CZIw-gNMB_pJ6wI6/view?usp=drivesdk",
-      "Drive_patch_zip": "https://drive.google.com/file/d/1OrYvWLYtwjRjWp6nADtkrmybjVBdC88t/view?usp=drivesdk"
+      "Drive_patch_zip": "https://drive.google.com/file/d/1OrYvWLYtwjRjWp6nADtkrmybjVBdC88t/view?usp=drivesdk",
+      "windows_python_version": "3.12.10",
+      "windows_archive_sha256_verified": true,
+      "windows_archive_extracted": true,
+      "windows_extraction_versioned_folder": "C:\\Users\\Lenovo\\Documents\\Moteur Blessing\\versions\\MB1_V3_2026-10-16\\engine",
+      "windows_test_log_sha256": "dfaa510bfaf6c5551085f464613263c21c2ce6de2ef3526d5ef3df65b808c085",
+      "windows_evidence_json_sha256": "ab8f1a34442fc96b645ef27e63a20900c266e51d93e39c189f142f2835db26c5",
+      "windows_evidence_on_drive_mounted": true,
+      "windows_evidence_server_visibility": "PENDING_VERIFICATION"
     }
   }
 }
