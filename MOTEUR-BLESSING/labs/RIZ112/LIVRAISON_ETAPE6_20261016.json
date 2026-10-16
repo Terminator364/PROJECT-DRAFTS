@@ -1,0 +1,62 @@
+{
+  "schema": "riz112/stage6/delivery-index/v1",
+  "date": "2026-10-16",
+  "continuity_code": "RIZ112|CONTINUE",
+  "source_root": "MOTEUR-BLESSING/labs/RIZ112",
+  "verified_source_blobs_initial": 13,
+  "final_checkpoint_git_blob": "4df5bac6952028df8685ae833da823112e1c3b74",
+  "final_journal_git_blob": "8113acbad66c66208bac444d518ae19c7c8ccad6",
+  "final_journal_events": 28,
+  "final_journal_head": "31b174292e2926e63bb8090de91e97b06b7a6009a9d3677b6a3b94674630e2b0",
+  "completed_roles": {
+    "prestart": 44,
+    "derived_and_forecast": 4,
+    "planned_actions": 37,
+    "conditional_policies": 13,
+    "output_targets": 14,
+    "total": 112
+  },
+  "physical_stage4_case_count": 15,
+  "additional_explicit_derived_output_cases": [
+    "043",
+    "048"
+  ],
+  "validated_predictor_effects": 0,
+  "tests": {
+    "stage4": 22,
+    "stage5": 31,
+    "journal": 10,
+    "stage6": 42,
+    "total": 105,
+    "passed": 105,
+    "environment": "ChatGPT container Python 3.13",
+    "windows": "NOT_RUN"
+  },
+  "final_zip": {
+    "name": "RIZ112_CAHIER_MERE_ETAPE6_FINAL_2026-10-16.zip",
+    "sha256": "34887c8ecd5d5e0475b8b03267592e1856c633455b41ff0c8f567860217ac3cb",
+    "bytes": 136491,
+    "zip_members": 54,
+    "drive_id": "1Bzf9scBx1QCACQKE_j4bJL0EvCB1DnrI",
+    "drive_url": "https://drive.google.com/file/d/1Bzf9scBx1QCACQKE_j4bJL0EvCB1DnrI/view?usp=drivesdk",
+    "drive_folder": "https://drive.google.com/drive/folders/1oMXQp39wS0xaygFt2SWm7hII77fHxedP",
+    "drive_size_readback_bytes": 136491,
+    "drive_shared": false,
+    "library_id": "libfile_a289ebaaac408191ba04cbf136768928",
+    "library_path": "/RIZ112_LAB/CAHIER_MERE_ETAPE6_2026-10-16/RIZ112_CAHIER_MERE_ETAPE6_FINAL_2026-10-16.zip",
+    "crc_test": "PASS",
+    "manifest_file_hashes_verified": 53
+  },
+  "windows_device": "MBMPC",
+  "windows_status": "Offline during session",
+  "windows_synced": false,
+  "Q_protocol_status": "DRAFT_NOT_APPROVED",
+  "real_trials": 0,
+  "calibrated_ic_percent": null,
+  "matrice": {
+    "production_modified": false,
+    "scientific_status": "EXPERIMENTAL_NOT_APPROVED",
+    "transfer_methodology_only": true
+  },
+  "next": "Do not claim 112 quantitative predictors; improve physical/tested mechanistic links, preregister Q measurements and obtain real paired prestart/poststart evidence before calibrating IC."
+}
