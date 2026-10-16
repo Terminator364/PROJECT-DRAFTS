@@ -1,0 +1,858 @@
+{
+  "schema": "riz112/step8/route-evidence/v1",
+  "source": "RESTANT_62_REGISTRE.json",
+  "cases": [
+    {
+      "id": "002",
+      "name": "Eau potable disponible",
+      "role": "SOURCE_OR_RESOURCE_TO_FEASIBILITY_OR_MECHANISM",
+      "executed_route": "PRESTART_EVIDENCE_OR_CONSTRAINT",
+      "state": "ASSUMPTION",
+      "gate_states": [
+        "SATISFIED"
+      ],
+      "computed": null,
+      "quality_effect_measured": false,
+      "effect_on_calibrated_IC": null,
+      "still_missing_to_claim_Q": "Quantify/verify genuine physical or empirical relationship to Q; some entries are controls, not direct predictors"
+    },
+    {
+      "id": "004",
+      "name": "Matière grasse éventuelle",
+      "role": "SOURCE_OR_RESOURCE_TO_FEASIBILITY_OR_MECHANISM",
+      "executed_route": "PRESTART_EVIDENCE_OR_CONSTRAINT",
+      "state": "UNKNOWN",
+      "gate_states": [
+        "UNKNOWN"
+      ],
+      "computed": null,
+      "quality_effect_measured": false,
+      "effect_on_calibrated_IC": null,
+      "still_missing_to_claim_Q": "Quantify/verify genuine physical or empirical relationship to Q; some entries are controls, not direct predictors"
+    },
+    {
+      "id": "005",
+      "name": "Eau de rinçage disponible",
+      "role": "SOURCE_OR_RESOURCE_TO_FEASIBILITY_OR_MECHANISM",
+      "executed_route": "PRESTART_EVIDENCE_OR_CONSTRAINT",
+      "state": "ASSUMPTION",
+      "gate_states": [
+        "SATISFIED"
+      ],
+      "computed": null,
+      "quality_effect_measured": false,
+      "effect_on_calibrated_IC": null,
+      "still_missing_to_claim_Q": "Quantify/verify genuine physical or empirical relationship to Q; some entries are controls, not direct predictors"
+    },
+    {
+      "id": "007",
+      "name": "Fiabilité de la source d’énergie",
+      "role": "SOURCE_OR_RESOURCE_TO_FEASIBILITY_OR_MECHANISM",
+      "executed_route": "PRESTART_EVIDENCE_OR_CONSTRAINT",
+      "state": "UNKNOWN",
+      "gate_states": [
+        "UNKNOWN"
+      ],
+      "computed": null,
+      "quality_effect_measured": false,
+      "effect_on_calibrated_IC": null,
+      "still_missing_to_claim_Q": "Quantify/verify genuine physical or empirical relationship to Q; some entries are controls, not direct predictors"
+    },
+    {
+      "id": "008",
+      "name": "Capacité de la casserole",
+      "role": "SOURCE_OR_RESOURCE_TO_FEASIBILITY_OR_MECHANISM",
+      "executed_route": "PRESTART_EVIDENCE_OR_CONSTRAINT",
+      "state": "ASSUMPTION",
+      "gate_states": [
+        "NECESSARY_FIT_ONLY"
+      ],
+      "computed": null,
+      "quality_effect_measured": false,
+      "effect_on_calibrated_IC": null,
+      "still_missing_to_claim_Q": "Quantify/verify genuine physical or empirical relationship to Q; some entries are controls, not direct predictors"
+    },
+    {
+      "id": "009",
+      "name": "Diamètre de la casserole",
+      "role": "SOURCE_OR_RESOURCE_TO_FEASIBILITY_OR_MECHANISM",
+      "executed_route": "PRESTART_EVIDENCE_OR_CONSTRAINT",
+      "state": "UNKNOWN",
+      "gate_states": [
+        "UNKNOWN"
+      ],
+      "computed": null,
+      "quality_effect_measured": false,
+      "effect_on_calibrated_IC": null,
+      "still_missing_to_claim_Q": "Quantify/verify genuine physical or empirical relationship to Q; some entries are controls, not direct predictors"
+    },
+    {
+      "id": "012",
+      "name": "État du fond",
+      "role": "SOURCE_OR_RESOURCE_TO_FEASIBILITY_OR_MECHANISM",
+      "executed_route": "PRESTART_EVIDENCE_OR_CONSTRAINT",
+      "state": "UNKNOWN",
+      "gate_states": [
+        "UNKNOWN"
+      ],
+      "computed": null,
+      "quality_effect_measured": false,
+      "effect_on_calibrated_IC": null,
+      "still_missing_to_claim_Q": "Quantify/verify genuine physical or empirical relationship to Q; some entries are controls, not direct predictors"
+    },
+    {
+      "id": "013",
+      "name": "Présence du couvercle",
+      "role": "SOURCE_OR_RESOURCE_TO_FEASIBILITY_OR_MECHANISM",
+      "executed_route": "PRESTART_EVIDENCE_OR_CONSTRAINT",
+      "state": "ASSUMPTION",
+      "gate_states": [
+        "SATISFIED",
+        "SATISFIED",
+        "SATISFIED"
+      ],
+      "computed": null,
+      "quality_effect_measured": false,
+      "effect_on_calibrated_IC": null,
+      "still_missing_to_claim_Q": "Quantify/verify genuine physical or empirical relationship to Q; some entries are controls, not direct predictors"
+    },
+    {
+      "id": "014",
+      "name": "Ajustement du couvercle",
+      "role": "SOURCE_OR_RESOURCE_TO_FEASIBILITY_OR_MECHANISM",
+      "executed_route": "PRESTART_EVIDENCE_OR_CONSTRAINT",
+      "state": "ASSUMPTION",
+      "gate_states": [
+        "TOY_PHYSICS_DRIVER"
+      ],
+      "computed": null,
+      "quality_effect_measured": false,
+      "effect_on_calibrated_IC": null,
+      "still_missing_to_claim_Q": "Quantify/verify genuine physical or empirical relationship to Q; some entries are controls, not direct predictors"
+    },
+    {
+      "id": "015",
+      "name": "Évacuation de la vapeur",
+      "role": "SOURCE_OR_RESOURCE_TO_FEASIBILITY_OR_MECHANISM",
+      "executed_route": "PRESTART_EVIDENCE_OR_CONSTRAINT",
+      "state": "UNKNOWN",
+      "gate_states": [
+        "UNKNOWN"
+      ],
+      "computed": null,
+      "quality_effect_measured": false,
+      "effect_on_calibrated_IC": null,
+      "still_missing_to_claim_Q": "Quantify/verify genuine physical or empirical relationship to Q; some entries are controls, not direct predictors"
+    },
+    {
+      "id": "016",
+      "name": "Type de foyer",
+      "role": "SOURCE_OR_RESOURCE_TO_FEASIBILITY_OR_MECHANISM",
+      "executed_route": "PRESTART_EVIDENCE_OR_CONSTRAINT",
+      "state": "UNKNOWN",
+      "gate_states": [
+        "UNKNOWN"
+      ],
+      "computed": null,
+      "quality_effect_measured": false,
+      "effect_on_calibrated_IC": null,
+      "still_missing_to_claim_Q": "Quantify/verify genuine physical or empirical relationship to Q; some entries are controls, not direct predictors"
+    },
+    {
+      "id": "017",
+      "name": "Réglage de puissance",
+      "role": "SOURCE_OR_RESOURCE_TO_FEASIBILITY_OR_MECHANISM",
+      "executed_route": "PRESTART_EVIDENCE_OR_CONSTRAINT",
+      "state": "UNKNOWN",
+      "gate_states": [
+        "UNKNOWN"
+      ],
+      "computed": null,
+      "quality_effect_measured": false,
+      "effect_on_calibrated_IC": null,
+      "still_missing_to_claim_Q": "Quantify/verify genuine physical or empirical relationship to Q; some entries are controls, not direct predictors"
+    },
+    {
+      "id": "019",
+      "name": "Balance",
+      "role": "SOURCE_OR_RESOURCE_TO_FEASIBILITY_OR_MECHANISM",
+      "executed_route": "PRESTART_EVIDENCE_OR_CONSTRAINT",
+      "state": "ASSUMPTION",
+      "gate_states": [
+        "SATISFIED"
+      ],
+      "computed": null,
+      "quality_effect_measured": false,
+      "effect_on_calibrated_IC": null,
+      "still_missing_to_claim_Q": "Quantify/verify genuine physical or empirical relationship to Q; some entries are controls, not direct predictors"
+    },
+    {
+      "id": "020",
+      "name": "Instrument de mesure de l’eau",
+      "role": "SOURCE_OR_RESOURCE_TO_FEASIBILITY_OR_MECHANISM",
+      "executed_route": "PRESTART_EVIDENCE_OR_CONSTRAINT",
+      "state": "ASSUMPTION",
+      "gate_states": [
+        "SATISFIED"
+      ],
+      "computed": null,
+      "quality_effect_measured": false,
+      "effect_on_calibrated_IC": null,
+      "still_missing_to_claim_Q": "Quantify/verify genuine physical or empirical relationship to Q; some entries are controls, not direct predictors"
+    },
+    {
+      "id": "021",
+      "name": "Passoire",
+      "role": "SOURCE_OR_RESOURCE_TO_FEASIBILITY_OR_MECHANISM",
+      "executed_route": "PRESTART_EVIDENCE_OR_CONSTRAINT",
+      "state": "ASSUMPTION",
+      "gate_states": [
+        "SATISFIED"
+      ],
+      "computed": null,
+      "quality_effect_measured": false,
+      "effect_on_calibrated_IC": null,
+      "still_missing_to_claim_Q": "Quantify/verify genuine physical or empirical relationship to Q; some entries are controls, not direct predictors"
+    },
+    {
+      "id": "026",
+      "name": "Traitement du riz",
+      "role": "SOURCE_OR_RESOURCE_TO_FEASIBILITY_OR_MECHANISM",
+      "executed_route": "PRESTART_EVIDENCE_OR_CONSTRAINT",
+      "state": "UNKNOWN",
+      "gate_states": [
+        "UNKNOWN"
+      ],
+      "computed": null,
+      "quality_effect_measured": false,
+      "effect_on_calibrated_IC": null,
+      "still_missing_to_claim_Q": "Quantify/verify genuine physical or empirical relationship to Q; some entries are controls, not direct predictors"
+    },
+    {
+      "id": "027",
+      "name": "Lot et provenance",
+      "role": "SOURCE_OR_RESOURCE_TO_FEASIBILITY_OR_MECHANISM",
+      "executed_route": "PRESTART_EVIDENCE_OR_CONSTRAINT",
+      "state": "UNKNOWN",
+      "gate_states": [
+        "UNKNOWN"
+      ],
+      "computed": null,
+      "quality_effect_measured": false,
+      "effect_on_calibrated_IC": null,
+      "still_missing_to_claim_Q": "Quantify/verify genuine physical or empirical relationship to Q; some entries are controls, not direct predictors"
+    },
+    {
+      "id": "028",
+      "name": "Ancienneté et conservation",
+      "role": "SOURCE_OR_RESOURCE_TO_FEASIBILITY_OR_MECHANISM",
+      "executed_route": "PRESTART_EVIDENCE_OR_CONSTRAINT",
+      "state": "UNKNOWN",
+      "gate_states": [
+        "UNKNOWN"
+      ],
+      "computed": null,
+      "quality_effect_measured": false,
+      "effect_on_calibrated_IC": null,
+      "still_missing_to_claim_Q": "Quantify/verify genuine physical or empirical relationship to Q; some entries are controls, not direct predictors"
+    },
+    {
+      "id": "032",
+      "name": "Humidité initiale",
+      "role": "SOURCE_OR_RESOURCE_TO_FEASIBILITY_OR_MECHANISM",
+      "executed_route": "PRESTART_EVIDENCE_OR_CONSTRAINT",
+      "state": "UNKNOWN",
+      "gate_states": [
+        "UNKNOWN"
+      ],
+      "computed": null,
+      "quality_effect_measured": false,
+      "effect_on_calibrated_IC": null,
+      "still_missing_to_claim_Q": "Quantify/verify genuine physical or empirical relationship to Q; some entries are controls, not direct predictors"
+    },
+    {
+      "id": "037",
+      "name": "Température initiale de l’eau",
+      "role": "SOURCE_OR_RESOURCE_TO_FEASIBILITY_OR_MECHANISM",
+      "executed_route": "PRESTART_EVIDENCE_OR_CONSTRAINT",
+      "state": "OBSERVED",
+      "gate_states": [
+        "TOY_PHYSICS_DRIVER"
+      ],
+      "computed": null,
+      "quality_effect_measured": false,
+      "effect_on_calibrated_IC": null,
+      "still_missing_to_claim_Q": "Quantify/verify genuine physical or empirical relationship to Q; some entries are controls, not direct predictors"
+    },
+    {
+      "id": "038",
+      "name": "Température initiale du riz",
+      "role": "SOURCE_OR_RESOURCE_TO_FEASIBILITY_OR_MECHANISM",
+      "executed_route": "PRESTART_EVIDENCE_OR_CONSTRAINT",
+      "state": "OBSERVED",
+      "gate_states": [
+        "TOY_PHYSICS_DRIVER"
+      ],
+      "computed": null,
+      "quality_effect_measured": false,
+      "effect_on_calibrated_IC": null,
+      "still_missing_to_claim_Q": "Quantify/verify genuine physical or empirical relationship to Q; some entries are controls, not direct predictors"
+    },
+    {
+      "id": "040",
+      "name": "Altitude et pression",
+      "role": "SOURCE_OR_RESOURCE_TO_FEASIBILITY_OR_MECHANISM",
+      "executed_route": "PRESTART_EVIDENCE_OR_CONSTRAINT",
+      "state": "UNKNOWN",
+      "gate_states": [
+        "UNKNOWN"
+      ],
+      "computed": null,
+      "quality_effect_measured": false,
+      "effect_on_calibrated_IC": null,
+      "still_missing_to_claim_Q": "Quantify/verify genuine physical or empirical relationship to Q; some entries are controls, not direct predictors"
+    },
+    {
+      "id": "043",
+      "name": "Moment d’ébullition",
+      "role": "PRESTART_FORECAST_MECHANISM_PENDING",
+      "executed_route": "PRESTART_FORECAST",
+      "state": "MODEL_PROXY",
+      "gate_states": [],
+      "computed": null,
+      "quality_effect_measured": false,
+      "effect_on_calibrated_IC": null,
+      "still_missing_to_claim_Q": "Quantify/verify genuine physical or empirical relationship to Q; some entries are controls, not direct predictors"
+    },
+    {
+      "id": "044",
+      "name": "Stabilité du frémissement",
+      "role": "PRESTART_FORECAST_MECHANISM_PENDING",
+      "executed_route": "PRESTART_FORECAST",
+      "state": "NO_FORMULA",
+      "gate_states": [],
+      "computed": null,
+      "quality_effect_measured": false,
+      "effect_on_calibrated_IC": null,
+      "still_missing_to_claim_Q": "Quantify/verify genuine physical or empirical relationship to Q; some entries are controls, not direct predictors"
+    },
+    {
+      "id": "046",
+      "name": "Fuites de vapeur",
+      "role": "PRESTART_FORECAST_MECHANISM_PENDING",
+      "executed_route": "PRESTART_FORECAST",
+      "state": "MODEL_PROXY",
+      "gate_states": [],
+      "computed": null,
+      "quality_effect_measured": false,
+      "effect_on_calibrated_IC": null,
+      "still_missing_to_claim_Q": "Quantify/verify genuine physical or empirical relationship to Q; some entries are controls, not direct predictors"
+    },
+    {
+      "id": "050",
+      "name": "Peser le riz",
+      "role": "PLANNED_ACTION_PATH_PENDING",
+      "executed_route": "PLANNED_ACTION_FEASIBILITY",
+      "state": "PLANNED",
+      "gate_states": [
+        "SATISFIED"
+      ],
+      "computed": null,
+      "quality_effect_measured": false,
+      "effect_on_calibrated_IC": null,
+      "still_missing_to_claim_Q": "Quantify/verify genuine physical or empirical relationship to Q; some entries are controls, not direct predictors"
+    },
+    {
+      "id": "051",
+      "name": "Trier et inspecter",
+      "role": "PLANNED_ACTION_PATH_PENDING",
+      "executed_route": "PLANNED_ACTION_FEASIBILITY",
+      "state": "UNKNOWN",
+      "gate_states": [
+        "UNKNOWN"
+      ],
+      "computed": null,
+      "quality_effect_measured": false,
+      "effect_on_calibrated_IC": null,
+      "still_missing_to_claim_Q": "Quantify/verify genuine physical or empirical relationship to Q; some entries are controls, not direct predictors"
+    },
+    {
+      "id": "052",
+      "name": "Choisir la méthode",
+      "role": "PLANNED_ACTION_PATH_PENDING",
+      "executed_route": "PLANNED_ACTION_FEASIBILITY",
+      "state": "UNKNOWN",
+      "gate_states": [
+        "UNKNOWN"
+      ],
+      "computed": null,
+      "quality_effect_measured": false,
+      "effect_on_calibrated_IC": null,
+      "still_missing_to_claim_Q": "Quantify/verify genuine physical or empirical relationship to Q; some entries are controls, not direct predictors"
+    },
+    {
+      "id": "053",
+      "name": "Préparer le dosage initial",
+      "role": "PLANNED_ACTION_PATH_PENDING",
+      "executed_route": "PLANNED_ACTION_FEASIBILITY",
+      "state": "PLANNED",
+      "gate_states": [
+        "SATISFIED"
+      ],
+      "computed": null,
+      "quality_effect_measured": false,
+      "effect_on_calibrated_IC": null,
+      "still_missing_to_claim_Q": "Quantify/verify genuine physical or empirical relationship to Q; some entries are controls, not direct predictors"
+    },
+    {
+      "id": "055",
+      "name": "Premier rinçage",
+      "role": "PLANNED_ACTION_PATH_PENDING",
+      "executed_route": "PLANNED_ACTION_FEASIBILITY",
+      "state": "PLANNED",
+      "gate_states": [
+        "SATISFIED"
+      ],
+      "computed": null,
+      "quality_effect_measured": false,
+      "effect_on_calibrated_IC": null,
+      "still_missing_to_claim_Q": "Quantify/verify genuine physical or empirical relationship to Q; some entries are controls, not direct predictors"
+    },
+    {
+      "id": "056",
+      "name": "Rinçage complémentaire",
+      "role": "PLANNED_ACTION_PATH_PENDING",
+      "executed_route": "PLANNED_ACTION_FEASIBILITY",
+      "state": "UNKNOWN",
+      "gate_states": [
+        "UNKNOWN"
+      ],
+      "computed": null,
+      "quality_effect_measured": false,
+      "effect_on_calibrated_IC": null,
+      "still_missing_to_claim_Q": "Quantify/verify genuine physical or empirical relationship to Q; some entries are controls, not direct predictors"
+    },
+    {
+      "id": "057",
+      "name": "Égouttage",
+      "role": "PLANNED_ACTION_PATH_PENDING",
+      "executed_route": "PLANNED_ACTION_FEASIBILITY",
+      "state": "PLANNED",
+      "gate_states": [
+        "SATISFIED"
+      ],
+      "computed": null,
+      "quality_effect_measured": false,
+      "effect_on_calibrated_IC": null,
+      "still_missing_to_claim_Q": "Quantify/verify genuine physical or empirical relationship to Q; some entries are controls, not direct predictors"
+    },
+    {
+      "id": "058",
+      "name": "Évaluer l’eau retenue",
+      "role": "PLANNED_ACTION_PATH_PENDING",
+      "executed_route": "PLANNED_ACTION_FEASIBILITY",
+      "state": "UNKNOWN",
+      "gate_states": [
+        "UNKNOWN"
+      ],
+      "computed": null,
+      "quality_effect_measured": false,
+      "effect_on_calibrated_IC": null,
+      "still_missing_to_claim_Q": "Quantify/verify genuine physical or empirical relationship to Q; some entries are controls, not direct predictors"
+    },
+    {
+      "id": "059",
+      "name": "Mettre le riz dans la casserole",
+      "role": "PLANNED_ACTION_PATH_PENDING",
+      "executed_route": "PLANNED_ACTION_FEASIBILITY",
+      "state": "PLANNED",
+      "gate_states": [
+        "SATISFIED",
+        "UNKNOWN"
+      ],
+      "computed": null,
+      "quality_effect_measured": false,
+      "effect_on_calibrated_IC": null,
+      "still_missing_to_claim_Q": "Quantify/verify genuine physical or empirical relationship to Q; some entries are controls, not direct predictors"
+    },
+    {
+      "id": "060",
+      "name": "Ajouter l’eau",
+      "role": "PLANNED_ACTION_PATH_PENDING",
+      "executed_route": "PLANNED_ACTION_FEASIBILITY",
+      "state": "PLANNED",
+      "gate_states": [
+        "SATISFIED",
+        "SEQUENCE_PRESENT",
+        "SEQUENCE_PRESENT"
+      ],
+      "computed": null,
+      "quality_effect_measured": false,
+      "effect_on_calibrated_IC": null,
+      "still_missing_to_claim_Q": "Quantify/verify genuine physical or empirical relationship to Q; some entries are controls, not direct predictors"
+    },
+    {
+      "id": "062",
+      "name": "Ajouter la matière grasse",
+      "role": "PLANNED_ACTION_PATH_PENDING",
+      "executed_route": "PLANNED_ACTION_FEASIBILITY",
+      "state": "UNKNOWN",
+      "gate_states": [
+        "UNKNOWN"
+      ],
+      "computed": null,
+      "quality_effect_measured": false,
+      "effect_on_calibrated_IC": null,
+      "still_missing_to_claim_Q": "Quantify/verify genuine physical or empirical relationship to Q; some entries are controls, not direct predictors"
+    },
+    {
+      "id": "063",
+      "name": "Vérifier la capacité",
+      "role": "PLANNED_ACTION_PATH_PENDING",
+      "executed_route": "PLANNED_ACTION_FEASIBILITY",
+      "state": "PLANNED",
+      "gate_states": [
+        "SATISFIED",
+        "SEQUENCE_PRESENT"
+      ],
+      "computed": null,
+      "quality_effect_measured": false,
+      "effect_on_calibrated_IC": null,
+      "still_missing_to_claim_Q": "Quantify/verify genuine physical or empirical relationship to Q; some entries are controls, not direct predictors"
+    },
+    {
+      "id": "064",
+      "name": "Positionner le couvercle",
+      "role": "PLANNED_ACTION_PATH_PENDING",
+      "executed_route": "PLANNED_ACTION_FEASIBILITY",
+      "state": "PLANNED",
+      "gate_states": [
+        "SATISFIED"
+      ],
+      "computed": null,
+      "quality_effect_measured": false,
+      "effect_on_calibrated_IC": null,
+      "still_missing_to_claim_Q": "Quantify/verify genuine physical or empirical relationship to Q; some entries are controls, not direct predictors"
+    },
+    {
+      "id": "065",
+      "name": "Démarrer la chauffe",
+      "role": "PLANNED_ACTION_PATH_PENDING",
+      "executed_route": "PLANNED_ACTION_FEASIBILITY",
+      "state": "PLANNED",
+      "gate_states": [
+        "UNKNOWN"
+      ],
+      "computed": null,
+      "quality_effect_measured": false,
+      "effect_on_calibrated_IC": null,
+      "still_missing_to_claim_Q": "Quantify/verify genuine physical or empirical relationship to Q; some entries are controls, not direct predictors"
+    },
+    {
+      "id": "066",
+      "name": "Amener à ébullition",
+      "role": "PLANNED_ACTION_PATH_PENDING",
+      "executed_route": "PLANNED_ACTION_FEASIBILITY",
+      "state": "PLANNED",
+      "gate_states": [
+        "SEQUENCE_PRESENT"
+      ],
+      "computed": null,
+      "quality_effect_measured": false,
+      "effect_on_calibrated_IC": null,
+      "still_missing_to_claim_Q": "Quantify/verify genuine physical or empirical relationship to Q; some entries are controls, not direct predictors"
+    },
+    {
+      "id": "067",
+      "name": "Observer mousse et débordement",
+      "role": "PLANNED_ACTION_PATH_PENDING",
+      "executed_route": "PLANNED_ACTION_FEASIBILITY",
+      "state": "UNKNOWN",
+      "gate_states": [
+        "UNKNOWN"
+      ],
+      "computed": null,
+      "quality_effect_measured": false,
+      "effect_on_calibrated_IC": null,
+      "still_missing_to_claim_Q": "Quantify/verify genuine physical or empirical relationship to Q; some entries are controls, not direct predictors"
+    },
+    {
+      "id": "068",
+      "name": "Réduire le feu et couvrir",
+      "role": "PLANNED_ACTION_PATH_PENDING",
+      "executed_route": "PLANNED_ACTION_FEASIBILITY",
+      "state": "PLANNED",
+      "gate_states": [
+        "UNKNOWN",
+        "SEQUENCE_PRESENT"
+      ],
+      "computed": null,
+      "quality_effect_measured": false,
+      "effect_on_calibrated_IC": null,
+      "still_missing_to_claim_Q": "Quantify/verify genuine physical or empirical relationship to Q; some entries are controls, not direct predictors"
+    },
+    {
+      "id": "070",
+      "name": "Gérer le couvercle",
+      "role": "PLANNED_ACTION_PATH_PENDING",
+      "executed_route": "PLANNED_ACTION_FEASIBILITY",
+      "state": "PLANNED",
+      "gate_states": [
+        "SATISFIED",
+        "SEQUENCE_PRESENT"
+      ],
+      "computed": null,
+      "quality_effect_measured": false,
+      "effect_on_calibrated_IC": null,
+      "still_missing_to_claim_Q": "Quantify/verify genuine physical or empirical relationship to Q; some entries are controls, not direct predictors"
+    },
+    {
+      "id": "072",
+      "name": "Suivre l’hydratation",
+      "role": "PLANNED_ACTION_PATH_PENDING",
+      "executed_route": "PLANNED_ACTION_FEASIBILITY",
+      "state": "UNKNOWN",
+      "gate_states": [
+        "UNKNOWN"
+      ],
+      "computed": null,
+      "quality_effect_measured": false,
+      "effect_on_calibrated_IC": null,
+      "still_missing_to_claim_Q": "Quantify/verify genuine physical or empirical relationship to Q; some entries are controls, not direct predictors"
+    },
+    {
+      "id": "073",
+      "name": "Déterminer la fin de chauffe",
+      "role": "PLANNED_ACTION_PATH_PENDING",
+      "executed_route": "PLANNED_ACTION_FEASIBILITY",
+      "state": "PLANNED",
+      "gate_states": [
+        "SEQUENCE_PRESENT"
+      ],
+      "computed": null,
+      "quality_effect_measured": false,
+      "effect_on_calibrated_IC": null,
+      "still_missing_to_claim_Q": "Quantify/verify genuine physical or empirical relationship to Q; some entries are controls, not direct predictors"
+    },
+    {
+      "id": "074",
+      "name": "Couper le feu",
+      "role": "PLANNED_ACTION_PATH_PENDING",
+      "executed_route": "PLANNED_ACTION_FEASIBILITY",
+      "state": "PLANNED",
+      "gate_states": [
+        "SEQUENCE_PRESENT"
+      ],
+      "computed": null,
+      "quality_effect_measured": false,
+      "effect_on_calibrated_IC": null,
+      "still_missing_to_claim_Q": "Quantify/verify genuine physical or empirical relationship to Q; some entries are controls, not direct predictors"
+    },
+    {
+      "id": "075",
+      "name": "Commencer le repos",
+      "role": "PLANNED_ACTION_PATH_PENDING",
+      "executed_route": "PLANNED_ACTION_FEASIBILITY",
+      "state": "PLANNED",
+      "gate_states": [
+        "SEQUENCE_PRESENT"
+      ],
+      "computed": null,
+      "quality_effect_measured": false,
+      "effect_on_calibrated_IC": null,
+      "still_missing_to_claim_Q": "Quantify/verify genuine physical or empirical relationship to Q; some entries are controls, not direct predictors"
+    },
+    {
+      "id": "076",
+      "name": "Respecter le repos",
+      "role": "PLANNED_ACTION_PATH_PENDING",
+      "executed_route": "PLANNED_ACTION_FEASIBILITY",
+      "state": "PLANNED",
+      "gate_states": [
+        "SEQUENCE_PRESENT"
+      ],
+      "computed": null,
+      "quality_effect_measured": false,
+      "effect_on_calibrated_IC": null,
+      "still_missing_to_claim_Q": "Quantify/verify genuine physical or empirical relationship to Q; some entries are controls, not direct predictors"
+    },
+    {
+      "id": "078",
+      "name": "Examiner l’humidité finale",
+      "role": "PLANNED_ACTION_PATH_PENDING",
+      "executed_route": "PLANNED_ACTION_FEASIBILITY",
+      "state": "UNKNOWN",
+      "gate_states": [
+        "UNKNOWN"
+      ],
+      "computed": null,
+      "quality_effect_measured": false,
+      "effect_on_calibrated_IC": null,
+      "still_missing_to_claim_Q": "Quantify/verify genuine physical or empirical relationship to Q; some entries are controls, not direct predictors"
+    },
+    {
+      "id": "079",
+      "name": "Décider d’une finition",
+      "role": "PLANNED_ACTION_PATH_PENDING",
+      "executed_route": "PLANNED_ACTION_FEASIBILITY",
+      "state": "UNKNOWN",
+      "gate_states": [
+        "UNKNOWN"
+      ],
+      "computed": null,
+      "quality_effect_measured": false,
+      "effect_on_calibrated_IC": null,
+      "still_missing_to_claim_Q": "Quantify/verify genuine physical or empirical relationship to Q; some entries are controls, not direct predictors"
+    },
+    {
+      "id": "080",
+      "name": "Ouvrir pour servir",
+      "role": "PLANNED_ACTION_PATH_PENDING",
+      "executed_route": "PLANNED_ACTION_FEASIBILITY",
+      "state": "PLANNED",
+      "gate_states": [
+        "SATISFIED",
+        "SEQUENCE_PRESENT"
+      ],
+      "computed": null,
+      "quality_effect_measured": false,
+      "effect_on_calibrated_IC": null,
+      "still_missing_to_claim_Q": "Quantify/verify genuine physical or empirical relationship to Q; some entries are controls, not direct predictors"
+    },
+    {
+      "id": "086",
+      "name": "Excès d’eau",
+      "role": "CONDITIONAL_POLICY_BRANCH_PENDING",
+      "executed_route": "PREDECLARED_CONDITIONAL_POLICY",
+      "state": "BRANCH_CONFIGURED",
+      "gate_states": [],
+      "computed": null,
+      "quality_effect_measured": false,
+      "effect_on_calibrated_IC": null,
+      "still_missing_to_claim_Q": "Quantify/verify genuine physical or empirical relationship to Q; some entries are controls, not direct predictors"
+    },
+    {
+      "id": "087",
+      "name": "Manque d’eau",
+      "role": "CONDITIONAL_POLICY_BRANCH_PENDING",
+      "executed_route": "PREDECLARED_CONDITIONAL_POLICY",
+      "state": "BRANCH_CONFIGURED",
+      "gate_states": [],
+      "computed": null,
+      "quality_effect_measured": false,
+      "effect_on_calibrated_IC": null,
+      "still_missing_to_claim_Q": "Quantify/verify genuine physical or empirical relationship to Q; some entries are controls, not direct predictors"
+    },
+    {
+      "id": "088",
+      "name": "Chaleur excessive",
+      "role": "CONDITIONAL_POLICY_BRANCH_PENDING",
+      "executed_route": "PREDECLARED_CONDITIONAL_POLICY",
+      "state": "NO_POLICY",
+      "gate_states": [],
+      "computed": null,
+      "quality_effect_measured": false,
+      "effect_on_calibrated_IC": null,
+      "still_missing_to_claim_Q": "Quantify/verify genuine physical or empirical relationship to Q; some entries are controls, not direct predictors"
+    },
+    {
+      "id": "089",
+      "name": "Chaleur insuffisante",
+      "role": "CONDITIONAL_POLICY_BRANCH_PENDING",
+      "executed_route": "PREDECLARED_CONDITIONAL_POLICY",
+      "state": "NO_POLICY",
+      "gate_states": [],
+      "computed": null,
+      "quality_effect_measured": false,
+      "effect_on_calibrated_IC": null,
+      "still_missing_to_claim_Q": "Quantify/verify genuine physical or empirical relationship to Q; some entries are controls, not direct predictors"
+    },
+    {
+      "id": "090",
+      "name": "Couvercle inadapté",
+      "role": "CONDITIONAL_POLICY_BRANCH_PENDING",
+      "executed_route": "PREDECLARED_CONDITIONAL_POLICY",
+      "state": "BRANCH_CONFIGURED",
+      "gate_states": [],
+      "computed": null,
+      "quality_effect_measured": false,
+      "effect_on_calibrated_IC": null,
+      "still_missing_to_claim_Q": "Quantify/verify genuine physical or empirical relationship to Q; some entries are controls, not direct predictors"
+    },
+    {
+      "id": "091",
+      "name": "Évaporation excessive",
+      "role": "CONDITIONAL_POLICY_BRANCH_PENDING",
+      "executed_route": "PREDECLARED_CONDITIONAL_POLICY",
+      "state": "NO_POLICY",
+      "gate_states": [],
+      "computed": null,
+      "quality_effect_measured": false,
+      "effect_on_calibrated_IC": null,
+      "still_missing_to_claim_Q": "Quantify/verify genuine physical or empirical relationship to Q; some entries are controls, not direct predictors"
+    },
+    {
+      "id": "092",
+      "name": "Frémissement instable",
+      "role": "CONDITIONAL_POLICY_BRANCH_PENDING",
+      "executed_route": "PREDECLARED_CONDITIONAL_POLICY",
+      "state": "NO_POLICY",
+      "gate_states": [],
+      "computed": null,
+      "quality_effect_measured": false,
+      "effect_on_calibrated_IC": null,
+      "still_missing_to_claim_Q": "Quantify/verify genuine physical or empirical relationship to Q; some entries are controls, not direct predictors"
+    },
+    {
+      "id": "093",
+      "name": "Débordement",
+      "role": "CONDITIONAL_POLICY_BRANCH_PENDING",
+      "executed_route": "PREDECLARED_CONDITIONAL_POLICY",
+      "state": "NO_POLICY",
+      "gate_states": [],
+      "computed": null,
+      "quality_effect_measured": false,
+      "effect_on_calibrated_IC": null,
+      "still_missing_to_claim_Q": "Quantify/verify genuine physical or empirical relationship to Q; some entries are controls, not direct predictors"
+    },
+    {
+      "id": "095",
+      "name": "Grains agglutinés",
+      "role": "CONDITIONAL_POLICY_BRANCH_PENDING",
+      "executed_route": "PREDECLARED_CONDITIONAL_POLICY",
+      "state": "NO_POLICY",
+      "gate_states": [],
+      "computed": null,
+      "quality_effect_measured": false,
+      "effect_on_calibrated_IC": null,
+      "still_missing_to_claim_Q": "Quantify/verify genuine physical or empirical relationship to Q; some entries are controls, not direct predictors"
+    },
+    {
+      "id": "096",
+      "name": "Grains trop fermes",
+      "role": "CONDITIONAL_POLICY_BRANCH_PENDING",
+      "executed_route": "PREDECLARED_CONDITIONAL_POLICY",
+      "state": "NO_POLICY",
+      "gate_states": [],
+      "computed": null,
+      "quality_effect_measured": false,
+      "effect_on_calibrated_IC": null,
+      "still_missing_to_claim_Q": "Quantify/verify genuine physical or empirical relationship to Q; some entries are controls, not direct predictors"
+    },
+    {
+      "id": "097",
+      "name": "Riz pâteux",
+      "role": "CONDITIONAL_POLICY_BRANCH_PENDING",
+      "executed_route": "PREDECLARED_CONDITIONAL_POLICY",
+      "state": "NO_POLICY",
+      "gate_states": [],
+      "computed": null,
+      "quality_effect_measured": false,
+      "effect_on_calibrated_IC": null,
+      "still_missing_to_claim_Q": "Quantify/verify genuine physical or empirical relationship to Q; some entries are controls, not direct predictors"
+    }
+  ],
+  "all_62_router_pass": true,
+  "Q_effects_validated": 0,
+  "Q_prediction_complete": false
+}
