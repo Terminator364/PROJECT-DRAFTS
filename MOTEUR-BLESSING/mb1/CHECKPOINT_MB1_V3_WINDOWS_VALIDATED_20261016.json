@@ -1,0 +1,99 @@
+{
+  "schema": "moteur-blessing/mb1/v3-windows-confirmed",
+  "checkpoint_date": "2026-10-16",
+  "supersedes": "MOTEUR-BLESSING/mb1/CHECKPOINT_MB1_V3_20261016.json",
+  "status": "MB1_V3_ENGINEERING_WINDOWS_VERIFIED__SCIENTIFIC_PIT_PENDING",
+  "project": "Moteur Blessing",
+  "source_version": "V1.1.2 + MB1 V2 + MB1 V3",
+  "canonical_worlds": 62,
+  "proposals": 372,
+  "design_mappings": {
+    "direct": 25,
+    "partial": 50,
+    "not_linked": 297
+  },
+  "v3_evidence_source_lanes": 11,
+  "potential_shared_primitive_families": 12,
+  "complete_zip": {
+    "file": "MOTEUR_BLESSING_V1_1_2_MB1_V3_2026-10-16.zip",
+    "sha256": "3c1bd3369309101ffdb11f41b4e62270c65f028ff138935b4058e35cf3042baa",
+    "size_bytes": 12298556,
+    "zip_members": 114,
+    "original_source_members_preserved": 100,
+    "original_mb1_v2_members_preserved": 8
+  },
+  "chatgpt_linux_tests": {
+    "base": 46,
+    "v11": 45,
+    "v111": 30,
+    "v112": 48,
+    "mb1_v2_plus_v3": 46,
+    "total": 215,
+    "passed": 215
+  },
+  "Windows_tests": {
+    "computer": "MBMPC",
+    "os": "Windows",
+    "python_version": "3.12.10",
+    "install_path": "C:\\Users\\Lenovo\\Documents\\Moteur Blessing\\versions\\MB1_V3_2026-10-16\\engine",
+    "archive_transfer_method": "authenticated Google Drive Desktop mounted G: drive",
+    "verified_SHA256_on_destination": true,
+    "verified_zip_member_count": 114,
+    "extracted": true,
+    "validation_suites": [
+      {
+        "name": "tests",
+        "count": 46,
+        "exit": 0
+      },
+      {
+        "name": "tests_v11",
+        "count": 45,
+        "exit": 0
+      },
+      {
+        "name": "tests_v111",
+        "count": 30,
+        "exit": 0
+      },
+      {
+        "name": "tests_v112",
+        "count": 48,
+        "exit": 0
+      },
+      {
+        "name": "mb1",
+        "count": 46,
+        "exit": 0
+      }
+    ],
+    "total_tests": 215,
+    "total_passed": 215,
+    "native_process_exit": 0,
+    "test_log_filename": "WINDOWS_TEST_RESULTS_V3_FINAL.txt",
+    "test_log_sha256": "dfaa510bfaf6c5551085f464613263c21c2ce6de2ef3526d5ef3df65b808c085",
+    "evidence_filename": "WINDOWS_MB1_V3_EVIDENCE_20261016.json",
+    "evidence_sha256": "ab8f1a34442fc96b645ef27e63a20900c266e51d93e39c189f142f2835db26c5",
+    "retained_original_versions": true,
+    "rollback_delete_old_versions": false
+  },
+  "persistence": {
+    "GitHub": "checkpoint-and-authority",
+    "Drive_full": "https://drive.google.com/file/d/1Lj5vQgLP-SAs3gx0CZIw-gNMB_pJ6wI6/view?usp=drivesdk",
+    "Drive_folder": "https://drive.google.com/drive/folders/1t_53nvyzLAD_wmPCo8AKwB21QgDuKGaX",
+    "library": "/MOTEUR_BLESSING/MB1_V3_2026-10-16/",
+    "PC": "Windows engine extracted and tested with integrity checks",
+    "proof_files_copied_to_mounted_drive": true,
+    "cloud_server_visibility_of_new_proof_files": "PENDING_VERIFICATION"
+  },
+  "scientific_gate": {
+    "pre_match_only": true,
+    "outcome": "Over1_5_90minutes",
+    "model_status": "EXPERIMENTAL_NOT_APPROVED",
+    "proven_independent_historical_PIT_archives": 0,
+    "real_chronological_OOS_validation": false,
+    "new_scoring_coefficients_activated": 0,
+    "MB1_scientifically_closed": false
+  },
+  "next": "Independent point-in-time archives (real historic snapshots), semantic definitions for 297 unmapped proposals, primitive-level lineage, real chronological OOS/calibration then scientific gate decisions."
+}
