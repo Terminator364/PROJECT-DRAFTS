@@ -1,0 +1,91 @@
+{
+  "schema": "riz112/master-continuity/v3",
+  "project": "RIZ-112 laboratory to build transferable MOTEUR-BLESSING/MATRICE architecture",
+  "date": "2026-10-16",
+  "stage": 7,
+  "reprise_code": "RIZ112|CONTINUE",
+  "status": "STAGE7_TYPED_GRAPH_112_NODES_150_CANDIDATE_EDGES__NO_CALIBRATED_IC",
+  "canonical_github_root": "Terminator364/PROJECT-DRAFTS/main/MOTEUR-BLESSING/labs/RIZ112",
+  "master": "CAHIER_MERE.md",
+  "journal": {
+    "events": 34,
+    "head": "4d8e8f68ef73f266d4442c58c1d571fa7785c655eca0f744a2dc3dde447acc58"
+  },
+  "mandatory_read_order": [
+    "CHECKPOINT.json",
+    "CAHIER_MERE.md",
+    "journal/JOURNAL_EVENEMENTS.jsonl",
+    "DECISIONS.md",
+    "step7/AUDIT_CINQ_CYCLES_ETAPE7.md",
+    "step7/GAPS_112_V7.json",
+    "TRANSFERT_MATRICE.md"
+  ],
+  "user_non_negotiables": [
+    "all 112 cases must contribute genuinely, not metadata decoration",
+    "no score from additive arbitrary bonuses",
+    "exclusively before T0 input and predeclared actions",
+    "IC only from audited calibrated data",
+    "continuous durable mother journal and sync",
+    "transfer concepts not rice equations to MATRICE"
+  ],
+  "graph": {
+    "all_nodes": 112,
+    "declared_arcs": 169,
+    "rejected_future_label_arcs": 17,
+    "rejected_reverse_plan_order_arcs": 2,
+    "accepted_structural_candidate_arcs": 150,
+    "acyclic": true,
+    "hypothetical_path_to_Q112": 50,
+    "without_hypothetical_path_to_Q112": 62,
+    "numeric_path_cases_unlinked_to_Q112": [
+      "014",
+      "037",
+      "038",
+      "043"
+    ],
+    "candidate_paths_not_validated_effects": true
+  },
+  "feasibility": {
+    "independent_consistency_checks": 10,
+    "scientific_quality_effects_quantified": 0
+  },
+  "role_execution": {
+    "all_cases_processed": 112,
+    "toy_numerical_paths": 17,
+    "actual_validated_case_effects": 0,
+    "future_targets": 14
+  },
+  "tests": {
+    "step4": 22,
+    "step5": 31,
+    "journal": 10,
+    "step6": 42,
+    "step7": 36,
+    "total": 141,
+    "passed": 141,
+    "environment": "ChatGPT container Python3.13 Linux",
+    "windows_step7": "NOT_TESTED"
+  },
+  "quality": {
+    "Q_protocol": "DRAFT_NOT_APPROVED",
+    "real_trials": 0,
+    "IC_percent": null,
+    "prediction_status": "ABSTAIN_UNCALIBRATED"
+  },
+  "matrice": {
+    "sports_engine_modified": false,
+    "sports_model_scientific_status": "EXPERIMENTAL_NOT_APPROVED"
+  },
+  "next": [
+    "Clarify candidate causal/testable arcs to resolve disconnected 62, without forced links",
+    "Measure and validate physical quantities against experiments",
+    "Preregister reliable Q >= 85/100 measurement rubric with user agreement",
+    "Gather independently witnessed prestart/poststart records and run chronological OOS probability calibration"
+  ],
+  "mirrors": {
+    "github_stage7": "PENDING",
+    "google_drive_stage7": "PENDING",
+    "chatgpt_library_stage7": "PENDING",
+    "windows_stage7": "UNKNOWN_NOT_CLAIMED"
+  }
+}
