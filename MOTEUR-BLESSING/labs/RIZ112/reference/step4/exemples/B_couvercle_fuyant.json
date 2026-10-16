@@ -1,0 +1,103 @@
+{
+  "preparation_id": "B_couvercle_fuyant",
+  "freeze_utc": "2026-10-16T12:00:00Z",
+  "start_utc": "2026-10-16T13:00:00Z",
+  "inputs": {
+    "rice_mass_g": {
+      "value": 160.0,
+      "available_at_utc": "2026-10-16T11:00:00Z",
+      "kind": "OBSERVED",
+      "source": "dossier_initial_de_demonstration"
+    },
+    "rice_variety": {
+      "value": "long_white_hypothesis",
+      "available_at_utc": "2026-10-16T11:00:00Z",
+      "kind": "OBSERVED",
+      "source": "dossier_initial_de_demonstration"
+    },
+    "water_added_g": {
+      "value": 300.0,
+      "available_at_utc": "2026-10-16T11:00:00Z",
+      "kind": "PLANNED",
+      "source": "dossier_initial_de_demonstration"
+    },
+    "water_retained_g": {
+      "value": 8.0,
+      "available_at_utc": "2026-10-16T11:00:00Z",
+      "kind": "ASSUMPTION",
+      "source": "hypothese_de_demonstration"
+    },
+    "water_initial_C": {
+      "value": 22.0,
+      "available_at_utc": "2026-10-16T11:00:00Z",
+      "kind": "OBSERVED",
+      "source": "dossier_initial_de_demonstration"
+    },
+    "rice_initial_C": {
+      "value": 22.0,
+      "available_at_utc": "2026-10-16T11:00:00Z",
+      "kind": "OBSERVED",
+      "source": "dossier_initial_de_demonstration"
+    },
+    "power_W": {
+      "value": 550.0,
+      "available_at_utc": "2026-10-16T11:00:00Z",
+      "kind": "PLANNED",
+      "source": "dossier_initial_de_demonstration"
+    },
+    "transfer_efficiency": {
+      "value": 0.6,
+      "available_at_utc": "2026-10-16T11:00:00Z",
+      "kind": "ASSUMPTION",
+      "source": "hypothese_de_demonstration"
+    },
+    "total_heating_min": {
+      "value": 22.0,
+      "available_at_utc": "2026-10-16T11:00:00Z",
+      "kind": "PLANNED",
+      "source": "dossier_initial_de_demonstration"
+    },
+    "evap_reference_g_per_min": {
+      "value": 4.0,
+      "available_at_utc": "2026-10-16T11:00:00Z",
+      "kind": "ASSUMPTION",
+      "source": "hypothese_de_demonstration"
+    },
+    "lid_multiplier": {
+      "value": 2.5,
+      "available_at_utc": "2026-10-16T11:00:00Z",
+      "kind": "ASSUMPTION",
+      "source": "hypothese_de_demonstration"
+    },
+    "water_capacity_g_per_g": {
+      "value": 1.35,
+      "available_at_utc": "2026-10-16T11:00:00Z",
+      "kind": "ASSUMPTION",
+      "source": "hypothese_de_demonstration"
+    },
+    "hot_time_needed_min": {
+      "value": 12.0,
+      "available_at_utc": "2026-10-16T11:00:00Z",
+      "kind": "ASSUMPTION",
+      "source": "hypothese_de_demonstration"
+    },
+    "rice_heat_capacity_J_gK": {
+      "value": 1.6,
+      "available_at_utc": "2026-10-16T11:00:00Z",
+      "kind": "ASSUMPTION",
+      "source": "hypothese_de_demonstration"
+    },
+    "surface_starch_index": {
+      "value": 0.5,
+      "available_at_utc": "2026-10-16T11:00:00Z",
+      "kind": "ASSUMPTION",
+      "source": "hypothese_de_demonstration"
+    },
+    "rinse_removal_fraction": {
+      "value": 0.4,
+      "available_at_utc": "2026-10-16T11:00:00Z",
+      "kind": "PLANNED",
+      "source": "dossier_initial_de_demonstration"
+    }
+  }
+}
