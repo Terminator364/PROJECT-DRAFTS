@@ -1,0 +1,34 @@
+{
+  "schema": "moteur-blessing/mb1/source-recovery/v1",
+  "date": "2026-10-16",
+  "source": "Project-attached ZIP accessed in ChatGPT container, NOT copied to Windows",
+  "filename": "MOTEUR_BLESSING_V1_1_2_MOTEUR_ACTUEL_2026-10-16.zip",
+  "original_archive_bytes": 12241975,
+  "original_archive_sha256": "5ef731d6ee4b5edb8a741c59a565d4f7363be84eb9225e814345cb0a04fe89e0",
+  "receipt": "R-9YPJ87CMENDW",
+  "ZIP_CRC": "PASS",
+  "ZIP_members": 100,
+  "structure": "PASS",
+  "verified_source_files": [
+    "config/RECETTES_62_EXECUTABLES.json",
+    "config/SUIVI_372_SOUS_PARAMETRES.csv",
+    "config/REGISTRE_372_RECETTES_ACQUISITION_V112.json",
+    "code/moteur_v112.py",
+    "code/registre_sous_parametres_v112.py"
+  ],
+  "source_JSON_SHA256": {
+    "RECETTES_62_EXECUTABLES.json": "9c553c3b88c134fded0da20344fd3e74b665dd7948d78912652e40a0fe42c307",
+    "SUIVI_372_SOUS_PARAMETRES.csv": "7986e059b179c6ef2ea163f93ef77c212659bfc81d68fc89806565552be58c63",
+    "REGISTRE_372_RECETTES_ACQUISITION_V112.json": "96e28c6e3bfbdef19ec314c39cb7bc3e851b4a6b4465ea01e3366a7df7216ee2"
+  },
+  "baseline_tests_reexecuted_in_ChatGPT_container": {
+    "base": 46,
+    "v11": 45,
+    "v111": 30,
+    "v112": 48,
+    "passed": 169
+  },
+  "MBMPC_windows_tests": "NOT_RUN",
+  "scientific_PIT": "NOT_PROVEN",
+  "score_state": "EXPERIMENTAL_NOT_APPROVED"
+}
