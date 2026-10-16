@@ -1,0 +1,79 @@
+{
+  "schema": "riz112/master-continuity/v2",
+  "project": "RIZ-112 laboratory for MATRICE ADN R8",
+  "reprise_code": "RIZ112|CONTINUE",
+  "date": "2026-10-16",
+  "stage": 6,
+  "status": "112_112_ROLE_EXECUTION_TESTED__17_NUMERIC_PATHS_NOT_CALIBRATED__NO_IC",
+  "canonical_github_root": "Terminator364/PROJECT-DRAFTS/main/MOTEUR-BLESSING/labs/RIZ112",
+  "master": "CAHIER_MERE.md",
+  "journal": {
+    "events": 27,
+    "head": "1484123b7f2da0fb6ad96cb0168bdc6743d0efbe4415af37a74034e1ee16441d"
+  },
+  "mandatory_read_order": [
+    "CHECKPOINT.json",
+    "CAHIER_MERE.md",
+    "journal/JOURNAL_EVENEMENTS.jsonl",
+    "DECISIONS.md",
+    "step6/README_ETAPE6.md",
+    "step6/AUDIT_CINQ_CYCLES_ETAPE6.md"
+  ],
+  "mandate": "Make all 112 cases operationally traceable, not 112 invented independent effects; continue sync",
+  "goal": "Predict independently calibrated probability P(Q>=85 | prestart JSON), no cooking instructions",
+  "case_catalogue": 112,
+  "case_contract_processed": 112,
+  "case_role_counts": {
+    "DERIVED": 1,
+    "FORECAST": 3,
+    "POSTSTART_TARGET_NOT_FEATURE": 14,
+    "PRESTART": 44,
+    "PRESTART_ACTION_PLAN": 37,
+    "PRESTART_BRANCH_POLICY": 13
+  },
+  "physical_stage4_numerical_cases": 15,
+  "two_new_explicit_derivations_from_same_mechanisms": [
+    "043",
+    "048"
+  ],
+  "numeric_paths_toy_unvalidated": 17,
+  "role_only_cases_without_numeric_physical_path": 95,
+  "validated_case_predictive_effects": 0,
+  "stage4_graph_nodes": 16,
+  "example_A": {
+    "unknown_prestart": 20,
+    "unknown_action_plans": 13,
+    "undefined_correction_policies": 9,
+    "target_output_contracts": 14,
+    "IC_percent": null
+  },
+  "software_tests": {
+    "stage4": 22,
+    "stage5": 31,
+    "journal": 10,
+    "stage6": 42,
+    "total": 105,
+    "passed": 105,
+    "location": "ChatGPT Linux Python 3.13",
+    "windows_stage6": "NOT_RUN"
+  },
+  "scientific": {
+    "approved_Q_protocol": false,
+    "real_trial_count": 0,
+    "calibrated_probability_percent": null,
+    "PIT_authentication": false,
+    "actual_112_predictive_effects_proven": false
+  },
+  "matrice": {
+    "transfer_scope": "conceptual architecture and anti-regression checks only",
+    "production_code_modified": false,
+    "sports_engine_status": "EXPERIMENTAL_NOT_APPROVED"
+  },
+  "windows_sync": "NOT_DONE_PC_OFFLINE",
+  "next": [
+    "Create independent evidence / measurement definitions for 95 non-numeric roles",
+    "Derive legitimate dependencies from data; refuse additive bonuses or invented coefficients",
+    "Pre-register and approve final Q rubric, then collect genuine prestart/poststart paired trials",
+    "Calibrate and validate true OOS IC, and use 112 trace template for 62 canonical worlds"
+  ]
+}
