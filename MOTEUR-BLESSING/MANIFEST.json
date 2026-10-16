@@ -78,21 +78,31 @@
       "result": "PASS"
     },
     "windows_test_execution": "NOT_RUN",
-    "model_sports_validation": "NOT_PROVEN"
+    "model_sports_validation": "NOT_PROVEN",
+    "recovered_V112_archive_read_in_chatgpt_container": true
   },
-  "sources_note": "GitHub holds the continuity documents. Engine ZIP remains available via ChatGPT Delivery; do not infer that the archive has been transferred/extracted to Windows.",
+  "sources_note": "Source originale V1.1.2 recuperee comme piece du Projet; son SHA/CRC verifies dans ChatGPT. MB1 enriched ZIP delivered as sandbox attachment, NOT installed on MBMPC. Scientific gate remains CLOSED.",
   "latest_specialized_checkpoint": "MOTEUR-BLESSING/mb1/CHECKPOINT_MB1_SOURCE_RECOVERED_20261016.json",
   "mb1": {
-    "status": "PARTIAL_NOT_COMPLETE",
+    "status": "PARTIAL_DESIGN_RECONCILIATION_DONE",
     "source": "V1.1.2",
-    "inspected_engine_archive_this_session": false,
+    "inspected_engine_archive_this_session": true,
     "new_read_only_inspector_git_blob": "3fbb7028cec7d71e525937bda8abc773a0f5f67f",
     "new_tests_git_blob": "1add70d1eddc72fe93a9ba72722551e90b405d11",
     "tests_on_synthetic_fixtures_in_chatgpt_container": 11,
     "tests_passed": 11,
     "frozen_62_catalogue_verified": true,
-    "archive_needed_to_map_372": true,
+    "archive_needed_to_map_372": false,
     "no_sporting_model_promotion": true,
-    "next": "Inspecter ZIP réel du reçu R-9YPJ87CMENDW, cartographier 372 fiches et qualifier 348 non mappées"
+    "next": "Authentifier acquisitions PIT independantes pour les 372 sous-parametres et mesurer OOS reels; aucun effet active.",
+    "recovered_archive_sha256_verified": true,
+    "tests_rerun_on_real_archive_local": 169,
+    "new_mapping_tests_passed": 18,
+    "crosswalk_design": {
+      "direct": 25,
+      "partial": 50,
+      "unlinked": 297,
+      "reduced_old_links": 13
+    }
   }
 }
