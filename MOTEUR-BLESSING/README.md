@@ -35,4 +35,4 @@ GitHub publié et relu. Sur MBMPC, création de `Documents/Moteur Blessing`, **7
 ## Reprise post-MB-1 V3 (16 octobre 2026)
 - [Plan et coffre MB-1 V3](mb1/README_V3_20261016.md) : 11 voies de preuves candidates, 12 familles de doubles usages, 372 sous-paramètres non promus.
 - Tests effectivement relancés dans l'environnement ChatGPT : **215/215 PASS** (169 moteur d'origine + 18 MB-1 V2 + 28 MB-1 V3). **Aucun test Windows du ZIP complet**.
-- Documents et checkpoint V3 relus sur MBMPC. Google Drive privé demande une authentification sur Windows : archive ZIP **pas installée sur le PC**. Conserver ce blocage visible.
+- **Mise à jour ultérieure confirmée** : Google Drive pour ordinateur était monté en G: sur MBMPC. ZIP V3 copié dans un dossier versionné (SHA-256 conforme), extrait, **215/215 tests Windows/Python 3.12.10 réussis**. Journaux et reçu Windows accessibles dans le Drive privé. La validation sportive PIT/OOS reste ouverte.
