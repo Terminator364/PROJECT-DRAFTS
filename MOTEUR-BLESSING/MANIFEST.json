@@ -191,5 +191,17 @@
     "archive_sha256": "c95ccbb82d989877e9cb7e2668556cf1b39765bf94f384c6aa7f7c3ad4e3b456",
     "zip_location": "ChatGPT Library + conversation attachment; not verified on PC or Delivery"
   },
-  "scientific_status": "EXPERIMENTAL_NOT_APPROVED"
+  "scientific_status": "EXPERIMENTAL_NOT_APPROVED",
+  "riz112_lab": {
+    "status": "STAGE5_ENGINEERING_DONE__Q_RUBRIC_DRAFT__IC_NOT_CALIBRATED",
+    "continuity_code": "RIZ112|CONTINUE",
+    "master": "MOTEUR-BLESSING/labs/RIZ112/CAHIER_MERE.md",
+    "checkpoint": "MOTEUR-BLESSING/labs/RIZ112/CHECKPOINT.json",
+    "journal": "MOTEUR-BLESSING/labs/RIZ112/journal/JOURNAL_EVENEMENTS.jsonl",
+    "delivery_index": "MOTEUR-BLESSING/labs/RIZ112/LIVRAISON_ETAPE5_20261016.json",
+    "archive_sha256": "1dca77c3bb458ae8d3074c7bedd2798b0fb5af5b1cfb5c6b272e7e6e20f3c201",
+    "drive_folder": "https://drive.google.com/drive/folders/1oMXQp39wS0xaygFt2SWm7hII77fHxedP",
+    "windows_stage5_sync": "NOT_DONE_PC_OFFLINE",
+    "lab_distinct_from_sports_model": true
+  }
 }
