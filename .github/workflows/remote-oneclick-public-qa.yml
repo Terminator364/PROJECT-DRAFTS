@@ -23,11 +23,14 @@ concurrency:
 jobs:
   windows-qa:
     runs-on: ${{ matrix.os }}
+    env:
+      SUITE: ${{ matrix.suite }}
     timeout-minutes: 30
     strategy:
       fail-fast: false
       matrix:
         os: [windows-2022, windows-2025]
+        suite: [g1, g4, g5, g6]
     steps:
       - uses: actions/checkout@v4
       - name: Fail-closed inventory and privacy boundary
@@ -58,36 +61,52 @@ jobs:
             ($common+$root+'\remote_native_g6.cpp /link /SUBSYSTEM:WINDOWS /OUT:'+$root+'\bin\MBMPC-Remote-OneClick-G6.exe wlanapi.lib ole32.lib uuid.lib winhttp.lib user32.lib gdi32.lib kernel32.lib shell32.lib'),
             ($common+$root+'\g6_profile_stress_test.cpp /link /OUT:'+$root+'\bin\G6-Profile-Stress.exe')
           )
+          switch($env:SUITE) {
+            'g1' { $builds=@($builds[0]) }
+            'g4' { $builds=@($builds[1]) }
+            'g5' { $builds=@($builds[2],$builds[3]) }
+            'g6' { $builds=@($builds[4],$builds[5]) }
+            default {throw 'Unknown isolated suite'}
+          }
           foreach($c in $builds){
             & cmd.exe /d /c ('call "' + $setup + '" -arch=amd64 && ' + $c)
             if($LASTEXITCODE -ne 0){throw "Compile failed: $c"}
           }
           foreach($name in @('MBMPC-Remote-OneClick-G4.exe','MBMPC-Remote-OneClick-G5.exe','MBMPC-Remote-OneClick-G6.exe')){
+            if(-not (Test-Path "tools/dc_oneclick_qa/bin/$name")){continue}
             $bytes=(Get-Item "tools/dc_oneclick_qa/bin/$name").Length
             if($bytes -gt 460000){throw "Low-RAM size ceiling exceeded for $name = $bytes"}
             Get-FileHash "tools/dc_oneclick_qa/bin/$name" -Algorithm SHA256 | Format-List
           }
-      - name: Isolated synthetic Windows fault scenarios and stress
+      - name: Isolated variant-specific Windows real-executable synthetic QA
         shell: pwsh
         run: |
           $ErrorActionPreference='Stop'
+          $p="$env:GITHUB_WORKSPACE\tools\dc_oneclick_qa"
           function Invoke-Isolated($script) {
             & pwsh -NoProfile -NonInteractive -File $script
-            if ($LASTEXITCODE -ne 0) { throw "Isolated lab script failed: $script ($LASTEXITCODE)" }
+            if($LASTEXITCODE -ne 0){throw "Lab failed: $script ($LASTEXITCODE)"}
           }
-          Invoke-Isolated "$env:GITHUB_WORKSPACE\tools\dc_oneclick_qa\windows_native_test.ps1"
-          Invoke-Isolated "$env:GITHUB_WORKSPACE\tools\dc_oneclick_qa\windows_native_g4_test.ps1"
-          & "$env:GITHUB_WORKSPACE\tools\dc_oneclick_qa\bin\G5-Policy-Matrix.exe"
-          if($LASTEXITCODE -ne 0){throw "G5 matrix failed"}
-          Invoke-Isolated "$env:GITHUB_WORKSPACE\tools\dc_oneclick_qa\g5_windows_lab.ps1"
-          & "$env:GITHUB_WORKSPACE\tools\dc_oneclick_qa\bin\G6-Profile-Stress.exe"
-          if($LASTEXITCODE -ne 0){throw "G6 profile stress failed"}
-          Invoke-Isolated "$env:GITHUB_WORKSPACE\tools\dc_oneclick_qa\g6_parallel_settings_lab.ps1"
-          Invoke-Isolated "$env:GITHUB_WORKSPACE\tools\dc_oneclick_qa\g6_windows_lab.ps1"
-          Invoke-Isolated "$env:GITHUB_WORKSPACE\tools\dc_oneclick_qa\g6_fastpath_lab.ps1"
-          Invoke-Isolated "$env:GITHUB_WORKSPACE\tools\dc_oneclick_qa\g6_ui_settings_lab.ps1"
+          switch($env:SUITE) {
+            'g1' { Invoke-Isolated "$p\windows_native_test.ps1" }
+            'g4' { Invoke-Isolated "$p\windows_native_g4_test.ps1" }
+            'g5' {
+              & "$p\bin\G5-Policy-Matrix.exe"
+              if($LASTEXITCODE -ne 0){throw 'G5 policy matrix failed'}
+              Invoke-Isolated "$p\g5_windows_lab.ps1"
+            }
+            'g6' {
+              & "$p\bin\G6-Profile-Stress.exe"
+              if($LASTEXITCODE -ne 0){throw 'G6 profile stress failed'}
+              Invoke-Isolated "$p\g6_parallel_settings_lab.ps1"
+              Invoke-Isolated "$p\g6_windows_lab.ps1"
+              Invoke-Isolated "$p\g6_fastpath_lab.ps1"
+              Invoke-Isolated "$p\g6_ui_settings_lab.ps1"
+            }
+            default { throw 'Unknown isolated variant' }
+          }
       - name: Store only the G6 verified executable for one day
-        if: matrix.os == 'windows-2022'
+        if: matrix.os == 'windows-2022' && matrix.suite == 'g6'
         uses: actions/upload-artifact@v4
         with:
           name: public-OneClick-G6-${{ github.sha }}
