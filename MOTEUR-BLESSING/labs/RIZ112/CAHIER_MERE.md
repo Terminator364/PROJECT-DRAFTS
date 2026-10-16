@@ -115,3 +115,17 @@ Ne jamais remplacer cette chaîne par une baseline de fréquence ou une moyenne 
 - Comment attester la capture des entrées au temps T₀ de façon indépendante ?
 
 **Fin du cahier initial — les entrées futures seront ajoutées comme journal et décisions, et le checkpoint indiquera la version courante.**
+
+## 9. Nouvelle directive et Étape 6 — 16 octobre 2026
+
+**[DIRECTIVE UTILISATEUR]** « Ouo veille à la synchronisation. Continue les travaux, j'insiste notamment sur les faits que réellement les 112 contribue et non seulement 15 ». La priorité ne se réduit plus à inventorier les fiches : garantir une **exécution traçable pour chaque identifiant** et rendre visible la part **réellement reliée aux équations physiques**.
+
+**[CONSTRUCTION TESTÉE]** `step6/engine112.py` exécute le contrat de 112 cases : **44 déclarations pré-T₀, 4 événements calculés/projetés, 37 plans d'actions, 13 politiques conditionnelles et 14 contrats de résultat futurs**. Il rejette une case absente, une date post-gel, une variable `UNKNOWN` faussement utilisée comme calculée, des unités/types incohérents, des contradictions pratiques et une qualité finale injectée comme prédicteur. Chaque cas produit un reçu d'exécution. Trois scénarios JSON indépendants A/B/C sont enregistrés.
+
+**[AUDIT CONTRADICTOIRE]** 112/112 **contrats traités**, mais seulement **15 cases dans le noyau physique d'origine**. Les cas 043 (temps théorique de montée en température) et 048 (bilan hydrique prévisionnel) sont désormais des **dérivations mathématiques explicitement rattachées aux mécanismes existants**, sans constituer deux nouvelles influences indépendantes. La case 044 (stabilité du frémissement) reste **non quantifiée** ; la case 046 (fuite vapeur) est un **proxy non validé**. Les autres valeurs peuvent changer les contraintes, la disponibilité, la branche prévue ou la définition du résultat — **pas l'IC sans mesures et calibration**. Dans les exemples, 20 des 44 entrées pré-T₀ restent explicitement inconnues.
+
+**[TESTS]** 42/42 nouveaux tests V6 (dont suppressions systématiques de 108 entrées externes, correction de driver UNKNOWN et types), anciens 22 +31 +10 tests = **105/105 PASS**, logiciel ChatGPT Python 3.13. Pas de tests Windows dans cette séance ; le laboratoire ne modifie pas le code sportif MATRICE.
+
+**[CONCLUSION SCIENTIFIQUE]** L'exigence de **traçabilité des 112** est maintenant satisfaite **dans la couche de contrat de rôle**. L'exigence « 112 facteurs contribuent mathématiquement à une probabilité prédictive validée » **n'est pas satisfaite** : elle exigerait des définitions observables, des lois pertinentes et des données indépendantes, et serait de toute manière mal posée pour les 14 cibles futures qui ne peuvent pas être des prédicteurs. IC reste `null`.
+
+**[PROCHAINE PRIORITÉ]** augmenter la couverture *des mécanismes légitimes* plutôt que distribuer arbitrairement 97 coefficients, mesurer Q avec un protocole pré-enregistré et produire des évaluations indépendantes. Voir `step6/README_ETAPE6.md` et `step6/AUDIT_CINQ_CYCLES_ETAPE6.md`. Le code de reprise et les journaux restent canoniques sur GitHub ; aucun travail de fond n'est exécuté entre conversations.
