@@ -1,0 +1,30 @@
+{
+  "schema": "riz112/ic-assumption-demonstrator/v1",
+  "status": "UNVALIDATED_ILLUSTRATIVE_ASSUMPTIONS",
+  "target": "Q_DEMO* >= 85/100, NOT observed actual Q",
+  "threshold_q_demo": 85,
+  "approved_for_empirical_success": false,
+  "proxy_dimensions": [
+    "101 hydration ratio (toy mass balance)",
+    "103 thermal adequacy proxy (not real uniformity)",
+    "105 free water penalty on fictional scale",
+    "102 separation proxy from starch (UNVALIDATED assumption)"
+  ],
+  "aggregation": "Q_DEMO* = 100 * min(all four dimension scores); explicitly not sum of 112 factors",
+  "proxy_scales": {
+    "free_water_scale_g_per_g": 1.5,
+    "surface_starch_scale": 3.0
+  },
+  "uncertainty_distribution": {
+    "transfer_efficiency": {"relative_sigma": 0.10, "shared_latent_loading": 0.5},
+    "evap_reference_g_per_min": {"relative_sigma": 0.20, "shared_latent_loading": 0.5},
+    "lid_multiplier": {"relative_sigma": 0.15, "shared_latent_loading": 0.0},
+    "water_capacity_g_per_g": {"relative_sigma": 0.08, "shared_latent_loading": 0.0},
+    "hot_time_needed_min": {"relative_sigma": 0.15, "shared_latent_loading": 0.0},
+    "water_retained_g": {"relative_sigma": 0.25, "shared_latent_loading": 0.0},
+    "power_W": {"relative_sigma": 0.05, "shared_latent_loading": 0.0},
+    "rinse_removal_fraction": {"relative_sigma": 0.20, "shared_latent_loading": 0.0}
+  },
+  "provenance": "All scales and sigmas are untrained engineering demonstration choices, not empirical facts. Do NOT represent these as validated rice quality thresholds. Shared latent creates explicitly correlated efficiency/evaporation uncertainty.",
+  "scientific_ic": null
+}
