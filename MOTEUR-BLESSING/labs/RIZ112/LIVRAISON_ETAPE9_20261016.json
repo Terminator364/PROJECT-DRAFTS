@@ -1,0 +1,59 @@
+{
+  "schema": "riz112/stage9/delivery-index/v1",
+  "date": "2026-10-16",
+  "master": "MOTEUR-BLESSING/labs/RIZ112/CAHIER_MERE.md",
+  "checkpoint": "MOTEUR-BLESSING/labs/RIZ112/CHECKPOINT.json",
+  "journal": "MOTEUR-BLESSING/labs/RIZ112/journal/JOURNAL_EVENEMENTS.jsonl",
+  "continuity_code": "RIZ112|CONTINUE",
+  "user_directive": "Finish working numerical IC now, avoid endless stages",
+  "scientific_decision": "ASSUMED_PROXY_IC_DEMO_IMPLEMENTED__ACTUAL_Q_IC_NOT_ESTABLISHED",
+  "demonstrated_ic_percent": {
+    "A": 62.4,
+    "B": 36.83,
+    "C": 0.1
+  },
+  "stress_percent": {
+    "A_water_minus_60g": 44.87,
+    "A_alternate_proxy_rule": 38.2
+  },
+  "proxy_target": "Q*_DEMO>=85, four unvalidated toy dimensions",
+  "real_cooking_trials": 0,
+  "real_IC_percent": null,
+  "all_case_governance_executed": 112,
+  "D014_functional_routes": 62,
+  "physical_case_count": 15,
+  "proxy_quality_dimensions": 4,
+  "real_quality_dimensions_remaining_unquantified": 10,
+  "tests": {
+    "stage4": 22,
+    "stage5": 31,
+    "journal": 10,
+    "stage6": 42,
+    "stage7": 36,
+    "stage8": 19,
+    "stage9": 25,
+    "total_pass": 185
+  },
+  "journal_state": {
+    "events": 49,
+    "head": "b441dfb43206c00a7f6628558d7ba7ad1c5e04360ab5c41345caa38c1eac47ff"
+  },
+  "delivery": {
+    "file_name": "RIZ112_CAHIER_MERE_STAGE9_IC_DEMO_2026-10-16.zip",
+    "zip_members": 99,
+    "zip_bytes": 238430,
+    "sha256": "0b5a2104ce217adf60909cb0774c2381e0565ad21fb8088f452e2a39de2aa665",
+    "crc": "PASS",
+    "manifest_hashes": "PASS",
+    "drive_url": "https://drive.google.com/file/d/1vO5k9QfCdMUoZYdTzRzaGTiYNUnM95z2/view?usp=drivesdk",
+    "drive_file_id": "1vO5k9QfCdMUoZYdTzRzaGTiYNUnM95z2",
+    "drive_size_verified": 238430,
+    "drive_private": true,
+    "library_path": "/RIZ112_LAB/CAHIER_MERE_STAGE9_2026-10-16/RIZ112_CAHIER_MERE_STAGE9_IC_DEMO_2026-10-16.zip",
+    "library_file_id": "file_00000000e124821188a290f2cd867a77",
+    "windows": "MBMPC OFFLINE, V9 not installed/tested",
+    "drive_sha256_readback_verified": false
+  },
+  "transfer_to_matrice": "Methods only; never reuse mock food percentages, proxy scales or untrained coefficients.",
+  "next_scientific_gate": "Approve measurable Q, gather paired real prestart inputs/outcomes, train/calibrate and out-of-sample validate; refuse promotion until evidence."
+}
