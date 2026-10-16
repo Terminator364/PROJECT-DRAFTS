@@ -1,0 +1,67 @@
+{
+  "schema": "moteur-blessing/mb1/continuity/v4",
+  "date": "2026-10-16",
+  "trigger": "MOTEUR|CONTINUE",
+  "status": "MB1_V4_ENGINEERING_COMPLETE_PIT_VALIDATION_PENDING",
+  "source_version": "V1.1.2",
+  "original_zip_sha256": "5ef731d6ee4b5edb8a741c59a565d4f7363be84eb9225e814345cb0a04fe89e0",
+  "previous_v3_sha256": "3c1bd3369309101ffdb11f41b4e62270c65f028ff138935b4058e35cf3042baa",
+  "world_count": 62,
+  "proposals": 372,
+  "V2_design_direct": 25,
+  "V2_partial": 50,
+  "unmapped_action_backlog": 297,
+  "priority_worklist": {
+    "P0_GOVERNANCE": 24,
+    "P1_BASIC_HISTORY": 55,
+    "P2_SPECIALIST": 206,
+    "P3_DERIVED_OUTPUT": 12
+  },
+  "explicit_governance_contracts": 24,
+  "prototypes": [
+    "SCORING_HISTORY::R01 (rolling 90m GF/GA, incomplete semantic match)",
+    "REST_CONGESTION::R01 (days from past match end to cutoff, incomplete semantic match)"
+  ],
+  "tests": {
+    "legacy": 169,
+    "MB1_V2": 18,
+    "MB1_V3": 28,
+    "MB1_V4": 42,
+    "total": 257,
+    "passed": 257,
+    "location": "ChatGPT Linux Python 3.13"
+  },
+  "complete_zip": {
+    "name": "MOTEUR_BLESSING_V1_1_2_MB1_V4_2026-10-16.zip",
+    "members": 124,
+    "unchanged_prior_members": 114,
+    "bytes": 12327244,
+    "sha256": "b0c09a45ec2a4f3d6d8fb8b0efaaf6c039b11b0083fcf789e84b2b90818eddb2",
+    "Google_Drive": "https://drive.google.com/file/d/1SOlHTy8W5jOHnHkvuY2a0fXAYrdSFA4X/view?usp=drivesdk"
+  },
+  "patch_zip": {
+    "name": "MOTEUR_BLESSING_MB1_V4_PATCH_2026-10-16.zip",
+    "members": 10,
+    "bytes": 28002,
+    "sha256": "7d10e12f76df6a606d811933f3d332250fd902a31d7b7253f29b6d5a36c191f8",
+    "Google_Drive": "https://drive.google.com/file/d/1e0gaCRWWvzkj8SBjz4BuKanzurbw9NxZ/view?usp=drivesdk"
+  },
+  "Drive_folder": "https://drive.google.com/drive/folders/14027LERuJ9mRsC8clIF92Mjr98ppcefr",
+  "ChatGPT_Library": "/MOTEUR_BLESSING/MB1_V4_2026-10-16/",
+  "GitHub_code_path": "MOTEUR-BLESSING/mb1/v4/",
+  "GitHub_files_verified_against_local_git_blobs": 10,
+  "objective": "Over 1.5 goals within 90m including stoppage, prematch only",
+  "source_PIT_independent_archival_proof": false,
+  "real_matches_OOS_calibration": false,
+  "new_scoring_weights": 0,
+  "model_status": "EXPERIMENTAL_NOT_APPROVED",
+  "Windows_full_archive_installed": false,
+  "Windows_full_suite_rerun": false,
+  "Windows_smoke_test_status": "STARTED_NOT_CONFIRMED",
+  "next": [
+    "Acquire real, independently timestamped prematch evidence",
+    "Translate the 55 lower-cost backlog measurements into real source provenance and numerator/denominator contracts",
+    "Run independent chronological OOS and baseline comparison",
+    "Reproduce full ZIP tests on Windows after authenticated transfer"
+  ]
+}
