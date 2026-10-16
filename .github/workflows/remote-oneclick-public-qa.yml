@@ -71,17 +71,21 @@ jobs:
         shell: pwsh
         run: |
           $ErrorActionPreference='Stop'
-          & "$env:GITHUB_WORKSPACE\tools\dc_oneclick_qa\windows_native_test.ps1"
-          & "$env:GITHUB_WORKSPACE\tools\dc_oneclick_qa\windows_native_g4_test.ps1"
+          function Invoke-Isolated($script) {
+            & pwsh -NoProfile -NonInteractive -File $script
+            if ($LASTEXITCODE -ne 0) { throw "Isolated lab script failed: $script ($LASTEXITCODE)" }
+          }
+          Invoke-Isolated "$env:GITHUB_WORKSPACE\tools\dc_oneclick_qa\windows_native_test.ps1"
+          Invoke-Isolated "$env:GITHUB_WORKSPACE\tools\dc_oneclick_qa\windows_native_g4_test.ps1"
           & "$env:GITHUB_WORKSPACE\tools\dc_oneclick_qa\bin\G5-Policy-Matrix.exe"
           if($LASTEXITCODE -ne 0){throw "G5 matrix failed"}
-          & "$env:GITHUB_WORKSPACE\tools\dc_oneclick_qa\g5_windows_lab.ps1"
+          Invoke-Isolated "$env:GITHUB_WORKSPACE\tools\dc_oneclick_qa\g5_windows_lab.ps1"
           & "$env:GITHUB_WORKSPACE\tools\dc_oneclick_qa\bin\G6-Profile-Stress.exe"
           if($LASTEXITCODE -ne 0){throw "G6 profile stress failed"}
-          & "$env:GITHUB_WORKSPACE\tools\dc_oneclick_qa\g6_parallel_settings_lab.ps1"
-          & "$env:GITHUB_WORKSPACE\tools\dc_oneclick_qa\g6_windows_lab.ps1"
-          & "$env:GITHUB_WORKSPACE\tools\dc_oneclick_qa\g6_fastpath_lab.ps1"
-          & "$env:GITHUB_WORKSPACE\tools\dc_oneclick_qa\g6_ui_settings_lab.ps1"
+          Invoke-Isolated "$env:GITHUB_WORKSPACE\tools\dc_oneclick_qa\g6_parallel_settings_lab.ps1"
+          Invoke-Isolated "$env:GITHUB_WORKSPACE\tools\dc_oneclick_qa\g6_windows_lab.ps1"
+          Invoke-Isolated "$env:GITHUB_WORKSPACE\tools\dc_oneclick_qa\g6_fastpath_lab.ps1"
+          Invoke-Isolated "$env:GITHUB_WORKSPACE\tools\dc_oneclick_qa\g6_ui_settings_lab.ps1"
       - name: Store only the G6 verified executable for one day
         if: matrix.os == 'windows-2022'
         uses: actions/upload-artifact@v4
