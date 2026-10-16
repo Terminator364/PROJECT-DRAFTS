@@ -193,7 +193,7 @@
   },
   "scientific_status": "EXPERIMENTAL_NOT_APPROVED",
   "riz112_lab": {
-    "status": "STEP7_112_CASES_TYPED_GRAPH__62_Q_PATHS_MISSING__NO_IC",
+    "status": "STAGE7_MANDATE_REVISED__NO_FULL_112_EFFECTS_CLAIM",
     "continuity_code": "RIZ112|CONTINUE",
     "master": "MOTEUR-BLESSING/labs/RIZ112/CAHIER_MERE.md",
     "checkpoint": "MOTEUR-BLESSING/labs/RIZ112/CHECKPOINT.json",
@@ -207,7 +207,7 @@
     "archive_final_bytes": 87045,
     "archive_final_drive_url": "https://drive.google.com/file/d/1JRFayl6zSgQfyQoJBdxj62I97v4vQ1AL/view?usp=drivesdk",
     "journal_events": 36,
-    "journal_head": "57e99aa02e1d5ec4d5ff3acbee8f206215394f2eeaf8996d1fbea513e19fae95",
+    "journal_head": "bcd3b88b31618ee1e0fb1b75a00367f1ca1b4e9aea4213e78712790e9f6b380a",
     "current_stage": 7,
     "current_zip_sha256": "34887c8ecd5d5e0475b8b03267592e1856c633455b41ff0c8f567860217ac3cb",
     "current_zip_drive": "https://drive.google.com/file/d/1Bzf9scBx1QCACQKE_j4bJL0EvCB1DnrI/view?usp=drivesdk",
@@ -229,7 +229,15 @@
     "real_trials": 0,
     "latest_zip_sha256": "8baeebc62b4fd2278ff60146780388b942c577b78d37998023bdd6183f07ddae",
     "latest_zip_drive": "https://drive.google.com/file/d/111i8Q183ah4hYWXbTsFeHdZuRuWk2XO6/view?usp=drivesdk",
-    "windows_stage7": "OFFLINE_NOT_INSTALLED_OR_TESTED",
-    "matrice_sports_engine_modified": false
+    "windows_stage7": "OFFLINE_NOT_VERIFIED",
+    "matrice_sports_engine_modified": false,
+    "latest_user_mandate_id": "D014",
+    "stage7_not_closed_for_functional_112": true,
+    "open_functional_Q_paths": 62,
+    "updated_journal_events": 38,
+    "finish_contract": "MOTEUR-BLESSING/labs/RIZ112/MANDAT_FINITION_112.md",
+    "per_case_gap_registry": "MOTEUR-BLESSING/labs/RIZ112/RESTANT_62_REGISTRE.json",
+    "amended_archive_sha256": "301526443d74d35d5dac8aee99401790ee8a1c4a75d734cb442f82665f970153",
+    "amended_archive_drive": "https://drive.google.com/file/d/1NpK4yUm57wnevvxKFwn7BisX4hd0tDCk/view?usp=drivesdk"
   }
 }
