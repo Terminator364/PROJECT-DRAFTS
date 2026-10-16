@@ -1,0 +1,8 @@
+{
+  "archive_sha256": "487db0dbb31d37686caa39aa27ab78f200690677f6d7ed7d6d9b17cbb5249b2f",
+  "archive_bytes": 16562,
+  "members": 7,
+  "tests": 13,
+  "passed": 13,
+  "full_rice_formula_fulfilled": false
+}
