@@ -33,3 +33,14 @@
 **LIMITES / RÉ-AUDIT :** succès logicel local ≠ test du ZIP livré, ≠ 169 anciens tests relancés, ≠ calibration réelle. PC MBMPC a répondu au ping mais la lecture du répertoire a expiré : pas de test Windows. Les 348 sous-paramètres non mappés **restent à inventorier à partir de leurs véritables fichiers**, pas de complétion artificielle. Modèle conserve `EXPERIMENTAL_NOT_APPROVED`. G3-C/F et promotion de MATRICE 2.0 non touchés.
 
 **FIN / checkpoint durable :** `MOTEUR-BLESSING/mb1/CHECKPOINT_MB1_20261016.json`; `MANIFEST.json.mb1.status=PARTIAL_NOT_COMPLETE`. Prochain travail : obtenir effectivement l'archive V1.1.2 à empreinte conforme puis produire le registre MB-1 des recettes par sous-paramètre. **Aucune nouvelle livraison ChatGPT Delivery revendiquée.**
+
+
+## 2026-10-16 — DÉBUT/FIN — source authentifiée et MB-1 sous-paramètres (nouvelle pièce du Projet)
+
+**DÉBUT — SOURCE RETROUVÉE.** ZIP de V1.1.2 nouvellement attaché au Projet, réellement lu et décompressé dans l'environnement ChatGPT. **12 241 975 octets**, SHA-256 conforme `5ef731d6ee4b5edb8a741c59a565d4f7363be84eb9225e814345cb0a04fe89e0`, inventaire ZIP **100 fichiers**, CRC valide. Le code original est intact. MBMPC était joignable ; le répertoire Windows contenait la continuité mais pas le ZIP : **ne pas affirmer l'installation Windows**.
+
+**CONSTRUCTION + AUDIT.** Relance des quatre suites réelles d'origine en Linux/Python : **46 + 45 + 30 + 48 = 169/169 PASS**. Construction d'un registre d'équivalences plus prudent pour **372/372 propositions : 25 DIRECT_DESIGN, 50 PARTIAL_CONTEXT, 297 NOT_LINKED**. **13** anciens liens ont été rétrogradés après contre-audit sémantique ; 54 nouveaux liens motivés. Vérification structurelle des **62 mondes / 240 entrées / 140 formules**.
+
+**CORRECTION + RÉ-AUDIT.** Garde temporelle indépendante `publication <= capture <= freeze < kickoff`, vérification SHA des octets source, temps avec fuseau ; toujours `independently_authenticated=false` sans preuve tierce. **18/18 nouveaux tests MB-1 PASS**, avec attaques synthétiques. Aucun calcul IC modifié, aucune promotion sportive. Résumé des cinq cycles et hashes : `mb1/AUDIT_SOUS_PARAMETRES_MB1_20261016.md`.
+
+**FIN / SOURCES DURABLES.** Point de reprise `mb1/CHECKPOINT_MB1_SOURCE_RECOVERED_20261016.json`; `MANIFEST.json.latest_specialized_checkpoint` actualisé. Deux nouveaux artefacts téléchargeables dans la conversation ChatGPT : archive complète enrichie SHA-256 `192cdae0a2d551b550abb4a6821f75bf2eef9a5d1d0e2d48cb80bc08252deed6` (12 271 620 octets) et patch MB-1 SHA-256 `e801039186cea972e3f1cc64781258a9ddf4730a58063fc2beeb3099af50c91c`. **Aucun reçu Delivery nouveau n'est revendiqué.** MB-1 n'est pas scientifiquement clôturée : sources PIT, collecte authentifiée et validation sur vrais matches restent à faire.
