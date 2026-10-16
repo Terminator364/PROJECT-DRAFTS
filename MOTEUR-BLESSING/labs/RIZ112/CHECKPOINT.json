@@ -4,18 +4,20 @@
   "date": "2026-10-16",
   "stage": 7,
   "reprise_code": "RIZ112|CONTINUE",
-  "status": "STAGE7_TYPED_GRAPH_112_NODES_150_CANDIDATE_EDGES__NO_CALIBRATED_IC",
+  "status": "STAGE7_MANDATE_REVISED__62_FUNCTIONAL_LINKS_OPEN__DO_NOT_PROMOTE",
   "canonical_github_root": "Terminator364/PROJECT-DRAFTS/main/MOTEUR-BLESSING/labs/RIZ112",
   "master": "CAHIER_MERE.md",
   "journal": {
-    "events": 36,
-    "head": "57e99aa02e1d5ec4d5ff3acbee8f206215394f2eeaf8996d1fbea513e19fae95"
+    "events": 38,
+    "head": "bcd3b88b31618ee1e0fb1b75a00367f1ca1b4e9aea4213e78712790e9f6b380a"
   },
   "mandatory_read_order": [
     "CHECKPOINT.json",
     "CAHIER_MERE.md",
-    "journal/JOURNAL_EVENEMENTS.jsonl",
+    "MANDAT_FINITION_112.md",
+    "RESTANT_62_REGISTRE.json",
     "DECISIONS.md",
+    "journal/JOURNAL_EVENEMENTS.jsonl",
     "step7/AUDIT_CINQ_CYCLES_ETAPE7.md",
     "step7/GAPS_112_V7.json",
     "TRANSFERT_MATRICE.md"
@@ -89,5 +91,16 @@
     "windows_stage7": "NOT_DONE_PC_OFFLINE"
   },
   "previous_verified_draft_zip_sha256": "03f2f1a807b39d36bd4e41e05c1181507651ce44efea71dd0f96430d9372e3a4",
-  "draft_drive_url": "https://drive.google.com/file/d/1jwFA0txxaPhzqDUae6HyoVPIF_oJewHZ/view?usp=drivesdk"
+  "draft_drive_url": "https://drive.google.com/file/d/1jwFA0txxaPhzqDUae6HyoVPIF_oJewHZ/view?usp=drivesdk",
+  "next_gate": "FINISH_112_FUNCTIONAL_ROLE_EFFECTS_BEFORE_NEXT_STAGE_CLAIM",
+  "feedback_2026_10_16": {
+    "decision": "D014",
+    "recorded": true,
+    "unconnected_structural_cases": 62,
+    "roles_executed": 112,
+    "scientifically_validated_effects": 0,
+    "mandate_file": "MANDAT_FINITION_112.md",
+    "gap_file": "RESTANT_62_REGISTRE.json",
+    "claim_112_functional_contributions_complete": false
+  }
 }
