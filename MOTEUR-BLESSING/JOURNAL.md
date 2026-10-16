@@ -59,3 +59,18 @@
 **SYNCHRONISATION :** les deux archives enregistrées dans la **Bibliothèque ChatGPT** `/MOTEUR_BLESSING/MB1_V3_2026-10-16/` et dans Google Drive **privé** dossier `1t_53nvyzLAD_wmPCo8AKwB21QgDuKGaX` ; métadonnées Drive relues (tailles exactes, parents corrects, shared=false). GitHub `mb1/CHECKPOINT_MB1_V3_20261016.json` et `mb1/README_V3_20261016.md` créés, `MANIFEST.json` pointant sur nouveau checkpoint. MBMPC en ligne ; PowerShell et Python 3.12.10 présents, accès GitHub brut OK ; URL Google Drive privée requiert authentification (HTTP 302 vers connexion Google) ; **pas de transfert ZIP vers Windows** et aucun test du moteur sur Windows. Garder ce statut sans prétendre une installation.
 
 **FIN / PROCHAIN GATE :** MB-1 design et infrastructure de preuve renforcés ; **0** source indépendante PIT validée, **0** nouvel effet IC calibré, **aucune** promotion de modèle. Prochaines tâches : archivages externes historiques PIT vérifiables, linéarité/indépendance des primitives, OOS chronologique réelle et reproduction Windows après transfert authentifié.
+
+
+## 2026-10-16 — MB-1 V3, preuve Windows obtenue, pas une preuve de performance sportive
+
+**DÉBUT :** découverte de **Google Drive pour ordinateur** fonctionnant réellement sur MBMPC avec lecteur G:, après échec du téléchargement privé non authentifié via terminal. Remontée contrôlée de la hiérarchie Drive depuis les IDs serveur jusqu'au dossier `MOTEUR_BLESSING_MB1_V3_2026-10-16`. Les 3 fichiers du dossier ont été listés depuis Windows, taille du ZIP complet **12 298 556 octets**.
+
+**CONSTRUCTION :** copie vers `C:\Users\Lenovo\Documents\Moteur Blessing\versions\MB1_V3_2026-10-16` de l'archive complète et du correctif. SHA-256 sur Windows égaux aux SHA de release : `3c1bd3369309101ffdb11f41b4e62270c65f028ff138935b4058e35cf3042baa` et `b5f4ac43127a931ea1b0b5247ccd53161015a049902bfc415fa4990acd764865`. Refus d'écraser une version différente ; extraction versionnée du ZIP, 114 entrées.
+
+**AUDIT/CONTRE-AUDIT :** premier script groupé renvoyait une erreur PowerShell à cause de la conversion des messages `stderr` des tests Python en `NativeCommandError` malgré tests potentiellement verts. Correction de l'orchestrateur PowerShell, contrôle explicite de `$LASTEXITCODE`, relance complète.
+
+**RÉ-AUDIT Windows natif :** Python **3.12.10**, `tests 46/46` ; `tests_v11 45/45` ; `tests_v111 30/30` ; `tests_v112 48/48` ; `mb1 46/46`, **215/215 PASS**, chaque suite `EXIT=0` et process final `exit 0`. Journal Windows `WINDOWS_TEST_RESULTS_V3_FINAL.txt`, SHA-256 `dfaa510bfaf6c5551085f464613263c21c2ce6de2ef3526d5ef3df65b808c085`. Relecture du ZIP local : empreinte complète conforme, **114 membres**. L'extraction crée naturellement des caches Python, d'où le comptage des fichiers disques différent du nombre de membres ZIP ; ne pas confondre.
+
+**SYNCHRONISATION :** reçu Windows `WINDOWS_MB1_V3_EVIDENCE_20261016.json`, SHA `ab8f1a34442fc96b645ef27e63a20900c266e51d93e39c189f142f2835db26c5`. Copie de ce reçu et du journal dans le lecteur Google Drive monté ; vérification des empreintes côté lecteur OK, propagation dans le serveur Drive **encore non prouvée** à cette étape. Sauvegardes initiales du MANIFEST et journaux Windows conservées en `.preMB1V3.bak`.
+
+**FIN :** `mb1/CHECKPOINT_MB1_V3_WINDOWS_VALIDATED_20261016.json`, manifeste GitHub actualisé. Plus aucun blocage Windows pour l'exécution MB1 V3. **MB-1 scientifique reste ouverte** : pas de preuve PIT indépendante, pas de comparaison réelle OOS, aucun coefficient ni score promu.
