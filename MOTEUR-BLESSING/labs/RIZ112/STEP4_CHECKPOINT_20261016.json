@@ -1,0 +1,71 @@
+{
+  "schema": "moteur-blessing/labs/riz112/step4-checkpoint/v1",
+  "date": "2026-10-16",
+  "project": "RIZ-112 educational lab distinct from MOTEUR-BLESSING production engine",
+  "stage": 4,
+  "goal": "Estimate P(quality Q >=85/100 | pre-start initial data) after calibration, NOT produce cooking instructions",
+  "status": "ENGINEERING_GRAPH_DEMONSTRATOR__NOT_CALIBRATED",
+  "original_112_cases_are_catalogued": 112,
+  "stage4_cases_in_numeric_mechanism": 15,
+  "input_count": 16,
+  "graph_nodes": 16,
+  "distinct_cases": [
+    1,
+    14,
+    24,
+    30,
+    33,
+    34,
+    35,
+    36,
+    37,
+    38,
+    41,
+    42,
+    45,
+    47,
+    54
+  ],
+  "output_ic_percent": null,
+  "actual_rice_experiments": 0,
+  "unit_tests": {
+    "passed": 22,
+    "total": 22,
+    "environment": "ChatGPT container, Python 3.13.5"
+  },
+  "demonstration_scenarios": {
+    "A": {
+      "evaporation_g": 63.650008,
+      "absorption_g": 216,
+      "water_shortfall_g": 0
+    },
+    "B": {
+      "evaporation_g": 139.59572,
+      "absorption_g": 168.40428,
+      "water_shortfall_g": 47.59572
+    },
+    "C": {
+      "evaporation_g": 16.777818,
+      "absorption_g": 94.668912,
+      "water_shortfall_g": 121.331088
+    },
+    "D": {
+      "error": "UNKNOWN required field -> rejected"
+    }
+  },
+  "deliverable": {
+    "zip": "RIZ112_ETAPE4_Noyau_Mathematique_2026-10-16.zip",
+    "sha256": "5e28c684e0cd2743db8e95c7ced0625bbfd05d8fd02fc559e4663424e7c52764",
+    "zip_bytes": 29039,
+    "zip_members": 18,
+    "chatgpt_library": "/RIZ112_LAB/ETAPE4_2026-10-16/RIZ112_ETAPE4_Noyau_Mathematique_2026-10-16.zip"
+  },
+  "scientific_limits": [
+    "Not a validated rice-quality physical model; contains strong simplifying assumptions",
+    "Declared pre-start timestamps are not independently attested",
+    "Surface starch proxy NOT used to predict texture",
+    "Three numeric scenarios do not constitute trained or calibrated probabilities",
+    "The production MATRICE engine, gates and scientific status remain unchanged"
+  ],
+  "next": "Step 5: define reproducible quality measurements; gather real pre-start input + post-process quality data; learn and calibrate probability without post-start leakage."
+}
