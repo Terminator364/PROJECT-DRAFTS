@@ -9,8 +9,8 @@
   "mandate": "MANDAT_FINITION_112.md",
   "mandate_active": true,
   "journal": {
-    "events": 43,
-    "head": "4be74d393d10d875e84635627220dda7a32c889dcacaec1de19e28cc29ec762f"
+    "events": 45,
+    "head": "a0152341199c6107a78bfe7e63a95e6d364951ab46810d6be7cb38041d3c3a9c"
   },
   "cases": {
     "catalogued": 112,
@@ -49,5 +49,18 @@
   "matrice": {
     "sports_engine_modified": false,
     "transfer_only_methods": true
+  },
+  "mirrors": {
+    "github": "MASTER_AND_CODE_PUBLISHED_PENDING_FINAL_CHECKPOINT_UPDATE",
+    "library": "STAGE8_ARCHIVE_AND_FILES_PRESENT_BASE_VERSION",
+    "drive": "V8_ARCHIVE_UPLOADED_206876B_VERIFIED_METADATA_NO_REMOTE_SHA",
+    "windows": "MBMPC_OFFLINE_NOT_TESTED"
+  },
+  "drive_initial_v8": {
+    "id": "11zabEXKov7S34KNtjX-WljTvTjIsOT5u",
+    "url": "https://drive.google.com/file/d/11zabEXKov7S34KNtjX-WljTvTjIsOT5u/view?usp=drivesdk",
+    "bytes": 206876,
+    "sha256_source": "0571e6723fd082f26e67c511acf58ea7d7f79c78e859587adab4a941bb177a62",
+    "remote_sha_verified": false
   }
 }
