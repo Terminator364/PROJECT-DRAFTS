@@ -81,7 +81,7 @@
     "model_sports_validation": "NOT_PROVEN"
   },
   "sources_note": "GitHub holds the continuity documents. Engine ZIP remains available via ChatGPT Delivery; do not infer that the archive has been transferred/extracted to Windows.",
-  "latest_specialized_checkpoint": "MOTEUR-BLESSING/mb1/CHECKPOINT_MB1_20261016.json",
+  "latest_specialized_checkpoint": "MOTEUR-BLESSING/mb1/CHECKPOINT_MB1_SOURCE_RECOVERED_20261016.json",
   "mb1": {
     "status": "PARTIAL_NOT_COMPLETE",
     "source": "V1.1.2",
