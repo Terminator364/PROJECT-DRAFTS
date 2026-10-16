@@ -1,0 +1,56 @@
+{
+  "schema": "riz112/delivery-index/v1",
+  "date": "2026-10-16",
+  "canonical_master": "MOTEUR-BLESSING/labs/RIZ112/CAHIER_MERE.md",
+  "canonical_checkpoint": "MOTEUR-BLESSING/labs/RIZ112/CHECKPOINT.json",
+  "journal": "MOTEUR-BLESSING/labs/RIZ112/journal/JOURNAL_EVENEMENTS.jsonl",
+  "transfer_contract": "MOTEUR-BLESSING/labs/RIZ112/TRANSFERT_MATRICE.md",
+  "code_continuity": "RIZ112|CONTINUE",
+  "complete_archive": {
+    "filename": "RIZ112_CAHIER_MERE_ETAPE5_2026-10-16.zip",
+    "bytes": 84597,
+    "sha256": "1dca77c3bb458ae8d3074c7bedd2798b0fb5af5b1cfb5c6b272e7e6e20f3c201",
+    "members": 35,
+    "original_step4_archive_inside": true
+  },
+  "drive": {
+    "folder_id": "1oMXQp39wS0xaygFt2SWm7hII77fHxedP",
+    "folder_url": "https://drive.google.com/drive/folders/1oMXQp39wS0xaygFt2SWm7hII77fHxedP",
+    "file_id": "1XbetKUEreDBNn2GUL6MhWttD4-2bscgT",
+    "file_url": "https://drive.google.com/file/d/1XbetKUEreDBNn2GUL6MhWttD4-2bscgT/view?usp=drivesdk",
+    "bytes_verified_from_metadata": 84597,
+    "shared": false,
+    "sha_verification": "local source file only; Drive backend does not expose per-file SHA256 readback"
+  },
+  "library": {
+    "path": "/RIZ112_LAB/CAHIER_MERE_ETAPE5_2026-10-16/RIZ112_CAHIER_MERE_ETAPE5_2026-10-16.zip",
+    "library_file_id": "libfile_4e23ada96ec0819180c094c865326a80",
+    "success": true
+  },
+  "github": {
+    "published_master_checkpoint_and_scripts": true,
+    "verified_exact_blobs": 15,
+    "stage5_full_tests_in_archive": true,
+    "stage5_full_tests_published_as_individual_file": false
+  },
+  "windows": {
+    "device": "MBMPC",
+    "reported_status": "Offline",
+    "last_seen": "10h ago",
+    "stage5_sync": "NOT_DONE",
+    "stage5_tests": "NOT_RUN"
+  },
+  "tests": {
+    "original_step4": 22,
+    "step5": 31,
+    "journal": 10,
+    "passed": 63,
+    "location": "ChatGPT container"
+  },
+  "scientific": {
+    "quality_rubric": "DRAFT_NOT_APPROVED",
+    "real_trials": 0,
+    "IC_percent": null,
+    "matrice_engine_unchanged": true
+  }
+}
