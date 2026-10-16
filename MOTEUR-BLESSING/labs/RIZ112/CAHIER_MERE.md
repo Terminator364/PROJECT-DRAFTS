@@ -197,3 +197,15 @@ Ne jamais remplacer cette chaîne par une baseline de fréquence ou une moyenne 
 **État d'intégrité des 112 :** tous les rôles pré-T0/cibles/gardes sont parcourus et traçables ; seules quatre dimensions fictives alimentent Q* ; les dix autres sous-critères finaux ne sont pas simulés, et la majorité des rôles ne sont pas associés à des paramètres de lois physiques vérifiés. **Une chaîne logicielle fonctionnelle de démonstration n'est pas le modèle intégral scientifiquement validé** demandé à terme. Le mandat D014 reste une contrainte active de transparence ; ne pas prétendre qu'un effet de chaque case sur le résultat réel a été appris.
 
 **Pour MATRICE :** transférer les règles de contrôle T0, de lignage, de simulation incertaine et de séparation `REFERENCE / DEMO / SCIENTIFIQUEMENT CALIBRÉ` ; ne transférer **aucun coefficient, aucune distribution, aucun pourcentage alimentaire**. La validation OOS prématch reste impérative pour les vrais IC Over 1,5.
+
+## §15 — Étape 10 : épreuve contradictoire des **112 contributions réelles** — 17 octobre 2026
+
+Suite au contrôle demandé implicitement par le signal « 👀 », vérification directe du code V9 : il utilisait quatre seules dimensions fictives de qualité, malgré l'exécution contractuelle de 112 rôles. **Une nouvelle démonstration chiffrée n'est pas une preuve d'intégration de tous les paramètres.**
+
+**Expérience :** intervention unitaire sur les 112 cases du JSON A, 3 000 tirages chacun avec graine fixe. **11** cas changent le pourcentage de démonstration ; **5** entraînent un refus ; **92** ne changent pas la valeur finale ; **4** variables sont calculées, donc non mutables directement. Les 112 interventions ont été réalisées sans erreur technique. Voir `step10/INTERVENTIONS_112_STAGE9.json`.
+
+**Anomalie critique :** en V9, modifier chacune des 14 définitions de qualité future laissait l'IC démonstratif inchangé. Un score qui ne dépend pas du contrat-cible ne peut être présenté comme une probabilité de ce contrat. Correction V10 : liaison par empreinte SHA256 des 14 cibles, **abstention** dès qu'une seule change ou devient indéfinie. Pour une modification approuvée, une nouvelle version explicite de cible et sa validation seront requises. Cela ne valide pas le barème lui-même.
+
+**État après correction :** 185 tests antérieurs + 20 tests V10 = **205/205 PASS** dans l'environnement ChatGPT ; résultats fictifs A/B/C conservés lorsque le contrat de démonstration ne change pas. L'IC scientifique reste `null`, qualité réelle observée n=0, les actions et politiques n'ont pas encore une influence numérique empirique établie sur Q.
+
+**Transfert à MATRICE :** une analyse doit exposer **le nombre de variables réellement influentes sur l'IC dans ce match particulier**, celles qui provoquent abstention, celles sans effet dans les conditions du match, et la provenance de la cible. Ne jamais présenter la totalité du catalogue comme « consommée par le calcul » sans ce contre-test.
