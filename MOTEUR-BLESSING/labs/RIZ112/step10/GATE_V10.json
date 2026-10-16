@@ -1,0 +1,7 @@
+{
+  "schema": "riz112/strict-demo-target-v10",
+  "scientific_approval": false,
+  "demo_quality_target_sha256": "f8069c0f12dda329bc24b5e215ad6d885803cd9b21a9be920fca9b16337889e8",
+  "target_spec_status": "UNAPPROVED_DRAFT",
+  "purpose": "When a target definition changes, abstain rather than emit unchanged demo IC; scientific IC always null"
+}
