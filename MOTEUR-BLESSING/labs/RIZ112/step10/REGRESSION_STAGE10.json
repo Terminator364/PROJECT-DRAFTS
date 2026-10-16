@@ -1,0 +1,76 @@
+{
+  "all_passed": true,
+  "total": 205,
+  "suites": [
+    {
+      "group": "original_stage4",
+      "file": "tests/test_riz112.py",
+      "count": 21,
+      "returncode": 0,
+      "tail": "----------------------------------------------------------------------\nRan 21 tests in 0.002s\n\nOK\n"
+    },
+    {
+      "group": "original_stage4",
+      "file": "tests/test_compare.py",
+      "count": 1,
+      "returncode": 0,
+      "tail": "----------------------------------------------------------------------\nRan 1 test in 0.001s\n\nOK\n"
+    },
+    {
+      "group": "step5",
+      "file": "step5/test_study_design.py",
+      "count": 31,
+      "returncode": 0,
+      "tail": "----------------------------------------------------------------------\nRan 31 tests in 0.007s\n\nOK\n"
+    },
+    {
+      "group": "journal",
+      "file": "journal/test_journal.py",
+      "count": 10,
+      "returncode": 0,
+      "tail": "----------------------------------------------------------------------\nRan 10 tests in 0.008s\n\nOK\n"
+    },
+    {
+      "group": "step6",
+      "file": "step6/test_engine112.py",
+      "count": 42,
+      "returncode": 0,
+      "tail": "----------------------------------------------------------------------\nRan 42 tests in 0.153s\n\nOK\n"
+    },
+    {
+      "group": "step7",
+      "file": "step7/test_graph_governor.py",
+      "count": 31,
+      "returncode": 0,
+      "tail": "----------------------------------------------------------------------\nRan 31 tests in 0.047s\n\nOK\n"
+    },
+    {
+      "group": "step7",
+      "file": "step7/test_gap_ledger.py",
+      "count": 5,
+      "returncode": 0,
+      "tail": "----------------------------------------------------------------------\nRan 5 tests in 0.678s\n\nOK\n"
+    },
+    {
+      "group": "step8",
+      "file": "step8/test_functional_routes.py",
+      "count": 19,
+      "returncode": 0,
+      "tail": "----------------------------------------------------------------------\nRan 19 tests in 0.192s\n\nOK\n"
+    },
+    {
+      "group": "step9",
+      "file": "step9/test_ic_simulation.py",
+      "count": 25,
+      "returncode": 0,
+      "tail": "----------------------------------------------------------------------\nRan 25 tests in 0.819s\n\nOK\n"
+    },
+    {
+      "group": "step10",
+      "file": "step10/test_stage10.py",
+      "count": 20,
+      "returncode": 0,
+      "tail": "----------------------------------------------------------------------\nRan 20 tests in 0.018s\n\nOK\n"
+    }
+  ]
+}
