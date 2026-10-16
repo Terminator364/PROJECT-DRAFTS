@@ -1,0 +1,56 @@
+{
+  "runs": [
+    {
+      "suite": "_stage4_original",
+      "tests": 22,
+      "passed": true,
+      "exit": 0,
+      "output_tail": "----------------------------------------------------------------------\nRan 22 tests in 0.004s\n\nOK\n"
+    },
+    {
+      "suite": "step5",
+      "tests": 31,
+      "passed": true,
+      "exit": 0,
+      "output_tail": "----------------------------------------------------------------------\nRan 31 tests in 0.013s\n\nOK\n"
+    },
+    {
+      "suite": "journal",
+      "tests": 10,
+      "passed": true,
+      "exit": 0,
+      "output_tail": "----------------------------------------------------------------------\nRan 10 tests in 0.007s\n\nOK\n"
+    },
+    {
+      "suite": "step6",
+      "tests": 42,
+      "passed": true,
+      "exit": 0,
+      "output_tail": "----------------------------------------------------------------------\nRan 42 tests in 0.227s\n\nOK\n"
+    },
+    {
+      "suite": "step7",
+      "tests": 36,
+      "passed": true,
+      "exit": 0,
+      "output_tail": "----------------------------------------------------------------------\nRan 36 tests in 1.298s\n\nOK\n"
+    },
+    {
+      "suite": "step8",
+      "tests": 19,
+      "passed": true,
+      "exit": 0,
+      "output_tail": "----------------------------------------------------------------------\nRan 19 tests in 0.294s\n\nOK\n"
+    },
+    {
+      "suite": "step9",
+      "tests": 25,
+      "passed": true,
+      "exit": 0,
+      "output_tail": "----------------------------------------------------------------------\nRan 25 tests in 1.178s\n\nOK\n"
+    }
+  ],
+  "total": 185,
+  "passed": 185,
+  "environment": "Python 3.13.5"
+}
