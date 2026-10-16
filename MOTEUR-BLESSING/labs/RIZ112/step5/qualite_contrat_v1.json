@@ -1,0 +1,22 @@
+{
+  "schema": "riz112/quality_protocol/v1",
+  "id": "RIZ112-Q85-DRAFT-20261016",
+  "status": "DRAFT_NOT_APPROVED",
+  "target": "Two portions of rice, soft and with separate grains",
+  "outcome_threshold_q_100": 85,
+  "start_boundary": "T0; all predictors must be frozen before preparation begins",
+  "measurement_dimensions": [
+    {"id":"tenderness", "definition":"degree of softness of cooked grains", "measurement_method":"TO_AGREE", "scale":"TO_AGREE", "weight":null, "veto_threshold":null},
+    {"id":"grain_separation", "definition":"fraction/degree of grains separated after resting; define sampling protocol", "measurement_method":"TO_AGREE", "scale":"TO_AGREE", "weight":null, "veto_threshold":null},
+    {"id":"uniformity", "definition":"variance in doneness across sampled portions", "measurement_method":"TO_AGREE", "scale":"TO_AGREE", "weight":null, "veto_threshold":null},
+    {"id":"grain_integrity", "definition":"fraction of intact grains, not same as separation", "measurement_method":"TO_AGREE", "scale":"TO_AGREE", "weight":null, "veto_threshold":null},
+    {"id":"free_water", "definition":"unabsorbed water at end of preparation by predefined observation", "measurement_method":"TO_AGREE", "scale":"TO_AGREE", "weight":null, "veto_threshold":null},
+    {"id":"burning", "definition":"observable burning/adverse taste and safety criterion", "measurement_method":"TO_AGREE", "scale":"TO_AGREE", "weight":null, "veto_threshold":null}
+  ],
+  "approved_weights": null,
+  "score_aggregation_formula": null,
+  "inter_observer_agreement_protocol": null,
+  "approved_by_user": false,
+  "registered_before_first_real_trial": false,
+  "scientific_status": "NO_LABELED_REAL_TRIALS; IC MUST BE null"
+}
