@@ -1,0 +1,90 @@
+{
+  "schema": "public-qa-mirror-v1",
+  "created_utc": "2026-10-16",
+  "source_repo": "Terminator364/ChatGPT-PC",
+  "source_branch": "audit/dc-oneclick-windows-qa-20261015",
+  "source_commit_at_manifest_creation": "7565c394433ff2d8dc324c449bb8ee334448428b",
+  "security": "Explicit reviewed source allowlist only; no credentials, Telegram, runtime truth or private CI inputs.",
+  "files": [
+    {
+      "path": "tools/dc_oneclick_qa/g5_network_policy.h",
+      "git_blob_sha1": "18cb9d3ee46f6408eb123d4ab9665f851e6c7b37"
+    },
+    {
+      "path": "tools/dc_oneclick_qa/g5_policy_matrix_test.cpp",
+      "git_blob_sha1": "dc9cc22480cb52dc3c2c1dd8681e4f364b41acf0"
+    },
+    {
+      "path": "tools/dc_oneclick_qa/g5_wifi_native.h",
+      "git_blob_sha1": "238998c4fb3619df68def13df87019718697042b"
+    },
+    {
+      "path": "tools/dc_oneclick_qa/g5_windows_lab.ps1",
+      "git_blob_sha1": "7453f44e77197159faddbca0d8cae69465bbe730"
+    },
+    {
+      "path": "tools/dc_oneclick_qa/g6_approved_networks.h",
+      "git_blob_sha1": "e2b97ea928c131833f163f5027e4c246dbd9b632"
+    },
+    {
+      "path": "tools/dc_oneclick_qa/g6_fastpath_lab.ps1",
+      "git_blob_sha1": "f4ba67911fa79066e05135a3aa3d3587471d0fd7"
+    },
+    {
+      "path": "tools/dc_oneclick_qa/g6_manager_ui.h",
+      "git_blob_sha1": "3346cd943a300f27587bada5c6a9e570b242d978"
+    },
+    {
+      "path": "tools/dc_oneclick_qa/g6_parallel_settings_lab.ps1",
+      "git_blob_sha1": "3123bdc1e8296187cddabe20c8859a2357a4757e"
+    },
+    {
+      "path": "tools/dc_oneclick_qa/g6_profile_stress_test.cpp",
+      "git_blob_sha1": "395d1b7b61f2b041713723e3b0197cac35967842"
+    },
+    {
+      "path": "tools/dc_oneclick_qa/g6_ui_settings_lab.ps1",
+      "git_blob_sha1": "70f3c05813f94a7dec8efff24107424f23863db7"
+    },
+    {
+      "path": "tools/dc_oneclick_qa/g6_wifi_native.h",
+      "git_blob_sha1": "32d9d75044f8f48caad5764cd2a9b2348fbc73ee"
+    },
+    {
+      "path": "tools/dc_oneclick_qa/g6_windows_lab.ps1",
+      "git_blob_sha1": "5deebb9d53c75f588cd80795cccdf4e100fde085"
+    },
+    {
+      "path": "tools/dc_oneclick_qa/reconnect_contract.py",
+      "git_blob_sha1": "889c23e463c295e599958c3903d43c1603fc4595"
+    },
+    {
+      "path": "tools/dc_oneclick_qa/remote_native.cpp",
+      "git_blob_sha1": "ec909c71d52ca6df16f43960b52209cb6d5b4e52"
+    },
+    {
+      "path": "tools/dc_oneclick_qa/remote_native_g4.cpp",
+      "git_blob_sha1": "73323ef3e98f707456225e03ae872232d597fc93"
+    },
+    {
+      "path": "tools/dc_oneclick_qa/remote_native_g5.cpp",
+      "git_blob_sha1": "2e74e8a1d894964d538501211385acb7d3a0a71c"
+    },
+    {
+      "path": "tools/dc_oneclick_qa/remote_native_g6.cpp",
+      "git_blob_sha1": "dab37d47dcda25b97da1329e10089ef31f557328"
+    },
+    {
+      "path": "tools/dc_oneclick_qa/windows_native_g4_test.ps1",
+      "git_blob_sha1": "0b487aed567bcb1b61787772e26bb032b013d8b6"
+    },
+    {
+      "path": "tools/dc_oneclick_qa/windows_native_test.ps1",
+      "git_blob_sha1": "50fc4711ae052f876bdd6360d6d623a98ff01432"
+    },
+    {
+      "path": "tests/dc_oneclick_qa/test_contract.py",
+      "git_blob_sha1": "685ede7e75213b60388ce187135227a1b03f2922"
+    }
+  ]
+}
