@@ -1,0 +1,53 @@
+{
+  "schema": "riz112/master-continuity/v4",
+  "project": "RIZ112_lab_to_MATRICE",
+  "date": "2026-10-16",
+  "stage": 8,
+  "status": "STAGE8_D014_62_EXECUTABLE_ROUTINGS__Q_AND_IC_NOT_COMPLETED",
+  "continuity_code": "RIZ112|CONTINUE",
+  "master": "CAHIER_MERE.md",
+  "mandate": "MANDAT_FINITION_112.md",
+  "mandate_active": true,
+  "journal": {
+    "events": 43,
+    "head": "4be74d393d10d875e84635627220dda7a32c889dcacaec1de19e28cc29ec762f"
+  },
+  "cases": {
+    "catalogued": 112,
+    "D014_missing_before_stage8": 62,
+    "stage8_typed_routes": 62,
+    "routes_by_kind": {
+      "PRESTART_EVIDENCE_OR_CONSTRAINT": 22,
+      "PRESTART_FORECAST": 3,
+      "PLANNED_ACTION_FEASIBILITY": 26,
+      "PREDECLARED_CONDITIONAL_POLICY": 11
+    },
+    "cases_with_validated_Q_effect": 0,
+    "forecast_044_NO_FORMULA": true,
+    "poststart_labels_used_as_predictor": 0,
+    "scientific_IC": null
+  },
+  "tests": {
+    "old_step4": 22,
+    "old_step5": 31,
+    "journal": 10,
+    "old_step6": 42,
+    "old_step7": 36,
+    "new_step8": 19,
+    "total": 160,
+    "passed": 160,
+    "environment": "ChatGPT container Linux Python 3.13.5",
+    "windows": "NOT_TESTED"
+  },
+  "scientific": {
+    "quality_rubric_approved": false,
+    "real_rice_trials": 0,
+    "calibrated_ic": null,
+    "status": "NOT_VALIDATED"
+  },
+  "next": "Do NOT stop at 62 typed routes: close actual mechanism/target links with justified empirical or physical laws, document Q rubric, obtain prestart/afterstart real data, validate IC; preserve D014 mandate.",
+  "matrice": {
+    "sports_engine_modified": false,
+    "transfer_only_methods": true
+  }
+}
