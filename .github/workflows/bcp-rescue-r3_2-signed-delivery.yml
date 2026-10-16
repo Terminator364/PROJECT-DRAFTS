@@ -1,0 +1,49 @@
+name: BCP USB Rescue R3.2 - one-shot signed APK delivery
+on:
+  push:
+    branches:
+      - work/usb-phone-rescue-lab-2026-10-12
+    paths:
+      - USB-PHONE-RESCUE-LAB/ci-r32-signed-delivery-20261016.txt
+permissions:
+  contents: read
+jobs:
+  deliver:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Verify real MBMPC-signed APK
+        shell: bash
+        run: |
+          set -euo pipefail
+          base64 -d USB-PHONE-RESCUE-LAB/release/R32_SIGNED_TEMP_APK.b64 > BCP-USB-Rescue-R3.2.apk
+          test -s BCP-USB-Rescue-R3.2.apk
+          echo '7f5080b77950211b3173428732daee5969db2ad0e0eaecb518e3eba84a5ee25f  BCP-USB-Rescue-R3.2.apk' | sha256sum -c -
+          test "$(wc -c < BCP-USB-Rescue-R3.2.apk)" -eq 45815
+          SDK="$(find "$ANDROID_HOME/build-tools" -name apksigner -type f | sort -V | tail -1)"
+          test -x "$SDK"
+          "$SDK" verify --verbose --print-certs BCP-USB-Rescue-R3.2.apk | tee APK_CERTIFICATE.txt
+          grep -F 'c684f5e647f9a4904d76da89b489b69d02a042683de80cd47260126d5b66b3cf' APK_CERTIFICATE.txt
+          AAPT="$(dirname "$SDK")/aapt"
+          "$AAPT" dump badging BCP-USB-Rescue-R3.2.apk | grep '^package:' | tee APK_IDENTITY.txt
+          grep -F "name='com.blessing.rescuebridge'" APK_IDENTITY.txt
+          grep -F "versionCode='4'" APK_IDENTITY.txt
+          unzip -t BCP-USB-Rescue-R3.2.apk | tail -3 > APK_ZIP_INTEGRITY.txt
+          sha256sum BCP-USB-Rescue-R3.2.apk > APK_SHA256.txt
+          printf 'Private signing key stays on MBMPC; Android v2/v3 signed APK. Real USB Samsung connection is not field-proven.\n' > LIMITS.txt
+      - name: Deliver APK and hashes
+        uses: actions/upload-artifact@v4
+        with:
+          name: BCP-USB-Rescue-R3.2-SIGNED-DURABLE-APK
+          path: |
+            BCP-USB-Rescue-R3.2.apk
+            APK_CERTIFICATE.txt
+            APK_IDENTITY.txt
+            APK_ZIP_INTEGRITY.txt
+            APK_SHA256.txt
+            LIMITS.txt
+          retention-days: 7
+          if-no-files-found: error
