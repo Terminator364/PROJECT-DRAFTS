@@ -31,7 +31,10 @@
     "published_master_checkpoint_and_scripts": true,
     "verified_exact_blobs": 15,
     "stage5_full_tests_in_archive": true,
-    "stage5_full_tests_published_as_individual_file": false
+    "stage5_full_tests_published_as_individual_file": false,
+    "verified_exact_journal_blob": "9bdafe38cdd5be0bbaa9782eab78898c2ed25cc9",
+    "verified_checkpoint_blob": "33da5ed4855f39e4c9f38b5b63df68258b2e954e",
+    "local_full_manifest_in_zip": true
   },
   "windows": {
     "device": "MBMPC",
@@ -52,5 +55,20 @@
     "real_trials": 0,
     "IC_percent": null,
     "matrice_engine_unchanged": true
-  }
+  },
+  "final_synchronized_archive": {
+    "filename": "RIZ112_CAHIER_MERE_ETAPE5_SYNCHRO_2026-10-16.zip",
+    "bytes": 87045,
+    "sha256": "6fc5c03d44a605781c66e8f561ed3c1a5fc76ad00c21026cbe98b86a64dbf06b",
+    "members": 36,
+    "crc": "PASS",
+    "drive_id": "1JRFayl6zSgQfyQoJBdxj62I97v4vQ1AL",
+    "drive_url": "https://drive.google.com/file/d/1JRFayl6zSgQfyQoJBdxj62I97v4vQ1AL/view?usp=drivesdk",
+    "drive_size_readback": 87045,
+    "drive_shared": false,
+    "library_id": "libfile_66c0794d87608191a23c877acaca6383",
+    "library_path": "/RIZ112_LAB/CAHIER_MERE_ETAPE5_2026-10-16/RIZ112_CAHIER_MERE_ETAPE5_SYNCHRO_2026-10-16.zip"
+  },
+  "journal_head": "dba05a6ddea8f0f156cc991dc5c7932c69470da481c72a3fc507d0911a794b9a",
+  "journal_events": 23
 }
