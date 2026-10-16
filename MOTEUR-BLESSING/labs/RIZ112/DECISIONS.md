@@ -14,3 +14,5 @@
 
 ### Principe des corrections
 Une correction ne remplace pas une décision antérieure dans le journal : créer une nouvelle entrée citant son ID et les éléments qui la contredisent. Conserver comme distinction principale *la demande de l'utilisateur*, *notre interprétation*, *l'implémentation testée* et *la preuve de réussite réelle*.
+| D010 | Utilisateur, 2026-10-16 | Les **112 cases doivent contribuer réellement**, pas seulement les 15 du noyau initial ; synchronisation continue entre reprises | Test d'exhaustivité 112/112, trace d'opération + chemin/limite, refus de feindre 112 effets causaux | EXÉCUTÉ COMME CONTRAT / PHYSIQUE PARTIELLE |
+| D011 | Contre-audit, 2026-10-16 | Contribution au protocole/gouvernance/étiquette ≠ contribution numérique au mécanisme ≠ effet prédictif validé | Reporter les trois couvertures séparément ; ne jamais promouvoir à « modèle intégral validé » | CORRECTION DE PORTÉE |
