@@ -1,0 +1,903 @@
+{
+  "schema": "riz112/roles/step4",
+  "target": "Q>=85/100 after preparation; IC prestart",
+  "cases": [
+    {
+      "id": "001",
+      "name": "Masse de riz disponible",
+      "family": "matiere",
+      "temporal_role": "PRESTART_OBSERVATION_OR_HYPOTHESIS",
+      "stage4_exec": "MECHANISM_PARTIAL",
+      "calibrated_independent_effect": false
+    },
+    {
+      "id": "002",
+      "name": "Eau potable disponible",
+      "family": "matiere",
+      "temporal_role": "PRESTART_OBSERVATION_OR_HYPOTHESIS",
+      "stage4_exec": "NOT_EXECUTED",
+      "calibrated_independent_effect": false
+    },
+    {
+      "id": "003",
+      "name": "Sel disponible",
+      "family": "matiere",
+      "temporal_role": "PRESTART_OBSERVATION_OR_HYPOTHESIS",
+      "stage4_exec": "NOT_EXECUTED",
+      "calibrated_independent_effect": false
+    },
+    {
+      "id": "004",
+      "name": "Matière grasse éventuelle",
+      "family": "matiere",
+      "temporal_role": "PRESTART_OBSERVATION_OR_HYPOTHESIS",
+      "stage4_exec": "NOT_EXECUTED",
+      "calibrated_independent_effect": false
+    },
+    {
+      "id": "005",
+      "name": "Eau de rinçage disponible",
+      "family": "matiere",
+      "temporal_role": "PRESTART_OBSERVATION_OR_HYPOTHESIS",
+      "stage4_exec": "NOT_EXECUTED",
+      "calibrated_independent_effect": false
+    },
+    {
+      "id": "006",
+      "name": "Source d’énergie",
+      "family": "matiere",
+      "temporal_role": "PRESTART_OBSERVATION_OR_HYPOTHESIS",
+      "stage4_exec": "NOT_EXECUTED",
+      "calibrated_independent_effect": false
+    },
+    {
+      "id": "007",
+      "name": "Fiabilité de la source d’énergie",
+      "family": "matiere",
+      "temporal_role": "PRESTART_OBSERVATION_OR_HYPOTHESIS",
+      "stage4_exec": "NOT_EXECUTED",
+      "calibrated_independent_effect": false
+    },
+    {
+      "id": "008",
+      "name": "Capacité de la casserole",
+      "family": "materiel",
+      "temporal_role": "PRESTART_OBSERVATION_OR_HYPOTHESIS",
+      "stage4_exec": "NOT_EXECUTED",
+      "calibrated_independent_effect": false
+    },
+    {
+      "id": "009",
+      "name": "Diamètre de la casserole",
+      "family": "materiel",
+      "temporal_role": "PRESTART_OBSERVATION_OR_HYPOTHESIS",
+      "stage4_exec": "NOT_EXECUTED",
+      "calibrated_independent_effect": false
+    },
+    {
+      "id": "010",
+      "name": "Matériau de la casserole",
+      "family": "materiel",
+      "temporal_role": "PRESTART_OBSERVATION_OR_HYPOTHESIS",
+      "stage4_exec": "NOT_EXECUTED",
+      "calibrated_independent_effect": false
+    },
+    {
+      "id": "011",
+      "name": "Épaisseur du fond",
+      "family": "materiel",
+      "temporal_role": "PRESTART_OBSERVATION_OR_HYPOTHESIS",
+      "stage4_exec": "NOT_EXECUTED",
+      "calibrated_independent_effect": false
+    },
+    {
+      "id": "012",
+      "name": "État du fond",
+      "family": "materiel",
+      "temporal_role": "PRESTART_OBSERVATION_OR_HYPOTHESIS",
+      "stage4_exec": "NOT_EXECUTED",
+      "calibrated_independent_effect": false
+    },
+    {
+      "id": "013",
+      "name": "Présence du couvercle",
+      "family": "materiel",
+      "temporal_role": "PRESTART_OBSERVATION_OR_HYPOTHESIS",
+      "stage4_exec": "NOT_EXECUTED",
+      "calibrated_independent_effect": false
+    },
+    {
+      "id": "014",
+      "name": "Ajustement du couvercle",
+      "family": "materiel",
+      "temporal_role": "PRESTART_OBSERVATION_OR_HYPOTHESIS",
+      "stage4_exec": "MECHANISM_PARTIAL",
+      "calibrated_independent_effect": false
+    },
+    {
+      "id": "015",
+      "name": "Évacuation de la vapeur",
+      "family": "materiel",
+      "temporal_role": "PRESTART_OBSERVATION_OR_HYPOTHESIS",
+      "stage4_exec": "NOT_EXECUTED",
+      "calibrated_independent_effect": false
+    },
+    {
+      "id": "016",
+      "name": "Type de foyer",
+      "family": "materiel",
+      "temporal_role": "PRESTART_OBSERVATION_OR_HYPOTHESIS",
+      "stage4_exec": "NOT_EXECUTED",
+      "calibrated_independent_effect": false
+    },
+    {
+      "id": "017",
+      "name": "Réglage de puissance",
+      "family": "materiel",
+      "temporal_role": "PRESTART_OBSERVATION_OR_HYPOTHESIS",
+      "stage4_exec": "NOT_EXECUTED",
+      "calibrated_independent_effect": false
+    },
+    {
+      "id": "018",
+      "name": "Répartition de la chaleur",
+      "family": "materiel",
+      "temporal_role": "PRESTART_OBSERVATION_OR_HYPOTHESIS",
+      "stage4_exec": "NOT_EXECUTED",
+      "calibrated_independent_effect": false
+    },
+    {
+      "id": "019",
+      "name": "Balance",
+      "family": "materiel",
+      "temporal_role": "PRESTART_OBSERVATION_OR_HYPOTHESIS",
+      "stage4_exec": "NOT_EXECUTED",
+      "calibrated_independent_effect": false
+    },
+    {
+      "id": "020",
+      "name": "Instrument de mesure de l’eau",
+      "family": "materiel",
+      "temporal_role": "PRESTART_OBSERVATION_OR_HYPOTHESIS",
+      "stage4_exec": "NOT_EXECUTED",
+      "calibrated_independent_effect": false
+    },
+    {
+      "id": "021",
+      "name": "Passoire",
+      "family": "materiel",
+      "temporal_role": "PRESTART_OBSERVATION_OR_HYPOTHESIS",
+      "stage4_exec": "NOT_EXECUTED",
+      "calibrated_independent_effect": false
+    },
+    {
+      "id": "022",
+      "name": "Ustensile pour remuer",
+      "family": "materiel",
+      "temporal_role": "PRESTART_OBSERVATION_OR_HYPOTHESIS",
+      "stage4_exec": "NOT_EXECUTED",
+      "calibrated_independent_effect": false
+    },
+    {
+      "id": "023",
+      "name": "Récipient de service",
+      "family": "materiel",
+      "temporal_role": "PRESTART_OBSERVATION_OR_HYPOTHESIS",
+      "stage4_exec": "NOT_EXECUTED",
+      "calibrated_independent_effect": false
+    },
+    {
+      "id": "024",
+      "name": "Variété",
+      "family": "riz",
+      "temporal_role": "PRESTART_OBSERVATION_OR_HYPOTHESIS",
+      "stage4_exec": "MECHANISM_PARTIAL",
+      "calibrated_independent_effect": false
+    },
+    {
+      "id": "025",
+      "name": "Longueur des grains",
+      "family": "riz",
+      "temporal_role": "PRESTART_OBSERVATION_OR_HYPOTHESIS",
+      "stage4_exec": "NOT_EXECUTED",
+      "calibrated_independent_effect": false
+    },
+    {
+      "id": "026",
+      "name": "Traitement du riz",
+      "family": "riz",
+      "temporal_role": "PRESTART_OBSERVATION_OR_HYPOTHESIS",
+      "stage4_exec": "NOT_EXECUTED",
+      "calibrated_independent_effect": false
+    },
+    {
+      "id": "027",
+      "name": "Lot et provenance",
+      "family": "riz",
+      "temporal_role": "PRESTART_OBSERVATION_OR_HYPOTHESIS",
+      "stage4_exec": "NOT_EXECUTED",
+      "calibrated_independent_effect": false
+    },
+    {
+      "id": "028",
+      "name": "Ancienneté et conservation",
+      "family": "riz",
+      "temporal_role": "PRESTART_OBSERVATION_OR_HYPOTHESIS",
+      "stage4_exec": "NOT_EXECUTED",
+      "calibrated_independent_effect": false
+    },
+    {
+      "id": "029",
+      "name": "Grains cassés",
+      "family": "riz",
+      "temporal_role": "PRESTART_OBSERVATION_OR_HYPOTHESIS",
+      "stage4_exec": "NOT_EXECUTED",
+      "calibrated_independent_effect": false
+    },
+    {
+      "id": "030",
+      "name": "Amidon de surface",
+      "family": "riz",
+      "temporal_role": "PRESTART_OBSERVATION_OR_HYPOTHESIS",
+      "stage4_exec": "MECHANISM_PARTIAL",
+      "calibrated_independent_effect": false
+    },
+    {
+      "id": "031",
+      "name": "Impuretés",
+      "family": "riz",
+      "temporal_role": "PRESTART_OBSERVATION_OR_HYPOTHESIS",
+      "stage4_exec": "NOT_EXECUTED",
+      "calibrated_independent_effect": false
+    },
+    {
+      "id": "032",
+      "name": "Humidité initiale",
+      "family": "riz",
+      "temporal_role": "PRESTART_OBSERVATION_OR_HYPOTHESIS",
+      "stage4_exec": "NOT_EXECUTED",
+      "calibrated_independent_effect": false
+    },
+    {
+      "id": "033",
+      "name": "Capacité et vitesse d’absorption",
+      "family": "riz",
+      "temporal_role": "PRESTART_OBSERVATION_OR_HYPOTHESIS",
+      "stage4_exec": "MECHANISM_PARTIAL",
+      "calibrated_independent_effect": false
+    },
+    {
+      "id": "034",
+      "name": "Comportement à la gélatinisation",
+      "family": "riz",
+      "temporal_role": "PRESTART_OBSERVATION_OR_HYPOTHESIS",
+      "stage4_exec": "MECHANISM_PARTIAL",
+      "calibrated_independent_effect": false
+    },
+    {
+      "id": "035",
+      "name": "Eau ajoutée",
+      "family": "conditions",
+      "temporal_role": "PRESTART_OBSERVATION_OR_HYPOTHESIS",
+      "stage4_exec": "MECHANISM_PARTIAL",
+      "calibrated_independent_effect": false
+    },
+    {
+      "id": "036",
+      "name": "Eau résiduelle après rinçage",
+      "family": "conditions",
+      "temporal_role": "PRESTART_OBSERVATION_OR_HYPOTHESIS",
+      "stage4_exec": "MECHANISM_PARTIAL",
+      "calibrated_independent_effect": false
+    },
+    {
+      "id": "037",
+      "name": "Température initiale de l’eau",
+      "family": "conditions",
+      "temporal_role": "PRESTART_OBSERVATION_OR_HYPOTHESIS",
+      "stage4_exec": "MECHANISM_PARTIAL",
+      "calibrated_independent_effect": false
+    },
+    {
+      "id": "038",
+      "name": "Température initiale du riz",
+      "family": "conditions",
+      "temporal_role": "PRESTART_OBSERVATION_OR_HYPOTHESIS",
+      "stage4_exec": "MECHANISM_PARTIAL",
+      "calibrated_independent_effect": false
+    },
+    {
+      "id": "039",
+      "name": "Température ambiante",
+      "family": "conditions",
+      "temporal_role": "PRESTART_OBSERVATION_OR_HYPOTHESIS",
+      "stage4_exec": "NOT_EXECUTED",
+      "calibrated_independent_effect": false
+    },
+    {
+      "id": "040",
+      "name": "Altitude et pression",
+      "family": "conditions",
+      "temporal_role": "PRESTART_OBSERVATION_OR_HYPOTHESIS",
+      "stage4_exec": "NOT_EXECUTED",
+      "calibrated_independent_effect": false
+    },
+    {
+      "id": "041",
+      "name": "Puissance choisie",
+      "family": "conditions",
+      "temporal_role": "PRESTART_OBSERVATION_OR_HYPOTHESIS",
+      "stage4_exec": "MECHANISM_PARTIAL",
+      "calibrated_independent_effect": false
+    },
+    {
+      "id": "042",
+      "name": "Transfert thermique",
+      "family": "conditions",
+      "temporal_role": "PRESTART_OBSERVATION_OR_HYPOTHESIS",
+      "stage4_exec": "MECHANISM_PARTIAL",
+      "calibrated_independent_effect": false
+    },
+    {
+      "id": "043",
+      "name": "Moment d’ébullition",
+      "family": "conditions",
+      "temporal_role": "ACTUAL_FUTURE_EVENT_FORBIDDEN__MAY_USE_PRESTART_FORECAST",
+      "stage4_exec": "NOT_EXECUTED",
+      "calibrated_independent_effect": false
+    },
+    {
+      "id": "044",
+      "name": "Stabilité du frémissement",
+      "family": "conditions",
+      "temporal_role": "ACTUAL_FUTURE_EVENT_FORBIDDEN__MAY_USE_PRESTART_FORECAST",
+      "stage4_exec": "NOT_EXECUTED",
+      "calibrated_independent_effect": false
+    },
+    {
+      "id": "045",
+      "name": "Évaporation estimée",
+      "family": "conditions",
+      "temporal_role": "PRESTART_OBSERVATION_OR_HYPOTHESIS",
+      "stage4_exec": "MECHANISM_PARTIAL",
+      "calibrated_independent_effect": false
+    },
+    {
+      "id": "046",
+      "name": "Fuites de vapeur",
+      "family": "conditions",
+      "temporal_role": "ACTUAL_FUTURE_EVENT_FORBIDDEN__MAY_USE_PRESTART_FORECAST",
+      "stage4_exec": "NOT_EXECUTED",
+      "calibrated_independent_effect": false
+    },
+    {
+      "id": "047",
+      "name": "Durée de cuisson envisagée",
+      "family": "conditions",
+      "temporal_role": "PRESTART_OBSERVATION_OR_HYPOTHESIS",
+      "stage4_exec": "MECHANISM_PARTIAL",
+      "calibrated_independent_effect": false
+    },
+    {
+      "id": "048",
+      "name": "Bilan hydrique prévisionnel",
+      "family": "conditions",
+      "temporal_role": "PRESTART_OBSERVATION_OR_HYPOTHESIS",
+      "stage4_exec": "NOT_EXECUTED",
+      "calibrated_independent_effect": false
+    },
+    {
+      "id": "049",
+      "name": "Vérifier les portions",
+      "family": "actions",
+      "temporal_role": "PLANNED_ACTION_BEFORE_T0_ONLY",
+      "stage4_exec": "NOT_EXECUTED",
+      "calibrated_independent_effect": false
+    },
+    {
+      "id": "050",
+      "name": "Peser le riz",
+      "family": "actions",
+      "temporal_role": "PLANNED_ACTION_BEFORE_T0_ONLY",
+      "stage4_exec": "NOT_EXECUTED",
+      "calibrated_independent_effect": false
+    },
+    {
+      "id": "051",
+      "name": "Trier et inspecter",
+      "family": "actions",
+      "temporal_role": "PLANNED_ACTION_BEFORE_T0_ONLY",
+      "stage4_exec": "NOT_EXECUTED",
+      "calibrated_independent_effect": false
+    },
+    {
+      "id": "052",
+      "name": "Choisir la méthode",
+      "family": "actions",
+      "temporal_role": "PLANNED_ACTION_BEFORE_T0_ONLY",
+      "stage4_exec": "NOT_EXECUTED",
+      "calibrated_independent_effect": false
+    },
+    {
+      "id": "053",
+      "name": "Préparer le dosage initial",
+      "family": "actions",
+      "temporal_role": "PLANNED_ACTION_BEFORE_T0_ONLY",
+      "stage4_exec": "NOT_EXECUTED",
+      "calibrated_independent_effect": false
+    },
+    {
+      "id": "054",
+      "name": "Décider du rinçage",
+      "family": "actions",
+      "temporal_role": "PLANNED_ACTION_BEFORE_T0_ONLY",
+      "stage4_exec": "MECHANISM_PARTIAL",
+      "calibrated_independent_effect": false
+    },
+    {
+      "id": "055",
+      "name": "Premier rinçage",
+      "family": "actions",
+      "temporal_role": "PLANNED_ACTION_BEFORE_T0_ONLY",
+      "stage4_exec": "NOT_EXECUTED",
+      "calibrated_independent_effect": false
+    },
+    {
+      "id": "056",
+      "name": "Rinçage complémentaire",
+      "family": "actions",
+      "temporal_role": "PLANNED_ACTION_BEFORE_T0_ONLY",
+      "stage4_exec": "NOT_EXECUTED",
+      "calibrated_independent_effect": false
+    },
+    {
+      "id": "057",
+      "name": "Égouttage",
+      "family": "actions",
+      "temporal_role": "PLANNED_ACTION_BEFORE_T0_ONLY",
+      "stage4_exec": "NOT_EXECUTED",
+      "calibrated_independent_effect": false
+    },
+    {
+      "id": "058",
+      "name": "Évaluer l’eau retenue",
+      "family": "actions",
+      "temporal_role": "PLANNED_ACTION_BEFORE_T0_ONLY",
+      "stage4_exec": "NOT_EXECUTED",
+      "calibrated_independent_effect": false
+    },
+    {
+      "id": "059",
+      "name": "Mettre le riz dans la casserole",
+      "family": "actions",
+      "temporal_role": "PLANNED_ACTION_BEFORE_T0_ONLY",
+      "stage4_exec": "NOT_EXECUTED",
+      "calibrated_independent_effect": false
+    },
+    {
+      "id": "060",
+      "name": "Ajouter l’eau",
+      "family": "actions",
+      "temporal_role": "PLANNED_ACTION_BEFORE_T0_ONLY",
+      "stage4_exec": "NOT_EXECUTED",
+      "calibrated_independent_effect": false
+    },
+    {
+      "id": "061",
+      "name": "Ajouter le sel",
+      "family": "actions",
+      "temporal_role": "PLANNED_ACTION_BEFORE_T0_ONLY",
+      "stage4_exec": "NOT_EXECUTED",
+      "calibrated_independent_effect": false
+    },
+    {
+      "id": "062",
+      "name": "Ajouter la matière grasse",
+      "family": "actions",
+      "temporal_role": "PLANNED_ACTION_BEFORE_T0_ONLY",
+      "stage4_exec": "NOT_EXECUTED",
+      "calibrated_independent_effect": false
+    },
+    {
+      "id": "063",
+      "name": "Vérifier la capacité",
+      "family": "actions",
+      "temporal_role": "PLANNED_ACTION_BEFORE_T0_ONLY",
+      "stage4_exec": "NOT_EXECUTED",
+      "calibrated_independent_effect": false
+    },
+    {
+      "id": "064",
+      "name": "Positionner le couvercle",
+      "family": "actions",
+      "temporal_role": "PLANNED_ACTION_BEFORE_T0_ONLY",
+      "stage4_exec": "NOT_EXECUTED",
+      "calibrated_independent_effect": false
+    },
+    {
+      "id": "065",
+      "name": "Démarrer la chauffe",
+      "family": "actions",
+      "temporal_role": "PLANNED_ACTION_BEFORE_T0_ONLY",
+      "stage4_exec": "NOT_EXECUTED",
+      "calibrated_independent_effect": false
+    },
+    {
+      "id": "066",
+      "name": "Amener à ébullition",
+      "family": "actions",
+      "temporal_role": "PLANNED_ACTION_BEFORE_T0_ONLY",
+      "stage4_exec": "NOT_EXECUTED",
+      "calibrated_independent_effect": false
+    },
+    {
+      "id": "067",
+      "name": "Observer mousse et débordement",
+      "family": "actions",
+      "temporal_role": "PLANNED_ACTION_BEFORE_T0_ONLY",
+      "stage4_exec": "NOT_EXECUTED",
+      "calibrated_independent_effect": false
+    },
+    {
+      "id": "068",
+      "name": "Réduire le feu et couvrir",
+      "family": "actions",
+      "temporal_role": "PLANNED_ACTION_BEFORE_T0_ONLY",
+      "stage4_exec": "NOT_EXECUTED",
+      "calibrated_independent_effect": false
+    },
+    {
+      "id": "069",
+      "name": "Maintenir le régime thermique",
+      "family": "actions",
+      "temporal_role": "PLANNED_ACTION_BEFORE_T0_ONLY",
+      "stage4_exec": "NOT_EXECUTED",
+      "calibrated_independent_effect": false
+    },
+    {
+      "id": "070",
+      "name": "Gérer le couvercle",
+      "family": "actions",
+      "temporal_role": "PLANNED_ACTION_BEFORE_T0_ONLY",
+      "stage4_exec": "NOT_EXECUTED",
+      "calibrated_independent_effect": false
+    },
+    {
+      "id": "071",
+      "name": "Limiter l’agitation",
+      "family": "actions",
+      "temporal_role": "PLANNED_ACTION_BEFORE_T0_ONLY",
+      "stage4_exec": "NOT_EXECUTED",
+      "calibrated_independent_effect": false
+    },
+    {
+      "id": "072",
+      "name": "Suivre l’hydratation",
+      "family": "actions",
+      "temporal_role": "PLANNED_ACTION_BEFORE_T0_ONLY",
+      "stage4_exec": "NOT_EXECUTED",
+      "calibrated_independent_effect": false
+    },
+    {
+      "id": "073",
+      "name": "Déterminer la fin de chauffe",
+      "family": "actions",
+      "temporal_role": "PLANNED_ACTION_BEFORE_T0_ONLY",
+      "stage4_exec": "NOT_EXECUTED",
+      "calibrated_independent_effect": false
+    },
+    {
+      "id": "074",
+      "name": "Couper le feu",
+      "family": "actions",
+      "temporal_role": "PLANNED_ACTION_BEFORE_T0_ONLY",
+      "stage4_exec": "NOT_EXECUTED",
+      "calibrated_independent_effect": false
+    },
+    {
+      "id": "075",
+      "name": "Commencer le repos",
+      "family": "actions",
+      "temporal_role": "PLANNED_ACTION_BEFORE_T0_ONLY",
+      "stage4_exec": "NOT_EXECUTED",
+      "calibrated_independent_effect": false
+    },
+    {
+      "id": "076",
+      "name": "Respecter le repos",
+      "family": "actions",
+      "temporal_role": "PLANNED_ACTION_BEFORE_T0_ONLY",
+      "stage4_exec": "NOT_EXECUTED",
+      "calibrated_independent_effect": false
+    },
+    {
+      "id": "077",
+      "name": "Égrainer",
+      "family": "actions",
+      "temporal_role": "PLANNED_ACTION_BEFORE_T0_ONLY",
+      "stage4_exec": "NOT_EXECUTED",
+      "calibrated_independent_effect": false
+    },
+    {
+      "id": "078",
+      "name": "Examiner l’humidité finale",
+      "family": "actions",
+      "temporal_role": "PLANNED_ACTION_BEFORE_T0_ONLY",
+      "stage4_exec": "NOT_EXECUTED",
+      "calibrated_independent_effect": false
+    },
+    {
+      "id": "079",
+      "name": "Décider d’une finition",
+      "family": "actions",
+      "temporal_role": "PLANNED_ACTION_BEFORE_T0_ONLY",
+      "stage4_exec": "NOT_EXECUTED",
+      "calibrated_independent_effect": false
+    },
+    {
+      "id": "080",
+      "name": "Ouvrir pour servir",
+      "family": "actions",
+      "temporal_role": "PLANNED_ACTION_BEFORE_T0_ONLY",
+      "stage4_exec": "NOT_EXECUTED",
+      "calibrated_independent_effect": false
+    },
+    {
+      "id": "081",
+      "name": "Transférer le riz",
+      "family": "actions",
+      "temporal_role": "PLANNED_ACTION_BEFORE_T0_ONLY",
+      "stage4_exec": "NOT_EXECUTED",
+      "calibrated_independent_effect": false
+    },
+    {
+      "id": "082",
+      "name": "Répartir deux portions",
+      "family": "actions",
+      "temporal_role": "PLANNED_ACTION_BEFORE_T0_ONLY",
+      "stage4_exec": "NOT_EXECUTED",
+      "calibrated_independent_effect": false
+    },
+    {
+      "id": "083",
+      "name": "Contrôler la température de service",
+      "family": "actions",
+      "temporal_role": "PLANNED_ACTION_BEFORE_T0_ONLY",
+      "stage4_exec": "NOT_EXECUTED",
+      "calibrated_independent_effect": false
+    },
+    {
+      "id": "084",
+      "name": "Limiter le délai",
+      "family": "actions",
+      "temporal_role": "PLANNED_ACTION_BEFORE_T0_ONLY",
+      "stage4_exec": "NOT_EXECUTED",
+      "calibrated_independent_effect": false
+    },
+    {
+      "id": "085",
+      "name": "Présenter le résultat",
+      "family": "actions",
+      "temporal_role": "PLANNED_ACTION_BEFORE_T0_ONLY",
+      "stage4_exec": "NOT_EXECUTED",
+      "calibrated_independent_effect": false
+    },
+    {
+      "id": "086",
+      "name": "Excès d’eau",
+      "family": "corrections",
+      "temporal_role": "POLICY_PLANNED_BEFORE_T0_ONLY",
+      "stage4_exec": "NOT_EXECUTED",
+      "calibrated_independent_effect": false
+    },
+    {
+      "id": "087",
+      "name": "Manque d’eau",
+      "family": "corrections",
+      "temporal_role": "POLICY_PLANNED_BEFORE_T0_ONLY",
+      "stage4_exec": "NOT_EXECUTED",
+      "calibrated_independent_effect": false
+    },
+    {
+      "id": "088",
+      "name": "Chaleur excessive",
+      "family": "corrections",
+      "temporal_role": "POLICY_PLANNED_BEFORE_T0_ONLY",
+      "stage4_exec": "NOT_EXECUTED",
+      "calibrated_independent_effect": false
+    },
+    {
+      "id": "089",
+      "name": "Chaleur insuffisante",
+      "family": "corrections",
+      "temporal_role": "POLICY_PLANNED_BEFORE_T0_ONLY",
+      "stage4_exec": "NOT_EXECUTED",
+      "calibrated_independent_effect": false
+    },
+    {
+      "id": "090",
+      "name": "Couvercle inadapté",
+      "family": "corrections",
+      "temporal_role": "POLICY_PLANNED_BEFORE_T0_ONLY",
+      "stage4_exec": "NOT_EXECUTED",
+      "calibrated_independent_effect": false
+    },
+    {
+      "id": "091",
+      "name": "Évaporation excessive",
+      "family": "corrections",
+      "temporal_role": "POLICY_PLANNED_BEFORE_T0_ONLY",
+      "stage4_exec": "NOT_EXECUTED",
+      "calibrated_independent_effect": false
+    },
+    {
+      "id": "092",
+      "name": "Frémissement instable",
+      "family": "corrections",
+      "temporal_role": "POLICY_PLANNED_BEFORE_T0_ONLY",
+      "stage4_exec": "NOT_EXECUTED",
+      "calibrated_independent_effect": false
+    },
+    {
+      "id": "093",
+      "name": "Débordement",
+      "family": "corrections",
+      "temporal_role": "POLICY_PLANNED_BEFORE_T0_ONLY",
+      "stage4_exec": "NOT_EXECUTED",
+      "calibrated_independent_effect": false
+    },
+    {
+      "id": "094",
+      "name": "Riz attaché ou brûlé",
+      "family": "corrections",
+      "temporal_role": "POLICY_PLANNED_BEFORE_T0_ONLY",
+      "stage4_exec": "NOT_EXECUTED",
+      "calibrated_independent_effect": false
+    },
+    {
+      "id": "095",
+      "name": "Grains agglutinés",
+      "family": "corrections",
+      "temporal_role": "POLICY_PLANNED_BEFORE_T0_ONLY",
+      "stage4_exec": "NOT_EXECUTED",
+      "calibrated_independent_effect": false
+    },
+    {
+      "id": "096",
+      "name": "Grains trop fermes",
+      "family": "corrections",
+      "temporal_role": "POLICY_PLANNED_BEFORE_T0_ONLY",
+      "stage4_exec": "NOT_EXECUTED",
+      "calibrated_independent_effect": false
+    },
+    {
+      "id": "097",
+      "name": "Riz pâteux",
+      "family": "corrections",
+      "temporal_role": "POLICY_PLANNED_BEFORE_T0_ONLY",
+      "stage4_exec": "NOT_EXECUTED",
+      "calibrated_independent_effect": false
+    },
+    {
+      "id": "098",
+      "name": "Situation non récupérable",
+      "family": "corrections",
+      "temporal_role": "POLICY_PLANNED_BEFORE_T0_ONLY",
+      "stage4_exec": "NOT_EXECUTED",
+      "calibrated_independent_effect": false
+    },
+    {
+      "id": "099",
+      "name": "Salubrité et sécurité alimentaire",
+      "family": "sortie",
+      "temporal_role": "OUTCOME_ONLY__NOT_INPUT",
+      "stage4_exec": "NOT_EXECUTED",
+      "calibrated_independent_effect": false
+    },
+    {
+      "id": "100",
+      "name": "Quantité effective",
+      "family": "sortie",
+      "temporal_role": "OUTCOME_ONLY__NOT_INPUT",
+      "stage4_exec": "NOT_EXECUTED",
+      "calibrated_independent_effect": false
+    },
+    {
+      "id": "101",
+      "name": "Tendreté",
+      "family": "sortie",
+      "temporal_role": "OUTCOME_ONLY__NOT_INPUT",
+      "stage4_exec": "NOT_EXECUTED",
+      "calibrated_independent_effect": false
+    },
+    {
+      "id": "102",
+      "name": "Séparation des grains",
+      "family": "sortie",
+      "temporal_role": "OUTCOME_ONLY__NOT_INPUT",
+      "stage4_exec": "NOT_EXECUTED",
+      "calibrated_independent_effect": false
+    },
+    {
+      "id": "103",
+      "name": "Homogénéité",
+      "family": "sortie",
+      "temporal_role": "OUTCOME_ONLY__NOT_INPUT",
+      "stage4_exec": "NOT_EXECUTED",
+      "calibrated_independent_effect": false
+    },
+    {
+      "id": "104",
+      "name": "Intégrité des grains",
+      "family": "sortie",
+      "temporal_role": "OUTCOME_ONLY__NOT_INPUT",
+      "stage4_exec": "NOT_EXECUTED",
+      "calibrated_independent_effect": false
+    },
+    {
+      "id": "105",
+      "name": "Absence d’eau libre excessive",
+      "family": "sortie",
+      "temporal_role": "OUTCOME_ONLY__NOT_INPUT",
+      "stage4_exec": "NOT_EXECUTED",
+      "calibrated_independent_effect": false
+    },
+    {
+      "id": "106",
+      "name": "Absence de zones brûlées",
+      "family": "sortie",
+      "temporal_role": "OUTCOME_ONLY__NOT_INPUT",
+      "stage4_exec": "NOT_EXECUTED",
+      "calibrated_independent_effect": false
+    },
+    {
+      "id": "107",
+      "name": "Température de service",
+      "family": "sortie",
+      "temporal_role": "OUTCOME_ONLY__NOT_INPUT",
+      "stage4_exec": "NOT_EXECUTED",
+      "calibrated_independent_effect": false
+    },
+    {
+      "id": "108",
+      "name": "Goût",
+      "family": "sortie",
+      "temporal_role": "OUTCOME_ONLY__NOT_INPUT",
+      "stage4_exec": "NOT_EXECUTED",
+      "calibrated_independent_effect": false
+    },
+    {
+      "id": "109",
+      "name": "Arôme",
+      "family": "sortie",
+      "temporal_role": "OUTCOME_ONLY__NOT_INPUT",
+      "stage4_exec": "NOT_EXECUTED",
+      "calibrated_independent_effect": false
+    },
+    {
+      "id": "110",
+      "name": "Aspect visuel",
+      "family": "sortie",
+      "temporal_role": "OUTCOME_ONLY__NOT_INPUT",
+      "stage4_exec": "NOT_EXECUTED",
+      "calibrated_independent_effect": false
+    },
+    {
+      "id": "111",
+      "name": "Maintien de la qualité",
+      "family": "sortie",
+      "temporal_role": "OUTCOME_ONLY__NOT_INPUT",
+      "stage4_exec": "NOT_EXECUTED",
+      "calibrated_independent_effect": false
+    },
+    {
+      "id": "112",
+      "name": "Évaluation globale et décision",
+      "family": "sortie",
+      "temporal_role": "OUTCOME_ONLY__NOT_INPUT",
+      "stage4_exec": "NOT_EXECUTED",
+      "calibrated_independent_effect": false
+    }
+  ],
+  "note": "All IDs documented; only 15 involved in graph; mechanisms and empirical prediction not validated."
+}
