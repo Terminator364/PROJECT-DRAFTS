@@ -8,8 +8,8 @@
   "canonical_github_root": "Terminator364/PROJECT-DRAFTS/main/MOTEUR-BLESSING/labs/RIZ112",
   "master": "CAHIER_MERE.md",
   "journal": {
-    "events": 34,
-    "head": "4d8e8f68ef73f266d4442c58c1d571fa7785c655eca0f744a2dc3dde447acc58"
+    "events": 36,
+    "head": "57e99aa02e1d5ec4d5ff3acbee8f206215394f2eeaf8996d1fbea513e19fae95"
   },
   "mandatory_read_order": [
     "CHECKPOINT.json",
@@ -83,9 +83,11 @@
     "Gather independently witnessed prestart/poststart records and run chronological OOS probability calibration"
   ],
   "mirrors": {
-    "github_stage7": "PENDING",
-    "google_drive_stage7": "PENDING",
-    "chatgpt_library_stage7": "PENDING",
-    "windows_stage7": "UNKNOWN_NOT_CLAIMED"
-  }
+    "github_stage7": "SOURCE_AND_MASTER_SYNCED",
+    "google_drive_stage7": "VERIFIED_DRAFT_ARCHIVE",
+    "chatgpt_library_stage7": "VERIFIED_DRAFT_ARCHIVE",
+    "windows_stage7": "NOT_DONE_PC_OFFLINE"
+  },
+  "previous_verified_draft_zip_sha256": "03f2f1a807b39d36bd4e41e05c1181507651ce44efea71dd0f96430d9372e3a4",
+  "draft_drive_url": "https://drive.google.com/file/d/1jwFA0txxaPhzqDUae6HyoVPIF_oJewHZ/view?usp=drivesdk"
 }
