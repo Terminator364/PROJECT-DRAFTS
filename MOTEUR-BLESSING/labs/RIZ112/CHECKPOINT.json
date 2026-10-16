@@ -1,0 +1,69 @@
+{
+  "schema": "riz112/master-continuity/v1",
+  "project": "RIZ-112 – laboratoire pour MATRICE ADN R8",
+  "reprise_code": "RIZ112|CONTINUE",
+  "date": "2026-10-16",
+  "canonical_github_root": "Terminator364/PROJECT-DRAFTS/main/MOTEUR-BLESSING/labs/RIZ112",
+  "current_stage": 5,
+  "status": "TECHNICAL_STAGE5_DONE__QUALITY_PROTOCOL_NOT_APPROVED__NO_CALIBRATED_IC",
+  "mandatory_read_order": [
+    "CHECKPOINT.json",
+    "CAHIER_MERE.md",
+    "journal/JOURNAL_EVENEMENTS.jsonl",
+    "DECISIONS.md",
+    "TRANSFERT_MATRICE.md",
+    "AUDIT_5_CYCLES_ETAPE5.md"
+  ],
+  "request": "record user directives, feedback, hypotheses, actions, test proofs, corrections and periodic checkpoints without restarting",
+  "goal": "Predict P(Q >=85 | data frozen before preparing two servings of soft rice with separate grains), not cooking instructions",
+  "case_catalogue": 112,
+  "actually_executed_case_ids": 15,
+  "stage4_graph_nodes": 16,
+  "outcome_quality_protocol": "DRAFT_NOT_APPROVED",
+  "quality_dimensions": 6,
+  "measured_real_experiments": 0,
+  "data_for_training_count": 0,
+  "calibrated_ic_percent": null,
+  "software_tests": {
+    "stage4": 22,
+    "stage5": 31,
+    "journal": 10,
+    "total": 63,
+    "pass": 63,
+    "environment": "ChatGPT Python container (not Windows)"
+  },
+  "interaction_demonstration": {
+    "factors": [
+      "lid_multiplier",
+      "power_W"
+    ],
+    "on": "W_shortfall",
+    "difference_of_differences_g": 10.367227,
+    "physical_validation": false,
+    "ic_interpretation": false
+  },
+  "journal_events_initial": 17,
+  "journal_head": "01f55b2b923d94a35675c1c5e8f70b34d36dbaab222aa75d0c64eba6509c4808",
+  "original_archive": {
+    "name": "RIZ112_ETAPE4_Noyau_Mathematique_2026-10-16.zip",
+    "sha256": "5e28c684e0cd2743db8e95c7ced0625bbfd05d8fd02fc559e4663424e7c52764"
+  },
+  "matrice": {
+    "link": "methodological_only",
+    "model_status": "EXPERIMENTAL_NOT_APPROVED",
+    "production_code_modified": false,
+    "pilot_caution": "4 match Poisson baseline had 0 worlds numerically populated and 0 crossmechanisms computed"
+  },
+  "next": [
+    "Obtain user-approved objective measurement rubric with quality dimensions and vetoes",
+    "Generate authentic paired prestart JSON + poststart Q measurements",
+    "Pre-register chronological train/calibration/holdout split",
+    "Fit and evaluate mechanism-to-IC on real cases, with true time and evidence provenance",
+    "Transfer only audited contracts to MATRICE"
+  ],
+  "limits": [
+    "Archive/GitHub/Library are checkpoints only; updates happen during conversations, NOT in background",
+    "All earlier conversations summarized from available context; not full transcript",
+    "Journal hash-chain is not independent historical timestamp attestation"
+  ]
+}
