@@ -129,3 +129,21 @@ Ne jamais remplacer cette chaîne par une baseline de fréquence ou une moyenne 
 **[CONCLUSION SCIENTIFIQUE]** L'exigence de **traçabilité des 112** est maintenant satisfaite **dans la couche de contrat de rôle**. L'exigence « 112 facteurs contribuent mathématiquement à une probabilité prédictive validée » **n'est pas satisfaite** : elle exigerait des définitions observables, des lois pertinentes et des données indépendantes, et serait de toute manière mal posée pour les 14 cibles futures qui ne peuvent pas être des prédicteurs. IC reste `null`.
 
 **[PROCHAINE PRIORITÉ]** augmenter la couverture *des mécanismes légitimes* plutôt que distribuer arbitrairement 97 coefficients, mesurer Q avec un protocole pré-enregistré et produire des évaluations indépendantes. Voir `step6/README_ETAPE6.md` et `step6/AUDIT_CINQ_CYCLES_ETAPE6.md`. Le code de reprise et les journaux restent canoniques sur GitHub ; aucun travail de fond n'est exécuté entre conversations.
+
+---
+
+## Étape 7 (2026-10-16) — Contre-audit du graphe et premières contraintes calculables
+
+**Déclencheur utilisateur :** « Continue » après l'étape 6, dans le mandat conservé d'une contribution **réelle** des 112 cases (ne pas se contenter de compter des clés JSON).
+
+**Découverte majeure :** les dépendances V6 ont des orientations et fonctions hétérogènes : certaines représentent la causalité candidate, d'autres des conditions préalables, et d'autres des références croisées à des résultats futurs. Un seul DAG prédictif ne peut donc pas les réutiliser sans correction. Le nouvel audit montre **169 arcs au total, dont 17 références rétrogrades à des labels poststart et deux dépendances circulaires 054→055/056**. Ces 19 arcs sont séparés/refusés ; les **150 arcs structurels candidats** restants forment un DAG sur les 112 cases. Cette correction préserve la source historique intacte et documente les suppressions ; elle n'implique pas que les 150 arcs soient des lois causales établies.
+
+**État réel de l'influence :** 112/112 traitées comme rôles ; 17 chemins numériques simplifiés (dont deux sorties dérivées) ; 50 cases dotées d'un chemin hypothétique jusqu'à Q112, **62 sans chemin**. Les cases 014 (ajustement du couvercle), 037 (température initiale eau), 038 (température initiale riz), 043 (moment d'ébullition) ont une valeur dans le noyau ou comme dérivé mais ne sont pas reliées au label dans le graphe déclaratif. Cela ne prouve pas leur inutilité physique : cela démontre une lacune de *documentation du graphe*.
+
+**Nouvelles équations/contraintes de faisabilité, sans coefficients fictifs :** ressources hydriques suffisantes pour l'eau prévue (conversion simplificatrice 1 g ≈ 1 mL) ; volume d'eau seul inférieur à la capacité du récipient (condition nécessaire, NON suffisante pour inclure le riz et la marge de sécurité) ; cohérence présence matériel ↔ actions projetées (couvercle, balance, doseur, passoire, ustensile, service, puissance réglable) ; énergie requise si démarrage de chauffe prévu. Dix vérifications, états `CONSISTENT`, `INCONSISTENT`, `UNRESOLVED` ou `CONSISTENT_NECESSARY_ONLY`. Ces vérifications modifient **l'admissibilité et les risques d'exécution déclarée**, pas un score de texture ni l'IC : leur effet quantitatif sur Q n'est pas identifié.
+
+**Réévaluation des 112 fiches :** `step7/GAPS_112_V7.json` contient chaque case et son statut de lien numérique/structurel, ses manques et la prochaine exigence de preuve. Le nombre de cases sans lien Q reste visible, sans flèches artificielles pour atteindre artificiellement « 112 chemins ».
+
+**Revalidation de tous les tests : 141/141 PASS** en environnement Python 3.13/Linux (22 historiques étape 4 sous leur arborescence originale ; 31 étape 5 ; 10 journal ; 42 étape 6 ; 36 nouveaux tests étape 7). La première tentative de lancer les tests historiques depuis le mauvais répertoire avait généré des erreurs d'import/chemin ; la méthode reproductible correcte utilise l'archive originale étape 4 et les 22 tests passent sans modification de leurs sources.
+
+**Aucune expérience réelle, aucun barème Q approuvé, aucun entraînement, aucun IC légitime.** Projet sportif MATRICE inchangé. La transposition devra employer la même détection de dépendances rétrogrades, cycles, faisabilité et chemin réellement calculé avant de revendiquer une couverture des 62 mondes.
