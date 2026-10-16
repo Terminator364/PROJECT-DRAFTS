@@ -74,3 +74,10 @@
 **SYNCHRONISATION :** reçu Windows `WINDOWS_MB1_V3_EVIDENCE_20261016.json`, SHA `ab8f1a34442fc96b645ef27e63a20900c266e51d93e39c189f142f2835db26c5`. Copie de ce reçu et du journal dans le lecteur Google Drive monté ; vérification des empreintes côté lecteur OK, propagation dans le serveur Drive **encore non prouvée** à cette étape. Sauvegardes initiales du MANIFEST et journaux Windows conservées en `.preMB1V3.bak`.
 
 **FIN :** `mb1/CHECKPOINT_MB1_V3_WINDOWS_VALIDATED_20261016.json`, manifeste GitHub actualisé. Plus aucun blocage Windows pour l'exécution MB1 V3. **MB-1 scientifique reste ouverte** : pas de preuve PIT indépendante, pas de comparaison réelle OOS, aucun coefficient ni score promu.
+
+
+## 2026-10-16 — CONTRE-VÉRIFICATION finale des preuves Windows sur Drive distant
+
+**CONSTAT confirmé par un second canal** : lecture du dossier Drive via le connecteur Google Drive, non seulement depuis le lecteur G: de Windows. Les deux pièces de preuve y sont réellement présentes, sous accès non public : [reçu Windows JSON](https://drive.google.com/file/d/11sPhnV-t4xSxrDPrr37OoEvtSwzC3MDJ/view?usp=drivesdk), 1 059 octets, SHA-256 après écriture Windows `ab8f1a34442fc96b645ef27e63a20900c266e51d93e39c189f142f2835db26c5` ; et [journal Windows](https://drive.google.com/file/d/1IN6jLf0HSIzn5IimWjfBM9GttUvkyIAu/view?usp=drivesdk), 242 octets, SHA-256 `dfaa510bfaf6c5551085f464613263c21c2ce6de2ef3526d5ef3df65b808c085`. Le journal établit cinq codes de sortie zéro, observés avec `Ran 46/45/30/48/46 tests OK` par terminal. Le fichier ZIP complet est en local et dans ce même Drive.
+
+**Décision** : statut logiciel **MB1_V3_ENGINEERING_WINDOWS_VERIFIED**, mais statut scientifique **EXPERIMENTAL_NOT_APPROVED**. Le nouveau checkpoint `mb1/CHECKPOINT_MB1_V3_WINDOWS_VALIDATED_20261016.json` fait foi, GitHub `MANIFEST.json` pointe vers lui. Préparer des sources PIT indépendantes et la validation sportive chronologique avant MB-2/MB-3.
