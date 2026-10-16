@@ -193,12 +193,12 @@
   },
   "scientific_status": "EXPERIMENTAL_NOT_APPROVED",
   "riz112_lab": {
-    "status": "STAGE5_ENGINEERING_DONE__Q_RUBRIC_DRAFT__IC_NOT_CALIBRATED",
+    "status": "STEP6_112_112_ROLES_EXECUTED__17_TOY_NUMERIC_PATHS__NO_CALIBRATED_IC",
     "continuity_code": "RIZ112|CONTINUE",
     "master": "MOTEUR-BLESSING/labs/RIZ112/CAHIER_MERE.md",
     "checkpoint": "MOTEUR-BLESSING/labs/RIZ112/CHECKPOINT.json",
     "journal": "MOTEUR-BLESSING/labs/RIZ112/journal/JOURNAL_EVENEMENTS.jsonl",
-    "delivery_index": "MOTEUR-BLESSING/labs/RIZ112/LIVRAISON_ETAPE5_20261016.json",
+    "delivery_index": "MOTEUR-BLESSING/labs/RIZ112/LIVRAISON_ETAPE6_20261016.json",
     "archive_sha256": "1dca77c3bb458ae8d3074c7bedd2798b0fb5af5b1cfb5c6b272e7e6e20f3c201",
     "drive_folder": "https://drive.google.com/drive/folders/1oMXQp39wS0xaygFt2SWm7hII77fHxedP",
     "windows_stage5_sync": "NOT_DONE_PC_OFFLINE",
@@ -206,7 +206,19 @@
     "archive_final_sha256": "6fc5c03d44a605781c66e8f561ed3c1a5fc76ad00c21026cbe98b86a64dbf06b",
     "archive_final_bytes": 87045,
     "archive_final_drive_url": "https://drive.google.com/file/d/1JRFayl6zSgQfyQoJBdxj62I97v4vQ1AL/view?usp=drivesdk",
-    "journal_events": 23,
-    "journal_head": "dba05a6ddea8f0f156cc991dc5c7932c69470da481c72a3fc507d0911a794b9a"
+    "journal_events": 28,
+    "journal_head": "31b174292e2926e63bb8090de91e97b06b7a6009a9d3677b6a3b94674630e2b0",
+    "current_stage": 6,
+    "current_zip_sha256": "34887c8ecd5d5e0475b8b03267592e1856c633455b41ff0c8f567860217ac3cb",
+    "current_zip_drive": "https://drive.google.com/file/d/1Bzf9scBx1QCACQKE_j4bJL0EvCB1DnrI/view?usp=drivesdk",
+    "executed_case_contracts": 112,
+    "stage4_physical_cases": 15,
+    "explicit_new_derived_cases": 2,
+    "roles_without_numeric_model": 95,
+    "validated_predictive_effects": 0,
+    "new_tests": 42,
+    "all_tests_passed": 105,
+    "windows_step6": "OFFLINE_NOT_RUN",
+    "quality_protocol_approved": false
   }
 }
