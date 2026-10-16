@@ -1,0 +1,768 @@
+{
+  "schema": "riz112/step6/prestart/v1",
+  "prestart": {
+    "preparation_id": "B_couvercle_fuyant",
+    "freeze_utc": "2026-10-16T12:00:00Z",
+    "start_utc": "2026-10-16T13:00:00Z",
+    "inputs": {
+      "rice_mass_g": {
+        "value": 160.0,
+        "available_at_utc": "2026-10-16T11:00:00Z",
+        "kind": "OBSERVED",
+        "source": "dossier_initial_de_demonstration"
+      },
+      "rice_variety": {
+        "value": "long_white_hypothesis",
+        "available_at_utc": "2026-10-16T11:00:00Z",
+        "kind": "OBSERVED",
+        "source": "dossier_initial_de_demonstration"
+      },
+      "water_added_g": {
+        "value": 300.0,
+        "available_at_utc": "2026-10-16T11:00:00Z",
+        "kind": "PLANNED",
+        "source": "dossier_initial_de_demonstration"
+      },
+      "water_retained_g": {
+        "value": 8.0,
+        "available_at_utc": "2026-10-16T11:00:00Z",
+        "kind": "ASSUMPTION",
+        "source": "hypothese_de_demonstration"
+      },
+      "water_initial_C": {
+        "value": 22.0,
+        "available_at_utc": "2026-10-16T11:00:00Z",
+        "kind": "OBSERVED",
+        "source": "dossier_initial_de_demonstration"
+      },
+      "rice_initial_C": {
+        "value": 22.0,
+        "available_at_utc": "2026-10-16T11:00:00Z",
+        "kind": "OBSERVED",
+        "source": "dossier_initial_de_demonstration"
+      },
+      "power_W": {
+        "value": 550.0,
+        "available_at_utc": "2026-10-16T11:00:00Z",
+        "kind": "PLANNED",
+        "source": "dossier_initial_de_demonstration"
+      },
+      "transfer_efficiency": {
+        "value": 0.6,
+        "available_at_utc": "2026-10-16T11:00:00Z",
+        "kind": "ASSUMPTION",
+        "source": "hypothese_de_demonstration"
+      },
+      "total_heating_min": {
+        "value": 22.0,
+        "available_at_utc": "2026-10-16T11:00:00Z",
+        "kind": "PLANNED",
+        "source": "dossier_initial_de_demonstration"
+      },
+      "evap_reference_g_per_min": {
+        "value": 4.0,
+        "available_at_utc": "2026-10-16T11:00:00Z",
+        "kind": "ASSUMPTION",
+        "source": "hypothese_de_demonstration"
+      },
+      "lid_multiplier": {
+        "value": 2.5,
+        "available_at_utc": "2026-10-16T11:00:00Z",
+        "kind": "ASSUMPTION",
+        "source": "hypothese_de_demonstration"
+      },
+      "water_capacity_g_per_g": {
+        "value": 1.35,
+        "available_at_utc": "2026-10-16T11:00:00Z",
+        "kind": "ASSUMPTION",
+        "source": "hypothese_de_demonstration"
+      },
+      "hot_time_needed_min": {
+        "value": 12.0,
+        "available_at_utc": "2026-10-16T11:00:00Z",
+        "kind": "ASSUMPTION",
+        "source": "hypothese_de_demonstration"
+      },
+      "rice_heat_capacity_J_gK": {
+        "value": 1.6,
+        "available_at_utc": "2026-10-16T11:00:00Z",
+        "kind": "ASSUMPTION",
+        "source": "hypothese_de_demonstration"
+      },
+      "surface_starch_index": {
+        "value": 0.5,
+        "available_at_utc": "2026-10-16T11:00:00Z",
+        "kind": "ASSUMPTION",
+        "source": "hypothese_de_demonstration"
+      },
+      "rinse_removal_fraction": {
+        "value": 0.4,
+        "available_at_utc": "2026-10-16T11:00:00Z",
+        "kind": "PLANNED",
+        "source": "dossier_initial_de_demonstration"
+      }
+    }
+  },
+  "case_inputs": {
+    "001": {
+      "state": "OBSERVED",
+      "value": 160.0,
+      "unit": "g",
+      "available_at_utc": "2026-10-16T11:00:00Z",
+      "source": "dossier_initial_de_demonstration"
+    },
+    "002": {
+      "state": "ASSUMPTION",
+      "value": 350.0,
+      "unit": "ml",
+      "available_at_utc": "2026-10-16T12:00:00Z",
+      "source": "SYNTHETIC_HYPOTHESIS_PRESTART"
+    },
+    "003": {
+      "state": "UNKNOWN",
+      "value": null,
+      "unit": "g",
+      "available_at_utc": "2026-10-16T12:00:00Z",
+      "source": "NOT_COLLECTED_FOR_SYNTHETIC_DEMONSTRATION"
+    },
+    "004": {
+      "state": "UNKNOWN",
+      "value": null,
+      "unit": "g",
+      "available_at_utc": "2026-10-16T12:00:00Z",
+      "source": "NOT_COLLECTED_FOR_SYNTHETIC_DEMONSTRATION"
+    },
+    "005": {
+      "state": "ASSUMPTION",
+      "value": 1000.0,
+      "unit": "ml",
+      "available_at_utc": "2026-10-16T12:00:00Z",
+      "source": "SYNTHETIC_HYPOTHESIS_PRESTART"
+    },
+    "006": {
+      "state": "UNKNOWN",
+      "value": null,
+      "unit": null,
+      "available_at_utc": "2026-10-16T12:00:00Z",
+      "source": "NOT_COLLECTED_FOR_SYNTHETIC_DEMONSTRATION"
+    },
+    "007": {
+      "state": "UNKNOWN",
+      "value": null,
+      "unit": "fraction",
+      "available_at_utc": "2026-10-16T12:00:00Z",
+      "source": "NOT_COLLECTED_FOR_SYNTHETIC_DEMONSTRATION"
+    },
+    "008": {
+      "state": "ASSUMPTION",
+      "value": 1700.0,
+      "unit": "ml",
+      "available_at_utc": "2026-10-16T12:00:00Z",
+      "source": "SYNTHETIC_HYPOTHESIS_PRESTART"
+    },
+    "009": {
+      "state": "UNKNOWN",
+      "value": null,
+      "unit": "cm",
+      "available_at_utc": "2026-10-16T12:00:00Z",
+      "source": "NOT_COLLECTED_FOR_SYNTHETIC_DEMONSTRATION"
+    },
+    "010": {
+      "state": "UNKNOWN",
+      "value": null,
+      "unit": null,
+      "available_at_utc": "2026-10-16T12:00:00Z",
+      "source": "NOT_COLLECTED_FOR_SYNTHETIC_DEMONSTRATION"
+    },
+    "011": {
+      "state": "UNKNOWN",
+      "value": null,
+      "unit": "mm",
+      "available_at_utc": "2026-10-16T12:00:00Z",
+      "source": "NOT_COLLECTED_FOR_SYNTHETIC_DEMONSTRATION"
+    },
+    "012": {
+      "state": "UNKNOWN",
+      "value": null,
+      "unit": null,
+      "available_at_utc": "2026-10-16T12:00:00Z",
+      "source": "NOT_COLLECTED_FOR_SYNTHETIC_DEMONSTRATION"
+    },
+    "013": {
+      "state": "ASSUMPTION",
+      "value": true,
+      "unit": "bool",
+      "available_at_utc": "2026-10-16T12:00:00Z",
+      "source": "SYNTHETIC_HYPOTHESIS_PRESTART"
+    },
+    "014": {
+      "state": "ASSUMPTION",
+      "value": 2.5,
+      "unit": "multiplier",
+      "available_at_utc": "2026-10-16T11:00:00Z",
+      "source": "hypothese_de_demonstration"
+    },
+    "015": {
+      "state": "UNKNOWN",
+      "value": null,
+      "unit": null,
+      "available_at_utc": "2026-10-16T12:00:00Z",
+      "source": "NOT_COLLECTED_FOR_SYNTHETIC_DEMONSTRATION"
+    },
+    "016": {
+      "state": "UNKNOWN",
+      "value": null,
+      "unit": null,
+      "available_at_utc": "2026-10-16T12:00:00Z",
+      "source": "NOT_COLLECTED_FOR_SYNTHETIC_DEMONSTRATION"
+    },
+    "017": {
+      "state": "UNKNOWN",
+      "value": null,
+      "unit": "bool",
+      "available_at_utc": "2026-10-16T12:00:00Z",
+      "source": "NOT_COLLECTED_FOR_SYNTHETIC_DEMONSTRATION"
+    },
+    "018": {
+      "state": "UNKNOWN",
+      "value": null,
+      "unit": "fraction",
+      "available_at_utc": "2026-10-16T12:00:00Z",
+      "source": "NOT_COLLECTED_FOR_SYNTHETIC_DEMONSTRATION"
+    },
+    "019": {
+      "state": "ASSUMPTION",
+      "value": true,
+      "unit": "bool",
+      "available_at_utc": "2026-10-16T12:00:00Z",
+      "source": "SYNTHETIC_HYPOTHESIS_PRESTART"
+    },
+    "020": {
+      "state": "ASSUMPTION",
+      "value": true,
+      "unit": "bool",
+      "available_at_utc": "2026-10-16T12:00:00Z",
+      "source": "SYNTHETIC_HYPOTHESIS_PRESTART"
+    },
+    "021": {
+      "state": "ASSUMPTION",
+      "value": true,
+      "unit": "bool",
+      "available_at_utc": "2026-10-16T12:00:00Z",
+      "source": "SYNTHETIC_HYPOTHESIS_PRESTART"
+    },
+    "022": {
+      "state": "ASSUMPTION",
+      "value": true,
+      "unit": "bool",
+      "available_at_utc": "2026-10-16T12:00:00Z",
+      "source": "SYNTHETIC_HYPOTHESIS_PRESTART"
+    },
+    "023": {
+      "state": "ASSUMPTION",
+      "value": true,
+      "unit": "bool",
+      "available_at_utc": "2026-10-16T12:00:00Z",
+      "source": "SYNTHETIC_HYPOTHESIS_PRESTART"
+    },
+    "024": {
+      "state": "OBSERVED",
+      "value": "long_white_hypothesis",
+      "unit": null,
+      "available_at_utc": "2026-10-16T11:00:00Z",
+      "source": "dossier_initial_de_demonstration"
+    },
+    "025": {
+      "state": "UNKNOWN",
+      "value": null,
+      "unit": "mm",
+      "available_at_utc": "2026-10-16T12:00:00Z",
+      "source": "NOT_COLLECTED_FOR_SYNTHETIC_DEMONSTRATION"
+    },
+    "026": {
+      "state": "UNKNOWN",
+      "value": null,
+      "unit": null,
+      "available_at_utc": "2026-10-16T12:00:00Z",
+      "source": "NOT_COLLECTED_FOR_SYNTHETIC_DEMONSTRATION"
+    },
+    "027": {
+      "state": "UNKNOWN",
+      "value": null,
+      "unit": null,
+      "available_at_utc": "2026-10-16T12:00:00Z",
+      "source": "NOT_COLLECTED_FOR_SYNTHETIC_DEMONSTRATION"
+    },
+    "028": {
+      "state": "UNKNOWN",
+      "value": null,
+      "unit": "days",
+      "available_at_utc": "2026-10-16T12:00:00Z",
+      "source": "NOT_COLLECTED_FOR_SYNTHETIC_DEMONSTRATION"
+    },
+    "029": {
+      "state": "UNKNOWN",
+      "value": null,
+      "unit": "fraction",
+      "available_at_utc": "2026-10-16T12:00:00Z",
+      "source": "NOT_COLLECTED_FOR_SYNTHETIC_DEMONSTRATION"
+    },
+    "030": {
+      "state": "ASSUMPTION",
+      "value": 0.5,
+      "unit": "fraction",
+      "available_at_utc": "2026-10-16T11:00:00Z",
+      "source": "hypothese_de_demonstration"
+    },
+    "031": {
+      "state": "UNKNOWN",
+      "value": null,
+      "unit": "fraction",
+      "available_at_utc": "2026-10-16T12:00:00Z",
+      "source": "NOT_COLLECTED_FOR_SYNTHETIC_DEMONSTRATION"
+    },
+    "032": {
+      "state": "UNKNOWN",
+      "value": null,
+      "unit": "fraction",
+      "available_at_utc": "2026-10-16T12:00:00Z",
+      "source": "NOT_COLLECTED_FOR_SYNTHETIC_DEMONSTRATION"
+    },
+    "033": {
+      "state": "ASSUMPTION",
+      "value": 1.35,
+      "unit": "g_per_g",
+      "available_at_utc": "2026-10-16T11:00:00Z",
+      "source": "hypothese_de_demonstration"
+    },
+    "034": {
+      "state": "ASSUMPTION",
+      "value": 12.0,
+      "unit": "min",
+      "available_at_utc": "2026-10-16T11:00:00Z",
+      "source": "hypothese_de_demonstration"
+    },
+    "035": {
+      "state": "PLANNED",
+      "value": 300.0,
+      "unit": "g",
+      "available_at_utc": "2026-10-16T11:00:00Z",
+      "source": "dossier_initial_de_demonstration"
+    },
+    "036": {
+      "state": "ASSUMPTION",
+      "value": 8.0,
+      "unit": "g",
+      "available_at_utc": "2026-10-16T11:00:00Z",
+      "source": "hypothese_de_demonstration"
+    },
+    "037": {
+      "state": "OBSERVED",
+      "value": 22.0,
+      "unit": "degC",
+      "available_at_utc": "2026-10-16T11:00:00Z",
+      "source": "dossier_initial_de_demonstration"
+    },
+    "038": {
+      "state": "OBSERVED",
+      "value": 22.0,
+      "unit": "degC",
+      "available_at_utc": "2026-10-16T11:00:00Z",
+      "source": "dossier_initial_de_demonstration"
+    },
+    "039": {
+      "state": "ASSUMPTION",
+      "value": 24.0,
+      "unit": "degC",
+      "available_at_utc": "2026-10-16T12:00:00Z",
+      "source": "SYNTHETIC_HYPOTHESIS_PRESTART"
+    },
+    "040": {
+      "state": "UNKNOWN",
+      "value": null,
+      "unit": "m",
+      "available_at_utc": "2026-10-16T12:00:00Z",
+      "source": "NOT_COLLECTED_FOR_SYNTHETIC_DEMONSTRATION"
+    },
+    "041": {
+      "state": "PLANNED",
+      "value": 550.0,
+      "unit": "W",
+      "available_at_utc": "2026-10-16T11:00:00Z",
+      "source": "dossier_initial_de_demonstration"
+    },
+    "042": {
+      "state": "ASSUMPTION",
+      "value": 0.6,
+      "unit": "fraction",
+      "available_at_utc": "2026-10-16T11:00:00Z",
+      "source": "hypothese_de_demonstration"
+    },
+    "045": {
+      "state": "ASSUMPTION",
+      "value": 4.0,
+      "unit": "g_per_min",
+      "available_at_utc": "2026-10-16T11:00:00Z",
+      "source": "hypothese_de_demonstration"
+    },
+    "047": {
+      "state": "PLANNED",
+      "value": 22.0,
+      "unit": "min",
+      "available_at_utc": "2026-10-16T11:00:00Z",
+      "source": "dossier_initial_de_demonstration"
+    }
+  },
+  "action_plans": {
+    "049": {
+      "status": "PLANNED",
+      "available_at_utc": "2026-10-16T12:00:00Z",
+      "source": "SYNTHETIC_PLANNING_NO_ACTUAL_EXECUTION"
+    },
+    "050": {
+      "status": "PLANNED",
+      "available_at_utc": "2026-10-16T12:00:00Z",
+      "source": "SYNTHETIC_PLANNING_NO_ACTUAL_EXECUTION"
+    },
+    "051": {
+      "status": "UNKNOWN",
+      "available_at_utc": "2026-10-16T12:00:00Z",
+      "source": "SYNTHETIC_PLANNING_NO_ACTUAL_EXECUTION"
+    },
+    "052": {
+      "status": "UNKNOWN",
+      "available_at_utc": "2026-10-16T12:00:00Z",
+      "source": "SYNTHETIC_PLANNING_NO_ACTUAL_EXECUTION"
+    },
+    "053": {
+      "status": "PLANNED",
+      "available_at_utc": "2026-10-16T12:00:00Z",
+      "source": "SYNTHETIC_PLANNING_NO_ACTUAL_EXECUTION"
+    },
+    "054": {
+      "status": "PLANNED",
+      "available_at_utc": "2026-10-16T12:00:00Z",
+      "source": "SYNTHETIC_PLANNING_NO_ACTUAL_EXECUTION"
+    },
+    "055": {
+      "status": "PLANNED",
+      "available_at_utc": "2026-10-16T12:00:00Z",
+      "source": "SYNTHETIC_PLANNING_NO_ACTUAL_EXECUTION"
+    },
+    "056": {
+      "status": "UNKNOWN",
+      "available_at_utc": "2026-10-16T12:00:00Z",
+      "source": "SYNTHETIC_PLANNING_NO_ACTUAL_EXECUTION"
+    },
+    "057": {
+      "status": "PLANNED",
+      "available_at_utc": "2026-10-16T12:00:00Z",
+      "source": "SYNTHETIC_PLANNING_NO_ACTUAL_EXECUTION"
+    },
+    "058": {
+      "status": "UNKNOWN",
+      "available_at_utc": "2026-10-16T12:00:00Z",
+      "source": "SYNTHETIC_PLANNING_NO_ACTUAL_EXECUTION"
+    },
+    "059": {
+      "status": "PLANNED",
+      "available_at_utc": "2026-10-16T12:00:00Z",
+      "source": "SYNTHETIC_PLANNING_NO_ACTUAL_EXECUTION"
+    },
+    "060": {
+      "status": "PLANNED",
+      "available_at_utc": "2026-10-16T12:00:00Z",
+      "source": "SYNTHETIC_PLANNING_NO_ACTUAL_EXECUTION"
+    },
+    "061": {
+      "status": "UNKNOWN",
+      "available_at_utc": "2026-10-16T12:00:00Z",
+      "source": "SYNTHETIC_PLANNING_NO_ACTUAL_EXECUTION"
+    },
+    "062": {
+      "status": "UNKNOWN",
+      "available_at_utc": "2026-10-16T12:00:00Z",
+      "source": "SYNTHETIC_PLANNING_NO_ACTUAL_EXECUTION"
+    },
+    "063": {
+      "status": "PLANNED",
+      "available_at_utc": "2026-10-16T12:00:00Z",
+      "source": "SYNTHETIC_PLANNING_NO_ACTUAL_EXECUTION"
+    },
+    "064": {
+      "status": "PLANNED",
+      "available_at_utc": "2026-10-16T12:00:00Z",
+      "source": "SYNTHETIC_PLANNING_NO_ACTUAL_EXECUTION"
+    },
+    "065": {
+      "status": "PLANNED",
+      "available_at_utc": "2026-10-16T12:00:00Z",
+      "source": "SYNTHETIC_PLANNING_NO_ACTUAL_EXECUTION"
+    },
+    "066": {
+      "status": "PLANNED",
+      "available_at_utc": "2026-10-16T12:00:00Z",
+      "source": "SYNTHETIC_PLANNING_NO_ACTUAL_EXECUTION"
+    },
+    "067": {
+      "status": "UNKNOWN",
+      "available_at_utc": "2026-10-16T12:00:00Z",
+      "source": "SYNTHETIC_PLANNING_NO_ACTUAL_EXECUTION"
+    },
+    "068": {
+      "status": "PLANNED",
+      "available_at_utc": "2026-10-16T12:00:00Z",
+      "source": "SYNTHETIC_PLANNING_NO_ACTUAL_EXECUTION"
+    },
+    "069": {
+      "status": "PLANNED",
+      "available_at_utc": "2026-10-16T12:00:00Z",
+      "source": "SYNTHETIC_PLANNING_NO_ACTUAL_EXECUTION"
+    },
+    "070": {
+      "status": "PLANNED",
+      "available_at_utc": "2026-10-16T12:00:00Z",
+      "source": "SYNTHETIC_PLANNING_NO_ACTUAL_EXECUTION"
+    },
+    "071": {
+      "status": "UNKNOWN",
+      "available_at_utc": "2026-10-16T12:00:00Z",
+      "source": "SYNTHETIC_PLANNING_NO_ACTUAL_EXECUTION"
+    },
+    "072": {
+      "status": "UNKNOWN",
+      "available_at_utc": "2026-10-16T12:00:00Z",
+      "source": "SYNTHETIC_PLANNING_NO_ACTUAL_EXECUTION"
+    },
+    "073": {
+      "status": "PLANNED",
+      "available_at_utc": "2026-10-16T12:00:00Z",
+      "source": "SYNTHETIC_PLANNING_NO_ACTUAL_EXECUTION"
+    },
+    "074": {
+      "status": "PLANNED",
+      "available_at_utc": "2026-10-16T12:00:00Z",
+      "source": "SYNTHETIC_PLANNING_NO_ACTUAL_EXECUTION"
+    },
+    "075": {
+      "status": "PLANNED",
+      "available_at_utc": "2026-10-16T12:00:00Z",
+      "source": "SYNTHETIC_PLANNING_NO_ACTUAL_EXECUTION"
+    },
+    "076": {
+      "status": "PLANNED",
+      "available_at_utc": "2026-10-16T12:00:00Z",
+      "source": "SYNTHETIC_PLANNING_NO_ACTUAL_EXECUTION"
+    },
+    "077": {
+      "status": "PLANNED",
+      "available_at_utc": "2026-10-16T12:00:00Z",
+      "source": "SYNTHETIC_PLANNING_NO_ACTUAL_EXECUTION"
+    },
+    "078": {
+      "status": "UNKNOWN",
+      "available_at_utc": "2026-10-16T12:00:00Z",
+      "source": "SYNTHETIC_PLANNING_NO_ACTUAL_EXECUTION"
+    },
+    "079": {
+      "status": "UNKNOWN",
+      "available_at_utc": "2026-10-16T12:00:00Z",
+      "source": "SYNTHETIC_PLANNING_NO_ACTUAL_EXECUTION"
+    },
+    "080": {
+      "status": "PLANNED",
+      "available_at_utc": "2026-10-16T12:00:00Z",
+      "source": "SYNTHETIC_PLANNING_NO_ACTUAL_EXECUTION"
+    },
+    "081": {
+      "status": "PLANNED",
+      "available_at_utc": "2026-10-16T12:00:00Z",
+      "source": "SYNTHETIC_PLANNING_NO_ACTUAL_EXECUTION"
+    },
+    "082": {
+      "status": "PLANNED",
+      "available_at_utc": "2026-10-16T12:00:00Z",
+      "source": "SYNTHETIC_PLANNING_NO_ACTUAL_EXECUTION"
+    },
+    "083": {
+      "status": "PLANNED",
+      "available_at_utc": "2026-10-16T12:00:00Z",
+      "source": "SYNTHETIC_PLANNING_NO_ACTUAL_EXECUTION"
+    },
+    "084": {
+      "status": "UNKNOWN",
+      "available_at_utc": "2026-10-16T12:00:00Z",
+      "source": "SYNTHETIC_PLANNING_NO_ACTUAL_EXECUTION"
+    },
+    "085": {
+      "status": "UNKNOWN",
+      "available_at_utc": "2026-10-16T12:00:00Z",
+      "source": "SYNTHETIC_PLANNING_NO_ACTUAL_EXECUTION"
+    }
+  },
+  "correction_policies": {
+    "086": {
+      "status": "DEFINED",
+      "trigger": "water_excess_reported",
+      "planned_response": "pause_for_conditional_reassessment",
+      "available_at_utc": "2026-10-16T12:00:00Z",
+      "source": "HYPOTHETICAL_BRANCH_DEFINED_PRESTART"
+    },
+    "087": {
+      "status": "DEFINED",
+      "trigger": "water_shortfall_reported",
+      "planned_response": "pause_for_conditional_reassessment",
+      "available_at_utc": "2026-10-16T12:00:00Z",
+      "source": "HYPOTHETICAL_BRANCH_DEFINED_PRESTART"
+    },
+    "088": {
+      "status": "UNDEFINED",
+      "trigger": null,
+      "planned_response": null,
+      "available_at_utc": "2026-10-16T12:00:00Z",
+      "source": "NO_POLICY_PREDECLARED"
+    },
+    "089": {
+      "status": "UNDEFINED",
+      "trigger": null,
+      "planned_response": null,
+      "available_at_utc": "2026-10-16T12:00:00Z",
+      "source": "NO_POLICY_PREDECLARED"
+    },
+    "090": {
+      "status": "DEFINED",
+      "trigger": "lid_not_fitting",
+      "planned_response": "review_predefined_plan",
+      "available_at_utc": "2026-10-16T12:00:00Z",
+      "source": "HYPOTHETICAL_BRANCH_DEFINED_PRESTART"
+    },
+    "091": {
+      "status": "UNDEFINED",
+      "trigger": null,
+      "planned_response": null,
+      "available_at_utc": "2026-10-16T12:00:00Z",
+      "source": "NO_POLICY_PREDECLARED"
+    },
+    "092": {
+      "status": "UNDEFINED",
+      "trigger": null,
+      "planned_response": null,
+      "available_at_utc": "2026-10-16T12:00:00Z",
+      "source": "NO_POLICY_PREDECLARED"
+    },
+    "093": {
+      "status": "UNDEFINED",
+      "trigger": null,
+      "planned_response": null,
+      "available_at_utc": "2026-10-16T12:00:00Z",
+      "source": "NO_POLICY_PREDECLARED"
+    },
+    "094": {
+      "status": "UNDEFINED",
+      "trigger": null,
+      "planned_response": null,
+      "available_at_utc": "2026-10-16T12:00:00Z",
+      "source": "NO_POLICY_PREDECLARED"
+    },
+    "095": {
+      "status": "UNDEFINED",
+      "trigger": null,
+      "planned_response": null,
+      "available_at_utc": "2026-10-16T12:00:00Z",
+      "source": "NO_POLICY_PREDECLARED"
+    },
+    "096": {
+      "status": "UNDEFINED",
+      "trigger": null,
+      "planned_response": null,
+      "available_at_utc": "2026-10-16T12:00:00Z",
+      "source": "NO_POLICY_PREDECLARED"
+    },
+    "097": {
+      "status": "UNDEFINED",
+      "trigger": null,
+      "planned_response": null,
+      "available_at_utc": "2026-10-16T12:00:00Z",
+      "source": "NO_POLICY_PREDECLARED"
+    },
+    "098": {
+      "status": "DEFINED",
+      "trigger": "unsafe_condition",
+      "planned_response": "terminate_attempt",
+      "available_at_utc": "2026-10-16T12:00:00Z",
+      "source": "HYPOTHETICAL_BRANCH_DEFINED_PRESTART"
+    }
+  },
+  "target_contract": {
+    "099": {
+      "status": "DRAFT",
+      "measurement_definition": "Draft observational rubric for case 099, NOT approved or scored",
+      "protocol_reference": "quality_draft_v1"
+    },
+    "100": {
+      "status": "DRAFT",
+      "measurement_definition": "Draft observational rubric for case 100, NOT approved or scored",
+      "protocol_reference": "quality_draft_v1"
+    },
+    "101": {
+      "status": "DRAFT",
+      "measurement_definition": "Draft observational rubric for case 101, NOT approved or scored",
+      "protocol_reference": "quality_draft_v1"
+    },
+    "102": {
+      "status": "DRAFT",
+      "measurement_definition": "Draft observational rubric for case 102, NOT approved or scored",
+      "protocol_reference": "quality_draft_v1"
+    },
+    "103": {
+      "status": "DRAFT",
+      "measurement_definition": "Draft observational rubric for case 103, NOT approved or scored",
+      "protocol_reference": "quality_draft_v1"
+    },
+    "104": {
+      "status": "DRAFT",
+      "measurement_definition": "Draft observational rubric for case 104, NOT approved or scored",
+      "protocol_reference": "quality_draft_v1"
+    },
+    "105": {
+      "status": "DRAFT",
+      "measurement_definition": "Draft observational rubric for case 105, NOT approved or scored",
+      "protocol_reference": "quality_draft_v1"
+    },
+    "106": {
+      "status": "DRAFT",
+      "measurement_definition": "Draft observational rubric for case 106, NOT approved or scored",
+      "protocol_reference": "quality_draft_v1"
+    },
+    "107": {
+      "status": "DRAFT",
+      "measurement_definition": "Draft observational rubric for case 107, NOT approved or scored",
+      "protocol_reference": "quality_draft_v1"
+    },
+    "108": {
+      "status": "DRAFT",
+      "measurement_definition": "Draft observational rubric for case 108, NOT approved or scored",
+      "protocol_reference": "quality_draft_v1"
+    },
+    "109": {
+      "status": "DRAFT",
+      "measurement_definition": "Draft observational rubric for case 109, NOT approved or scored",
+      "protocol_reference": "quality_draft_v1"
+    },
+    "110": {
+      "status": "DRAFT",
+      "measurement_definition": "Draft observational rubric for case 110, NOT approved or scored",
+      "protocol_reference": "quality_draft_v1"
+    },
+    "111": {
+      "status": "DRAFT",
+      "measurement_definition": "Draft observational rubric for case 111, NOT approved or scored",
+      "protocol_reference": "quality_draft_v1"
+    },
+    "112": {
+      "status": "DRAFT",
+      "measurement_definition": "Draft observational rubric for case 112, NOT approved or scored",
+      "protocol_reference": "quality_draft_v1"
+    }
+  }
+}
