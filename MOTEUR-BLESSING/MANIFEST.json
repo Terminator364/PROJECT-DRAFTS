@@ -81,10 +81,10 @@
     "model_sports_validation": "NOT_PROVEN",
     "recovered_V112_archive_read_in_chatgpt_container": true
   },
-  "sources_note": "Source originale V1.1.2 recuperee comme piece du Projet; son SHA/CRC verifies dans ChatGPT. MB1 enriched ZIP delivered as sandbox attachment, NOT installed on MBMPC. Scientific gate remains CLOSED.",
-  "latest_specialized_checkpoint": "MOTEUR-BLESSING/mb1/CHECKPOINT_MB1_SOURCE_RECOVERED_20261016.json",
+  "sources_note": "V1.1.2 original ZIP authenticated and extended through MB1 V2 and V3, complete archive in private Drive and ChatGPT Library. Only continuity docs live in GitHub; no complete engine ZIP on Windows yet. No PIT proof, no real OOS.",
+  "latest_specialized_checkpoint": "MOTEUR-BLESSING/mb1/CHECKPOINT_MB1_V3_20261016.json",
   "mb1": {
-    "status": "PARTIAL_DESIGN_RECONCILIATION_DONE",
+    "status": "MB1_V3_ENGINEERING_DONE__SCIENTIFIC_PIT_PENDING",
     "source": "V1.1.2",
     "inspected_engine_archive_this_session": true,
     "new_read_only_inspector_git_blob": "3fbb7028cec7d71e525937bda8abc773a0f5f67f",
@@ -103,6 +103,22 @@
       "partial": 50,
       "unlinked": 297,
       "reduced_old_links": 13
+    },
+    "current_v3": {
+      "plan_covering_proposals": 372,
+      "overlap_warning_groups": 12,
+      "proposed_evidence_lanes": 11,
+      "tests_v3_passed": 28,
+      "all_software_tests_rerun_passed": 215,
+      "windows_tests": "NOT_RUN",
+      "real_pre_match_PIT_verified": false,
+      "scientific_effects_activated": 0,
+      "complete_zip_sha256": "3c1bd3369309101ffdb11f41b4e62270c65f028ff138935b4058e35cf3042baa",
+      "complete_zip_members": 114,
+      "complete_zip_bytes": 12298556,
+      "Drive_folder": "https://drive.google.com/drive/folders/1t_53nvyzLAD_wmPCo8AKwB21QgDuKGaX",
+      "Drive_full_zip": "https://drive.google.com/file/d/1Lj5vQgLP-SAs3gx0CZIw-gNMB_pJ6wI6/view?usp=drivesdk",
+      "Drive_patch_zip": "https://drive.google.com/file/d/1OrYvWLYtwjRjWp6nADtkrmybjVBdC88t/view?usp=drivesdk"
     }
   }
 }
