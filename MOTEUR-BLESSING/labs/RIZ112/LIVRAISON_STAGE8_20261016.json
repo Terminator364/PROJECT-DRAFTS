@@ -1,0 +1,69 @@
+{
+  "schema": "riz112/stage8/sync-receipt/v1",
+  "date": "2026-10-16",
+  "stage": 8,
+  "mandate": "D014",
+  "restart": "RIZ112|CONTINUE",
+  "case_routes": {
+    "prestart_sources": 22,
+    "forecasts": 3,
+    "planned_actions": 26,
+    "conditional_policies": 11,
+    "total": 62
+  },
+  "claims": {
+    "full_112_qualitative_scientific_effects": false,
+    "scoring_Q_approved": false,
+    "calibrated_IC_percent": null,
+    "actual_rice_trials": 0
+  },
+  "tests": {
+    "step4": 22,
+    "step5": 31,
+    "journal": 10,
+    "step6": 42,
+    "step7": 36,
+    "step8": 19,
+    "total": 160,
+    "passed": 160
+  },
+  "package": {
+    "name": "RIZ112_CAHIER_MERE_STAGE8_D014_FINAL_2026-10-16.zip",
+    "sha256": "00282a3b41fc6cbd76d1db5472f2cd61fd27da61ddbfdf78cedf8e5e1f70d381",
+    "bytes": 208329,
+    "members": 83,
+    "local_crc": "PASS",
+    "manifest_hashes": "PASS"
+  },
+  "github": {
+    "root": "MOTEUR-BLESSING/labs/RIZ112",
+    "master": "MOTEUR-BLESSING/labs/RIZ112/CAHIER_MERE.md",
+    "checkpoint": "MOTEUR-BLESSING/labs/RIZ112/CHECKPOINT.json",
+    "journal": "MOTEUR-BLESSING/labs/RIZ112/journal/JOURNAL_EVENEMENTS.jsonl",
+    "code": "MOTEUR-BLESSING/labs/RIZ112/step8/functional_routes.py",
+    "test": "MOTEUR-BLESSING/labs/RIZ112/step8/test_functional_routes.py"
+  },
+  "library": {
+    "path": "/RIZ112_LAB/CAHIER_MERE_STAGE8_2026-10-16/RIZ112_CAHIER_MERE_STAGE8_D014_FINAL_2026-10-16.zip",
+    "library_file_id": "libfile_128cfa4bb9a8819181167c2d63fccb1e"
+  },
+  "drive": {
+    "id": "1gISZa_rV1Mywj8-aVBMkE8JSczS0CocC",
+    "url": "https://drive.google.com/file/d/1gISZa_rV1Mywj8-aVBMkE8JSczS0CocC/view?usp=drivesdk",
+    "folder_id": "1oMXQp39wS0xaygFt2SWm7hII77fHxedP",
+    "bytes_readback": 208329,
+    "shared": false,
+    "independent_remote_sha_verified": false
+  },
+  "windows": {
+    "device": "MBMPC",
+    "online": false,
+    "stage8_installed": false,
+    "tests_run": false
+  },
+  "journal": {
+    "events": 45,
+    "head": "a0152341199c6107a78bfe7e63a95e6d364951ab46810d6be7cb38041d3c3a9c"
+  },
+  "next": "Confront D014 mechanisms to quality with real observations; do not claim verified Q without data; maintain snapshot SHA and separate Windows offline status."
+}
