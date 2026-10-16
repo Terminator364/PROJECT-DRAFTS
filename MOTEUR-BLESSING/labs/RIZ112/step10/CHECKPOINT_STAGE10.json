@@ -1,0 +1,106 @@
+{
+  "schema": "riz112/master-continuity/v5",
+  "project": "RIZ112_lab_to_MATRICE",
+  "date": "2026-10-17",
+  "stage": 10,
+  "status": "STEP10_CASE_BY_CASE_IC_INFLUENCE_AUDITED__TARGET_GATE_PATCHED__SCIENCE_NOT_APPROVED",
+  "continuity_code": "RIZ112|CONTINUE",
+  "master": "CAHIER_MERE.md",
+  "mandate": "MANDAT_FINITION_112.md",
+  "mandate_active": true,
+  "journal": {
+    "events": 54,
+    "head": "d98bca2a5df7883da6a0d710791c01ff5a96e3e27dd9272e1a1e86cc43614d18"
+  },
+  "cases": {
+    "catalogued": 112,
+    "D014_missing_before_stage8": 62,
+    "stage8_typed_routes": 62,
+    "routes_by_kind": {
+      "PRESTART_EVIDENCE_OR_CONSTRAINT": 22,
+      "PRESTART_FORECAST": 3,
+      "PLANNED_ACTION_FEASIBILITY": 26,
+      "PREDECLARED_CONDITIONAL_POLICY": 11
+    },
+    "cases_with_validated_Q_effect": 0,
+    "forecast_044_NO_FORMULA": true,
+    "poststart_labels_used_as_predictor": 0,
+    "scientific_IC": null,
+    "all_112_roles_traced": true,
+    "routes_D014_62": true,
+    "simulated_quality_proxy_dimensions": 4,
+    "actual_quality_dimensions_unmodeled": 10,
+    "scientifically_validated_quality_effects": 0
+  },
+  "tests": {
+    "old_step4": 22,
+    "old_step5": 31,
+    "journal": 10,
+    "old_step6": 42,
+    "old_step7": 36,
+    "new_step8": 19,
+    "total": 185,
+    "passed": 185,
+    "environment": "ChatGPT container Linux Python 3.13.5",
+    "windows": "NOT_TESTED",
+    "step9": 25
+  },
+  "scientific": {
+    "quality_rubric_approved": false,
+    "real_rice_trials": 0,
+    "calibrated_ic": null,
+    "status": "NOT_VALIDATED"
+  },
+  "next": "Fully define Q (quality target), collect actual trials and calibrate. Do not misrepresent 112 tracked roles as 112 IC effects. Quantify conditional policies/actions only when evidence exists.",
+  "matrice": {
+    "sports_engine_modified": false,
+    "transfer_only_methods": true,
+    "copy_food_coefficients": false
+  },
+  "mirrors": {
+    "github": "MASTER_AND_CODE_PUBLISHED_PENDING_FINAL_CHECKPOINT_UPDATE",
+    "library": "STAGE8_ARCHIVE_AND_FILES_PRESENT_BASE_VERSION",
+    "drive": "V8_ARCHIVE_UPLOADED_206876B_VERIFIED_METADATA_NO_REMOTE_SHA",
+    "windows": "MBMPC_OFFLINE_NOT_TESTED"
+  },
+  "drive_initial_v8": {
+    "id": "11zabEXKov7S34KNtjX-WljTvTjIsOT5u",
+    "url": "https://drive.google.com/file/d/11zabEXKov7S34KNtjX-WljTvTjIsOT5u/view?usp=drivesdk",
+    "bytes": 206876,
+    "sha256_source": "0571e6723fd082f26e67c511acf58ea7d7f79c78e859587adab4a941bb177a62",
+    "remote_sha_verified": false
+  },
+  "scientific_ic_percent": null,
+  "real_Q_probability_percent": null,
+  "last_user_directive": "D016_FINISH_ENGINE_AND_EMIT_IC",
+  "latest_code": "step10/ic_integrity_v10.py",
+  "latest_contract": "step9/DEMONSTRATION_CONTRACT.json",
+  "quality_proxy": "Q*_DEMO 4 unvalidated dimensions, threshold 85",
+  "probabilities_demo_percent": {
+    "A": 62.4,
+    "B": 36.83,
+    "C": 0.1
+  },
+  "sensitivity_demo_percent": {
+    "A_minus_60g": 44.87,
+    "A_alternate_proxy_scale": 38.2
+  },
+  "real_labeled_cooking_trials": 0,
+  "quality_rubric_user_approved": false,
+  "latest_case_audit": "step10/INTERVENTIONS_112_STAGE9.json",
+  "step10": {
+    "one_at_a_time_cases_tested": 112,
+    "ic_demo_changed": 11,
+    "abstentions_original": 5,
+    "v9_ic_demo_unchanged": 92,
+    "derived_not_directly_mutable": 4,
+    "v10_quality_targets_frozen": 14,
+    "quality_contract_hash": "f8069c0f12dda329bc24b5e215ad6d885803cd9b21a9be920fca9b16337889e8",
+    "results_on_A_3000_MC": "IC influence conditional on this single synthetic baseline",
+    "tests_new": 20,
+    "tests_total": 205,
+    "tests_passed": 205,
+    "independent_empirical_quality_trials": 0,
+    "science_approved": false
+  }
+}
