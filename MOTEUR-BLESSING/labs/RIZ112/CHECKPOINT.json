@@ -1,77 +1,79 @@
 {
-  "schema": "riz112/master-continuity/v1",
-  "project": "RIZ-112 – laboratoire pour MATRICE ADN R8",
+  "schema": "riz112/master-continuity/v2",
+  "project": "RIZ-112 laboratory for MATRICE ADN R8",
   "reprise_code": "RIZ112|CONTINUE",
   "date": "2026-10-16",
+  "stage": 6,
+  "status": "112_112_ROLE_EXECUTION_TESTED__17_NUMERIC_PATHS_NOT_CALIBRATED__NO_IC",
   "canonical_github_root": "Terminator364/PROJECT-DRAFTS/main/MOTEUR-BLESSING/labs/RIZ112",
-  "current_stage": 5,
-  "status": "TECHNICAL_STAGE5_DONE__QUALITY_PROTOCOL_NOT_APPROVED__NO_CALIBRATED_IC",
+  "master": "CAHIER_MERE.md",
+  "journal": {
+    "events": 27,
+    "head": "1484123b7f2da0fb6ad96cb0168bdc6743d0efbe4415af37a74034e1ee16441d"
+  },
   "mandatory_read_order": [
     "CHECKPOINT.json",
     "CAHIER_MERE.md",
     "journal/JOURNAL_EVENEMENTS.jsonl",
     "DECISIONS.md",
-    "TRANSFERT_MATRICE.md",
-    "AUDIT_5_CYCLES_ETAPE5.md"
+    "step6/README_ETAPE6.md",
+    "step6/AUDIT_CINQ_CYCLES_ETAPE6.md"
   ],
-  "request": "record user directives, feedback, hypotheses, actions, test proofs, corrections and periodic checkpoints without restarting",
-  "goal": "Predict P(Q >=85 | data frozen before preparing two servings of soft rice with separate grains), not cooking instructions",
+  "mandate": "Make all 112 cases operationally traceable, not 112 invented independent effects; continue sync",
+  "goal": "Predict independently calibrated probability P(Q>=85 | prestart JSON), no cooking instructions",
   "case_catalogue": 112,
-  "actually_executed_case_ids": 15,
+  "case_contract_processed": 112,
+  "case_role_counts": {
+    "DERIVED": 1,
+    "FORECAST": 3,
+    "POSTSTART_TARGET_NOT_FEATURE": 14,
+    "PRESTART": 44,
+    "PRESTART_ACTION_PLAN": 37,
+    "PRESTART_BRANCH_POLICY": 13
+  },
+  "physical_stage4_numerical_cases": 15,
+  "two_new_explicit_derivations_from_same_mechanisms": [
+    "043",
+    "048"
+  ],
+  "numeric_paths_toy_unvalidated": 17,
+  "role_only_cases_without_numeric_physical_path": 95,
+  "validated_case_predictive_effects": 0,
   "stage4_graph_nodes": 16,
-  "outcome_quality_protocol": "DRAFT_NOT_APPROVED",
-  "quality_dimensions": 6,
-  "measured_real_experiments": 0,
-  "data_for_training_count": 0,
-  "calibrated_ic_percent": null,
+  "example_A": {
+    "unknown_prestart": 20,
+    "unknown_action_plans": 13,
+    "undefined_correction_policies": 9,
+    "target_output_contracts": 14,
+    "IC_percent": null
+  },
   "software_tests": {
     "stage4": 22,
     "stage5": 31,
     "journal": 10,
-    "total": 63,
-    "pass": 63,
-    "environment": "ChatGPT Python container (not Windows)"
+    "stage6": 42,
+    "total": 105,
+    "passed": 105,
+    "location": "ChatGPT Linux Python 3.13",
+    "windows_stage6": "NOT_RUN"
   },
-  "interaction_demonstration": {
-    "factors": [
-      "lid_multiplier",
-      "power_W"
-    ],
-    "on": "W_shortfall",
-    "difference_of_differences_g": 10.367227,
-    "physical_validation": false,
-    "ic_interpretation": false
-  },
-  "journal_events_initial": 17,
-  "journal_head": "dba05a6ddea8f0f156cc991dc5c7932c69470da481c72a3fc507d0911a794b9a",
-  "original_archive": {
-    "name": "RIZ112_ETAPE4_Noyau_Mathematique_2026-10-16.zip",
-    "sha256": "5e28c684e0cd2743db8e95c7ced0625bbfd05d8fd02fc559e4663424e7c52764"
+  "scientific": {
+    "approved_Q_protocol": false,
+    "real_trial_count": 0,
+    "calibrated_probability_percent": null,
+    "PIT_authentication": false,
+    "actual_112_predictive_effects_proven": false
   },
   "matrice": {
-    "link": "methodological_only",
-    "model_status": "EXPERIMENTAL_NOT_APPROVED",
+    "transfer_scope": "conceptual architecture and anti-regression checks only",
     "production_code_modified": false,
-    "pilot_caution": "4 match Poisson baseline had 0 worlds numerically populated and 0 crossmechanisms computed"
+    "sports_engine_status": "EXPERIMENTAL_NOT_APPROVED"
   },
+  "windows_sync": "NOT_DONE_PC_OFFLINE",
   "next": [
-    "Obtain user-approved objective measurement rubric with quality dimensions and vetoes",
-    "Generate authentic paired prestart JSON + poststart Q measurements",
-    "Pre-register chronological train/calibration/holdout split",
-    "Fit and evaluate mechanism-to-IC on real cases, with true time and evidence provenance",
-    "Transfer only audited contracts to MATRICE"
-  ],
-  "limits": [
-    "Archive/GitHub/Library are checkpoints only; updates happen during conversations, NOT in background",
-    "All earlier conversations summarized from available context; not full transcript",
-    "Journal hash-chain is not independent historical timestamp attestation"
-  ],
-  "journal_events_current": 23,
-  "sync": {
-    "github": "PUBLISHED",
-    "drive": "INITIAL_SNAPSHOT_VERIFIED; FINAL_PENDING",
-    "chatgpt_library": "INITIAL_SNAPSHOT_PUBLISHED",
-    "windows": "OFFLINE_NOT_SYNCED",
-    "pending": "publish final closure snapshot"
-  }
+    "Create independent evidence / measurement definitions for 95 non-numeric roles",
+    "Derive legitimate dependencies from data; refuse additive bonuses or invented coefficients",
+    "Pre-register and approve final Q rubric, then collect genuine prestart/poststart paired trials",
+    "Calibrate and validate true OOS IC, and use 112 trace template for 62 canonical worlds"
+  ]
 }
