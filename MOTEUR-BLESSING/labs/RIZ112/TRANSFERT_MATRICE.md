@@ -25,3 +25,9 @@ Le pilote conservé dans `mb1/pilots/20261016_four_matches` avait **0 observatio
 - `prediction.json`: IC calibré ou abstention expliquée, nombre de mondes effectivement utilisés et preuves.
 
 Le transfert n'est pas exécuté dans MATRICE à ce stade ; il devra être autorisé par une revue d'interface et suivi dans la feuille de route MATRICE, sans effacer ses propres checkpoints.
+
+## Leçon opérationnelle de l'étape 6 — anti-faux « tous mondes intégrés »
+
+Adapter le contrat 112 à MATRICE en remplaçant la grille par les **62 mondes canoniques**, chaque monde portant : `ROLE`, `SOURCE/PIT`, `FORMULE_EFFECTIVEMENT_EVALUÉE`, `CONTRIBUTION_DIRECTE_OU_DEPENDANCE`, `OBSERVATION_CONNUE/UNKNOWN`, `SORTIE_SEULEMENT`, `COEFFICIENT_CALIBRÉ_OU_NON`, `ÉTAT_FILTRE`. Une preuve de 62/62 rôles validés est distincte de 62/62 contributions quantitatives. Les mondes de gouvernance et les sorties doivent participer à l'admissibilité ou à la définition de la tâche, **jamais comme des bonus de buts ou des observations futures**.
+
+**Condition de non-régression** : rejeter tout rapport présentant un IC Over 1,5 issu du seul prior Poisson comme si les 62 mondes avaient contribué. L'absence d'une formule pertinente se rapporte comme `NOT_MODELED` / `ABSTAIN` et non une valeur zéro déguisée.
