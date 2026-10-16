@@ -164,3 +164,18 @@ Ne jamais remplacer cette chaîne par une baseline de fréquence ou une moyenne 
 **[ÉTAT À NE PAS MASQUER]** : 112/112 contrats de rôle traités, 17 chemins numériques simplifiés (15 moteurs initiaux + 2 dérivés), 62 absences de chemin Q (25 préalables, 26 actions, 11 corrections), 14 résultats comme cibles et non entrées, 141/141 tests logiciels antérieurs, zéro effet scientifique validé, IC `null`. Cette directive a été enregistrée, mais **le travail de raccordement des 62 n'est pas affirmé terminé dans cette entrée**.
 
 **[TRANSFERT MATRICE]** : cette distinction est impérative : 62 mondes répertoriés ne garantissent pas qu'un match a été analysé à travers eux. L'IC Over 1,5 doit être issu uniquement des mécanismes réellement calculés, admissibles en pré-match, et validés ; les gardes et les définitions de résultat ne deviennent pas des prédicteurs par décret.
+
+## §13 — Reprise après D014 : raccordements fonctionnels, étape 8 (2026-10-16)
+
+**Instruction utilisateur (par reconnaissance vocale ambiguë) :** une formulation comporte les mots « accord », « synchronisation » et « cahier mère ». Interprétation opératoire à confirmer si nécessaire : poursuivre les travaux tout en conservant le Cahier mère synchronisé. Les mots incertains ne sont pas traités comme une citation exacte.
+
+**Travail exécuté :** `step8/functional_routes.py` applique 62 routes nommées aux 62 lacunes du registre D014 : 22 données/ressources pré-T0, 3 prévisions, 26 actions planifiées et 11 politiques conditionnelles. En particulier :
+- les ressources et instruments disponibles sont confrontés aux opérations annoncées ; un manque produit `CONTRADICTED` ou `UNKNOWN`, sans pénalité IC arbitraire ;
+- l'eau disponible, la capacité de la casserole, la surface de casserole supposée circulaire et la masse sèche sur base humide supposée donnent des calculs diagnostiques dimensionnés ; aucun n'est considéré calibré pour la qualité Q ;
+- les actions prévues sont distinguées de leur réalisation future ; la succession des actions n'est pas imposée comme vérité universelle ;
+- onze politiques peuvent être sélectionnées par événement hypothétique explicitement déclaré, jamais par événement post-T0 déjà observé ;
+- la prévision 044 « stabilité du frémissement » ne possède pas de loi justifiée et conserve `NO_FORMULA`. Les prévisions 043 et 046 sont de simples proxies du modèle simplifié.
+
+**Contre-audit :** une quantité d'eau de rinçage changeait sans modifier sa trace positive ; corrigé pour reporter la quantité. Une dépendance de séquence facultative ne doit pas devenir un conflit dur ; corrigé en hypothèse de plan. Les origines de la date doivent rester compatibles avec T0 ; le contrat V6-V7 est réutilisé.
+
+**Résultat / frontière :** les 62 dossiers ont maintenant des traitements *opérationnels et vérifiables* dans un moteur d'admissibilité/scénarios. **Ce n'est PAS 62 effets sur la qualité Q, ni une clôture du véritable IC**. Les 62 chemins scientifiquement mesurés vers Q restent non prouvés ; 044 reste non modélisé. D014 demeure actif pour la preuve de contribution prédictive et pour la calibration réelle. La distinction entre couverture contractuelle, causalité et science est conservée pour MATRICE.
