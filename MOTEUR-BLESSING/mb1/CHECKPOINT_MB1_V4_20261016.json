@@ -2,7 +2,7 @@
   "schema": "moteur-blessing/mb1/continuity/v4",
   "date": "2026-10-16",
   "trigger": "MOTEUR|CONTINUE",
-  "status": "MB1_V4_ENGINEERING_COMPLETE_PIT_VALIDATION_PENDING",
+  "status": "MB1_V4_ENGINEERING_WINDOWS_REPRODUCED_PIT_VALIDATION_PENDING",
   "source_version": "V1.1.2",
   "original_zip_sha256": "5ef731d6ee4b5edb8a741c59a565d4f7363be84eb9225e814345cb0a04fe89e0",
   "previous_v3_sha256": "3c1bd3369309101ffdb11f41b4e62270c65f028ff138935b4058e35cf3042baa",
@@ -55,9 +55,9 @@
   "real_matches_OOS_calibration": false,
   "new_scoring_weights": 0,
   "model_status": "EXPERIMENTAL_NOT_APPROVED",
-  "Windows_full_archive_installed": false,
+  "Windows_full_archive_installed": true,
   "Windows_full_suite_rerun": false,
-  "Windows_smoke_test_status": "TWO_TESTS_PASS_WITH_EXIT_CODE_0",
+  "Windows_smoke_test_status": "SUPERSEDED_BY_FULL_SUITE_257_PASS",
   "next": [
     "Acquire real, independently timestamped prematch evidence",
     "Translate the 55 lower-cost backlog measurements into real source provenance and numerator/denominator contracts",
@@ -82,5 +82,23 @@
     "full_bundle_installed": false,
     "full_windows_suite_passed": false
   },
-  "scientific_status": "EXPERIMENTAL_NOT_APPROVED"
+  "scientific_status": "EXPERIMENTAL_NOT_APPROVED",
+  "Windows_full_archive_verified_sha256": "b0c09a45ec2a4f3d6d8fb8b0efaaf6c039b11b0083fcf789e84b2b90818eddb2",
+  "Windows_full_extraction_files": 124,
+  "Windows_tests": {
+    "environment": "MBMPC / Windows / Python 3.12.10",
+    "historical_base": 46,
+    "historical_v11": 45,
+    "historical_v111": 30,
+    "historical_v112": 48,
+    "mb1_v2_v3_v4": 88,
+    "total": 257,
+    "passed": 257,
+    "failed": 0,
+    "process_exit_code": 0,
+    "elapsed_seconds": 57.04,
+    "source_path": "C:\\Users\\Lenovo\\Documents\\Moteur Blessing\\versions\\MB1_V4_20261016\\source",
+    "artifact_path": "C:\\Users\\Lenovo\\Documents\\Moteur Blessing\\versions\\MB1_V4_20261016\\MOTEUR_BLESSING_V1_1_2_MB1_V4_2026-10-16.zip",
+    "results": "FIVE_TEST_SUITES_PASS_AFTER_AUTHENTICATED_SHA256_TRANSFER_AND_EXTRACTION"
+  }
 }
