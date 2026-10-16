@@ -171,5 +171,25 @@
     "scientific_status": "EXPERIMENTAL_NOT_APPROVED",
     "bundle_sha256": "dd2a856bc490a15dc57fc55109b0ec48972cd0d8264e9e0f8f59c1810a9cbbf6",
     "drive_url": "https://drive.google.com/file/d/1h2uYsbwkWwu_hRtkeHrbcFSmRCRQkhiY/view?usp=drivesdk"
-  }
+  },
+  "latest_architectural_correction": "MOTEUR-BLESSING/mb1/rice_formula_recovery/CHECKPOINT_RIZ_20261016.json",
+  "rice_formula_mandate": {
+    "status": "RICE_FORMULA_OBJECTIVE_NOT_YET_MET",
+    "source": "User original recipe analogy 112 named slots; interactions, ordered dependencies, incompatibilities, compensation, uncertainty -> match-specific IC using all 62 worlds by role",
+    "proven_4match_gap": {
+      "worlds_declared": 62,
+      "fields_observed": 0,
+      "mechanisms_computed": 0,
+      "models_loaded": 0,
+      "full_ICs_validated": 0
+    },
+    "correction": "Guarded CLI plus 62-role audit; keeps league Poisson baseline separate and refuses to label this result full IC",
+    "unit_tests_passed": 13,
+    "integration_cli_runs_passed": 4,
+    "next_gate": "Implement actual observed-world recipes & dependency graph and train/calibrate scientifically. Cannot claim complete until verified.",
+    "code": "MOTEUR-BLESSING/mb1/rice_formula_recovery/run_prematch_safe.py",
+    "archive_sha256": "c95ccbb82d989877e9cb7e2668556cf1b39765bf94f384c6aa7f7c3ad4e3b456",
+    "zip_location": "ChatGPT Library + conversation attachment; not verified on PC or Delivery"
+  },
+  "scientific_status": "EXPERIMENTAL_NOT_APPROVED"
 }
