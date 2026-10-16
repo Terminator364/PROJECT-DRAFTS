@@ -1,11 +1,7 @@
 name: BCP USB Rescue R3.2 - one-shot unsigned Android build
 # Owner-authorized exceptional build, activated only by an exact release marker.
 on:
-  push:
-    branches:
-      - work/usb-phone-rescue-lab-2026-10-12
-    paths:
-      - USB-PHONE-RESCUE-LAB/ci-r3_2-trigger-20261016.txt
+  workflow_dispatch:
 permissions:
   contents: read
 jobs:
