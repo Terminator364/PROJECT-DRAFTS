@@ -57,11 +57,30 @@
   "model_status": "EXPERIMENTAL_NOT_APPROVED",
   "Windows_full_archive_installed": false,
   "Windows_full_suite_rerun": false,
-  "Windows_smoke_test_status": "STARTED_NOT_CONFIRMED",
+  "Windows_smoke_test_status": "TWO_TESTS_PASS_WITH_EXIT_CODE_0",
   "next": [
     "Acquire real, independently timestamped prematch evidence",
     "Translate the 55 lower-cost backlog measurements into real source provenance and numerator/denominator contracts",
     "Run independent chronological OOS and baseline comparison",
     "Reproduce full ZIP tests on Windows after authenticated transfer"
-  ]
+  ],
+  "Windows_smoke_details": {
+    "python": "3.12.10",
+    "test_count": 2,
+    "downloaded_and_hashed": [
+      {
+        "file": "temporal_primitives_v4.py",
+        "sha256": "4ac304e7f4f630b1157a4e50a076b691631172e71f27948b800c9aaf2220ee53"
+      },
+      {
+        "file": "pit_gate_v1.py",
+        "sha256": "f6e3d61a8bea41a513879fd140b2eae5e03eb6c9bc60cc5470b5465dda203493"
+      }
+    ],
+    "workspace": "C:\\Users\\Lenovo\\Documents\\Moteur Blessing\\mb1_v4_windows_smoke",
+    "tests": "Missing history gives NULL; synthetic scores pre-freeze evaluated; late capture excluded",
+    "full_bundle_installed": false,
+    "full_windows_suite_passed": false
+  },
+  "scientific_status": "EXPERIMENTAL_NOT_APPROVED"
 }
