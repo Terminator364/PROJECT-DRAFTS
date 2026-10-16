@@ -1,0 +1,252 @@
+{
+  "schema": "MOTEUR_MB1_V4_TYPED_GATE_CONTRACTS",
+  "source_version": "V1.1.2+MB1V3",
+  "canonical_worlds": 62,
+  "subparameter_proposals": 372,
+  "governance_contracts": 24,
+  "contracts": {
+    "DATA_QUALITY::R01": {
+      "id": "DATA_QUALITY::R01",
+      "field": "archive_publication_capture",
+      "type": "timestamp_pair",
+      "semantics_to_verify": "original publication and independent archive capture",
+      "source_lane": "MODEL_GOVERNANCE",
+      "required_evidence": "ORIGINAL_BYTES_SHA256_AND_INDEPENDENT_POINT_IN_TIME_CAPTURE",
+      "value_status": "UNKNOWN_NOT_OBSERVED",
+      "effect_weight": null
+    },
+    "DATA_QUALITY::R02": {
+      "id": "DATA_QUALITY::R02",
+      "field": "raw_original_artifact",
+      "type": "sha256_bytes",
+      "semantics_to_verify": "immutable raw primary artifact and byte hash",
+      "source_lane": "MODEL_GOVERNANCE",
+      "required_evidence": "ORIGINAL_BYTES_SHA256_AND_INDEPENDENT_POINT_IN_TIME_CAPTURE",
+      "value_status": "UNKNOWN_NOT_OBSERVED",
+      "effect_weight": null
+    },
+    "DATA_QUALITY::R03": {
+      "id": "DATA_QUALITY::R03",
+      "field": "upstream_source_independence",
+      "type": "lineage_graph",
+      "semantics_to_verify": "different publishers, not copied syndication",
+      "source_lane": "MODEL_GOVERNANCE",
+      "required_evidence": "ORIGINAL_BYTES_SHA256_AND_INDEPENDENT_POINT_IN_TIME_CAPTURE",
+      "value_status": "UNKNOWN_NOT_OBSERVED",
+      "effect_weight": null
+    },
+    "DATA_QUALITY::R04": {
+      "id": "DATA_QUALITY::R04",
+      "field": "time_conversion_trace",
+      "type": "utc_transformation",
+      "semantics_to_verify": "source zone, raw local clock and UTC conversion",
+      "source_lane": "MODEL_GOVERNANCE",
+      "required_evidence": "ORIGINAL_BYTES_SHA256_AND_INDEPENDENT_POINT_IN_TIME_CAPTURE",
+      "value_status": "UNKNOWN_NOT_OBSERVED",
+      "effect_weight": null
+    },
+    "DATA_QUALITY::R05": {
+      "id": "DATA_QUALITY::R05",
+      "field": "definition_revision",
+      "type": "versioned_definition",
+      "semantics_to_verify": "version/date/statistical numerator and denominator definitions",
+      "source_lane": "MODEL_GOVERNANCE",
+      "required_evidence": "ORIGINAL_BYTES_SHA256_AND_INDEPENDENT_POINT_IN_TIME_CAPTURE",
+      "value_status": "UNKNOWN_NOT_OBSERVED",
+      "effect_weight": null
+    },
+    "DATA_QUALITY::R06": {
+      "id": "DATA_QUALITY::R06",
+      "field": "correction_conflict_ledger",
+      "type": "append_only_ledger",
+      "semantics_to_verify": "conflicting corrections must retain all versions",
+      "source_lane": "MODEL_GOVERNANCE",
+      "required_evidence": "ORIGINAL_BYTES_SHA256_AND_INDEPENDENT_POINT_IN_TIME_CAPTURE",
+      "value_status": "UNKNOWN_NOT_OBSERVED",
+      "effect_weight": null
+    },
+    "FIXTURE_ID::R01": {
+      "id": "FIXTURE_ID::R01",
+      "field": "fixture_organizer_id",
+      "type": "identifier",
+      "semantics_to_verify": "official organizer fixture ID valid at cutoff",
+      "source_lane": "FIXTURE_RULES",
+      "required_evidence": "ORIGINAL_BYTES_SHA256_AND_INDEPENDENT_POINT_IN_TIME_CAPTURE",
+      "value_status": "UNKNOWN_NOT_OBSERVED",
+      "effect_weight": null
+    },
+    "FIXTURE_ID::R02": {
+      "id": "FIXTURE_ID::R02",
+      "field": "season_and_round_id",
+      "type": "identifier",
+      "semantics_to_verify": "season edition and round from a dated organizer release",
+      "source_lane": "FIXTURE_RULES",
+      "required_evidence": "ORIGINAL_BYTES_SHA256_AND_INDEPENDENT_POINT_IN_TIME_CAPTURE",
+      "value_status": "UNKNOWN_NOT_OBSERVED",
+      "effect_weight": null
+    },
+    "FIXTURE_ID::R03": {
+      "id": "FIXTURE_ID::R03",
+      "field": "canonical_home_away_ids",
+      "type": "pair_of_identifiers",
+      "semantics_to_verify": "stable home/away IDs; aliases audited",
+      "source_lane": "FIXTURE_RULES",
+      "required_evidence": "ORIGINAL_BYTES_SHA256_AND_INDEPENDENT_POINT_IN_TIME_CAPTURE",
+      "value_status": "UNKNOWN_NOT_OBSERVED",
+      "effect_weight": null
+    },
+    "FIXTURE_ID::R04": {
+      "id": "FIXTURE_ID::R04",
+      "field": "fixture_status_asof",
+      "type": "enum",
+      "semantics_to_verify": "status valid at cutoff; cancel/postpone handled as GATE",
+      "source_lane": "FIXTURE_RULES",
+      "required_evidence": "ORIGINAL_BYTES_SHA256_AND_INDEPENDENT_POINT_IN_TIME_CAPTURE",
+      "value_status": "UNKNOWN_NOT_OBSERVED",
+      "effect_weight": null
+    },
+    "FIXTURE_ID::R05": {
+      "id": "FIXTURE_ID::R05",
+      "field": "venue_timezone_iana",
+      "type": "iana_timezone",
+      "semantics_to_verify": "zone identity from dated stadium information",
+      "source_lane": "FIXTURE_RULES",
+      "required_evidence": "ORIGINAL_BYTES_SHA256_AND_INDEPENDENT_POINT_IN_TIME_CAPTURE",
+      "value_status": "UNKNOWN_NOT_OBSERVED",
+      "effect_weight": null
+    },
+    "FIXTURE_ID::R06": {
+      "id": "FIXTURE_ID::R06",
+      "field": "kickoff_utc_crosscheck",
+      "type": "utc_instant",
+      "semantics_to_verify": "kickoff confirmed from independent published schedules",
+      "source_lane": "FIXTURE_RULES",
+      "required_evidence": "ORIGINAL_BYTES_SHA256_AND_INDEPENDENT_POINT_IN_TIME_CAPTURE",
+      "value_status": "UNKNOWN_NOT_OBSERVED",
+      "effect_weight": null
+    },
+    "MODEL_DOMAIN::R01": {
+      "id": "MODEL_DOMAIN::R01",
+      "field": "competition_format_asof",
+      "type": "enum",
+      "semantics_to_verify": "league/cup and tournament rules as of cutoff",
+      "source_lane": "MODEL_GOVERNANCE",
+      "required_evidence": "ORIGINAL_BYTES_SHA256_AND_INDEPENDENT_POINT_IN_TIME_CAPTURE",
+      "value_status": "UNKNOWN_NOT_OBSERVED",
+      "effect_weight": null
+    },
+    "MODEL_DOMAIN::R02": {
+      "id": "MODEL_DOMAIN::R02",
+      "field": "opponent_population",
+      "type": "dataset_partition",
+      "semantics_to_verify": "strength level and population inclusion before fixture",
+      "source_lane": "MODEL_GOVERNANCE",
+      "required_evidence": "ORIGINAL_BYTES_SHA256_AND_INDEPENDENT_POINT_IN_TIME_CAPTURE",
+      "value_status": "UNKNOWN_NOT_OBSERVED",
+      "effect_weight": null
+    },
+    "MODEL_DOMAIN::R03": {
+      "id": "MODEL_DOMAIN::R03",
+      "field": "engine_source_digest",
+      "type": "source_sha256",
+      "semantics_to_verify": "immutable model code/config digest",
+      "source_lane": "MODEL_GOVERNANCE",
+      "required_evidence": "ORIGINAL_BYTES_SHA256_AND_INDEPENDENT_POINT_IN_TIME_CAPTURE",
+      "value_status": "UNKNOWN_NOT_OBSERVED",
+      "effect_weight": null
+    },
+    "MODEL_DOMAIN::R04": {
+      "id": "MODEL_DOMAIN::R04",
+      "field": "xg_admissible_domain",
+      "type": "numeric_domain",
+      "semantics_to_verify": "training-derived admissible xG scope; undefined if untrained",
+      "source_lane": "MODEL_GOVERNANCE",
+      "required_evidence": "ORIGINAL_BYTES_SHA256_AND_INDEPENDENT_POINT_IN_TIME_CAPTURE",
+      "value_status": "UNKNOWN_NOT_OBSERVED",
+      "effect_weight": null
+    },
+    "MODEL_DOMAIN::R05": {
+      "id": "MODEL_DOMAIN::R05",
+      "field": "missingness_status",
+      "type": "missing_value_policy",
+      "semantics_to_verify": "UNKNOWN distinct from measured zero and absent artifacts",
+      "source_lane": "MODEL_GOVERNANCE",
+      "required_evidence": "ORIGINAL_BYTES_SHA256_AND_INDEPENDENT_POINT_IN_TIME_CAPTURE",
+      "value_status": "UNKNOWN_NOT_OBSERVED",
+      "effect_weight": null
+    },
+    "MODEL_DOMAIN::R06": {
+      "id": "MODEL_DOMAIN::R06",
+      "field": "chronological_oos_calibration",
+      "type": "evaluation_report",
+      "semantics_to_verify": "real chronological OOS evidence required for any promotion",
+      "source_lane": "MODEL_GOVERNANCE",
+      "required_evidence": "ORIGINAL_BYTES_SHA256_AND_INDEPENDENT_POINT_IN_TIME_CAPTURE",
+      "value_status": "UNKNOWN_NOT_OBSERVED",
+      "effect_weight": null
+    },
+    "PLAY_TIME_RULES::R01": {
+      "id": "PLAY_TIME_RULES::R01",
+      "field": "regulation_time_rule",
+      "type": "competition_rule",
+      "semantics_to_verify": "regulation-time definition includes stoppage time",
+      "source_lane": "FIXTURE_RULES",
+      "required_evidence": "ORIGINAL_BYTES_SHA256_AND_INDEPENDENT_POINT_IN_TIME_CAPTURE",
+      "value_status": "UNKNOWN_NOT_OBSERVED",
+      "effect_weight": null
+    },
+    "PLAY_TIME_RULES::R02": {
+      "id": "PLAY_TIME_RULES::R02",
+      "field": "leg_structure",
+      "type": "competition_rule",
+      "semantics_to_verify": "one match regulation goals, not aggregate over legs",
+      "source_lane": "FIXTURE_RULES",
+      "required_evidence": "ORIGINAL_BYTES_SHA256_AND_INDEPENDENT_POINT_IN_TIME_CAPTURE",
+      "value_status": "UNKNOWN_NOT_OBSERVED",
+      "effect_weight": null
+    },
+    "PLAY_TIME_RULES::R03": {
+      "id": "PLAY_TIME_RULES::R03",
+      "field": "stoppage_policy",
+      "type": "competition_rule",
+      "semantics_to_verify": "stoppage included; no time additions miscounted",
+      "source_lane": "FIXTURE_RULES",
+      "required_evidence": "ORIGINAL_BYTES_SHA256_AND_INDEPENDENT_POINT_IN_TIME_CAPTURE",
+      "value_status": "UNKNOWN_NOT_OBSERVED",
+      "effect_weight": null
+    },
+    "PLAY_TIME_RULES::R04": {
+      "id": "PLAY_TIME_RULES::R04",
+      "field": "competition_interruptions_asof",
+      "type": "dated_notice",
+      "semantics_to_verify": "pre-match suspensions/venue bans and fixture viability",
+      "source_lane": "FIXTURE_RULES",
+      "required_evidence": "ORIGINAL_BYTES_SHA256_AND_INDEPENDENT_POINT_IN_TIME_CAPTURE",
+      "value_status": "UNKNOWN_NOT_OBSERVED",
+      "effect_weight": null
+    },
+    "PLAY_TIME_RULES::R05": {
+      "id": "PLAY_TIME_RULES::R05",
+      "field": "extra_time_separation",
+      "type": "competition_rule",
+      "semantics_to_verify": "extra time and penalties strictly excluded from goal total",
+      "source_lane": "FIXTURE_RULES",
+      "required_evidence": "ORIGINAL_BYTES_SHA256_AND_INDEPENDENT_POINT_IN_TIME_CAPTURE",
+      "value_status": "UNKNOWN_NOT_OBSERVED",
+      "effect_weight": null
+    },
+    "PLAY_TIME_RULES::R06": {
+      "id": "PLAY_TIME_RULES::R06",
+      "field": "disciplinary_rule_context",
+      "type": "dated_rule",
+      "semantics_to_verify": "disciplinary rules documented; never treated as goal count",
+      "source_lane": "FIXTURE_RULES",
+      "required_evidence": "ORIGINAL_BYTES_SHA256_AND_INDEPENDENT_POINT_IN_TIME_CAPTURE",
+      "value_status": "UNKNOWN_NOT_OBSERVED",
+      "effect_weight": null
+    }
+  },
+  "validation_status": "MEASUREMENT_DESIGN_ONLY",
+  "PIT_independently_authenticated": false,
+  "scoring_authorized": false
+}
