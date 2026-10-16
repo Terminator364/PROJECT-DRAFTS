@@ -8,8 +8,8 @@
   "canonical_github_root": "Terminator364/PROJECT-DRAFTS/main/MOTEUR-BLESSING/labs/RIZ112",
   "master": "CAHIER_MERE.md",
   "journal": {
-    "events": 27,
-    "head": "1484123b7f2da0fb6ad96cb0168bdc6743d0efbe4415af37a74034e1ee16441d"
+    "events": 28,
+    "head": "31b174292e2926e63bb8090de91e97b06b7a6009a9d3677b6a3b94674630e2b0"
   },
   "mandatory_read_order": [
     "CHECKPOINT.json",
@@ -75,5 +75,12 @@
     "Derive legitimate dependencies from data; refuse additive bonuses or invented coefficients",
     "Pre-register and approve final Q rubric, then collect genuine prestart/poststart paired trials",
     "Calibrate and validate true OOS IC, and use 112 trace template for 62 canonical worlds"
-  ]
+  ],
+  "backups": {
+    "draft_archive_sha256": "c19f8d075a9c66467ff824eb26e2a43c400e726fcf5c870b3ee92ea7a9de94df",
+    "drive_draft_archive": "https://drive.google.com/file/d/1lPc_Atwyg6Wp5WakHHU9BuYYsHSXBLN9/view?usp=drivesdk",
+    "library_draft": "libfile_29f927b494408191ae438a0a8fd08eb0",
+    "github_exact_git_blobs_verified": "13/13",
+    "windows_sync": "NOT_DONE_PC_OFFLINE"
+  }
 }
