@@ -1,0 +1,37 @@
+{
+  "baseline": [
+    {
+      "case": "A_couvercle_ajuste",
+      "ic_demo_percent": 62.4,
+      "scientific_ic_percent": null,
+      "Q_demo_p50": 87.58,
+      "CI_MC_only": [
+        60.65,
+        64.12
+      ]
+    },
+    {
+      "case": "B_couvercle_fuyant",
+      "ic_demo_percent": 36.83,
+      "scientific_ic_percent": null,
+      "Q_demo_p50": 81.099,
+      "CI_MC_only": [
+        35.13,
+        38.58
+      ]
+    },
+    {
+      "case": "C_chaleur_faible",
+      "ic_demo_percent": 0.1,
+      "scientific_ic_percent": null,
+      "Q_demo_p50": 17.92,
+      "CI_MC_only": [
+        0.03,
+        0.29
+      ]
+    }
+  ],
+  "counterfactual_A_minus_60g": 44.87,
+  "A_modified_scoring_rubric": 38.2,
+  "interpretation": "These are NOT observed rice probabilities, only simulated hypothetical proxy events."
+}
