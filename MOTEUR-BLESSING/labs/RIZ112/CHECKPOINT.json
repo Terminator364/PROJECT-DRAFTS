@@ -1,106 +1,53 @@
 {
-  "schema": "riz112/master-continuity/v3",
-  "project": "RIZ-112 laboratory to build transferable MOTEUR-BLESSING/MATRICE architecture",
+  "schema": "riz112/master-continuity/v4",
+  "project": "RIZ112_lab_to_MATRICE",
   "date": "2026-10-16",
-  "stage": 7,
-  "reprise_code": "RIZ112|CONTINUE",
-  "status": "STAGE7_MANDATE_REVISED__62_FUNCTIONAL_LINKS_OPEN__DO_NOT_PROMOTE",
-  "canonical_github_root": "Terminator364/PROJECT-DRAFTS/main/MOTEUR-BLESSING/labs/RIZ112",
+  "stage": 8,
+  "status": "STAGE8_D014_62_EXECUTABLE_ROUTINGS__Q_AND_IC_NOT_COMPLETED",
+  "continuity_code": "RIZ112|CONTINUE",
   "master": "CAHIER_MERE.md",
+  "mandate": "MANDAT_FINITION_112.md",
+  "mandate_active": true,
   "journal": {
-    "events": 38,
-    "head": "bcd3b88b31618ee1e0fb1b75a00367f1ca1b4e9aea4213e78712790e9f6b380a"
+    "events": 43,
+    "head": "4be74d393d10d875e84635627220dda7a32c889dcacaec1de19e28cc29ec762f"
   },
-  "mandatory_read_order": [
-    "CHECKPOINT.json",
-    "CAHIER_MERE.md",
-    "MANDAT_FINITION_112.md",
-    "RESTANT_62_REGISTRE.json",
-    "DECISIONS.md",
-    "journal/JOURNAL_EVENEMENTS.jsonl",
-    "step7/AUDIT_CINQ_CYCLES_ETAPE7.md",
-    "step7/GAPS_112_V7.json",
-    "TRANSFERT_MATRICE.md"
-  ],
-  "user_non_negotiables": [
-    "all 112 cases must contribute genuinely, not metadata decoration",
-    "no score from additive arbitrary bonuses",
-    "exclusively before T0 input and predeclared actions",
-    "IC only from audited calibrated data",
-    "continuous durable mother journal and sync",
-    "transfer concepts not rice equations to MATRICE"
-  ],
-  "graph": {
-    "all_nodes": 112,
-    "declared_arcs": 169,
-    "rejected_future_label_arcs": 17,
-    "rejected_reverse_plan_order_arcs": 2,
-    "accepted_structural_candidate_arcs": 150,
-    "acyclic": true,
-    "hypothetical_path_to_Q112": 50,
-    "without_hypothetical_path_to_Q112": 62,
-    "numeric_path_cases_unlinked_to_Q112": [
-      "014",
-      "037",
-      "038",
-      "043"
-    ],
-    "candidate_paths_not_validated_effects": true
-  },
-  "feasibility": {
-    "independent_consistency_checks": 10,
-    "scientific_quality_effects_quantified": 0
-  },
-  "role_execution": {
-    "all_cases_processed": 112,
-    "toy_numerical_paths": 17,
-    "actual_validated_case_effects": 0,
-    "future_targets": 14
+  "cases": {
+    "catalogued": 112,
+    "D014_missing_before_stage8": 62,
+    "stage8_typed_routes": 62,
+    "routes_by_kind": {
+      "PRESTART_EVIDENCE_OR_CONSTRAINT": 22,
+      "PRESTART_FORECAST": 3,
+      "PLANNED_ACTION_FEASIBILITY": 26,
+      "PREDECLARED_CONDITIONAL_POLICY": 11
+    },
+    "cases_with_validated_Q_effect": 0,
+    "forecast_044_NO_FORMULA": true,
+    "poststart_labels_used_as_predictor": 0,
+    "scientific_IC": null
   },
   "tests": {
-    "step4": 22,
-    "step5": 31,
+    "old_step4": 22,
+    "old_step5": 31,
     "journal": 10,
-    "step6": 42,
-    "step7": 36,
-    "total": 141,
-    "passed": 141,
-    "environment": "ChatGPT container Python3.13 Linux",
-    "windows_step7": "NOT_TESTED"
+    "old_step6": 42,
+    "old_step7": 36,
+    "new_step8": 19,
+    "total": 160,
+    "passed": 160,
+    "environment": "ChatGPT container Linux Python 3.13.5",
+    "windows": "NOT_TESTED"
   },
-  "quality": {
-    "Q_protocol": "DRAFT_NOT_APPROVED",
-    "real_trials": 0,
-    "IC_percent": null,
-    "prediction_status": "ABSTAIN_UNCALIBRATED"
+  "scientific": {
+    "quality_rubric_approved": false,
+    "real_rice_trials": 0,
+    "calibrated_ic": null,
+    "status": "NOT_VALIDATED"
   },
+  "next": "Do NOT stop at 62 typed routes: close actual mechanism/target links with justified empirical or physical laws, document Q rubric, obtain prestart/afterstart real data, validate IC; preserve D014 mandate.",
   "matrice": {
     "sports_engine_modified": false,
-    "sports_model_scientific_status": "EXPERIMENTAL_NOT_APPROVED"
-  },
-  "next": [
-    "Clarify candidate causal/testable arcs to resolve disconnected 62, without forced links",
-    "Measure and validate physical quantities against experiments",
-    "Preregister reliable Q >= 85/100 measurement rubric with user agreement",
-    "Gather independently witnessed prestart/poststart records and run chronological OOS probability calibration"
-  ],
-  "mirrors": {
-    "github_stage7": "SOURCE_AND_MASTER_SYNCED",
-    "google_drive_stage7": "VERIFIED_DRAFT_ARCHIVE",
-    "chatgpt_library_stage7": "VERIFIED_DRAFT_ARCHIVE",
-    "windows_stage7": "NOT_DONE_PC_OFFLINE"
-  },
-  "previous_verified_draft_zip_sha256": "03f2f1a807b39d36bd4e41e05c1181507651ce44efea71dd0f96430d9372e3a4",
-  "draft_drive_url": "https://drive.google.com/file/d/1jwFA0txxaPhzqDUae6HyoVPIF_oJewHZ/view?usp=drivesdk",
-  "next_gate": "FINISH_112_FUNCTIONAL_ROLE_EFFECTS_BEFORE_NEXT_STAGE_CLAIM",
-  "feedback_2026_10_16": {
-    "decision": "D014",
-    "recorded": true,
-    "unconnected_structural_cases": 62,
-    "roles_executed": 112,
-    "scientifically_validated_effects": 0,
-    "mandate_file": "MANDAT_FINITION_112.md",
-    "gap_file": "RESTANT_62_REGISTRE.json",
-    "claim_112_functional_contributions_complete": false
+    "transfer_only_methods": true
   }
 }
