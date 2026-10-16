@@ -109,3 +109,18 @@
 **ÉPREUVE WINDOWS INTÉGRALE :** `python -m unittest discover -s <suite> -p test_*.py -q`, Python 3.12.10, commandes exécutées directement par Desktop Commander dans le dossier extrait. Suite `tests`: **46 PASS** ; `tests_v11`: **45 PASS** ; `tests_v111`: **30 PASS** ; `tests_v112`: **48 PASS** ; `mb1`: **88 PASS** ; cumul **257/257 PASS**, marqueur `MB1_V4_WINDOWS_FULL_257_PASS`, exit code **0** (~57 s). Les deux tests Windows réduits précédents deviennent des preuves additionnelles, et non la seule certification technique.
 
 **GOUVERNANCE SCIENTIFIQUE :** **aucun** nouvel historique PIT source signé/autorisable ; **aucune** calibration sportive réelle OOS ; le statut reste `EXPERIMENTAL_NOT_APPROVED` malgré l'épreuve Windows réussie. Point de reprise GitHub `mb1/CHECKPOINT_MB1_V4_20261016.json`, `MANIFEST.json.pc_archive_extracted=true`, `ETAT_MB1_V4_20261016.md`.
+
+
+## 2026-10-16 — PILOTE RÉEL CONTRÔLÉ : 2 historiques + 1 aujourd'hui + 1 demain
+
+**DÉBUT :** demande de tester le Moteur Blessing V4 sur 4 matchs réels, exclusivement avant coup d'envoi et Over 1,5 en 90 minutes réglementaires. Source technique : ZIP V4 SHA256 `b0c09a45ec2a4f3d6d8fb8b0efaaf6c039b11b0083fcf789e84b2b90818eddb2`. Reproductibilité du choix des deux passés parmi dix matchs PL des 10–12 octobre par graine `20261016`.
+
+**EXÉCUTION (vrai code, pas ChatGPT estimation) :** V1.1.2 sans modèle ajusté :
+- Chelsea–Bournemouth, 10 Oct : `REFERENCE_ONLY_NO_SPORTS_TRAINING`, Poisson ligue `75.133960%`, historique 10 matchs moyenne 2,70 ; réel séparé 5–1.
+- Liverpool–Manchester City, 11 Oct : idem `75.133960%`, réel séparé 0–3.
+- Eintracht Francfort–Cologne, 16 Oct : Bundesliga 9 matchs moyenne 3,8889 → `89.993385%`, aucun résultat du match inclus.
+- Everton–Chelsea, 17 Oct : PL 20 matchs moyenne 3,15 → `82.216367%`, aucun résultat futur inclus.
+
+**CONTRE-AUDIT :** historiques du 10/11 reconstitués le 16 Oct ; aucune capture indépendante antérieure au gel, donc les références ne constituent **PAS** de prédictions historiques PIT certifiées. Le modèle V1.1.2 accepte cependant leur manifest/date déclarés : faille scientifique de preuve signalée. V4 `temporal_primitives_v4.py` refuse les 2 backfills. Pour les matchs non commencés, V4 a calculé GF/GA sur trois rencontres antérieures : Francfort 1,67/3,00, Cologne 1,33/1,33, Everton 1,00/0,67, Chelsea 2,33/2,00 ; `model_scoring_authorized=false`, aucune pondération inventée. Contrôles : 4 runs, 4 abstentions sans prior, 4 refus injection score cible, 4 refus date tardive, 4 égalités de formule Poisson, 2 refus de replays historiques tardifs.
+
+**FIN / LIVRAISON :** rapport + scripts Python + packets + sources reconstituées + preuves de contrôle, ZIP 24 membres, **37 408 octets**, SHA256 `dd2a856bc490a15dc57fc55109b0ec48972cd0d8264e9e0f8f59c1810a9cbbf6`, [Google Drive privé](https://drive.google.com/file/d/1h2uYsbwkWwu_hRtkeHrbcFSmRCRQkhiY/view?usp=drivesdk). Checkpoint `mb1/pilots/20261016_four_matches/CHECKPOINT_PILOT_4MATCH_20261016.json` ; anomalie documentée dans `ISSUE_PIT_CAPTURES.md`. Le ZIP est disponible sur Drive et dans cette conversation ; **PAS de test Windows effectué pour ce pilote**, et l'état moteur V4 reste `EXPERIMENTAL_NOT_APPROVED`.
