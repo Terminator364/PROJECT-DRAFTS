@@ -100,3 +100,12 @@
 **PC MBMPC :** PC en ligne, téléchargements `temporal_primitives_v4.py` et `pit_gate_v1.py` depuis le dépôt GitHub vers le dossier versionné Windows `Documents\Moteur Blessing\mb1_v4_windows_smoke`, empreintes SHA exactes. Deux tests Python 3.12 ont réussi : (A) historique absent doit donner UNKNOWN et blocage scoring, (B) historique fictif GF/GA avant gel donne calcul de référence, puis rejet de la copie arrivée après gel. **Pas de ZIP intégral V4 transféré/installé sur Windows, pas de 257 tests sous Windows.**
 
 **FIN / CONTINUITÉ :** `MANIFEST.json.latest_specialized_checkpoint=MOTEUR-BLESSING/mb1/CHECKPOINT_MB1_V4_20261016.json`, garder `MB1_V4_ENGINEERING_COMPLETE_PIT_PENDING`. **0 archive historique sportive PIT indépendamment vérifiée, 0 OOS réelle, statut `EXPERIMENTAL_NOT_APPROVED`.** Prochain MB-1 : spécifier et authentifier les 55 mesures prioritaires et les sources horodatées dans le respect de leurs conditions, puis backtest chronologique contre baseline sans fuite.
+
+
+### 2026-10-16 — COMPLÉMENT RECTIFICATIF FIN V4 : archive sur Windows et test intégral réussi
+
+**Le statut Windows ci-dessus était intermédiaire.** Recherche complémentaire : le PC MBMPC possède un lecteur Google Drive synchronisé `G:\Mon Drive`; les ZIP V4 étaient accessibles dans le sous-dossier privé `MOTEUR_BLESSING_MB1_V4_2026-10-16`. Fichier complet copié vers `C:\Users\Lenovo\Documents\Moteur Blessing\versions\MB1_V4_20261016\` : taille **12 327 244 octets**, **SHA-256 exactement** `b0c09a45ec2a4f3d6d8fb8b0efaaf6c039b11b0083fcf789e84b2b90818eddb2`. Extraction dans `source\` **124 fichiers**, dans un dossier versionné, sans écraser les originaux.
+
+**ÉPREUVE WINDOWS INTÉGRALE :** `python -m unittest discover -s <suite> -p test_*.py -q`, Python 3.12.10, commandes exécutées directement par Desktop Commander dans le dossier extrait. Suite `tests`: **46 PASS** ; `tests_v11`: **45 PASS** ; `tests_v111`: **30 PASS** ; `tests_v112`: **48 PASS** ; `mb1`: **88 PASS** ; cumul **257/257 PASS**, marqueur `MB1_V4_WINDOWS_FULL_257_PASS`, exit code **0** (~57 s). Les deux tests Windows réduits précédents deviennent des preuves additionnelles, et non la seule certification technique.
+
+**GOUVERNANCE SCIENTIFIQUE :** **aucun** nouvel historique PIT source signé/autorisable ; **aucune** calibration sportive réelle OOS ; le statut reste `EXPERIMENTAL_NOT_APPROVED` malgré l'épreuve Windows réussie. Point de reprise GitHub `mb1/CHECKPOINT_MB1_V4_20261016.json`, `MANIFEST.json.pc_archive_extracted=true`, `ETAT_MB1_V4_20261016.md`.
