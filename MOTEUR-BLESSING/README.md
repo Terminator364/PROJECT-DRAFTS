@@ -28,3 +28,6 @@ La copie du code de production sur ce PC **ne doit pas être déduite** de la cr
 
 ## Principe de sincérité
 Des **formules codées** ou des **tests verts** ne prouvent ni la calibration ni la performance du moteur sur des matchs réels. Le candidat V1.1.2 perd sur une épreuve synthétique contre la baseline ; il reste `EXPERIMENTAL_NOT_APPROVED`.
+
+## Vérification du bootstrap (2026-10-16)
+GitHub publié et relu. Sur MBMPC, création de `Documents/Moteur Blessing`, **7 documents synchronisés**, deux scripts PowerShell de gestion présents ; synchronisation terminée avec code de sortie zéro. Archive **non extraite sur Windows**. Côté environnement ChatGPT, ZIP vérifié et **169/169 tests** relancés. Voir `MANIFEST.json` et `JOURNAL.md`.
