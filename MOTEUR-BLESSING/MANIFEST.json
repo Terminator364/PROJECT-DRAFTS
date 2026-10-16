@@ -80,5 +80,19 @@
     "windows_test_execution": "NOT_RUN",
     "model_sports_validation": "NOT_PROVEN"
   },
-  "sources_note": "GitHub holds the continuity documents. Engine ZIP remains available via ChatGPT Delivery; do not infer that the archive has been transferred/extracted to Windows."
+  "sources_note": "GitHub holds the continuity documents. Engine ZIP remains available via ChatGPT Delivery; do not infer that the archive has been transferred/extracted to Windows.",
+  "latest_specialized_checkpoint": "MOTEUR-BLESSING/mb1/CHECKPOINT_MB1_20261016.json",
+  "mb1": {
+    "status": "PARTIAL_NOT_COMPLETE",
+    "source": "V1.1.2",
+    "inspected_engine_archive_this_session": false,
+    "new_read_only_inspector_git_blob": "3fbb7028cec7d71e525937bda8abc773a0f5f67f",
+    "new_tests_git_blob": "1add70d1eddc72fe93a9ba72722551e90b405d11",
+    "tests_on_synthetic_fixtures_in_chatgpt_container": 11,
+    "tests_passed": 11,
+    "frozen_62_catalogue_verified": true,
+    "archive_needed_to_map_372": true,
+    "no_sporting_model_promotion": true,
+    "next": "Inspecter ZIP réel du reçu R-9YPJ87CMENDW, cartographier 372 fiches et qualifier 348 non mappées"
+  }
 }
