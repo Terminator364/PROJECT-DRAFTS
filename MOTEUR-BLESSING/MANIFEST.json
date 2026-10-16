@@ -1,0 +1,62 @@
+{
+  "schema": "moteur-blessing/continuity/v1",
+  "project": "Moteur Blessing",
+  "continuity_code": "MOTEUR|CONTINUE",
+  "aliases": [
+    "MOTEUR BLESSING|CONTINUE"
+  ],
+  "created_utc": "2026-10-16",
+  "source_version": "V1.1.2",
+  "authority": "Terminator364/ChatGPT-PC MATRICE ADN R8",
+  "github_repository": "Terminator364/PROJECT-DRAFTS",
+  "github_path": "MOTEUR-BLESSING",
+  "docs": [
+    "README.md",
+    "CONTINUITE.md",
+    "ETAT_V112.md",
+    "FEUILLE_ROUTE.md",
+    "LIVRAISONS.md",
+    "JOURNAL.md",
+    "MANIFEST.json"
+  ],
+  "windows_documents_path": "C:\\Users\\Lenovo\\Documents\\Moteur Blessing",
+  "engine_archive": "MOTEUR_BLESSING_V1_1_2_MOTEUR_ACTUEL_2026-10-16.zip",
+  "engine_archive_original": "MATRICE_R8_V1_1_2_MOTEUR_62_CODE_TESTS_AUDITS_2026-10-16.zip",
+  "delivery": {
+    "status": "DELIVERED",
+    "receipt": "R-9YPJ87CMENDW",
+    "telegram_message_id": 807,
+    "size_bytes": 12241975,
+    "sha256": "5ef731d6ee4b5edb8a741c59a565d4f7363be84eb9225e814345cb0a04fe89e0"
+  },
+  "facts": {
+    "worlds": 62,
+    "numeric_inputs": 240,
+    "candidate_formulas": 140,
+    "cross_mechanisms": 12,
+    "tests_claimed": 169,
+    "documentary_subparameter_proposals": 372,
+    "partial_mappings": 24,
+    "unmapped": 348,
+    "synthetic_train": 230,
+    "synthetic_test": 20,
+    "brier_model_synthetic": 0.385073,
+    "brier_baseline_synthetic": 0.376084,
+    "model_status": "EXPERIMENTAL_NOT_APPROVED",
+    "historical_PIT_verified": false
+  },
+  "hard_rules": [
+    "prematch_only",
+    "Over1_5_90min",
+    "no_post_kickoff_leakage",
+    "unknown_not_zero",
+    "no_double_counting",
+    "five_audit_cycles",
+    "no_unproven_model_promotion",
+    "no_auto_github_actions",
+    "no_paid_APIs_required",
+    "do_not_overwrite_source"
+  ],
+  "next_gate": "MB-1",
+  "pc_archive_extracted": false
+}
