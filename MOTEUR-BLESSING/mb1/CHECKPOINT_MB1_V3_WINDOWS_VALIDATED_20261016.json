@@ -84,7 +84,10 @@
     "library": "/MOTEUR_BLESSING/MB1_V3_2026-10-16/",
     "PC": "Windows engine extracted and tested with integrity checks",
     "proof_files_copied_to_mounted_drive": true,
-    "cloud_server_visibility_of_new_proof_files": "PENDING_VERIFICATION"
+    "cloud_server_visibility_of_new_proof_files": "VERIFIED",
+    "windows_evidence_drive_url": "https://drive.google.com/file/d/11sPhnV-t4xSxrDPrr37OoEvtSwzC3MDJ/view?usp=drivesdk",
+    "windows_test_log_drive_url": "https://drive.google.com/file/d/1IN6jLf0HSIzn5IimWjfBM9GttUvkyIAu/view?usp=drivesdk",
+    "windows_proof_cloud_files_count": 2
   },
   "scientific_gate": {
     "pre_match_only": true,
