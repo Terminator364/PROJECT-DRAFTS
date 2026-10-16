@@ -1,0 +1,51 @@
+{
+  "schema": "riz112/stage10/delivery-index/v1",
+  "date": "2026-10-17",
+  "continuity_code": "RIZ112|CONTINUE",
+  "stage": 10,
+  "status": "112_CASE_PERTURBATION_AUDITED__TARGET_SPEC_GATE_ADDED__SCIENCE_NOT_CALIBRATED",
+  "case_interventions": {
+    "cases": 112,
+    "simulations_per_case": 3000,
+    "demo_probability_changed": 11,
+    "existing_abstentions": 5,
+    "demo_unchanged": 92,
+    "derived_not_directly_mutable": 4,
+    "unexpected_test_failures": 0
+  },
+  "new_gate": {
+    "definition_cases_frozen": 14,
+    "action": "ABSTAIN_ON_ANY_TARGET_DEFINITION_CHANGE",
+    "scientific_ic_percent": null
+  },
+  "unit_tests": {
+    "old": 185,
+    "new": 20,
+    "total": 205,
+    "passed": 205,
+    "windows": "NOT_EXECUTED"
+  },
+  "journal": {
+    "events": 54,
+    "head": "d98bca2a5df7883da6a0d710791c01ff5a96e3e27dd9272e1a1e86cc43614d18"
+  },
+  "bundle": {
+    "filename": "RIZ112_CAHIER_MERE_STAGE10_AUDIT_IC_2026-10-17.zip",
+    "size_bytes": 258810,
+    "members": 109,
+    "sha256": "e44abfdcd9e3d796b087b876c66542eec9dbf1d87600fe5c484e36000ced2704",
+    "crc": "PASS",
+    "internal_members_manifest_verified": 108,
+    "library_path": "/RIZ112_LAB/CAHIER_MERE_STAGE10_2026-10-17/RIZ112_CAHIER_MERE_STAGE10_AUDIT_IC_2026-10-17.zip",
+    "library_file_id": "file_0000000001cc82119c963a1c87c42183",
+    "github_sources_published": true,
+    "google_drive_stage10": "NOT_UPLOADED_CONNECTOR_REQUIRES_EXPORTED_CONVERSATION_FILE_REFERENCE"
+  },
+  "missing": {
+    "real_rice_trials": 0,
+    "quality_rubric_approved": false,
+    "real_q_calibration": false,
+    "validated_sports_effects": 0
+  },
+  "scope": "Standalone rice-methodology laboratory. Moteur Blessing sports engine remains unmodified and experimental."
+}
