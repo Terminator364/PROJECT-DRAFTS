@@ -1,0 +1,23 @@
+{
+  "schema": "riz112/step19/archive-receipt/v1",
+  "date": "2026-10-17",
+  "source_pc": "MBMPC Python 3.12.10",
+  "archive_name": "RIZ112_MOTEUR_UNIFIE_STEP19_2026-10-17.zip",
+  "archive_size_bytes": 586505,
+  "archive_files": 241,
+  "sha256": "78a1e7cb2661c634568a4233d7e3cbbae1c679175de2a2347e2db28295d2e0ec",
+  "google_drive_file_id": "1CJiFHQBq3FTcraWa3LSzRhGFpJPd84-0",
+  "google_drive_link": "https://drive.google.com/file/d/1CJiFHQBq3FTcraWa3LSzRhGFpJPd84-0/view?usp=drivesdk",
+  "cloud_download_sha256_verified_equal_pc": true,
+  "cloud_download_zip_crc": "PASS",
+  "source_checkout_checkpoint": "Step19 E113 journal frozen before receipt",
+  "checks": {
+    "step19_tests_pc": 31,
+    "step19_local_tests": 31,
+    "step18_tests_pc": 32,
+    "launcher_pc": "PASS",
+    "desktop_shortcut_updated": "RIZ-112 - Moteur de riz.lnk",
+    "post_T0_predictor_evidence": false,
+    "real_Q_calibration": false
+  }
+}
