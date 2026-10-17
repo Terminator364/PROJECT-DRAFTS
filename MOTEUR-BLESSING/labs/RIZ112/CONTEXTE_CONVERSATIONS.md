@@ -78,3 +78,8 @@ GitHub : fichiers critiques relus ; Google Doc privé contenant les deux demande
 
 ### Reçu final de synchronisation U1 — CTX-0027 / E094
 Relecture GitHub 7/7 références critiques conforme à la commande unique; Google Drive privé 794 856 octets et Bibliothèque confirment le paquet initial. MBMPC hors ligne. Contexte porté à 27 entrées et journal à 94 événements. H4 sera exécuté au déclencheur `Moteur/continue`, pas exécuté en arrière-plan.
+
+
+## Session H4A — 17 octobre 2026 (CTX-0028/0029)
+
+L'utilisateur déclenche explicitement `Moteur/continue` (verbatim dans CTX-0028). L'assistant confronte le ZIP V1.1.2 à l'autorité GitHub H3, relance 169/169 tests V1.1.2, exécute H4A (7 rubriques, 3 diagnostics) puis 29/29 tests adversariaux après correction fraction nombre/masse. Les deux blobs Python GitHub correspondent aux fichiers testés. CTX-0029 est un résumé de travail, **pas** une transcription inventée. Le journal chaîné est passé à 96 événements; checkpoint H4A partiel et action suivante H4B. Aucun IC Q réel, ni aucun test Windows H4A, ni aucune nouvelle livraison Drive/Delivery attestée.
