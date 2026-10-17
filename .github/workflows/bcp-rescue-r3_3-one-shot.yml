@@ -26,7 +26,7 @@ jobs:
         run: |
           set -euo pipefail
           base64 -d USB-PHONE-RESCUE-LAB/r3_3-source-bundle.tar.gz.base64 >/tmp/rescue-r33.tar.gz
-          echo '8211012bfdd7730550d912e0fb7c05ccb43761725e292166db0f2a4fb11363b3  /tmp/rescue-r33.tar.gz' | sha256sum -c -
+          echo '52e56c2c5be8a2ab0703fe78c43cc7f61ad510851e4975bbfbab61e94d8e5fbd  /tmp/rescue-r33.tar.gz' | sha256sum -c -
           tar -tzf /tmp/rescue-r33.tar.gz | grep '^r33/android/app/build.gradle$'
           tar -xzf /tmp/rescue-r33.tar.gz
           python3 - <<'PY'
