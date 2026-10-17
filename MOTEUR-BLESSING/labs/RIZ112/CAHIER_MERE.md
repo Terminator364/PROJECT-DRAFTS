@@ -283,3 +283,6 @@ Un contrôle indépendant des fichiers critiques sur GitHub a confirmé **9/9 em
 Les deux demandes exactes de l’utilisateur sur la **synchronisation continue du contexte** et sur l’**enregistrement de la suite** sont conservées sans paraphrase dans `CONTEXTE_INTEGRAL/REGISTRE_MESSAGES.jsonl`. Le registre contient désormais 20 entrées ; le journal d’audit 88 événements. Pour toute reprise, lire `CONTEXTE_CONVERSATIONS.md`, le checkpoint et `PLAN_SUITE_RIZ112_MATRICE.md` avant de modifier le moteur.
 
 La synchronisation continue signifie une **mise à jour obligatoire pendant les séances actives** avec preuves de lecture/écriture, pas une tâche automatique permanente. La continuité verbatim intégrale des échanges anciens ne peut pas être promise lorsque le texte brut n'est pas accessible ; les reconstitutions sont balisées.
+
+### Confirmation de synchronisation de contexte — E089
+21 entrées contextuelles, 89 événements vérifiés. GitHub mis à jour, nouvelle version complète en Bibliothèque, Google Doc privé de contexte relu; archive complète H3 précédente disponible sur Drive mais nouvelle version complète pas encore téléversée. Windows non vérifié. Cette transparence est exigée à chaque reprise.
