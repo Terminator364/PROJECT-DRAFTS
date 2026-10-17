@@ -1,0 +1,65 @@
+{
+  "schema": "riz112/continuity/context-h3/v1",
+  "created": "2026-10-17",
+  "owner_context": "MOTEUR-BLESSING",
+  "codes": [
+    "MOTEUR|CONTINUE",
+    "Moteur/continue",
+    "RIZ112|CONTINUE"
+  ],
+  "stage": 14,
+  "master": "MOTEUR-BLESSING/labs/RIZ112/CAHIER_MERE.md",
+  "context": "MOTEUR-BLESSING/labs/RIZ112/CONTEXTE_CONVERSATIONS.md",
+  "messages_registry": "MOTEUR-BLESSING/labs/RIZ112/CONTEXTE_INTEGRAL/REGISTRE_MESSAGES.jsonl",
+  "protocol": "MOTEUR-BLESSING/labs/RIZ112/PROTOCOLE_CONTINUITE_CONTEXTUELLE.md",
+  "checkpoint": "MOTEUR-BLESSING/labs/RIZ112/CHECKPOINT.json",
+  "event_journal": "MOTEUR-BLESSING/labs/RIZ112/journal/JOURNAL_EVENEMENTS.jsonl",
+  "journal_event_count": 83,
+  "journal_head": "9a9e907d97edb567e8a3d056f93c1268b962550b7d41a35f096d7130f405f555",
+  "context_items": 16,
+  "context_is_full_literal_transcript": false,
+  "source_test_command": "python step14/run_regression_h3.py",
+  "tests": {
+    "passed": 309,
+    "total": 309,
+    "test_categories": 12,
+    "environment": "ChatGPT Linux",
+    "windows_verified": false
+  },
+  "mechanism": {
+    "rubrics": 112,
+    "H3_new_numeric_paths": [
+      "006",
+      "025",
+      "039",
+      "069"
+    ],
+    "remaining_named_numeric_gaps": 22,
+    "proxy": "Q*_DEMO",
+    "real_cooking_trials": 0,
+    "scientific_IC": null
+  },
+  "proof": {
+    "zip": "RIZ112_CAHIER_MERE_H3_CONTEXTE_UNIFIE_2026-10-17.zip",
+    "size": 568443,
+    "sha256": "15182d217e42c2985cb4652ac5c2ee9f6afe6afca55ec148b3c803e52b14ede8",
+    "members": 188,
+    "zip_crc": "PASS",
+    "internal_sha_manifest": "PASS"
+  },
+  "backups": {
+    "drive_id": "1rFq9GiwbRvb-Hk33JayacttjBOUdAabf",
+    "drive_url": "https://drive.google.com/file/d/1rFq9GiwbRvb-Hk33JayacttjBOUdAabf/view?usp=drivesdk",
+    "drive_size_readback": 568443,
+    "drive_sha256_independent_readback": false,
+    "private": true,
+    "library": "/RIZ112_LAB/CAHIER_MERE_H3_CONTEXT_UNIFIED_2026-10-17/RIZ112_CAHIER_MERE_H3_CONTEXTE_UNIFIE_2026-10-17.zip",
+    "PC": "MBMPC_OFFLINE_NO_H3_INSTALLATION"
+  },
+  "limitations": [
+    "Old conversation passages are partially reconstructed and clearly marked",
+    "No background automatic synchronization outside active conversation",
+    "No quantified causal effect for every rubric",
+    "Original sport MATRICE engine unchanged, no scientific promotion"
+  ]
+}
