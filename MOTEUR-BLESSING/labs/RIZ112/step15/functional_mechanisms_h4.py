@@ -124,7 +124,13 @@ def evaluate_h4_diagnostics(packet: dict, *,
         if broken_grain_fraction is not None:
             raise H4EvidenceError('known broken fraction must not be overwritten')
         broken_raw = rows['029']['value']
-    broken = None if broken_raw is None else _value(broken_raw,0,1,'broken fraction')
+    # A fraction of *grain count* cannot be multiplied by dry mass.
+    # This diagnostic is valid only for an explicit MASS fraction.
+    if broken_raw is not None:
+        basis_row = broken_grain_fraction if rows['029']['state']=='UNKNOWN' else rows['029']
+        if basis_row.get('basis') != 'dry_mass_fraction':
+            raise H4EvidenceError('broken fraction requires explicit dry_mass_fraction basis')
+    broken = None if broken_raw is None else _value(broken_raw,0,1,'broken dry-mass fraction')
     native_starch = _value(rows['030']['value'],0,1,'case 030 starch')
     starch = _value(inputs['surface_starch_index']['value'],0,1,'surface starch index')
     if abs(starch-native_starch)>1e-8:
