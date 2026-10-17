@@ -1,0 +1,27 @@
+{
+  "schema": "riz112/step26/checkpoint/v1",
+  "date": "2026-10-17",
+  "stage": 26,
+  "status": "EVIDENCE_LINEAGE_112_RECONCILED_IN_SYNTHETIC_A__EMPIRICAL_Q_UNPROVEN",
+  "rubrics": 112,
+  "partition_counts": {
+    "NOT_PROVEN_PHYSICAL_Q_EFFECT": 60,
+    "POST_T0_TARGET_ONLY": 14,
+    "PRE_T0_PLAN_RESOURCE_ROUTE_ONLY": 29,
+    "THEORETICAL_PHYSICAL_INTERMEDIATE_ONLY": 9
+  },
+  "step19_routes_total": 30,
+  "step19_step20_overlap": [
+    "035"
+  ],
+  "physical_pairwise_tested": 36,
+  "physical_pairwise_nonadditive_at_case_A": 7,
+  "real_quality_effects_proven": 0,
+  "scientific_ic_percent": null,
+  "real_trials_count": 0,
+  "quality_protocol_user_approved": false,
+  "step26_new_tests_linux": 24,
+  "step26_new_tests_windows": null,
+  "source_registry": "step26/REGISTRE_TRANSVERSAL_112.json",
+  "next": "Prioritize 60 remaining routes based on justified pre-T0 causal models and empirical experiments; never force Q. Obtain user's measurement protocol approval and real quality observations."
+}
