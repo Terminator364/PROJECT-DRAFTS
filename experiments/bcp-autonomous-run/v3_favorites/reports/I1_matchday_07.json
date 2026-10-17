@@ -1,0 +1,254 @@
+{
+  "allowed_use": "RESEARCH_ONLY_NO_IC",
+  "code": "I1",
+  "competition": "Serie A",
+  "coverage": {
+    "NO_TWO_SOURCE_RESULT": 1,
+    "ON_OR_AFTER_CUTOFF_NO_RESULTS_ADMITTED": 9
+  },
+  "cutoff_exclusive": "2026-10-17",
+  "date_range": [
+    "2026-10-16",
+    "2026-10-19"
+  ],
+  "fixtures": [
+    {
+      "REFEREE_official": {
+        "date_prior_to_fixture": true,
+        "historical_PIT_replay": "NOT_CERTIFIED",
+        "published_day": "2026-10-14",
+        "published_hour": "UNVERIFIED",
+        "source_status": "OFFICIAL_ANNOUNCEMENT",
+        "source_url": "https://en.legaseriea.it/serie-a/news/the-referees-for-the-7th-round-x8311",
+        "value": "Marchetti"
+      },
+      "available_at_pre_match": "UNVERIFIED",
+      "away": "Sassuolo",
+      "date": "2026-10-16",
+      "football_data_cached_score": null,
+      "historical_score": null,
+      "home": "Frosinone",
+      "official_matchday_url": "https://en.legaseriea.it/serie-a/fixtures-results?matchday=7",
+      "official_score_postevent_observation": {
+        "admissible_for_prematch_of_same_fixture": false,
+        "observed_on": "2026-10-17",
+        "published_original": "UNKNOWN",
+        "score": [
+          4,
+          2
+        ],
+        "source": "https://en.legaseriea.it/serie-a"
+      },
+      "openfootball_score": null,
+      "original_away": "US Sassuolo Calcio",
+      "original_home": "Frosinone Calcio",
+      "round": 7,
+      "source_count_with_confirmed_score": 0,
+      "status": "NO_TWO_SOURCE_RESULT"
+    },
+    {
+      "REFEREE_official": {
+        "date_prior_to_fixture": true,
+        "historical_PIT_replay": "NOT_CERTIFIED",
+        "published_day": "2026-10-14",
+        "published_hour": "UNVERIFIED",
+        "source_status": "OFFICIAL_ANNOUNCEMENT",
+        "source_url": "https://en.legaseriea.it/serie-a/news/the-referees-for-the-7th-round-x8311",
+        "value": "Doveri"
+      },
+      "available_at_pre_match": "UNVERIFIED",
+      "away": "Inter",
+      "date": "2026-10-17",
+      "historical_score": null,
+      "home": "Bologna",
+      "official_matchday_url": "https://en.legaseriea.it/serie-a/fixtures-results?matchday=7",
+      "original_away": "FC Internazionale Milano",
+      "original_home": "Bologna FC 1909",
+      "round": 7,
+      "source_count_with_confirmed_score": 0,
+      "status": "ON_OR_AFTER_CUTOFF_NO_RESULTS_ADMITTED"
+    },
+    {
+      "REFEREE_official": {
+        "date_prior_to_fixture": true,
+        "historical_PIT_replay": "NOT_CERTIFIED",
+        "published_day": "2026-10-14",
+        "published_hour": "UNVERIFIED",
+        "source_status": "OFFICIAL_ANNOUNCEMENT",
+        "source_url": "https://en.legaseriea.it/serie-a/news/the-referees-for-the-7th-round-x8311",
+        "value": "Abisso"
+      },
+      "available_at_pre_match": "UNVERIFIED",
+      "away": "Genoa",
+      "date": "2026-10-17",
+      "historical_score": null,
+      "home": "Roma",
+      "official_matchday_url": "https://en.legaseriea.it/serie-a/fixtures-results?matchday=7",
+      "original_away": "Genoa CFC",
+      "original_home": "AS Roma",
+      "round": 7,
+      "source_count_with_confirmed_score": 0,
+      "status": "ON_OR_AFTER_CUTOFF_NO_RESULTS_ADMITTED"
+    },
+    {
+      "REFEREE_official": {
+        "date_prior_to_fixture": true,
+        "historical_PIT_replay": "NOT_CERTIFIED",
+        "published_day": "2026-10-14",
+        "published_hour": "UNVERIFIED",
+        "source_status": "OFFICIAL_ANNOUNCEMENT",
+        "source_url": "https://en.legaseriea.it/serie-a/news/the-referees-for-the-7th-round-x8311",
+        "value": "Sacchi J. L."
+      },
+      "available_at_pre_match": "UNVERIFIED",
+      "away": "Napoli",
+      "date": "2026-10-17",
+      "historical_score": null,
+      "home": "Venezia",
+      "official_matchday_url": "https://en.legaseriea.it/serie-a/fixtures-results?matchday=7",
+      "original_away": "SSC Napoli",
+      "original_home": "Venezia FC",
+      "round": 7,
+      "source_count_with_confirmed_score": 0,
+      "status": "ON_OR_AFTER_CUTOFF_NO_RESULTS_ADMITTED"
+    },
+    {
+      "REFEREE_official": {
+        "date_prior_to_fixture": true,
+        "historical_PIT_replay": "NOT_CERTIFIED",
+        "published_day": "2026-10-14",
+        "published_hour": "UNVERIFIED",
+        "source_status": "OFFICIAL_ANNOUNCEMENT",
+        "source_url": "https://en.legaseriea.it/serie-a/news/the-referees-for-the-7th-round-x8311",
+        "value": "Di Bello"
+      },
+      "available_at_pre_match": "UNVERIFIED",
+      "away": "Como",
+      "date": "2026-10-18",
+      "historical_score": null,
+      "home": "Fiorentina",
+      "official_matchday_url": "https://en.legaseriea.it/serie-a/fixtures-results?matchday=7",
+      "original_away": "Como 1907",
+      "original_home": "ACF Fiorentina",
+      "round": 7,
+      "source_count_with_confirmed_score": 0,
+      "status": "ON_OR_AFTER_CUTOFF_NO_RESULTS_ADMITTED"
+    },
+    {
+      "REFEREE_official": {
+        "date_prior_to_fixture": true,
+        "historical_PIT_replay": "NOT_CERTIFIED",
+        "published_day": "2026-10-14",
+        "published_hour": "UNVERIFIED",
+        "source_status": "OFFICIAL_ANNOUNCEMENT",
+        "source_url": "https://en.legaseriea.it/serie-a/news/the-referees-for-the-7th-round-x8311",
+        "value": "Massa"
+      },
+      "available_at_pre_match": "UNVERIFIED",
+      "away": "Lazio",
+      "date": "2026-10-18",
+      "historical_score": null,
+      "home": "Juventus",
+      "official_matchday_url": "https://en.legaseriea.it/serie-a/fixtures-results?matchday=7",
+      "original_away": "SS Lazio",
+      "original_home": "Juventus FC",
+      "round": 7,
+      "source_count_with_confirmed_score": 0,
+      "status": "ON_OR_AFTER_CUTOFF_NO_RESULTS_ADMITTED"
+    },
+    {
+      "REFEREE_official": {
+        "date_prior_to_fixture": true,
+        "historical_PIT_replay": "NOT_CERTIFIED",
+        "published_day": "2026-10-14",
+        "published_hour": "UNVERIFIED",
+        "source_status": "OFFICIAL_ANNOUNCEMENT",
+        "source_url": "https://en.legaseriea.it/serie-a/news/the-referees-for-the-7th-round-x8311",
+        "value": "Chiffi"
+      },
+      "available_at_pre_match": "UNVERIFIED",
+      "away": "Atalanta",
+      "date": "2026-10-18",
+      "historical_score": null,
+      "home": "Milan",
+      "official_matchday_url": "https://en.legaseriea.it/serie-a/fixtures-results?matchday=7",
+      "original_away": "Atalanta BC",
+      "original_home": "AC Milan",
+      "round": 7,
+      "source_count_with_confirmed_score": 0,
+      "status": "ON_OR_AFTER_CUTOFF_NO_RESULTS_ADMITTED"
+    },
+    {
+      "REFEREE_official": {
+        "date_prior_to_fixture": true,
+        "historical_PIT_replay": "NOT_CERTIFIED",
+        "published_day": "2026-10-14",
+        "published_hour": "UNVERIFIED",
+        "source_status": "OFFICIAL_ANNOUNCEMENT",
+        "source_url": "https://en.legaseriea.it/serie-a/news/the-referees-for-the-7th-round-x8311",
+        "value": "Guida"
+      },
+      "available_at_pre_match": "UNVERIFIED",
+      "away": "Lecce",
+      "date": "2026-10-18",
+      "historical_score": null,
+      "home": "Udinese",
+      "official_matchday_url": "https://en.legaseriea.it/serie-a/fixtures-results?matchday=7",
+      "original_away": "US Lecce",
+      "original_home": "Udinese Calcio",
+      "round": 7,
+      "source_count_with_confirmed_score": 0,
+      "status": "ON_OR_AFTER_CUTOFF_NO_RESULTS_ADMITTED"
+    },
+    {
+      "REFEREE_official": {
+        "date_prior_to_fixture": true,
+        "historical_PIT_replay": "NOT_CERTIFIED",
+        "published_day": "2026-10-14",
+        "published_hour": "UNVERIFIED",
+        "source_status": "OFFICIAL_ANNOUNCEMENT",
+        "source_url": "https://en.legaseriea.it/serie-a/news/the-referees-for-the-7th-round-x8311",
+        "value": "Calzavara"
+      },
+      "available_at_pre_match": "UNVERIFIED",
+      "away": "Cagliari",
+      "date": "2026-10-19",
+      "historical_score": null,
+      "home": "Monza",
+      "official_matchday_url": "https://en.legaseriea.it/serie-a/fixtures-results?matchday=7",
+      "original_away": "Cagliari Calcio",
+      "original_home": "AC Monza",
+      "round": 7,
+      "source_count_with_confirmed_score": 0,
+      "status": "ON_OR_AFTER_CUTOFF_NO_RESULTS_ADMITTED"
+    },
+    {
+      "REFEREE_official": {
+        "date_prior_to_fixture": true,
+        "historical_PIT_replay": "NOT_CERTIFIED",
+        "published_day": "2026-10-14",
+        "published_hour": "UNVERIFIED",
+        "source_status": "OFFICIAL_ANNOUNCEMENT",
+        "source_url": "https://en.legaseriea.it/serie-a/news/the-referees-for-the-7th-round-x8311",
+        "value": "Ayroldi"
+      },
+      "available_at_pre_match": "UNVERIFIED",
+      "away": "Torino",
+      "date": "2026-10-19",
+      "historical_score": null,
+      "home": "Parma",
+      "official_matchday_url": "https://en.legaseriea.it/serie-a/fixtures-results?matchday=7",
+      "original_away": "Torino FC",
+      "original_home": "Parma Calcio 1913",
+      "round": 7,
+      "source_count_with_confirmed_score": 0,
+      "status": "ON_OR_AFTER_CUTOFF_NO_RESULTS_ADMITTED"
+    }
+  ],
+  "matchday": 7,
+  "sources": [
+    "https://raw.githubusercontent.com/openfootball/football.json/master/2026-27/it.1.json",
+    "CACHED_PREVIOUS_FOOTBALL_DATA_CSV",
+    "https://en.legaseriea.it/serie-a/fixtures-results?matchday=7"
+  ]
+}
