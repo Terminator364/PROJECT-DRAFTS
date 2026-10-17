@@ -42,8 +42,8 @@
   "critical_directive_D035": "Cahier mère as durable authority, all accessible context, no blanket assertion of 112 IC causal effects; each counterfactual evidence or explicit abstention",
   "canonical_source": "GitHub main MOTEUR-BLESSING/labs/RIZ112/CAHIER_MERE.md plus journal, exact context register and checkpoint; not ChatGPT memory.",
   "context_capture_limits": "The tool captures only messages actively submitted in-session and available for logging, not autonomous background conversations.",
-  "latest_journal_event_id": "E136",
-  "latest_context_id": "CTX-0058",
+  "latest_journal_event_id": "E137",
+  "latest_context_id": "CTX-0059",
   "journal_chain_verified": true,
   "step18_checkpoint": "MOTEUR-BLESSING/labs/RIZ112/step18/CHECKPOINT_STEP18_20261017.json",
   "step18_windows_status": "PARTIAL_RESOURCE_TESTS_PASS; CONDITIONAL_SUITE_NOT_VALIDATED_TIMEOUT",
@@ -140,7 +140,7 @@
   },
   "methodology_transfer_contract": "MOTEUR-BLESSING/labs/RIZ112/simulations/EXPERIENCE_1000/TRANSFERT_METHODE_MATRICE_PREMATCH.md",
   "e134_cloud_receipt": "MOTEUR-BLESSING/labs/RIZ112/simulations/EXPERIENCE_1000/RECU_REPRISE_E134_20261017.json",
-  "live_pc_git_sync_this_turn": "VERIFIED_THROUGH_E134_BEFORE_CURRENT_CAPTURE__E136_PENDING_FINAL_FAST_FORWARD",
+  "live_pc_git_sync_this_turn": "GITHUB_E137_CLOUD_RECEIPT_PUBLISHED__PC_FINAL_PULL_IN_PROGRESS",
   "method_transfer_executable": {
     "path": "MOTEUR-BLESSING/labs/RIZ112/simulations/EXPERIENCE_1000/TRANSFERT_PREMATCH/",
     "windows": [
@@ -155,6 +155,10 @@
     "windows_report_identical": true,
     "real_matches": 0,
     "scientific_ic_percent": null,
-    "latest_continuity": "E136/CTX-0058"
+    "latest_continuity": "E136/CTX-0058",
+    "cloud_receipt": "MOTEUR-BLESSING/labs/RIZ112/simulations/EXPERIENCE_1000/TRANSFERT_PREMATCH/RECU_ARCHIVE_CLOUD_E136_20261017.json",
+    "archive_snapshot_event": "E136",
+    "archive_url": "https://drive.google.com/file/d/18AHj1Mwr0fz4YuekE-cGIDCJRd8gLX8n/view?usp=drivesdk",
+    "independent_cloud_sha256_verified": true
   }
 }
