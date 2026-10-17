@@ -1,0 +1,194 @@
+{
+  "schema": "riz112/synthetic1000/report/v1",
+  "seed": 20261017,
+  "h3_common_random_seed": 20261017,
+  "count": 1000,
+  "design": "9D Latin hypercube, independent random permutations, all 9 semantic twins in sync",
+  "simulation_only": true,
+  "source_class": "SYNTHETIC_REHEARSAL_NOT_REAL_OBSERVATION",
+  "quality_threshold_of_H3_proxy_Q_star": 85,
+  "high_ic_demo_threshold_percent": 85,
+  "actual_Q_observations": 0,
+  "scientific_ic_percent": null,
+  "user_Q_formula_approved": false,
+  "counts": {
+    "h3_model_computed": {
+      "scenarios": 690,
+      "rate_percent_of_1000": 69.0
+    },
+    "h3_demo_IC_at_least_85_percent": {
+      "scenarios": 20,
+      "rate_percent_of_1000": 2.0
+    },
+    "idealized_energy_water_both_feasible": {
+      "scenarios": 664,
+      "rate_percent_of_1000": 66.4
+    },
+    "high_demo_IC_and_idealized_physical_feasibility": {
+      "scenarios": 20,
+      "rate_percent_of_1000": 2.0
+    },
+    "h3_abstentions_or_errors": {
+      "scenarios": 310,
+      "rate_percent_of_1000": 31.0
+    }
+  },
+  "ic_demo_distribution": [
+    {
+      "ic_demo_percent_band": "0–10",
+      "count": 446
+    },
+    {
+      "ic_demo_percent_band": "10–20",
+      "count": 38
+    },
+    {
+      "ic_demo_percent_band": "20–30",
+      "count": 29
+    },
+    {
+      "ic_demo_percent_band": "30–40",
+      "count": 29
+    },
+    {
+      "ic_demo_percent_band": "40–50",
+      "count": 21
+    },
+    {
+      "ic_demo_percent_band": "50–60",
+      "count": 33
+    },
+    {
+      "ic_demo_percent_band": "60–70",
+      "count": 22
+    },
+    {
+      "ic_demo_percent_band": "70–80",
+      "count": 32
+    },
+    {
+      "ic_demo_percent_band": "80–90",
+      "count": 37
+    },
+    {
+      "ic_demo_percent_band": "90–100",
+      "count": 3
+    }
+  ],
+  "ic_demo_percent_min": 0.0,
+  "ic_demo_percent_median": 1.5,
+  "ic_demo_percent_max": 91.5,
+  "examples_highest_ic_demo": [
+    {
+      "scenario_id": "SYN_0821",
+      "rice_mass_g": 164.84858745,
+      "water_capacity_g_per_g": 1.07126059,
+      "water_added_g": 234.92054051,
+      "water_retained_g": 0.21734809,
+      "water_initial_C": 34.02776955,
+      "rice_initial_C": 28.19101268,
+      "power_W": 749.86541662,
+      "transfer_efficiency": 0.50179551,
+      "total_heating_min": 17.77954947,
+      "h3_status": "DEMO_ASSUMED_MECHANISMS_NOT_REAL_Q",
+      "ic_demo_percent": 91.5,
+      "scientific_ic_percent": null,
+      "idealized_energy_feasible": true,
+      "preloss_water_feasible": true,
+      "energy_margin_J": 317621.64992927,
+      "water_margin_before_losses_g": 58.54209279,
+      "thermal_ceiling_evap_g_NOT_PREDICTION": 140.7273593
+    },
+    {
+      "scenario_id": "SYN_0545",
+      "rice_mass_g": 227.58002476,
+      "water_capacity_g_per_g": 1.17239936,
+      "water_added_g": 308.208245,
+      "water_retained_g": 11.95523436,
+      "water_initial_C": 14.52106121,
+      "rice_initial_C": 17.82869841,
+      "power_W": 709.64946878,
+      "transfer_efficiency": 0.41943493,
+      "total_heating_min": 23.02963364,
+      "h3_status": "DEMO_ASSUMED_MECHANISMS_NOT_REAL_Q",
+      "ic_demo_percent": 91.0,
+      "scientific_ic_percent": null,
+      "idealized_energy_feasible": true,
+      "preloss_water_feasible": true,
+      "energy_margin_J": 266972.76065368,
+      "water_margin_before_losses_g": 53.34880395,
+      "thermal_ceiling_evap_g_NOT_PREDICTION": 118.28655767
+    },
+    {
+      "scenario_id": "SYN_0853",
+      "rice_mass_g": 232.98860713,
+      "water_capacity_g_per_g": 1.04103743,
+      "water_added_g": 320.0877599,
+      "water_retained_g": 15.60000586,
+      "water_initial_C": 34.40907278,
+      "rice_initial_C": 26.65388717,
+      "power_W": 719.84709281,
+      "transfer_efficiency": 0.37515422,
+      "total_heating_min": 26.1806791,
+      "h3_status": "DEMO_ASSUMED_MECHANISMS_NOT_REAL_Q",
+      "ic_demo_percent": 90.0,
+      "scientific_ic_percent": null,
+      "idealized_energy_feasible": true,
+      "preloss_water_feasible": true,
+      "energy_margin_J": 304833.68532718,
+      "water_margin_before_losses_g": 93.13790446,
+      "thermal_ceiling_evap_g_NOT_PREDICTION": 135.06144676
+    },
+    {
+      "scenario_id": "SYN_0296",
+      "rice_mass_g": 218.87066042,
+      "water_capacity_g_per_g": 1.07016327,
+      "water_added_g": 318.75160081,
+      "water_retained_g": 12.84037646,
+      "water_initial_C": 37.91639187,
+      "rice_initial_C": 23.51576182,
+      "power_W": 568.35127846,
+      "transfer_efficiency": 0.57871431,
+      "total_heating_min": 27.52336003,
+      "h3_status": "DEMO_ASSUMED_MECHANISMS_NOT_REAL_Q",
+      "ic_demo_percent": 89.5,
+      "scientific_ic_percent": null,
+      "idealized_energy_feasible": true,
+      "preloss_water_feasible": true,
+      "energy_margin_J": 430331.96914624,
+      "water_margin_before_losses_g": 97.36463492,
+      "thermal_ceiling_evap_g_NOT_PREDICTION": 190.66547149
+    },
+    {
+      "scenario_id": "SYN_0508",
+      "rice_mass_g": 201.63858594,
+      "water_capacity_g_per_g": 1.20931073,
+      "water_added_g": 333.50896207,
+      "water_retained_g": 3.24607014,
+      "water_initial_C": 28.46777384,
+      "rice_initial_C": 22.66177202,
+      "power_W": 877.86282108,
+      "transfer_efficiency": 0.62125309,
+      "total_heating_min": 26.75180611,
+      "h3_status": "DEMO_ASSUMED_MECHANISMS_NOT_REAL_Q",
+      "ic_demo_percent": 88.5,
+      "scientific_ic_percent": null,
+      "idealized_energy_feasible": true,
+      "preloss_water_feasible": true,
+      "energy_margin_J": 749743.63371366,
+      "water_margin_before_losses_g": 92.91132639,
+      "thermal_ceiling_evap_g_NOT_PREDICTION": 332.18592544
+    }
+  ],
+  "limitations": [
+    "The ranges are proposed synthetic uncertainty design, not identified empirical ranges.",
+    "H3 Q* is a previously-defined surrogate; >=85 Q* is NOT >=85 real rice Q.",
+    "H3 draws sampled per scenario are neither real trials nor independent rice outcomes.",
+    "Idealized thermodynamic budgets are not proof of acceptable rice or safe food.",
+    "LHS identifies parameter combinations and structural responsiveness, NOT causal Q influences nor calibrated probabilities.",
+    "Remaining 103 rubric roles (including targets) retain the original packet values/status; only 9 physical twins vary.",
+    "Any numerical success region is model-relative and must not be stated as empirical advice."
+  ],
+  "csv_sha256": "af13ca14051fca6853f7bc0527481be93315f91902b8a939fc2480569b0b5bbc",
+  "csv_rows": 1000
+}
