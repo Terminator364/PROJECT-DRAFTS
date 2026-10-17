@@ -508,3 +508,32 @@ RIZ112 engineering V1 closed on MBMPC. Verified Step21=10, Step22=14, Step23=10,
 ## Clôture de développement V1 — ordre « Finis ! » du 17 octobre 2026
 
 L'ordre exact est archivé CTX-0047/E124 ; le compte rendu de Windows CTX-0048/E125. Les Steps21–27 ont réussi 128 tests distincts sur Windows MBMPC ; le lanceur final (incluant Step19 et Step20) a été exécuté, et le raccourci Bureau actualisé. Le contrôle `step27/release_gate.py` atteste 112 rôles couverts documentairement, dont 9 mécanismes physiques théoriques, 29 routes de planification, 14 sorties post-T0 et 60 rôles dépourvus de preuve physique d'influence sur Q. Un barème chiffré V1 est uniquement PROPOSÉ dans `step27/PROPOSITION_Q_DECISION_A_VALIDER.json`, sans approbation tacite. Aucune cuisson réelle, aucune prédiction de Q ou IC scientifique calibrée : `scientific_ic_percent=null`. **Arrêt de la numérotation artificielle des étapes** : la V1 logicielle est clôturée, prochaine évolution exclusivement déclenchée par protocole Q validé et données réelles. Le Cahier mère GitHub reste le canon, tandis que les ZIP sont des instantanés datés.
+
+
+### Archive CTX-0049 / E126 — 17 octobre 2026
+
+**Origine :** USER. **SHA-256 :** e2df3bf8a65a79eb47b58dbe57f5a0208c7dd31a602317ceff0196f397fc4beb. **Provenance :** EXACT_CURRENT_USER_PROMPT_20261017_SIM1000.
+
+````text
+Non, mais comme tu dis, déjà faut pas oublier que déjà le cahier de contexte a combien de mots actuellement, et le registre d'ailleurs au total pèse combien. Le cahier mère plutôt pèse combien. Et ensuite, faudrait pas oublier, nous sommes en train de faire ça en fait pour comprendre comment les choses fonctionnent pour pouvoir travailler sur la matrice. Et ensuite quand tu parles des tests et des conditions réelles, je vais pas commencer à opérer à chaque fois. Moi, je pars sur un principe. Je crois que tu as quand même une idée, parce qu'on n'est pas dans la valeur exacte. On a commencé à partir d'un intervalle, 85 montée à 100. Tu as quand même une idée, sur... tu as quand même une idée pour atteindre les 85, non ? C'est sur base de ça maintenant. Si tu dois réfléchir, je sais pas, par contre-position, si je peux le dire, pour voilà, simuler 500 scénarios, 1000 scénarios, tu peux utiliser le PC, je sais pas. Est-ce que tu comprends ce que je dis ?
+````
+
+
+### Archive CTX-0050 / E127 — 17 octobre 2026
+
+**Origine :** ASSISTANT. **SHA-256 :** 67c967d30cc7e3b2c7408a9c227ca9b0ed98328d410247c74354152ccf515133. **Provenance :** LOCAL_SIMULATION_RECEIPT_AND_RESEARCH_EXPLANATION.
+
+````text
+RIZ112 1000-scenario scientific-method analog for MATRICE: original H3 Q* synthetic threshold 85, Latin hypercube 1000 distinct pre-T0 scenarios over 9 physical twins, 200 draws per scenario (200000 modeled draws), 690 H3 numerical outputs, 310 abstentions, 20 IC_DEMO>=85%, 664 idealized energy+water-feasible, 18 independent one-factor perturbations on post-hoc selected SYN_0821; 6 new tests PASS Linux; Windows cross-check pending at entry creation. Scientific IC remains null, measured trials=0, 112 categories NOT all perturbed; no requirement to cook 1000 times. Aimed at learning causality, counterfactuals and abstention principles for future MATRICE football prematch model.
+````
+
+
+## Recherche sans cuissons obligatoires — expérimentation numérique de 1 000 configurations
+
+Le riz sert exclusivement de maquette méthodologique préparant MATRICE **prématch**, non de condition pour rendre l'utilisateur cuisinier. L'ordre CTX-0049/E126 exige des simulations numériques de 500/1000 configurations, des effets conditionnels, des contre-épreuves et la préservation des registres, plutôt qu'un processus interminable attendant des essais personnels. Les suites de validation du code V1 (Step27) restent closes ; ceci est une **étude complémentaire**, pas un nouveau moteur autonome.
+
+**Données effectivement calculées** : `simulations/EXPERIENCE_1000/simuler_1000.py`, 1000 combinaisons Latin hypercube à graine fixe 20261017, neuf variables pré-T0 à doubles représentations cohérentes, 200 tirages de Q* sur H3 par combinaison, bilan physique Step20. Résultat : 690 dossiers calculés, 310 abstentions H3, 20 IC_DEMO>=85%, 664 bilans énergie+eau favorables, et 18 contre-épreuves ±15% autour d'un scénario synthétique sélectionné a posteriori (SYN_0821, IC_DEMO 91.5%). Les fichiers incluent chaque ligne et l'empreinte de reproduction ; 6 nouveaux tests locaux PASS. **Ces nombres ne sont pas des observations culinaires ni un pourcentage fiable de probabilité réelle.** 112 rôles préservés structurellement, seuls 9 couples physiques activement variés dans cette campagne. Le score réel Q reste sans barème numérique approuvé et `scientific_ic_percent=null`.
+
+**Principe de transfert MATRICE :** modéliser les dépendances, contre-factuels, conditions de validité, absence d'effet observable localement, interactions non linéaires et abstentions. Mettre en doute les proxy-scores; ne jamais transférer l'IC_DEMO ou les unités physiques du riz aux matchs. Le projet MATRICE conserve son périmètre exclusivement pré-match et ses propres familles, sans mélange de dépôts. Le programme ne requiert aucun essai réel pendant cette exploration théorique.
+
+**Limite temporelle :** aucun processus ne capture les messages de nouveaux chats hors exécution; chaque reprise `Moteur/continue` relit le Cahier mère GitHub et journal chaîné.
