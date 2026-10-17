@@ -1,0 +1,3409 @@
+{
+  "schema": "COLLECTEUR_MATRICE_L3_KNOWN_CHILDREN_V1",
+  "reference": "Terminator364/ChatGPT-PC@research/matrice-r8-g3-depth-audit-2026-10-14",
+  "extraction_utc": "2026-10-17",
+  "note": "Design contracts only. Some worlds absent from available L3 batches; never claim completeness or operational validation.",
+  "families": {
+    "WEATHER": {
+      "source_file": "MATRICE/R8_G3_DEEP_20261014/L3_BATCH02_WEATHER_REFEREE_20261015/L3_BATCH02_WEATHER_REFEREE_CONTRACTS.json",
+      "children": [
+        {
+          "id": "WEATHER.OPERATIONAL_FORECAST_RUN",
+          "name": "Operational forecast run",
+          "definition": "Quelle version exacte de prévision existait réellement à T, avant ce match ?",
+          "required_inputs": [
+            "fixture_id",
+            "kickoff_utc",
+            "analysis_asof_utc",
+            "document_publication_utc",
+            "first_seen_utc",
+            "source_lineage_id",
+            "model_family",
+            "operational_run_init_utc",
+            "model_public_release_utc",
+            "lead_hours",
+            "run_archive_capture_utc",
+            "forecast_valid_utc"
+          ],
+          "variables": [
+            "model_family",
+            "operational_run_init_utc",
+            "model_public_release_utc",
+            "lead_hours",
+            "run_archive_capture_utc",
+            "forecast_valid_utc"
+          ],
+          "evidence_fields": [
+            "wx_primary",
+            "wx_archived"
+          ],
+          "scoring_status": "DESIGN_ONLY"
+        },
+        {
+          "id": "WEATHER.STADIUM_SPATIOTEMPORAL_MATCH",
+          "name": "Stadium spatiotemporal match",
+          "definition": "La grille ou station et la fenêtre temporelle décrivent-elles effectivement le stade ?",
+          "required_inputs": [
+            "fixture_id",
+            "kickoff_utc",
+            "analysis_asof_utc",
+            "document_publication_utc",
+            "first_seen_utc",
+            "source_lineage_id",
+            "stadium_geo_lat",
+            "stadium_geo_lon",
+            "stadium_open_air_status",
+            "grid_lat",
+            "grid_lon",
+            "grid_resolution_km",
+            "match_window_utc",
+            "forecast_valid_interval_utc"
+          ],
+          "variables": [
+            "stadium_geo_lat",
+            "stadium_geo_lon",
+            "stadium_open_air_status",
+            "grid_lat",
+            "grid_lon",
+            "grid_resolution_km",
+            "match_window_utc",
+            "forecast_valid_interval_utc"
+          ],
+          "evidence_fields": [
+            "wx_local",
+            "wx_primary"
+          ],
+          "scoring_status": "DESIGN_ONLY"
+        },
+        {
+          "id": "WEATHER.WIND_GUST_EXPOSURE",
+          "name": "Wind gust exposure",
+          "definition": "La prévision de vitesse/direction/rafales laisse-t-elle envisager un effet sur trajectoires de balle ?",
+          "required_inputs": [
+            "fixture_id",
+            "kickoff_utc",
+            "analysis_asof_utc",
+            "document_publication_utc",
+            "first_seen_utc",
+            "source_lineage_id",
+            "wind_speed_10m",
+            "wind_gust_10m",
+            "wind_direction",
+            "wind_unit",
+            "model_run_id",
+            "stadium_orientation_if_proven"
+          ],
+          "variables": [
+            "wind_speed_10m",
+            "wind_gust_10m",
+            "wind_direction",
+            "wind_unit",
+            "model_run_id",
+            "stadium_orientation_if_proven"
+          ],
+          "evidence_fields": [
+            "wx_primary",
+            "wx_archived"
+          ],
+          "scoring_status": "DESIGN_ONLY"
+        },
+        {
+          "id": "WEATHER.PRECIPITATION_THERMAL_ENVELOPE",
+          "name": "Precipitation thermal envelope",
+          "definition": "Quel éventail de pluie, humidité, température et incertitudes est documenté à T ?",
+          "required_inputs": [
+            "fixture_id",
+            "kickoff_utc",
+            "analysis_asof_utc",
+            "document_publication_utc",
+            "first_seen_utc",
+            "source_lineage_id",
+            "rain_rate_forecast",
+            "precip_probability_if_provider",
+            "temperature_2m",
+            "wetbulb_if_measured",
+            "forecast_window",
+            "ensemble_member_lineage"
+          ],
+          "variables": [
+            "rain_rate_forecast",
+            "precip_probability_if_provider",
+            "temperature_2m",
+            "wetbulb_if_measured",
+            "forecast_window",
+            "ensemble_member_lineage"
+          ],
+          "evidence_fields": [
+            "wx_primary",
+            "wx_local"
+          ],
+          "scoring_status": "DESIGN_ONLY"
+        }
+      ]
+    },
+    "REFEREE": {
+      "source_file": "MATRICE/R8_G3_DEEP_20261014/L3_BATCH02_WEATHER_REFEREE_20261015/L3_BATCH02_WEATHER_REFEREE_CONTRACTS.json",
+      "children": [
+        {
+          "id": "REFEREE.APPOINTMENT_PROVENANCE",
+          "name": "Appointment provenance",
+          "definition": "La désignation de l’arbitre central pour la rencontre exacte est-elle officiellement connue à T ?",
+          "required_inputs": [
+            "fixture_id",
+            "kickoff_utc",
+            "analysis_asof_utc",
+            "document_publication_utc",
+            "first_seen_utc",
+            "source_lineage_id",
+            "fixture_id",
+            "competition_id",
+            "referee_person_id",
+            "referee_role",
+            "original_announcement_id",
+            "first_publication_verified_at"
+          ],
+          "variables": [
+            "fixture_id",
+            "competition_id",
+            "referee_person_id",
+            "referee_role",
+            "original_announcement_id",
+            "first_publication_verified_at"
+          ],
+          "evidence_fields": [
+            "ref_primary",
+            "ref_governing"
+          ],
+          "scoring_status": "DESIGN_ONLY"
+        },
+        {
+          "id": "REFEREE.REASSIGNMENT_TIMELINE",
+          "name": "Reassignment timeline",
+          "definition": "Un remplacement d’officiel a-t-il été publié, et quelle version est la dernière connue à T ?",
+          "required_inputs": [
+            "fixture_id",
+            "kickoff_utc",
+            "analysis_asof_utc",
+            "document_publication_utc",
+            "first_seen_utc",
+            "source_lineage_id",
+            "previous_referee_id",
+            "replacement_referee_id",
+            "replace_effective_at",
+            "reassignment_announcement_id",
+            "version_sequence"
+          ],
+          "variables": [
+            "previous_referee_id",
+            "replacement_referee_id",
+            "replace_effective_at",
+            "reassignment_announcement_id",
+            "version_sequence"
+          ],
+          "evidence_fields": [
+            "ref_governing",
+            "ref_primary"
+          ],
+          "scoring_status": "DESIGN_ONLY"
+        },
+        {
+          "id": "REFEREE.ROLE_IDENTITY_RESOLUTION",
+          "name": "Role identity resolution",
+          "definition": "Les noms, rôles et officiels homonymes sont-ils correctement attribués à la fixture ?",
+          "required_inputs": [
+            "fixture_id",
+            "kickoff_utc",
+            "analysis_asof_utc",
+            "document_publication_utc",
+            "first_seen_utc",
+            "source_lineage_id",
+            "official_person_id",
+            "role_code",
+            "affiliation_id",
+            "appointment_fixture_id",
+            "competition_roster_scope"
+          ],
+          "variables": [
+            "official_person_id",
+            "role_code",
+            "affiliation_id",
+            "appointment_fixture_id",
+            "competition_roster_scope"
+          ],
+          "evidence_fields": [
+            "ref_primary",
+            "ref_governing"
+          ],
+          "scoring_status": "DESIGN_ONLY"
+        },
+        {
+          "id": "REFEREE.RULES_COMPETITION_CONTEXT",
+          "name": "Rules competition context",
+          "definition": "Quelles règles d’arbitrage et dispositifs (notamment VAR) sont applicables à cette compétition au cutoff ?",
+          "required_inputs": [
+            "fixture_id",
+            "kickoff_utc",
+            "analysis_asof_utc",
+            "document_publication_utc",
+            "first_seen_utc",
+            "source_lineage_id",
+            "season",
+            "competition_id",
+            "applicable_laws_edition",
+            "competition_rules_version",
+            "VAR_in_use_if_documented"
+          ],
+          "variables": [
+            "season",
+            "competition_id",
+            "applicable_laws_edition",
+            "competition_rules_version",
+            "VAR_in_use_if_documented"
+          ],
+          "evidence_fields": [
+            "ref_rules",
+            "ref_primary"
+          ],
+          "scoring_status": "DESIGN_ONLY"
+        },
+        {
+          "id": "REFEREE.HISTORICAL_CALL_PROFILE",
+          "name": "Historical call profile",
+          "definition": "Existe-t-il un historique comparable et datable des décisions d’arbitrage des matchs terminés avant T ?",
+          "required_inputs": [
+            "fixture_id",
+            "kickoff_utc",
+            "analysis_asof_utc",
+            "document_publication_utc",
+            "first_seen_utc",
+            "source_lineage_id",
+            "official_person_id",
+            "completed_fixture_ids",
+            "competition_context",
+            "opponent_strength_proxy",
+            "cards_penalties_context",
+            "sample_definition"
+          ],
+          "variables": [
+            "official_person_id",
+            "completed_fixture_ids",
+            "competition_context",
+            "opponent_strength_proxy",
+            "cards_penalties_context",
+            "sample_definition"
+          ],
+          "evidence_fields": [
+            "ref_hist",
+            "ref_primary"
+          ],
+          "scoring_status": "DESIGN_ONLY"
+        }
+      ]
+    },
+    "PITCH_STADIUM": {
+      "source_file": "MATRICE/R8_G3_DEEP_20261014/L3_BATCH03_PITCH_PENALTY_20261016/L3_BATCH03_CONTRACTS.json",
+      "children": [
+        {
+          "id": "PITCH_STADIUM.VENUE_ID_RELOCATION",
+          "name": "Lieu réel et délocalisation",
+          "definition": "Inscription du lieu organisateur, noms alias et annonces de délocalisation valides à T.",
+          "required_inputs": [
+            "fixture_id",
+            "competition_id",
+            "analysis_asof_utc",
+            "kickoff_utc",
+            "source_editorial_lineage",
+            "organizer_fixture_venue_id",
+            "verified_stadium_name",
+            "venue_change_notice_time",
+            "venue_coordinates"
+          ],
+          "variables": [
+            "organizer_fixture_venue_id",
+            "verified_stadium_name",
+            "venue_change_notice_time",
+            "venue_coordinates"
+          ],
+          "evidence_fields": [
+            "organizer_fixture_notice",
+            "host_club_stadium_notice"
+          ],
+          "scoring_status": "DESIGN_ONLY"
+        },
+        {
+          "id": "PITCH_STADIUM.SURFACE_PHYSICAL_PROPERTIES",
+          "name": "Surface et dimensions matérielles",
+          "definition": "Nature du revêtement, dimensions réglementaires et données matérielles communiquées avant T.",
+          "required_inputs": [
+            "fixture_id",
+            "competition_id",
+            "analysis_asof_utc",
+            "kickoff_utc",
+            "source_editorial_lineage",
+            "surface_type",
+            "pitch_length_m",
+            "pitch_width_m",
+            "surface_source_date"
+          ],
+          "variables": [
+            "surface_type",
+            "pitch_length_m",
+            "pitch_width_m",
+            "surface_source_date"
+          ],
+          "evidence_fields": [
+            "organizer_ground_regulations",
+            "stadium_official_pitch_spec"
+          ],
+          "scoring_status": "DESIGN_ONLY"
+        },
+        {
+          "id": "PITCH_STADIUM.ROOF_WIND_EXPOSURE",
+          "name": "Toit et exposition climatique",
+          "definition": "Toiture, orientation et abri effectivement pertinents pour le stade et le match; ne prouve pas absence de vent.",
+          "required_inputs": [
+            "fixture_id",
+            "competition_id",
+            "analysis_asof_utc",
+            "kickoff_utc",
+            "source_editorial_lineage",
+            "roof_type",
+            "roof_open_status_preT",
+            "exposure_orientation_deg",
+            "roof_notice"
+          ],
+          "variables": [
+            "roof_type",
+            "roof_open_status_preT",
+            "exposure_orientation_deg",
+            "roof_notice"
+          ],
+          "evidence_fields": [
+            "venue_architecture_notice",
+            "organizer_roof_status_notice"
+          ],
+          "scoring_status": "DESIGN_ONLY"
+        },
+        {
+          "id": "PITCH_STADIUM.PREMATCH_PITCH_CONDITION",
+          "name": "Inspection de terrain avant coup d’envoi",
+          "definition": "Inspection de surface ou état de terrain communiqué avant T; une prévision pluie ne suffit pas.",
+          "required_inputs": [
+            "fixture_id",
+            "competition_id",
+            "analysis_asof_utc",
+            "kickoff_utc",
+            "source_editorial_lineage",
+            "inspection_author_id",
+            "inspection_publication_at",
+            "observed_ground_state",
+            "inspection_scope"
+          ],
+          "variables": [
+            "inspection_author_id",
+            "inspection_publication_at",
+            "observed_ground_state",
+            "inspection_scope"
+          ],
+          "evidence_fields": [
+            "competition_ground_inspection",
+            "venue_official_ground_notice"
+          ],
+          "scoring_status": "DESIGN_ONLY"
+        }
+      ]
+    },
+    "PENALTY_PATHWAYS": {
+      "source_file": "MATRICE/R8_G3_DEEP_20261014/L3_BATCH03_PITCH_PENALTY_20261016/L3_BATCH03_CONTRACTS.json",
+      "children": [
+        {
+          "id": "PENALTY_PATHWAYS.LAW_VERSION_AND_DECISION_GATE",
+          "name": "Droit applicable à la voie pénalty",
+          "definition": "Version des Lois IFAB, règlement de la compétition, périmètre de la surface et infraction éligible; aucune infraction du match cible observée.",
+          "required_inputs": [
+            "fixture_id",
+            "competition_id",
+            "analysis_asof_utc",
+            "kickoff_utc",
+            "source_editorial_lineage",
+            "ifab_law_edition",
+            "competition_rules_edition",
+            "applicability_date",
+            "var_policy"
+          ],
+          "variables": [
+            "ifab_law_edition",
+            "competition_rules_edition",
+            "applicability_date",
+            "var_policy"
+          ],
+          "evidence_fields": [
+            "ifab_edition_law14",
+            "competition_official_regulation"
+          ],
+          "scoring_status": "DESIGN_ONLY"
+        },
+        {
+          "id": "PENALTY_PATHWAYS.PRIOR_PENALTY_INCIDENCE",
+          "name": "Incidence historique contextualisée",
+          "definition": "Historique des décisions en matchs terminés avant T, ajusté au contexte et sans taux brut converti en probabilité du match cible.",
+          "required_inputs": [
+            "fixture_id",
+            "competition_id",
+            "analysis_asof_utc",
+            "kickoff_utc",
+            "source_editorial_lineage",
+            "previous_finished_fixture_ids",
+            "penalty_eligible_incidents",
+            "penalty_awarded_counts",
+            "source_event_ids"
+          ],
+          "variables": [
+            "previous_finished_fixture_ids",
+            "penalty_eligible_incidents",
+            "penalty_awarded_counts",
+            "source_event_ids"
+          ],
+          "evidence_fields": [
+            "licensed_historic_events",
+            "competition_official_past_reports"
+          ],
+          "scoring_status": "DESIGN_ONLY"
+        },
+        {
+          "id": "PENALTY_PATHWAYS.TAKER_SELECTION_UNCERTAINTY",
+          "name": "Tireurs probables en configuration pré-match",
+          "definition": "Identité d’un tireur potentiel fondée sur précédents et disponibilité à T; XI inconnu implique alternatives.",
+          "required_inputs": [
+            "fixture_id",
+            "competition_id",
+            "analysis_asof_utc",
+            "kickoff_utc",
+            "source_editorial_lineage",
+            "eligible_penalty_takers_preT",
+            "known_availability_tier",
+            "historical_taker_minutes",
+            "official_lineup_preT"
+          ],
+          "variables": [
+            "eligible_penalty_takers_preT",
+            "known_availability_tier",
+            "historical_taker_minutes",
+            "official_lineup_preT"
+          ],
+          "evidence_fields": [
+            "team_previous_taker_history",
+            "club_prematch_taker_statement"
+          ],
+          "scoring_status": "DESIGN_ONLY"
+        },
+        {
+          "id": "PENALTY_PATHWAYS.CONVERSION_AND_RETAKE_PATH",
+          "name": "Conversion et reprises historiques",
+          "definition": "Probabilité conceptuelle d’issue conditionnelle SI pénalty, distinguant raté, arrêt, but, reprise et occasions secondaires.",
+          "required_inputs": [
+            "fixture_id",
+            "competition_id",
+            "analysis_asof_utc",
+            "kickoff_utc",
+            "source_editorial_lineage",
+            "historical_spot_kick_sample",
+            "keeper_historical_stops",
+            "retake_law_version",
+            "follow_up_shot_events"
+          ],
+          "variables": [
+            "historical_spot_kick_sample",
+            "keeper_historical_stops",
+            "retake_law_version",
+            "follow_up_shot_events"
+          ],
+          "evidence_fields": [
+            "ifab_penalty_law14",
+            "licensed_penalty_outcome_events"
+          ],
+          "scoring_status": "DESIGN_ONLY"
+        }
+      ]
+    },
+    "DATA_QUALITY": {
+      "source_file": "MATRICE/R8_G3_DEEP_20261014/L3_BATCH04_DATA_QUALITY_DISCIPLINE_20261016/L3_BATCH04_CONTRACTS.json",
+      "children": [
+        {
+          "id": "DATA_QUALITY.FIXTURE_ENTITY_ALIGNMENT",
+          "name": "Rattachement exact des entités",
+          "definition": "",
+          "required_inputs": [
+            "fixture_id",
+            "competition_id",
+            "season_id",
+            "kickoff_utc",
+            "analysis_asof_utc",
+            "original_source_id",
+            "fixture_id",
+            "competition_id",
+            "season_id",
+            "entity_id",
+            "alias_registry_version"
+          ],
+          "variables": [
+            "fixture_id",
+            "competition_id",
+            "season_id",
+            "entity_id",
+            "alias_registry_version"
+          ],
+          "evidence_fields": [
+            "official_fixture_registration",
+            "official_team_or_player_registry"
+          ],
+          "scoring_status": "DESIGN_ONLY"
+        },
+        {
+          "id": "DATA_QUALITY.PUBLICATION_PIT_ATTESTATION",
+          "name": "Chronologie de preuve et disponibilité à T",
+          "definition": "",
+          "required_inputs": [
+            "fixture_id",
+            "competition_id",
+            "season_id",
+            "kickoff_utc",
+            "analysis_asof_utc",
+            "original_source_id",
+            "assertion_id",
+            "issuer_issue_at",
+            "original_publication_at",
+            "first_seen_at",
+            "capture_at",
+            "cutoff_utc"
+          ],
+          "variables": [
+            "assertion_id",
+            "issuer_issue_at",
+            "original_publication_at",
+            "first_seen_at",
+            "capture_at",
+            "cutoff_utc"
+          ],
+          "evidence_fields": [
+            "original_publisher_versioned_announcement",
+            "independent_timestamp_archive"
+          ],
+          "scoring_status": "DESIGN_ONLY"
+        },
+        {
+          "id": "DATA_QUALITY.EDITORIAL_LINEAGE_CONFLICT",
+          "name": "Indépendance éditoriale et contradictions",
+          "definition": "",
+          "required_inputs": [
+            "fixture_id",
+            "competition_id",
+            "season_id",
+            "kickoff_utc",
+            "analysis_asof_utc",
+            "original_source_id",
+            "assertion_id",
+            "editorial_parent_id",
+            "editorial_lineage_id",
+            "claim_signature",
+            "contradiction_group_id"
+          ],
+          "variables": [
+            "assertion_id",
+            "editorial_parent_id",
+            "editorial_lineage_id",
+            "claim_signature",
+            "contradiction_group_id"
+          ],
+          "evidence_fields": [
+            "primary_editorial_origin",
+            "independent_newsroom_publication"
+          ],
+          "scoring_status": "DESIGN_ONLY"
+        },
+        {
+          "id": "DATA_QUALITY.RIGHTS_CAPTURE_INTEGRITY",
+          "name": "Droits de réutilisation et intégrité des captures",
+          "definition": "",
+          "required_inputs": [
+            "fixture_id",
+            "competition_id",
+            "season_id",
+            "kickoff_utc",
+            "analysis_asof_utc",
+            "original_source_id",
+            "raw_capture_sha256",
+            "capture_type",
+            "rights_basis",
+            "retention_rule",
+            "source_url"
+          ],
+          "variables": [
+            "raw_capture_sha256",
+            "capture_type",
+            "rights_basis",
+            "retention_rule",
+            "source_url"
+          ],
+          "evidence_fields": [
+            "publisher_license_terms",
+            "official_open_data_policy"
+          ],
+          "scoring_status": "DESIGN_ONLY"
+        },
+        {
+          "id": "DATA_QUALITY.FRESHNESS_MISSINGNESS_QUALITY",
+          "name": "Fraîcheur, lacunes et capacité d’abstention",
+          "definition": "",
+          "required_inputs": [
+            "fixture_id",
+            "competition_id",
+            "season_id",
+            "kickoff_utc",
+            "analysis_asof_utc",
+            "original_source_id",
+            "valid_until_at",
+            "asof_utc",
+            "observation_status",
+            "provider_event_trigger",
+            "reason_missing"
+          ],
+          "variables": [
+            "valid_until_at",
+            "asof_utc",
+            "observation_status",
+            "provider_event_trigger",
+            "reason_missing"
+          ],
+          "evidence_fields": [
+            "source_update_changelog",
+            "original_provider_status"
+          ],
+          "scoring_status": "DESIGN_ONLY"
+        }
+      ]
+    },
+    "DISCIPLINE": {
+      "source_file": "MATRICE/R8_G3_DEEP_20261014/L3_BATCH04_DATA_QUALITY_DISCIPLINE_20261016/L3_BATCH04_CONTRACTS.json",
+      "children": [
+        {
+          "id": "DISCIPLINE.REGULATION_SCOPE_VERSION",
+          "name": "Règlement et juridiction applicables",
+          "definition": "",
+          "required_inputs": [
+            "fixture_id",
+            "competition_id",
+            "season_id",
+            "kickoff_utc",
+            "analysis_asof_utc",
+            "original_source_id",
+            "competition_id",
+            "competition_phase",
+            "season_id",
+            "rules_edition",
+            "rule_effective_at"
+          ],
+          "variables": [
+            "competition_id",
+            "competition_phase",
+            "season_id",
+            "rules_edition",
+            "rule_effective_at"
+          ],
+          "evidence_fields": [
+            "competition_regulations_original_edition",
+            "disciplinary_general_regulations"
+          ],
+          "scoring_status": "DESIGN_ONLY"
+        },
+        {
+          "id": "DISCIPLINE.FORMAL_SANCTION_DECISION",
+          "name": "Décisions et interdictions officielles",
+          "definition": "",
+          "required_inputs": [
+            "fixture_id",
+            "competition_id",
+            "season_id",
+            "kickoff_utc",
+            "analysis_asof_utc",
+            "original_source_id",
+            "player_id",
+            "decision_id",
+            "decision_issue_at",
+            "sanction_type",
+            "affected_competition_id"
+          ],
+          "variables": [
+            "player_id",
+            "decision_id",
+            "decision_issue_at",
+            "sanction_type",
+            "affected_competition_id"
+          ],
+          "evidence_fields": [
+            "disciplinary_body_decision",
+            "competition_suspension_register"
+          ],
+          "scoring_status": "DESIGN_ONLY"
+        },
+        {
+          "id": "DISCIPLINE.HISTORICAL_CAUTION_LEDGER",
+          "name": "Cumul des avertissements de matchs terminés",
+          "definition": "",
+          "required_inputs": [
+            "fixture_id",
+            "competition_id",
+            "season_id",
+            "kickoff_utc",
+            "analysis_asof_utc",
+            "original_source_id",
+            "player_id",
+            "historic_fixture_id",
+            "historic_fixture_completed_at",
+            "yellow_cards_count",
+            "rule_phase_id"
+          ],
+          "variables": [
+            "player_id",
+            "historic_fixture_id",
+            "historic_fixture_completed_at",
+            "yellow_cards_count",
+            "rule_phase_id"
+          ],
+          "evidence_fields": [
+            "official_match_reports_completed",
+            "competition_card_ledger"
+          ],
+          "scoring_status": "DESIGN_ONLY"
+        },
+        {
+          "id": "DISCIPLINE.APPEAL_STAY_SERVICE_STATUS",
+          "name": "Recours, suspension d’effet et sanctions purgées",
+          "definition": "",
+          "required_inputs": [
+            "fixture_id",
+            "competition_id",
+            "season_id",
+            "kickoff_utc",
+            "analysis_asof_utc",
+            "original_source_id",
+            "decision_id",
+            "appeal_document_id",
+            "stay_effective_at",
+            "served_fixture_id",
+            "enforcement_scope"
+          ],
+          "variables": [
+            "decision_id",
+            "appeal_document_id",
+            "stay_effective_at",
+            "served_fixture_id",
+            "enforcement_scope"
+          ],
+          "evidence_fields": [
+            "disciplinary_appeals_body",
+            "competition_enforcement_register"
+          ],
+          "scoring_status": "DESIGN_ONLY"
+        },
+        {
+          "id": "DISCIPLINE.HISTORIC_FOUL_RISK_CONTEXT",
+          "name": "Comportement disciplinaire passé, non live",
+          "definition": "",
+          "required_inputs": [
+            "fixture_id",
+            "competition_id",
+            "season_id",
+            "kickoff_utc",
+            "analysis_asof_utc",
+            "original_source_id",
+            "historical_fixture_id",
+            "foul_history_scope",
+            "completed_at",
+            "opponent_context",
+            "referee_historical_scope"
+          ],
+          "variables": [
+            "historical_fixture_id",
+            "foul_history_scope",
+            "completed_at",
+            "opponent_context",
+            "referee_historical_scope"
+          ],
+          "evidence_fields": [
+            "official_completed_match_events",
+            "published_historical_discipline_profile"
+          ],
+          "scoring_status": "DESIGN_ONLY"
+        }
+      ]
+    },
+    "FIXTURE_ID": {
+      "source_file": "MATRICE/R8_G3_DEEP_20261014/L3_BATCH05_FIXTURE_DOMAIN_20261016/L3_BATCH05_CONTRACTS.json",
+      "children": [
+        {
+          "id": "FIXTURE_ID.OFFICIAL_EVENT_KEY",
+          "name": "Identité primaire de la rencontre",
+          "definition": "",
+          "required_inputs": [
+            "fixture_id",
+            "competition_id",
+            "season_id",
+            "analysis_asof_utc",
+            "kickoff_utc",
+            "official_fixture_id",
+            "editorial_version",
+            "event_scope"
+          ],
+          "variables": [
+            "official_fixture_id",
+            "editorial_version",
+            "event_scope"
+          ],
+          "evidence_fields": [
+            "organiser_fixture_release",
+            "federation_edition_calendar"
+          ],
+          "scoring_status": "DESIGN_ONLY"
+        },
+        {
+          "id": "FIXTURE_ID.PARTICIPANT_CATEGORY_SCOPE",
+          "name": "Catégories, équipes et homonymes",
+          "definition": "",
+          "required_inputs": [
+            "fixture_id",
+            "competition_id",
+            "season_id",
+            "analysis_asof_utc",
+            "kickoff_utc",
+            "home_team_id",
+            "away_team_id",
+            "age_category",
+            "gender_category",
+            "reserve_status"
+          ],
+          "variables": [
+            "home_team_id",
+            "away_team_id",
+            "age_category",
+            "gender_category",
+            "reserve_status"
+          ],
+          "evidence_fields": [
+            "federation_team_registry",
+            "competition_team_list"
+          ],
+          "scoring_status": "DESIGN_ONLY"
+        },
+        {
+          "id": "FIXTURE_ID.KICKOFF_REVISION_LEDGER",
+          "name": "Horaire et versionnement des reports",
+          "definition": "",
+          "required_inputs": [
+            "fixture_id",
+            "competition_id",
+            "season_id",
+            "analysis_asof_utc",
+            "kickoff_utc",
+            "kickoff_utc",
+            "schedule_revision",
+            "supersedes_notice"
+          ],
+          "variables": [
+            "kickoff_utc",
+            "schedule_revision",
+            "supersedes_notice"
+          ],
+          "evidence_fields": [
+            "organizer_schedule_notice",
+            "club_official_fixture_notice"
+          ],
+          "scoring_status": "DESIGN_ONLY"
+        },
+        {
+          "id": "FIXTURE_ID.COMPETITION_PHASE_LEG_SCOPE",
+          "name": "Compétition, phase et aller-retour",
+          "definition": "",
+          "required_inputs": [
+            "fixture_id",
+            "competition_id",
+            "season_id",
+            "analysis_asof_utc",
+            "kickoff_utc",
+            "competition_id",
+            "phase_id",
+            "leg_number",
+            "tie_id"
+          ],
+          "variables": [
+            "competition_id",
+            "phase_id",
+            "leg_number",
+            "tie_id"
+          ],
+          "evidence_fields": [
+            "competition_draw_document",
+            "organizer_regulations"
+          ],
+          "scoring_status": "DESIGN_ONLY"
+        },
+        {
+          "id": "FIXTURE_ID.VENUE_STATUS_SNAPSHOT",
+          "name": "Stade annoncé et état du match",
+          "definition": "",
+          "required_inputs": [
+            "fixture_id",
+            "competition_id",
+            "season_id",
+            "analysis_asof_utc",
+            "kickoff_utc",
+            "venue_id",
+            "fixture_status",
+            "venue_revision_id"
+          ],
+          "variables": [
+            "venue_id",
+            "fixture_status",
+            "venue_revision_id"
+          ],
+          "evidence_fields": [
+            "organizer_venue_approval",
+            "official_stadium_notice"
+          ],
+          "scoring_status": "DESIGN_ONLY"
+        }
+      ]
+    },
+    "MODEL_DOMAIN": {
+      "source_file": "MATRICE/R8_G3_DEEP_20261014/L3_BATCH05_FIXTURE_DOMAIN_20261016/L3_BATCH05_CONTRACTS.json",
+      "children": [
+        {
+          "id": "MODEL_DOMAIN.DOMAIN_MANIFEST_VERSION",
+          "name": "Manifeste du domaine du modèle",
+          "definition": "",
+          "required_inputs": [
+            "fixture_id",
+            "competition_id",
+            "season_id",
+            "analysis_asof_utc",
+            "kickoff_utc",
+            "model_id",
+            "manifest_sha256",
+            "domain_competitions",
+            "domain_seasons"
+          ],
+          "variables": [
+            "model_id",
+            "manifest_sha256",
+            "domain_competitions",
+            "domain_seasons"
+          ],
+          "evidence_fields": [
+            "model_version_manifest",
+            "registered_training_protocol"
+          ],
+          "scoring_status": "DESIGN_ONLY"
+        },
+        {
+          "id": "MODEL_DOMAIN.TRAINING_ASOF_LINEAGE",
+          "name": "Lignage temporel du corpus",
+          "definition": "",
+          "required_inputs": [
+            "fixture_id",
+            "competition_id",
+            "season_id",
+            "analysis_asof_utc",
+            "kickoff_utc",
+            "trained_at",
+            "training_window_end",
+            "label_available_at",
+            "feature_first_seen_at"
+          ],
+          "variables": [
+            "trained_at",
+            "training_window_end",
+            "label_available_at",
+            "feature_first_seen_at"
+          ],
+          "evidence_fields": [
+            "dataset_ingestion_log",
+            "historical_fixture_record"
+          ],
+          "scoring_status": "DESIGN_ONLY"
+        },
+        {
+          "id": "MODEL_DOMAIN.TEMPORAL_VALIDATION_PROTOCOL",
+          "name": "Validation chronologique séparée",
+          "definition": "",
+          "required_inputs": [
+            "fixture_id",
+            "competition_id",
+            "season_id",
+            "analysis_asof_utc",
+            "kickoff_utc",
+            "train_end",
+            "validation_start",
+            "test_start",
+            "selection_locked_at"
+          ],
+          "variables": [
+            "train_end",
+            "validation_start",
+            "test_start",
+            "selection_locked_at"
+          ],
+          "evidence_fields": [
+            "validation_manifest",
+            "test_split_hash_registry"
+          ],
+          "scoring_status": "DESIGN_ONLY"
+        },
+        {
+          "id": "MODEL_DOMAIN.SEGMENT_COVERAGE_TRANSPORT",
+          "name": "Transport entre domaines",
+          "definition": "",
+          "required_inputs": [
+            "fixture_id",
+            "competition_id",
+            "season_id",
+            "analysis_asof_utc",
+            "kickoff_utc",
+            "domain_key",
+            "segment_key",
+            "evaluation_coverage",
+            "transfer_support"
+          ],
+          "variables": [
+            "domain_key",
+            "segment_key",
+            "evaluation_coverage",
+            "transfer_support"
+          ],
+          "evidence_fields": [
+            "domain_segment_register",
+            "evaluation_card"
+          ],
+          "scoring_status": "DESIGN_ONLY"
+        },
+        {
+          "id": "MODEL_DOMAIN.RELEASE_AND_ABSTENTION_GATE",
+          "name": "Publication modèle et abstention",
+          "definition": "",
+          "required_inputs": [
+            "fixture_id",
+            "competition_id",
+            "season_id",
+            "analysis_asof_utc",
+            "kickoff_utc",
+            "released_at",
+            "validation_approved_at",
+            "binary_sha256",
+            "supported_cutoff"
+          ],
+          "variables": [
+            "released_at",
+            "validation_approved_at",
+            "binary_sha256",
+            "supported_cutoff"
+          ],
+          "evidence_fields": [
+            "model_release_tag",
+            "deployment_manifest"
+          ],
+          "scoring_status": "DESIGN_ONLY"
+        }
+      ]
+    },
+    "LEAGUE_BASE": {
+      "source_file": "MATRICE/R8_G3_DEEP_20261014/L3_BATCH06_LEAGUE_STRENGTH_20261016/L3_BATCH06_CONTRACTS.json",
+      "children": [
+        {
+          "id": "LEAGUE_BASE.EDITION_RULES",
+          "name": "Identité d'édition et règlement",
+          "definition": "Format effectivement applicable à l'édition, y compris points, qualifications, périodes réglementaires et matchs neutralisés",
+          "required_inputs": [
+            "fixture_id",
+            "competition_id",
+            "season_id",
+            "analysis_asof_utc",
+            "kickoff_utc",
+            "edition_release_id",
+            "category",
+            "phase_id",
+            "ruleset_revision"
+          ],
+          "variables": [
+            "competition_registry",
+            "ruleset_effective_at",
+            "fixture_phase_id"
+          ],
+          "evidence_fields": [
+            "competition_organizer_rules",
+            "federation_season_edition"
+          ],
+          "scoring_status": "DESIGN_ONLY"
+        },
+        {
+          "id": "LEAGUE_BASE.GOALS_DISTRIBUTION_PRIOR",
+          "name": "Distribution historique des buts au périmètre exact",
+          "definition": "Distribution de buts par édition antérieure et matchs terminés avant T; dénominateur, sélection et qualité de labels sans aucune utilisation des buts du match cible",
+          "required_inputs": [
+            "fixture_id",
+            "competition_id",
+            "season_id",
+            "analysis_asof_utc",
+            "kickoff_utc",
+            "asof_utc",
+            "completed_before_asof_fixture_set",
+            "regulation_full_time_goals",
+            "first_available_at"
+          ],
+          "variables": [
+            "historical_total_goals",
+            "eligible_games_count",
+            "uncertain_label_share"
+          ],
+          "evidence_fields": [
+            "openfootball_versioned_result_ledger",
+            "organizer_results_publication"
+          ],
+          "scoring_status": "DESIGN_ONLY"
+        },
+        {
+          "id": "LEAGUE_BASE.REGIME_CHANGE_POINTS",
+          "name": "Dérive et ruptures du régime",
+          "definition": "Variations d'édition à édition à considérer comme hypothèses de changement de contexte; pas de détection rétrospective utilisant la fin de saison",
+          "required_inputs": [
+            "fixture_id",
+            "competition_id",
+            "season_id",
+            "analysis_asof_utc",
+            "kickoff_utc",
+            "league_id",
+            "asof_utc",
+            "prior_edition_ids",
+            "change_notice_issued_at",
+            "rule_change_kind"
+          ],
+          "variables": [
+            "pre_asof_change_notices",
+            "available_historical_seasons",
+            "distribution_stability_diagnostic"
+          ],
+          "evidence_fields": [
+            "organizer_change_notice",
+            "federation_historical_regulations"
+          ],
+          "scoring_status": "DESIGN_ONLY"
+        },
+        {
+          "id": "LEAGUE_BASE.HOME_AWAY_LEAGUE_PRIOR",
+          "name": "Structure collective domicile/extérieur",
+          "definition": "Part du contexte moyen d'accueil au niveau ligue et édition, distincte des forces locales propres aux équipes",
+          "required_inputs": [
+            "fixture_id",
+            "competition_id",
+            "season_id",
+            "analysis_asof_utc",
+            "kickoff_utc",
+            "prior_home_matches",
+            "prior_away_matches",
+            "venue_rule",
+            "asof_utc"
+          ],
+          "variables": [
+            "home_away_exposure_balance",
+            "league_home_context_observation",
+            "neutral_site_prevalence"
+          ],
+          "evidence_fields": [
+            "organizer_venue_calendar",
+            "openfootball_match_venues"
+          ],
+          "scoring_status": "DESIGN_ONLY"
+        },
+        {
+          "id": "LEAGUE_BASE.PHASE_AND_SCHEDULING_SCOPE",
+          "name": "Phase et structure de programmation",
+          "definition": "Identification des phases, nombre d'équipes et cadence de compétition comme gouverneur de sous-populations, sans pénaliser deux fois la fatigue individuelle",
+          "required_inputs": [
+            "fixture_id",
+            "competition_id",
+            "season_id",
+            "analysis_asof_utc",
+            "kickoff_utc",
+            "edition_id",
+            "phase_id",
+            "published_rounds",
+            "fixture_date_asof",
+            "club_count"
+          ],
+          "variables": [
+            "phase_sample_eligibility",
+            "schedule_completeness",
+            "format_compatibility"
+          ],
+          "evidence_fields": [
+            "competition_fixture_issuer",
+            "federation_phase_rules"
+          ],
+          "scoring_status": "DESIGN_ONLY"
+        },
+        {
+          "id": "LEAGUE_BASE.NEW_ENTRANT_COHORT",
+          "name": "Promotion, relégation et nouveaux entrants",
+          "definition": "Population de début de saison transférée depuis divisions différentes: qualité du comparable et domaine admissible; pas de points de force attribués par intuition",
+          "required_inputs": [
+            "fixture_id",
+            "competition_id",
+            "season_id",
+            "analysis_asof_utc",
+            "kickoff_utc",
+            "edition_id",
+            "promotion_list_issued_at",
+            "team_id",
+            "previous_division_id",
+            "cross_league_observation_links"
+          ],
+          "variables": [
+            "entrant_cohort_share",
+            "cross_tier_comparability",
+            "unsupported_population_flag"
+          ],
+          "evidence_fields": [
+            "organizer_admission_list",
+            "federation_promotion_relegation_notice"
+          ],
+          "scoring_status": "DESIGN_ONLY"
+        }
+      ]
+    },
+    "TEAM_STRENGTH": {
+      "source_file": "MATRICE/R8_G3_DEEP_20261014/L3_BATCH06_LEAGUE_STRENGTH_20261016/L3_BATCH06_CONTRACTS.json",
+      "children": [
+        {
+          "id": "TEAM_STRENGTH.ATTACK_OPPONENT_ADJUSTED",
+          "name": "Production offensive contre adversité",
+          "definition": "Comparer une capacité offensive historique dans un environnement d'opposants identifié, sans valeur chiffrée de force avant apprentissage",
+          "required_inputs": [
+            "fixture_id",
+            "competition_id",
+            "season_id",
+            "analysis_asof_utc",
+            "kickoff_utc",
+            "team_id",
+            "asof_utc",
+            "eligible_past_matches",
+            "opponent_ids",
+            "goals_scored_ft",
+            "competition_editions"
+          ],
+          "variables": [
+            "connected_opposition_count",
+            "attack_input_coverage",
+            "potential_opponent_strength_control"
+          ],
+          "evidence_fields": [
+            "openfootball_historical_results",
+            "organizer_verified_past_scores"
+          ],
+          "scoring_status": "DESIGN_ONLY"
+        },
+        {
+          "id": "TEAM_STRENGTH.DEFENSE_OPPONENT_ADJUSTED",
+          "name": "Exposition défensive contre adversité",
+          "definition": "Distinguer concessions réglementaires, niveau offensif des adversaires et disponibilité de statistiques, sans confondre tirs et buts",
+          "required_inputs": [
+            "fixture_id",
+            "competition_id",
+            "season_id",
+            "analysis_asof_utc",
+            "kickoff_utc",
+            "team_id",
+            "asof_utc",
+            "eligible_past_matches",
+            "opponent_ids",
+            "goals_conceded_ft",
+            "competition_editions"
+          ],
+          "variables": [
+            "connected_opposition_count",
+            "defense_input_coverage",
+            "potential_opponent_attack_control"
+          ],
+          "evidence_fields": [
+            "organizer_verified_past_scores",
+            "openfootball_historical_results"
+          ],
+          "scoring_status": "DESIGN_ONLY"
+        },
+        {
+          "id": "TEAM_STRENGTH.VENUE_CONDITIONAL_TEAM",
+          "name": "Capacité conditionnelle selon le terrain",
+          "definition": "Écart spécifique équipe en home/away neutral sans réinjecter le prior domicile collectif de la ligue ni inventer un bonus",
+          "required_inputs": [
+            "fixture_id",
+            "competition_id",
+            "season_id",
+            "analysis_asof_utc",
+            "kickoff_utc",
+            "team_id",
+            "asof_utc",
+            "venue_kind",
+            "past_venue_result_rows",
+            "league_venue_prior_id"
+          ],
+          "variables": [
+            "venue_sample_count",
+            "team_venue_residual_status",
+            "neutral_match_identification"
+          ],
+          "evidence_fields": [
+            "organizer_venue_fixture_data",
+            "federation_neutral_venue_notice"
+          ],
+          "scoring_status": "DESIGN_ONLY"
+        },
+        {
+          "id": "TEAM_STRENGTH.OPPONENT_GRAPH_CONNECTIVITY",
+          "name": "Connectivité d'adversité intercompétitions",
+          "definition": "Décrire les chemins de comparaison entre adversaires et compétitions; le manque de pont entre ligues rend la comparaison non identifiable",
+          "required_inputs": [
+            "fixture_id",
+            "competition_id",
+            "season_id",
+            "analysis_asof_utc",
+            "kickoff_utc",
+            "team_id",
+            "opponent_graph_asof",
+            "eligible_match_edges",
+            "competition_edition_nodes",
+            "cross_tier_link_sources"
+          ],
+          "variables": [
+            "graph_component_count",
+            "team_opponent_path_coverage",
+            "cross_league_unconnected_flag"
+          ],
+          "evidence_fields": [
+            "federation_cup_pairings_history",
+            "organizer_cross_competition_results"
+          ],
+          "scoring_status": "DESIGN_ONLY"
+        },
+        {
+          "id": "TEAM_STRENGTH.TEMPORAL_TEAM_STATE",
+          "name": "Stabilité et évolution de la force",
+          "definition": "Prévoir conceptuellement persistance et changement de capacité à partir de séquences réellement connues à T sans intégrer comme faits les blessures ou compositions non publiées",
+          "required_inputs": [
+            "fixture_id",
+            "competition_id",
+            "season_id",
+            "analysis_asof_utc",
+            "kickoff_utc",
+            "team_id",
+            "asof_utc",
+            "historical_state_window",
+            "match_completed_utc",
+            "first_seen_utc",
+            "season_boundary"
+          ],
+          "variables": [
+            "time_gap_since_last_game",
+            "history_window_coverage",
+            "unexplained_structural_shift_flag"
+          ],
+          "evidence_fields": [
+            "organizer_club_result_history",
+            "federation_schedule_revision"
+          ],
+          "scoring_status": "DESIGN_ONLY"
+        },
+        {
+          "id": "TEAM_STRENGTH.SPARSE_HISTORY_UNCERTAINTY",
+          "name": "Identifiabilité et faible échantillon",
+          "definition": "Signaler qu'un club réserve, promu ou faiblement documenté ne possède pas assez d'observations valides pour une estimation fine; aucune force par défaut arbitraire",
+          "required_inputs": [
+            "fixture_id",
+            "competition_id",
+            "season_id",
+            "analysis_asof_utc",
+            "kickoff_utc",
+            "team_id",
+            "asof_utc",
+            "source_completeness",
+            "historical_opponent_count",
+            "category_scope",
+            "prior_season_crosswalk"
+          ],
+          "variables": [
+            "effective_sample_support",
+            "unsupported_domain_flag",
+            "unknown_history_fraction"
+          ],
+          "evidence_fields": [
+            "organizer_competition_archive",
+            "openfootball_country_archive"
+          ],
+          "scoring_status": "DESIGN_ONLY"
+        }
+      ]
+    },
+    "SCORING_HISTORY": {
+      "source_file": "MATRICE/R8_G3_DEEP_20261014/L3_BATCH07_SCORING_SHOTS_20261017/L3_BATCH07_CONTRACTS.json",
+      "children": [
+        {
+          "id": "SCORING_HISTORY.REGULATION_SCORE_LINEAGE",
+          "name": "Score historique réglementaire et provenance",
+          "definition": "Isoler buts domicile/extérieur dans le temps réglementaire incluant arrêts de jeu, hors prolongation et tirs au but",
+          "required_inputs": [
+            "fixture_id",
+            "competition_id",
+            "season_id",
+            "analysis_asof_utc",
+            "kickoff_utc",
+            "historic_fixture_id",
+            "source_version_digest",
+            "category",
+            "original_publisher_issue_utc"
+          ],
+          "variables": [
+            "home_goals_regulation",
+            "away_goals_regulation",
+            "original_result_revision"
+          ],
+          "evidence_fields": [
+            "openfootball_cc0_archived",
+            "competition_original_result"
+          ],
+          "scoring_status": "DESIGN_ONLY"
+        },
+        {
+          "id": "SCORING_HISTORY.ELIGIBLE_COMPLETED_MATCH_SET",
+          "name": "Ensemble admissible de rencontres antérieures",
+          "definition": "Construire le dénominateur réel des rencontres achevées et accessibles à T, avec édition/catégorie/clubs identifiés",
+          "required_inputs": [
+            "fixture_id",
+            "competition_id",
+            "season_id",
+            "analysis_asof_utc",
+            "kickoff_utc",
+            "historic_fixture_id",
+            "source_version_digest",
+            "category",
+            "original_publisher_issue_utc"
+          ],
+          "variables": [
+            "past_fixture_id",
+            "historic_fulltime_utc",
+            "admissible_match_count"
+          ],
+          "evidence_fields": [
+            "openfootball_cc0_archived",
+            "competition_original_result"
+          ],
+          "scoring_status": "DESIGN_ONLY"
+        },
+        {
+          "id": "SCORING_HISTORY.GOAL_BUCKETS_OBSERVED",
+          "name": "Distribution historique 0, 1 et 2+ buts",
+          "definition": "Classer seulement les matches passés finalisés dans les classes 0/1/2+ sans fabriquer une fréquence prédictive ni un label du match cible",
+          "required_inputs": [
+            "fixture_id",
+            "competition_id",
+            "season_id",
+            "analysis_asof_utc",
+            "kickoff_utc",
+            "historic_fixture_id",
+            "source_version_digest",
+            "category",
+            "original_publisher_issue_utc"
+          ],
+          "variables": [
+            "historic_total_regulation_goals",
+            "historic_bucket_0_1_2plus",
+            "denominator_verified"
+          ],
+          "evidence_fields": [
+            "openfootball_cc0_archived",
+            "competition_original_result"
+          ],
+          "scoring_status": "DESIGN_ONLY"
+        },
+        {
+          "id": "SCORING_HISTORY.OPPONENT_VENUE_JOIN",
+          "name": "Contexte adversité et terrain des scores passés",
+          "definition": "Relier scores historiques à adversaires/terrain et catégorie afin que TEAM_STRENGTH estime un résiduel, sans répliquer le fait brut",
+          "required_inputs": [
+            "fixture_id",
+            "competition_id",
+            "season_id",
+            "analysis_asof_utc",
+            "kickoff_utc",
+            "historic_fixture_id",
+            "source_version_digest",
+            "category",
+            "original_publisher_issue_utc"
+          ],
+          "variables": [
+            "opponent_canonical_id",
+            "historic_venue_status",
+            "historic_edition_id"
+          ],
+          "evidence_fields": [
+            "openfootball_cc0_archived",
+            "competition_original_result"
+          ],
+          "scoring_status": "DESIGN_ONLY"
+        },
+        {
+          "id": "SCORING_HISTORY.TEMPORAL_WINDOW_ELIGIBILITY",
+          "name": "Fenêtre temporelle et censure",
+          "definition": "Déterminer quelles observations antérieures à T appartiennent aux fenêtres candidates, et marquer révisions et dérives plutôt que choisir un poids de récence intuitif",
+          "required_inputs": [
+            "fixture_id",
+            "competition_id",
+            "season_id",
+            "analysis_asof_utc",
+            "kickoff_utc",
+            "historic_fixture_id",
+            "source_version_digest",
+            "category",
+            "original_publisher_issue_utc"
+          ],
+          "variables": [
+            "historic_publication_utc",
+            "window_boundary_utc",
+            "eligible_sample_n"
+          ],
+          "evidence_fields": [
+            "openfootball_cc0_archived",
+            "competition_original_result"
+          ],
+          "scoring_status": "DESIGN_ONLY"
+        },
+        {
+          "id": "SCORING_HISTORY.FORFEIT_AWARD_REVISION",
+          "name": "Forfaits, abandons et corrections officielles",
+          "definition": "Séparer résultats sportifs réglementaires et scores administratifs/forfaits, selon règlement et date de notification",
+          "required_inputs": [
+            "fixture_id",
+            "competition_id",
+            "season_id",
+            "analysis_asof_utc",
+            "kickoff_utc",
+            "historic_fixture_id",
+            "source_version_digest",
+            "category",
+            "original_publisher_issue_utc"
+          ],
+          "variables": [
+            "result_disposition",
+            "official_award_issue_time",
+            "source_result_version"
+          ],
+          "evidence_fields": [
+            "openfootball_cc0_archived",
+            "competition_original_result"
+          ],
+          "scoring_status": "DESIGN_ONLY"
+        }
+      ]
+    },
+    "SHOT_CREATION": {
+      "source_file": "MATRICE/R8_G3_DEEP_20261014/L3_BATCH07_SCORING_SHOTS_20261017/L3_BATCH07_CONTRACTS.json",
+      "children": [
+        {
+          "id": "SHOT_CREATION.SHOT_EVENT_TAXONOMY",
+          "name": "Taxonomie des tentatives de tir",
+          "definition": "Distinguer tirs, tirs cadrés, arrêts, contres, pénaltys et buts contre son camp selon définitions de fournisseur versionnées",
+          "required_inputs": [
+            "fixture_id",
+            "competition_id",
+            "season_id",
+            "analysis_asof_utc",
+            "kickoff_utc",
+            "historic_fixture_id",
+            "source_version_digest",
+            "category",
+            "original_publisher_issue_utc"
+          ],
+          "variables": [
+            "provider_shot_event_type",
+            "shot_on_target_definition",
+            "own_goal_treatment"
+          ],
+          "evidence_fields": [
+            "statsbomb_open_events_research",
+            "competition_official_shots"
+          ],
+          "scoring_status": "DESIGN_ONLY"
+        },
+        {
+          "id": "SHOT_CREATION.SHOT_VOLUME_EXPOSURE",
+          "name": "Volume de tirs et exposition",
+          "definition": "Compter les tentatives sur matches antérieurs couverts, avec temps réglementaire, possessions et matches manquants déclarés",
+          "required_inputs": [
+            "fixture_id",
+            "competition_id",
+            "season_id",
+            "analysis_asof_utc",
+            "kickoff_utc",
+            "historic_fixture_id",
+            "source_version_digest",
+            "category",
+            "original_publisher_issue_utc"
+          ],
+          "variables": [
+            "eligible_shot_count",
+            "exposure_minutes_regulation",
+            "covered_fixture_count"
+          ],
+          "evidence_fields": [
+            "statsbomb_open_events_research",
+            "competition_official_shots"
+          ],
+          "scoring_status": "DESIGN_ONLY"
+        },
+        {
+          "id": "SHOT_CREATION.SHOT_QUALITY_XG_DEFINITION",
+          "name": "Localisation, angle et qualité des occasions",
+          "definition": "Séparer coordonnées et probabilité xG du fournisseur; jamais mélanger échelles ou attribuer une nouvelle valeur xG sans modèle appris",
+          "required_inputs": [
+            "fixture_id",
+            "competition_id",
+            "season_id",
+            "analysis_asof_utc",
+            "kickoff_utc",
+            "historic_fixture_id",
+            "source_version_digest",
+            "category",
+            "original_publisher_issue_utc"
+          ],
+          "variables": [
+            "shot_location_xy",
+            "xg_provider_model_version",
+            "shot_context_type"
+          ],
+          "evidence_fields": [
+            "statsbomb_open_events_research",
+            "competition_official_shots"
+          ],
+          "scoring_status": "DESIGN_ONLY"
+        },
+        {
+          "id": "SHOT_CREATION.OPEN_PLAY_SET_PIECE_SPLIT",
+          "name": "Tirs en jeu ouvert, arrêtés et pénaltys",
+          "definition": "Définir contexte d'origine de tentative, rôle pénalty et phases arrêtées sans doubler la même action",
+          "required_inputs": [
+            "fixture_id",
+            "competition_id",
+            "season_id",
+            "analysis_asof_utc",
+            "kickoff_utc",
+            "historic_fixture_id",
+            "source_version_digest",
+            "category",
+            "original_publisher_issue_utc"
+          ],
+          "variables": [
+            "play_pattern_version",
+            "shot_setpiece_context",
+            "penalty_attempt_flag"
+          ],
+          "evidence_fields": [
+            "statsbomb_open_events_research",
+            "competition_official_shots"
+          ],
+          "scoring_status": "DESIGN_ONLY"
+        },
+        {
+          "id": "SHOT_CREATION.OPPONENT_ADJUSTED_CREATION",
+          "name": "Création de tirs selon adversité et terrain",
+          "definition": "Décrire seulement le processus de mise en contexte des événements de tirs, sans second coefficient de force d'équipe",
+          "required_inputs": [
+            "fixture_id",
+            "competition_id",
+            "season_id",
+            "analysis_asof_utc",
+            "kickoff_utc",
+            "historic_fixture_id",
+            "source_version_digest",
+            "category",
+            "original_publisher_issue_utc"
+          ],
+          "variables": [
+            "opponent_defense_context",
+            "shot_creation_venue",
+            "historical_opponent_strength_asof"
+          ],
+          "evidence_fields": [
+            "statsbomb_open_events_research",
+            "competition_official_shots"
+          ],
+          "scoring_status": "DESIGN_ONLY"
+        },
+        {
+          "id": "SHOT_CREATION.PROVIDER_COVERAGE_DRIFT",
+          "name": "Couverture et dérive de fournisseur",
+          "definition": "Vérifier exactitude du périmètre couvert, révisions de codage et licences; considérer UNKNOWN si données absentes ou source non comparable",
+          "required_inputs": [
+            "fixture_id",
+            "competition_id",
+            "season_id",
+            "analysis_asof_utc",
+            "kickoff_utc",
+            "historic_fixture_id",
+            "source_version_digest",
+            "category",
+            "original_publisher_issue_utc"
+          ],
+          "variables": [
+            "event_feed_version",
+            "provider_coverage_scope",
+            "first_publication_evidence"
+          ],
+          "evidence_fields": [
+            "statsbomb_open_events_research",
+            "competition_official_shots"
+          ],
+          "scoring_status": "DESIGN_ONLY"
+        }
+      ]
+    },
+    "FORM_TRENDS": {
+      "source_file": "MATRICE/R8_G3_DEEP_20261014/L3_BATCH08_FORM_GK_20261017/L3_BATCH08_CONTRACTS.json",
+      "children": [
+        {
+          "id": "FORM_TRENDS.TEMPORAL_COHORT",
+          "name": "Cohortes temporelles admissibles",
+          "definition": "Comparer des périodes de prestations d'une même équipe en retenant seulement les matchs clôturés et publiés à l'instant T; fenêtres candidates, sans arbitraire «5 derniers»",
+          "required_inputs": [
+            "fixture_id",
+            "competition_id",
+            "season_id",
+            "analysis_asof_utc",
+            "kickoff_utc",
+            "historic_fixture_id",
+            "source_version_digest",
+            "original_publisher_issue_utc",
+            "category",
+            "team_id"
+          ],
+          "variables": [
+            "window_start_utc",
+            "window_end_utc",
+            "eligible_fixture_count"
+          ],
+          "evidence_fields": [
+            "openfootball_score_history",
+            "competition_original_report"
+          ],
+          "scoring_status": "DESIGN_ONLY"
+        },
+        {
+          "id": "FORM_TRENDS.OPPONENT_ADJUSTED_DELTA",
+          "name": "Variation relative à l'adversité",
+          "definition": "Examiner la différence temporelle de performance ajustée du niveau adverse connu à chaque époque; TEAM_STRENGTH possède l'état de base, FORM seulement le diagnostic de changement",
+          "required_inputs": [
+            "fixture_id",
+            "competition_id",
+            "season_id",
+            "analysis_asof_utc",
+            "kickoff_utc",
+            "historic_fixture_id",
+            "source_version_digest",
+            "original_publisher_issue_utc",
+            "category",
+            "team_id"
+          ],
+          "variables": [
+            "opponent_quality_asof",
+            "historical_team_state_reference",
+            "opponent_adjusted_change_candidate"
+          ],
+          "evidence_fields": [
+            "openfootball_score_history",
+            "competition_original_report"
+          ],
+          "scoring_status": "DESIGN_ONLY"
+        },
+        {
+          "id": "FORM_TRENDS.ATTACK_DEFENSE_DIRECTION",
+          "name": "Trajectoires offensives et défensives",
+          "definition": "Distinguer changements dans création / concession d'occasions historiques, sans convertir différence de buts ou série de victoires en un effet numérique",
+          "required_inputs": [
+            "fixture_id",
+            "competition_id",
+            "season_id",
+            "analysis_asof_utc",
+            "kickoff_utc",
+            "historic_fixture_id",
+            "source_version_digest",
+            "original_publisher_issue_utc",
+            "category",
+            "team_id"
+          ],
+          "variables": [
+            "old_period_attack_observation",
+            "recent_period_defense_observation",
+            "paired_sample_coverage"
+          ],
+          "evidence_fields": [
+            "openfootball_score_history",
+            "competition_original_report"
+          ],
+          "scoring_status": "DESIGN_ONLY"
+        },
+        {
+          "id": "FORM_TRENDS.BREAKPOINT_CANDIDACY",
+          "name": "Hypothèses de rupture datées",
+          "definition": "Localiser un changement de régime possible documenté à T; conserver l'hypothèse et ses alternatives sans utiliser une rupture détectée sur la saison complète ultérieure",
+          "required_inputs": [
+            "fixture_id",
+            "competition_id",
+            "season_id",
+            "analysis_asof_utc",
+            "kickoff_utc",
+            "historic_fixture_id",
+            "source_version_digest",
+            "original_publisher_issue_utc",
+            "category",
+            "team_id"
+          ],
+          "variables": [
+            "candidate_break_issue_utc",
+            "prebreak_evidence_count",
+            "postbreak_evidence_count_asof"
+          ],
+          "evidence_fields": [
+            "openfootball_score_history",
+            "competition_original_report"
+          ],
+          "scoring_status": "DESIGN_ONLY"
+        },
+        {
+          "id": "FORM_TRENDS.WINDOW_SENSITIVITY",
+          "name": "Stabilité des fenêtres de forme",
+          "definition": "Comparer robustesse des classements temporels à plusieurs fenêtres et tailles d'échantillon pré-T, sans calibrer un coefficient ni choisir opportunément celle qui gagne le passé",
+          "required_inputs": [
+            "fixture_id",
+            "competition_id",
+            "season_id",
+            "analysis_asof_utc",
+            "kickoff_utc",
+            "historic_fixture_id",
+            "source_version_digest",
+            "original_publisher_issue_utc",
+            "category",
+            "team_id"
+          ],
+          "variables": [
+            "eligible_window_grid",
+            "sampling_depth_asof",
+            "window_result_disagreement"
+          ],
+          "evidence_fields": [
+            "openfootball_score_history",
+            "competition_original_report"
+          ],
+          "scoring_status": "DESIGN_ONLY"
+        },
+        {
+          "id": "FORM_TRENDS.VENUE_SCHEDULE_CONFOUNDING",
+          "name": "Sélection domicile et calendrier",
+          "definition": "Surveiller les compositions des périodes à domicile/extérieur, densité du calendrier et déplacements comme variables de confusion; REST_CONGESTION et TRAVEL possèdent leurs mécanismes",
+          "required_inputs": [
+            "fixture_id",
+            "competition_id",
+            "season_id",
+            "analysis_asof_utc",
+            "kickoff_utc",
+            "historic_fixture_id",
+            "source_version_digest",
+            "original_publisher_issue_utc",
+            "category",
+            "team_id"
+          ],
+          "variables": [
+            "window_venue_mix",
+            "window_opponent_schedule",
+            "rest_context_control_asof"
+          ],
+          "evidence_fields": [
+            "openfootball_score_history",
+            "competition_original_report"
+          ],
+          "scoring_status": "DESIGN_ONLY"
+        }
+      ]
+    },
+    "GK_DEFENSE": {
+      "source_file": "MATRICE/R8_G3_DEEP_20261014/L3_BATCH08_FORM_GK_20261017/L3_BATCH08_CONTRACTS.json",
+      "children": [
+        {
+          "id": "GK_DEFENSE.KEEPER_CONDITIONAL_IDENTITY",
+          "name": "Identité conditionnelle du gardien",
+          "definition": "Référencer candidats et niveau de confirmation gardien avant T; SQUAD_AVAIL possède le statut d'éligibilité, ici uniquement la branche d'intervention finale conditionnelle",
+          "required_inputs": [
+            "fixture_id",
+            "competition_id",
+            "season_id",
+            "analysis_asof_utc",
+            "kickoff_utc",
+            "historic_fixture_id",
+            "source_version_digest",
+            "original_publisher_issue_utc",
+            "category",
+            "team_id"
+          ],
+          "variables": [
+            "keeper_candidate_id",
+            "keeper_announcement_issue_utc",
+            "keeper_status_confidence_class"
+          ],
+          "evidence_fields": [
+            "official_team_release",
+            "statsbomb_open_historic_lineups"
+          ],
+          "scoring_status": "DESIGN_ONLY"
+        },
+        {
+          "id": "GK_DEFENSE.ON_TARGET_EXPOSURE",
+          "name": "Exposition aux tirs ayant franchi la défense",
+          "definition": "Identifier les tirs cadrés admissibles effectivement affrontés sur matchs historiques couverts, distinguer arrêt effectué, tir bloqué, hors cadre et intervention gardien",
+          "required_inputs": [
+            "fixture_id",
+            "competition_id",
+            "season_id",
+            "analysis_asof_utc",
+            "kickoff_utc",
+            "historic_fixture_id",
+            "source_version_digest",
+            "original_publisher_issue_utc",
+            "category",
+            "team_id"
+          ],
+          "variables": [
+            "keeper_shots_faced_events",
+            "shot_on_target_schema_version",
+            "historic_exposure_coverage"
+          ],
+          "evidence_fields": [
+            "statsbomb_open_goalkeeper_events",
+            "official_competition_event_report"
+          ],
+          "scoring_status": "DESIGN_ONLY"
+        },
+        {
+          "id": "GK_DEFENSE.POSTSHOT_SAVE_CONDITIONAL",
+          "name": "Réponse à la difficulté du tir cadré",
+          "definition": "Concevoir une réponse conditionnelle aux caractéristiques de frappe atteignant le cadre, lorsque définitions PSxG/événements versionnées et licites existent, sans convertir taux brut d'arrêts en talent",
+          "required_inputs": [
+            "fixture_id",
+            "competition_id",
+            "season_id",
+            "analysis_asof_utc",
+            "kickoff_utc",
+            "historic_fixture_id",
+            "source_version_digest",
+            "original_publisher_issue_utc",
+            "category",
+            "team_id"
+          ],
+          "variables": [
+            "provider_postshot_quality_definition",
+            "goalkeeper_intervention_outcome",
+            "save_exposure_denominator"
+          ],
+          "evidence_fields": [
+            "statsbomb_open_goalkeeper_events",
+            "official_competition_event_report"
+          ],
+          "scoring_status": "DESIGN_ONLY"
+        },
+        {
+          "id": "GK_DEFENSE.HIGH_BALL_CLAIM_RESPONSE",
+          "name": "Interventions aériennes et arrêtés",
+          "definition": "Définir sorties / prises / déviations à la réception d'un danger aérien ou d'une phase arrêtée dans les matchs passés; SETPIECE_DEFENSE conserve la prévention et l'organisation amont",
+          "required_inputs": [
+            "fixture_id",
+            "competition_id",
+            "season_id",
+            "analysis_asof_utc",
+            "kickoff_utc",
+            "historic_fixture_id",
+            "source_version_digest",
+            "original_publisher_issue_utc",
+            "category",
+            "team_id"
+          ],
+          "variables": [
+            "keeper_claim_event_type",
+            "arriving_ball_context",
+            "claim_result_observation"
+          ],
+          "evidence_fields": [
+            "statsbomb_open_goalkeeper_events",
+            "official_competition_event_report"
+          ],
+          "scoring_status": "DESIGN_ONLY"
+        },
+        {
+          "id": "GK_DEFENSE.LAST_LINE_COORDINATION",
+          "name": "Réaction de la dernière ligne à l'occasion créée",
+          "definition": "Décrire interventions gardien-défenseurs après pénétration ou frappe, sans attribuer à ce monde l'ensemble du bloc défensif ou les tirs prévenus",
+          "required_inputs": [
+            "fixture_id",
+            "competition_id",
+            "season_id",
+            "analysis_asof_utc",
+            "kickoff_utc",
+            "historic_fixture_id",
+            "source_version_digest",
+            "original_publisher_issue_utc",
+            "category",
+            "team_id"
+          ],
+          "variables": [
+            "last_line_responder_ids",
+            "postchance_intervention_type",
+            "defender_keeper_response_chain"
+          ],
+          "evidence_fields": [
+            "statsbomb_open_goalkeeper_events",
+            "official_competition_event_report"
+          ],
+          "scoring_status": "DESIGN_ONLY"
+        },
+        {
+          "id": "GK_DEFENSE.REPLACEMENT_AND_SMALL_SAMPLE",
+          "name": "Suppléance et faibles échantillons",
+          "definition": "Caractériser la comparabilité historique des interventions des gardiens candidats et suppléants, sans produire un différentiel de buts intuitif en cas d'incertitude de titulaire",
+          "required_inputs": [
+            "fixture_id",
+            "competition_id",
+            "season_id",
+            "analysis_asof_utc",
+            "kickoff_utc",
+            "historic_fixture_id",
+            "source_version_digest",
+            "original_publisher_issue_utc",
+            "category",
+            "team_id"
+          ],
+          "variables": [
+            "candidate_keeper_minutes_asof",
+            "qualified_shot_sample_n",
+            "historical_context_similarity"
+          ],
+          "evidence_fields": [
+            "statsbomb_open_goalkeeper_events",
+            "official_competition_event_report"
+          ],
+          "scoring_status": "DESIGN_ONLY"
+        }
+      ]
+    },
+    "TACTIC_STYLE": {
+      "source_file": "MATRICE/R8_G3_DEEP_20261014/L3_BATCH09_TACTICS_COACH_20261017/L3_BATCH09_CONTRACTS.json",
+      "children": [
+        {
+          "id": "TACTIC_STYLE.SHAPE_HISTORY",
+          "name": "Structures antérieures",
+          "definition": "Configuration observée dans matches historiquement clos",
+          "required_inputs": [
+            "fixture_id",
+            "competition_id",
+            "season_id",
+            "analysis_asof_utc",
+            "kickoff_utc",
+            "historic_fixture_id",
+            "original_publisher_issue_utc",
+            "team_id",
+            "team_category"
+          ],
+          "variables": [
+            "shape_history_historical_evidence_scope",
+            "shape_history_mechanism_specific_observation",
+            "shape_history_coverage_and_source_version"
+          ],
+          "evidence_fields": [
+            "competition_original_notice",
+            "open_data_historical_context"
+          ],
+          "scoring_status": "DESIGN_ONLY"
+        },
+        {
+          "id": "TACTIC_STYLE.BLOCK_STRUCTURE",
+          "name": "Bloc sans ballon",
+          "definition": "Hauteur/compacité du bloc sans le mécanisme de récupérations du pressing",
+          "required_inputs": [
+            "fixture_id",
+            "competition_id",
+            "season_id",
+            "analysis_asof_utc",
+            "kickoff_utc",
+            "historic_fixture_id",
+            "original_publisher_issue_utc",
+            "team_id",
+            "team_category"
+          ],
+          "variables": [
+            "block_structure_historical_evidence_scope",
+            "block_structure_mechanism_specific_observation",
+            "block_structure_coverage_and_source_version"
+          ],
+          "evidence_fields": [
+            "competition_original_notice",
+            "open_data_historical_context"
+          ],
+          "scoring_status": "DESIGN_ONLY"
+        },
+        {
+          "id": "TACTIC_STYLE.POSSESSION_ROLE_MAP",
+          "name": "Rôles en possession",
+          "definition": "Occupation et répartition en possession sans dupliquer passes progressives ni tirs",
+          "required_inputs": [
+            "fixture_id",
+            "competition_id",
+            "season_id",
+            "analysis_asof_utc",
+            "kickoff_utc",
+            "historic_fixture_id",
+            "original_publisher_issue_utc",
+            "team_id",
+            "team_category"
+          ],
+          "variables": [
+            "possession_role_map_historical_evidence_scope",
+            "possession_role_map_mechanism_specific_observation",
+            "possession_role_map_coverage_and_source_version"
+          ],
+          "evidence_fields": [
+            "competition_original_notice",
+            "open_data_historical_context"
+          ],
+          "scoring_status": "DESIGN_ONLY"
+        },
+        {
+          "id": "TACTIC_STYLE.OPPONENT_PREPARATION_SCOPE",
+          "name": "Plan adverse",
+          "definition": "Distinguer intention officiellement publiée et hypothèses à partir des rencontres passées",
+          "required_inputs": [
+            "fixture_id",
+            "competition_id",
+            "season_id",
+            "analysis_asof_utc",
+            "kickoff_utc",
+            "historic_fixture_id",
+            "original_publisher_issue_utc",
+            "team_id",
+            "team_category"
+          ],
+          "variables": [
+            "opponent_preparation_scope_historical_evidence_scope",
+            "opponent_preparation_scope_mechanism_specific_observation",
+            "opponent_preparation_scope_coverage_and_source_version"
+          ],
+          "evidence_fields": [
+            "competition_original_notice",
+            "open_data_historical_context"
+          ],
+          "scoring_status": "DESIGN_ONLY"
+        },
+        {
+          "id": "TACTIC_STYLE.SYSTEM_STABILITY",
+          "name": "Persistance du système",
+          "definition": "Diversité de schémas avec dénominateurs comparables, non indice automatique de force",
+          "required_inputs": [
+            "fixture_id",
+            "competition_id",
+            "season_id",
+            "analysis_asof_utc",
+            "kickoff_utc",
+            "historic_fixture_id",
+            "original_publisher_issue_utc",
+            "team_id",
+            "team_category"
+          ],
+          "variables": [
+            "system_stability_historical_evidence_scope",
+            "system_stability_mechanism_specific_observation",
+            "system_stability_coverage_and_source_version"
+          ],
+          "evidence_fields": [
+            "competition_original_notice",
+            "open_data_historical_context"
+          ],
+          "scoring_status": "DESIGN_ONLY"
+        },
+        {
+          "id": "TACTIC_STYLE.SQUAD_COMPATIBILITY",
+          "name": "Rôles éligibles",
+          "definition": "Compatibilité tactique conditionnelle sans supposer compositions officielles futures",
+          "required_inputs": [
+            "fixture_id",
+            "competition_id",
+            "season_id",
+            "analysis_asof_utc",
+            "kickoff_utc",
+            "historic_fixture_id",
+            "original_publisher_issue_utc",
+            "team_id",
+            "team_category"
+          ],
+          "variables": [
+            "squad_compatibility_historical_evidence_scope",
+            "squad_compatibility_mechanism_specific_observation",
+            "squad_compatibility_coverage_and_source_version"
+          ],
+          "evidence_fields": [
+            "competition_original_notice",
+            "open_data_historical_context"
+          ],
+          "scoring_status": "DESIGN_ONLY"
+        }
+      ]
+    },
+    "COACH_TRANSITION": {
+      "source_file": "MATRICE/R8_G3_DEEP_20261014/L3_BATCH09_TACTICS_COACH_20261017/L3_BATCH09_CONTRACTS.json",
+      "children": [
+        {
+          "id": "COACH_TRANSITION.OFFICIAL_ROLE_CHRONOLOGY",
+          "name": "Chronologie de nomination",
+          "definition": "Différencier annonce, intérim, prise de fonction et première responsabilité effective",
+          "required_inputs": [
+            "fixture_id",
+            "competition_id",
+            "season_id",
+            "analysis_asof_utc",
+            "kickoff_utc",
+            "historic_fixture_id",
+            "original_publisher_issue_utc",
+            "team_id",
+            "team_category"
+          ],
+          "variables": [
+            "official_role_chronology_historical_evidence_scope",
+            "official_role_chronology_mechanism_specific_observation",
+            "official_role_chronology_coverage_and_source_version"
+          ],
+          "evidence_fields": [
+            "competition_original_notice",
+            "open_data_historical_context"
+          ],
+          "scoring_status": "DESIGN_ONLY"
+        },
+        {
+          "id": "COACH_TRANSITION.INTERIM_ASSISTANT_CONTINUITY",
+          "name": "Continuité des adjoints",
+          "definition": "Identifier maintien d'adjoints et changement de responsabilité sans effet positif présumé",
+          "required_inputs": [
+            "fixture_id",
+            "competition_id",
+            "season_id",
+            "analysis_asof_utc",
+            "kickoff_utc",
+            "historic_fixture_id",
+            "original_publisher_issue_utc",
+            "team_id",
+            "team_category"
+          ],
+          "variables": [
+            "interim_assistant_continuity_historical_evidence_scope",
+            "interim_assistant_continuity_mechanism_specific_observation",
+            "interim_assistant_continuity_coverage_and_source_version"
+          ],
+          "evidence_fields": [
+            "competition_original_notice",
+            "open_data_historical_context"
+          ],
+          "scoring_status": "DESIGN_ONLY"
+        },
+        {
+          "id": "COACH_TRANSITION.PREPARATION_INTERVAL",
+          "name": "Durée de préparation",
+          "definition": "Distinguer jours calendaires connus et réelle préparation non observée",
+          "required_inputs": [
+            "fixture_id",
+            "competition_id",
+            "season_id",
+            "analysis_asof_utc",
+            "kickoff_utc",
+            "historic_fixture_id",
+            "original_publisher_issue_utc",
+            "team_id",
+            "team_category"
+          ],
+          "variables": [
+            "preparation_interval_historical_evidence_scope",
+            "preparation_interval_mechanism_specific_observation",
+            "preparation_interval_coverage_and_source_version"
+          ],
+          "evidence_fields": [
+            "competition_original_notice",
+            "open_data_historical_context"
+          ],
+          "scoring_status": "DESIGN_ONLY"
+        },
+        {
+          "id": "COACH_TRANSITION.TECHNICAL_ROLE_SPLIT",
+          "name": "Rôles du staff",
+          "definition": "Versionner responsabilités entraîneur principal et adjoints sans confusion d'identité",
+          "required_inputs": [
+            "fixture_id",
+            "competition_id",
+            "season_id",
+            "analysis_asof_utc",
+            "kickoff_utc",
+            "historic_fixture_id",
+            "original_publisher_issue_utc",
+            "team_id",
+            "team_category"
+          ],
+          "variables": [
+            "technical_role_split_historical_evidence_scope",
+            "technical_role_split_mechanism_specific_observation",
+            "technical_role_split_coverage_and_source_version"
+          ],
+          "evidence_fields": [
+            "competition_original_notice",
+            "open_data_historical_context"
+          ],
+          "scoring_status": "DESIGN_ONLY"
+        },
+        {
+          "id": "COACH_TRANSITION.SELECTION_POLICY_BRANCHES",
+          "name": "Hypothèses de sélection",
+          "definition": "Scénarios conditionnels de choix de joueurs éligibles sans composition future affirmée",
+          "required_inputs": [
+            "fixture_id",
+            "competition_id",
+            "season_id",
+            "analysis_asof_utc",
+            "kickoff_utc",
+            "historic_fixture_id",
+            "original_publisher_issue_utc",
+            "team_id",
+            "team_category"
+          ],
+          "variables": [
+            "selection_policy_branches_historical_evidence_scope",
+            "selection_policy_branches_mechanism_specific_observation",
+            "selection_policy_branches_coverage_and_source_version"
+          ],
+          "evidence_fields": [
+            "competition_original_notice",
+            "open_data_historical_context"
+          ],
+          "scoring_status": "DESIGN_ONLY"
+        },
+        {
+          "id": "COACH_TRANSITION.NEW_COACH_CAUSALITY_GUARD",
+          "name": "Biais rebond du nouvel entraîneur",
+          "definition": "Vérifier comparabilité adversité, calendrier et retour à moyenne; aucun bonus causal automatique",
+          "required_inputs": [
+            "fixture_id",
+            "competition_id",
+            "season_id",
+            "analysis_asof_utc",
+            "kickoff_utc",
+            "historic_fixture_id",
+            "original_publisher_issue_utc",
+            "team_id",
+            "team_category"
+          ],
+          "variables": [
+            "new_coach_causality_guard_historical_evidence_scope",
+            "new_coach_causality_guard_mechanism_specific_observation",
+            "new_coach_causality_guard_coverage_and_source_version"
+          ],
+          "evidence_fields": [
+            "competition_original_notice",
+            "open_data_historical_context"
+          ],
+          "scoring_status": "DESIGN_ONLY"
+        }
+      ]
+    },
+    "TRANSFERS": {
+      "source_file": "MATRICE/R8_G3_DEEP_20261014/L3_BATCH10_TRANSFERS_REST_20261017/L3_BATCH10_CONTRACTS.json",
+      "children": [
+        {
+          "id": "TRANSFERS.AFFILIATION_LINEAGE",
+          "name": "Affiliation datée",
+          "definition": "Conserver club propriétaire d'un joueur à chaque date, sans attribuer ses anciens buts à son nouvel employeur",
+          "required_inputs": [
+            "fixture_id",
+            "competition_id",
+            "season_id",
+            "analysis_asof_utc",
+            "kickoff_utc",
+            "source_version_digest",
+            "original_publisher_issue_utc",
+            "team_id",
+            "category"
+          ],
+          "variables": [
+            "affiliation_lineage_dated_source_observation",
+            "affiliation_lineage_entity_or_fixture_version",
+            "affiliation_lineage_coverage_scope"
+          ],
+          "evidence_fields": [
+            "official_competition_roster",
+            "federation_official_registrations"
+          ],
+          "scoring_status": "DESIGN_ONLY"
+        },
+        {
+          "id": "TRANSFERS.REGISTRATION_ELIGIBILITY",
+          "name": "Qualification compétitive",
+          "definition": "Contrat, enregistrement et liste officielle doivent être trois états distincts avant T",
+          "required_inputs": [
+            "fixture_id",
+            "competition_id",
+            "season_id",
+            "analysis_asof_utc",
+            "kickoff_utc",
+            "source_version_digest",
+            "original_publisher_issue_utc",
+            "team_id",
+            "category"
+          ],
+          "variables": [
+            "registration_eligibility_dated_source_observation",
+            "registration_eligibility_entity_or_fixture_version",
+            "registration_eligibility_coverage_scope"
+          ],
+          "evidence_fields": [
+            "official_competition_roster",
+            "federation_official_registrations"
+          ],
+          "scoring_status": "DESIGN_ONLY"
+        },
+        {
+          "id": "TRANSFERS.LOAN_RECALL_TIMELINE",
+          "name": "Prêts et rappels",
+          "definition": "Dates de prêt, rappel et validité avec preuve originale, sans déduire disponibilité médicale",
+          "required_inputs": [
+            "fixture_id",
+            "competition_id",
+            "season_id",
+            "analysis_asof_utc",
+            "kickoff_utc",
+            "source_version_digest",
+            "original_publisher_issue_utc",
+            "team_id",
+            "category"
+          ],
+          "variables": [
+            "loan_recall_timeline_dated_source_observation",
+            "loan_recall_timeline_entity_or_fixture_version",
+            "loan_recall_timeline_coverage_scope"
+          ],
+          "evidence_fields": [
+            "official_competition_roster",
+            "federation_official_registrations"
+          ],
+          "scoring_status": "DESIGN_ONLY"
+        },
+        {
+          "id": "TRANSFERS.EFFECTIVE_DEPARTURE",
+          "name": "Départ effectif",
+          "definition": "Distinguer transfert futur annoncé et joueur déjà sorti de l'effectif connu à T",
+          "required_inputs": [
+            "fixture_id",
+            "competition_id",
+            "season_id",
+            "analysis_asof_utc",
+            "kickoff_utc",
+            "source_version_digest",
+            "original_publisher_issue_utc",
+            "team_id",
+            "category"
+          ],
+          "variables": [
+            "effective_departure_dated_source_observation",
+            "effective_departure_entity_or_fixture_version",
+            "effective_departure_coverage_scope"
+          ],
+          "evidence_fields": [
+            "official_competition_roster",
+            "federation_official_registrations"
+          ],
+          "scoring_status": "DESIGN_ONLY"
+        },
+        {
+          "id": "TRANSFERS.ROSTER_TURNOVER_COHORT",
+          "name": "Changements d'effectif",
+          "definition": "Dénominateur réel de l'effectif versionné et nombre d'entrées/sorties, sans malus mécanique",
+          "required_inputs": [
+            "fixture_id",
+            "competition_id",
+            "season_id",
+            "analysis_asof_utc",
+            "kickoff_utc",
+            "source_version_digest",
+            "original_publisher_issue_utc",
+            "team_id",
+            "category"
+          ],
+          "variables": [
+            "roster_turnover_cohort_dated_source_observation",
+            "roster_turnover_cohort_entity_or_fixture_version",
+            "roster_turnover_cohort_coverage_scope"
+          ],
+          "evidence_fields": [
+            "official_competition_roster",
+            "federation_official_registrations"
+          ],
+          "scoring_status": "DESIGN_ONLY"
+        },
+        {
+          "id": "TRANSFERS.CROSS_LEAGUE_ROLE_SCOPE",
+          "name": "Rôle interligues",
+          "definition": "Conserver provenance division, catégorie et poste historique sans transfert direct de performances",
+          "required_inputs": [
+            "fixture_id",
+            "competition_id",
+            "season_id",
+            "analysis_asof_utc",
+            "kickoff_utc",
+            "source_version_digest",
+            "original_publisher_issue_utc",
+            "team_id",
+            "category"
+          ],
+          "variables": [
+            "cross_league_role_scope_dated_source_observation",
+            "cross_league_role_scope_entity_or_fixture_version",
+            "cross_league_role_scope_coverage_scope"
+          ],
+          "evidence_fields": [
+            "official_competition_roster",
+            "federation_official_registrations"
+          ],
+          "scoring_status": "DESIGN_ONLY"
+        }
+      ]
+    },
+    "REST_CONGESTION": {
+      "source_file": "MATRICE/R8_G3_DEEP_20261014/L3_BATCH10_TRANSFERS_REST_20261017/L3_BATCH10_CONTRACTS.json",
+      "children": [
+        {
+          "id": "REST_CONGESTION.COMPLETED_FIXTURE_INTERVAL",
+          "name": "Repos après matchs achevés",
+          "definition": "Utiliser uniquement rencontres achevées et leur fin réglementaire connue à T pour calculer intervalle documentaire",
+          "required_inputs": [
+            "fixture_id",
+            "competition_id",
+            "season_id",
+            "analysis_asof_utc",
+            "kickoff_utc",
+            "source_version_digest",
+            "original_publisher_issue_utc",
+            "team_id",
+            "category"
+          ],
+          "variables": [
+            "completed_fixture_interval_dated_source_observation",
+            "completed_fixture_interval_entity_or_fixture_version",
+            "completed_fixture_interval_coverage_scope"
+          ],
+          "evidence_fields": [
+            "organizer_official_fixture",
+            "openfootball_result_history"
+          ],
+          "scoring_status": "DESIGN_ONLY"
+        },
+        {
+          "id": "REST_CONGESTION.FORWARD_SCHEDULE_DENSITY",
+          "name": "Densité future annoncée",
+          "definition": "Décrire calendrier futur officiel comme anticipation, jamais exposition déjà subie",
+          "required_inputs": [
+            "fixture_id",
+            "competition_id",
+            "season_id",
+            "analysis_asof_utc",
+            "kickoff_utc",
+            "source_version_digest",
+            "original_publisher_issue_utc",
+            "team_id",
+            "category"
+          ],
+          "variables": [
+            "forward_schedule_density_dated_source_observation",
+            "forward_schedule_density_entity_or_fixture_version",
+            "forward_schedule_density_coverage_scope"
+          ],
+          "evidence_fields": [
+            "organizer_official_fixture",
+            "openfootball_result_history"
+          ],
+          "scoring_status": "DESIGN_ONLY"
+        },
+        {
+          "id": "REST_CONGESTION.PAST_EXTRA_TIME_LOAD",
+          "name": "Prolongations passées",
+          "definition": "Distinguer antécédents de minutes supplémentaires de la définition 90 minutes de l'IC cible",
+          "required_inputs": [
+            "fixture_id",
+            "competition_id",
+            "season_id",
+            "analysis_asof_utc",
+            "kickoff_utc",
+            "source_version_digest",
+            "original_publisher_issue_utc",
+            "team_id",
+            "category"
+          ],
+          "variables": [
+            "past_extra_time_load_dated_source_observation",
+            "past_extra_time_load_entity_or_fixture_version",
+            "past_extra_time_load_coverage_scope"
+          ],
+          "evidence_fields": [
+            "organizer_official_fixture",
+            "openfootball_result_history"
+          ],
+          "scoring_status": "DESIGN_ONLY"
+        },
+        {
+          "id": "REST_CONGESTION.REST_CENSORING",
+          "name": "Censure des fenêtres",
+          "definition": "Tracer trous de calendrier et autres compétitions, ne pas déduire grand repos d'absence d'enregistrement",
+          "required_inputs": [
+            "fixture_id",
+            "competition_id",
+            "season_id",
+            "analysis_asof_utc",
+            "kickoff_utc",
+            "source_version_digest",
+            "original_publisher_issue_utc",
+            "team_id",
+            "category"
+          ],
+          "variables": [
+            "rest_censoring_dated_source_observation",
+            "rest_censoring_entity_or_fixture_version",
+            "rest_censoring_coverage_scope"
+          ],
+          "evidence_fields": [
+            "organizer_official_fixture",
+            "openfootball_result_history"
+          ],
+          "scoring_status": "DESIGN_ONLY"
+        },
+        {
+          "id": "REST_CONGESTION.RESCHEDULED_FIXTURE_STATE",
+          "name": "Versions des reports",
+          "definition": "Garder snapshots de calendrier successifs liés au même fixture ID en cas de report",
+          "required_inputs": [
+            "fixture_id",
+            "competition_id",
+            "season_id",
+            "analysis_asof_utc",
+            "kickoff_utc",
+            "source_version_digest",
+            "original_publisher_issue_utc",
+            "team_id",
+            "category"
+          ],
+          "variables": [
+            "rescheduled_fixture_state_dated_source_observation",
+            "rescheduled_fixture_state_entity_or_fixture_version",
+            "rescheduled_fixture_state_coverage_scope"
+          ],
+          "evidence_fields": [
+            "organizer_official_fixture",
+            "openfootball_result_history"
+          ],
+          "scoring_status": "DESIGN_ONLY"
+        },
+        {
+          "id": "REST_CONGESTION.REST_VERSUS_TRAVEL",
+          "name": "Repos et trajet séparés",
+          "definition": "Conserver heures calendaires et trajets indépendamment, sans les additionner à une charge de fatigue non calibrée",
+          "required_inputs": [
+            "fixture_id",
+            "competition_id",
+            "season_id",
+            "analysis_asof_utc",
+            "kickoff_utc",
+            "source_version_digest",
+            "original_publisher_issue_utc",
+            "team_id",
+            "category"
+          ],
+          "variables": [
+            "rest_versus_travel_dated_source_observation",
+            "rest_versus_travel_entity_or_fixture_version",
+            "rest_versus_travel_coverage_scope"
+          ],
+          "evidence_fields": [
+            "organizer_official_fixture",
+            "openfootball_result_history"
+          ],
+          "scoring_status": "DESIGN_ONLY"
+        }
+      ]
+    },
+    "ATTACK_BUILDUP": {
+      "source_file": "MATRICE/R8_G3_DEEP_20261014/L3_BATCH11_BUILDUP_PRESSING_20261017/L3_BATCH11_CONTRACTS.json",
+      "children": [
+        {
+          "id": "ATTACK_BUILDUP.FIRST_PHASE_EXIT_SHAPE",
+          "name": "Sortie initiale de balle",
+          "definition": "Décrire l'organisation ancienne de progression depuis zones défensives sans assimiler chaque passe à un danger",
+          "required_inputs": [
+            "fixture_id",
+            "competition_id",
+            "season_id",
+            "analysis_asof_utc",
+            "kickoff_utc",
+            "historic_fixture_id",
+            "source_version_digest",
+            "original_publisher_issue_utc",
+            "event_schema_version"
+          ],
+          "variables": [
+            "first_phase_exit_shape_provider_action_taxonomy",
+            "first_phase_exit_shape_historical_sequence_context",
+            "first_phase_exit_shape_coverage_denominator"
+          ],
+          "evidence_fields": [
+            "statsbomb_open_event_selected",
+            "competition_official_match_events"
+          ],
+          "scoring_status": "DESIGN_ONLY"
+        },
+        {
+          "id": "ATTACK_BUILDUP.LINE_BREAK_PROGRESSION",
+          "name": "Franchissement de lignes",
+          "definition": "Distinguer passes et portés franchissant lignes adverses des tirs et accès déjà comptés au dernier tiers",
+          "required_inputs": [
+            "fixture_id",
+            "competition_id",
+            "season_id",
+            "analysis_asof_utc",
+            "kickoff_utc",
+            "historic_fixture_id",
+            "source_version_digest",
+            "original_publisher_issue_utc",
+            "event_schema_version"
+          ],
+          "variables": [
+            "line_break_progression_provider_action_taxonomy",
+            "line_break_progression_historical_sequence_context",
+            "line_break_progression_coverage_denominator"
+          ],
+          "evidence_fields": [
+            "statsbomb_open_event_selected",
+            "competition_official_match_events"
+          ],
+          "scoring_status": "DESIGN_ONLY"
+        },
+        {
+          "id": "ATTACK_BUILDUP.BALL_SECURITY_PRESSURE",
+          "name": "Conservation sous pression",
+          "definition": "Comparer pertes et conservations antérieures sous pression réellement observée d'un adversaire",
+          "required_inputs": [
+            "fixture_id",
+            "competition_id",
+            "season_id",
+            "analysis_asof_utc",
+            "kickoff_utc",
+            "historic_fixture_id",
+            "source_version_digest",
+            "original_publisher_issue_utc",
+            "event_schema_version"
+          ],
+          "variables": [
+            "ball_security_pressure_provider_action_taxonomy",
+            "ball_security_pressure_historical_sequence_context",
+            "ball_security_pressure_coverage_denominator"
+          ],
+          "evidence_fields": [
+            "statsbomb_open_event_selected",
+            "competition_official_match_events"
+          ],
+          "scoring_status": "DESIGN_ONLY"
+        },
+        {
+          "id": "ATTACK_BUILDUP.PROGRESSION_CHANNELS",
+          "name": "Canaux de progression",
+          "definition": "Séparer circuits axiaux, latéraux et aériens sans en déduire bonus de buts",
+          "required_inputs": [
+            "fixture_id",
+            "competition_id",
+            "season_id",
+            "analysis_asof_utc",
+            "kickoff_utc",
+            "historic_fixture_id",
+            "source_version_digest",
+            "original_publisher_issue_utc",
+            "event_schema_version"
+          ],
+          "variables": [
+            "progression_channels_provider_action_taxonomy",
+            "progression_channels_historical_sequence_context",
+            "progression_channels_coverage_denominator"
+          ],
+          "evidence_fields": [
+            "statsbomb_open_event_selected",
+            "competition_official_match_events"
+          ],
+          "scoring_status": "DESIGN_ONLY"
+        },
+        {
+          "id": "ATTACK_BUILDUP.OPPONENT_PRESS_RESILIENCE",
+          "name": "Sortie face au pressing",
+          "definition": "Conditionner progressions à l'opposition rencontrée et à son schéma disponible au temps T",
+          "required_inputs": [
+            "fixture_id",
+            "competition_id",
+            "season_id",
+            "analysis_asof_utc",
+            "kickoff_utc",
+            "historic_fixture_id",
+            "source_version_digest",
+            "original_publisher_issue_utc",
+            "event_schema_version"
+          ],
+          "variables": [
+            "opponent_press_resilience_provider_action_taxonomy",
+            "opponent_press_resilience_historical_sequence_context",
+            "opponent_press_resilience_coverage_denominator"
+          ],
+          "evidence_fields": [
+            "statsbomb_open_event_selected",
+            "competition_official_match_events"
+          ],
+          "scoring_status": "DESIGN_ONLY"
+        },
+        {
+          "id": "ATTACK_BUILDUP.ROLE_AVAILABILITY_INTERFACE",
+          "name": "Compatibilité des rôles",
+          "definition": "Distinguer style de construction historique des joueurs réellement admissibles à la future rencontre",
+          "required_inputs": [
+            "fixture_id",
+            "competition_id",
+            "season_id",
+            "analysis_asof_utc",
+            "kickoff_utc",
+            "historic_fixture_id",
+            "source_version_digest",
+            "original_publisher_issue_utc",
+            "event_schema_version"
+          ],
+          "variables": [
+            "role_availability_interface_provider_action_taxonomy",
+            "role_availability_interface_historical_sequence_context",
+            "role_availability_interface_coverage_denominator"
+          ],
+          "evidence_fields": [
+            "statsbomb_open_event_selected",
+            "competition_official_match_events"
+          ],
+          "scoring_status": "DESIGN_ONLY"
+        }
+      ]
+    },
+    "PRESSING_TURNOVERS": {
+      "source_file": "MATRICE/R8_G3_DEEP_20261014/L3_BATCH11_BUILDUP_PRESSING_20261017/L3_BATCH11_CONTRACTS.json",
+      "children": [
+        {
+          "id": "PRESSING_TURNOVERS.PRESS_TRIGGER_SCOPE",
+          "name": "Déclencheurs de pression",
+          "definition": "Définir les situations historiques déclenchant un pressing collectif, sans attribuer d'intention future certaine",
+          "required_inputs": [
+            "fixture_id",
+            "competition_id",
+            "season_id",
+            "analysis_asof_utc",
+            "kickoff_utc",
+            "historic_fixture_id",
+            "source_version_digest",
+            "original_publisher_issue_utc",
+            "event_schema_version"
+          ],
+          "variables": [
+            "press_trigger_scope_provider_action_taxonomy",
+            "press_trigger_scope_historical_sequence_context",
+            "press_trigger_scope_coverage_denominator"
+          ],
+          "evidence_fields": [
+            "statsbomb_open_event_selected",
+            "competition_official_match_events"
+          ],
+          "scoring_status": "DESIGN_ONLY"
+        },
+        {
+          "id": "PRESSING_TURNOVERS.HIGH_REGAIN_LOCATION",
+          "name": "Position des récupérations",
+          "definition": "Qualifier des récupérations obtenues sous pression et leur localisation sans compter la contre-attaque",
+          "required_inputs": [
+            "fixture_id",
+            "competition_id",
+            "season_id",
+            "analysis_asof_utc",
+            "kickoff_utc",
+            "historic_fixture_id",
+            "source_version_digest",
+            "original_publisher_issue_utc",
+            "event_schema_version"
+          ],
+          "variables": [
+            "high_regain_location_provider_action_taxonomy",
+            "high_regain_location_historical_sequence_context",
+            "high_regain_location_coverage_denominator"
+          ],
+          "evidence_fields": [
+            "statsbomb_open_event_selected",
+            "competition_official_match_events"
+          ],
+          "scoring_status": "DESIGN_ONLY"
+        },
+        {
+          "id": "PRESSING_TURNOVERS.COUNTERPRESS_REACTION",
+          "name": "Réaction immédiate après perte",
+          "definition": "Séparer contre-pressing historique et récupération ordinaire sans lui attribuer effet direct de tirs",
+          "required_inputs": [
+            "fixture_id",
+            "competition_id",
+            "season_id",
+            "analysis_asof_utc",
+            "kickoff_utc",
+            "historic_fixture_id",
+            "source_version_digest",
+            "original_publisher_issue_utc",
+            "event_schema_version"
+          ],
+          "variables": [
+            "counterpress_reaction_provider_action_taxonomy",
+            "counterpress_reaction_historical_sequence_context",
+            "counterpress_reaction_coverage_denominator"
+          ],
+          "evidence_fields": [
+            "statsbomb_open_event_selected",
+            "competition_official_match_events"
+          ],
+          "scoring_status": "DESIGN_ONLY"
+        },
+        {
+          "id": "PRESSING_TURNOVERS.PRESS_BYPASS_EXPOSURE",
+          "name": "Exposition après pression contournée",
+          "definition": "Décrire risque consécutif au franchissement d'une pression, séparément de l'action de dernière ligne",
+          "required_inputs": [
+            "fixture_id",
+            "competition_id",
+            "season_id",
+            "analysis_asof_utc",
+            "kickoff_utc",
+            "historic_fixture_id",
+            "source_version_digest",
+            "original_publisher_issue_utc",
+            "event_schema_version"
+          ],
+          "variables": [
+            "press_bypass_exposure_provider_action_taxonomy",
+            "press_bypass_exposure_historical_sequence_context",
+            "press_bypass_exposure_coverage_denominator"
+          ],
+          "evidence_fields": [
+            "statsbomb_open_event_selected",
+            "competition_official_match_events"
+          ],
+          "scoring_status": "DESIGN_ONLY"
+        },
+        {
+          "id": "PRESSING_TURNOVERS.PRESS_INTENSITY_DENOMINATOR",
+          "name": "Dénominateur d'intensité",
+          "definition": "Conserver définitions fournisseurs et opportunités adverses, sans assimiler indicateurs PPDA incompatibles",
+          "required_inputs": [
+            "fixture_id",
+            "competition_id",
+            "season_id",
+            "analysis_asof_utc",
+            "kickoff_utc",
+            "historic_fixture_id",
+            "source_version_digest",
+            "original_publisher_issue_utc",
+            "event_schema_version"
+          ],
+          "variables": [
+            "press_intensity_denominator_provider_action_taxonomy",
+            "press_intensity_denominator_historical_sequence_context",
+            "press_intensity_denominator_coverage_denominator"
+          ],
+          "evidence_fields": [
+            "statsbomb_open_event_selected",
+            "competition_official_match_events"
+          ],
+          "scoring_status": "DESIGN_ONLY"
+        },
+        {
+          "id": "PRESSING_TURNOVERS.OPPONENT_RESISTANCE",
+          "name": "Résistance des adversaires",
+          "definition": "Contextualiser récupérations par aptitude adverse historique à construire sans doubler force latente",
+          "required_inputs": [
+            "fixture_id",
+            "competition_id",
+            "season_id",
+            "analysis_asof_utc",
+            "kickoff_utc",
+            "historic_fixture_id",
+            "source_version_digest",
+            "original_publisher_issue_utc",
+            "event_schema_version"
+          ],
+          "variables": [
+            "opponent_resistance_provider_action_taxonomy",
+            "opponent_resistance_historical_sequence_context",
+            "opponent_resistance_coverage_denominator"
+          ],
+          "evidence_fields": [
+            "statsbomb_open_event_selected",
+            "competition_official_match_events"
+          ],
+          "scoring_status": "DESIGN_ONLY"
+        }
+      ]
+    },
+    "TRANSITION_ATTACK": {
+      "source_file": "MATRICE/R8_G3_DEEP_20261014/L3_BATCH12_TRANSITIONS_20261017/L3_BATCH12_CONTRACTS.json",
+      "children": [
+        {
+          "id": "TRANSITION_ATTACK.REGAIN_TO_LAUNCH",
+          "name": "Départ après regain",
+          "definition": "Transition offensive débute après le gain de possession, distinct de l'action de pressing qui l'a provoqué",
+          "required_inputs": [
+            "fixture_id",
+            "competition_id",
+            "season_id",
+            "analysis_asof_utc",
+            "kickoff_utc",
+            "historic_fixture_id",
+            "historic_final_utc",
+            "source_version_digest",
+            "original_publisher_issue_utc",
+            "event_schema_version"
+          ],
+          "variables": [
+            "regain_to_launch_historical_sequence_start",
+            "regain_to_launch_conditional_mechanism_observation",
+            "regain_to_launch_evidence_coverage_denominator"
+          ],
+          "evidence_fields": [
+            "statsbomb_open_event_selected",
+            "competition_event_archive"
+          ],
+          "scoring_status": "DESIGN_ONLY"
+        },
+        {
+          "id": "TRANSITION_ATTACK.PROGRESSION_SPEED_SCOPE",
+          "name": "Vitesse de progression",
+          "definition": "Fenêtre temporelle et déplacement historique après reprise, sans seuil de buts inventé",
+          "required_inputs": [
+            "fixture_id",
+            "competition_id",
+            "season_id",
+            "analysis_asof_utc",
+            "kickoff_utc",
+            "historic_fixture_id",
+            "historic_final_utc",
+            "source_version_digest",
+            "original_publisher_issue_utc",
+            "event_schema_version"
+          ],
+          "variables": [
+            "progression_speed_scope_historical_sequence_start",
+            "progression_speed_scope_conditional_mechanism_observation",
+            "progression_speed_scope_evidence_coverage_denominator"
+          ],
+          "evidence_fields": [
+            "statsbomb_open_event_selected",
+            "competition_event_archive"
+          ],
+          "scoring_status": "DESIGN_ONLY"
+        },
+        {
+          "id": "TRANSITION_ATTACK.VERTICAL_SPACE_EXPLOITATION",
+          "name": "Exploitation des espaces",
+          "definition": "Identifier contextes de déséquilibre adverse et accès dans la profondeur, conditionnels aux adversaires",
+          "required_inputs": [
+            "fixture_id",
+            "competition_id",
+            "season_id",
+            "analysis_asof_utc",
+            "kickoff_utc",
+            "historic_fixture_id",
+            "historic_final_utc",
+            "source_version_digest",
+            "original_publisher_issue_utc",
+            "event_schema_version"
+          ],
+          "variables": [
+            "vertical_space_exploitation_historical_sequence_start",
+            "vertical_space_exploitation_conditional_mechanism_observation",
+            "vertical_space_exploitation_evidence_coverage_denominator"
+          ],
+          "evidence_fields": [
+            "statsbomb_open_event_selected",
+            "competition_event_archive"
+          ],
+          "scoring_status": "DESIGN_ONLY"
+        },
+        {
+          "id": "TRANSITION_ATTACK.NUMBERS_UP_CHANCE",
+          "name": "Surnombre et opportunité",
+          "definition": "Différencier situations de surnombre historique du tir créé en bout de transition",
+          "required_inputs": [
+            "fixture_id",
+            "competition_id",
+            "season_id",
+            "analysis_asof_utc",
+            "kickoff_utc",
+            "historic_fixture_id",
+            "historic_final_utc",
+            "source_version_digest",
+            "original_publisher_issue_utc",
+            "event_schema_version"
+          ],
+          "variables": [
+            "numbers_up_chance_historical_sequence_start",
+            "numbers_up_chance_conditional_mechanism_observation",
+            "numbers_up_chance_evidence_coverage_denominator"
+          ],
+          "evidence_fields": [
+            "statsbomb_open_event_selected",
+            "competition_event_archive"
+          ],
+          "scoring_status": "DESIGN_ONLY"
+        },
+        {
+          "id": "TRANSITION_ATTACK.SETTLED_ATTACK_HANDOFF",
+          "name": "Passage à attaque placée",
+          "definition": "Définir frontière lorsque la contre-attaque devient attaque construite, sans compter deux fois les mêmes passes",
+          "required_inputs": [
+            "fixture_id",
+            "competition_id",
+            "season_id",
+            "analysis_asof_utc",
+            "kickoff_utc",
+            "historic_fixture_id",
+            "historic_final_utc",
+            "source_version_digest",
+            "original_publisher_issue_utc",
+            "event_schema_version"
+          ],
+          "variables": [
+            "settled_attack_handoff_historical_sequence_start",
+            "settled_attack_handoff_conditional_mechanism_observation",
+            "settled_attack_handoff_evidence_coverage_denominator"
+          ],
+          "evidence_fields": [
+            "statsbomb_open_event_selected",
+            "competition_event_archive"
+          ],
+          "scoring_status": "DESIGN_ONLY"
+        },
+        {
+          "id": "TRANSITION_ATTACK.OPPONENT_LOSS_CONDITIONAL",
+          "name": "Conditionnement à la perte adverse",
+          "definition": "Comparer transitions anciennes selon localisation/pertes de balle adverses et leur force connue à T",
+          "required_inputs": [
+            "fixture_id",
+            "competition_id",
+            "season_id",
+            "analysis_asof_utc",
+            "kickoff_utc",
+            "historic_fixture_id",
+            "historic_final_utc",
+            "source_version_digest",
+            "original_publisher_issue_utc",
+            "event_schema_version"
+          ],
+          "variables": [
+            "opponent_loss_conditional_historical_sequence_start",
+            "opponent_loss_conditional_conditional_mechanism_observation",
+            "opponent_loss_conditional_evidence_coverage_denominator"
+          ],
+          "evidence_fields": [
+            "statsbomb_open_event_selected",
+            "competition_event_archive"
+          ],
+          "scoring_status": "DESIGN_ONLY"
+        }
+      ]
+    },
+    "TRANSITION_DEFENSE": {
+      "source_file": "MATRICE/R8_G3_DEEP_20261014/L3_BATCH12_TRANSITIONS_20261017/L3_BATCH12_CONTRACTS.json",
+      "children": [
+        {
+          "id": "TRANSITION_DEFENSE.REST_DEFENSE_AT_LOSS",
+          "name": "Couverture préalable à la perte",
+          "definition": "Qualifier les couvertures historiques déjà en place quand le ballon est perdu, pas le bloc défensif général",
+          "required_inputs": [
+            "fixture_id",
+            "competition_id",
+            "season_id",
+            "analysis_asof_utc",
+            "kickoff_utc",
+            "historic_fixture_id",
+            "historic_final_utc",
+            "source_version_digest",
+            "original_publisher_issue_utc",
+            "event_schema_version"
+          ],
+          "variables": [
+            "rest_defense_at_loss_historical_sequence_start",
+            "rest_defense_at_loss_conditional_mechanism_observation",
+            "rest_defense_at_loss_evidence_coverage_denominator"
+          ],
+          "evidence_fields": [
+            "statsbomb_open_event_selected",
+            "competition_event_archive"
+          ],
+          "scoring_status": "DESIGN_ONLY"
+        },
+        {
+          "id": "TRANSITION_DEFENSE.FIRST_DELAY_ACTION",
+          "name": "Action de retardement",
+          "definition": "Décrire délai et conduite de la première intervention après perte sans la convertir en but évité",
+          "required_inputs": [
+            "fixture_id",
+            "competition_id",
+            "season_id",
+            "analysis_asof_utc",
+            "kickoff_utc",
+            "historic_fixture_id",
+            "historic_final_utc",
+            "source_version_digest",
+            "original_publisher_issue_utc",
+            "event_schema_version"
+          ],
+          "variables": [
+            "first_delay_action_historical_sequence_start",
+            "first_delay_action_conditional_mechanism_observation",
+            "first_delay_action_evidence_coverage_denominator"
+          ],
+          "evidence_fields": [
+            "statsbomb_open_event_selected",
+            "competition_event_archive"
+          ],
+          "scoring_status": "DESIGN_ONLY"
+        },
+        {
+          "id": "TRANSITION_DEFENSE.RECOVERY_RUN_STRUCTURE",
+          "name": "Repli des coureurs",
+          "definition": "Décrire réorganisation et courses défensives historiquement visibles après perte, sans fatigue supposée",
+          "required_inputs": [
+            "fixture_id",
+            "competition_id",
+            "season_id",
+            "analysis_asof_utc",
+            "kickoff_utc",
+            "historic_fixture_id",
+            "historic_final_utc",
+            "source_version_digest",
+            "original_publisher_issue_utc",
+            "event_schema_version"
+          ],
+          "variables": [
+            "recovery_run_structure_historical_sequence_start",
+            "recovery_run_structure_conditional_mechanism_observation",
+            "recovery_run_structure_evidence_coverage_denominator"
+          ],
+          "evidence_fields": [
+            "statsbomb_open_event_selected",
+            "competition_event_archive"
+          ],
+          "scoring_status": "DESIGN_ONLY"
+        },
+        {
+          "id": "TRANSITION_DEFENSE.COUNTERPRESS_DEFENSE_BOUNDARY",
+          "name": "Contre-pressing et protection",
+          "definition": "Séparer reconquête immédiate du pressing et protection lorsque la pression est contournée",
+          "required_inputs": [
+            "fixture_id",
+            "competition_id",
+            "season_id",
+            "analysis_asof_utc",
+            "kickoff_utc",
+            "historic_fixture_id",
+            "historic_final_utc",
+            "source_version_digest",
+            "original_publisher_issue_utc",
+            "event_schema_version"
+          ],
+          "variables": [
+            "counterpress_defense_boundary_historical_sequence_start",
+            "counterpress_defense_boundary_conditional_mechanism_observation",
+            "counterpress_defense_boundary_evidence_coverage_denominator"
+          ],
+          "evidence_fields": [
+            "statsbomb_open_event_selected",
+            "competition_event_archive"
+          ],
+          "scoring_status": "DESIGN_ONLY"
+        },
+        {
+          "id": "TRANSITION_DEFENSE.TRANSITION_SHOT_EXPOSURE",
+          "name": "Exposition aux tirs de transition",
+          "definition": "Relier dangers historiques subis et action terminale sans attribuer qualité du tir ou arrêt au repli",
+          "required_inputs": [
+            "fixture_id",
+            "competition_id",
+            "season_id",
+            "analysis_asof_utc",
+            "kickoff_utc",
+            "historic_fixture_id",
+            "historic_final_utc",
+            "source_version_digest",
+            "original_publisher_issue_utc",
+            "event_schema_version"
+          ],
+          "variables": [
+            "transition_shot_exposure_historical_sequence_start",
+            "transition_shot_exposure_conditional_mechanism_observation",
+            "transition_shot_exposure_evidence_coverage_denominator"
+          ],
+          "evidence_fields": [
+            "statsbomb_open_event_selected",
+            "competition_event_archive"
+          ],
+          "scoring_status": "DESIGN_ONLY"
+        },
+        {
+          "id": "TRANSITION_DEFENSE.LOSS_LOCATION_AND_CONTEXT",
+          "name": "Contexte spatial de la perte",
+          "definition": "Conserver localisation et phase de perte de possession, comparable au fournisseur et adversaire",
+          "required_inputs": [
+            "fixture_id",
+            "competition_id",
+            "season_id",
+            "analysis_asof_utc",
+            "kickoff_utc",
+            "historic_fixture_id",
+            "historic_final_utc",
+            "source_version_digest",
+            "original_publisher_issue_utc",
+            "event_schema_version"
+          ],
+          "variables": [
+            "loss_location_and_context_historical_sequence_start",
+            "loss_location_and_context_conditional_mechanism_observation",
+            "loss_location_and_context_evidence_coverage_denominator"
+          ],
+          "evidence_fields": [
+            "statsbomb_open_event_selected",
+            "competition_event_archive"
+          ],
+          "scoring_status": "DESIGN_ONLY"
+        }
+      ]
+    }
+  }
+}
