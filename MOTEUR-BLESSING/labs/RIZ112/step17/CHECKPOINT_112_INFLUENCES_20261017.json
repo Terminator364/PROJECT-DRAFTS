@@ -1,0 +1,26 @@
+{
+  "date": "2026-10-17",
+  "stage": 17,
+  "status": "INITIAL_COUNTERFACTUAL_AUDIT_PASS__CAUSAL_GAPS_OPEN",
+  "rubrics_total": 112,
+  "synthetic_ic_demo_changed": 9,
+  "intermediate_only": 6,
+  "no_downstream_response": 35,
+  "other_non_intervenable": 62,
+  "real_Q_effects_proven": 0,
+  "scientific_ic_percent": null,
+  "linux_passed": {
+    "historic": 309,
+    "step16": 106,
+    "step17": 23,
+    "total": 438
+  },
+  "windows_step17_tests_passed": 23,
+  "windows_audit_same_as_linux": true,
+  "journal_events": 108,
+  "context_entries": 37,
+  "journal_head": "88b02c21b46dc21ae36cfd2880843ee102d62ce6ff805d8a5b71e7c4ea3337ee",
+  "register": "step17/REGISTRE_112_CELLULES.jsonl",
+  "report": "step17/RAPPORT_112_INFLUENCES_DEMO_20261017.json",
+  "next": "Audit and repair the 35 no-response calculation routes without invented IC coefficients; leave scientific calibration open"
+}
