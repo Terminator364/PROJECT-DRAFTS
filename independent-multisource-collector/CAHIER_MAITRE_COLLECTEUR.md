@@ -16,21 +16,22 @@ Source des priorités : document `FAVORIS_COMPETITIONS_CAPTURE_CANDIDATS_R7.md` 
 - `01_CONTINUITE_R8\WORKSPACE` : **copie d'archive** du workspace R8 (215 fichiers, original intact ailleurs).
 - `02_BCP_COLLECTE\TEST_20261017` : **copie d'archive** des 125 fichiers V1/V2 et leurs sources.
 - `03_FOURNISSEURS\OPENFOOTBALL_SHA256` : copies brutes immuables, empreintes SHA-256.
+- `03_FOURNISSEURS\THESPORTSDB_PREMATCH\LATEST_PREMATCH.json` : échantillon reçu via Internet toutes les 5 minutes, filtré, limité aux rencontres futures, sans score live.
 - `04_COMPETITIONS` : futur référentiel des compétitions/fournisseurs.
 - `05_JOURNEES` : résultats de réconciliation par journée et par compétition.
 - `06_AUDITS` : tests et contre-audits à approfondir.
 - `07_EXECUTION` : `MASTER_STATE.json`, `LAST_RECEIPT.json`, `STOP` manuel le cas échéant.
 - `08_RAPPORTS` : `LATEST_TWO_LEAGUES.json` et rapports scientifiques.
 - `09_JOURNAUX` : `master_events.jsonl` journal append-only.
-- `standalone_controller.py`, `third_party_adapter.py` : contrôleur et recoupement de trois sources.
+- `standalone_controller.py`, `five_minute_provider.py`, `third_party_adapter.py` : **un seul processus maître** et ses modules (les modules ne sont pas des processus autonomes distincts).
 
 ## 3. Stratégie de fonctionnement
 
 - **Une minute** : signal d'activité et checkpoint du programme local.
-- **Cinq minutes** : relire les archives et réconcilier les rencontres Premier League et Serie A.
+- **Cinq minutes** : **télécharger réellement** auprès de TheSportsDB (API gratuite v1, 4 requêtes par cycle : 2 ligues × aujourd'hui/demain), filtrer strictement les rencontres **prématch seulement**, puis relire les archives et réconcilier les rencontres Premier League et Serie A. Ce sont des données de calendrier partielles (3 événements par date et ligue au maximum) et non la collecte complète des 62 familles.
 - **Une fois toutes les 24 heures au maximum** : télécharger les deux fichiers OpenFootball (données CC0 publiques, mais données amont pas garanties à jour).
 - **Football-Data** : **aucun téléchargement périodique activé** ; anciens CSV utilisés depuis le cache. Respect de l'automatisation légère du fournisseur (au plus deux fois par semaine).
-- **TheSportsDB** : **aucun téléchargement périodique activé** ; échantillon de 15 rencontres par ligue précédemment archivé et recoupé localement. Vérifier les limitations de la clé publique avant toute extension.
+- **TheSportsDB** : **requêtes automatiques toutes les 5 minutes** pour les deux compétitions (4 appels par cycle, en dessous de sa limite gratuite de 30 requêtes/minute), mode `eventsday` limité à trois matchs par date et ligue. Les matchs en cours, terminés et aux dates non vérifiables sont rejetés avant stockage; aucun résultat live n'est stocké dans le dossier prématch. Gestion de l'erreur HTTP 429 avec pause. L'ancien échantillon historique de 15 rencontres par ligue reste archivé localement.
 - Aucun service cloud payant, aucun modèle IA payant, aucun scraping ou contournement de site privé.
 
 ## 4. Scientifique : règles non négociables
@@ -54,3 +55,7 @@ Depuis la racine du dossier maître :
 Code de reprise local proposé : **`COLLECTEUR/CONTINUE`**. Toujours relire `07_EXECUTION\MASTER_STATE.json`, `09_JOURNAUX\master_events.jsonl`, `08_RAPPORTS\LATEST_TWO_LEAGUES.json`, puis la charte, avant toute modification. Ne jamais redémarrer le chantier à zéro. Toute extension doit passer par un test et un contre-audit; toutes les preuves sont conservées.
 
 Ce projet est indépendant, mais doit rester interopérable avec le fournisseur de « farine » prévu par MATRICE sans muter ses données validées.
+
+## 7. Correction explicite V3 : une seule instance, fréquence réseau prouvée
+
+À 19h15 (Kinshasa), l'ancien PID 5364 a été arrêté proprement avant démarrage du seul PID 13876. La première collecte a produit quatre requêtes externes, sept rencontres prématch conservées et cinq événements live/past exclus, sans erreur de fournisseur. Les audits locaux toutes les cinq minutes restent distincts de ces téléchargements. OpenFootball n'est pas téléchargé toutes les cinq minutes, car son dépôt publie automatiquement au maximum une version par jour (et le football TXT amont peut être plus lent). La V3 doit respecter les conditions et la qualité de chaque fournisseur sans affirmer à tort que tous les paramètres de MATRICE sont collectés à cette fréquence.
