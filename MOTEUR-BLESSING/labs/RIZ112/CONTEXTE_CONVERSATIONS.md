@@ -51,3 +51,7 @@ Voir `CONTEXTE_INTEGRAL/REGISTRE_MESSAGES.jsonl`. Pour chaque entrée, `VERBATIM
 
 ## Procédure de collecte continue à chaque nouvelle conversation
 Ajouter une nouvelle entrée `CTX-xxxx` pour chaque nouvelle directive et chaque réponse d'architecture significative. Pour chaque action, conserver l'ID de l'exécution, les empreintes du code et les tests, l'état des supports, les hypothèses associées et la référence `E###` du journal hash-chaîné. Ajouter une section `Contexte de la conversation en cours` au Cahier mère (ou un fichier de contexte versionné lié) sans effacer les précédents. **Vérifier** les fichiers distants; leur existence ne prouve pas à elle seule le contenu identique.
+
+
+## Vérification de la synchronisation (E084)
+GitHub : 9/9 blobs critiques identiques, manifeste parent actualisé ; Drive privé : archive source initiale 568443 octets retrouvée ; Bibliothèque : copie retrouvée ; PC MBMPC : hors ligne, pas de copie ni tests Windows. Les éventuelles variantes finales du ZIP ont leur propre reçu séparé pour éviter une empreinte SHA-256 auto-référente.
