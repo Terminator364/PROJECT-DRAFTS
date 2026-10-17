@@ -25,7 +25,7 @@
   "scientific_ic_percent": null,
   "real_quality_effects_proven": 0,
   "new_tests_local": 45,
-  "new_tests_windows": "PENDING",
+  "new_tests_windows": "PASS_45_TESTS_ON_MBMPC_PYTHON3_12_10",
   "historical_separate_suites_local": {
     "H3": 309,
     "step16": 106,
@@ -35,5 +35,25 @@
   },
   "prior_total": 501,
   "source_zip_step19_sha256": "78a1e7cb2661c634568a4233d7e3cbbae1c679175de2a2347e2db28295d2e0ec",
-  "next": "Agree metrology / Q formula, gather real paired pre-T0 and post-T0 trials; expand mechanistically defensible conditionals without invented quality effect."
+  "next": "Step21: pre-register a user-approved Q scoring protocol and obtain real pre-T0/after-T0 paired experiments; pursue additional physically defensible routes without arbitrary quality coefficients.",
+  "local_total_tests_across_six_separate_suites": 546,
+  "test_counts": {
+    "H3": 309,
+    "step16": 106,
+    "step17": 23,
+    "step18": 32,
+    "step19": 31,
+    "step20": 45,
+    "total_disjoint": 546
+  },
+  "windows_reports_replay_equal": true,
+  "windows_physics_report_replay_equal": true,
+  "windows_112_register_replay_equal": true,
+  "context_rows": 40,
+  "journal_events": 116,
+  "journal_head": "347feb41432663f8479f9ca2296fe5d33dd82cffc5ef71ef165f3976ca15b6cc",
+  "trigger_message": "CTX-0039",
+  "assistant_checkpoint_message": "CTX-0040",
+  "completed_software_step20": true,
+  "scientifically_calibrated": false
 }
