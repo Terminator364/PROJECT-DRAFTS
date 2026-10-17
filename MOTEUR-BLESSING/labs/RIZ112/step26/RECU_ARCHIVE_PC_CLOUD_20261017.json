@@ -1,0 +1,38 @@
+{
+  "schema": "riz112/step26/verified-archive-receipt/v1",
+  "date": "2026-10-17",
+  "pc": "MBMPC",
+  "stage": 26,
+  "archive_name": "RIZ112_MOTEUR_UNIFIE_STEP26_2026-10-17.zip",
+  "drive_file_id": "1A-rUjr570r1_wwbKstua_FAOpIOSlfpj",
+  "drive_url": "https://drive.google.com/file/d/1A-rUjr570r1_wwbKstua_FAOpIOSlfpj/view?usp=drivesdk",
+  "pc_cloud_zip_size_bytes": 1089735,
+  "zip_members": 386,
+  "pc_sha256": "e6cdd681764692173f95f2e465a5b807a1291bbda3ea913099eb70026792083c",
+  "cloud_download_sha256": "e6cdd681764692173f95f2e465a5b807a1291bbda3ea913099eb70026792083c",
+  "zip_crc": "PASS",
+  "cloud_verified_independently": true,
+  "portable_zip": {
+    "file_name": "RIZ112_MOTEUR_UNIFIE_STEP26_PORTABLE_2026-10-17.zip",
+    "bytes": 687388,
+    "files": 308,
+    "sha256": "566f900fdcc40c9ac6877ec91d042ca1c7686859dd2f2b930b30dc2930f947fe",
+    "conversion": "Normalized Windows backslash paths to portable forward slash; removed runtime pycache only",
+    "contents_verified": true
+  },
+  "tests": {
+    "step25_new_Linux": 36,
+    "step25_new_Windows": 36,
+    "step26_new_Linux": 24,
+    "step26_new_Windows": 24,
+    "launcher": "Windows desktop shortcut executed with success"
+  },
+  "continuity_at_snapshot": {
+    "journal_events": 122,
+    "context_rows": 45
+  },
+  "scientific_ic_percent": null,
+  "Q_formula_user_approved": false,
+  "real_rice_trials": 0,
+  "note": "Receipt committed after snapshot; canonical GitHub may include subsequent audit events."
+}
