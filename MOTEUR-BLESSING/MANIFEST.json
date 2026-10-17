@@ -196,7 +196,7 @@
     "master": "MOTEUR-BLESSING/labs/RIZ112/CAHIER_MERE.md",
     "checkpoint": "MOTEUR-BLESSING/labs/RIZ112/CHECKPOINT.json",
     "journal": "MOTEUR-BLESSING/labs/RIZ112/journal/JOURNAL_EVENEMENTS.jsonl",
-    "delivery_index": "MOTEUR-BLESSING/labs/RIZ112/LIVRAISON_H3_CONTEXTE_20261017.json",
+    "delivery_index": "MOTEUR-BLESSING/labs/RIZ112/LIVRAISON_CODE_UNIQUE_20261017.json",
     "archive_sha256": "1dca77c3bb458ae8d3074c7bedd2798b0fb5af5b1cfb5c6b272e7e6e20f3c201",
     "drive_folder": "https://drive.google.com/drive/folders/1oMXQp39wS0xaygFt2SWm7hII77fHxedP",
     "windows_stage5_sync": "NOT_DONE_PC_OFFLINE",
@@ -204,8 +204,8 @@
     "archive_final_sha256": "6fc5c03d44a605781c66e8f561ed3c1a5fc76ad00c21026cbe98b86a64dbf06b",
     "archive_final_bytes": 87045,
     "archive_final_drive_url": "https://drive.google.com/file/d/1JRFayl6zSgQfyQoJBdxj62I97v4vQ1AL/view?usp=drivesdk",
-    "journal_events": 93,
-    "journal_head": "aeb4f2da9434b3fb61609e7d1612812ab1abb4d7b21392f39cee864b804a3859",
+    "journal_events": 94,
+    "journal_head": "48876a03d1bf973c9279039f39507903040ba8bf28a3ea709428ccf6e7f83b07",
     "current_stage": 14,
     "current_zip_sha256": "34887c8ecd5d5e0475b8b03267592e1856c633455b41ff0c8f567860217ac3cb",
     "current_zip_drive": "https://drive.google.com/file/d/1Bzf9scBx1QCACQKE_j4bJL0EvCB1DnrI/view?usp=drivesdk",
@@ -328,7 +328,7 @@
     "regression_tests_passed": 273,
     "experimental_ics_per_100_scenarios": 100,
     "latest_drive_archive": "https://drive.google.com/file/d/1rBwEiqMsDUSNaX8EmaYNdxMIiGHcg_mb/view?usp=drivesdk",
-    "windows_status": "OFFLINE_NOT_TESTED",
+    "windows_status": "OFFLINE_NOT_SYNCED",
     "canonical_current": {
       "precedence": "THIS_OBJECT_OVERRIDES_LEGACY_RIZ112_POINTER_FIELDS",
       "lab_code": "RIZ112|CONTINUE",
@@ -365,9 +365,14 @@
     },
     "latest_code": "MOTEUR-BLESSING/labs/RIZ112/step14/anticipatory_physics_h3.py",
     "latest_lab": "MOTEUR-BLESSING/labs/RIZ112/step14/H3_RUN_SUMMARY.json",
-    "context_rows": 26,
+    "context_rows": 27,
     "single_code_contract": "MOTEUR-BLESSING/labs/RIZ112/continuity/CONTRAT_CODE_UNIQUE.md",
     "next_action": "MOTEUR-BLESSING/labs/RIZ112/continuity/NEXT_ACTION.json",
-    "next_execution": "H4_CLOSE_22_MECHANISTIC_GAPS"
+    "next_execution": "H4_CLOSE_22_MECHANISTIC_GAPS",
+    "source_zip_sha256": "4a057b8ef981bedc10327b07d92c0b8a120a180047bea7576f057b186f65dd92",
+    "source_zip_drive": "https://drive.google.com/file/d/1hp6uP8izdFh8IQdx9jSCGZnXNbCs7g5p/view?usp=drivesdk",
+    "tests_passed_h3": 309,
+    "new_singlecode_tests_passed": 6,
+    "current_lab_status": "H3_VERIFIED__CONTEXT_SYNCHRONIZED__NEXT_H4_UNEXECUTED"
   }
 }
