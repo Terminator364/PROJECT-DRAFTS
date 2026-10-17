@@ -74,5 +74,16 @@
   "step26_cloud_receipt_url": "https://drive.google.com/file/d/1A-rUjr570r1_wwbKstua_FAOpIOSlfpj/view?usp=drivesdk",
   "step27_release_checkpoint": "MOTEUR-BLESSING/labs/RIZ112/step27/CHECKPOINT_RELEASE_V1.json",
   "step27_release_status": "ENGINEERING_V1_CLOSED__Q_EMPIRICAL_PENDING",
-  "no_more_auto_steps_without_external_evidence": true
+  "no_more_auto_steps_without_external_evidence": true,
+  "final_engineering_V1_archive_receipt": "MOTEUR-BLESSING/labs/RIZ112/step27/RECU_ARCHIVE_FINAL_CANON_20261017.json",
+  "final_engineering_V1_archive": {
+    "url": "https://drive.google.com/file/d/12xXW-Q_3znv9_4enPqUJYAx9U9vUZ-GK/view?usp=drivesdk",
+    "sha256": "7536dd8ac0b13f6a550033347906d56866b824995f0f5cfa9fb364c571eec04b",
+    "bytes": 638249,
+    "files": 300,
+    "independent_download_checksum_match": true,
+    "zip_crc": "PASS",
+    "extracted_step27_tests_pass": 21,
+    "source_snapshot_journal": "E125"
+  }
 }
