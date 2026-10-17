@@ -86,7 +86,7 @@ def evaluate(packet:dict, *, material:str,heat_path:str='direct',
              wall_mm:float|None=None,contact_resistance_K_W:float=.065,
              driving_deltaT_K:float=24., diameter_cm:float|None=None, lid_present:bool|None=None,
              water_g:float|None=None, measured_k:float|None=None,
-             draws:int=500,seed:int=20261017)->dict:
+             draws:int=500,seed:int=20261017,return_prepared_packet:bool=False)->dict:
     if material not in MATERIALS:raise HierarchyError('unknown material: explicit properties required')
     if heat_path not in {'direct','indirect_metal_insert'}:raise HierarchyError('heat path must be stated')
     if any(type(x) not in (int,float) or not math.isfinite(x) or x<=0
@@ -147,7 +147,7 @@ def evaluate(packet:dict, *, material:str,heat_path:str='direct',
     # Remove ONLY impossible planned lid actions, keep all other conflicts auditable.
     try:r=simulate(p,json.loads(CONTRACT.read_text(encoding='utf-8')),draws,seed)
     except Exception as ex:raise HierarchyError('base simulator failed: '+str(ex)) from ex
-    return {'status':r['status'],'material':material,'heat_path':heat_path,
+    response={'status':r['status'],'material':material,'heat_path':heat_path,
             'ic_demo_percent':r.get('ic_demo_percent'),'scientific_ic_percent':None,
             'baseline_q_demo':r.get('baseline_q_demo'),'anticipations':predictions,
             'thermal_path':{'conductivity_W_mK':k,'area_m2':A,'wall_thickness_mm':thick_mm,'R_wall_K_W':R_wall,'effective_eta':eta},
@@ -156,6 +156,8 @@ def evaluate(packet:dict, *, material:str,heat_path:str='direct',
                                  'all pot/safety compatibility assumptions are NOT certified'],
             'no_poststart_input':True,'source_packet_112_roles_preserved':True,
             'details':r.get('conflicts',[])}
+    if return_prepared_packet:response['prepared_packet']=p
+    return response
 
 if __name__=='__main__':
     import argparse
