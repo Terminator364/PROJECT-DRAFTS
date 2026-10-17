@@ -224,3 +224,14 @@ Suite au contrôle demandé implicitement par le signal « 👀 », vérificatio
 **[TEST ET LIMITE]** Treize nouveaux tests passent : déterminisme, structure 112, cohérence des champs redondants, gel des 14 cibles, interdiction de fuite temporelle, changement d'eau provoquant changement d'IC démo, matériau non modélisé provoquant abstention, absence de nouveau bonus matériau arbitraire. Les anciennes suites exécutées depuis leurs emplacements d'origine passent ; le total est 218/218 (22+31+10+42+36+19+25+20+13). Aucune expérience de riz réelle : `scientific_ic_percent=null`. **La demande de 112 chemins prédictifs démontrés n'est pas encore satisfaite**, et l'étape 11 est une preuve de génération/scénarios, pas la clôture du mandat D014.
 
 **[TRANSFERT MATRICE]** Lors de la génération de matchs A/B aléatoires ou de scénarios pré-match, l'IC ne doit répondre qu'aux variables dont le calcul/lien vers le résultat est identifié et testé ; les autres doivent être explicitement diagnostiquées. Gardes et définitions d'Over1,5 sur 90 minutes ne sont pas des poids prédictifs arbitraires. Ne pas reprendre les distributions alimentaires hypothétiques.
+
+
+## 2026-10-17 — Étape 12, décisions D022–D024 : 100 situations réellement variées
+
+L'utilisateur a confirmé que 100 situations A/B/C, décrites par 112 cases, doivent être comparées au travers d'un moteur où les conditions ont des conséquences explicables. **La V11 ne variait directement qu'une partie des champs, et il ne faut pas annoncer 112 effets numériques.**
+
+Construction V12 : 100 dossiers JSON intégraux ; 44 données/conditions directement randomisables réellement diversifiées, 37 actions prévues et 13 politiques également diversifiées ; 4 sorties dérivées et 14 critères finaux fixes par définition. 500 simulations de la qualité fictive Q* par dossier admissible. Sur 100 : 30 IC de démonstration, 47 refus de marmites non prises en charge, 23 incohérences.
+
+Tests de confrontation : 112 cases × deux situations A/B = 224 contre-interventions (avec 100 tirages chacune). 12 perturbations changent l'IC fictif, 52 modifient un contrôle opérationnel, 4 changent l'admissibilité, 26 ne montrent aucun effet dans ces tests ; 4 sorties calculées et 14 critères de réussite n'ont pas vocation à être mutés librement. **241/241 tests réussis**. Liste détaillée des 26 cas : `step12/GAPS_26_UNRESOLVED.json`. Rapports : `step12/RAPPORT_100_112_V12.json`, `step12/COUNTERFACTUAL_112_V12.json`, fichiers JSONL de 100 situations.
+
+Démonstration contradictoire essentielle : métal vs céramique sans propriété thermique ajustée → même IC fictif ; modification explicite du rendement thermique de 0,45 à 0,75 → 44,60% contre 68,77% sur A, **mais cela ne prouve pas l'effet du matériau**. Les coefficients du modèle Q* restent des hypothèses, aucun modèle sportif MATRICE modifié, aucune préparation réelle ni calibrage.
