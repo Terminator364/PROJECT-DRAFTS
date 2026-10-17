@@ -3,6 +3,7 @@
   "current_verified_lab_stage": 27,
   "first_files_to_open": [
     "MOTEUR-BLESSING/labs/RIZ112/simulations/EXPERIENCE_1000/TRANSFERT_PREMATCH/AUDIT_COMPATIBILITE_R8_20261017.md",
+    "MOTEUR-BLESSING/labs/RIZ112/simulations/EXPERIENCE_1000_112/CHECKPOINT_1000X112_20261017.json",
     "MOTEUR-BLESSING/labs/RIZ112/CAHIER_MERE.md",
     "MOTEUR-BLESSING/labs/RIZ112/simulations/EXPERIENCE_1000/TRANSFERT_PREMATCH/CHECKPOINT_TRANSFERT_TEMPOREL_20261017.json",
     "MOTEUR-BLESSING/labs/RIZ112/simulations/EXPERIENCE_1000/TRANSFERT_PREMATCH/README.md",
@@ -43,8 +44,8 @@
   "critical_directive_D035": "Cahier mère as durable authority, all accessible context, no blanket assertion of 112 IC causal effects; each counterfactual evidence or explicit abstention",
   "canonical_source": "GitHub main MOTEUR-BLESSING/labs/RIZ112/CAHIER_MERE.md plus journal, exact context register and checkpoint; not ChatGPT memory.",
   "context_capture_limits": "The tool captures only messages actively submitted in-session and available for logging, not autonomous background conversations.",
-  "latest_journal_event_id": "E137",
-  "latest_context_id": "CTX-0059",
+  "latest_journal_event_id": "E140",
+  "latest_context_id": "CTX-0062",
   "journal_chain_verified": true,
   "step18_checkpoint": "MOTEUR-BLESSING/labs/RIZ112/step18/CHECKPOINT_STEP18_20261017.json",
   "step18_windows_status": "PARTIAL_RESOURCE_TESTS_PASS; CONDITIONAL_SUITE_NOT_VALIDATED_TIMEOUT",
@@ -179,5 +180,25 @@
     "tests_windows": 24,
     "real_sport_predictions": 0,
     "matrice_code_modified": false
+  },
+  "simulation_1000x112": {
+    "checkpoint": "MOTEUR-BLESSING/labs/RIZ112/simulations/EXPERIENCE_1000_112/CHECKPOINT_1000X112_20261017.json",
+    "scenario_count": 1000,
+    "rubric_count": 112,
+    "distinct_varying_preT0_and_forecasts": 98,
+    "postT0_targets_unobserved": 14,
+    "synthetic_proxy_IC_numeric": 1000,
+    "synthetic_proxy_ge85": 12,
+    "H3_original_numeric": 690,
+    "H3_original_abstained": 310,
+    "scientific_ic_percent": null,
+    "windows_replay_tests": 7,
+    "windows_csv_hash_match": true,
+    "cloud_zip_url": "https://drive.google.com/file/d/14S4idgIhMjcmqarKFz4ZbfRpGV2kOesC/view?usp=drivesdk",
+    "cloud_spreadsheet_url": "https://docs.google.com/spreadsheets/d/1TiZUal8VHouLWlShMHBNi3pr0DB7nyMY/edit?usp=drivesdk",
+    "cloud_zip_sha256": "225efd46dbfbdd32df5dcafb4134c6a8e7d6c48e08ec144e9837a44106275f40",
+    "latest_journal_event": "E140",
+    "latest_context": "CTX-0062",
+    "journal_head": "e276b9536b508f9374501cd24c070d8345e7cd3264a95cddfc68a80199772a58"
   }
 }
