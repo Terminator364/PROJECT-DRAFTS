@@ -1,0 +1,43 @@
+{
+  "schema": "riz112/step18/conditional-route-probe/v1",
+  "baseline_packet_sha256": "d2e2d745c3d54c5ed3da2b04f0276572eb67084810a82442094367a2e78a7e2e",
+  "source_report": "step17/RAPPORT_112_INFLUENCES_DEMO_20261017.json",
+  "scenarios": {
+    "A_BASE": {
+      "source_uptime": 1.0,
+      "water_g": 300.0,
+      "seed": 20261017,
+      "draws": 400
+    },
+    "B_POWER_60_PERCENT": {
+      "source_uptime": 0.6,
+      "water_g": 300.0,
+      "seed": 20261017,
+      "draws": 400
+    },
+    "C_WATER_180_G": {
+      "source_uptime": 1.0,
+      "water_g": 180.0,
+      "seed": 20261017,
+      "draws": 400
+    }
+  },
+  "numeric_perturbation_amplitudes": [
+    0.01,
+    0.1,
+    0.25
+  ],
+  "rubrics_initially_with_no_response": 35,
+  "classification_counts": {
+    "NO_DETECTED_DOWNSTREAM_RESPONSE_IN_TESTED_REGIMES": 33,
+    "SYNTHETIC_IC_DEMO_RESPONSIVE_IN_OTHER_REGIME_OR_AMPLITUDE": 2
+  },
+  "scientific_ic_percent": null,
+  "statement": "Results only describe synthetic H3 Q* and H4 diagnostics. Zero causal effects on true rice quality have been established.",
+  "parts": [
+    "PROBE_35_ROUTES_PART_1.jsonl",
+    "PROBE_35_ROUTES_PART_2.jsonl",
+    "PROBE_35_ROUTES_PART_3.jsonl"
+  ],
+  "full_report_sha256": "1b60cd2151a7e5cb75c5e167a5bdd8446f32153e1024c1de1003137801b6fb4a"
+}
