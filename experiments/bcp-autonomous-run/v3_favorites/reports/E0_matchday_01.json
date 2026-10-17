@@ -1,0 +1,261 @@
+{
+  "allowed_use": "RESEARCH_ONLY_NO_IC",
+  "code": "E0",
+  "competition": "Premier League",
+  "coverage": {
+    "TWO_SOURCE_RESULT_AGREEMENT": 10
+  },
+  "cutoff_exclusive": "2026-10-17",
+  "date_range": [
+    "2026-08-21",
+    "2026-08-24"
+  ],
+  "fixtures": [
+    {
+      "available_at_pre_match": "UNVERIFIED",
+      "away": "Coventry",
+      "date": "2026-08-21",
+      "football_data_cached_score": [
+        3,
+        0
+      ],
+      "historical_score": [
+        3,
+        0
+      ],
+      "home": "Arsenal",
+      "official_matchday_url": "https://www.premierleague.com/en/matches/premier-league/2026-27/matchweek-1",
+      "openfootball_score": [
+        3,
+        0
+      ],
+      "original_away": "Coventry City FC",
+      "original_home": "Arsenal FC",
+      "round": 1,
+      "source_count_with_confirmed_score": 2,
+      "status": "TWO_SOURCE_RESULT_AGREEMENT"
+    },
+    {
+      "available_at_pre_match": "UNVERIFIED",
+      "away": "Tottenham",
+      "date": "2026-08-22",
+      "football_data_cached_score": [
+        3,
+        0
+      ],
+      "historical_score": [
+        3,
+        0
+      ],
+      "home": "Brentford",
+      "official_matchday_url": "https://www.premierleague.com/en/matches/premier-league/2026-27/matchweek-1",
+      "openfootball_score": [
+        3,
+        0
+      ],
+      "original_away": "Tottenham Hotspur FC",
+      "original_home": "Brentford FC",
+      "round": 1,
+      "source_count_with_confirmed_score": 2,
+      "status": "TWO_SOURCE_RESULT_AGREEMENT"
+    },
+    {
+      "available_at_pre_match": "UNVERIFIED",
+      "away": "Crystal Palace",
+      "date": "2026-08-22",
+      "football_data_cached_score": [
+        2,
+        0
+      ],
+      "historical_score": [
+        2,
+        0
+      ],
+      "home": "Everton",
+      "official_matchday_url": "https://www.premierleague.com/en/matches/premier-league/2026-27/matchweek-1",
+      "openfootball_score": [
+        2,
+        0
+      ],
+      "original_away": "Crystal Palace FC",
+      "original_home": "Everton FC",
+      "round": 1,
+      "source_count_with_confirmed_score": 2,
+      "status": "TWO_SOURCE_RESULT_AGREEMENT"
+    },
+    {
+      "available_at_pre_match": "UNVERIFIED",
+      "away": "Man United",
+      "date": "2026-08-22",
+      "football_data_cached_score": [
+        2,
+        0
+      ],
+      "historical_score": [
+        2,
+        0
+      ],
+      "home": "Hull",
+      "official_matchday_url": "https://www.premierleague.com/en/matches/premier-league/2026-27/matchweek-1",
+      "openfootball_score": [
+        2,
+        0
+      ],
+      "original_away": "Manchester United FC",
+      "original_home": "Hull City AFC",
+      "round": 1,
+      "source_count_with_confirmed_score": 2,
+      "status": "TWO_SOURCE_RESULT_AGREEMENT"
+    },
+    {
+      "available_at_pre_match": "UNVERIFIED",
+      "away": "Sunderland",
+      "date": "2026-08-22",
+      "football_data_cached_score": [
+        2,
+        1
+      ],
+      "historical_score": [
+        2,
+        1
+      ],
+      "home": "Ipswich",
+      "official_matchday_url": "https://www.premierleague.com/en/matches/premier-league/2026-27/matchweek-1",
+      "openfootball_score": [
+        2,
+        1
+      ],
+      "original_away": "Sunderland AFC",
+      "original_home": "Ipswich Town FC",
+      "round": 1,
+      "source_count_with_confirmed_score": 2,
+      "status": "TWO_SOURCE_RESULT_AGREEMENT"
+    },
+    {
+      "available_at_pre_match": "UNVERIFIED",
+      "away": "Leeds",
+      "date": "2026-08-22",
+      "football_data_cached_score": [
+        0,
+        1
+      ],
+      "historical_score": [
+        0,
+        1
+      ],
+      "home": "Nott'm Forest",
+      "official_matchday_url": "https://www.premierleague.com/en/matches/premier-league/2026-27/matchweek-1",
+      "openfootball_score": [
+        0,
+        1
+      ],
+      "original_away": "Leeds United FC",
+      "original_home": "Nottingham Forest FC",
+      "round": 1,
+      "source_count_with_confirmed_score": 2,
+      "status": "TWO_SOURCE_RESULT_AGREEMENT"
+    },
+    {
+      "available_at_pre_match": "UNVERIFIED",
+      "away": "Aston Villa",
+      "date": "2026-08-23",
+      "football_data_cached_score": [
+        4,
+        0
+      ],
+      "historical_score": [
+        4,
+        0
+      ],
+      "home": "Brighton",
+      "official_matchday_url": "https://www.premierleague.com/en/matches/premier-league/2026-27/matchweek-1",
+      "openfootball_score": [
+        4,
+        0
+      ],
+      "original_away": "Aston Villa FC",
+      "original_home": "Brighton & Hove Albion FC",
+      "round": 1,
+      "source_count_with_confirmed_score": 2,
+      "status": "TWO_SOURCE_RESULT_AGREEMENT"
+    },
+    {
+      "available_at_pre_match": "UNVERIFIED",
+      "away": "Bournemouth",
+      "date": "2026-08-23",
+      "football_data_cached_score": [
+        2,
+        1
+      ],
+      "historical_score": [
+        2,
+        1
+      ],
+      "home": "Man City",
+      "official_matchday_url": "https://www.premierleague.com/en/matches/premier-league/2026-27/matchweek-1",
+      "openfootball_score": [
+        2,
+        1
+      ],
+      "original_away": "AFC Bournemouth",
+      "original_home": "Manchester City FC",
+      "round": 1,
+      "source_count_with_confirmed_score": 2,
+      "status": "TWO_SOURCE_RESULT_AGREEMENT"
+    },
+    {
+      "available_at_pre_match": "UNVERIFIED",
+      "away": "Liverpool",
+      "date": "2026-08-23",
+      "football_data_cached_score": [
+        2,
+        2
+      ],
+      "historical_score": [
+        2,
+        2
+      ],
+      "home": "Newcastle",
+      "official_matchday_url": "https://www.premierleague.com/en/matches/premier-league/2026-27/matchweek-1",
+      "openfootball_score": [
+        2,
+        2
+      ],
+      "original_away": "Liverpool FC",
+      "original_home": "Newcastle United FC",
+      "round": 1,
+      "source_count_with_confirmed_score": 2,
+      "status": "TWO_SOURCE_RESULT_AGREEMENT"
+    },
+    {
+      "available_at_pre_match": "UNVERIFIED",
+      "away": "Chelsea",
+      "date": "2026-08-24",
+      "football_data_cached_score": [
+        2,
+        3
+      ],
+      "historical_score": [
+        2,
+        3
+      ],
+      "home": "Fulham",
+      "official_matchday_url": "https://www.premierleague.com/en/matches/premier-league/2026-27/matchweek-1",
+      "openfootball_score": [
+        2,
+        3
+      ],
+      "original_away": "Chelsea FC",
+      "original_home": "Fulham FC",
+      "round": 1,
+      "source_count_with_confirmed_score": 2,
+      "status": "TWO_SOURCE_RESULT_AGREEMENT"
+    }
+  ],
+  "matchday": 1,
+  "sources": [
+    "https://raw.githubusercontent.com/openfootball/football.json/master/2026-27/en.1.json",
+    "CACHED_PREVIOUS_FOOTBALL_DATA_CSV",
+    "https://www.premierleague.com/en/matches/premier-league/2026-27/matchweek-1"
+  ]
+}
