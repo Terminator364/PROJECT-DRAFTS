@@ -64,3 +64,14 @@ L’utilisateur demande **mot pour mot** que le contexte soit continuellement é
 
 ## Clôture vérifiée E089
 GitHub : fichiers critiques relus ; Google Doc privé contenant les deux demandes et le plan relu ; Bibliothèque : copie de reprise enregistrée, ZIP précédent H3 sur Drive confirmé ; **nouvel archive de reprise complète non déposée sur Drive**; MBMPC non synchronisé. Contexte 21 entrées, journal 89 événements. Source faisant foi : chemins GitHub du manifeste et du checkpoint.
+
+
+## §23 — Session U1 : un seul code, contexte complet disponible, reprise active (17 octobre 2026)
+
+**[DIRECTIVES UTILISATEUR, TEXTE EXACT]** Voir `CTX-0022` à `CTX-0025` : demande de continuité, exigence d'enregistrement permanent du contexte, rejet des codes multiples, et attente qu'un simple `Moteur/continue` **lance le prochain travail selon le Cahier mère**. Ces formulations ne doivent pas être réduites à un simple alias.
+
+**[CONSTAT VÉRIFIÉ]** Le ZIP H2 disponible était plus ancien que GitHub H3 (étape 14); le ZIP H3 de 192 fichiers avait un checkpoint identique aux blobs GitHub. Reprise sur H3/309 tests/89 événements/21 entrées de contexte plutôt que régression vers H2. Les 309 tests historiques et la chaîne du journal à E089 passent à nouveau. `CTX-0026` enregistre la synthèse de ces vérifications.
+
+**[RÈGLE U1]** Code unique et sensible à la graphie documentaire : `Moteur/continue`. Tous les alias antérieurs restent uniquement en historique, **désactivés dans les nouveaux points d'entrée**. Lire ce contexte et les sources avant de démarrer H4 sans nouvelle confirmation. Récolter toutes les nouvelles directives verbatim accessibles et les actions sous des résumés vérifiables, tout au long de la séance; éviter de prétendre à une transcription de messages antérieurs inaccessibles ou à une tâche en arrière-plan.
+
+**[PROCHAINE EXÉCUTION]** H4 — inspecter `step14/H3_26_CASES_LEDGER.json`, puis réduire les 22 manques de mécanismes avec preuves mathématiques explicites et tests, sans ajouter 22 malus artificiels, sans promouvoir l'IC fictif. Fichier exécutable d'instructions : `continuity/NEXT_ACTION.json`.
