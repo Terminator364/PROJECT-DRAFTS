@@ -1,0 +1,231 @@
+{
+  "allowed_use": "RESEARCH_ONLY_NO_IC",
+  "code": "I1",
+  "competition": "Serie A",
+  "coverage": {
+    "CSV_RESULT_ONLY": 10
+  },
+  "cutoff_exclusive": "2026-10-17",
+  "date_range": [
+    "2026-10-10",
+    "2026-10-12"
+  ],
+  "fixtures": [
+    {
+      "available_at_pre_match": "UNVERIFIED",
+      "away": "Fiorentina",
+      "date": "2026-10-10",
+      "football_data_cached_score": [
+        2,
+        1
+      ],
+      "historical_score": [
+        2,
+        1
+      ],
+      "home": "Genoa",
+      "official_matchday_url": "https://en.legaseriea.it/serie-a/fixtures-results?matchday=6",
+      "openfootball_score": null,
+      "original_away": "ACF Fiorentina",
+      "original_home": "Genoa CFC",
+      "round": 6,
+      "source_count_with_confirmed_score": 1,
+      "status": "CSV_RESULT_ONLY"
+    },
+    {
+      "available_at_pre_match": "UNVERIFIED",
+      "away": "Parma",
+      "date": "2026-10-10",
+      "football_data_cached_score": [
+        3,
+        0
+      ],
+      "historical_score": [
+        3,
+        0
+      ],
+      "home": "Inter",
+      "official_matchday_url": "https://en.legaseriea.it/serie-a/fixtures-results?matchday=6",
+      "openfootball_score": null,
+      "original_away": "Parma Calcio 1913",
+      "original_home": "FC Internazionale Milano",
+      "round": 6,
+      "source_count_with_confirmed_score": 1,
+      "status": "CSV_RESULT_ONLY"
+    },
+    {
+      "available_at_pre_match": "UNVERIFIED",
+      "away": "Frosinone",
+      "date": "2026-10-10",
+      "football_data_cached_score": [
+        3,
+        0
+      ],
+      "historical_score": [
+        3,
+        0
+      ],
+      "home": "Napoli",
+      "official_matchday_url": "https://en.legaseriea.it/serie-a/fixtures-results?matchday=6",
+      "openfootball_score": null,
+      "original_away": "Frosinone Calcio",
+      "original_home": "SSC Napoli",
+      "round": 6,
+      "source_count_with_confirmed_score": 1,
+      "status": "CSV_RESULT_ONLY"
+    },
+    {
+      "available_at_pre_match": "UNVERIFIED",
+      "away": "Juventus",
+      "date": "2026-10-11",
+      "football_data_cached_score": [
+        1,
+        1
+      ],
+      "historical_score": [
+        1,
+        1
+      ],
+      "home": "Cagliari",
+      "official_matchday_url": "https://en.legaseriea.it/serie-a/fixtures-results?matchday=6",
+      "openfootball_score": null,
+      "original_away": "Juventus FC",
+      "original_home": "Cagliari Calcio",
+      "round": 6,
+      "source_count_with_confirmed_score": 1,
+      "status": "CSV_RESULT_ONLY"
+    },
+    {
+      "available_at_pre_match": "UNVERIFIED",
+      "away": "Roma",
+      "date": "2026-10-11",
+      "football_data_cached_score": [
+        0,
+        0
+      ],
+      "historical_score": [
+        0,
+        0
+      ],
+      "home": "Como",
+      "official_matchday_url": "https://en.legaseriea.it/serie-a/fixtures-results?matchday=6",
+      "openfootball_score": null,
+      "original_away": "AS Roma",
+      "original_home": "Como 1907",
+      "round": 6,
+      "source_count_with_confirmed_score": 1,
+      "status": "CSV_RESULT_ONLY"
+    },
+    {
+      "available_at_pre_match": "UNVERIFIED",
+      "away": "Monza",
+      "date": "2026-10-11",
+      "football_data_cached_score": [
+        3,
+        1
+      ],
+      "historical_score": [
+        3,
+        1
+      ],
+      "home": "Lazio",
+      "official_matchday_url": "https://en.legaseriea.it/serie-a/fixtures-results?matchday=6",
+      "openfootball_score": null,
+      "original_away": "AC Monza",
+      "original_home": "SS Lazio",
+      "round": 6,
+      "source_count_with_confirmed_score": 1,
+      "status": "CSV_RESULT_ONLY"
+    },
+    {
+      "available_at_pre_match": "UNVERIFIED",
+      "away": "Bologna",
+      "date": "2026-10-11",
+      "football_data_cached_score": [
+        1,
+        2
+      ],
+      "historical_score": [
+        1,
+        2
+      ],
+      "home": "Lecce",
+      "official_matchday_url": "https://en.legaseriea.it/serie-a/fixtures-results?matchday=6",
+      "openfootball_score": null,
+      "original_away": "Bologna FC 1909",
+      "original_home": "US Lecce",
+      "round": 6,
+      "source_count_with_confirmed_score": 1,
+      "status": "CSV_RESULT_ONLY"
+    },
+    {
+      "available_at_pre_match": "UNVERIFIED",
+      "away": "Milan",
+      "date": "2026-10-11",
+      "football_data_cached_score": [
+        1,
+        1
+      ],
+      "historical_score": [
+        1,
+        1
+      ],
+      "home": "Sassuolo",
+      "official_matchday_url": "https://en.legaseriea.it/serie-a/fixtures-results?matchday=6",
+      "openfootball_score": null,
+      "original_away": "AC Milan",
+      "original_home": "US Sassuolo Calcio",
+      "round": 6,
+      "source_count_with_confirmed_score": 1,
+      "status": "CSV_RESULT_ONLY"
+    },
+    {
+      "available_at_pre_match": "UNVERIFIED",
+      "away": "Venezia",
+      "date": "2026-10-12",
+      "football_data_cached_score": [
+        3,
+        1
+      ],
+      "historical_score": [
+        3,
+        1
+      ],
+      "home": "Atalanta",
+      "official_matchday_url": "https://en.legaseriea.it/serie-a/fixtures-results?matchday=6",
+      "openfootball_score": null,
+      "original_away": "Venezia FC",
+      "original_home": "Atalanta BC",
+      "round": 6,
+      "source_count_with_confirmed_score": 1,
+      "status": "CSV_RESULT_ONLY"
+    },
+    {
+      "available_at_pre_match": "UNVERIFIED",
+      "away": "Udinese",
+      "date": "2026-10-12",
+      "football_data_cached_score": [
+        2,
+        1
+      ],
+      "historical_score": [
+        2,
+        1
+      ],
+      "home": "Torino",
+      "official_matchday_url": "https://en.legaseriea.it/serie-a/fixtures-results?matchday=6",
+      "openfootball_score": null,
+      "original_away": "Udinese Calcio",
+      "original_home": "Torino FC",
+      "round": 6,
+      "source_count_with_confirmed_score": 1,
+      "status": "CSV_RESULT_ONLY"
+    }
+  ],
+  "matchday": 6,
+  "sources": [
+    "https://raw.githubusercontent.com/openfootball/football.json/master/2026-27/it.1.json",
+    "CACHED_PREVIOUS_FOOTBALL_DATA_CSV",
+    "https://en.legaseriea.it/serie-a/fixtures-results?matchday=6"
+  ]
+}
