@@ -453,3 +453,24 @@ Step24 closure 2026-10-17: 47/47 new tests Linux+Windows; 36 theoretical physica
 [executed on device: MBMPC (608dbffc-c6b9-4122-ad36-defa8238a929)]
 
 **Reçu certifié post-snapshot Step24 :** archive 286 fichiers, 650 188 octets, empreinte SHA-256 `c7fa993e943cc252e40af7b2cfe3f331a2e2e3b27107c113244515ae7b7e11df` ; copies PC, lecteur Drive et téléchargement indépendant de Drive concordants ; CRC ZIP validé. Voir `step24/RECU_ARCHIVE_PC_CLOUD_20261017.json`. L'archive est figée à E119 ; les registres GitHub vivants vont jusqu'à E120. Prochain jalon Step25, qualité Q non approuvée, aucun essai réel.
+
+
+### Archive verbatim CTX-0044 / E121 / 2026-10-17
+**Rôle** USER ; **SHA-256 UTF-8** `9560cc3b00c2b8db71ea64a275419e58c735957209c4e88ed476788b5834b7fb` ; **provenance** user_active_chat_continue_following_step21_24_2026_10_17
+
+````text
+Continue 
+````
+
+
+### Archive verbatim CTX-0045 / E122 / 2026-10-17
+**Rôle** ASSISTANT ; **SHA-256 UTF-8** `1cd0089e4d437d202422e9db1390c279b4d0eab9ebe5eb23054cf35cded743d8` ; **provenance** assistant_steps25_26_60_pc_local_tests_and_Q_gate_blocked
+
+````text
+Step25+Step26: tender/separate highest ordinal priority, 14 Q outcome measurement methods DRAFT NOT APPROVED; blank pre-T0/post-T0 trial collection template, evidence gate refuses synthetic as real and refuses any scientific success IC; full 112 evidence ledger reconciled: 9 synthetic physical intermediates, 29 distinct plan routes plus 035 overlap, 14 post-T0 targets, 60 other no established quality effect. New 36+24=60 tests PASS in local Python and Windows MBMPC 3.12.10. Both protocol and ledger Windows JSON replays match GitHub. Real trials 0, Q formula null. No Step27 automatic promotion without user Q approval and physical observations.
+````
+
+
+## Étapes 25–26 — 17 octobre 2026 : protocole qualité à approuver et registre des 112 preuves
+
+L'utilisateur a relancé « Continue » ; message exact accessible conservé CTX-0044/E121. Test résumé CTX-0045/E122. **Step25 :** un projet de protocole mesurant les 14 rubriques Q (099–112), en préservant l'ordre prioritaire **101 tendreté / 102 séparation** déjà confirmé. Aucun poids, aucune formule Q ou seuil de séparation définis implicitement; barème non approuvé. Fiche pré/post-T0 réellement vide, aucune cuisson enregistrée. L'outil rejette la transformation d'un paquet synthétique en essai réel et le vérificateur Step23 interdit l'IC empirique. **Step26 :** registre transversal de 112 rubriques réconciliant Step17/19/20/24; 9 grandeurs avec réponses théoriques, 29 autres routes de plans, 14 sorties postT0 et 60 autres rubriques sans preuve nouvelle d'effet Q. La route **035 apparaît dans Step19 et dans les neuf bilans physiques** (donc 30 routes examinées au Step19, mais 29 exclusives dans le registre, éviter le double comptage). 36 couples physiques ont été examinés plus tôt et 7 non-additifs dans A, sans preuve empirique. **36 + 24 = 60 nouveaux tests réussis Linux et Windows MBMPC**, les deux rapports recalculés Windows identiques aux sources GitHub. Suite **Step27 = décision humaine sur la mesure Q et essais physiques authentiques**, jamais approbation présumée ou calibration inventée. 
