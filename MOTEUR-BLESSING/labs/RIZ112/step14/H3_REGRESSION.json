@@ -1,0 +1,69 @@
+{
+  "schema": "riz112/H3/regression/v1",
+  "suites": {
+    "original_stage4": {
+      "passed": true,
+      "test_count": 22,
+      "exit_code": 0
+    },
+    "stage5": {
+      "passed": true,
+      "test_count": 31,
+      "exit_code": 0
+    },
+    "journal": {
+      "passed": true,
+      "test_count": 10,
+      "exit_code": 0
+    },
+    "stage6": {
+      "passed": true,
+      "test_count": 42,
+      "exit_code": 0
+    },
+    "stage7": {
+      "passed": true,
+      "test_count": 36,
+      "exit_code": 0
+    },
+    "stage8": {
+      "passed": true,
+      "test_count": 19,
+      "exit_code": 0
+    },
+    "stage9": {
+      "passed": true,
+      "test_count": 25,
+      "exit_code": 0
+    },
+    "stage10": {
+      "passed": true,
+      "test_count": 20,
+      "exit_code": 0
+    },
+    "stage11": {
+      "passed": true,
+      "test_count": 13,
+      "exit_code": 0
+    },
+    "stage12": {
+      "passed": true,
+      "test_count": 23,
+      "exit_code": 0
+    },
+    "stage13_H1_H2": {
+      "passed": true,
+      "test_count": 41,
+      "exit_code": 0
+    },
+    "stage14_H3": {
+      "passed": true,
+      "test_count": 27,
+      "exit_code": 0
+    }
+  },
+  "total_tests": 309,
+  "all_suites_pass": true,
+  "real_calibration_tests": 0,
+  "scientific_probability_validated": false
+}
