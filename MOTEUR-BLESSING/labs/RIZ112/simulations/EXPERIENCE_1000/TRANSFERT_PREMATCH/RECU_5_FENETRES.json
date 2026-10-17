@@ -1,0 +1,52 @@
+{
+  "schema": "moteur-riz112-to-matrice/prematch-proof-receipt/v1",
+  "status": "VALID_SYNTHETIC_PREMATCH_INFORMATION_SETS_ONLY",
+  "fixture_id": "SYNTHE_MATCH_UNREAL_001",
+  "windows": [
+    {
+      "window": "J-6",
+      "snapshot_cutoff_at_utc": "2026-11-14T20:00:00Z",
+      "known_facts": 1,
+      "unknown_facts": 1,
+      "snapshot_sha256": "d74c86f531f314a876a19a0413cf4a07735a78926b8a1425ebe867865aabd104",
+      "hours_before_kickoff": 144.0
+    },
+    {
+      "window": "J-4",
+      "snapshot_cutoff_at_utc": "2026-11-16T20:00:00Z",
+      "known_facts": 2,
+      "unknown_facts": 0,
+      "snapshot_sha256": "15b95ad928e02b7c1dafa0a3bd184c63b464ec56c682626704998cfa725275a1",
+      "hours_before_kickoff": 96.0
+    },
+    {
+      "window": "J-3",
+      "snapshot_cutoff_at_utc": "2026-11-17T20:00:00Z",
+      "known_facts": 2,
+      "unknown_facts": 0,
+      "snapshot_sha256": "e11206bcbdec795ce4d2ae6ac0d15661a14e9860fd5b6c204565f0dedc030e15",
+      "hours_before_kickoff": 72.0
+    },
+    {
+      "window": "H-9",
+      "snapshot_cutoff_at_utc": "2026-11-20T11:00:00Z",
+      "known_facts": 2,
+      "unknown_facts": 0,
+      "snapshot_sha256": "9ea77586e28a45dfe7a7053bb66f28c60c10723f2b7f7739f05c54575abdb89f",
+      "hours_before_kickoff": 9.0
+    },
+    {
+      "window": "H-0",
+      "snapshot_cutoff_at_utc": "2026-11-20T19:50:00Z",
+      "known_facts": 2,
+      "unknown_facts": 0,
+      "snapshot_sha256": "e1436c8f5019cb8539503641d01e4510882945e4d8669561d83e57c23ae31e12",
+      "hours_before_kickoff": 0.1667
+    }
+  ],
+  "frozen_pre_match_bundle_sha256": "a24128eeb88daf2100ae5aa42aec0a565724319da0fceec8863d7525f0ce97db",
+  "post_match_predictions_or_labels_used": false,
+  "predicted_match_probability": null,
+  "actual_match_observations": 0,
+  "scientific_calibration": false
+}
