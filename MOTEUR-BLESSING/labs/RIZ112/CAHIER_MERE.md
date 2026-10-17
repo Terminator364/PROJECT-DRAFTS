@@ -272,3 +272,8 @@ Sur le dossier A, 3 000 tirages *identiques* par variante : voir `step14/H3_ABLA
 La rubrique permanente canonique est désormais **[`CONTEXTE_CONVERSATIONS.md`](CONTEXTE_CONVERSATIONS.md)** ; ses traces contextualisées sont dans `CONTEXTE_INTEGRAL/REGISTRE_MESSAGES.jsonl`. Lire aussi [`PROTOCOLE_CONTINUITE_CONTEXTUELLE.md`](PROTOCOLE_CONTINUITE_CONTEXTUELLE.md). Cette nouvelle rubrique reçoit **les faits, demandes, feedbacks, réponses décisives, hypothèses, actions, erreurs, versions et décisions** ; elle inclut un indicateur de provenance (texte disponible / résumé reconstitué). Les fragments passés inaccessibles ne sont pas imaginés.
 
 **Incident à ne jamais effacer :** lors du contrôle, GitHub présentait encore la V13/67 événements alors que le paquet H3 local disposait de 79 événements et de 309 tests. L'état serveur n'était donc PAS totalement synchronisé. Synchroniser le code H3, ce cahier, le checkpoint et les pointeurs parent et vérifier les lectures arrière.
+
+
+### Clôture de synchronisation contextuelle H3 — E084
+
+Un contrôle indépendant des fichiers critiques sur GitHub a confirmé **9/9 empreintes de blobs identiques** à la source H3 locale; les sauvegardes Drive privé et Bibliothèque ont été confirmées, taille source 568443 octets. Le manifeste parent `MOTEUR|CONTINUE` et `Moteur/continue` réfère désormais le checkpoint laboratoire. Le PC MBMPC est **OFFLINE** (pas de validation Windows). Les extraits de conversation sont archivés avec marque de provenance dans `CONTEXTE_INTEGRAL/REGISTRE_MESSAGES.jsonl`, et la rubrique `CONTEXTE_CONVERSATIONS.md` doit être poursuivie à chaque conversation suivante, sans prétendre qu'il existe une transcription littérale exhaustive de toutes les sessions anciennes.
