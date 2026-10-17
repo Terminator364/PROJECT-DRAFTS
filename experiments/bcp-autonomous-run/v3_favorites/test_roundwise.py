@@ -3,7 +3,7 @@ from pathlib import Path
 import unittest
 
 ROOT=Path(__file__).resolve().parent
-DATA=ROOT/"outputs"
+DATA=ROOT/"outputs" if (ROOT/"outputs").exists() else ROOT/"reports"
 CUT="2026-10-17"
 
 class TwoFavoritesTests(unittest.TestCase):
