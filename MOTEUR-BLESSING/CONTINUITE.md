@@ -62,3 +62,8 @@ Actualiser `JOURNAL.md`, `MANIFEST.json`, `ETAT_V112.md` ou son successeur, et l
 - **Copies H3 contextuelles** : GitHub (sources et pointeurs), Drive privé (`1KMmqbDOCDQSUZREuaU1OzrvLbjnG7VZ2`, **570715 octets** vérifiés), Bibliothèque ChatGPT, SHA-256 source finale `6e0ac900dcdc72ca97fca31b2d46fa401c0acae7f9e37f2437aad7df6fd4cbcd`. Drive n'a pas fourni d'empreinte SHA-256 indépendante.
 - **PC MBMPC** : hors ligne au contrôle ; **pas** de synchronisation ni de validation Windows H3.
 - **Incident d'origine** : GitHub était en retrait (V13/67 événements contre local H3/79); corrigé par le checkpoint 84 événements et le nouveau pointeur parent. Ne jamais écraser une version plus avancée sans comparaison, ni confondre un ZIP disponible avec l'achèvement d'une synchronisation des sources.
+
+
+## Mise à jour du 17 octobre 2026 — H4A partiel, NE PAS REVENIR À H3
+
+La commande unique reste **`Moteur/continue`**. Le pointeur courant est `MANIFEST.json.riz112_lab.canonical_current` → `labs/RIZ112/CHECKPOINT.json` → `step15/CHECKPOINT_H4A_20261017.json`. H3/309 tests est l'héritage, H4A ajoute **29 tests locaux PASS** (non fusionnés en preuve d'exécution des 309). Trois diagnostics supplémentaires, sept rubriques reliées, **22 effets sur Q réel toujours non validés**. Nouveau `NEXT_ACTION.json` : continuer **H4B** sur les rubriques restantes. GitHub vérifié; PC/Drive/Delivery H4A non vérifiés.
