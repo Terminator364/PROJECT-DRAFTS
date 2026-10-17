@@ -25,3 +25,6 @@
 
 ## Obligation inter-conversations
 À chaque session, inscrire nouvelles directives, réponses décisives, tests, échecs et décisions dans le Cahier mère, le registre contextuel et le journal chaîné ; produire un nouveau checkpoint et indiquer exactement quels miroirs GitHub / Drive / Bibliothèque / Windows sont vérifiés. Ce processus est **à effectuer à chaque reprise**, pas exécuté en arrière-plan entre conversations.
+
+## Point d'entrée unique pour la suite
+À partir du 17 octobre 2026, la **seule commande de reprise** est `Moteur/continue`. Lire `continuity/NEXT_ACTION.json` et **entamer directement H4** selon les priorités du plan, après validation du checkpoint et du contexte. Ce document conserve les anciens états par audit, mais ne sert pas de menu de codes alternatifs.
