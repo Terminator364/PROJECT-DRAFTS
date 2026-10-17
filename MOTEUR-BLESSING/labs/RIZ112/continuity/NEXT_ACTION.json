@@ -44,8 +44,8 @@
   "critical_directive_D035": "Cahier mère as durable authority, all accessible context, no blanket assertion of 112 IC causal effects; each counterfactual evidence or explicit abstention",
   "canonical_source": "GitHub main MOTEUR-BLESSING/labs/RIZ112/CAHIER_MERE.md plus journal, exact context register and checkpoint; not ChatGPT memory.",
   "context_capture_limits": "The tool captures only messages actively submitted in-session and available for logging, not autonomous background conversations.",
-  "latest_journal_event_id": "E132",
-  "latest_context_id": "CTX-0054",
+  "latest_journal_event_id": "E134",
+  "latest_context_id": "CTX-0056",
   "journal_chain_verified": true,
   "step18_checkpoint": "MOTEUR-BLESSING/labs/RIZ112/step18/CHECKPOINT_STEP18_20261017.json",
   "step18_windows_status": "PARTIAL_RESOURCE_TESTS_PASS; CONDITIONAL_SUITE_NOT_VALIDATED_TIMEOUT",
@@ -139,5 +139,8 @@
     "pc_unmerged_sha256": "5bb1ffa358fbfc586515eb29efeea7e7ff3f437349c87fef91d030ab9f71b66f",
     "pc_unmerged_files": 64,
     "independent_cloud_crc_sha256_passed": true
-  }
+  },
+  "methodology_transfer_contract": "MOTEUR-BLESSING/labs/RIZ112/simulations/EXPERIENCE_1000/TRANSFERT_METHODE_MATRICE_PREMATCH.md",
+  "e134_cloud_receipt": "MOTEUR-BLESSING/labs/RIZ112/simulations/EXPERIENCE_1000/RECU_REPRISE_E134_20261017.json",
+  "live_pc_git_sync_this_turn": "UNCONFIRMED"
 }
