@@ -32,8 +32,8 @@
     "github_status": "VERIFIED_CRITICAL_9_OF_9_BEFORE_FINAL_RECEIPT",
     "initial_source_archive_drive": "https://drive.google.com/file/d/1rFq9GiwbRvb-Hk33JayacttjBOUdAabf/view?usp=drivesdk",
     "initial_source_archive_sha256": "15182d217e42c2985cb4652ac5c2ee9f6afe6afca55ec148b3c803e52b14ede8",
-    "journal_events": 113,
-    "journal_head": "07ebb28af732095706e1d61e001434a4c714163b675567de033be0a0c198589d",
+    "journal_events": 114,
+    "journal_head": "7aa8c1d8e8a12b75c7776e730542cd24228799d204b4a4754a0741bcf352c389",
     "lab_code": "Moteur/continue",
     "latest_context_ids": [
       "CTX-0038"
@@ -73,8 +73,8 @@
   },
   "full_packet_replay": "step12/POPULATION_100_COMPLETE_PACKET.jsonl",
   "journal": {
-    "events": 113,
-    "head": "07ebb28af732095706e1d61e001434a4c714163b675567de033be0a0c198589d"
+    "events": 114,
+    "head": "7aa8c1d8e8a12b75c7776e730542cd24228799d204b4a4754a0741bcf352c389"
   },
   "last_user_directive": "D034_CANONICAL_SINGLE_CODE_AUTO_RESUME_AND_CONTINUOUS_CONTEXT",
   "latest_case_audit": "step12/COUNTERFACTUAL_112_V12.json",
@@ -398,6 +398,7 @@
       "items": 241,
       "independent_cloud_sha256_match": true,
       "zip_crc_pass": true
-    }
+    },
+    "post_archive_event_id": "E114"
   }
 }
