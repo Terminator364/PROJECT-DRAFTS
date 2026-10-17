@@ -362,7 +362,7 @@
       "context_archive_sha256": "1327c10279df422b34c9120cb419ca13e040e26c38eb63e10e0712d8c09102ee",
       "drive_current_context_doc": "https://docs.google.com/document/d/13gOTBq7AXnT-f9Lotlw4czwa4i75C4UGdP0i1i0qwZE/edit",
       "new_full_zip_drive": "NOT_UPLOADED__DRIVE_HAS_PRIOR_H3_ARCHIVE_AND_CURRENT_CONTEXT_DOC",
-      "status": "STEP18_3_RESOURCE_DIAGNOSTIC_EFFECTS_WINDOWS_AND_LINUX_VERIFIED__SCIENTIFIC_IC_NULL",
+      "status": "STEP18_PARTIAL_INFLUENCE_RECONCILIATION__30_ROUTES_OPEN__REAL_Q_IC_NULL",
       "h4a_checkpoint": "MOTEUR-BLESSING/labs/RIZ112/step15/CHECKPOINT_H4A_20261017.json",
       "h4a_tests_passed": 29,
       "h4a_group_count": 3,
@@ -370,7 +370,7 @@
       "original_h3_historical_tests": 309,
       "h3_tests_not_rerun_this_session": true,
       "original_h3_missing_real_Q_effects_still": 22,
-      "next_execution": "STEP19_RECONCILE_REMAINING_CONDITIONAL_MECHANISMS",
+      "next_execution": "STEP19_RESOLVE_REMAINING_30_UNVERIFIED_ROUTES",
       "h4_final_checkpoint": "MOTEUR-BLESSING/labs/RIZ112/step15/CHECKPOINT_H4_FINAL_20261017.json",
       "h4_full_zip_drive_url": "https://drive.google.com/file/d/1CakcquVVCvoFY4IB-iXQTZmDRrQhDCwj/view?usp=drivesdk",
       "h4_full_zip_sha256": "2227878c14c0a5e9c85d6d12b8fc022c8b885b152046c9042663bc196f975ad3",
@@ -418,19 +418,32 @@
         "036",
         "038"
       ],
-      "scientific_ic_percent": null
+      "scientific_ic_percent": null,
+      "step18_new_resource_paths": [
+        "002",
+        "005",
+        "008"
+      ],
+      "step18_new_conditional_demo_paths": [
+        "036",
+        "038"
+      ],
+      "step18_remaining_without_detected_response": 30,
+      "step18_tests_local": 32,
+      "step18_tests_windows_resource": 17,
+      "step18_windows_full": "NOT_VALIDATED"
     },
     "latest_code": "MOTEUR-BLESSING/labs/RIZ112/step16/riz112_unified.py",
     "latest_lab": "MOTEUR-BLESSING/labs/RIZ112/step14/H3_RUN_SUMMARY.json",
     "context_rows": 37,
     "single_code_contract": "MOTEUR-BLESSING/labs/RIZ112/continuity/CONTRAT_CODE_UNIQUE.md",
     "next_action": "MOTEUR-BLESSING/labs/RIZ112/continuity/NEXT_ACTION.json",
-    "next_execution": "STEP19_RECONCILE_REMAINING_CONDITIONAL_MECHANISMS",
+    "next_execution": "STEP19_RESOLVE_REMAINING_30_UNVERIFIED_ROUTES",
     "source_zip_sha256": "4a057b8ef981bedc10327b07d92c0b8a120a180047bea7576f057b186f65dd92",
     "source_zip_drive": "https://drive.google.com/file/d/1hp6uP8izdFh8IQdx9jSCGZnXNbCs7g5p/view?usp=drivesdk",
     "tests_passed_h3": 309,
     "new_singlecode_tests_passed": 6,
-    "current_lab_status": "STEP18_3_RESOURCE_DIAGNOSTIC_EFFECTS_WINDOWS_AND_LINUX_VERIFIED__SCIENTIFIC_IC_NULL",
+    "current_lab_status": "STEP18_PARTIAL_INFLUENCE_RECONCILIATION__30_ROUTES_OPEN__REAL_Q_IC_NULL",
     "h4a_checkpoint": "MOTEUR-BLESSING/labs/RIZ112/step15/CHECKPOINT_H4A_20261017.json",
     "windows_h4a": "NOT_TESTED",
     "drive_h4a": "NOT_SYNCED",
