@@ -631,3 +631,15 @@ Moteur RIZ112 continuation: base E134 CTX0056 source checked against GitHub and 
 Pour la compréhension de MATRICE, la campagne RIZ112 **1 000 scénarios synthétiques / 18 contre-épreuves** reste intacte. Le prototype additionnel `simulations/EXPERIENCE_1000/TRANSFERT_PREMATCH/` démontre cinq **gels chronologiques** J-6/J-4/J-3/H-9/H-0, exige `observed_at <= available_at <= ingested_at <= snapshot_cutoff < kickoff`, refuse doublons sémantiques, ambiguïtés UNKNOWN/zéro, modifications de faits sans information nouvelle et labels post-match dans les entrées pré-match. **24 tests Linux + 24 Windows MBMPC PASS**, replay JSON strictement identique. Aucune donnée sportive réelle, aucune probabilité calculée, aucune validation de performance sur un match.
 
 Cette porte est une **preuve de discipline temporelle du logiciel**, à adapter à l'ADN R8 de MATRICE selon REUSE/ADAPT/BUILD ONLY IF GAP; elle n'autorise aucun remplacement d'une structure sportive ou de ses 62 familles. La copie PC a été synchronisée depuis GitHub sans toucher aux 64 deltas locaux forensiques, sauvegardés séparément. La relance utilisateur est conservée exactement dans CTX-0057/E135, le reçu technique dans CTX-0058/E136. L'IC scientifique du riz reste `null`.
+
+
+### Archive verbatim CTX-0059 / E137 / 2026-10-17
+**Rôle** ASSISTANT ; **SHA-256 UTF-8** `e002c8af16aed6518d6055f42c981130e1bd9374c62612227343bba028a2d859` ; **provenance** E136_CLOUD_REDOWLOAD_SHA_CRC_30_TESTS
+
+````text
+RIZ112/MATRICE pre-match E136 cloud receipt independently verified 2026-10-17: ZIP 323 members 685360 bytes SHA256 9ac1e6f9761d8383b26ffab4f59fb2f7af00e59f03afee4920cfd782740915a8; Google Drive file 18AHj1Mwr0fz4YuekE-cGIDCJRd8gLX8n redownload hash identical, CRC PASS, extracted 58 contexts and 136 journal events hash chain PASS, 24 prematch proof tests and 6 rice sim tests PASS from cloud extraction. Canonical GitHub file simulations/EXPERIENCE_1000/TRANSFERT_PREMATCH/RECU_ARCHIVE_CLOUD_E136_20261017.json. Archive frozen at E136; this receipt is a later append-only observation, never part of the archive. 64 non-merged PC local files remain separately backed up. Sports forecast real matches=0, scientific rice IC null.
+````
+
+
+## Preuve cloud E137 (postérieure à l'archive E136)
+Le ZIP canonique `RIZ112_MOTEUR_E136_PREMATCH_MATRICE_2026-10-17.zip` a été indépendamment téléchargé depuis Drive `18AHj1Mwr0fz4YuekE-cGIDCJRd8gLX8n` : **323 fichiers, 685 360 octets**, SHA-256 `9ac1e6f9761d8383b26ffab4f59fb2f7af00e59f03afee4920cfd782740915a8` identique PC, G: et téléchargement cloud ; CRC PASS. Après extraction, vérification SHA du journal **E136/58 contextes**, 24 tests des cinq fenêtres et 6 tests de simulation PASS. Le reçu machine est dans `simulations/EXPERIENCE_1000/TRANSFERT_PREMATCH/RECU_ARCHIVE_CLOUD_E136_20261017.json`. **E137 et ce reçu sont postérieurs au ZIP E136 ; le GitHub vivant prime.** Les 64 deltas PC demeurent archivés séparément, aucune donnée de match réel n'est prétendue.
