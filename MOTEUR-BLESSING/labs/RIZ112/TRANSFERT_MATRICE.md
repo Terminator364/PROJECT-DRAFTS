@@ -37,3 +37,12 @@ La recherche de chemins et l'audit DAG sont **réutilisables conceptuellement** 
 
 ## Résultat étape 9 — point d'attention pour MATRICE
 Un IC numérique peut être calculé par simulation Monte-Carlo si les hypothèses et la cible proxy sont spécifiées ; mais **un IC numérique n'est pas automatiquement un IC fiable**. Le laboratoire RIZ112 V9 propose `IC_DEMO` sur `Q*_DEMO`; les chiffres ne doivent pas devenir un score sportif. La fonction de validation doit distinguer `CALCULATED_ASSUMPTION_DEMO` de `CALIBRATED_REAL_OUTCOME`, garder les origines temporelles PIT, séparer les observables futures et évaluer par validation chronologique et ablation. La couche 112 rôles évite les cases silencieusement omises, sans inventer une influence quantitative.
+
+
+### Apprentissage RIZ-112 V12 → MATRICE (2026-10-17)
+
+- Pour chaque match réel, distinguer **données observables pré-match** / **variables calculées** / **plan ou événement probable** / **conditions de veto** / **résultat cible** ; ne pas dire « 62 mondes indépendants » par le seul nombre de fiches.
+- Un générateur de situations doit conserver la même cible et garantir les données strictement pré-match. Les paires contrôlées (une variable à la fois) démontrent quelles variables modifient les mécanismes ou les gardes.
+- Un nom de catégorie (p. ex. matériau de marmite) sans propriété mesurée est comme un nom de compétition/joueur sans collecte d'effet : ne jamais fabriquer le coefficient correspondant.
+- Une baseline ou un IC simulé n'est pas un IC empirique, et sa stabilité doit être mesurée sous changements de données + contraintes.
+- Les variables servant à définir le résultat futur ne peuvent pas alimenter le calcul pré-match, même pour rendre « 112/112 » plus vendeur.
