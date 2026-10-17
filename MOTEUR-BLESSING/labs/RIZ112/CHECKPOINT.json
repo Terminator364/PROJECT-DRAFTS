@@ -3,14 +3,14 @@
   "project": "RIZ112_lab_to_MATRICE",
   "date": "2026-10-17",
   "stage": 14,
-  "status": "H3_309_TESTS_PASS__CONTEXT_GITHUB_VERIFIED__CLOUD_SOURCE_BACKED_UP__NO_REAL_IC",
+  "status": "H3_309_TESTS_PASS__CONTEXT_UPDATED_20_ENTRIES_88_EVENTS__NO_REAL_IC",
   "continuity_code": "RIZ112|CONTINUE",
   "master": "CAHIER_MERE.md",
   "mandate": "MANDAT_FINITION_112.md",
   "mandate_active": true,
   "journal": {
-    "events": 84,
-    "head": "02eb98adcf858d2ea8355cc5e73f2ae113ce2e7faa39f495a54d8fb94f33ab67"
+    "events": 88,
+    "head": "a894f6131e37df085d0d821acf6231d5b22a3bb5974c0d99e33bf7da5af6a02c"
   },
   "cases": {
     "catalogued": 112,
@@ -58,16 +58,16 @@
     "calibrated_ic": null,
     "status": "NOT_VALIDATED"
   },
-  "next": "Continue building evidence-grounded hierarchical physical and behavioral mechanisms for remaining 22 cases, then actual measurements and temporal calibration; no invented Q probabilities.",
+  "next": "Resume H3 without restarting; prioritize 22 remaining mechanistic candidate paths with explicit subparameters, interactions and uncertainty; test/ablate on synthetic cases; then design/approve real Q measurement, collect prestart->observed Q dataset, calibrate and externally validate; do not claim real IC or full 112 quantified effects.",
   "matrice": {
     "sports_engine_modified": false,
     "transfer_only_methods": true,
     "copy_food_coefficients": false
   },
   "mirrors": {
-    "github": "PENDING_H3_SYNC",
-    "drive": "PENDING_H3_SYNC",
-    "library": "PENDING_H3_SYNC",
+    "github": "EXISTING_H3_VERIFIED; CURRENT_CONTEXT_DELTA_REQUIRES_POST_PUBLISH_READBACK",
+    "drive": "H3_570715_BYTES_FINAL_AND_568443_BYTES_SOURCE_PRESENT_PRIVATE__SHA_REMOTE_NOT_READ",
+    "library": "H3_ZIPS_CONFIRMED__LATEST_CONTEXT_PATCH_PENDING",
     "windows": "NOT_TESTED_OR_SYNCED_H3"
   },
   "drive_initial_v8": {
@@ -79,7 +79,7 @@
   },
   "scientific_ic_percent": null,
   "real_Q_probability_percent": null,
-  "last_user_directive": "D030_CONTINUOUS_CONVERSATIONAL_CONTEXT_AND_CROSS_CODE_SYNC",
+  "last_user_directive": "D030_AND_CTX_0018_0019_CONTINUOUS_CONVERSATION_CONTEXT_AND_NEXT_STEPS",
   "latest_code": "step14/anticipatory_physics_h3.py",
   "latest_contract": "step9/DEMONSTRATION_CONTRACT.json",
   "quality_proxy": "Q*_DEMO 4 unvalidated dimensions, threshold 85",
@@ -241,7 +241,7 @@
     "context_master": "CONTEXTE_CONVERSATIONS.md",
     "context_registry": "CONTEXTE_INTEGRAL/REGISTRE_MESSAGES.jsonl",
     "context_protocol": "PROTOCOLE_CONTINUITE_CONTEXTUELLE.md",
-    "context_rows": 17,
+    "context_rows": 20,
     "coverage": "SOME_VERBATIM_EXCERPTS_AND_FLAGGED_RECONSTRUCTIONS_NOT_FULL_RAW_ARCHIVE",
     "parent_manifest_status": "GITHUB_UPDATED_AND_READBACK",
     "github_status": "VERIFIED_CRITICAL_9_OF_9_BEFORE_FINAL_RECEIPT",
@@ -249,6 +249,16 @@
     "library_status": "SOURCE_ARCHIVE_CONFIRMED",
     "windows_status": "MBMPC_OFFLINE_NOT_SYNCED",
     "initial_source_archive_sha256": "15182d217e42c2985cb4652ac5c2ee9f6afe6afca55ec148b3c803e52b14ede8",
-    "initial_source_archive_drive": "https://drive.google.com/file/d/1rFq9GiwbRvb-Hk33JayacttjBOUdAabf/view?usp=drivesdk"
+    "initial_source_archive_drive": "https://drive.google.com/file/d/1rFq9GiwbRvb-Hk33JayacttjBOUdAabf/view?usp=drivesdk",
+    "latest_context_ids": [
+      "CTX-0018",
+      "CTX-0019",
+      "CTX-0020"
+    ],
+    "journal_events": 88,
+    "journal_head": "a894f6131e37df085d0d821acf6231d5b22a3bb5974c0d99e33bf7da5af6a02c",
+    "context_update_rule": "APPEND_AT_EACH_ACTIVE_SESSION_CHECKPOINT; NOT_BACKGROUND_CONTINUOUS",
+    "old_history": "EXCERPTS_AND_EXPLICITLY_LABELED_RECONSTRUCTIONS",
+    "next_steps_file": "PLAN_SUITE_RIZ112_MATRICE.md"
   }
 }
