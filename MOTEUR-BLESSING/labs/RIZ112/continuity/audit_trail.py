@@ -37,10 +37,19 @@ def check():
    if text_sha(raw)!=row.get('utf8_sha256'):
     raise ValueError('Context SHA mismatch: '+cid)
    matches=[e for e in journals if e['id']==eid]
-   if len(matches)!=1 or cid not in matches[0]['summary'] or row['utf8_sha256'] not in matches[0]['summary']:
+   if len(matches)!=1:
+    raise ValueError('Missing journal event: '+cid)
+   # E126/E127 (imported pre-1000 simulation) place the exact ID and
+   # UTF-8 digest in evidence, whereas explicit capture() writes both in
+   # summary. Accept EITHER verifiable location, not unlinked assertions.
+   event=matches[0]
+   proof_text=event['summary']+'\n'+event['evidence']
+   if cid not in proof_text or row['utf8_sha256'] not in proof_text:
     raise ValueError('Missing journal evidence: '+cid)
    mother_text=MOTHER.read_text(encoding='utf-8')
-   if ('Archive verbatim '+cid+' / '+eid) not in mother_text or row['utf8_sha256'] not in mother_text or ('\n'+raw+'\n') not in mother_text:
+   legacy_header=('Archive '+cid+' / '+eid) in mother_text
+   capture_header=('Archive verbatim '+cid+' / '+eid) in mother_text
+   if not (legacy_header or capture_header) or row['utf8_sha256'] not in mother_text or ('\n'+raw+'\n') not in mother_text:
     raise ValueError('Mother notebook capture missing: '+cid)
  return {'context_rows':len(contexts),'journal_events':len(journals),
          'journal_head':journals[-1]['digest'] if journals else 'GENESIS','journal_chain_valid':True}
