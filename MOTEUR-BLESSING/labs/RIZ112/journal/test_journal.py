@@ -18,11 +18,11 @@ class JournalTests(unittest.TestCase):
         append(self.p,event())
         with self.assertRaises(JournalError):append(self.p,event())
     def test_tamper(self):
-        append(self.p,event());x=self.p.read_text().replace('Tester la continuité','Contenu réécrit')
-        self.p.write_text(x)
+        append(self.p,event());x=self.p.read_text(encoding='utf-8').replace('Tester la continuité','Contenu réécrit')
+        self.p.write_text(x,encoding='utf-8')
         with self.assertRaises(JournalError):inspect(self.p)
     def test_swap_lines(self):
-        append(self.p,event());append(self.p,event(2));self.p.write_text('\n'.join(reversed(self.p.read_text().splitlines()))+'\n')
+        append(self.p,event());append(self.p,event(2));self.p.write_text('\n'.join(reversed(self.p.read_text(encoding='utf-8').splitlines()))+'\n',encoding='utf-8')
         with self.assertRaises(JournalError):inspect(self.p)
     def test_bad_schema(self):
         e=event();e['hidden']=1
@@ -31,7 +31,7 @@ class JournalTests(unittest.TestCase):
         e=event();e['type']='AUTOPROMOTION'
         with self.assertRaises(JournalError):append(self.p,e)
     def test_bad_json(self):
-        self.p.write_text('badjson\n')
+        self.p.write_text('badjson\n',encoding='utf-8')
         with self.assertRaises(JournalError):inspect(self.p)
     def test_no_fabricated_external_timestamp_proof(self):
         append(self.p,event());self.assertNotIn('trusted_timestamp',inspect(self.p)[0])
