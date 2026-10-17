@@ -1,0 +1,17 @@
+{
+  "verified_official_claims": 12,
+  "documents": [
+    {
+      "code": "E0",
+      "announcements_attached": 2,
+      "source_document": "https://www.premierleague.com/en/news/4731949/match-officials-for-matchweek-7"
+    },
+    {
+      "code": "I1",
+      "announcements_attached": 10,
+      "source_document": "https://en.legaseriea.it/serie-a/news/the-referees-for-the-7th-round-x8311"
+    }
+  ],
+  "note": "Official referee sources enrich only specific documented fixtures; remaining fixtures and fields UNKNOWN. No model effects or certified historical point-in-time replay.",
+  "postevent_official_result_separately_recorded": true
+}
