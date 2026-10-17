@@ -1,3 +1,7 @@
+# Moteur Blessing — commande de reprise unique
+
+**`Moteur/continue`** est le seul code à utiliser pour reprendre le moteur et son laboratoire RIZ-112. Il relit le dernier checkpoint et le contexte, puis commence directement la prochaine tâche définie dans `labs/RIZ112/continuity/NEXT_ACTION.json`. Les anciennes commandes mentionnées dans les historiques sont obsolètes.
+
 # MOTEUR BLESSING — Projet officiel dans PROJECT-DRAFTS
 
 > **Commande de reprise : `MOTEUR|CONTINUE`** (alias `MOTEUR BLESSING|CONTINUE`).
