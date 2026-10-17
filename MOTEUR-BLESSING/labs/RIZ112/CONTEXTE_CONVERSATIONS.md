@@ -75,3 +75,6 @@ GitHub : fichiers critiques relus ; Google Doc privé contenant les deux demande
 **[RÈGLE U1]** Code unique et sensible à la graphie documentaire : `Moteur/continue`. Tous les alias antérieurs restent uniquement en historique, **désactivés dans les nouveaux points d'entrée**. Lire ce contexte et les sources avant de démarrer H4 sans nouvelle confirmation. Récolter toutes les nouvelles directives verbatim accessibles et les actions sous des résumés vérifiables, tout au long de la séance; éviter de prétendre à une transcription de messages antérieurs inaccessibles ou à une tâche en arrière-plan.
 
 **[PROCHAINE EXÉCUTION]** H4 — inspecter `step14/H3_26_CASES_LEDGER.json`, puis réduire les 22 manques de mécanismes avec preuves mathématiques explicites et tests, sans ajouter 22 malus artificiels, sans promouvoir l'IC fictif. Fichier exécutable d'instructions : `continuity/NEXT_ACTION.json`.
+
+### Reçu final de synchronisation U1 — CTX-0027 / E094
+Relecture GitHub 7/7 références critiques conforme à la commande unique; Google Drive privé 794 856 octets et Bibliothèque confirment le paquet initial. MBMPC hors ligne. Contexte porté à 27 entrées et journal à 94 événements. H4 sera exécuté au déclencheur `Moteur/continue`, pas exécuté en arrière-plan.
