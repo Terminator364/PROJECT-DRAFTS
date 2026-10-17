@@ -1,0 +1,245 @@
+{
+  "schema": "riz112/h1/per-rubric-next-mechanisms/v1",
+  "count": 26,
+  "partially_implemented_illustrative": [
+    "010",
+    "011"
+  ],
+  "not_validated": 26,
+  "cases": [
+    {
+      "case": "003",
+      "name": "Sel disponible",
+      "subparameters_to_research": "granulometrie du sel, dissolution, dose",
+      "anticipations_to_design": "goût final 108 via perception humaine mesurée",
+      "H1_state": "STILL_NOT_MODELED_TO_REAL_Q",
+      "no_imputed_impact": "Do not inject guessed bonus/malus into IC",
+      "evidence_gate": "physical measurement or pre-registered quality outcome, then ablation/calibration"
+    },
+    {
+      "case": "006",
+      "name": "Source d’énergie",
+      "subparameters_to_research": "type de combustible, disponibilité, régulation",
+      "anticipations_to_design": "puissance effective et fluctuations dans le temps",
+      "H1_state": "STILL_NOT_MODELED_TO_REAL_Q",
+      "no_imputed_impact": "Do not inject guessed bonus/malus into IC",
+      "evidence_gate": "physical measurement or pre-registered quality outcome, then ablation/calibration"
+    },
+    {
+      "case": "010",
+      "name": "Matériau de la casserole",
+      "subparameters_to_research": "conductivité k, capacité calorifique, compatibilité chauffe, revêtement",
+      "anticipations_to_design": "conduction au travers du fond (prototype H1)",
+      "H1_state": "THERMAL_PATH_TOUCHED_NOT_VALIDATED",
+      "no_imputed_impact": "Do not inject guessed bonus/malus into IC",
+      "evidence_gate": "physical measurement or pre-registered quality outcome, then ablation/calibration"
+    },
+    {
+      "case": "011",
+      "name": "Épaisseur du fond",
+      "subparameters_to_research": "épaisseur mm, uniformité, géométrie",
+      "anticipations_to_design": "résistance thermique t/(kA) (prototype H1)",
+      "H1_state": "THERMAL_PATH_TOUCHED_NOT_VALIDATED",
+      "no_imputed_impact": "Do not inject guessed bonus/malus into IC",
+      "evidence_gate": "physical measurement or pre-registered quality outcome, then ablation/calibration"
+    },
+    {
+      "case": "018",
+      "name": "Répartition de la chaleur",
+      "subparameters_to_research": "distribution spatiale des températures, variabilité temporelle",
+      "anticipations_to_design": "hétérogénéité 103, brûlé 106",
+      "H1_state": "STILL_NOT_MODELED_TO_REAL_Q",
+      "no_imputed_impact": "Do not inject guessed bonus/malus into IC",
+      "evidence_gate": "physical measurement or pre-registered quality outcome, then ablation/calibration"
+    },
+    {
+      "case": "022",
+      "name": "Ustensile pour remuer",
+      "subparameters_to_research": "type d’ustensile, fréquence prévue, intensité d’agitation",
+      "anticipations_to_design": "casse des grains 104, mélange 102",
+      "H1_state": "STILL_NOT_MODELED_TO_REAL_Q",
+      "no_imputed_impact": "Do not inject guessed bonus/malus into IC",
+      "evidence_gate": "physical measurement or pre-registered quality outcome, then ablation/calibration"
+    },
+    {
+      "case": "023",
+      "name": "Récipient de service",
+      "subparameters_to_research": "matériau récipient, géométrie, maintien en température",
+      "anticipations_to_design": "température service 107 et tenue 111",
+      "H1_state": "STILL_NOT_MODELED_TO_REAL_Q",
+      "no_imputed_impact": "Do not inject guessed bonus/malus into IC",
+      "evidence_gate": "physical measurement or pre-registered quality outcome, then ablation/calibration"
+    },
+    {
+      "case": "024",
+      "name": "Variété",
+      "subparameters_to_research": "origine variété, amylose, longueur, traitement",
+      "anticipations_to_design": "absorption et gélatinisation 101/102",
+      "H1_state": "STILL_NOT_MODELED_TO_REAL_Q",
+      "no_imputed_impact": "Do not inject guessed bonus/malus into IC",
+      "evidence_gate": "physical measurement or pre-registered quality outcome, then ablation/calibration"
+    },
+    {
+      "case": "025",
+      "name": "Longueur des grains",
+      "subparameters_to_research": "longueur, épaisseur, distribution des tailles",
+      "anticipations_to_design": "temps d’hydratation et homogénéité",
+      "H1_state": "STILL_NOT_MODELED_TO_REAL_Q",
+      "no_imputed_impact": "Do not inject guessed bonus/malus into IC",
+      "evidence_gate": "physical measurement or pre-registered quality outcome, then ablation/calibration"
+    },
+    {
+      "case": "029",
+      "name": "Grains cassés",
+      "subparameters_to_research": "fraction de grains cassés, taille de fragments",
+      "anticipations_to_design": "libération amidon et aspect 104",
+      "H1_state": "STILL_NOT_MODELED_TO_REAL_Q",
+      "no_imputed_impact": "Do not inject guessed bonus/malus into IC",
+      "evidence_gate": "physical measurement or pre-registered quality outcome, then ablation/calibration"
+    },
+    {
+      "case": "030",
+      "name": "Amidon de surface",
+      "subparameters_to_research": "concentration amidon surface, lavage, adhérence",
+      "anticipations_to_design": "séparation des grains 102 via mesures validées",
+      "H1_state": "STILL_NOT_MODELED_TO_REAL_Q",
+      "no_imputed_impact": "Do not inject guessed bonus/malus into IC",
+      "evidence_gate": "physical measurement or pre-registered quality outcome, then ablation/calibration"
+    },
+    {
+      "case": "031",
+      "name": "Impuretés",
+      "subparameters_to_research": "type et taux d’impuretés, risque, tri prévu",
+      "anticipations_to_design": "salubrité 099, aspect 110",
+      "H1_state": "STILL_NOT_MODELED_TO_REAL_Q",
+      "no_imputed_impact": "Do not inject guessed bonus/malus into IC",
+      "evidence_gate": "physical measurement or pre-registered quality outcome, then ablation/calibration"
+    },
+    {
+      "case": "039",
+      "name": "Température ambiante",
+      "subparameters_to_research": "température air, convection, humidité",
+      "anticipations_to_design": "pertes thermiques et évaporation",
+      "H1_state": "STILL_NOT_MODELED_TO_REAL_Q",
+      "no_imputed_impact": "Do not inject guessed bonus/malus into IC",
+      "evidence_gate": "physical measurement or pre-registered quality outcome, then ablation/calibration"
+    },
+    {
+      "case": "049",
+      "name": "Vérifier les portions",
+      "subparameters_to_research": "portion cible, méthode de mesure, précision",
+      "anticipations_to_design": "masse cible et quantité effective 100",
+      "H1_state": "STILL_NOT_MODELED_TO_REAL_Q",
+      "no_imputed_impact": "Do not inject guessed bonus/malus into IC",
+      "evidence_gate": "physical measurement or pre-registered quality outcome, then ablation/calibration"
+    },
+    {
+      "case": "054",
+      "name": "Décider du rinçage",
+      "subparameters_to_research": "décision de rinçage, eau disponible, durée",
+      "anticipations_to_design": "amidon résiduel et humidité initiale",
+      "H1_state": "STILL_NOT_MODELED_TO_REAL_Q",
+      "no_imputed_impact": "Do not inject guessed bonus/malus into IC",
+      "evidence_gate": "physical measurement or pre-registered quality outcome, then ablation/calibration"
+    },
+    {
+      "case": "061",
+      "name": "Ajouter le sel",
+      "subparameters_to_research": "dosage sel prévu, fiabilité exécution",
+      "anticipations_to_design": "goût 108, pas directement Q* actuel",
+      "H1_state": "STILL_NOT_MODELED_TO_REAL_Q",
+      "no_imputed_impact": "Do not inject guessed bonus/malus into IC",
+      "evidence_gate": "physical measurement or pre-registered quality outcome, then ablation/calibration"
+    },
+    {
+      "case": "069",
+      "name": "Maintenir le régime thermique",
+      "subparameters_to_research": "régime thermique prévu, tolérance, stabilité",
+      "anticipations_to_design": "température temporelle et point chaud",
+      "H1_state": "STILL_NOT_MODELED_TO_REAL_Q",
+      "no_imputed_impact": "Do not inject guessed bonus/malus into IC",
+      "evidence_gate": "physical measurement or pre-registered quality outcome, then ablation/calibration"
+    },
+    {
+      "case": "071",
+      "name": "Limiter l’agitation",
+      "subparameters_to_research": "nombre d’agitations, intensité, moment",
+      "anticipations_to_design": "intégrité 104, distribution amidon",
+      "H1_state": "STILL_NOT_MODELED_TO_REAL_Q",
+      "no_imputed_impact": "Do not inject guessed bonus/malus into IC",
+      "evidence_gate": "physical measurement or pre-registered quality outcome, then ablation/calibration"
+    },
+    {
+      "case": "077",
+      "name": "Égrainer",
+      "subparameters_to_research": "outil, moment, force appliquée",
+      "anticipations_to_design": "séparation 102, intégrité 104",
+      "H1_state": "STILL_NOT_MODELED_TO_REAL_Q",
+      "no_imputed_impact": "Do not inject guessed bonus/malus into IC",
+      "evidence_gate": "physical measurement or pre-registered quality outcome, then ablation/calibration"
+    },
+    {
+      "case": "081",
+      "name": "Transférer le riz",
+      "subparameters_to_research": "mode de transfert, distance, durée",
+      "anticipations_to_design": "intégrité et température au service",
+      "H1_state": "STILL_NOT_MODELED_TO_REAL_Q",
+      "no_imputed_impact": "Do not inject guessed bonus/malus into IC",
+      "evidence_gate": "physical measurement or pre-registered quality outcome, then ablation/calibration"
+    },
+    {
+      "case": "082",
+      "name": "Répartir deux portions",
+      "subparameters_to_research": "nombre de portions, masse par portion",
+      "anticipations_to_design": "distribution et quantité 100",
+      "H1_state": "STILL_NOT_MODELED_TO_REAL_Q",
+      "no_imputed_impact": "Do not inject guessed bonus/malus into IC",
+      "evidence_gate": "physical measurement or pre-registered quality outcome, then ablation/calibration"
+    },
+    {
+      "case": "083",
+      "name": "Contrôler la température de service",
+      "subparameters_to_research": "instrument, seuil cible, moment de mesure",
+      "anticipations_to_design": "température service 107",
+      "H1_state": "STILL_NOT_MODELED_TO_REAL_Q",
+      "no_imputed_impact": "Do not inject guessed bonus/malus into IC",
+      "evidence_gate": "physical measurement or pre-registered quality outcome, then ablation/calibration"
+    },
+    {
+      "case": "084",
+      "name": "Limiter le délai",
+      "subparameters_to_research": "temps de maintien, protection thermique",
+      "anticipations_to_design": "qualité 111 et sécurité 099",
+      "H1_state": "STILL_NOT_MODELED_TO_REAL_Q",
+      "no_imputed_impact": "Do not inject guessed bonus/malus into IC",
+      "evidence_gate": "physical measurement or pre-registered quality outcome, then ablation/calibration"
+    },
+    {
+      "case": "085",
+      "name": "Présenter le résultat",
+      "subparameters_to_research": "format et température de présentation",
+      "anticipations_to_design": "aspect 110 et température service 107",
+      "H1_state": "STILL_NOT_MODELED_TO_REAL_Q",
+      "no_imputed_impact": "Do not inject guessed bonus/malus into IC",
+      "evidence_gate": "physical measurement or pre-registered quality outcome, then ablation/calibration"
+    },
+    {
+      "case": "094",
+      "name": "Riz attaché ou brûlé",
+      "subparameters_to_research": "condition probable attache, seuil pré-déclaré, réponse",
+      "anticipations_to_design": "risque zones brûlées 106 avec politique",
+      "H1_state": "STILL_NOT_MODELED_TO_REAL_Q",
+      "no_imputed_impact": "Do not inject guessed bonus/malus into IC",
+      "evidence_gate": "physical measurement or pre-registered quality outcome, then ablation/calibration"
+    },
+    {
+      "case": "098",
+      "name": "Situation non récupérable",
+      "subparameters_to_research": "critères non récupérable, probabilité, décision",
+      "anticipations_to_design": "sécurité 099 et distribution de Q",
+      "H1_state": "STILL_NOT_MODELED_TO_REAL_Q",
+      "no_imputed_impact": "Do not inject guessed bonus/malus into IC",
+      "evidence_gate": "physical measurement or pre-registered quality outcome, then ablation/calibration"
+    }
+  ]
+}
