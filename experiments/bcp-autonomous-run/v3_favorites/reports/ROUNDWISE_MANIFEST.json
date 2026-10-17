@@ -1,0 +1,192 @@
+{
+  "created_utc": "2026-10-17T17:25:31.330151+00:00",
+  "cutoff_exclusive": "2026-10-17",
+  "leagues": {
+    "E0": {
+      "data_quality_warning": "no published_at or available_at proofs; score comparison is retrospective research only",
+      "football_data_cached_rows_prior_to_cutoff": 60,
+      "football_data_rows_unmatched": 0,
+      "matchdays_from_current_backwards": [
+        {
+          "date_range": [
+            "2026-10-17",
+            "2026-10-19"
+          ],
+          "fixtures": 10,
+          "matchday": 7,
+          "statuses": {
+            "ON_OR_AFTER_CUTOFF_NO_RESULTS_ADMITTED": 10
+          }
+        },
+        {
+          "date_range": [
+            "2026-10-10",
+            "2026-10-12"
+          ],
+          "fixtures": 10,
+          "matchday": 6,
+          "statuses": {
+            "CSV_RESULT_ONLY": 10
+          }
+        },
+        {
+          "date_range": [
+            "2026-09-18",
+            "2026-09-20"
+          ],
+          "fixtures": 10,
+          "matchday": 5,
+          "statuses": {
+            "TWO_SOURCE_RESULT_AGREEMENT": 10
+          }
+        },
+        {
+          "date_range": [
+            "2026-09-12",
+            "2026-09-14"
+          ],
+          "fixtures": 10,
+          "matchday": 4,
+          "statuses": {
+            "TWO_SOURCE_RESULT_AGREEMENT": 10
+          }
+        },
+        {
+          "date_range": [
+            "2026-09-04",
+            "2026-09-06"
+          ],
+          "fixtures": 10,
+          "matchday": 3,
+          "statuses": {
+            "TWO_SOURCE_RESULT_AGREEMENT": 10
+          }
+        },
+        {
+          "date_range": [
+            "2026-08-28",
+            "2026-08-31"
+          ],
+          "fixtures": 10,
+          "matchday": 2,
+          "statuses": {
+            "TWO_SOURCE_RESULT_AGREEMENT": 10
+          }
+        },
+        {
+          "date_range": [
+            "2026-08-21",
+            "2026-08-24"
+          ],
+          "fixtures": 10,
+          "matchday": 1,
+          "statuses": {
+            "TWO_SOURCE_RESULT_AGREEMENT": 10
+          }
+        }
+      ],
+      "name": "Premier League",
+      "openfootball_sha256": "bb91f0ab3e8359df163bb9ec98549bfed85e200dd4c32f3bd606b5890d932dd2",
+      "openfootball_total_season_fixtures": 380,
+      "openfootball_url": "https://raw.githubusercontent.com/openfootball/football.json/master/2026-27/en.1.json",
+      "score_conflicts": 0,
+      "two_source_result_agreements": 50,
+      "unmatched_csv_fixtures": []
+    },
+    "I1": {
+      "data_quality_warning": "no published_at or available_at proofs; score comparison is retrospective research only",
+      "football_data_cached_rows_prior_to_cutoff": 60,
+      "football_data_rows_unmatched": 0,
+      "matchdays_from_current_backwards": [
+        {
+          "date_range": [
+            "2026-10-16",
+            "2026-10-19"
+          ],
+          "fixtures": 10,
+          "matchday": 7,
+          "statuses": {
+            "NO_TWO_SOURCE_RESULT": 1,
+            "ON_OR_AFTER_CUTOFF_NO_RESULTS_ADMITTED": 9
+          }
+        },
+        {
+          "date_range": [
+            "2026-10-10",
+            "2026-10-12"
+          ],
+          "fixtures": 10,
+          "matchday": 6,
+          "statuses": {
+            "CSV_RESULT_ONLY": 10
+          }
+        },
+        {
+          "date_range": [
+            "2026-09-18",
+            "2026-09-20"
+          ],
+          "fixtures": 10,
+          "matchday": 5,
+          "statuses": {
+            "TWO_SOURCE_RESULT_AGREEMENT": 10
+          }
+        },
+        {
+          "date_range": [
+            "2026-09-11",
+            "2026-09-14"
+          ],
+          "fixtures": 10,
+          "matchday": 4,
+          "statuses": {
+            "TWO_SOURCE_RESULT_AGREEMENT": 10
+          }
+        },
+        {
+          "date_range": [
+            "2026-09-04",
+            "2026-09-07"
+          ],
+          "fixtures": 10,
+          "matchday": 3,
+          "statuses": {
+            "TWO_SOURCE_RESULT_AGREEMENT": 10
+          }
+        },
+        {
+          "date_range": [
+            "2026-08-28",
+            "2026-08-31"
+          ],
+          "fixtures": 10,
+          "matchday": 2,
+          "statuses": {
+            "TWO_SOURCE_RESULT_AGREEMENT": 10
+          }
+        },
+        {
+          "date_range": [
+            "2026-08-22",
+            "2026-08-24"
+          ],
+          "fixtures": 10,
+          "matchday": 1,
+          "statuses": {
+            "TWO_SOURCE_RESULT_AGREEMENT": 10
+          }
+        }
+      ],
+      "name": "Serie A",
+      "openfootball_sha256": "721a6c220fecb8208287e41401fa2fce652cd23765ce58a39bf98cdaa3d528ad",
+      "openfootball_total_season_fixtures": 380,
+      "openfootball_url": "https://raw.githubusercontent.com/openfootball/football.json/master/2026-27/it.1.json",
+      "score_conflicts": 0,
+      "two_source_result_agreements": 50,
+      "unmatched_csv_fixtures": []
+    }
+  },
+  "note": "OpenFootball JSON and prior Football-Data CSV snapshot. Official links are additional manual spot-check references; not ingested programmatically.",
+  "pilot": "MATRICE_R8_FAVORITES_ROUNDWISE_TWO_LEAGUES",
+  "scientific_status": "RESEARCH_ONLY; NO HISTORIC PIT AVAILABILITY CERTIFICATION"
+}
