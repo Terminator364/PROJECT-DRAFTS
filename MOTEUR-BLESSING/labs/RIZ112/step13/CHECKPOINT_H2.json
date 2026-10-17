@@ -9,8 +9,8 @@
   "mandate": "MANDAT_FINITION_112.md",
   "mandate_active": true,
   "journal": {
-    "events": 73,
-    "head": "4f29307cc1fd6a99db260ccf0577425425b18b3e8666e43e4a3e3dfac96e8827"
+    "events": 74,
+    "head": "ee3f6acdec045c5094c25fd3efaac82d09b4bcfb6a6a95d7ee7e078ed10c2a3b"
   },
   "cases": {
     "catalogued": 112,
@@ -64,10 +64,10 @@
     "copy_food_coefficients": false
   },
   "mirrors": {
-    "github": "H2_PENDING",
-    "drive": "H2_PENDING",
-    "library": "H2_PENDING",
-    "windows": "MBMPC NOT_VERIFIED_IN_H2"
+    "github": "H2_CRITICAL_FILES_PUBLISHED_AND_FETCHED",
+    "drive": "H2_PREFINAL_519852_BYTES_PRIVATE_METADATA_VERIFIED",
+    "library": "H2_PREFINAL_UPLOAD_CONFIRMED",
+    "windows": "NOT_TESTED_OR_SYNCED_H2"
   },
   "drive_initial_v8": {
     "id": "11zabEXKov7S34KNtjX-WljTvTjIsOT5u",
