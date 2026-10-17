@@ -1,0 +1,27 @@
+{
+  "schema": "riz112/step25/checkpoint/v1",
+  "date": "2026-10-17",
+  "stage": 25,
+  "status": "MEASUREMENT_AND_COLLECTION_TOOLS_READY__AWAITING_USER_Q_PROTOCOL_APPROVAL",
+  "user_confirmed_ordinal_priority": [
+    "101",
+    "102"
+  ],
+  "Q_score_formula": null,
+  "user_approved_numeric_weights": null,
+  "protocol_user_approved": false,
+  "real_trials_count": 0,
+  "scientific_ic_percent": null,
+  "user_goals": [
+    "white rice for two people",
+    "tenderness",
+    "separation"
+  ],
+  "measurement_targets": 14,
+  "draft_contract": "step25/PROTOCOLE_Q_MESURES_PROPOSE_NON_APPROUVE.json",
+  "empty_trial_template": "step25/FICHE_VIDE_PRE_POST_T0.json",
+  "gate_zero": "step25/CONTROLE_PRECALIBRATION_ZERO.json",
+  "step25_new_tests_linux": 36,
+  "step25_new_tests_windows": null,
+  "next": "User approval of measurement scales, protocol, and Q decision method before any true Q; true food safety separate, then physical paired trials; no synthetic data masquerading as real."
+}
