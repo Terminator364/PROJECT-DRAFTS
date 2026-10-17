@@ -46,10 +46,7 @@ def audit(raw, cutoff):
         "cutoff_exclusive":cutoff.isoformat(),"pit_certified":False}
 
 def fetch(url):
-    req=urllib.request.Request(url,headers={"User-Agent":"BCP-Research-Prototype-v2"})
-    with urllib.request.urlopen(req,timeout=20) as r: data=r.read(3000001)
-    if len(data)>3000000: raise ValueError("oversized source")
-    return data
+    raise RuntimeError("External CSV polling disabled to comply with Football-Data fair data usage policy; run local_audit.py against cached archives instead.")
 
 def coverage(registry,items):
     report=[]
