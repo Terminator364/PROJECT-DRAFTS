@@ -544,3 +544,22 @@ Le riz sert exclusivement de maquette méthodologique préparant MATRICE **prém
 L'expérience complémentaire de **1 000 scénarios synthétiques** et **18 contre-épreuves** est reproduite à l'identique sous Linux et sur Windows MBMPC (six tests nouveaux PASS). Le ZIP canonique contient **312 fichiers**, **740 937 octets**, un CSV de **1 000 lignes**, rapport détaillé et logiciel V1; archive accessible dans Google Drive `1IUO4XjgmzZvMicoXe75bEGmYxw2aaZBh`. Son SHA-256 `e2251d33182c9bcab167267684b8a6d4a2b5434db98c7e6ab967a01b37be7a93` correspond à l'empreinte PC et au téléchargement Drive indépendant; CRC ZIP PASS; six tests PASS après extraction. L'instantané ZIP contient le journal jusqu'à E127; **E128 et son reçu restent dans le registre GitHub vivant**, sans paradoxe autoréférentiel.
 
 **Résultats démonstratifs** : H3 690 calculs, 310 abstentions, 20 IC_DEMO>=85 %, 664 bilans énergie+eau théoriquement admissibles. **Aucune probabilité vraie de qualité ou de réussite, aucun essai de cuisson, aucune calibration Q : `scientific_ic_percent=null`.** La finalité est l'apprentissage de l'architecture causale **MATRICE pré-match**. Ne pas réclamer de 1 000 cuissons réelles à l'utilisateur pour cette simulation. Preuves et reçus dans `simulations/EXPERIENCE_1000/` et événements E126–E128.
+
+
+### Archive verbatim CTX-0051 / E129 / 2026-10-17
+**Rôle** USER ; **SHA-256 UTF-8** `ca11f8bf6132a9d901c009c994bb013e1c74efda2d541130ba943b2530ca6736` ; **provenance** CURRENT_USER_CONTINUE_SYNC_1000_2026_10_17
+
+````text
+Continue 
+Assure toi que tout est bien sauvgarder et synchro 
+````
+
+### Archive verbatim CTX-0052 / E130 / 2026-10-17
+**Rôle** ASSISTANT ; **SHA-256 UTF-8** `9779aba7aa01c43ad38e4a656bff190fd165addb031a69377752fa6a1dd287ca` ; **provenance** SIM1000_CLOUD_REDOWNLOAD_SHA_CRC_AND_CONTINUITY_VERIFIER_REPAIR
+
+````text
+RIZ112 1000 synthetic scenarios preservation and continuity check 2026-10-17. Source GitHub main current E128/CTX0050 verified against Windows MBMPC; 1000 simulations, 690 H3 computed, 310 H3 abstentions, 20 IC_DEMO>=85, 664 theoretical feasibility, 18 counterfactuals; real IC null. Drive file 1IUO4XjgmzZvMicoXe75bEGmYxw2aaZBh independently re-downloaded and SHA256 e2251d33182c9bcab167267684b8a6d4a2b5434db98c7e6ab967a01b37be7a93, ZIP CRC PASS, 312 members, 740937 bytes. GitHub/Windows register and journal contents JSON semantically identical, only CRLF vs LF differences. Fixed continuity/audit_trail.py verifier compatibility with historical E126/E127 provenance in evidence and mother legacy header, without altering journal history. Windows 6 simulation tests PASS; context check now PASS. Last user request to preserve and sync is CTX0051/E129. Mission concerns methods for MATRICE prematch; no rice real-world accuracy claims.
+````
+
+## Contrôle E130 — archivage et mesure sur PC
+La cohérence JSON des 50 premiers messages de contexte et des 128 événements a été confirmée entre GitHub et Windows, malgré leurs fins de lignes différentes. Le vérificateur accepte maintenant les preuves historiques E126–E127 dans le champ `evidence` et les titres de capture anciens, sans réécrire la chaîne. Avant l'insertion E129/E130 : Cahier mère **84 429 octets / 10 922 mots**, registre contextuel **29 592 octets / 3 374 mots**, journal **78 128 octets / 6 740 mots** sur Windows (critère Unicode `\b\w+(?:[’'-]\w+)*\b`). Les volumes continuent de croître lors des nouvelles captures.
