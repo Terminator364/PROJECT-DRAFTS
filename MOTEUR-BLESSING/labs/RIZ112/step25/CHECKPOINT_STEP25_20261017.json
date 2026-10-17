@@ -22,6 +22,13 @@
   "empty_trial_template": "step25/FICHE_VIDE_PRE_POST_T0.json",
   "gate_zero": "step25/CONTROLE_PRECALIBRATION_ZERO.json",
   "step25_new_tests_linux": 36,
-  "step25_new_tests_windows": null,
-  "next": "User approval of measurement scales, protocol, and Q decision method before any true Q; true food safety separate, then physical paired trials; no synthetic data masquerading as real."
+  "step25_new_tests_windows": 36,
+  "next": "User approval of measurement scales, protocol, and Q decision method before any true Q; true food safety separate, then physical paired trials; no synthetic data masquerading as real.",
+  "windows_replayed_reference_JSON_exactly": true,
+  "windows_python": "3.12.10",
+  "mbm_pc_verified": true,
+  "journal_head": "7cb2ad87b02ed00bf5dc9790e75a2461a6b589d48272f4403750a570e7851f56",
+  "journal_events": 122,
+  "context_entries": 45,
+  "Q_approved": false
 }
