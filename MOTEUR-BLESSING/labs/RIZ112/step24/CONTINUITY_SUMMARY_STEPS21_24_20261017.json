@@ -1,0 +1,20 @@
+{
+  "canonical_resume": "Moteur/continue",
+  "next_step": 25,
+  "last_software_stage": 24,
+  "new_tests": 47,
+  "previous_tests_separate_suites": 546,
+  "total_tests_separate_suites_pending_rerun": 593,
+  "user_priority_ids": [
+    "101",
+    "102"
+  ],
+  "priority_numeric_weights": null,
+  "Q_formula_user_approved": false,
+  "real_trials": 0,
+  "scientific_ic_percent": null,
+  "physical_tested_rubrics": 9,
+  "tested_physical_pairs": 36,
+  "case_A_nonadditive_physical_pairs": 7,
+  "next_action": "Approve real-outcome Q measurement design with user; create actual real pre-T0/post-T0 trial pairs; never infer scientific IC from synthetic demonstrations."
+}
