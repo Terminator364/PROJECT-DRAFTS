@@ -1,0 +1,27 @@
+{
+  "schema": "riz112/step24/verified-pc-cloud-archive/v1",
+  "date": "2026-10-17",
+  "name": "RIZ112_MOTEUR_UNIFIE_STEP24_2026-10-17.zip",
+  "drive_url": "https://drive.google.com/file/d/12MiMCgr0tWiZBFk2JSvsPK6MVHIl5RJ4/view?usp=drivesdk",
+  "drive_file_id": "12MiMCgr0tWiZBFk2JSvsPK6MVHIl5RJ4",
+  "bytes": 650188,
+  "archive_member_count": 286,
+  "sha256_pc": "c7fa993e943cc252e40af7b2cfe3f331a2e2e3b27107c113244515ae7b7e11df",
+  "sha256_pc_G_drive_copy_same": true,
+  "sha256_independent_google_cloud_download": "c7fa993e943cc252e40af7b2cfe3f331a2e2e3b27107c113244515ae7b7e11df",
+  "zip_crc_all_members": "PASS",
+  "checkpoint_stage_inside_archive": 24,
+  "source_journal_count_inside_archive": 119,
+  "source_context_count_inside_archive": 42,
+  "source_resume": "STEP25_USER_Q_MEASUREMENT_APPROVAL_AND_AUTHENTIC_RICE_TRIALS",
+  "verified": {
+    "windows_new_tests_21to24": 47,
+    "linux_new_tests_21to24": 47,
+    "interaction_pair_count": 36,
+    "physical_nonadditive_pair_count_case_A": 7,
+    "windows_launcher": "RIZ-112 - Moteur de riz.lnk → step24/LANCER_RIZ112_STEP24.cmd",
+    "scientific_ic_percent": null,
+    "real_rice_trials": 0
+  },
+  "note": "Archive is a frozen snapshot as of E119; post-archive receipt event is recorded in current Github journal, not recursively in this ZIP. User-approved ordinal priority is not a numerical Q formula."
+}
