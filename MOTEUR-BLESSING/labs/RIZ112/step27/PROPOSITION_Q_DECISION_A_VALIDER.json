@@ -1,0 +1,41 @@
+{
+  "schema": "riz112/step27/quality-decision-candidate/v1",
+  "status": "EXPLICIT_PROPOSAL_NOT_USER_APPROVED",
+  "confirmed_by_user": {
+    "white_rice_for_people": 2,
+    "tier_1": [
+      "101",
+      "102"
+    ],
+    "minimum_Q_if_defined": 85
+  },
+  "proposed_model": "NON_COMPENSATORY_TOP_TIER_WITH_WEIGHTED_SECONDARY_PREVIEW",
+  "proposal_assumptions_not_user_choices": {
+    "tenderness_score_each_location": "ordinal_0_to_4",
+    "tenderness_sampling": [
+      "top",
+      "middle",
+      "bottom"
+    ],
+    "separation_count": "separate_grains / total_identifiable_grains_across_3_samples",
+    "illustrative_weight_tenderness": 0.4,
+    "illustrative_weight_separation": 0.4,
+    "illustrative_weight_taste": 0.1,
+    "illustrative_weight_visual": 0.05,
+    "illustrative_weight_homogeneity": 0.05,
+    "illustrative_very_low_tenderness_gate": "if any regional tenderness <=2, do not call success",
+    "illustrative_separation_gate": "if measured separation ratio < 0.80, do not call success",
+    "illustrative_Q_success_cutoff": 85,
+    "grain_count_denominator": "all_identifiable_grains",
+    "rater_blinding": "recommended; to be agreed",
+    "measurement_delay_minutes": null,
+    "sample_size_grains": null,
+    "safety_gate": "Independent food handling/safety check; Q never certifies edibility"
+  },
+  "proposed_formula_for_human_review_only": "Q_preview = 100*(0.40*mean(tenderness_top_middle_bottom/4) + 0.40*separate_grain_fraction + 0.10*taste/4 + 0.05*appearance/4 + 0.05*homogeneity/4); mandatory safety check separate; primary gates proposed, not approved.",
+  "candidate_Q_preview_executable": false,
+  "Q_score_formula": null,
+  "Q_score_approved": false,
+  "scientific_IC_percent": null,
+  "why_not_final": "User approved primary qualities only, NOT five numeric weights or thresholds; no actual observations."
+}
