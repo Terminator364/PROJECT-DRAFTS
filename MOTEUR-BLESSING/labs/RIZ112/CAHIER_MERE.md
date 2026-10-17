@@ -486,3 +486,25 @@ Step26 archived after verified Windows launcher and 60 new tests: full PC/Drive 
 ### Livraison technique vérifiée après le snapshot Step26
 
 La version du laboratoire **Step26** est testée sur MBMPC (lanceur du Bureau, 36 tests Step25, 24 tests Step26) et localement; les résultats Q proposé et registre 112 sont strictement identiques sous les deux environnements. L'archive PC/Drive `RIZ112_MOTEUR_UNIFIE_STEP26_2026-10-17.zip` a **386 entrées et 1 089 735 octets**, SHA-256 `e6cdd681764692173f95f2e465a5b807a1291bbda3ea913099eb70026792083c`, vérifié par téléchargement indépendant du cloud et CRC ZIP. Une archive portable normalisée de **308 sources**, sans cache Python, possède le SHA-256 `566f900fdcc40c9ac6877ec91d042ca1c7686859dd2f2b930b30dc2930f947fe`. Fichier de preuve : `step26/RECU_ARCHIVE_PC_CLOUD_20261017.json`. Snapshot du ZIP à E122, journal canonique maintenant E123. Q réel **non approuvé**, essais réels **0**, IC scientifique `null`.
+
+
+### Archive verbatim CTX-0047 / E124 / 2026-10-17
+**Rôle** USER ; **SHA-256 UTF-8** `a0bea0ad614aaf84075ef6e6b19abe0c171225fc12ae6cfe640a3575b258ae4c` ; **provenance** user_current_chat_step27_finish_mandate_2026_10_17
+
+````text
+Mais bon on va prendre combien de temps pour celà 
+Finis !
+````
+
+
+### Archive verbatim CTX-0048 / E125 / 2026-10-17
+**Rôle** ASSISTANT ; **SHA-256 UTF-8** `0f6a85151772f5b08a70a754a4f978fa02fad42cfd371710c9d12c7026bdc502` ; **provenance** step27_final_closure_windows_128_tests
+
+````text
+RIZ112 engineering V1 closed on MBMPC. Verified Step21=10, Step22=14, Step23=10, Step24=13, Step25=36, Step26=24, Step27=21: 128 distinct new tests on Windows, all PASS. Step19 and Step20 launchers and tests also PASS. 112 rubric evidence register 9 physical intermediates / 29 plan-resource routes / 14 postT0 targets / 60 unproven physical quality effects, zero empirical causal Q effects, user ordinal priority 101+102 only. Candidate numeric Q published as explicitly unapproved; no authentic cooking trials or scientific calibration; scientific_ic_percent=null. No more arbitrary software steps; physical evidence requires authentic independent rice experiments. GitHub is canonical with Cahier mere and journal. Desktop shortcut updated and launcher run successfully.
+````
+
+
+## Clôture de développement V1 — ordre « Finis ! » du 17 octobre 2026
+
+L'ordre exact est archivé CTX-0047/E124 ; le compte rendu de Windows CTX-0048/E125. Les Steps21–27 ont réussi 128 tests distincts sur Windows MBMPC ; le lanceur final (incluant Step19 et Step20) a été exécuté, et le raccourci Bureau actualisé. Le contrôle `step27/release_gate.py` atteste 112 rôles couverts documentairement, dont 9 mécanismes physiques théoriques, 29 routes de planification, 14 sorties post-T0 et 60 rôles dépourvus de preuve physique d'influence sur Q. Un barème chiffré V1 est uniquement PROPOSÉ dans `step27/PROPOSITION_Q_DECISION_A_VALIDER.json`, sans approbation tacite. Aucune cuisson réelle, aucune prédiction de Q ou IC scientifique calibrée : `scientific_ic_percent=null`. **Arrêt de la numérotation artificielle des étapes** : la V1 logicielle est clôturée, prochaine évolution exclusivement déclenchée par protocole Q validé et données réelles. Le Cahier mère GitHub reste le canon, tandis que les ZIP sont des instantanés datés.
