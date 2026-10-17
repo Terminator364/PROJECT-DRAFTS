@@ -1,0 +1,5 @@
+{
+  "water_density_g_per_ml": {"kind":"ASSUMPTION","value":1.0,"unit":"g/ml","source":"SYNTHETIC_EXAMPLE_NOT_MEASURED","available_at_utc":"2026-10-16T11:00:00Z"},
+  "rice_bulk_density_g_per_ml": {"kind":"ASSUMPTION","value":0.8,"unit":"g/ml","source":"SYNTHETIC_EXAMPLE_NOT_MEASURED","available_at_utc":"2026-10-16T11:00:00Z"},
+  "rinse_volume_planned_ml": {"kind":"ASSUMPTION","value":120.0,"unit":"ml","source":"SYNTHETIC_EXAMPLE_NOT_MEASURED","available_at_utc":"2026-10-16T11:00:00Z"}
+}
