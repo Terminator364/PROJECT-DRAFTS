@@ -1,0 +1,55 @@
+{
+  "schema": "riz112/step27/engineering-release-checkpoint/v1",
+  "date": "2026-10-17",
+  "stage": 27,
+  "status": "SOFTWARE_V1_RELEASE_CANDIDATE__SCIENTIFIC_Q_AND_IC_PENDING_EXTERNAL_VALIDATION",
+  "satisfies_initial_user_goal_fully": false,
+  "milestone": "bounded engineering completion; no more step numbering until new evidence",
+  "lab": "RIZ112",
+  "user_mandate": "Finis !",
+  "user_confirmed_priorities": [
+    "101",
+    "102"
+  ],
+  "Q_numerical_formula_user_approved": false,
+  "Q_candidate": "step27/PROPOSITION_Q_DECISION_A_VALIDER.json",
+  "release_gate": "step27/release_gate.py",
+  "diagnostic_report": "step27/RECU_CLOTURE_INGENIERIE_V1.json",
+  "launcher": "step27/LANCER_CLOTURE_RIZ112_V1_WINDOWS.cmd",
+  "source_of_truth": "MOTEUR-BLESSING/labs/RIZ112/CAHIER_MERE.md",
+  "rubrics": 112,
+  "partition": {
+    "physical_intermediate_theory": 9,
+    "plan_action_routes": 29,
+    "output_labels_post_T0": 14,
+    "effects_not_proven": 60
+  },
+  "test_results": {
+    "step27_local_pass": 21,
+    "step27_windows_pass": null,
+    "historical_suites": {
+      "H3": 309,
+      "Step16": 106,
+      "Step17": 23,
+      "Step18": 32,
+      "Step19": 31,
+      "Step20": 45,
+      "Steps21-24": 47,
+      "Step25": 36,
+      "Step26": 24
+    }
+  },
+  "scientific": {
+    "Q_formula_approved": false,
+    "authentic_rice_trials": 0,
+    "real_empirical_causal_Q_effects_verified": 0,
+    "scientific_ic_percent": null
+  },
+  "blocked_external": [
+    "User approves quality formula, sensory instrument and thresholds",
+    "Observed rice cooking trials with pre-T0 frozen packets and post-T0 labels",
+    "Calibration and independent out-of-sample verification"
+  ],
+  "timeline": "software can close during this session; empirical calibration requires real cooking sessions, cannot promise calendar duration",
+  "integrity": "No fabricated empirical data, no input/output leakage; technical tests do not prove culinary prediction"
+}
