@@ -1,0 +1,1967 @@
+{
+  "schema": "riz112/step26/evidence-ledger-112/v1",
+  "total": 112,
+  "counts": {
+    "NOT_PROVEN_PHYSICAL_Q_EFFECT": 60,
+    "POST_T0_TARGET_ONLY": 14,
+    "PRE_T0_PLAN_RESOURCE_ROUTE_ONLY": 29,
+    "THEORETICAL_PHYSICAL_INTERMEDIATE_ONLY": 9
+  },
+  "reference_synthetic_scenario": "A",
+  "user_priority_tier": [
+    "101",
+    "102"
+  ],
+  "Q_scoring_approved": false,
+  "Q_formula": null,
+  "authentic_rice_trials": 0,
+  "scientific_ic_percent": null,
+  "real_Q_causal_effects_proven": 0,
+  "pairwise_theoretical_interactions_tested": 36,
+  "nonadditive_theoretical_pairs": 7,
+  "note": "Theoretical derivatives/route status, not empirical prediction. NO universal claim of 112 independent nonzero effects.",
+  "rows": [
+    {
+      "rubric": "001",
+      "canonical_name": "Masse de riz disponible",
+      "role_group": "case_inputs",
+      "evidence_category": "THEORETICAL_PHYSICAL_INTERMEDIATE_ONLY",
+      "step17_local_perturbation": "EXECUTED",
+      "step20_response": "STEP20_ASSUMED_PHYSICAL_INTERMEDIATE_RESPONDED",
+      "step19_route_checked": false,
+      "step24_pairwise_physical_checks": 8,
+      "Q_real_causal_effect_verified": false,
+      "scientific_IC_delta_percent": null,
+      "next_test": "Independent paired physical measurements and modeled sensitivity vs actual outcome; quantify uncertainty",
+      "source_refs": [
+        "step17/RAPPORT_112_INFLUENCES_DEMO_20261017.json",
+        "step20/REGISTRE_STEP20_112.json",
+        "step24/INTERACTIONS_36_PHYSIQUES_A.json"
+      ]
+    },
+    {
+      "rubric": "002",
+      "canonical_name": "Eau potable disponible",
+      "role_group": "case_inputs",
+      "evidence_category": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "step17_local_perturbation": "NOT_MEASURED",
+      "step20_response": "STEP17_OR_STEP19_PLAN_OR_UNKNOWN_NO_NEW_Q_CAUSAL_PROOF",
+      "step19_route_checked": false,
+      "step24_pairwise_physical_checks": 0,
+      "Q_real_causal_effect_verified": false,
+      "scientific_IC_delta_percent": null,
+      "next_test": "Determine physical applicability/identifiability from pre-T0 inputs; do not force any IC change",
+      "source_refs": [
+        "step17/RAPPORT_112_INFLUENCES_DEMO_20261017.json",
+        "step20/REGISTRE_STEP20_112.json"
+      ]
+    },
+    {
+      "rubric": "003",
+      "canonical_name": "Sel disponible",
+      "role_group": "case_inputs",
+      "evidence_category": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "step17_local_perturbation": "UNKNOWN_NO_MEASURED_BASELINE__NO_FAKE_ZERO",
+      "step20_response": "STEP17_OR_STEP19_PLAN_OR_UNKNOWN_NO_NEW_Q_CAUSAL_PROOF",
+      "step19_route_checked": false,
+      "step24_pairwise_physical_checks": 0,
+      "Q_real_causal_effect_verified": false,
+      "scientific_IC_delta_percent": null,
+      "next_test": "Determine physical applicability/identifiability from pre-T0 inputs; do not force any IC change",
+      "source_refs": [
+        "step17/RAPPORT_112_INFLUENCES_DEMO_20261017.json",
+        "step20/REGISTRE_STEP20_112.json"
+      ]
+    },
+    {
+      "rubric": "004",
+      "canonical_name": "Matière grasse éventuelle",
+      "role_group": "case_inputs",
+      "evidence_category": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "step17_local_perturbation": "UNKNOWN_NO_MEASURED_BASELINE__NO_FAKE_ZERO",
+      "step20_response": "STEP17_OR_STEP19_PLAN_OR_UNKNOWN_NO_NEW_Q_CAUSAL_PROOF",
+      "step19_route_checked": false,
+      "step24_pairwise_physical_checks": 0,
+      "Q_real_causal_effect_verified": false,
+      "scientific_IC_delta_percent": null,
+      "next_test": "Determine physical applicability/identifiability from pre-T0 inputs; do not force any IC change",
+      "source_refs": [
+        "step17/RAPPORT_112_INFLUENCES_DEMO_20261017.json",
+        "step20/REGISTRE_STEP20_112.json"
+      ]
+    },
+    {
+      "rubric": "005",
+      "canonical_name": "Eau de rinçage disponible",
+      "role_group": "case_inputs",
+      "evidence_category": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "step17_local_perturbation": "NOT_MEASURED",
+      "step20_response": "STEP17_OR_STEP19_PLAN_OR_UNKNOWN_NO_NEW_Q_CAUSAL_PROOF",
+      "step19_route_checked": false,
+      "step24_pairwise_physical_checks": 0,
+      "Q_real_causal_effect_verified": false,
+      "scientific_IC_delta_percent": null,
+      "next_test": "Determine physical applicability/identifiability from pre-T0 inputs; do not force any IC change",
+      "source_refs": [
+        "step17/RAPPORT_112_INFLUENCES_DEMO_20261017.json",
+        "step20/REGISTRE_STEP20_112.json"
+      ]
+    },
+    {
+      "rubric": "006",
+      "canonical_name": "Source d’énergie",
+      "role_group": "case_inputs",
+      "evidence_category": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "step17_local_perturbation": "UNKNOWN_NO_MEASURED_BASELINE__NO_FAKE_ZERO",
+      "step20_response": "STEP17_OR_STEP19_PLAN_OR_UNKNOWN_NO_NEW_Q_CAUSAL_PROOF",
+      "step19_route_checked": false,
+      "step24_pairwise_physical_checks": 0,
+      "Q_real_causal_effect_verified": false,
+      "scientific_IC_delta_percent": null,
+      "next_test": "Determine physical applicability/identifiability from pre-T0 inputs; do not force any IC change",
+      "source_refs": [
+        "step17/RAPPORT_112_INFLUENCES_DEMO_20261017.json",
+        "step20/REGISTRE_STEP20_112.json"
+      ]
+    },
+    {
+      "rubric": "007",
+      "canonical_name": "Fiabilité de la source d’énergie",
+      "role_group": "case_inputs",
+      "evidence_category": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "step17_local_perturbation": "UNKNOWN_NO_MEASURED_BASELINE__NO_FAKE_ZERO",
+      "step20_response": "STEP17_OR_STEP19_PLAN_OR_UNKNOWN_NO_NEW_Q_CAUSAL_PROOF",
+      "step19_route_checked": false,
+      "step24_pairwise_physical_checks": 0,
+      "Q_real_causal_effect_verified": false,
+      "scientific_IC_delta_percent": null,
+      "next_test": "Determine physical applicability/identifiability from pre-T0 inputs; do not force any IC change",
+      "source_refs": [
+        "step17/RAPPORT_112_INFLUENCES_DEMO_20261017.json",
+        "step20/REGISTRE_STEP20_112.json"
+      ]
+    },
+    {
+      "rubric": "008",
+      "canonical_name": "Capacité de la casserole",
+      "role_group": "case_inputs",
+      "evidence_category": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "step17_local_perturbation": "NOT_MEASURED",
+      "step20_response": "STEP17_OR_STEP19_PLAN_OR_UNKNOWN_NO_NEW_Q_CAUSAL_PROOF",
+      "step19_route_checked": false,
+      "step24_pairwise_physical_checks": 0,
+      "Q_real_causal_effect_verified": false,
+      "scientific_IC_delta_percent": null,
+      "next_test": "Determine physical applicability/identifiability from pre-T0 inputs; do not force any IC change",
+      "source_refs": [
+        "step17/RAPPORT_112_INFLUENCES_DEMO_20261017.json",
+        "step20/REGISTRE_STEP20_112.json"
+      ]
+    },
+    {
+      "rubric": "009",
+      "canonical_name": "Diamètre de la casserole",
+      "role_group": "case_inputs",
+      "evidence_category": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "step17_local_perturbation": "UNKNOWN_NO_MEASURED_BASELINE__NO_FAKE_ZERO",
+      "step20_response": "STEP17_OR_STEP19_PLAN_OR_UNKNOWN_NO_NEW_Q_CAUSAL_PROOF",
+      "step19_route_checked": false,
+      "step24_pairwise_physical_checks": 0,
+      "Q_real_causal_effect_verified": false,
+      "scientific_IC_delta_percent": null,
+      "next_test": "Determine physical applicability/identifiability from pre-T0 inputs; do not force any IC change",
+      "source_refs": [
+        "step17/RAPPORT_112_INFLUENCES_DEMO_20261017.json",
+        "step20/REGISTRE_STEP20_112.json"
+      ]
+    },
+    {
+      "rubric": "010",
+      "canonical_name": "Matériau de la casserole",
+      "role_group": "case_inputs",
+      "evidence_category": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "step17_local_perturbation": "UNKNOWN_NO_MEASURED_BASELINE__NO_FAKE_ZERO",
+      "step20_response": "STEP17_OR_STEP19_PLAN_OR_UNKNOWN_NO_NEW_Q_CAUSAL_PROOF",
+      "step19_route_checked": false,
+      "step24_pairwise_physical_checks": 0,
+      "Q_real_causal_effect_verified": false,
+      "scientific_IC_delta_percent": null,
+      "next_test": "Determine physical applicability/identifiability from pre-T0 inputs; do not force any IC change",
+      "source_refs": [
+        "step17/RAPPORT_112_INFLUENCES_DEMO_20261017.json",
+        "step20/REGISTRE_STEP20_112.json"
+      ]
+    },
+    {
+      "rubric": "011",
+      "canonical_name": "Épaisseur du fond",
+      "role_group": "case_inputs",
+      "evidence_category": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "step17_local_perturbation": "UNKNOWN_NO_MEASURED_BASELINE__NO_FAKE_ZERO",
+      "step20_response": "STEP17_OR_STEP19_PLAN_OR_UNKNOWN_NO_NEW_Q_CAUSAL_PROOF",
+      "step19_route_checked": false,
+      "step24_pairwise_physical_checks": 0,
+      "Q_real_causal_effect_verified": false,
+      "scientific_IC_delta_percent": null,
+      "next_test": "Determine physical applicability/identifiability from pre-T0 inputs; do not force any IC change",
+      "source_refs": [
+        "step17/RAPPORT_112_INFLUENCES_DEMO_20261017.json",
+        "step20/REGISTRE_STEP20_112.json"
+      ]
+    },
+    {
+      "rubric": "012",
+      "canonical_name": "État du fond",
+      "role_group": "case_inputs",
+      "evidence_category": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "step17_local_perturbation": "UNKNOWN_NO_MEASURED_BASELINE__NO_FAKE_ZERO",
+      "step20_response": "STEP17_OR_STEP19_PLAN_OR_UNKNOWN_NO_NEW_Q_CAUSAL_PROOF",
+      "step19_route_checked": false,
+      "step24_pairwise_physical_checks": 0,
+      "Q_real_causal_effect_verified": false,
+      "scientific_IC_delta_percent": null,
+      "next_test": "Determine physical applicability/identifiability from pre-T0 inputs; do not force any IC change",
+      "source_refs": [
+        "step17/RAPPORT_112_INFLUENCES_DEMO_20261017.json",
+        "step20/REGISTRE_STEP20_112.json"
+      ]
+    },
+    {
+      "rubric": "013",
+      "canonical_name": "Présence du couvercle",
+      "role_group": "case_inputs",
+      "evidence_category": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "step17_local_perturbation": "NOT_MEASURED",
+      "step20_response": "STEP17_OR_STEP19_PLAN_OR_UNKNOWN_NO_NEW_Q_CAUSAL_PROOF",
+      "step19_route_checked": false,
+      "step24_pairwise_physical_checks": 0,
+      "Q_real_causal_effect_verified": false,
+      "scientific_IC_delta_percent": null,
+      "next_test": "Determine physical applicability/identifiability from pre-T0 inputs; do not force any IC change",
+      "source_refs": [
+        "step17/RAPPORT_112_INFLUENCES_DEMO_20261017.json",
+        "step20/REGISTRE_STEP20_112.json"
+      ]
+    },
+    {
+      "rubric": "014",
+      "canonical_name": "Ajustement du couvercle",
+      "role_group": "case_inputs",
+      "evidence_category": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "step17_local_perturbation": "EXECUTED",
+      "step20_response": "STEP17_OR_STEP19_PLAN_OR_UNKNOWN_NO_NEW_Q_CAUSAL_PROOF",
+      "step19_route_checked": false,
+      "step24_pairwise_physical_checks": 0,
+      "Q_real_causal_effect_verified": false,
+      "scientific_IC_delta_percent": null,
+      "next_test": "Determine physical applicability/identifiability from pre-T0 inputs; do not force any IC change",
+      "source_refs": [
+        "step17/RAPPORT_112_INFLUENCES_DEMO_20261017.json",
+        "step20/REGISTRE_STEP20_112.json"
+      ]
+    },
+    {
+      "rubric": "015",
+      "canonical_name": "Évacuation de la vapeur",
+      "role_group": "case_inputs",
+      "evidence_category": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "step17_local_perturbation": "UNKNOWN_NO_MEASURED_BASELINE__NO_FAKE_ZERO",
+      "step20_response": "STEP17_OR_STEP19_PLAN_OR_UNKNOWN_NO_NEW_Q_CAUSAL_PROOF",
+      "step19_route_checked": false,
+      "step24_pairwise_physical_checks": 0,
+      "Q_real_causal_effect_verified": false,
+      "scientific_IC_delta_percent": null,
+      "next_test": "Determine physical applicability/identifiability from pre-T0 inputs; do not force any IC change",
+      "source_refs": [
+        "step17/RAPPORT_112_INFLUENCES_DEMO_20261017.json",
+        "step20/REGISTRE_STEP20_112.json"
+      ]
+    },
+    {
+      "rubric": "016",
+      "canonical_name": "Type de foyer",
+      "role_group": "case_inputs",
+      "evidence_category": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "step17_local_perturbation": "UNKNOWN_NO_MEASURED_BASELINE__NO_FAKE_ZERO",
+      "step20_response": "STEP17_OR_STEP19_PLAN_OR_UNKNOWN_NO_NEW_Q_CAUSAL_PROOF",
+      "step19_route_checked": false,
+      "step24_pairwise_physical_checks": 0,
+      "Q_real_causal_effect_verified": false,
+      "scientific_IC_delta_percent": null,
+      "next_test": "Determine physical applicability/identifiability from pre-T0 inputs; do not force any IC change",
+      "source_refs": [
+        "step17/RAPPORT_112_INFLUENCES_DEMO_20261017.json",
+        "step20/REGISTRE_STEP20_112.json"
+      ]
+    },
+    {
+      "rubric": "017",
+      "canonical_name": "Réglage de puissance",
+      "role_group": "case_inputs",
+      "evidence_category": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "step17_local_perturbation": "UNKNOWN_NO_MEASURED_BASELINE__NO_FAKE_ZERO",
+      "step20_response": "STEP17_OR_STEP19_PLAN_OR_UNKNOWN_NO_NEW_Q_CAUSAL_PROOF",
+      "step19_route_checked": false,
+      "step24_pairwise_physical_checks": 0,
+      "Q_real_causal_effect_verified": false,
+      "scientific_IC_delta_percent": null,
+      "next_test": "Determine physical applicability/identifiability from pre-T0 inputs; do not force any IC change",
+      "source_refs": [
+        "step17/RAPPORT_112_INFLUENCES_DEMO_20261017.json",
+        "step20/REGISTRE_STEP20_112.json"
+      ]
+    },
+    {
+      "rubric": "018",
+      "canonical_name": "Répartition de la chaleur",
+      "role_group": "case_inputs",
+      "evidence_category": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "step17_local_perturbation": "UNKNOWN_NO_MEASURED_BASELINE__NO_FAKE_ZERO",
+      "step20_response": "STEP17_OR_STEP19_PLAN_OR_UNKNOWN_NO_NEW_Q_CAUSAL_PROOF",
+      "step19_route_checked": false,
+      "step24_pairwise_physical_checks": 0,
+      "Q_real_causal_effect_verified": false,
+      "scientific_IC_delta_percent": null,
+      "next_test": "Determine physical applicability/identifiability from pre-T0 inputs; do not force any IC change",
+      "source_refs": [
+        "step17/RAPPORT_112_INFLUENCES_DEMO_20261017.json",
+        "step20/REGISTRE_STEP20_112.json"
+      ]
+    },
+    {
+      "rubric": "019",
+      "canonical_name": "Balance",
+      "role_group": "case_inputs",
+      "evidence_category": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "step17_local_perturbation": "NOT_MEASURED",
+      "step20_response": "STEP17_OR_STEP19_PLAN_OR_UNKNOWN_NO_NEW_Q_CAUSAL_PROOF",
+      "step19_route_checked": false,
+      "step24_pairwise_physical_checks": 0,
+      "Q_real_causal_effect_verified": false,
+      "scientific_IC_delta_percent": null,
+      "next_test": "Determine physical applicability/identifiability from pre-T0 inputs; do not force any IC change",
+      "source_refs": [
+        "step17/RAPPORT_112_INFLUENCES_DEMO_20261017.json",
+        "step20/REGISTRE_STEP20_112.json"
+      ]
+    },
+    {
+      "rubric": "020",
+      "canonical_name": "Instrument de mesure de l’eau",
+      "role_group": "case_inputs",
+      "evidence_category": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "step17_local_perturbation": "NOT_MEASURED",
+      "step20_response": "STEP17_OR_STEP19_PLAN_OR_UNKNOWN_NO_NEW_Q_CAUSAL_PROOF",
+      "step19_route_checked": false,
+      "step24_pairwise_physical_checks": 0,
+      "Q_real_causal_effect_verified": false,
+      "scientific_IC_delta_percent": null,
+      "next_test": "Determine physical applicability/identifiability from pre-T0 inputs; do not force any IC change",
+      "source_refs": [
+        "step17/RAPPORT_112_INFLUENCES_DEMO_20261017.json",
+        "step20/REGISTRE_STEP20_112.json"
+      ]
+    },
+    {
+      "rubric": "021",
+      "canonical_name": "Passoire",
+      "role_group": "case_inputs",
+      "evidence_category": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "step17_local_perturbation": "NOT_MEASURED",
+      "step20_response": "STEP17_OR_STEP19_PLAN_OR_UNKNOWN_NO_NEW_Q_CAUSAL_PROOF",
+      "step19_route_checked": false,
+      "step24_pairwise_physical_checks": 0,
+      "Q_real_causal_effect_verified": false,
+      "scientific_IC_delta_percent": null,
+      "next_test": "Determine physical applicability/identifiability from pre-T0 inputs; do not force any IC change",
+      "source_refs": [
+        "step17/RAPPORT_112_INFLUENCES_DEMO_20261017.json",
+        "step20/REGISTRE_STEP20_112.json"
+      ]
+    },
+    {
+      "rubric": "022",
+      "canonical_name": "Ustensile pour remuer",
+      "role_group": "case_inputs",
+      "evidence_category": "PRE_T0_PLAN_RESOURCE_ROUTE_ONLY",
+      "step17_local_perturbation": "NOT_MEASURED",
+      "step20_response": "STEP17_OR_STEP19_PLAN_OR_UNKNOWN_NO_NEW_Q_CAUSAL_PROOF",
+      "step19_route_checked": true,
+      "step24_pairwise_physical_checks": 0,
+      "Q_real_causal_effect_verified": false,
+      "scientific_IC_delta_percent": null,
+      "next_test": "Assess whether specified pre-T0 plan alters a verified physical trajectory; log realized action separately after T0",
+      "source_refs": [
+        "step17/RAPPORT_112_INFLUENCES_DEMO_20261017.json",
+        "step20/REGISTRE_STEP20_112.json",
+        "step19/REPORT_30_ROUTES_20261017.json"
+      ]
+    },
+    {
+      "rubric": "023",
+      "canonical_name": "Récipient de service",
+      "role_group": "case_inputs",
+      "evidence_category": "PRE_T0_PLAN_RESOURCE_ROUTE_ONLY",
+      "step17_local_perturbation": "NOT_MEASURED",
+      "step20_response": "STEP17_OR_STEP19_PLAN_OR_UNKNOWN_NO_NEW_Q_CAUSAL_PROOF",
+      "step19_route_checked": true,
+      "step24_pairwise_physical_checks": 0,
+      "Q_real_causal_effect_verified": false,
+      "scientific_IC_delta_percent": null,
+      "next_test": "Assess whether specified pre-T0 plan alters a verified physical trajectory; log realized action separately after T0",
+      "source_refs": [
+        "step17/RAPPORT_112_INFLUENCES_DEMO_20261017.json",
+        "step20/REGISTRE_STEP20_112.json",
+        "step19/REPORT_30_ROUTES_20261017.json"
+      ]
+    },
+    {
+      "rubric": "024",
+      "canonical_name": "Variété",
+      "role_group": "case_inputs",
+      "evidence_category": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "step17_local_perturbation": "NO_PREDECLARED_VALID_ALTERNATIVE_FOR_CATEGORICAL_INPUT",
+      "step20_response": "STEP17_OR_STEP19_PLAN_OR_UNKNOWN_NO_NEW_Q_CAUSAL_PROOF",
+      "step19_route_checked": false,
+      "step24_pairwise_physical_checks": 0,
+      "Q_real_causal_effect_verified": false,
+      "scientific_IC_delta_percent": null,
+      "next_test": "Determine physical applicability/identifiability from pre-T0 inputs; do not force any IC change",
+      "source_refs": [
+        "step17/RAPPORT_112_INFLUENCES_DEMO_20261017.json",
+        "step20/REGISTRE_STEP20_112.json"
+      ]
+    },
+    {
+      "rubric": "025",
+      "canonical_name": "Longueur des grains",
+      "role_group": "case_inputs",
+      "evidence_category": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "step17_local_perturbation": "UNKNOWN_NO_MEASURED_BASELINE__NO_FAKE_ZERO",
+      "step20_response": "STEP17_OR_STEP19_PLAN_OR_UNKNOWN_NO_NEW_Q_CAUSAL_PROOF",
+      "step19_route_checked": false,
+      "step24_pairwise_physical_checks": 0,
+      "Q_real_causal_effect_verified": false,
+      "scientific_IC_delta_percent": null,
+      "next_test": "Determine physical applicability/identifiability from pre-T0 inputs; do not force any IC change",
+      "source_refs": [
+        "step17/RAPPORT_112_INFLUENCES_DEMO_20261017.json",
+        "step20/REGISTRE_STEP20_112.json"
+      ]
+    },
+    {
+      "rubric": "026",
+      "canonical_name": "Traitement du riz",
+      "role_group": "case_inputs",
+      "evidence_category": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "step17_local_perturbation": "UNKNOWN_NO_MEASURED_BASELINE__NO_FAKE_ZERO",
+      "step20_response": "STEP17_OR_STEP19_PLAN_OR_UNKNOWN_NO_NEW_Q_CAUSAL_PROOF",
+      "step19_route_checked": false,
+      "step24_pairwise_physical_checks": 0,
+      "Q_real_causal_effect_verified": false,
+      "scientific_IC_delta_percent": null,
+      "next_test": "Determine physical applicability/identifiability from pre-T0 inputs; do not force any IC change",
+      "source_refs": [
+        "step17/RAPPORT_112_INFLUENCES_DEMO_20261017.json",
+        "step20/REGISTRE_STEP20_112.json"
+      ]
+    },
+    {
+      "rubric": "027",
+      "canonical_name": "Lot et provenance",
+      "role_group": "case_inputs",
+      "evidence_category": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "step17_local_perturbation": "UNKNOWN_NO_MEASURED_BASELINE__NO_FAKE_ZERO",
+      "step20_response": "STEP17_OR_STEP19_PLAN_OR_UNKNOWN_NO_NEW_Q_CAUSAL_PROOF",
+      "step19_route_checked": false,
+      "step24_pairwise_physical_checks": 0,
+      "Q_real_causal_effect_verified": false,
+      "scientific_IC_delta_percent": null,
+      "next_test": "Determine physical applicability/identifiability from pre-T0 inputs; do not force any IC change",
+      "source_refs": [
+        "step17/RAPPORT_112_INFLUENCES_DEMO_20261017.json",
+        "step20/REGISTRE_STEP20_112.json"
+      ]
+    },
+    {
+      "rubric": "028",
+      "canonical_name": "Ancienneté et conservation",
+      "role_group": "case_inputs",
+      "evidence_category": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "step17_local_perturbation": "UNKNOWN_NO_MEASURED_BASELINE__NO_FAKE_ZERO",
+      "step20_response": "STEP17_OR_STEP19_PLAN_OR_UNKNOWN_NO_NEW_Q_CAUSAL_PROOF",
+      "step19_route_checked": false,
+      "step24_pairwise_physical_checks": 0,
+      "Q_real_causal_effect_verified": false,
+      "scientific_IC_delta_percent": null,
+      "next_test": "Determine physical applicability/identifiability from pre-T0 inputs; do not force any IC change",
+      "source_refs": [
+        "step17/RAPPORT_112_INFLUENCES_DEMO_20261017.json",
+        "step20/REGISTRE_STEP20_112.json"
+      ]
+    },
+    {
+      "rubric": "029",
+      "canonical_name": "Grains cassés",
+      "role_group": "case_inputs",
+      "evidence_category": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "step17_local_perturbation": "UNKNOWN_NO_MEASURED_BASELINE__NO_FAKE_ZERO",
+      "step20_response": "STEP17_OR_STEP19_PLAN_OR_UNKNOWN_NO_NEW_Q_CAUSAL_PROOF",
+      "step19_route_checked": false,
+      "step24_pairwise_physical_checks": 0,
+      "Q_real_causal_effect_verified": false,
+      "scientific_IC_delta_percent": null,
+      "next_test": "Determine physical applicability/identifiability from pre-T0 inputs; do not force any IC change",
+      "source_refs": [
+        "step17/RAPPORT_112_INFLUENCES_DEMO_20261017.json",
+        "step20/REGISTRE_STEP20_112.json"
+      ]
+    },
+    {
+      "rubric": "030",
+      "canonical_name": "Amidon de surface",
+      "role_group": "case_inputs",
+      "evidence_category": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "step17_local_perturbation": "EXECUTED",
+      "step20_response": "STEP17_OR_STEP19_PLAN_OR_UNKNOWN_NO_NEW_Q_CAUSAL_PROOF",
+      "step19_route_checked": false,
+      "step24_pairwise_physical_checks": 0,
+      "Q_real_causal_effect_verified": false,
+      "scientific_IC_delta_percent": null,
+      "next_test": "Determine physical applicability/identifiability from pre-T0 inputs; do not force any IC change",
+      "source_refs": [
+        "step17/RAPPORT_112_INFLUENCES_DEMO_20261017.json",
+        "step20/REGISTRE_STEP20_112.json"
+      ]
+    },
+    {
+      "rubric": "031",
+      "canonical_name": "Impuretés",
+      "role_group": "case_inputs",
+      "evidence_category": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "step17_local_perturbation": "UNKNOWN_NO_MEASURED_BASELINE__NO_FAKE_ZERO",
+      "step20_response": "STEP17_OR_STEP19_PLAN_OR_UNKNOWN_NO_NEW_Q_CAUSAL_PROOF",
+      "step19_route_checked": false,
+      "step24_pairwise_physical_checks": 0,
+      "Q_real_causal_effect_verified": false,
+      "scientific_IC_delta_percent": null,
+      "next_test": "Determine physical applicability/identifiability from pre-T0 inputs; do not force any IC change",
+      "source_refs": [
+        "step17/RAPPORT_112_INFLUENCES_DEMO_20261017.json",
+        "step20/REGISTRE_STEP20_112.json"
+      ]
+    },
+    {
+      "rubric": "032",
+      "canonical_name": "Humidité initiale",
+      "role_group": "case_inputs",
+      "evidence_category": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "step17_local_perturbation": "UNKNOWN_NO_MEASURED_BASELINE__NO_FAKE_ZERO",
+      "step20_response": "STEP17_OR_STEP19_PLAN_OR_UNKNOWN_NO_NEW_Q_CAUSAL_PROOF",
+      "step19_route_checked": false,
+      "step24_pairwise_physical_checks": 0,
+      "Q_real_causal_effect_verified": false,
+      "scientific_IC_delta_percent": null,
+      "next_test": "Determine physical applicability/identifiability from pre-T0 inputs; do not force any IC change",
+      "source_refs": [
+        "step17/RAPPORT_112_INFLUENCES_DEMO_20261017.json",
+        "step20/REGISTRE_STEP20_112.json"
+      ]
+    },
+    {
+      "rubric": "033",
+      "canonical_name": "Capacité et vitesse d’absorption",
+      "role_group": "case_inputs",
+      "evidence_category": "THEORETICAL_PHYSICAL_INTERMEDIATE_ONLY",
+      "step17_local_perturbation": "EXECUTED",
+      "step20_response": "STEP20_ASSUMED_PHYSICAL_INTERMEDIATE_RESPONDED",
+      "step19_route_checked": false,
+      "step24_pairwise_physical_checks": 8,
+      "Q_real_causal_effect_verified": false,
+      "scientific_IC_delta_percent": null,
+      "next_test": "Independent paired physical measurements and modeled sensitivity vs actual outcome; quantify uncertainty",
+      "source_refs": [
+        "step17/RAPPORT_112_INFLUENCES_DEMO_20261017.json",
+        "step20/REGISTRE_STEP20_112.json",
+        "step24/INTERACTIONS_36_PHYSIQUES_A.json"
+      ]
+    },
+    {
+      "rubric": "034",
+      "canonical_name": "Comportement à la gélatinisation",
+      "role_group": "case_inputs",
+      "evidence_category": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "step17_local_perturbation": "EXECUTED",
+      "step20_response": "STEP17_OR_STEP19_PLAN_OR_UNKNOWN_NO_NEW_Q_CAUSAL_PROOF",
+      "step19_route_checked": false,
+      "step24_pairwise_physical_checks": 0,
+      "Q_real_causal_effect_verified": false,
+      "scientific_IC_delta_percent": null,
+      "next_test": "Determine physical applicability/identifiability from pre-T0 inputs; do not force any IC change",
+      "source_refs": [
+        "step17/RAPPORT_112_INFLUENCES_DEMO_20261017.json",
+        "step20/REGISTRE_STEP20_112.json"
+      ]
+    },
+    {
+      "rubric": "035",
+      "canonical_name": "Eau ajoutée",
+      "role_group": "case_inputs",
+      "evidence_category": "THEORETICAL_PHYSICAL_INTERMEDIATE_ONLY",
+      "step17_local_perturbation": "EXECUTED",
+      "step20_response": "STEP20_ASSUMED_PHYSICAL_INTERMEDIATE_RESPONDED",
+      "step19_route_checked": true,
+      "step24_pairwise_physical_checks": 8,
+      "Q_real_causal_effect_verified": false,
+      "scientific_IC_delta_percent": null,
+      "next_test": "Independent paired physical measurements and modeled sensitivity vs actual outcome; quantify uncertainty",
+      "source_refs": [
+        "step17/RAPPORT_112_INFLUENCES_DEMO_20261017.json",
+        "step20/REGISTRE_STEP20_112.json",
+        "step19/REPORT_30_ROUTES_20261017.json",
+        "step24/INTERACTIONS_36_PHYSIQUES_A.json"
+      ]
+    },
+    {
+      "rubric": "036",
+      "canonical_name": "Eau résiduelle après rinçage",
+      "role_group": "case_inputs",
+      "evidence_category": "THEORETICAL_PHYSICAL_INTERMEDIATE_ONLY",
+      "step17_local_perturbation": "EXECUTED",
+      "step20_response": "STEP20_ASSUMED_PHYSICAL_INTERMEDIATE_RESPONDED",
+      "step19_route_checked": false,
+      "step24_pairwise_physical_checks": 8,
+      "Q_real_causal_effect_verified": false,
+      "scientific_IC_delta_percent": null,
+      "next_test": "Independent paired physical measurements and modeled sensitivity vs actual outcome; quantify uncertainty",
+      "source_refs": [
+        "step17/RAPPORT_112_INFLUENCES_DEMO_20261017.json",
+        "step20/REGISTRE_STEP20_112.json",
+        "step24/INTERACTIONS_36_PHYSIQUES_A.json"
+      ]
+    },
+    {
+      "rubric": "037",
+      "canonical_name": "Température initiale de l’eau",
+      "role_group": "case_inputs",
+      "evidence_category": "THEORETICAL_PHYSICAL_INTERMEDIATE_ONLY",
+      "step17_local_perturbation": "EXECUTED",
+      "step20_response": "STEP20_ASSUMED_PHYSICAL_INTERMEDIATE_RESPONDED",
+      "step19_route_checked": false,
+      "step24_pairwise_physical_checks": 8,
+      "Q_real_causal_effect_verified": false,
+      "scientific_IC_delta_percent": null,
+      "next_test": "Independent paired physical measurements and modeled sensitivity vs actual outcome; quantify uncertainty",
+      "source_refs": [
+        "step17/RAPPORT_112_INFLUENCES_DEMO_20261017.json",
+        "step20/REGISTRE_STEP20_112.json",
+        "step24/INTERACTIONS_36_PHYSIQUES_A.json"
+      ]
+    },
+    {
+      "rubric": "038",
+      "canonical_name": "Température initiale du riz",
+      "role_group": "case_inputs",
+      "evidence_category": "THEORETICAL_PHYSICAL_INTERMEDIATE_ONLY",
+      "step17_local_perturbation": "EXECUTED",
+      "step20_response": "STEP20_ASSUMED_PHYSICAL_INTERMEDIATE_RESPONDED",
+      "step19_route_checked": false,
+      "step24_pairwise_physical_checks": 8,
+      "Q_real_causal_effect_verified": false,
+      "scientific_IC_delta_percent": null,
+      "next_test": "Independent paired physical measurements and modeled sensitivity vs actual outcome; quantify uncertainty",
+      "source_refs": [
+        "step17/RAPPORT_112_INFLUENCES_DEMO_20261017.json",
+        "step20/REGISTRE_STEP20_112.json",
+        "step24/INTERACTIONS_36_PHYSIQUES_A.json"
+      ]
+    },
+    {
+      "rubric": "039",
+      "canonical_name": "Température ambiante",
+      "role_group": "case_inputs",
+      "evidence_category": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "step17_local_perturbation": "NOT_MEASURED",
+      "step20_response": "STEP17_OR_STEP19_PLAN_OR_UNKNOWN_NO_NEW_Q_CAUSAL_PROOF",
+      "step19_route_checked": false,
+      "step24_pairwise_physical_checks": 0,
+      "Q_real_causal_effect_verified": false,
+      "scientific_IC_delta_percent": null,
+      "next_test": "Determine physical applicability/identifiability from pre-T0 inputs; do not force any IC change",
+      "source_refs": [
+        "step17/RAPPORT_112_INFLUENCES_DEMO_20261017.json",
+        "step20/REGISTRE_STEP20_112.json"
+      ]
+    },
+    {
+      "rubric": "040",
+      "canonical_name": "Altitude et pression",
+      "role_group": "case_inputs",
+      "evidence_category": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "step17_local_perturbation": "UNKNOWN_NO_MEASURED_BASELINE__NO_FAKE_ZERO",
+      "step20_response": "STEP17_OR_STEP19_PLAN_OR_UNKNOWN_NO_NEW_Q_CAUSAL_PROOF",
+      "step19_route_checked": false,
+      "step24_pairwise_physical_checks": 0,
+      "Q_real_causal_effect_verified": false,
+      "scientific_IC_delta_percent": null,
+      "next_test": "Determine physical applicability/identifiability from pre-T0 inputs; do not force any IC change",
+      "source_refs": [
+        "step17/RAPPORT_112_INFLUENCES_DEMO_20261017.json",
+        "step20/REGISTRE_STEP20_112.json"
+      ]
+    },
+    {
+      "rubric": "041",
+      "canonical_name": "Puissance choisie",
+      "role_group": "case_inputs",
+      "evidence_category": "THEORETICAL_PHYSICAL_INTERMEDIATE_ONLY",
+      "step17_local_perturbation": "EXECUTED",
+      "step20_response": "STEP20_ASSUMED_PHYSICAL_INTERMEDIATE_RESPONDED",
+      "step19_route_checked": false,
+      "step24_pairwise_physical_checks": 8,
+      "Q_real_causal_effect_verified": false,
+      "scientific_IC_delta_percent": null,
+      "next_test": "Independent paired physical measurements and modeled sensitivity vs actual outcome; quantify uncertainty",
+      "source_refs": [
+        "step17/RAPPORT_112_INFLUENCES_DEMO_20261017.json",
+        "step20/REGISTRE_STEP20_112.json",
+        "step24/INTERACTIONS_36_PHYSIQUES_A.json"
+      ]
+    },
+    {
+      "rubric": "042",
+      "canonical_name": "Transfert thermique",
+      "role_group": "case_inputs",
+      "evidence_category": "THEORETICAL_PHYSICAL_INTERMEDIATE_ONLY",
+      "step17_local_perturbation": "EXECUTED",
+      "step20_response": "STEP20_ASSUMED_PHYSICAL_INTERMEDIATE_RESPONDED",
+      "step19_route_checked": false,
+      "step24_pairwise_physical_checks": 8,
+      "Q_real_causal_effect_verified": false,
+      "scientific_IC_delta_percent": null,
+      "next_test": "Independent paired physical measurements and modeled sensitivity vs actual outcome; quantify uncertainty",
+      "source_refs": [
+        "step17/RAPPORT_112_INFLUENCES_DEMO_20261017.json",
+        "step20/REGISTRE_STEP20_112.json",
+        "step24/INTERACTIONS_36_PHYSIQUES_A.json"
+      ]
+    },
+    {
+      "rubric": "043",
+      "canonical_name": "Moment d’ébullition",
+      "role_group": "derived",
+      "evidence_category": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "step17_local_perturbation": "NOT_MEASURED",
+      "step20_response": "STEP17_OR_STEP19_PLAN_OR_UNKNOWN_NO_NEW_Q_CAUSAL_PROOF",
+      "step19_route_checked": false,
+      "step24_pairwise_physical_checks": 0,
+      "Q_real_causal_effect_verified": false,
+      "scientific_IC_delta_percent": null,
+      "next_test": "Determine physical applicability/identifiability from pre-T0 inputs; do not force any IC change",
+      "source_refs": [
+        "step17/RAPPORT_112_INFLUENCES_DEMO_20261017.json",
+        "step20/REGISTRE_STEP20_112.json"
+      ]
+    },
+    {
+      "rubric": "044",
+      "canonical_name": "Stabilité du frémissement",
+      "role_group": "derived",
+      "evidence_category": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "step17_local_perturbation": "NOT_MEASURED",
+      "step20_response": "STEP17_OR_STEP19_PLAN_OR_UNKNOWN_NO_NEW_Q_CAUSAL_PROOF",
+      "step19_route_checked": false,
+      "step24_pairwise_physical_checks": 0,
+      "Q_real_causal_effect_verified": false,
+      "scientific_IC_delta_percent": null,
+      "next_test": "Determine physical applicability/identifiability from pre-T0 inputs; do not force any IC change",
+      "source_refs": [
+        "step17/RAPPORT_112_INFLUENCES_DEMO_20261017.json",
+        "step20/REGISTRE_STEP20_112.json"
+      ]
+    },
+    {
+      "rubric": "045",
+      "canonical_name": "Évaporation estimée",
+      "role_group": "case_inputs",
+      "evidence_category": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "step17_local_perturbation": "EXECUTED",
+      "step20_response": "STEP17_OR_STEP19_PLAN_OR_UNKNOWN_NO_NEW_Q_CAUSAL_PROOF",
+      "step19_route_checked": false,
+      "step24_pairwise_physical_checks": 0,
+      "Q_real_causal_effect_verified": false,
+      "scientific_IC_delta_percent": null,
+      "next_test": "Determine physical applicability/identifiability from pre-T0 inputs; do not force any IC change",
+      "source_refs": [
+        "step17/RAPPORT_112_INFLUENCES_DEMO_20261017.json",
+        "step20/REGISTRE_STEP20_112.json"
+      ]
+    },
+    {
+      "rubric": "046",
+      "canonical_name": "Fuites de vapeur",
+      "role_group": "derived",
+      "evidence_category": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "step17_local_perturbation": "NOT_MEASURED",
+      "step20_response": "STEP17_OR_STEP19_PLAN_OR_UNKNOWN_NO_NEW_Q_CAUSAL_PROOF",
+      "step19_route_checked": false,
+      "step24_pairwise_physical_checks": 0,
+      "Q_real_causal_effect_verified": false,
+      "scientific_IC_delta_percent": null,
+      "next_test": "Determine physical applicability/identifiability from pre-T0 inputs; do not force any IC change",
+      "source_refs": [
+        "step17/RAPPORT_112_INFLUENCES_DEMO_20261017.json",
+        "step20/REGISTRE_STEP20_112.json"
+      ]
+    },
+    {
+      "rubric": "047",
+      "canonical_name": "Durée de cuisson envisagée",
+      "role_group": "case_inputs",
+      "evidence_category": "THEORETICAL_PHYSICAL_INTERMEDIATE_ONLY",
+      "step17_local_perturbation": "EXECUTED",
+      "step20_response": "STEP20_ASSUMED_PHYSICAL_INTERMEDIATE_RESPONDED",
+      "step19_route_checked": false,
+      "step24_pairwise_physical_checks": 8,
+      "Q_real_causal_effect_verified": false,
+      "scientific_IC_delta_percent": null,
+      "next_test": "Independent paired physical measurements and modeled sensitivity vs actual outcome; quantify uncertainty",
+      "source_refs": [
+        "step17/RAPPORT_112_INFLUENCES_DEMO_20261017.json",
+        "step20/REGISTRE_STEP20_112.json",
+        "step24/INTERACTIONS_36_PHYSIQUES_A.json"
+      ]
+    },
+    {
+      "rubric": "048",
+      "canonical_name": "Bilan hydrique prévisionnel",
+      "role_group": "derived",
+      "evidence_category": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "step17_local_perturbation": "NOT_MEASURED",
+      "step20_response": "STEP17_OR_STEP19_PLAN_OR_UNKNOWN_NO_NEW_Q_CAUSAL_PROOF",
+      "step19_route_checked": false,
+      "step24_pairwise_physical_checks": 0,
+      "Q_real_causal_effect_verified": false,
+      "scientific_IC_delta_percent": null,
+      "next_test": "Determine physical applicability/identifiability from pre-T0 inputs; do not force any IC change",
+      "source_refs": [
+        "step17/RAPPORT_112_INFLUENCES_DEMO_20261017.json",
+        "step20/REGISTRE_STEP20_112.json"
+      ]
+    },
+    {
+      "rubric": "049",
+      "canonical_name": "Vérifier les portions",
+      "role_group": "action_plans",
+      "evidence_category": "PRE_T0_PLAN_RESOURCE_ROUTE_ONLY",
+      "step17_local_perturbation": "NOT_MEASURED",
+      "step20_response": "STEP17_OR_STEP19_PLAN_OR_UNKNOWN_NO_NEW_Q_CAUSAL_PROOF",
+      "step19_route_checked": true,
+      "step24_pairwise_physical_checks": 0,
+      "Q_real_causal_effect_verified": false,
+      "scientific_IC_delta_percent": null,
+      "next_test": "Assess whether specified pre-T0 plan alters a verified physical trajectory; log realized action separately after T0",
+      "source_refs": [
+        "step17/RAPPORT_112_INFLUENCES_DEMO_20261017.json",
+        "step20/REGISTRE_STEP20_112.json",
+        "step19/REPORT_30_ROUTES_20261017.json"
+      ]
+    },
+    {
+      "rubric": "050",
+      "canonical_name": "Peser le riz",
+      "role_group": "action_plans",
+      "evidence_category": "PRE_T0_PLAN_RESOURCE_ROUTE_ONLY",
+      "step17_local_perturbation": "NOT_MEASURED",
+      "step20_response": "STEP17_OR_STEP19_PLAN_OR_UNKNOWN_NO_NEW_Q_CAUSAL_PROOF",
+      "step19_route_checked": true,
+      "step24_pairwise_physical_checks": 0,
+      "Q_real_causal_effect_verified": false,
+      "scientific_IC_delta_percent": null,
+      "next_test": "Assess whether specified pre-T0 plan alters a verified physical trajectory; log realized action separately after T0",
+      "source_refs": [
+        "step17/RAPPORT_112_INFLUENCES_DEMO_20261017.json",
+        "step20/REGISTRE_STEP20_112.json",
+        "step19/REPORT_30_ROUTES_20261017.json"
+      ]
+    },
+    {
+      "rubric": "051",
+      "canonical_name": "Trier et inspecter",
+      "role_group": "action_plans",
+      "evidence_category": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "step17_local_perturbation": "UNKNOWN_PLANNED_ACTION__DO_NOT_INVENT_ACTION",
+      "step20_response": "STEP17_OR_STEP19_PLAN_OR_UNKNOWN_NO_NEW_Q_CAUSAL_PROOF",
+      "step19_route_checked": false,
+      "step24_pairwise_physical_checks": 0,
+      "Q_real_causal_effect_verified": false,
+      "scientific_IC_delta_percent": null,
+      "next_test": "Determine physical applicability/identifiability from pre-T0 inputs; do not force any IC change",
+      "source_refs": [
+        "step17/RAPPORT_112_INFLUENCES_DEMO_20261017.json",
+        "step20/REGISTRE_STEP20_112.json"
+      ]
+    },
+    {
+      "rubric": "052",
+      "canonical_name": "Choisir la méthode",
+      "role_group": "action_plans",
+      "evidence_category": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "step17_local_perturbation": "UNKNOWN_PLANNED_ACTION__DO_NOT_INVENT_ACTION",
+      "step20_response": "STEP17_OR_STEP19_PLAN_OR_UNKNOWN_NO_NEW_Q_CAUSAL_PROOF",
+      "step19_route_checked": false,
+      "step24_pairwise_physical_checks": 0,
+      "Q_real_causal_effect_verified": false,
+      "scientific_IC_delta_percent": null,
+      "next_test": "Determine physical applicability/identifiability from pre-T0 inputs; do not force any IC change",
+      "source_refs": [
+        "step17/RAPPORT_112_INFLUENCES_DEMO_20261017.json",
+        "step20/REGISTRE_STEP20_112.json"
+      ]
+    },
+    {
+      "rubric": "053",
+      "canonical_name": "Préparer le dosage initial",
+      "role_group": "action_plans",
+      "evidence_category": "PRE_T0_PLAN_RESOURCE_ROUTE_ONLY",
+      "step17_local_perturbation": "NOT_MEASURED",
+      "step20_response": "STEP17_OR_STEP19_PLAN_OR_UNKNOWN_NO_NEW_Q_CAUSAL_PROOF",
+      "step19_route_checked": true,
+      "step24_pairwise_physical_checks": 0,
+      "Q_real_causal_effect_verified": false,
+      "scientific_IC_delta_percent": null,
+      "next_test": "Assess whether specified pre-T0 plan alters a verified physical trajectory; log realized action separately after T0",
+      "source_refs": [
+        "step17/RAPPORT_112_INFLUENCES_DEMO_20261017.json",
+        "step20/REGISTRE_STEP20_112.json",
+        "step19/REPORT_30_ROUTES_20261017.json"
+      ]
+    },
+    {
+      "rubric": "054",
+      "canonical_name": "Décider du rinçage",
+      "role_group": "action_plans",
+      "evidence_category": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "step17_local_perturbation": "NOT_MEASURED",
+      "step20_response": "STEP17_OR_STEP19_PLAN_OR_UNKNOWN_NO_NEW_Q_CAUSAL_PROOF",
+      "step19_route_checked": false,
+      "step24_pairwise_physical_checks": 0,
+      "Q_real_causal_effect_verified": false,
+      "scientific_IC_delta_percent": null,
+      "next_test": "Determine physical applicability/identifiability from pre-T0 inputs; do not force any IC change",
+      "source_refs": [
+        "step17/RAPPORT_112_INFLUENCES_DEMO_20261017.json",
+        "step20/REGISTRE_STEP20_112.json"
+      ]
+    },
+    {
+      "rubric": "055",
+      "canonical_name": "Premier rinçage",
+      "role_group": "action_plans",
+      "evidence_category": "PRE_T0_PLAN_RESOURCE_ROUTE_ONLY",
+      "step17_local_perturbation": "NOT_MEASURED",
+      "step20_response": "STEP17_OR_STEP19_PLAN_OR_UNKNOWN_NO_NEW_Q_CAUSAL_PROOF",
+      "step19_route_checked": true,
+      "step24_pairwise_physical_checks": 0,
+      "Q_real_causal_effect_verified": false,
+      "scientific_IC_delta_percent": null,
+      "next_test": "Assess whether specified pre-T0 plan alters a verified physical trajectory; log realized action separately after T0",
+      "source_refs": [
+        "step17/RAPPORT_112_INFLUENCES_DEMO_20261017.json",
+        "step20/REGISTRE_STEP20_112.json",
+        "step19/REPORT_30_ROUTES_20261017.json"
+      ]
+    },
+    {
+      "rubric": "056",
+      "canonical_name": "Rinçage complémentaire",
+      "role_group": "action_plans",
+      "evidence_category": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "step17_local_perturbation": "UNKNOWN_PLANNED_ACTION__DO_NOT_INVENT_ACTION",
+      "step20_response": "STEP17_OR_STEP19_PLAN_OR_UNKNOWN_NO_NEW_Q_CAUSAL_PROOF",
+      "step19_route_checked": false,
+      "step24_pairwise_physical_checks": 0,
+      "Q_real_causal_effect_verified": false,
+      "scientific_IC_delta_percent": null,
+      "next_test": "Determine physical applicability/identifiability from pre-T0 inputs; do not force any IC change",
+      "source_refs": [
+        "step17/RAPPORT_112_INFLUENCES_DEMO_20261017.json",
+        "step20/REGISTRE_STEP20_112.json"
+      ]
+    },
+    {
+      "rubric": "057",
+      "canonical_name": "Égouttage",
+      "role_group": "action_plans",
+      "evidence_category": "PRE_T0_PLAN_RESOURCE_ROUTE_ONLY",
+      "step17_local_perturbation": "NOT_MEASURED",
+      "step20_response": "STEP17_OR_STEP19_PLAN_OR_UNKNOWN_NO_NEW_Q_CAUSAL_PROOF",
+      "step19_route_checked": true,
+      "step24_pairwise_physical_checks": 0,      "Q_real_causal_effect_verified": false,
+      "scientific_IC_delta_percent": null,
+      "next_test": "Assess whether specified pre-T0 plan alters a verified physical trajectory; log realized action separately after T0",
+      "source_refs": [
+        "step17/RAPPORT_112_INFLUENCES_DEMO_20261017.json",
+        "step20/REGISTRE_STEP20_112.json",
+        "step19/REPORT_30_ROUTES_20261017.json"
+      ]
+    },
+    {
+      "rubric": "058",
+      "canonical_name": "Évaluer l’eau retenue",
+      "role_group": "action_plans",
+      "evidence_category": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "step17_local_perturbation": "UNKNOWN_PLANNED_ACTION__DO_NOT_INVENT_ACTION",
+      "step20_response": "STEP17_OR_STEP19_PLAN_OR_UNKNOWN_NO_NEW_Q_CAUSAL_PROOF",
+      "step19_route_checked": false,
+      "step24_pairwise_physical_checks": 0,
+      "Q_real_causal_effect_verified": false,
+      "scientific_IC_delta_percent": null,
+      "next_test": "Determine physical applicability/identifiability from pre-T0 inputs; do not force any IC change",
+      "source_refs": [
+        "step17/RAPPORT_112_INFLUENCES_DEMO_20261017.json",
+        "step20/REGISTRE_STEP20_112.json"
+      ]
+    },
+    {
+      "rubric": "059",
+      "canonical_name": "Mettre le riz dans la casserole",
+      "role_group": "action_plans",
+      "evidence_category": "PRE_T0_PLAN_RESOURCE_ROUTE_ONLY",
+      "step17_local_perturbation": "NOT_MEASURED",
+      "step20_response": "STEP17_OR_STEP19_PLAN_OR_UNKNOWN_NO_NEW_Q_CAUSAL_PROOF",
+      "step19_route_checked": true,
+      "step24_pairwise_physical_checks": 0,
+      "Q_real_causal_effect_verified": false,
+      "scientific_IC_delta_percent": null,
+      "next_test": "Assess whether specified pre-T0 plan alters a verified physical trajectory; log realized action separately after T0",
+      "source_refs": [
+        "step17/RAPPORT_112_INFLUENCES_DEMO_20261017.json",
+        "step20/REGISTRE_STEP20_112.json",
+        "step19/REPORT_30_ROUTES_20261017.json"
+      ]
+    },
+    {
+      "rubric": "060",
+      "canonical_name": "Ajouter l’eau",
+      "role_group": "action_plans",
+      "evidence_category": "PRE_T0_PLAN_RESOURCE_ROUTE_ONLY",
+      "step17_local_perturbation": "NOT_MEASURED",
+      "step20_response": "STEP17_OR_STEP19_PLAN_OR_UNKNOWN_NO_NEW_Q_CAUSAL_PROOF",
+      "step19_route_checked": true,
+      "step24_pairwise_physical_checks": 0,
+      "Q_real_causal_effect_verified": false,
+      "scientific_IC_delta_percent": null,
+      "next_test": "Assess whether specified pre-T0 plan alters a verified physical trajectory; log realized action separately after T0",
+      "source_refs": [
+        "step17/RAPPORT_112_INFLUENCES_DEMO_20261017.json",
+        "step20/REGISTRE_STEP20_112.json",
+        "step19/REPORT_30_ROUTES_20261017.json"
+      ]
+    },
+    {
+      "rubric": "061",
+      "canonical_name": "Ajouter le sel",
+      "role_group": "action_plans",
+      "evidence_category": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "step17_local_perturbation": "UNKNOWN_PLANNED_ACTION__DO_NOT_INVENT_ACTION",
+      "step20_response": "STEP17_OR_STEP19_PLAN_OR_UNKNOWN_NO_NEW_Q_CAUSAL_PROOF",
+      "step19_route_checked": false,
+      "step24_pairwise_physical_checks": 0,
+      "Q_real_causal_effect_verified": false,
+      "scientific_IC_delta_percent": null,
+      "next_test": "Determine physical applicability/identifiability from pre-T0 inputs; do not force any IC change",
+      "source_refs": [
+        "step17/RAPPORT_112_INFLUENCES_DEMO_20261017.json",
+        "step20/REGISTRE_STEP20_112.json"
+      ]
+    },
+    {
+      "rubric": "062",
+      "canonical_name": "Ajouter la matière grasse",
+      "role_group": "action_plans",
+      "evidence_category": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "step17_local_perturbation": "UNKNOWN_PLANNED_ACTION__DO_NOT_INVENT_ACTION",
+      "step20_response": "STEP17_OR_STEP19_PLAN_OR_UNKNOWN_NO_NEW_Q_CAUSAL_PROOF",
+      "step19_route_checked": false,
+      "step24_pairwise_physical_checks": 0,
+      "Q_real_causal_effect_verified": false,
+      "scientific_IC_delta_percent": null,
+      "next_test": "Determine physical applicability/identifiability from pre-T0 inputs; do not force any IC change",
+      "source_refs": [
+        "step17/RAPPORT_112_INFLUENCES_DEMO_20261017.json",
+        "step20/REGISTRE_STEP20_112.json"
+      ]
+    },
+    {
+      "rubric": "063",
+      "canonical_name": "Vérifier la capacité",
+      "role_group": "action_plans",
+      "evidence_category": "PRE_T0_PLAN_RESOURCE_ROUTE_ONLY",
+      "step17_local_perturbation": "NOT_MEASURED",
+      "step20_response": "STEP17_OR_STEP19_PLAN_OR_UNKNOWN_NO_NEW_Q_CAUSAL_PROOF",
+      "step19_route_checked": true,
+      "step24_pairwise_physical_checks": 0,
+      "Q_real_causal_effect_verified": false,
+      "scientific_IC_delta_percent": null,
+      "next_test": "Assess whether specified pre-T0 plan alters a verified physical trajectory; log realized action separately after T0",
+      "source_refs": [
+        "step17/RAPPORT_112_INFLUENCES_DEMO_20261017.json",
+        "step20/REGISTRE_STEP20_112.json",
+        "step19/REPORT_30_ROUTES_20261017.json"
+      ]
+    },
+    {
+      "rubric": "064",
+      "canonical_name": "Positionner le couvercle",
+      "role_group": "action_plans",
+      "evidence_category": "PRE_T0_PLAN_RESOURCE_ROUTE_ONLY",
+      "step17_local_perturbation": "NOT_MEASURED",
+      "step20_response": "STEP17_OR_STEP19_PLAN_OR_UNKNOWN_NO_NEW_Q_CAUSAL_PROOF",
+      "step19_route_checked": true,
+      "step24_pairwise_physical_checks": 0,
+      "Q_real_causal_effect_verified": false,
+      "scientific_IC_delta_percent": null,
+      "next_test": "Assess whether specified pre-T0 plan alters a verified physical trajectory; log realized action separately after T0",
+      "source_refs": [
+        "step17/RAPPORT_112_INFLUENCES_DEMO_20261017.json",
+        "step20/REGISTRE_STEP20_112.json",
+        "step19/REPORT_30_ROUTES_20261017.json"
+      ]
+    },
+    {
+      "rubric": "065",
+      "canonical_name": "Démarrer la chauffe",
+      "role_group": "action_plans",
+      "evidence_category": "PRE_T0_PLAN_RESOURCE_ROUTE_ONLY",
+      "step17_local_perturbation": "NOT_MEASURED",
+      "step20_response": "STEP17_OR_STEP19_PLAN_OR_UNKNOWN_NO_NEW_Q_CAUSAL_PROOF",
+      "step19_route_checked": true,
+      "step24_pairwise_physical_checks": 0,
+      "Q_real_causal_effect_verified": false,
+      "scientific_IC_delta_percent": null,
+      "next_test": "Assess whether specified pre-T0 plan alters a verified physical trajectory; log realized action separately after T0",
+      "source_refs": [
+        "step17/RAPPORT_112_INFLUENCES_DEMO_20261017.json",
+        "step20/REGISTRE_STEP20_112.json",
+        "step19/REPORT_30_ROUTES_20261017.json"
+      ]
+    },
+    {
+      "rubric": "066",
+      "canonical_name": "Amener à ébullition",
+      "role_group": "action_plans",
+      "evidence_category": "PRE_T0_PLAN_RESOURCE_ROUTE_ONLY",
+      "step17_local_perturbation": "NOT_MEASURED",
+      "step20_response": "STEP17_OR_STEP19_PLAN_OR_UNKNOWN_NO_NEW_Q_CAUSAL_PROOF",
+      "step19_route_checked": true,
+      "step24_pairwise_physical_checks": 0,
+      "Q_real_causal_effect_verified": false,
+      "scientific_IC_delta_percent": null,
+      "next_test": "Assess whether specified pre-T0 plan alters a verified physical trajectory; log realized action separately after T0",
+      "source_refs": [
+        "step17/RAPPORT_112_INFLUENCES_DEMO_20261017.json",
+        "step20/REGISTRE_STEP20_112.json",
+        "step19/REPORT_30_ROUTES_20261017.json"
+      ]
+    },
+    {
+      "rubric": "067",
+      "canonical_name": "Observer mousse et débordement",
+      "role_group": "action_plans",
+      "evidence_category": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "step17_local_perturbation": "UNKNOWN_PLANNED_ACTION__DO_NOT_INVENT_ACTION",
+      "step20_response": "STEP17_OR_STEP19_PLAN_OR_UNKNOWN_NO_NEW_Q_CAUSAL_PROOF",
+      "step19_route_checked": false,
+      "step24_pairwise_physical_checks": 0,
+      "Q_real_causal_effect_verified": false,
+      "scientific_IC_delta_percent": null,
+      "next_test": "Determine physical applicability/identifiability from pre-T0 inputs; do not force any IC change",
+      "source_refs": [
+        "step17/RAPPORT_112_INFLUENCES_DEMO_20261017.json",
+        "step20/REGISTRE_STEP20_112.json"
+      ]
+    },
+    {
+      "rubric": "068",
+      "canonical_name": "Réduire le feu et couvrir",
+      "role_group": "action_plans",
+      "evidence_category": "PRE_T0_PLAN_RESOURCE_ROUTE_ONLY",
+      "step17_local_perturbation": "NOT_MEASURED",
+      "step20_response": "STEP17_OR_STEP19_PLAN_OR_UNKNOWN_NO_NEW_Q_CAUSAL_PROOF",
+      "step19_route_checked": true,
+      "step24_pairwise_physical_checks": 0,
+      "Q_real_causal_effect_verified": false,
+      "scientific_IC_delta_percent": null,
+      "next_test": "Assess whether specified pre-T0 plan alters a verified physical trajectory; log realized action separately after T0",
+      "source_refs": [
+        "step17/RAPPORT_112_INFLUENCES_DEMO_20261017.json",
+        "step20/REGISTRE_STEP20_112.json",
+        "step19/REPORT_30_ROUTES_20261017.json"
+      ]
+    },
+    {
+      "rubric": "069",
+      "canonical_name": "Maintenir le régime thermique",
+      "role_group": "action_plans",
+      "evidence_category": "PRE_T0_PLAN_RESOURCE_ROUTE_ONLY",
+      "step17_local_perturbation": "NOT_MEASURED",
+      "step20_response": "STEP17_OR_STEP19_PLAN_OR_UNKNOWN_NO_NEW_Q_CAUSAL_PROOF",
+      "step19_route_checked": true,
+      "step24_pairwise_physical_checks": 0,
+      "Q_real_causal_effect_verified": false,
+      "scientific_IC_delta_percent": null,
+      "next_test": "Assess whether specified pre-T0 plan alters a verified physical trajectory; log realized action separately after T0",
+      "source_refs": [
+        "step17/RAPPORT_112_INFLUENCES_DEMO_20261017.json",
+        "step20/REGISTRE_STEP20_112.json",
+        "step19/REPORT_30_ROUTES_20261017.json"
+      ]
+    },
+    {
+      "rubric": "070",
+      "canonical_name": "Gérer le couvercle",
+      "role_group": "action_plans",
+      "evidence_category": "PRE_T0_PLAN_RESOURCE_ROUTE_ONLY",
+      "step17_local_perturbation": "NOT_MEASURED",
+      "step20_response": "STEP17_OR_STEP19_PLAN_OR_UNKNOWN_NO_NEW_Q_CAUSAL_PROOF",
+      "step19_route_checked": true,
+      "step24_pairwise_physical_checks": 0,
+      "Q_real_causal_effect_verified": false,
+      "scientific_IC_delta_percent": null,
+      "next_test": "Assess whether specified pre-T0 plan alters a verified physical trajectory; log realized action separately after T0",
+      "source_refs": [
+        "step17/RAPPORT_112_INFLUENCES_DEMO_20261017.json",
+        "step20/REGISTRE_STEP20_112.json",
+        "step19/REPORT_30_ROUTES_20261017.json"
+      ]
+    },
+    {
+      "rubric": "071",
+      "canonical_name": "Limiter l’agitation",
+      "role_group": "action_plans",
+      "evidence_category": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "step17_local_perturbation": "UNKNOWN_PLANNED_ACTION__DO_NOT_INVENT_ACTION",
+      "step20_response": "STEP17_OR_STEP19_PLAN_OR_UNKNOWN_NO_NEW_Q_CAUSAL_PROOF",
+      "step19_route_checked": false,
+      "step24_pairwise_physical_checks": 0,
+      "Q_real_causal_effect_verified": false,
+      "scientific_IC_delta_percent": null,
+      "next_test": "Determine physical applicability/identifiability from pre-T0 inputs; do not force any IC change",
+      "source_refs": [
+        "step17/RAPPORT_112_INFLUENCES_DEMO_20261017.json",
+        "step20/REGISTRE_STEP20_112.json"
+      ]
+    },
+    {
+      "rubric": "072",
+      "canonical_name": "Suivre l’hydratation",
+      "role_group": "action_plans",
+      "evidence_category": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "step17_local_perturbation": "UNKNOWN_PLANNED_ACTION__DO_NOT_INVENT_ACTION",
+      "step20_response": "STEP17_OR_STEP19_PLAN_OR_UNKNOWN_NO_NEW_Q_CAUSAL_PROOF",
+      "step19_route_checked": false,
+      "step24_pairwise_physical_checks": 0,
+      "Q_real_causal_effect_verified": false,
+      "scientific_IC_delta_percent": null,
+      "next_test": "Determine physical applicability/identifiability from pre-T0 inputs; do not force any IC change",
+      "source_refs": [
+        "step17/RAPPORT_112_INFLUENCES_DEMO_20261017.json",
+        "step20/REGISTRE_STEP20_112.json"
+      ]
+    },
+    {
+      "rubric": "073",
+      "canonical_name": "Déterminer la fin de chauffe",
+      "role_group": "action_plans",
+      "evidence_category": "PRE_T0_PLAN_RESOURCE_ROUTE_ONLY",
+      "step17_local_perturbation": "NOT_MEASURED",
+      "step20_response": "STEP17_OR_STEP19_PLAN_OR_UNKNOWN_NO_NEW_Q_CAUSAL_PROOF",
+      "step19_route_checked": true,
+      "step24_pairwise_physical_checks": 0,
+      "Q_real_causal_effect_verified": false,
+      "scientific_IC_delta_percent": null,
+      "next_test": "Assess whether specified pre-T0 plan alters a verified physical trajectory; log realized action separately after T0",
+      "source_refs": [
+        "step17/RAPPORT_112_INFLUENCES_DEMO_20261017.json",
+        "step20/REGISTRE_STEP20_112.json",
+        "step19/REPORT_30_ROUTES_20261017.json"
+      ]
+    },
+    {
+      "rubric": "074",
+      "canonical_name": "Couper le feu",
+      "role_group": "action_plans",
+      "evidence_category": "PRE_T0_PLAN_RESOURCE_ROUTE_ONLY",
+      "step17_local_perturbation": "NOT_MEASURED",
+      "step20_response": "STEP17_OR_STEP19_PLAN_OR_UNKNOWN_NO_NEW_Q_CAUSAL_PROOF",
+      "step19_route_checked": true,
+      "step24_pairwise_physical_checks": 0,
+      "Q_real_causal_effect_verified": false,
+      "scientific_IC_delta_percent": null,
+      "next_test": "Assess whether specified pre-T0 plan alters a verified physical trajectory; log realized action separately after T0",
+      "source_refs": [
+        "step17/RAPPORT_112_INFLUENCES_DEMO_20261017.json",
+        "step20/REGISTRE_STEP20_112.json",
+        "step19/REPORT_30_ROUTES_20261017.json"
+      ]
+    },
+    {
+      "rubric": "075",
+      "canonical_name": "Commencer le repos",
+      "role_group": "action_plans",
+      "evidence_category": "PRE_T0_PLAN_RESOURCE_ROUTE_ONLY",
+      "step17_local_perturbation": "NOT_MEASURED",
+      "step20_response": "STEP17_OR_STEP19_PLAN_OR_UNKNOWN_NO_NEW_Q_CAUSAL_PROOF",
+      "step19_route_checked": true,
+      "step24_pairwise_physical_checks": 0,
+      "Q_real_causal_effect_verified": false,
+      "scientific_IC_delta_percent": null,
+      "next_test": "Assess whether specified pre-T0 plan alters a verified physical trajectory; log realized action separately after T0",
+      "source_refs": [
+        "step17/RAPPORT_112_INFLUENCES_DEMO_20261017.json",
+        "step20/REGISTRE_STEP20_112.json",
+        "step19/REPORT_30_ROUTES_20261017.json"
+      ]
+    },
+    {
+      "rubric": "076",
+      "canonical_name": "Respecter le repos",
+      "role_group": "action_plans",
+      "evidence_category": "PRE_T0_PLAN_RESOURCE_ROUTE_ONLY",
+      "step17_local_perturbation": "NOT_MEASURED",
+      "step20_response": "STEP17_OR_STEP19_PLAN_OR_UNKNOWN_NO_NEW_Q_CAUSAL_PROOF",
+      "step19_route_checked": true,
+      "step24_pairwise_physical_checks": 0,
+      "Q_real_causal_effect_verified": false,
+      "scientific_IC_delta_percent": null,
+      "next_test": "Assess whether specified pre-T0 plan alters a verified physical trajectory; log realized action separately after T0",
+      "source_refs": [
+        "step17/RAPPORT_112_INFLUENCES_DEMO_20261017.json",
+        "step20/REGISTRE_STEP20_112.json",
+        "step19/REPORT_30_ROUTES_20261017.json"
+      ]
+    },
+    {
+      "rubric": "077",
+      "canonical_name": "Égrainer",
+      "role_group": "action_plans",
+      "evidence_category": "PRE_T0_PLAN_RESOURCE_ROUTE_ONLY",
+      "step17_local_perturbation": "NOT_MEASURED",
+      "step20_response": "STEP17_OR_STEP19_PLAN_OR_UNKNOWN_NO_NEW_Q_CAUSAL_PROOF",
+      "step19_route_checked": true,
+      "step24_pairwise_physical_checks": 0,
+      "Q_real_causal_effect_verified": false,
+      "scientific_IC_delta_percent": null,
+      "next_test": "Assess whether specified pre-T0 plan alters a verified physical trajectory; log realized action separately after T0",
+      "source_refs": [
+        "step17/RAPPORT_112_INFLUENCES_DEMO_20261017.json",
+        "step20/REGISTRE_STEP20_112.json",
+        "step19/REPORT_30_ROUTES_20261017.json"
+      ]
+    },
+    {
+      "rubric": "078",
+      "canonical_name": "Examiner l’humidité finale",
+      "role_group": "action_plans",
+      "evidence_category": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "step17_local_perturbation": "UNKNOWN_PLANNED_ACTION__DO_NOT_INVENT_ACTION",
+      "step20_response": "STEP17_OR_STEP19_PLAN_OR_UNKNOWN_NO_NEW_Q_CAUSAL_PROOF",
+      "step19_route_checked": false,
+      "step24_pairwise_physical_checks": 0,
+      "Q_real_causal_effect_verified": false,
+      "scientific_IC_delta_percent": null,
+      "next_test": "Determine physical applicability/identifiability from pre-T0 inputs; do not force any IC change",
+      "source_refs": [
+        "step17/RAPPORT_112_INFLUENCES_DEMO_20261017.json",
+        "step20/REGISTRE_STEP20_112.json"
+      ]
+    },
+    {
+      "rubric": "079",
+      "canonical_name": "Décider d’une finition",
+      "role_group": "action_plans",
+      "evidence_category": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "step17_local_perturbation": "UNKNOWN_PLANNED_ACTION__DO_NOT_INVENT_ACTION",
+      "step20_response": "STEP17_OR_STEP19_PLAN_OR_UNKNOWN_NO_NEW_Q_CAUSAL_PROOF",
+      "step19_route_checked": false,
+      "step24_pairwise_physical_checks": 0,
+      "Q_real_causal_effect_verified": false,
+      "scientific_IC_delta_percent": null,
+      "next_test": "Determine physical applicability/identifiability from pre-T0 inputs; do not force any IC change",
+      "source_refs": [
+        "step17/RAPPORT_112_INFLUENCES_DEMO_20261017.json",
+        "step20/REGISTRE_STEP20_112.json"
+      ]
+    },
+    {
+      "rubric": "080",
+      "canonical_name": "Ouvrir pour servir",
+      "role_group": "action_plans",
+      "evidence_category": "PRE_T0_PLAN_RESOURCE_ROUTE_ONLY",
+      "step17_local_perturbation": "NOT_MEASURED",
+      "step20_response": "STEP17_OR_STEP19_PLAN_OR_UNKNOWN_NO_NEW_Q_CAUSAL_PROOF",
+      "step19_route_checked": true,
+      "step24_pairwise_physical_checks": 0,
+      "Q_real_causal_effect_verified": false,
+      "scientific_IC_delta_percent": null,
+      "next_test": "Assess whether specified pre-T0 plan alters a verified physical trajectory; log realized action separately after T0",
+      "source_refs": [
+        "step17/RAPPORT_112_INFLUENCES_DEMO_20261017.json",
+        "step20/REGISTRE_STEP20_112.json",
+        "step19/REPORT_30_ROUTES_20261017.json"
+      ]
+    },
+    {
+      "rubric": "081",
+      "canonical_name": "Transférer le riz",
+      "role_group": "action_plans",
+      "evidence_category": "PRE_T0_PLAN_RESOURCE_ROUTE_ONLY",
+      "step17_local_perturbation": "NOT_MEASURED",
+      "step20_response": "STEP17_OR_STEP19_PLAN_OR_UNKNOWN_NO_NEW_Q_CAUSAL_PROOF",
+      "step19_route_checked": true,
+      "step24_pairwise_physical_checks": 0,
+      "Q_real_causal_effect_verified": false,
+      "scientific_IC_delta_percent": null,
+      "next_test": "Assess whether specified pre-T0 plan alters a verified physical trajectory; log realized action separately after T0",
+      "source_refs": [
+        "step17/RAPPORT_112_INFLUENCES_DEMO_20261017.json",
+        "step20/REGISTRE_STEP20_112.json",
+        "step19/REPORT_30_ROUTES_20261017.json"
+      ]
+    },
+    {
+      "rubric": "082",
+      "canonical_name": "Répartir deux portions",
+      "role_group": "action_plans",
+      "evidence_category": "PRE_T0_PLAN_RESOURCE_ROUTE_ONLY",
+      "step17_local_perturbation": "NOT_MEASURED",
+      "step20_response": "STEP17_OR_STEP19_PLAN_OR_UNKNOWN_NO_NEW_Q_CAUSAL_PROOF",
+      "step19_route_checked": true,
+      "step24_pairwise_physical_checks": 0,
+      "Q_real_causal_effect_verified": false,
+      "scientific_IC_delta_percent": null,
+      "next_test": "Assess whether specified pre-T0 plan alters a verified physical trajectory; log realized action separately after T0",
+      "source_refs": [
+        "step17/RAPPORT_112_INFLUENCES_DEMO_20261017.json",
+        "step20/REGISTRE_STEP20_112.json",
+        "step19/REPORT_30_ROUTES_20261017.json"
+      ]
+    },
+    {
+      "rubric": "083",
+      "canonical_name": "Contrôler la température de service",
+      "role_group": "action_plans",
+      "evidence_category": "PRE_T0_PLAN_RESOURCE_ROUTE_ONLY",
+      "step17_local_perturbation": "NOT_MEASURED",
+      "step20_response": "STEP17_OR_STEP19_PLAN_OR_UNKNOWN_NO_NEW_Q_CAUSAL_PROOF",
+      "step19_route_checked": true,
+      "step24_pairwise_physical_checks": 0,
+      "Q_real_causal_effect_verified": false,
+      "scientific_IC_delta_percent": null,
+      "next_test": "Assess whether specified pre-T0 plan alters a verified physical trajectory; log realized action separately after T0",
+      "source_refs": [
+        "step17/RAPPORT_112_INFLUENCES_DEMO_20261017.json",
+        "step20/REGISTRE_STEP20_112.json",
+        "step19/REPORT_30_ROUTES_20261017.json"
+      ]
+    },
+    {
+      "rubric": "084",
+      "canonical_name": "Limiter le délai",
+      "role_group": "action_plans",
+      "evidence_category": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "step17_local_perturbation": "UNKNOWN_PLANNED_ACTION__DO_NOT_INVENT_ACTION",
+      "step20_response": "STEP17_OR_STEP19_PLAN_OR_UNKNOWN_NO_NEW_Q_CAUSAL_PROOF",
+      "step19_route_checked": false,
+      "step24_pairwise_physical_checks": 0,
+      "Q_real_causal_effect_verified": false,
+      "scientific_IC_delta_percent": null,
+      "next_test": "Determine physical applicability/identifiability from pre-T0 inputs; do not force any IC change",
+      "source_refs": [
+        "step17/RAPPORT_112_INFLUENCES_DEMO_20261017.json",
+        "step20/REGISTRE_STEP20_112.json"
+      ]
+    },
+    {
+      "rubric": "085",
+      "canonical_name": "Présenter le résultat",
+      "role_group": "action_plans",
+      "evidence_category": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "step17_local_perturbation": "UNKNOWN_PLANNED_ACTION__DO_NOT_INVENT_ACTION",
+      "step20_response": "STEP17_OR_STEP19_PLAN_OR_UNKNOWN_NO_NEW_Q_CAUSAL_PROOF",
+      "step19_route_checked": false,
+      "step24_pairwise_physical_checks": 0,
+      "Q_real_causal_effect_verified": false,
+      "scientific_IC_delta_percent": null,
+      "next_test": "Determine physical applicability/identifiability from pre-T0 inputs; do not force any IC change",
+      "source_refs": [
+        "step17/RAPPORT_112_INFLUENCES_DEMO_20261017.json",
+        "step20/REGISTRE_STEP20_112.json"
+      ]
+    },
+    {
+      "rubric": "086",
+      "canonical_name": "Excès d’eau",
+      "role_group": "correction_policies",
+      "evidence_category": "PRE_T0_PLAN_RESOURCE_ROUTE_ONLY",
+      "step17_local_perturbation": "NOT_MEASURED",
+      "step20_response": "STEP17_OR_STEP19_PLAN_OR_UNKNOWN_NO_NEW_Q_CAUSAL_PROOF",
+      "step19_route_checked": true,
+      "step24_pairwise_physical_checks": 0,
+      "Q_real_causal_effect_verified": false,
+      "scientific_IC_delta_percent": null,
+      "next_test": "Assess whether specified pre-T0 plan alters a verified physical trajectory; log realized action separately after T0",
+      "source_refs": [
+        "step17/RAPPORT_112_INFLUENCES_DEMO_20261017.json",
+        "step20/REGISTRE_STEP20_112.json",
+        "step19/REPORT_30_ROUTES_20261017.json"
+      ]
+    },
+    {
+      "rubric": "087",
+      "canonical_name": "Manque d’eau",
+      "role_group": "correction_policies",
+      "evidence_category": "PRE_T0_PLAN_RESOURCE_ROUTE_ONLY",
+      "step17_local_perturbation": "NOT_MEASURED",
+      "step20_response": "STEP17_OR_STEP19_PLAN_OR_UNKNOWN_NO_NEW_Q_CAUSAL_PROOF",
+      "step19_route_checked": true,
+      "step24_pairwise_physical_checks": 0,
+      "Q_real_causal_effect_verified": false,
+      "scientific_IC_delta_percent": null,
+      "next_test": "Assess whether specified pre-T0 plan alters a verified physical trajectory; log realized action separately after T0",
+      "source_refs": [
+        "step17/RAPPORT_112_INFLUENCES_DEMO_20261017.json",
+        "step20/REGISTRE_STEP20_112.json",
+        "step19/REPORT_30_ROUTES_20261017.json"
+      ]
+    },
+    {
+      "rubric": "088",
+      "canonical_name": "Chaleur excessive",
+      "role_group": "correction_policies",
+      "evidence_category": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "step17_local_perturbation": "POLICY_UNDEFINED_OR_UNKNOWN__NO_INVENTED_CORRECTION",
+      "step20_response": "STEP17_OR_STEP19_PLAN_OR_UNKNOWN_NO_NEW_Q_CAUSAL_PROOF",
+      "step19_route_checked": false,
+      "step24_pairwise_physical_checks": 0,
+      "Q_real_causal_effect_verified": false,
+      "scientific_IC_delta_percent": null,
+      "next_test": "Determine physical applicability/identifiability from pre-T0 inputs; do not force any IC change",
+      "source_refs": [
+        "step17/RAPPORT_112_INFLUENCES_DEMO_20261017.json",
+        "step20/REGISTRE_STEP20_112.json"
+      ]
+    },
+    {
+      "rubric": "089",
+      "canonical_name": "Chaleur insuffisante",
+      "role_group": "correction_policies",
+      "evidence_category": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "step17_local_perturbation": "POLICY_UNDEFINED_OR_UNKNOWN__NO_INVENTED_CORRECTION",
+      "step20_response": "STEP17_OR_STEP19_PLAN_OR_UNKNOWN_NO_NEW_Q_CAUSAL_PROOF",
+      "step19_route_checked": false,
+      "step24_pairwise_physical_checks": 0,
+      "Q_real_causal_effect_verified": false,
+      "scientific_IC_delta_percent": null,
+      "next_test": "Determine physical applicability/identifiability from pre-T0 inputs; do not force any IC change",
+      "source_refs": [
+        "step17/RAPPORT_112_INFLUENCES_DEMO_20261017.json",
+        "step20/REGISTRE_STEP20_112.json"
+      ]
+    },
+    {
+      "rubric": "090",
+      "canonical_name": "Couvercle inadapté",
+      "role_group": "correction_policies",
+      "evidence_category": "PRE_T0_PLAN_RESOURCE_ROUTE_ONLY",
+      "step17_local_perturbation": "NOT_MEASURED",
+      "step20_response": "STEP17_OR_STEP19_PLAN_OR_UNKNOWN_NO_NEW_Q_CAUSAL_PROOF",
+      "step19_route_checked": true,
+      "step24_pairwise_physical_checks": 0,
+      "Q_real_causal_effect_verified": false,
+      "scientific_IC_delta_percent": null,
+      "next_test": "Assess whether specified pre-T0 plan alters a verified physical trajectory; log realized action separately after T0",
+      "source_refs": [
+        "step17/RAPPORT_112_INFLUENCES_DEMO_20261017.json",
+        "step20/REGISTRE_STEP20_112.json",
+        "step19/REPORT_30_ROUTES_20261017.json"
+      ]
+    },
+    {
+      "rubric": "091",
+      "canonical_name": "Évaporation excessive",
+      "role_group": "correction_policies",
+      "evidence_category": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "step17_local_perturbation": "POLICY_UNDEFINED_OR_UNKNOWN__NO_INVENTED_CORRECTION",
+      "step20_response": "STEP17_OR_STEP19_PLAN_OR_UNKNOWN_NO_NEW_Q_CAUSAL_PROOF",
+      "step19_route_checked": false,
+      "step24_pairwise_physical_checks": 0,
+      "Q_real_causal_effect_verified": false,
+      "scientific_IC_delta_percent": null,
+      "next_test": "Determine physical applicability/identifiability from pre-T0 inputs; do not force any IC change",
+      "source_refs": [
+        "step17/RAPPORT_112_INFLUENCES_DEMO_20261017.json",
+        "step20/REGISTRE_STEP20_112.json"
+      ]
+    },
+    {
+      "rubric": "092",
+      "canonical_name": "Frémissement instable",
+      "role_group": "correction_policies",
+      "evidence_category": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "step17_local_perturbation": "POLICY_UNDEFINED_OR_UNKNOWN__NO_INVENTED_CORRECTION",
+      "step20_response": "STEP17_OR_STEP19_PLAN_OR_UNKNOWN_NO_NEW_Q_CAUSAL_PROOF",
+      "step19_route_checked": false,
+      "step24_pairwise_physical_checks": 0,
+      "Q_real_causal_effect_verified": false,
+      "scientific_IC_delta_percent": null,
+      "next_test": "Determine physical applicability/identifiability from pre-T0 inputs; do not force any IC change",
+      "source_refs": [
+        "step17/RAPPORT_112_INFLUENCES_DEMO_20261017.json",
+        "step20/REGISTRE_STEP20_112.json"
+      ]
+    },
+    {
+      "rubric": "093",
+      "canonical_name": "Débordement",
+      "role_group": "correction_policies",
+      "evidence_category": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "step17_local_perturbation": "POLICY_UNDEFINED_OR_UNKNOWN__NO_INVENTED_CORRECTION",
+      "step20_response": "STEP17_OR_STEP19_PLAN_OR_UNKNOWN_NO_NEW_Q_CAUSAL_PROOF",
+      "step19_route_checked": false,
+      "step24_pairwise_physical_checks": 0,
+      "Q_real_causal_effect_verified": false,
+      "scientific_IC_delta_percent": null,
+      "next_test": "Determine physical applicability/identifiability from pre-T0 inputs; do not force any IC change",
+      "source_refs": [
+        "step17/RAPPORT_112_INFLUENCES_DEMO_20261017.json",
+        "step20/REGISTRE_STEP20_112.json"
+      ]
+    },
+    {
+      "rubric": "094",
+      "canonical_name": "Riz attaché ou brûlé",
+      "role_group": "correction_policies",
+      "evidence_category": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "step17_local_perturbation": "POLICY_UNDEFINED_OR_UNKNOWN__NO_INVENTED_CORRECTION",
+      "step20_response": "STEP17_OR_STEP19_PLAN_OR_UNKNOWN_NO_NEW_Q_CAUSAL_PROOF",
+      "step19_route_checked": false,
+      "step24_pairwise_physical_checks": 0,
+      "Q_real_causal_effect_verified": false,
+      "scientific_IC_delta_percent": null,
+      "next_test": "Determine physical applicability/identifiability from pre-T0 inputs; do not force any IC change",
+      "source_refs": [
+        "step17/RAPPORT_112_INFLUENCES_DEMO_20261017.json",
+        "step20/REGISTRE_STEP20_112.json"
+      ]
+    },
+    {
+      "rubric": "095",
+      "canonical_name": "Grains agglutinés",
+      "role_group": "correction_policies",
+      "evidence_category": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "step17_local_perturbation": "POLICY_UNDEFINED_OR_UNKNOWN__NO_INVENTED_CORRECTION",
+      "step20_response": "STEP17_OR_STEP19_PLAN_OR_UNKNOWN_NO_NEW_Q_CAUSAL_PROOF",
+      "step19_route_checked": false,
+      "step24_pairwise_physical_checks": 0,
+      "Q_real_causal_effect_verified": false,
+      "scientific_IC_delta_percent": null,
+      "next_test": "Determine physical applicability/identifiability from pre-T0 inputs; do not force any IC change",
+      "source_refs": [
+        "step17/RAPPORT_112_INFLUENCES_DEMO_20261017.json",
+        "step20/REGISTRE_STEP20_112.json"
+      ]
+    },
+    {
+      "rubric": "096",
+      "canonical_name": "Grains trop fermes",
+      "role_group": "correction_policies",
+      "evidence_category": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "step17_local_perturbation": "POLICY_UNDEFINED_OR_UNKNOWN__NO_INVENTED_CORRECTION",
+      "step20_response": "STEP17_OR_STEP19_PLAN_OR_UNKNOWN_NO_NEW_Q_CAUSAL_PROOF",
+      "step19_route_checked": false,
+      "step24_pairwise_physical_checks": 0,
+      "Q_real_causal_effect_verified": false,
+      "scientific_IC_delta_percent": null,
+      "next_test": "Determine physical applicability/identifiability from pre-T0 inputs; do not force any IC change",
+      "source_refs": [
+        "step17/RAPPORT_112_INFLUENCES_DEMO_20261017.json",
+        "step20/REGISTRE_STEP20_112.json"
+      ]
+    },
+    {
+      "rubric": "097",
+      "canonical_name": "Riz pâteux",
+      "role_group": "correction_policies",
+      "evidence_category": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "step17_local_perturbation": "POLICY_UNDEFINED_OR_UNKNOWN__NO_INVENTED_CORRECTION",
+      "step20_response": "STEP17_OR_STEP19_PLAN_OR_UNKNOWN_NO_NEW_Q_CAUSAL_PROOF",
+      "step19_route_checked": false,
+      "step24_pairwise_physical_checks": 0,
+      "Q_real_causal_effect_verified": false,
+      "scientific_IC_delta_percent": null,
+      "next_test": "Determine physical applicability/identifiability from pre-T0 inputs; do not force any IC change",
+      "source_refs": [
+        "step17/RAPPORT_112_INFLUENCES_DEMO_20261017.json",
+        "step20/REGISTRE_STEP20_112.json"
+      ]
+    },
+    {
+      "rubric": "098",
+      "canonical_name": "Situation non récupérable",
+      "role_group": "correction_policies",
+      "evidence_category": "PRE_T0_PLAN_RESOURCE_ROUTE_ONLY",
+      "step17_local_perturbation": "NOT_MEASURED",
+      "step20_response": "STEP17_OR_STEP19_PLAN_OR_UNKNOWN_NO_NEW_Q_CAUSAL_PROOF",
+      "step19_route_checked": true,
+      "step24_pairwise_physical_checks": 0,
+      "Q_real_causal_effect_verified": false,
+      "scientific_IC_delta_percent": null,
+      "next_test": "Assess whether specified pre-T0 plan alters a verified physical trajectory; log realized action separately after T0",
+      "source_refs": [
+        "step17/RAPPORT_112_INFLUENCES_DEMO_20261017.json",
+        "step20/REGISTRE_STEP20_112.json",
+        "step19/REPORT_30_ROUTES_20261017.json"
+      ]
+    },
+    {
+      "rubric": "099",
+      "canonical_name": "Salubrité et sécurité alimentaire",
+      "role_group": "target_contract",
+      "evidence_category": "POST_T0_TARGET_ONLY",
+      "step17_local_perturbation": "TARGET_IS_A_LABEL_OR_MEASUREMENT_RULE_NOT_PRET0_CAUSAL_INPUT",
+      "step20_response": "OUTCOME_ONLY_NO_PRET0_INTERVENTION",
+      "step19_route_checked": false,
+      "step24_pairwise_physical_checks": 0,
+      "Q_real_causal_effect_verified": false,
+      "scientific_IC_delta_percent": null,
+      "next_test": "Finalize measurement method with user then observe after cooking; never feed into pre-T0 prediction",
+      "source_refs": [
+        "step17/RAPPORT_112_INFLUENCES_DEMO_20261017.json",
+        "step20/REGISTRE_STEP20_112.json"
+      ]
+    },
+    {
+      "rubric": "100",
+      "canonical_name": "Quantité effective",
+      "role_group": "target_contract",
+      "evidence_category": "POST_T0_TARGET_ONLY",
+      "step17_local_perturbation": "TARGET_IS_A_LABEL_OR_MEASUREMENT_RULE_NOT_PRET0_CAUSAL_INPUT",
+      "step20_response": "OUTCOME_ONLY_NO_PRET0_INTERVENTION",
+      "step19_route_checked": false,
+      "step24_pairwise_physical_checks": 0,
+      "Q_real_causal_effect_verified": false,
+      "scientific_IC_delta_percent": null,
+      "next_test": "Finalize measurement method with user then observe after cooking; never feed into pre-T0 prediction",
+      "source_refs": [
+        "step17/RAPPORT_112_INFLUENCES_DEMO_20261017.json",
+        "step20/REGISTRE_STEP20_112.json"
+      ]
+    },
+    {
+      "rubric": "101",
+      "canonical_name": "Tendreté",
+      "role_group": "target_contract",
+      "evidence_category": "POST_T0_TARGET_ONLY",
+      "step17_local_perturbation": "TARGET_IS_A_LABEL_OR_MEASUREMENT_RULE_NOT_PRET0_CAUSAL_INPUT",
+      "step20_response": "OUTCOME_ONLY_NO_PRET0_INTERVENTION",
+      "step19_route_checked": false,
+      "step24_pairwise_physical_checks": 0,
+      "Q_real_causal_effect_verified": false,
+      "scientific_IC_delta_percent": null,
+      "next_test": "Finalize measurement method with user then observe after cooking; never feed into pre-T0 prediction",
+      "source_refs": [
+        "step17/RAPPORT_112_INFLUENCES_DEMO_20261017.json",
+        "step20/REGISTRE_STEP20_112.json"
+      ]
+    },
+    {
+      "rubric": "102",
+      "canonical_name": "Séparation des grains",
+      "role_group": "target_contract",
+      "evidence_category": "POST_T0_TARGET_ONLY",
+      "step17_local_perturbation": "TARGET_IS_A_LABEL_OR_MEASUREMENT_RULE_NOT_PRET0_CAUSAL_INPUT",
+      "step20_response": "OUTCOME_ONLY_NO_PRET0_INTERVENTION",
+      "step19_route_checked": false,
+      "step24_pairwise_physical_checks": 0,
+      "Q_real_causal_effect_verified": false,
+      "scientific_IC_delta_percent": null,
+      "next_test": "Finalize measurement method with user then observe after cooking; never feed into pre-T0 prediction",
+      "source_refs": [
+        "step17/RAPPORT_112_INFLUENCES_DEMO_20261017.json",
+        "step20/REGISTRE_STEP20_112.json"
+      ]
+    },
+    {
+      "rubric": "103",
+      "canonical_name": "Homogénéité",
+      "role_group": "target_contract",
+      "evidence_category": "POST_T0_TARGET_ONLY",
+      "step17_local_perturbation": "TARGET_IS_A_LABEL_OR_MEASUREMENT_RULE_NOT_PRET0_CAUSAL_INPUT",
+      "step20_response": "OUTCOME_ONLY_NO_PRET0_INTERVENTION",
+      "step19_route_checked": false,
+      "step24_pairwise_physical_checks": 0,
+      "Q_real_causal_effect_verified": false,
+      "scientific_IC_delta_percent": null,
+      "next_test": "Finalize measurement method with user then observe after cooking; never feed into pre-T0 prediction",
+      "source_refs": [
+        "step17/RAPPORT_112_INFLUENCES_DEMO_20261017.json",
+        "step20/REGISTRE_STEP20_112.json"
+      ]
+    },
+    {
+      "rubric": "104",
+      "canonical_name": "Intégrité des grains",
+      "role_group": "target_contract",
+      "evidence_category": "POST_T0_TARGET_ONLY",
+      "step17_local_perturbation": "TARGET_IS_A_LABEL_OR_MEASUREMENT_RULE_NOT_PRET0_CAUSAL_INPUT",
+      "step20_response": "OUTCOME_ONLY_NO_PRET0_INTERVENTION",
+      "step19_route_checked": false,
+      "step24_pairwise_physical_checks": 0,
+      "Q_real_causal_effect_verified": false,
+      "scientific_IC_delta_percent": null,
+      "next_test": "Finalize measurement method with user then observe after cooking; never feed into pre-T0 prediction",
+      "source_refs": [
+        "step17/RAPPORT_112_INFLUENCES_DEMO_20261017.json",
+        "step20/REGISTRE_STEP20_112.json"
+      ]
+    },
+    {
+      "rubric": "105",
+      "canonical_name": "Absence d’eau libre excessive",
+      "role_group": "target_contract",
+      "evidence_category": "POST_T0_TARGET_ONLY",
+      "step17_local_perturbation": "TARGET_IS_A_LABEL_OR_MEASUREMENT_RULE_NOT_PRET0_CAUSAL_INPUT",
+      "step20_response": "OUTCOME_ONLY_NO_PRET0_INTERVENTION",
+      "step19_route_checked": false,
+      "step24_pairwise_physical_checks": 0,
+      "Q_real_causal_effect_verified": false,
+      "scientific_IC_delta_percent": null,
+      "next_test": "Finalize measurement method with user then observe after cooking; never feed into pre-T0 prediction",
+      "source_refs": [
+        "step17/RAPPORT_112_INFLUENCES_DEMO_20261017.json",
+        "step20/REGISTRE_STEP20_112.json"
+      ]
+    },
+    {
+      "rubric": "106",
+      "canonical_name": "Absence de zones brûlées",
+      "role_group": "target_contract",
+      "evidence_category": "POST_T0_TARGET_ONLY",
+      "step17_local_perturbation": "TARGET_IS_A_LABEL_OR_MEASUREMENT_RULE_NOT_PRET0_CAUSAL_INPUT",
+      "step20_response": "OUTCOME_ONLY_NO_PRET0_INTERVENTION",
+      "step19_route_checked": false,
+      "step24_pairwise_physical_checks": 0,
+      "Q_real_causal_effect_verified": false,
+      "scientific_IC_delta_percent": null,
+      "next_test": "Finalize measurement method with user then observe after cooking; never feed into pre-T0 prediction",
+      "source_refs": [
+        "step17/RAPPORT_112_INFLUENCES_DEMO_20261017.json",
+        "step20/REGISTRE_STEP20_112.json"
+      ]
+    },
+    {
+      "rubric": "107",
+      "canonical_name": "Température de service",
+      "role_group": "target_contract",
+      "evidence_category": "POST_T0_TARGET_ONLY",
+      "step17_local_perturbation": "TARGET_IS_A_LABEL_OR_MEASUREMENT_RULE_NOT_PRET0_CAUSAL_INPUT",
+      "step20_response": "OUTCOME_ONLY_NO_PRET0_INTERVENTION",
+      "step19_route_checked": false,
+      "step24_pairwise_physical_checks": 0,
+      "Q_real_causal_effect_verified": false,
+      "scientific_IC_delta_percent": null,
+      "next_test": "Finalize measurement method with user then observe after cooking; never feed into pre-T0 prediction",
+      "source_refs": [
+        "step17/RAPPORT_112_INFLUENCES_DEMO_20261017.json",
+        "step20/REGISTRE_STEP20_112.json"
+      ]
+    },
+    {
+      "rubric": "108",
+      "canonical_name": "Goût",
+      "role_group": "target_contract",
+      "evidence_category": "POST_T0_TARGET_ONLY",
+      "step17_local_perturbation": "TARGET_IS_A_LABEL_OR_MEASUREMENT_RULE_NOT_PRET0_CAUSAL_INPUT",
+      "step20_response": "OUTCOME_ONLY_NO_PRET0_INTERVENTION",
+      "step19_route_checked": false,
+      "step24_pairwise_physical_checks": 0,
+      "Q_real_causal_effect_verified": false,
+      "scientific_IC_delta_percent": null,
+      "next_test": "Finalize measurement method with user then observe after cooking; never feed into pre-T0 prediction",
+      "source_refs": [
+        "step17/RAPPORT_112_INFLUENCES_DEMO_20261017.json",
+        "step20/REGISTRE_STEP20_112.json"
+      ]
+    },
+    {
+      "rubric": "109",
+      "canonical_name": "Arôme",
+      "role_group": "target_contract",
+      "evidence_category": "POST_T0_TARGET_ONLY",
+      "step17_local_perturbation": "TARGET_IS_A_LABEL_OR_MEASUREMENT_RULE_NOT_PRET0_CAUSAL_INPUT",
+      "step20_response": "OUTCOME_ONLY_NO_PRET0_INTERVENTION",
+      "step19_route_checked": false,
+      "step24_pairwise_physical_checks": 0,
+      "Q_real_causal_effect_verified": false,
+      "scientific_IC_delta_percent": null,
+      "next_test": "Finalize measurement method with user then observe after cooking; never feed into pre-T0 prediction",
+      "source_refs": [
+        "step17/RAPPORT_112_INFLUENCES_DEMO_20261017.json",
+        "step20/REGISTRE_STEP20_112.json"
+      ]
+    },
+    {
+      "rubric": "110",
+      "canonical_name": "Aspect visuel",
+      "role_group": "target_contract",
+      "evidence_category": "POST_T0_TARGET_ONLY",
+      "step17_local_perturbation": "TARGET_IS_A_LABEL_OR_MEASUREMENT_RULE_NOT_PRET0_CAUSAL_INPUT",
+      "step20_response": "OUTCOME_ONLY_NO_PRET0_INTERVENTION",
+      "step19_route_checked": false,
+      "step24_pairwise_physical_checks": 0,
+      "Q_real_causal_effect_verified": false,
+      "scientific_IC_delta_percent": null,
+      "next_test": "Finalize measurement method with user then observe after cooking; never feed into pre-T0 prediction",
+      "source_refs": [
+        "step17/RAPPORT_112_INFLUENCES_DEMO_20261017.json",
+        "step20/REGISTRE_STEP20_112.json"
+      ]
+    },
+    {
+      "rubric": "111",
+      "canonical_name": "Maintien de la qualité",
+      "role_group": "target_contract",
+      "evidence_category": "POST_T0_TARGET_ONLY",
+      "step17_local_perturbation": "TARGET_IS_A_LABEL_OR_MEASUREMENT_RULE_NOT_PRET0_CAUSAL_INPUT",
+      "step20_response": "OUTCOME_ONLY_NO_PRET0_INTERVENTION",
+      "step19_route_checked": false,
+      "step24_pairwise_physical_checks": 0,
+      "Q_real_causal_effect_verified": false,
+      "scientific_IC_delta_percent": null,
+      "next_test": "Finalize measurement method with user then observe after cooking; never feed into pre-T0 prediction",
+      "source_refs": [
+        "step17/RAPPORT_112_INFLUENCES_DEMO_20261017.json",
+        "step20/REGISTRE_STEP20_112.json"
+      ]
+    },
+    {
+      "rubric": "112",
+      "canonical_name": "Évaluation globale et décision",
+      "role_group": "target_contract",
+      "evidence_category": "POST_T0_TARGET_ONLY",
+      "step17_local_perturbation": "TARGET_IS_A_LABEL_OR_MEASUREMENT_RULE_NOT_PRET0_CAUSAL_INPUT",
+      "step20_response": "OUTCOME_ONLY_NO_PRET0_INTERVENTION",
+      "step19_route_checked": false,
+      "step24_pairwise_physical_checks": 0,
+      "Q_real_causal_effect_verified": false,
+      "scientific_IC_delta_percent": null,
+      "next_test": "Finalize measurement method with user then observe after cooking; never feed into pre-T0 prediction",
+      "source_refs": [
+        "step17/RAPPORT_112_INFLUENCES_DEMO_20261017.json",
+        "step20/REGISTRE_STEP20_112.json"
+      ]
+    }
+  ]
+}
