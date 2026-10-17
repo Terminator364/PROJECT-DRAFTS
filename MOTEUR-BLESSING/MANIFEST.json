@@ -204,8 +204,8 @@
     "archive_final_sha256": "6fc5c03d44a605781c66e8f561ed3c1a5fc76ad00c21026cbe98b86a64dbf06b",
     "archive_final_bytes": 87045,
     "archive_final_drive_url": "https://drive.google.com/file/d/1JRFayl6zSgQfyQoJBdxj62I97v4vQ1AL/view?usp=drivesdk",
-    "journal_events": 127,
-    "journal_head": "4ddbffd6ca7dd906aad6b47ecaa9f087eee22e2608c3bb158006821f8cb8aaeb",
+    "journal_events": 128,
+    "journal_head": "ab3906b513cd3baa356d93904874d6c4672f767bfc85eae7becc5716147096be",
     "current_stage": 14,
     "current_zip_sha256": "34887c8ecd5d5e0475b8b03267592e1856c633455b41ff0c8f567860217ac3cb",
     "current_zip_drive": "https://drive.google.com/file/d/1Bzf9scBx1QCACQKE_j4bJL0EvCB1DnrI/view?usp=drivesdk",
@@ -346,8 +346,8 @@
       "runnable_code": "MOTEUR-BLESSING/labs/RIZ112/step16/riz112_unified.py",
       "tests_runner": "MOTEUR-BLESSING/labs/RIZ112/step14/run_regression_h3.py",
       "delivery": "MOTEUR-BLESSING/labs/RIZ112/LIVRAISON_H3_CONTEXTE_20261017.json",
-      "journal_events": 127,
-      "journal_head": "4ddbffd6ca7dd906aad6b47ecaa9f087eee22e2608c3bb158006821f8cb8aaeb",
+      "journal_events": 128,
+      "journal_head": "ab3906b513cd3baa356d93904874d6c4672f767bfc85eae7becc5716147096be",
       "full_zip_sha256": "6e0ac900dcdc72ca97fca31b2d46fa401c0acae7f9e37f2437aad7df6fd4cbcd",
       "full_zip_drive": "https://drive.google.com/file/d/1KMmqbDOCDQSUZREuaU1OzrvLbjnG7VZ2/view?usp=drivesdk",
       "suite_tests_passed": 309,
@@ -539,7 +539,18 @@
         "real_quality_effects_proven": 0,
         "scientific_ic_percent": null,
         "local_and_PC_six_new_tests_passed": true,
-        "PC_csv_sha256": "af13ca14051fca6853f7bc0527481be93315f91902b8a939fc2480569b0b5bbc"
+        "PC_csv_sha256": "af13ca14051fca6853f7bc0527481be93315f91902b8a939fc2480569b0b5bbc",
+        "archive": {
+          "url": "https://drive.google.com/file/d/1IUO4XjgmzZvMicoXe75bEGmYxw2aaZBh/view?usp=drivesdk",
+          "sha256": "e2251d33182c9bcab167267684b8a6d4a2b5434db98c7e6ab967a01b37be7a93",
+          "files": 312,
+          "bytes": 740937,
+          "cloud_independent_sha256_verified": true,
+          "zip_crc_clean": true,
+          "pc_results_equal_local": true,
+          "CSV_rows": 1000,
+          "archived_journal_E127": true
+        }
       }
     },
     "latest_code": "MOTEUR-BLESSING/labs/RIZ112/step16/riz112_unified.py",
