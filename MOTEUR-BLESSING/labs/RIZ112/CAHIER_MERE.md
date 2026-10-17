@@ -277,3 +277,9 @@ La rubrique permanente canonique est désormais **[`CONTEXTE_CONVERSATIONS.md`](
 ### Clôture de synchronisation contextuelle H3 — E084
 
 Un contrôle indépendant des fichiers critiques sur GitHub a confirmé **9/9 empreintes de blobs identiques** à la source H3 locale; les sauvegardes Drive privé et Bibliothèque ont été confirmées, taille source 568443 octets. Le manifeste parent `MOTEUR|CONTINUE` et `Moteur/continue` réfère désormais le checkpoint laboratoire. Le PC MBMPC est **OFFLINE** (pas de validation Windows). Les extraits de conversation sont archivés avec marque de provenance dans `CONTEXTE_INTEGRAL/REGISTRE_MESSAGES.jsonl`, et la rubrique `CONTEXTE_CONVERSATIONS.md` doit être poursuivie à chaque conversation suivante, sans prétendre qu'il existe une transcription littérale exhaustive de toutes les sessions anciennes.
+
+## §22 — Confirmation utilisateur de contexte continu et travaux futurs (CTX-0018/0019)
+
+Les deux demandes exactes de l’utilisateur sur la **synchronisation continue du contexte** et sur l’**enregistrement de la suite** sont conservées sans paraphrase dans `CONTEXTE_INTEGRAL/REGISTRE_MESSAGES.jsonl`. Le registre contient désormais 20 entrées ; le journal d’audit 88 événements. Pour toute reprise, lire `CONTEXTE_CONVERSATIONS.md`, le checkpoint et `PLAN_SUITE_RIZ112_MATRICE.md` avant de modifier le moteur.
+
+La synchronisation continue signifie une **mise à jour obligatoire pendant les séances actives** avec preuves de lecture/écriture, pas une tâche automatique permanente. La continuité verbatim intégrale des échanges anciens ne peut pas être promise lorsque le texte brut n'est pas accessible ; les reconstitutions sont balisées.
