@@ -1,0 +1,2127 @@
+{
+  "schema": "riz112/112-hierarchical-scope/h1",
+  "coverage": "112 rubrics have structured children; only nominated mechanisms executable in H1",
+  "empirically_validated_effect_count": 0,
+  "rubrics": {
+    "001": {
+      "name": "Masse de riz disponible",
+      "temporal_role": "PRESTART_OBSERVATION_OR_HYPOTHESIS",
+      "children": {
+        "donnee_initiale": {
+          "valeur": "FROM_INPUT_JSON",
+          "unite": "CASE_SPECIFIC"
+        },
+        "mesure": {
+          "horodatage": "PRE_T0_ONLY",
+          "provenance": "SOURCE_DECLARED",
+          "fiabilite": "UNMEASURED"
+        },
+        "incertitude": {
+          "aleatoire": "NOT_ESTIMATED",
+          "epistemique": "NOT_ESTIMATED"
+        },
+        "riz": {
+          "masse_g": "DIRECT_INPUT",
+          "lot": "CASE_027",
+          "humidite": "CASE_032"
+        },
+        "demande": {
+          "cible_eau_g": "CASE_033"
+        }
+      },
+      "numeric_effect_validated": false,
+      "hierarchy_is_prediction_proof": false
+    },
+    "002": {
+      "name": "Eau potable disponible",
+      "temporal_role": "PRESTART_OBSERVATION_OR_HYPOTHESIS",
+      "children": {
+        "donnee_initiale": {
+          "valeur": "FROM_INPUT_JSON",
+          "unite": "CASE_SPECIFIC"
+        },
+        "mesure": {
+          "horodatage": "PRE_T0_ONLY",
+          "provenance": "SOURCE_DECLARED",
+          "fiabilite": "UNMEASURED"
+        },
+        "incertitude": {
+          "aleatoire": "NOT_ESTIMATED",
+          "epistemique": "NOT_ESTIMATED"
+        }
+      },
+      "numeric_effect_validated": false,
+      "hierarchy_is_prediction_proof": false
+    },
+    "003": {
+      "name": "Sel disponible",
+      "temporal_role": "PRESTART_OBSERVATION_OR_HYPOTHESIS",
+      "children": {
+        "donnee_initiale": {
+          "valeur": "FROM_INPUT_JSON",
+          "unite": "CASE_SPECIFIC"
+        },
+        "mesure": {
+          "horodatage": "PRE_T0_ONLY",
+          "provenance": "SOURCE_DECLARED",
+          "fiabilite": "UNMEASURED"
+        },
+        "incertitude": {
+          "aleatoire": "NOT_ESTIMATED",
+          "epistemique": "NOT_ESTIMATED"
+        }
+      },
+      "numeric_effect_validated": false,
+      "hierarchy_is_prediction_proof": false
+    },
+    "004": {
+      "name": "Matière grasse éventuelle",
+      "temporal_role": "PRESTART_OBSERVATION_OR_HYPOTHESIS",
+      "children": {
+        "donnee_initiale": {
+          "valeur": "FROM_INPUT_JSON",
+          "unite": "CASE_SPECIFIC"
+        },
+        "mesure": {
+          "horodatage": "PRE_T0_ONLY",
+          "provenance": "SOURCE_DECLARED",
+          "fiabilite": "UNMEASURED"
+        },
+        "incertitude": {
+          "aleatoire": "NOT_ESTIMATED",
+          "epistemique": "NOT_ESTIMATED"
+        }
+      },
+      "numeric_effect_validated": false,
+      "hierarchy_is_prediction_proof": false
+    },
+    "005": {
+      "name": "Eau de rinçage disponible",
+      "temporal_role": "PRESTART_OBSERVATION_OR_HYPOTHESIS",
+      "children": {
+        "donnee_initiale": {
+          "valeur": "FROM_INPUT_JSON",
+          "unite": "CASE_SPECIFIC"
+        },
+        "mesure": {
+          "horodatage": "PRE_T0_ONLY",
+          "provenance": "SOURCE_DECLARED",
+          "fiabilite": "UNMEASURED"
+        },
+        "incertitude": {
+          "aleatoire": "NOT_ESTIMATED",
+          "epistemique": "NOT_ESTIMATED"
+        }
+      },
+      "numeric_effect_validated": false,
+      "hierarchy_is_prediction_proof": false
+    },
+    "006": {
+      "name": "Source d’énergie",
+      "temporal_role": "PRESTART_OBSERVATION_OR_HYPOTHESIS",
+      "children": {
+        "donnee_initiale": {
+          "valeur": "FROM_INPUT_JSON",
+          "unite": "CASE_SPECIFIC"
+        },
+        "mesure": {
+          "horodatage": "PRE_T0_ONLY",
+          "provenance": "SOURCE_DECLARED",
+          "fiabilite": "UNMEASURED"
+        },
+        "incertitude": {
+          "aleatoire": "NOT_ESTIMATED",
+          "epistemique": "NOT_ESTIMATED"
+        }
+      },
+      "numeric_effect_validated": false,
+      "hierarchy_is_prediction_proof": false
+    },
+    "007": {
+      "name": "Fiabilité de la source d’énergie",
+      "temporal_role": "PRESTART_OBSERVATION_OR_HYPOTHESIS",
+      "children": {
+        "donnee_initiale": {
+          "valeur": "FROM_INPUT_JSON",
+          "unite": "CASE_SPECIFIC"
+        },
+        "mesure": {
+          "horodatage": "PRE_T0_ONLY",
+          "provenance": "SOURCE_DECLARED",
+          "fiabilite": "UNMEASURED"
+        },
+        "incertitude": {
+          "aleatoire": "NOT_ESTIMATED",
+          "epistemique": "NOT_ESTIMATED"
+        }
+      },
+      "numeric_effect_validated": false,
+      "hierarchy_is_prediction_proof": false
+    },
+    "008": {
+      "name": "Capacité de la casserole",
+      "temporal_role": "PRESTART_OBSERVATION_OR_HYPOTHESIS",
+      "children": {
+        "donnee_initiale": {
+          "valeur": "FROM_INPUT_JSON",
+          "unite": "CASE_SPECIFIC"
+        },
+        "mesure": {
+          "horodatage": "PRE_T0_ONLY",
+          "provenance": "SOURCE_DECLARED",
+          "fiabilite": "UNMEASURED"
+        },
+        "incertitude": {
+          "aleatoire": "NOT_ESTIMATED",
+          "epistemique": "NOT_ESTIMATED"
+        }
+      },
+      "numeric_effect_validated": false,
+      "hierarchy_is_prediction_proof": false
+    },
+    "009": {
+      "name": "Diamètre de la casserole",
+      "temporal_role": "PRESTART_OBSERVATION_OR_HYPOTHESIS",
+      "children": {
+        "donnee_initiale": {
+          "valeur": "FROM_INPUT_JSON",
+          "unite": "CASE_SPECIFIC"
+        },
+        "mesure": {
+          "horodatage": "PRE_T0_ONLY",
+          "provenance": "SOURCE_DECLARED",
+          "fiabilite": "UNMEASURED"
+        },
+        "incertitude": {
+          "aleatoire": "NOT_ESTIMATED",
+          "epistemique": "NOT_ESTIMATED"
+        },
+        "geometrie": {
+          "diametre_cm": "DIRECT_INPUT",
+          "aire_m2": "PI_D2_OVER_4"
+        },
+        "echange": {
+          "epaisseur_mm": "CASE_011"
+        }
+      },
+      "numeric_effect_validated": false,
+      "hierarchy_is_prediction_proof": false
+    },
+    "010": {
+      "name": "Matériau de la casserole",
+      "temporal_role": "PRESTART_OBSERVATION_OR_HYPOTHESIS",
+      "children": {
+        "donnee_initiale": {
+          "valeur": "FROM_INPUT_JSON",
+          "unite": "CASE_SPECIFIC"
+        },
+        "mesure": {
+          "horodatage": "PRE_T0_ONLY",
+          "provenance": "SOURCE_DECLARED",
+          "fiabilite": "UNMEASURED"
+        },
+        "incertitude": {
+          "aleatoire": "NOT_ESTIMATED",
+          "epistemique": "NOT_ESTIMATED"
+        },
+        "materiau": {
+          "famille": "WOOD_METAL_CERAMIC",
+          "proprietes_thermiques": {
+            "conductivite_W_mK": "MATERIAL_TABLE_OR_MEASURED",
+            "temperature_dependance": "UNMEASURED"
+          },
+          "compatibilite": {
+            "methode_chauffe": "METHOD_DEPENDENT",
+            "revetement_contact_alimentaire": "UNVERIFIED"
+          }
+        },
+        "fond": {
+          "epaisseur_mm": "CASE_011",
+          "diametre_cm": "CASE_009",
+          "etat": "CASE_012"
+        },
+        "liaisons": {
+          "source": "CASE_016",
+          "puissance": "CASE_041",
+          "rendement": "CASE_042"
+        }
+      },
+      "numeric_effect_validated": false,
+      "hierarchy_is_prediction_proof": false
+    },
+    "011": {
+      "name": "Épaisseur du fond",
+      "temporal_role": "PRESTART_OBSERVATION_OR_HYPOTHESIS",
+      "children": {
+        "donnee_initiale": {
+          "valeur": "FROM_INPUT_JSON",
+          "unite": "CASE_SPECIFIC"
+        },
+        "mesure": {
+          "horodatage": "PRE_T0_ONLY",
+          "provenance": "SOURCE_DECLARED",
+          "fiabilite": "UNMEASURED"
+        },
+        "incertitude": {
+          "aleatoire": "NOT_ESTIMATED",
+          "epistemique": "NOT_ESTIMATED"
+        },
+        "fond": {
+          "epaisseur_mm": "DIRECT_INPUT",
+          "materiau": "CASE_010"
+        },
+        "conduction": {
+          "resistance_K_W": "THICKNESS_OVER_K_AREA"
+        }
+      },
+      "numeric_effect_validated": false,
+      "hierarchy_is_prediction_proof": false
+    },
+    "012": {
+      "name": "État du fond",
+      "temporal_role": "PRESTART_OBSERVATION_OR_HYPOTHESIS",
+      "children": {
+        "donnee_initiale": {
+          "valeur": "FROM_INPUT_JSON",
+          "unite": "CASE_SPECIFIC"
+        },
+        "mesure": {
+          "horodatage": "PRE_T0_ONLY",
+          "provenance": "SOURCE_DECLARED",
+          "fiabilite": "UNMEASURED"
+        },
+        "incertitude": {
+          "aleatoire": "NOT_ESTIMATED",
+          "epistemique": "NOT_ESTIMATED"
+        }
+      },
+      "numeric_effect_validated": false,
+      "hierarchy_is_prediction_proof": false
+    },
+    "013": {
+      "name": "Présence du couvercle",
+      "temporal_role": "PRESTART_OBSERVATION_OR_HYPOTHESIS",
+      "children": {
+        "donnee_initiale": {
+          "valeur": "FROM_INPUT_JSON",
+          "unite": "CASE_SPECIFIC"
+        },
+        "mesure": {
+          "horodatage": "PRE_T0_ONLY",
+          "provenance": "SOURCE_DECLARED",
+          "fiabilite": "UNMEASURED"
+        },
+        "incertitude": {
+          "aleatoire": "NOT_ESTIMATED",
+          "epistemique": "NOT_ESTIMATED"
+        },
+        "couvercle": {
+          "present": "DIRECT_INPUT",
+          "ajustement": "CASE_014"
+        },
+        "vapeur": {
+          "evacuation": "CASE_015",
+          "fuites": "CASE_046"
+        }
+      },
+      "numeric_effect_validated": false,
+      "hierarchy_is_prediction_proof": false
+    },
+    "014": {
+      "name": "Ajustement du couvercle",
+      "temporal_role": "PRESTART_OBSERVATION_OR_HYPOTHESIS",
+      "children": {
+        "donnee_initiale": {
+          "valeur": "FROM_INPUT_JSON",
+          "unite": "CASE_SPECIFIC"
+        },
+        "mesure": {
+          "horodatage": "PRE_T0_ONLY",
+          "provenance": "SOURCE_DECLARED",
+          "fiabilite": "UNMEASURED"
+        },
+        "incertitude": {
+          "aleatoire": "NOT_ESTIMATED",
+          "epistemique": "NOT_ESTIMATED"
+        },
+        "etancheite": {
+          "coefficient_evaporation": "HYPOTHESIS",
+          "present": "CASE_013"
+        }
+      },
+      "numeric_effect_validated": false,
+      "hierarchy_is_prediction_proof": false
+    },
+    "015": {
+      "name": "Évacuation de la vapeur",
+      "temporal_role": "PRESTART_OBSERVATION_OR_HYPOTHESIS",
+      "children": {
+        "donnee_initiale": {
+          "valeur": "FROM_INPUT_JSON",
+          "unite": "CASE_SPECIFIC"
+        },
+        "mesure": {
+          "horodatage": "PRE_T0_ONLY",
+          "provenance": "SOURCE_DECLARED",
+          "fiabilite": "UNMEASURED"
+        },
+        "incertitude": {
+          "aleatoire": "NOT_ESTIMATED",
+          "epistemique": "NOT_ESTIMATED"
+        }
+      },
+      "numeric_effect_validated": false,
+      "hierarchy_is_prediction_proof": false
+    },
+    "016": {
+      "name": "Type de foyer",
+      "temporal_role": "PRESTART_OBSERVATION_OR_HYPOTHESIS",
+      "children": {
+        "donnee_initiale": {
+          "valeur": "FROM_INPUT_JSON",
+          "unite": "CASE_SPECIFIC"
+        },
+        "mesure": {
+          "horodatage": "PRE_T0_ONLY",
+          "provenance": "SOURCE_DECLARED",
+          "fiabilite": "UNMEASURED"
+        },
+        "incertitude": {
+          "aleatoire": "NOT_ESTIMATED",
+          "epistemique": "NOT_ESTIMATED"
+        }
+      },
+      "numeric_effect_validated": false,
+      "hierarchy_is_prediction_proof": false
+    },
+    "017": {
+      "name": "Réglage de puissance",
+      "temporal_role": "PRESTART_OBSERVATION_OR_HYPOTHESIS",
+      "children": {
+        "donnee_initiale": {
+          "valeur": "FROM_INPUT_JSON",
+          "unite": "CASE_SPECIFIC"
+        },
+        "mesure": {
+          "horodatage": "PRE_T0_ONLY",
+          "provenance": "SOURCE_DECLARED",
+          "fiabilite": "UNMEASURED"
+        },
+        "incertitude": {
+          "aleatoire": "NOT_ESTIMATED",
+          "epistemique": "NOT_ESTIMATED"
+        }
+      },
+      "numeric_effect_validated": false,
+      "hierarchy_is_prediction_proof": false
+    },
+    "018": {
+      "name": "Répartition de la chaleur",
+      "temporal_role": "PRESTART_OBSERVATION_OR_HYPOTHESIS",
+      "children": {
+        "donnee_initiale": {
+          "valeur": "FROM_INPUT_JSON",
+          "unite": "CASE_SPECIFIC"
+        },
+        "mesure": {
+          "horodatage": "PRE_T0_ONLY",
+          "provenance": "SOURCE_DECLARED",
+          "fiabilite": "UNMEASURED"
+        },
+        "incertitude": {
+          "aleatoire": "NOT_ESTIMATED",
+          "epistemique": "NOT_ESTIMATED"
+        }
+      },
+      "numeric_effect_validated": false,
+      "hierarchy_is_prediction_proof": false
+    },
+    "019": {
+      "name": "Balance",
+      "temporal_role": "PRESTART_OBSERVATION_OR_HYPOTHESIS",
+      "children": {
+        "donnee_initiale": {
+          "valeur": "FROM_INPUT_JSON",
+          "unite": "CASE_SPECIFIC"
+        },
+        "mesure": {
+          "horodatage": "PRE_T0_ONLY",
+          "provenance": "SOURCE_DECLARED",
+          "fiabilite": "UNMEASURED"
+        },
+        "incertitude": {
+          "aleatoire": "NOT_ESTIMATED",
+          "epistemique": "NOT_ESTIMATED"
+        }
+      },
+      "numeric_effect_validated": false,
+      "hierarchy_is_prediction_proof": false
+    },
+    "020": {
+      "name": "Instrument de mesure de l’eau",
+      "temporal_role": "PRESTART_OBSERVATION_OR_HYPOTHESIS",
+      "children": {
+        "donnee_initiale": {
+          "valeur": "FROM_INPUT_JSON",
+          "unite": "CASE_SPECIFIC"
+        },
+        "mesure": {
+          "horodatage": "PRE_T0_ONLY",
+          "provenance": "SOURCE_DECLARED",
+          "fiabilite": "UNMEASURED"
+        },
+        "incertitude": {
+          "aleatoire": "NOT_ESTIMATED",
+          "epistemique": "NOT_ESTIMATED"
+        }
+      },
+      "numeric_effect_validated": false,
+      "hierarchy_is_prediction_proof": false
+    },
+    "021": {
+      "name": "Passoire",
+      "temporal_role": "PRESTART_OBSERVATION_OR_HYPOTHESIS",
+      "children": {
+        "donnee_initiale": {
+          "valeur": "FROM_INPUT_JSON",
+          "unite": "CASE_SPECIFIC"
+        },
+        "mesure": {
+          "horodatage": "PRE_T0_ONLY",
+          "provenance": "SOURCE_DECLARED",
+          "fiabilite": "UNMEASURED"
+        },
+        "incertitude": {
+          "aleatoire": "NOT_ESTIMATED",
+          "epistemique": "NOT_ESTIMATED"
+        }
+      },
+      "numeric_effect_validated": false,
+      "hierarchy_is_prediction_proof": false
+    },
+    "022": {
+      "name": "Ustensile pour remuer",
+      "temporal_role": "PRESTART_OBSERVATION_OR_HYPOTHESIS",
+      "children": {
+        "donnee_initiale": {
+          "valeur": "FROM_INPUT_JSON",
+          "unite": "CASE_SPECIFIC"
+        },
+        "mesure": {
+          "horodatage": "PRE_T0_ONLY",
+          "provenance": "SOURCE_DECLARED",
+          "fiabilite": "UNMEASURED"
+        },
+        "incertitude": {
+          "aleatoire": "NOT_ESTIMATED",
+          "epistemique": "NOT_ESTIMATED"
+        }
+      },
+      "numeric_effect_validated": false,
+      "hierarchy_is_prediction_proof": false
+    },
+    "023": {
+      "name": "Récipient de service",
+      "temporal_role": "PRESTART_OBSERVATION_OR_HYPOTHESIS",
+      "children": {
+        "donnee_initiale": {
+          "valeur": "FROM_INPUT_JSON",
+          "unite": "CASE_SPECIFIC"
+        },
+        "mesure": {
+          "horodatage": "PRE_T0_ONLY",
+          "provenance": "SOURCE_DECLARED",
+          "fiabilite": "UNMEASURED"
+        },
+        "incertitude": {
+          "aleatoire": "NOT_ESTIMATED",
+          "epistemique": "NOT_ESTIMATED"
+        }
+      },
+      "numeric_effect_validated": false,
+      "hierarchy_is_prediction_proof": false
+    },
+    "024": {
+      "name": "Variété",
+      "temporal_role": "PRESTART_OBSERVATION_OR_HYPOTHESIS",
+      "children": {
+        "donnee_initiale": {
+          "valeur": "FROM_INPUT_JSON",
+          "unite": "CASE_SPECIFIC"
+        },
+        "mesure": {
+          "horodatage": "PRE_T0_ONLY",
+          "provenance": "SOURCE_DECLARED",
+          "fiabilite": "UNMEASURED"
+        },
+        "incertitude": {
+          "aleatoire": "NOT_ESTIMATED",
+          "epistemique": "NOT_ESTIMATED"
+        },
+        "variete": {
+          "identite": "DIRECT_INPUT",
+          "traitement": "CASE_026"
+        },
+        "profil": {
+          "capacite_hydratation": "CASE_033",
+          "temps_chaud": "CASE_034"
+        }
+      },
+      "numeric_effect_validated": false,
+      "hierarchy_is_prediction_proof": false
+    },
+    "025": {
+      "name": "Longueur des grains",
+      "temporal_role": "PRESTART_OBSERVATION_OR_HYPOTHESIS",
+      "children": {
+        "donnee_initiale": {
+          "valeur": "FROM_INPUT_JSON",
+          "unite": "CASE_SPECIFIC"
+        },
+        "mesure": {
+          "horodatage": "PRE_T0_ONLY",
+          "provenance": "SOURCE_DECLARED",
+          "fiabilite": "UNMEASURED"
+        },
+        "incertitude": {
+          "aleatoire": "NOT_ESTIMATED",
+          "epistemique": "NOT_ESTIMATED"
+        }
+      },
+      "numeric_effect_validated": false,
+      "hierarchy_is_prediction_proof": false
+    },
+    "026": {
+      "name": "Traitement du riz",
+      "temporal_role": "PRESTART_OBSERVATION_OR_HYPOTHESIS",
+      "children": {
+        "donnee_initiale": {
+          "valeur": "FROM_INPUT_JSON",
+          "unite": "CASE_SPECIFIC"
+        },
+        "mesure": {
+          "horodatage": "PRE_T0_ONLY",
+          "provenance": "SOURCE_DECLARED",
+          "fiabilite": "UNMEASURED"
+        },
+        "incertitude": {
+          "aleatoire": "NOT_ESTIMATED",
+          "epistemique": "NOT_ESTIMATED"
+        }
+      },
+      "numeric_effect_validated": false,
+      "hierarchy_is_prediction_proof": false
+    },
+    "027": {
+      "name": "Lot et provenance",
+      "temporal_role": "PRESTART_OBSERVATION_OR_HYPOTHESIS",
+      "children": {
+        "donnee_initiale": {
+          "valeur": "FROM_INPUT_JSON",
+          "unite": "CASE_SPECIFIC"
+        },
+        "mesure": {
+          "horodatage": "PRE_T0_ONLY",
+          "provenance": "SOURCE_DECLARED",
+          "fiabilite": "UNMEASURED"
+        },
+        "incertitude": {
+          "aleatoire": "NOT_ESTIMATED",
+          "epistemique": "NOT_ESTIMATED"
+        }
+      },
+      "numeric_effect_validated": false,
+      "hierarchy_is_prediction_proof": false
+    },
+    "028": {
+      "name": "Ancienneté et conservation",
+      "temporal_role": "PRESTART_OBSERVATION_OR_HYPOTHESIS",
+      "children": {
+        "donnee_initiale": {
+          "valeur": "FROM_INPUT_JSON",
+          "unite": "CASE_SPECIFIC"
+        },
+        "mesure": {
+          "horodatage": "PRE_T0_ONLY",
+          "provenance": "SOURCE_DECLARED",
+          "fiabilite": "UNMEASURED"
+        },
+        "incertitude": {
+          "aleatoire": "NOT_ESTIMATED",
+          "epistemique": "NOT_ESTIMATED"
+        }
+      },
+      "numeric_effect_validated": false,
+      "hierarchy_is_prediction_proof": false
+    },
+    "029": {
+      "name": "Grains cassés",
+      "temporal_role": "PRESTART_OBSERVATION_OR_HYPOTHESIS",
+      "children": {
+        "donnee_initiale": {
+          "valeur": "FROM_INPUT_JSON",
+          "unite": "CASE_SPECIFIC"
+        },
+        "mesure": {
+          "horodatage": "PRE_T0_ONLY",
+          "provenance": "SOURCE_DECLARED",
+          "fiabilite": "UNMEASURED"
+        },
+        "incertitude": {
+          "aleatoire": "NOT_ESTIMATED",
+          "epistemique": "NOT_ESTIMATED"
+        }
+      },
+      "numeric_effect_validated": false,
+      "hierarchy_is_prediction_proof": false
+    },
+    "030": {
+      "name": "Amidon de surface",
+      "temporal_role": "PRESTART_OBSERVATION_OR_HYPOTHESIS",
+      "children": {
+        "donnee_initiale": {
+          "valeur": "FROM_INPUT_JSON",
+          "unite": "CASE_SPECIFIC"
+        },
+        "mesure": {
+          "horodatage": "PRE_T0_ONLY",
+          "provenance": "SOURCE_DECLARED",
+          "fiabilite": "UNMEASURED"
+        },
+        "incertitude": {
+          "aleatoire": "NOT_ESTIMATED",
+          "epistemique": "NOT_ESTIMATED"
+        }
+      },
+      "numeric_effect_validated": false,
+      "hierarchy_is_prediction_proof": false
+    },
+    "031": {
+      "name": "Impuretés",
+      "temporal_role": "PRESTART_OBSERVATION_OR_HYPOTHESIS",
+      "children": {
+        "donnee_initiale": {
+          "valeur": "FROM_INPUT_JSON",
+          "unite": "CASE_SPECIFIC"
+        },
+        "mesure": {
+          "horodatage": "PRE_T0_ONLY",
+          "provenance": "SOURCE_DECLARED",
+          "fiabilite": "UNMEASURED"
+        },
+        "incertitude": {
+          "aleatoire": "NOT_ESTIMATED",
+          "epistemique": "NOT_ESTIMATED"
+        }
+      },
+      "numeric_effect_validated": false,
+      "hierarchy_is_prediction_proof": false
+    },
+    "032": {
+      "name": "Humidité initiale",
+      "temporal_role": "PRESTART_OBSERVATION_OR_HYPOTHESIS",
+      "children": {
+        "donnee_initiale": {
+          "valeur": "FROM_INPUT_JSON",
+          "unite": "CASE_SPECIFIC"
+        },
+        "mesure": {
+          "horodatage": "PRE_T0_ONLY",
+          "provenance": "SOURCE_DECLARED",
+          "fiabilite": "UNMEASURED"
+        },
+        "incertitude": {
+          "aleatoire": "NOT_ESTIMATED",
+          "epistemique": "NOT_ESTIMATED"
+        }
+      },
+      "numeric_effect_validated": false,
+      "hierarchy_is_prediction_proof": false
+    },
+    "033": {
+      "name": "Capacité et vitesse d’absorption",
+      "temporal_role": "PRESTART_OBSERVATION_OR_HYPOTHESIS",
+      "children": {
+        "donnee_initiale": {
+          "valeur": "FROM_INPUT_JSON",
+          "unite": "CASE_SPECIFIC"
+        },
+        "mesure": {
+          "horodatage": "PRE_T0_ONLY",
+          "provenance": "SOURCE_DECLARED",
+          "fiabilite": "UNMEASURED"
+        },
+        "incertitude": {
+          "aleatoire": "NOT_ESTIMATED",
+          "epistemique": "NOT_ESTIMATED"
+        }
+      },
+      "numeric_effect_validated": false,
+      "hierarchy_is_prediction_proof": false
+    },
+    "034": {
+      "name": "Comportement à la gélatinisation",
+      "temporal_role": "PRESTART_OBSERVATION_OR_HYPOTHESIS",
+      "children": {
+        "donnee_initiale": {
+          "valeur": "FROM_INPUT_JSON",
+          "unite": "CASE_SPECIFIC"
+        },
+        "mesure": {
+          "horodatage": "PRE_T0_ONLY",
+          "provenance": "SOURCE_DECLARED",
+          "fiabilite": "UNMEASURED"
+        },
+        "incertitude": {
+          "aleatoire": "NOT_ESTIMATED",
+          "epistemique": "NOT_ESTIMATED"
+        }
+      },
+      "numeric_effect_validated": false,
+      "hierarchy_is_prediction_proof": false
+    },
+    "035": {
+      "name": "Eau ajoutée",
+      "temporal_role": "PRESTART_OBSERVATION_OR_HYPOTHESIS",
+      "children": {
+        "donnee_initiale": {
+          "valeur": "FROM_INPUT_JSON",
+          "unite": "CASE_SPECIFIC"
+        },
+        "mesure": {
+          "horodatage": "PRE_T0_ONLY",
+          "provenance": "SOURCE_DECLARED",
+          "fiabilite": "UNMEASURED"
+        },
+        "incertitude": {
+          "aleatoire": "NOT_ESTIMATED",
+          "epistemique": "NOT_ESTIMATED"
+        },
+        "eau": {
+          "masse_initiale_g": "DIRECT_INPUT",
+          "eau_retenue_g": "CASE_036"
+        },
+        "disponibilite": {
+          "stock_g": "CASE_002"
+        }
+      },
+      "numeric_effect_validated": false,
+      "hierarchy_is_prediction_proof": false
+    },
+    "036": {
+      "name": "Eau résiduelle après rinçage",
+      "temporal_role": "PRESTART_OBSERVATION_OR_HYPOTHESIS",
+      "children": {
+        "donnee_initiale": {
+          "valeur": "FROM_INPUT_JSON",
+          "unite": "CASE_SPECIFIC"
+        },
+        "mesure": {
+          "horodatage": "PRE_T0_ONLY",
+          "provenance": "SOURCE_DECLARED",
+          "fiabilite": "UNMEASURED"
+        },
+        "incertitude": {
+          "aleatoire": "NOT_ESTIMATED",
+          "epistemique": "NOT_ESTIMATED"
+        }
+      },
+      "numeric_effect_validated": false,
+      "hierarchy_is_prediction_proof": false
+    },
+    "037": {
+      "name": "Température initiale de l’eau",
+      "temporal_role": "PRESTART_OBSERVATION_OR_HYPOTHESIS",
+      "children": {
+        "donnee_initiale": {
+          "valeur": "FROM_INPUT_JSON",
+          "unite": "CASE_SPECIFIC"
+        },
+        "mesure": {
+          "horodatage": "PRE_T0_ONLY",
+          "provenance": "SOURCE_DECLARED",
+          "fiabilite": "UNMEASURED"
+        },
+        "incertitude": {
+          "aleatoire": "NOT_ESTIMATED",
+          "epistemique": "NOT_ESTIMATED"
+        }
+      },
+      "numeric_effect_validated": false,
+      "hierarchy_is_prediction_proof": false
+    },
+    "038": {
+      "name": "Température initiale du riz",
+      "temporal_role": "PRESTART_OBSERVATION_OR_HYPOTHESIS",
+      "children": {
+        "donnee_initiale": {
+          "valeur": "FROM_INPUT_JSON",
+          "unite": "CASE_SPECIFIC"
+        },
+        "mesure": {
+          "horodatage": "PRE_T0_ONLY",
+          "provenance": "SOURCE_DECLARED",
+          "fiabilite": "UNMEASURED"
+        },
+        "incertitude": {
+          "aleatoire": "NOT_ESTIMATED",
+          "epistemique": "NOT_ESTIMATED"
+        }
+      },
+      "numeric_effect_validated": false,
+      "hierarchy_is_prediction_proof": false
+    },
+    "039": {
+      "name": "Température ambiante",
+      "temporal_role": "PRESTART_OBSERVATION_OR_HYPOTHESIS",
+      "children": {
+        "donnee_initiale": {
+          "valeur": "FROM_INPUT_JSON",
+          "unite": "CASE_SPECIFIC"
+        },
+        "mesure": {
+          "horodatage": "PRE_T0_ONLY",
+          "provenance": "SOURCE_DECLARED",
+          "fiabilite": "UNMEASURED"
+        },
+        "incertitude": {
+          "aleatoire": "NOT_ESTIMATED",
+          "epistemique": "NOT_ESTIMATED"
+        }
+      },
+      "numeric_effect_validated": false,
+      "hierarchy_is_prediction_proof": false
+    },
+    "040": {
+      "name": "Altitude et pression",
+      "temporal_role": "PRESTART_OBSERVATION_OR_HYPOTHESIS",
+      "children": {
+        "donnee_initiale": {
+          "valeur": "FROM_INPUT_JSON",
+          "unite": "CASE_SPECIFIC"
+        },
+        "mesure": {
+          "horodatage": "PRE_T0_ONLY",
+          "provenance": "SOURCE_DECLARED",
+          "fiabilite": "UNMEASURED"
+        },
+        "incertitude": {
+          "aleatoire": "NOT_ESTIMATED",
+          "epistemique": "NOT_ESTIMATED"
+        }
+      },
+      "numeric_effect_validated": false,
+      "hierarchy_is_prediction_proof": false
+    },
+    "041": {
+      "name": "Puissance choisie",
+      "temporal_role": "PRESTART_OBSERVATION_OR_HYPOTHESIS",
+      "children": {
+        "donnee_initiale": {
+          "valeur": "FROM_INPUT_JSON",
+          "unite": "CASE_SPECIFIC"
+        },
+        "mesure": {
+          "horodatage": "PRE_T0_ONLY",
+          "provenance": "SOURCE_DECLARED",
+          "fiabilite": "UNMEASURED"
+        },
+        "incertitude": {
+          "aleatoire": "NOT_ESTIMATED",
+          "epistemique": "NOT_ESTIMATED"
+        },
+        "source": {
+          "puissance_nominale_W": "DIRECT_INPUT",
+          "regulation": "CASE_017"
+        },
+        "chaleur": {
+          "rendement": "CASE_042"
+        }
+      },
+      "numeric_effect_validated": false,
+      "hierarchy_is_prediction_proof": false
+    },
+    "042": {
+      "name": "Transfert thermique",
+      "temporal_role": "PRESTART_OBSERVATION_OR_HYPOTHESIS",
+      "children": {
+        "donnee_initiale": {
+          "valeur": "FROM_INPUT_JSON",
+          "unite": "CASE_SPECIFIC"
+        },
+        "mesure": {
+          "horodatage": "PRE_T0_ONLY",
+          "provenance": "SOURCE_DECLARED",
+          "fiabilite": "UNMEASURED"
+        },
+        "incertitude": {
+          "aleatoire": "NOT_ESTIMATED",
+          "epistemique": "NOT_ESTIMATED"
+        },
+        "transfert": {
+          "rendement_base": "DIRECT_INPUT",
+          "resistance_paroi": "CASES_009_010_011"
+        },
+        "interface": {
+          "deltaT_K": "HYPOTHESIS",
+          "R_contact_K_W": "HYPOTHESIS"
+        }
+      },
+      "numeric_effect_validated": false,
+      "hierarchy_is_prediction_proof": false
+    },
+    "043": {
+      "name": "Moment d’ébullition",
+      "temporal_role": "ACTUAL_FUTURE_EVENT_FORBIDDEN__MAY_USE_PRESTART_FORECAST",
+      "children": {
+        "prevision": {
+          "modele": "MUST_BE_DEFINED",
+          "intervalle": "UNKNOWN",
+          "source": "PRE_T0"
+        },
+        "incertitude": {
+          "dispersion": "UNKNOWN",
+          "validite": "NOT_VALIDATED"
+        }
+      },
+      "numeric_effect_validated": false,
+      "hierarchy_is_prediction_proof": false
+    },
+    "044": {
+      "name": "Stabilité du frémissement",
+      "temporal_role": "ACTUAL_FUTURE_EVENT_FORBIDDEN__MAY_USE_PRESTART_FORECAST",
+      "children": {
+        "prevision": {
+          "modele": "MUST_BE_DEFINED",
+          "intervalle": "UNKNOWN",
+          "source": "PRE_T0"
+        },
+        "incertitude": {
+          "dispersion": "UNKNOWN",
+          "validite": "NOT_VALIDATED"
+        }
+      },
+      "numeric_effect_validated": false,
+      "hierarchy_is_prediction_proof": false
+    },
+    "045": {
+      "name": "Évaporation estimée",
+      "temporal_role": "PRESTART_OBSERVATION_OR_HYPOTHESIS",
+      "children": {
+        "donnee_initiale": {
+          "valeur": "FROM_INPUT_JSON",
+          "unite": "CASE_SPECIFIC"
+        },
+        "mesure": {
+          "horodatage": "PRE_T0_ONLY",
+          "provenance": "SOURCE_DECLARED",
+          "fiabilite": "UNMEASURED"
+        },
+        "incertitude": {
+          "aleatoire": "NOT_ESTIMATED",
+          "epistemique": "NOT_ESTIMATED"
+        }
+      },
+      "numeric_effect_validated": false,
+      "hierarchy_is_prediction_proof": false
+    },
+    "046": {
+      "name": "Fuites de vapeur",
+      "temporal_role": "ACTUAL_FUTURE_EVENT_FORBIDDEN__MAY_USE_PRESTART_FORECAST",
+      "children": {
+        "prevision": {
+          "modele": "MUST_BE_DEFINED",
+          "intervalle": "UNKNOWN",
+          "source": "PRE_T0"
+        },
+        "incertitude": {
+          "dispersion": "UNKNOWN",
+          "validite": "NOT_VALIDATED"
+        }
+      },
+      "numeric_effect_validated": false,
+      "hierarchy_is_prediction_proof": false
+    },
+    "047": {
+      "name": "Durée de cuisson envisagée",
+      "temporal_role": "PRESTART_OBSERVATION_OR_HYPOTHESIS",
+      "children": {
+        "donnee_initiale": {
+          "valeur": "FROM_INPUT_JSON",
+          "unite": "CASE_SPECIFIC"
+        },
+        "mesure": {
+          "horodatage": "PRE_T0_ONLY",
+          "provenance": "SOURCE_DECLARED",
+          "fiabilite": "UNMEASURED"
+        },
+        "incertitude": {
+          "aleatoire": "NOT_ESTIMATED",
+          "epistemique": "NOT_ESTIMATED"
+        }
+      },
+      "numeric_effect_validated": false,
+      "hierarchy_is_prediction_proof": false
+    },
+    "048": {
+      "name": "Bilan hydrique prévisionnel",
+      "temporal_role": "PRESTART_OBSERVATION_OR_HYPOTHESIS",
+      "children": {
+        "prevision": {
+          "modele": "MUST_BE_DEFINED",
+          "intervalle": "UNKNOWN",
+          "source": "PRE_T0"
+        },
+        "incertitude": {
+          "dispersion": "UNKNOWN",
+          "validite": "NOT_VALIDATED"
+        }
+      },
+      "numeric_effect_validated": false,
+      "hierarchy_is_prediction_proof": false
+    },
+    "049": {
+      "name": "Vérifier les portions",
+      "temporal_role": "PLANNED_ACTION_BEFORE_T0_ONLY",
+      "children": {
+        "plan": {
+          "statut": "PLANNED_OR_NOT_PLANNED",
+          "declencheur": "PREDECLARED"
+        },
+        "execution_anticipable": {
+          "probabilite": "NOT_LEARNED",
+          "conditions": "RESOURCE_DEPENDENT"
+        }
+      },
+      "numeric_effect_validated": false,
+      "hierarchy_is_prediction_proof": false
+    },
+    "050": {
+      "name": "Peser le riz",
+      "temporal_role": "PLANNED_ACTION_BEFORE_T0_ONLY",
+      "children": {
+        "plan": {
+          "statut": "PLANNED_OR_NOT_PLANNED",
+          "declencheur": "PREDECLARED"
+        },
+        "execution_anticipable": {
+          "probabilite": "NOT_LEARNED",
+          "conditions": "RESOURCE_DEPENDENT"
+        }
+      },
+      "numeric_effect_validated": false,
+      "hierarchy_is_prediction_proof": false
+    },
+    "051": {
+      "name": "Trier et inspecter",
+      "temporal_role": "PLANNED_ACTION_BEFORE_T0_ONLY",
+      "children": {
+        "plan": {
+          "statut": "PLANNED_OR_NOT_PLANNED",
+          "declencheur": "PREDECLARED"
+        },
+        "execution_anticipable": {
+          "probabilite": "NOT_LEARNED",
+          "conditions": "RESOURCE_DEPENDENT"
+        }
+      },
+      "numeric_effect_validated": false,
+      "hierarchy_is_prediction_proof": false
+    },
+    "052": {
+      "name": "Choisir la méthode",
+      "temporal_role": "PLANNED_ACTION_BEFORE_T0_ONLY",
+      "children": {
+        "plan": {
+          "statut": "PLANNED_OR_NOT_PLANNED",
+          "declencheur": "PREDECLARED"
+        },
+        "execution_anticipable": {
+          "probabilite": "NOT_LEARNED",
+          "conditions": "RESOURCE_DEPENDENT"
+        }
+      },
+      "numeric_effect_validated": false,
+      "hierarchy_is_prediction_proof": false
+    },
+    "053": {
+      "name": "Préparer le dosage initial",
+      "temporal_role": "PLANNED_ACTION_BEFORE_T0_ONLY",
+      "children": {
+        "plan": {
+          "statut": "PLANNED_OR_NOT_PLANNED",
+          "declencheur": "PREDECLARED"
+        },
+        "execution_anticipable": {
+          "probabilite": "NOT_LEARNED",
+          "conditions": "RESOURCE_DEPENDENT"
+        }
+      },
+      "numeric_effect_validated": false,
+      "hierarchy_is_prediction_proof": false
+    },
+    "054": {
+      "name": "Décider du rinçage",
+      "temporal_role": "PLANNED_ACTION_BEFORE_T0_ONLY",
+      "children": {
+        "plan": {
+          "statut": "PLANNED_OR_NOT_PLANNED",
+          "declencheur": "PREDECLARED"
+        },
+        "execution_anticipable": {
+          "probabilite": "NOT_LEARNED",
+          "conditions": "RESOURCE_DEPENDENT"
+        },
+        "rincage": {
+          "decision": "PREDECLARED",
+          "disponibilite_eau": "CASE_005"
+        },
+        "amidon": {
+          "initial": "CASE_030",
+          "fraction_eliminee": "MEASURE_OR_ASSUMPTION"
+        }
+      },
+      "numeric_effect_validated": false,
+      "hierarchy_is_prediction_proof": false
+    },
+    "055": {
+      "name": "Premier rinçage",
+      "temporal_role": "PLANNED_ACTION_BEFORE_T0_ONLY",
+      "children": {
+        "plan": {
+          "statut": "PLANNED_OR_NOT_PLANNED",
+          "declencheur": "PREDECLARED"
+        },
+        "execution_anticipable": {
+          "probabilite": "NOT_LEARNED",
+          "conditions": "RESOURCE_DEPENDENT"
+        }
+      },
+      "numeric_effect_validated": false,
+      "hierarchy_is_prediction_proof": false
+    },
+    "056": {
+      "name": "Rinçage complémentaire",
+      "temporal_role": "PLANNED_ACTION_BEFORE_T0_ONLY",
+      "children": {
+        "plan": {
+          "statut": "PLANNED_OR_NOT_PLANNED",
+          "declencheur": "PREDECLARED"
+        },
+        "execution_anticipable": {
+          "probabilite": "NOT_LEARNED",
+          "conditions": "RESOURCE_DEPENDENT"
+        }
+      },
+      "numeric_effect_validated": false,
+      "hierarchy_is_prediction_proof": false
+    },
+    "057": {
+      "name": "Égouttage",
+      "temporal_role": "PLANNED_ACTION_BEFORE_T0_ONLY",
+      "children": {
+        "plan": {
+          "statut": "PLANNED_OR_NOT_PLANNED",
+          "declencheur": "PREDECLARED"
+        },
+        "execution_anticipable": {
+          "probabilite": "NOT_LEARNED",
+          "conditions": "RESOURCE_DEPENDENT"
+        }
+      },
+      "numeric_effect_validated": false,
+      "hierarchy_is_prediction_proof": false
+    },
+    "058": {
+      "name": "Évaluer l’eau retenue",
+      "temporal_role": "PLANNED_ACTION_BEFORE_T0_ONLY",
+      "children": {
+        "plan": {
+          "statut": "PLANNED_OR_NOT_PLANNED",
+          "declencheur": "PREDECLARED"
+        },
+        "execution_anticipable": {
+          "probabilite": "NOT_LEARNED",
+          "conditions": "RESOURCE_DEPENDENT"
+        }
+      },
+      "numeric_effect_validated": false,
+      "hierarchy_is_prediction_proof": false
+    },
+    "059": {
+      "name": "Mettre le riz dans la casserole",
+      "temporal_role": "PLANNED_ACTION_BEFORE_T0_ONLY",
+      "children": {
+        "plan": {
+          "statut": "PLANNED_OR_NOT_PLANNED",
+          "declencheur": "PREDECLARED"
+        },
+        "execution_anticipable": {
+          "probabilite": "NOT_LEARNED",
+          "conditions": "RESOURCE_DEPENDENT"
+        }
+      },
+      "numeric_effect_validated": false,
+      "hierarchy_is_prediction_proof": false
+    },
+    "060": {
+      "name": "Ajouter l’eau",
+      "temporal_role": "PLANNED_ACTION_BEFORE_T0_ONLY",
+      "children": {
+        "plan": {
+          "statut": "PLANNED_OR_NOT_PLANNED",
+          "declencheur": "PREDECLARED"
+        },
+        "execution_anticipable": {
+          "probabilite": "NOT_LEARNED",
+          "conditions": "RESOURCE_DEPENDENT"
+        }
+      },
+      "numeric_effect_validated": false,
+      "hierarchy_is_prediction_proof": false
+    },
+    "061": {
+      "name": "Ajouter le sel",
+      "temporal_role": "PLANNED_ACTION_BEFORE_T0_ONLY",
+      "children": {
+        "plan": {
+          "statut": "PLANNED_OR_NOT_PLANNED",
+          "declencheur": "PREDECLARED"
+        },
+        "execution_anticipable": {
+          "probabilite": "NOT_LEARNED",
+          "conditions": "RESOURCE_DEPENDENT"
+        }
+      },
+      "numeric_effect_validated": false,
+      "hierarchy_is_prediction_proof": false
+    },
+    "062": {
+      "name": "Ajouter la matière grasse",
+      "temporal_role": "PLANNED_ACTION_BEFORE_T0_ONLY",
+      "children": {
+        "plan": {
+          "statut": "PLANNED_OR_NOT_PLANNED",
+          "declencheur": "PREDECLARED"
+        },
+        "execution_anticipable": {
+          "probabilite": "NOT_LEARNED",
+          "conditions": "RESOURCE_DEPENDENT"
+        }
+      },
+      "numeric_effect_validated": false,
+      "hierarchy_is_prediction_proof": false
+    },
+    "063": {
+      "name": "Vérifier la capacité",
+      "temporal_role": "PLANNED_ACTION_BEFORE_T0_ONLY",
+      "children": {
+        "plan": {
+          "statut": "PLANNED_OR_NOT_PLANNED",
+          "declencheur": "PREDECLARED"
+        },
+        "execution_anticipable": {
+          "probabilite": "NOT_LEARNED",
+          "conditions": "RESOURCE_DEPENDENT"
+        }
+      },
+      "numeric_effect_validated": false,
+      "hierarchy_is_prediction_proof": false
+    },
+    "064": {
+      "name": "Positionner le couvercle",
+      "temporal_role": "PLANNED_ACTION_BEFORE_T0_ONLY",
+      "children": {
+        "plan": {
+          "statut": "PLANNED_OR_NOT_PLANNED",
+          "declencheur": "PREDECLARED"
+        },
+        "execution_anticipable": {
+          "probabilite": "NOT_LEARNED",
+          "conditions": "RESOURCE_DEPENDENT"
+        }
+      },
+      "numeric_effect_validated": false,
+      "hierarchy_is_prediction_proof": false
+    },
+    "065": {
+      "name": "Démarrer la chauffe",
+      "temporal_role": "PLANNED_ACTION_BEFORE_T0_ONLY",
+      "children": {
+        "plan": {
+          "statut": "PLANNED_OR_NOT_PLANNED",
+          "declencheur": "PREDECLARED"
+        },
+        "execution_anticipable": {
+          "probabilite": "NOT_LEARNED",
+          "conditions": "RESOURCE_DEPENDENT"
+        }
+      },
+      "numeric_effect_validated": false,
+      "hierarchy_is_prediction_proof": false
+    },
+    "066": {
+      "name": "Amener à ébullition",
+      "temporal_role": "PLANNED_ACTION_BEFORE_T0_ONLY",
+      "children": {
+        "plan": {
+          "statut": "PLANNED_OR_NOT_PLANNED",
+          "declencheur": "PREDECLARED"
+        },
+        "execution_anticipable": {
+          "probabilite": "NOT_LEARNED",
+          "conditions": "RESOURCE_DEPENDENT"
+        }
+      },
+      "numeric_effect_validated": false,
+      "hierarchy_is_prediction_proof": false
+    },
+    "067": {
+      "name": "Observer mousse et débordement",
+      "temporal_role": "PLANNED_ACTION_BEFORE_T0_ONLY",
+      "children": {
+        "plan": {
+          "statut": "PLANNED_OR_NOT_PLANNED",
+          "declencheur": "PREDECLARED"
+        },
+        "execution_anticipable": {
+          "probabilite": "NOT_LEARNED",
+          "conditions": "RESOURCE_DEPENDENT"
+        }
+      },
+      "numeric_effect_validated": false,
+      "hierarchy_is_prediction_proof": false
+    },
+    "068": {
+      "name": "Réduire le feu et couvrir",
+      "temporal_role": "PLANNED_ACTION_BEFORE_T0_ONLY",
+      "children": {
+        "plan": {
+          "statut": "PLANNED_OR_NOT_PLANNED",
+          "declencheur": "PREDECLARED"
+        },
+        "execution_anticipable": {
+          "probabilite": "NOT_LEARNED",
+          "conditions": "RESOURCE_DEPENDENT"
+        }
+      },
+      "numeric_effect_validated": false,
+      "hierarchy_is_prediction_proof": false
+    },
+    "069": {
+      "name": "Maintenir le régime thermique",
+      "temporal_role": "PLANNED_ACTION_BEFORE_T0_ONLY",
+      "children": {
+        "plan": {
+          "statut": "PLANNED_OR_NOT_PLANNED",
+          "declencheur": "PREDECLARED"
+        },
+        "execution_anticipable": {
+          "probabilite": "NOT_LEARNED",
+          "conditions": "RESOURCE_DEPENDENT"
+        }
+      },
+      "numeric_effect_validated": false,
+      "hierarchy_is_prediction_proof": false
+    },
+    "070": {
+      "name": "Gérer le couvercle",
+      "temporal_role": "PLANNED_ACTION_BEFORE_T0_ONLY",
+      "children": {
+        "plan": {
+          "statut": "PLANNED_OR_NOT_PLANNED",
+          "declencheur": "PREDECLARED"
+        },
+        "execution_anticipable": {
+          "probabilite": "NOT_LEARNED",
+          "conditions": "RESOURCE_DEPENDENT"
+        }
+      },
+      "numeric_effect_validated": false,
+      "hierarchy_is_prediction_proof": false
+    },
+    "071": {
+      "name": "Limiter l’agitation",
+      "temporal_role": "PLANNED_ACTION_BEFORE_T0_ONLY",
+      "children": {
+        "plan": {
+          "statut": "PLANNED_OR_NOT_PLANNED",
+          "declencheur": "PREDECLARED"
+        },
+        "execution_anticipable": {
+          "probabilite": "NOT_LEARNED",
+          "conditions": "RESOURCE_DEPENDENT"
+        }
+      },
+      "numeric_effect_validated": false,
+      "hierarchy_is_prediction_proof": false
+    },
+    "072": {
+      "name": "Suivre l’hydratation",
+      "temporal_role": "PLANNED_ACTION_BEFORE_T0_ONLY",
+      "children": {
+        "plan": {
+          "statut": "PLANNED_OR_NOT_PLANNED",
+          "declencheur": "PREDECLARED"
+        },
+        "execution_anticipable": {
+          "probabilite": "NOT_LEARNED",
+          "conditions": "RESOURCE_DEPENDENT"
+        }
+      },
+      "numeric_effect_validated": false,
+      "hierarchy_is_prediction_proof": false
+    },
+    "073": {
+      "name": "Déterminer la fin de chauffe",
+      "temporal_role": "PLANNED_ACTION_BEFORE_T0_ONLY",
+      "children": {
+        "plan": {
+          "statut": "PLANNED_OR_NOT_PLANNED",
+          "declencheur": "PREDECLARED"
+        },
+        "execution_anticipable": {
+          "probabilite": "NOT_LEARNED",
+          "conditions": "RESOURCE_DEPENDENT"
+        }
+      },
+      "numeric_effect_validated": false,
+      "hierarchy_is_prediction_proof": false
+    },
+    "074": {
+      "name": "Couper le feu",
+      "temporal_role": "PLANNED_ACTION_BEFORE_T0_ONLY",
+      "children": {
+        "plan": {
+          "statut": "PLANNED_OR_NOT_PLANNED",
+          "declencheur": "PREDECLARED"
+        },
+        "execution_anticipable": {
+          "probabilite": "NOT_LEARNED",
+          "conditions": "RESOURCE_DEPENDENT"
+        }
+      },
+      "numeric_effect_validated": false,
+      "hierarchy_is_prediction_proof": false
+    },
+    "075": {
+      "name": "Commencer le repos",
+      "temporal_role": "PLANNED_ACTION_BEFORE_T0_ONLY",
+      "children": {
+        "plan": {
+          "statut": "PLANNED_OR_NOT_PLANNED",
+          "declencheur": "PREDECLARED"
+        },
+        "execution_anticipable": {
+          "probabilite": "NOT_LEARNED",
+          "conditions": "RESOURCE_DEPENDENT"
+        }
+      },
+      "numeric_effect_validated": false,
+      "hierarchy_is_prediction_proof": false
+    },
+    "076": {
+      "name": "Respecter le repos",
+      "temporal_role": "PLANNED_ACTION_BEFORE_T0_ONLY",
+      "children": {
+        "plan": {
+          "statut": "PLANNED_OR_NOT_PLANNED",
+          "declencheur": "PREDECLARED"
+        },
+        "execution_anticipable": {
+          "probabilite": "NOT_LEARNED",
+          "conditions": "RESOURCE_DEPENDENT"
+        }
+      },
+      "numeric_effect_validated": false,
+      "hierarchy_is_prediction_proof": false
+    },
+    "077": {
+      "name": "Égrainer",
+      "temporal_role": "PLANNED_ACTION_BEFORE_T0_ONLY",
+      "children": {
+        "plan": {
+          "statut": "PLANNED_OR_NOT_PLANNED",
+          "declencheur": "PREDECLARED"
+        },
+        "execution_anticipable": {
+          "probabilite": "NOT_LEARNED",
+          "conditions": "RESOURCE_DEPENDENT"
+        }
+      },
+      "numeric_effect_validated": false,
+      "hierarchy_is_prediction_proof": false
+    },
+    "078": {
+      "name": "Examiner l’humidité finale",
+      "temporal_role": "PLANNED_ACTION_BEFORE_T0_ONLY",
+      "children": {
+        "plan": {
+          "statut": "PLANNED_OR_NOT_PLANNED",
+          "declencheur": "PREDECLARED"
+        },
+        "execution_anticipable": {
+          "probabilite": "NOT_LEARNED",
+          "conditions": "RESOURCE_DEPENDENT"
+        }
+      },
+      "numeric_effect_validated": false,
+      "hierarchy_is_prediction_proof": false
+    },
+    "079": {
+      "name": "Décider d’une finition",
+      "temporal_role": "PLANNED_ACTION_BEFORE_T0_ONLY",
+      "children": {
+        "plan": {
+          "statut": "PLANNED_OR_NOT_PLANNED",
+          "declencheur": "PREDECLARED"
+        },
+        "execution_anticipable": {
+          "probabilite": "NOT_LEARNED",
+          "conditions": "RESOURCE_DEPENDENT"
+        }
+      },
+      "numeric_effect_validated": false,
+      "hierarchy_is_prediction_proof": false
+    },
+    "080": {
+      "name": "Ouvrir pour servir",
+      "temporal_role": "PLANNED_ACTION_BEFORE_T0_ONLY",
+      "children": {
+        "plan": {
+          "statut": "PLANNED_OR_NOT_PLANNED",
+          "declencheur": "PREDECLARED"
+        },
+        "execution_anticipable": {
+          "probabilite": "NOT_LEARNED",
+          "conditions": "RESOURCE_DEPENDENT"
+        }
+      },
+      "numeric_effect_validated": false,
+      "hierarchy_is_prediction_proof": false
+    },
+    "081": {
+      "name": "Transférer le riz",
+      "temporal_role": "PLANNED_ACTION_BEFORE_T0_ONLY",
+      "children": {
+        "plan": {
+          "statut": "PLANNED_OR_NOT_PLANNED",
+          "declencheur": "PREDECLARED"
+        },
+        "execution_anticipable": {
+          "probabilite": "NOT_LEARNED",
+          "conditions": "RESOURCE_DEPENDENT"
+        }
+      },
+      "numeric_effect_validated": false,
+      "hierarchy_is_prediction_proof": false
+    },
+    "082": {
+      "name": "Répartir deux portions",
+      "temporal_role": "PLANNED_ACTION_BEFORE_T0_ONLY",
+      "children": {
+        "plan": {
+          "statut": "PLANNED_OR_NOT_PLANNED",
+          "declencheur": "PREDECLARED"
+        },
+        "execution_anticipable": {
+          "probabilite": "NOT_LEARNED",
+          "conditions": "RESOURCE_DEPENDENT"
+        }
+      },
+      "numeric_effect_validated": false,
+      "hierarchy_is_prediction_proof": false
+    },
+    "083": {
+      "name": "Contrôler la température de service",
+      "temporal_role": "PLANNED_ACTION_BEFORE_T0_ONLY",
+      "children": {
+        "plan": {
+          "statut": "PLANNED_OR_NOT_PLANNED",
+          "declencheur": "PREDECLARED"
+        },
+        "execution_anticipable": {
+          "probabilite": "NOT_LEARNED",
+          "conditions": "RESOURCE_DEPENDENT"
+        }
+      },
+      "numeric_effect_validated": false,
+      "hierarchy_is_prediction_proof": false
+    },
+    "084": {
+      "name": "Limiter le délai",
+      "temporal_role": "PLANNED_ACTION_BEFORE_T0_ONLY",
+      "children": {
+        "plan": {
+          "statut": "PLANNED_OR_NOT_PLANNED",
+          "declencheur": "PREDECLARED"
+        },
+        "execution_anticipable": {
+          "probabilite": "NOT_LEARNED",
+          "conditions": "RESOURCE_DEPENDENT"
+        }
+      },
+      "numeric_effect_validated": false,
+      "hierarchy_is_prediction_proof": false
+    },
+    "085": {
+      "name": "Présenter le résultat",
+      "temporal_role": "PLANNED_ACTION_BEFORE_T0_ONLY",
+      "children": {
+        "plan": {
+          "statut": "PLANNED_OR_NOT_PLANNED",
+          "declencheur": "PREDECLARED"
+        },
+        "execution_anticipable": {
+          "probabilite": "NOT_LEARNED",
+          "conditions": "RESOURCE_DEPENDENT"
+        }
+      },
+      "numeric_effect_validated": false,
+      "hierarchy_is_prediction_proof": false
+    },
+    "086": {
+      "name": "Excès d’eau",
+      "temporal_role": "POLICY_PLANNED_BEFORE_T0_ONLY",
+      "children": {
+        "condition": {
+          "declencheur": "PREDECLARED",
+          "indicateur": "FORECAST_OR_SIMULATION"
+        },
+        "reponse": {
+          "action": "PREDECLARED",
+          "effet": "NOT_LEARNED"
+        }
+      },
+      "numeric_effect_validated": false,
+      "hierarchy_is_prediction_proof": false
+    },
+    "087": {
+      "name": "Manque d’eau",
+      "temporal_role": "POLICY_PLANNED_BEFORE_T0_ONLY",
+      "children": {
+        "condition": {
+          "declencheur": "PREDECLARED",
+          "indicateur": "FORECAST_OR_SIMULATION"
+        },
+        "reponse": {
+          "action": "PREDECLARED",
+          "effet": "NOT_LEARNED"
+        },
+        "manque_eau": {
+          "seuil_declencheur": "PREDECLARED",
+          "quantite_reponse": "PREDECLARED"
+        },
+        "execution": {
+          "stock_disponible": "CASE_002"
+        }
+      },
+      "numeric_effect_validated": false,
+      "hierarchy_is_prediction_proof": false
+    },
+    "088": {
+      "name": "Chaleur excessive",
+      "temporal_role": "POLICY_PLANNED_BEFORE_T0_ONLY",
+      "children": {
+        "condition": {
+          "declencheur": "PREDECLARED",
+          "indicateur": "FORECAST_OR_SIMULATION"
+        },
+        "reponse": {
+          "action": "PREDECLARED",
+          "effet": "NOT_LEARNED"
+        }
+      },
+      "numeric_effect_validated": false,
+      "hierarchy_is_prediction_proof": false
+    },
+    "089": {
+      "name": "Chaleur insuffisante",
+      "temporal_role": "POLICY_PLANNED_BEFORE_T0_ONLY",
+      "children": {
+        "condition": {
+          "declencheur": "PREDECLARED",
+          "indicateur": "FORECAST_OR_SIMULATION"
+        },
+        "reponse": {
+          "action": "PREDECLARED",
+          "effet": "NOT_LEARNED"
+        }
+      },
+      "numeric_effect_validated": false,
+      "hierarchy_is_prediction_proof": false
+    },
+    "090": {
+      "name": "Couvercle inadapté",
+      "temporal_role": "POLICY_PLANNED_BEFORE_T0_ONLY",
+      "children": {
+        "condition": {
+          "declencheur": "PREDECLARED",
+          "indicateur": "FORECAST_OR_SIMULATION"
+        },
+        "reponse": {
+          "action": "PREDECLARED",
+          "effet": "NOT_LEARNED"
+        }
+      },
+      "numeric_effect_validated": false,
+      "hierarchy_is_prediction_proof": false
+    },
+    "091": {
+      "name": "Évaporation excessive",
+      "temporal_role": "POLICY_PLANNED_BEFORE_T0_ONLY",
+      "children": {
+        "condition": {
+          "declencheur": "PREDECLARED",
+          "indicateur": "FORECAST_OR_SIMULATION"
+        },
+        "reponse": {
+          "action": "PREDECLARED",
+          "effet": "NOT_LEARNED"
+        }
+      },
+      "numeric_effect_validated": false,
+      "hierarchy_is_prediction_proof": false
+    },
+    "092": {
+      "name": "Frémissement instable",
+      "temporal_role": "POLICY_PLANNED_BEFORE_T0_ONLY",
+      "children": {
+        "condition": {
+          "declencheur": "PREDECLARED",
+          "indicateur": "FORECAST_OR_SIMULATION"
+        },
+        "reponse": {
+          "action": "PREDECLARED",
+          "effet": "NOT_LEARNED"
+        }
+      },
+      "numeric_effect_validated": false,
+      "hierarchy_is_prediction_proof": false
+    },
+    "093": {
+      "name": "Débordement",
+      "temporal_role": "POLICY_PLANNED_BEFORE_T0_ONLY",
+      "children": {
+        "condition": {
+          "declencheur": "PREDECLARED",
+          "indicateur": "FORECAST_OR_SIMULATION"
+        },
+        "reponse": {
+          "action": "PREDECLARED",
+          "effet": "NOT_LEARNED"
+        }
+      },
+      "numeric_effect_validated": false,
+      "hierarchy_is_prediction_proof": false
+    },
+    "094": {
+      "name": "Riz attaché ou brûlé",
+      "temporal_role": "POLICY_PLANNED_BEFORE_T0_ONLY",
+      "children": {
+        "condition": {
+          "declencheur": "PREDECLARED",
+          "indicateur": "FORECAST_OR_SIMULATION"
+        },
+        "reponse": {
+          "action": "PREDECLARED",
+          "effet": "NOT_LEARNED"
+        }
+      },
+      "numeric_effect_validated": false,
+      "hierarchy_is_prediction_proof": false
+    },
+    "095": {
+      "name": "Grains agglutinés",
+      "temporal_role": "POLICY_PLANNED_BEFORE_T0_ONLY",
+      "children": {
+        "condition": {
+          "declencheur": "PREDECLARED",
+          "indicateur": "FORECAST_OR_SIMULATION"
+        },
+        "reponse": {
+          "action": "PREDECLARED",
+          "effet": "NOT_LEARNED"
+        }
+      },
+      "numeric_effect_validated": false,
+      "hierarchy_is_prediction_proof": false
+    },
+    "096": {
+      "name": "Grains trop fermes",
+      "temporal_role": "POLICY_PLANNED_BEFORE_T0_ONLY",
+      "children": {
+        "condition": {
+          "declencheur": "PREDECLARED",
+          "indicateur": "FORECAST_OR_SIMULATION"
+        },
+        "reponse": {
+          "action": "PREDECLARED",
+          "effet": "NOT_LEARNED"
+        }
+      },
+      "numeric_effect_validated": false,
+      "hierarchy_is_prediction_proof": false
+    },
+    "097": {
+      "name": "Riz pâteux",
+      "temporal_role": "POLICY_PLANNED_BEFORE_T0_ONLY",
+      "children": {
+        "condition": {
+          "declencheur": "PREDECLARED",
+          "indicateur": "FORECAST_OR_SIMULATION"
+        },
+        "reponse": {
+          "action": "PREDECLARED",
+          "effet": "NOT_LEARNED"
+        }
+      },
+      "numeric_effect_validated": false,
+      "hierarchy_is_prediction_proof": false
+    },
+    "098": {
+      "name": "Situation non récupérable",
+      "temporal_role": "POLICY_PLANNED_BEFORE_T0_ONLY",
+      "children": {
+        "condition": {
+          "declencheur": "PREDECLARED",
+          "indicateur": "FORECAST_OR_SIMULATION"
+        },
+        "reponse": {
+          "action": "PREDECLARED",
+          "effet": "NOT_LEARNED"
+        },
+        "non_recuperable": {
+          "conditions": "PREDECLARED",
+          "decision": "POLICY_NOT_OBSERVED"
+        }
+      },
+      "numeric_effect_validated": false,
+      "hierarchy_is_prediction_proof": false
+    },
+    "099": {
+      "name": "Salubrité et sécurité alimentaire",
+      "temporal_role": "OUTCOME_ONLY__NOT_INPUT",
+      "children": {
+        "mesure_finale": {
+          "methode": "TO_BE_APPROVED",
+          "date": "POST_T0_ONLY"
+        },
+        "contrat": {
+          "seuil": "TARGET_DECLARED",
+          "role": "OUTPUT_NOT_PREDICTOR"
+        }
+      },
+      "numeric_effect_validated": false,
+      "hierarchy_is_prediction_proof": false
+    },
+    "100": {
+      "name": "Quantité effective",
+      "temporal_role": "OUTCOME_ONLY__NOT_INPUT",
+      "children": {
+        "mesure_finale": {
+          "methode": "TO_BE_APPROVED",
+          "date": "POST_T0_ONLY"
+        },
+        "contrat": {
+          "seuil": "TARGET_DECLARED",
+          "role": "OUTPUT_NOT_PREDICTOR"
+        }
+      },
+      "numeric_effect_validated": false,
+      "hierarchy_is_prediction_proof": false
+    },
+    "101": {
+      "name": "Tendreté",
+      "temporal_role": "OUTCOME_ONLY__NOT_INPUT",
+      "children": {
+        "mesure_finale": {
+          "methode": "TO_BE_APPROVED",
+          "date": "POST_T0_ONLY"
+        },
+        "contrat": {
+          "seuil": "TARGET_DECLARED",
+          "role": "OUTPUT_NOT_PREDICTOR"
+        }
+      },
+      "numeric_effect_validated": false,
+      "hierarchy_is_prediction_proof": false
+    },
+    "102": {
+      "name": "Séparation des grains",
+      "temporal_role": "OUTCOME_ONLY__NOT_INPUT",
+      "children": {
+        "mesure_finale": {
+          "methode": "TO_BE_APPROVED",
+          "date": "POST_T0_ONLY"
+        },
+        "contrat": {
+          "seuil": "TARGET_DECLARED",
+          "role": "OUTPUT_NOT_PREDICTOR"
+        }
+      },
+      "numeric_effect_validated": false,
+      "hierarchy_is_prediction_proof": false
+    },
+    "103": {
+      "name": "Homogénéité",
+      "temporal_role": "OUTCOME_ONLY__NOT_INPUT",
+      "children": {
+        "mesure_finale": {
+          "methode": "TO_BE_APPROVED",
+          "date": "POST_T0_ONLY"
+        },
+        "contrat": {
+          "seuil": "TARGET_DECLARED",
+          "role": "OUTPUT_NOT_PREDICTOR"
+        }
+      },
+      "numeric_effect_validated": false,
+      "hierarchy_is_prediction_proof": false
+    },
+    "104": {
+      "name": "Intégrité des grains",
+      "temporal_role": "OUTCOME_ONLY__NOT_INPUT",
+      "children": {
+        "mesure_finale": {
+          "methode": "TO_BE_APPROVED",
+          "date": "POST_T0_ONLY"
+        },
+        "contrat": {
+          "seuil": "TARGET_DECLARED",
+          "role": "OUTPUT_NOT_PREDICTOR"
+        }
+      },
+      "numeric_effect_validated": false,
+      "hierarchy_is_prediction_proof": false
+    },
+    "105": {
+      "name": "Absence d’eau libre excessive",
+      "temporal_role": "OUTCOME_ONLY__NOT_INPUT",
+      "children": {
+        "mesure_finale": {
+          "methode": "TO_BE_APPROVED",
+          "date": "POST_T0_ONLY"
+        },
+        "contrat": {
+          "seuil": "TARGET_DECLARED",
+          "role": "OUTPUT_NOT_PREDICTOR"
+        }
+      },
+      "numeric_effect_validated": false,
+      "hierarchy_is_prediction_proof": false
+    },
+    "106": {
+      "name": "Absence de zones brûlées",
+      "temporal_role": "OUTCOME_ONLY__NOT_INPUT",
+      "children": {
+        "mesure_finale": {
+          "methode": "TO_BE_APPROVED",
+          "date": "POST_T0_ONLY"
+        },
+        "contrat": {
+          "seuil": "TARGET_DECLARED",
+          "role": "OUTPUT_NOT_PREDICTOR"
+        }
+      },
+      "numeric_effect_validated": false,
+      "hierarchy_is_prediction_proof": false
+    },
+    "107": {
+      "name": "Température de service",
+      "temporal_role": "OUTCOME_ONLY__NOT_INPUT",
+      "children": {
+        "mesure_finale": {
+          "methode": "TO_BE_APPROVED",
+          "date": "POST_T0_ONLY"
+        },
+        "contrat": {
+          "seuil": "TARGET_DECLARED",
+          "role": "OUTPUT_NOT_PREDICTOR"
+        }
+      },
+      "numeric_effect_validated": false,
+      "hierarchy_is_prediction_proof": false
+    },
+    "108": {
+      "name": "Goût",
+      "temporal_role": "OUTCOME_ONLY__NOT_INPUT",
+      "children": {
+        "mesure_finale": {
+          "methode": "TO_BE_APPROVED",
+          "date": "POST_T0_ONLY"
+        },
+        "contrat": {
+          "seuil": "TARGET_DECLARED",
+          "role": "OUTPUT_NOT_PREDICTOR"
+        }
+      },
+      "numeric_effect_validated": false,
+      "hierarchy_is_prediction_proof": false
+    },
+    "109": {
+      "name": "Arôme",
+      "temporal_role": "OUTCOME_ONLY__NOT_INPUT",
+      "children": {
+        "mesure_finale": {
+          "methode": "TO_BE_APPROVED",
+          "date": "POST_T0_ONLY"
+        },
+        "contrat": {
+          "seuil": "TARGET_DECLARED",
+          "role": "OUTPUT_NOT_PREDICTOR"
+        }
+      },
+      "numeric_effect_validated": false,
+      "hierarchy_is_prediction_proof": false
+    },
+    "110": {
+      "name": "Aspect visuel",
+      "temporal_role": "OUTCOME_ONLY__NOT_INPUT",
+      "children": {
+        "mesure_finale": {
+          "methode": "TO_BE_APPROVED",
+          "date": "POST_T0_ONLY"
+        },
+        "contrat": {
+          "seuil": "TARGET_DECLARED",
+          "role": "OUTPUT_NOT_PREDICTOR"
+        }
+      },
+      "numeric_effect_validated": false,
+      "hierarchy_is_prediction_proof": false
+    },
+    "111": {
+      "name": "Maintien de la qualité",
+      "temporal_role": "OUTCOME_ONLY__NOT_INPUT",
+      "children": {
+        "mesure_finale": {
+          "methode": "TO_BE_APPROVED",
+          "date": "POST_T0_ONLY"
+        },
+        "contrat": {
+          "seuil": "TARGET_DECLARED",
+          "role": "OUTPUT_NOT_PREDICTOR"
+        }
+      },
+      "numeric_effect_validated": false,
+      "hierarchy_is_prediction_proof": false
+    },
+    "112": {
+      "name": "Évaluation globale et décision",
+      "temporal_role": "OUTCOME_ONLY__NOT_INPUT",
+      "children": {
+        "mesure_finale": {
+          "methode": "TO_BE_APPROVED",
+          "date": "POST_T0_ONLY"
+        },
+        "contrat": {
+          "seuil": "TARGET_DECLARED",
+          "role": "OUTPUT_NOT_PREDICTOR"
+        }
+      },
+      "numeric_effect_validated": false,
+      "hierarchy_is_prediction_proof": false
+    }
+  }
+}
