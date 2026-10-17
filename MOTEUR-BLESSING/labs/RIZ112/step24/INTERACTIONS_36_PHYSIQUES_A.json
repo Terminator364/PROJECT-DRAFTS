@@ -1,0 +1,924 @@
+{
+  "schema": "riz112/step24/nine-physics-pair-interactions/v1",
+  "active_physical_primitives": [
+    "001",
+    "033",
+    "035",
+    "036",
+    "037",
+    "038",
+    "041",
+    "042",
+    "047"
+  ],
+  "pair_count": 36,
+  "tested_interactions": [
+    {
+      "pair": [
+        "001",
+        "033"
+      ],
+      "intervention_a": {
+        "before": 160.0,
+        "after": 168.0
+      },
+      "intervention_b": {
+        "before": 1.35,
+        "after": 1.4175000000000002
+      },
+      "status": "PHYSICAL_NONADDITIVITY_DETECTED",
+      "mixed_difference": {
+        "nominal_energy_delivered_J": 0.0,
+        "heat_to_target_required_J": 0.0,
+        "energy_margin_for_target_J": 0.0,
+        "water_for_absorption_target_g": 0.54,
+        "max_water_before_unmodeled_loss_g": 0.0,
+        "thermal_ceiling_on_evaporation_g": 0.0
+      },
+      "Q_effect_verified": false,
+      "scientific_IC_delta_percent": null
+    },
+    {
+      "pair": [
+        "001",
+        "035"
+      ],
+      "intervention_a": {
+        "before": 160.0,
+        "after": 168.0
+      },
+      "intervention_b": {
+        "before": 300.0,
+        "after": 315.0
+      },
+      "status": "NO_NONADDITIVITY_AT_CHOSEN_POINT",
+      "mixed_difference": {
+        "nominal_energy_delivered_J": 0.0,
+        "heat_to_target_required_J": 0.0,
+        "energy_margin_for_target_J": -0.0,
+        "water_for_absorption_target_g": 0.0,
+        "max_water_before_unmodeled_loss_g": 0.0,
+        "thermal_ceiling_on_evaporation_g": -0.0
+      },
+      "Q_effect_verified": false,
+      "scientific_IC_delta_percent": null
+    },
+    {
+      "pair": [
+        "001",
+        "036"
+      ],
+      "intervention_a": {
+        "before": 160.0,
+        "after": 168.0
+      },
+      "intervention_b": {
+        "before": 8.0,
+        "after": 8.4
+      },
+      "status": "NO_NONADDITIVITY_AT_CHOSEN_POINT",
+      "mixed_difference": {
+        "nominal_energy_delivered_J": 0.0,
+        "heat_to_target_required_J": 0.0,
+        "energy_margin_for_target_J": -0.0,
+        "water_for_absorption_target_g": 0.0,
+        "max_water_before_unmodeled_loss_g": 0.0,
+        "thermal_ceiling_on_evaporation_g": 0.0
+      },
+      "Q_effect_verified": false,
+      "scientific_IC_delta_percent": null
+    },
+    {
+      "pair": [
+        "001",
+        "037"
+      ],
+      "intervention_a": {
+        "before": 160.0,
+        "after": 168.0
+      },
+      "intervention_b": {
+        "before": 22.0,
+        "after": 23.1
+      },
+      "status": "NO_NONADDITIVITY_AT_CHOSEN_POINT",
+      "mixed_difference": {
+        "nominal_energy_delivered_J": 0.0,
+        "heat_to_target_required_J": 0.0,
+        "energy_margin_for_target_J": -0.0,
+        "water_for_absorption_target_g": 0.0,
+        "max_water_before_unmodeled_loss_g": 0.0,
+        "thermal_ceiling_on_evaporation_g": 0.0
+      },
+      "Q_effect_verified": false,
+      "scientific_IC_delta_percent": null
+    },
+    {
+      "pair": [
+        "001",
+        "038"
+      ],
+      "intervention_a": {
+        "before": 160.0,
+        "after": 168.0
+      },
+      "intervention_b": {
+        "before": 22.0,
+        "after": 23.1
+      },
+      "status": "PHYSICAL_NONADDITIVITY_DETECTED",
+      "mixed_difference": {
+        "nominal_energy_delivered_J": 0.0,
+        "heat_to_target_required_J": -14.08,
+        "energy_margin_for_target_J": 14.08,
+        "water_for_absorption_target_g": 0.0,
+        "max_water_before_unmodeled_loss_g": 0.0,
+        "thermal_ceiling_on_evaporation_g": 0.006238
+      },
+      "Q_effect_verified": false,
+      "scientific_IC_delta_percent": null
+    },
+    {
+      "pair": [
+        "001",
+        "041"
+      ],
+      "intervention_a": {
+        "before": 160.0,
+        "after": 168.0
+      },
+      "intervention_b": {
+        "before": 550.0,
+        "after": 577.5
+      },
+      "status": "NO_NONADDITIVITY_AT_CHOSEN_POINT",
+      "mixed_difference": {
+        "nominal_energy_delivered_J": 0.0,
+        "heat_to_target_required_J": 0.0,
+        "energy_margin_for_target_J": 0.0,
+        "water_for_absorption_target_g": 0.0,
+        "max_water_before_unmodeled_loss_g": 0.0,
+        "thermal_ceiling_on_evaporation_g": 0.0
+      },
+      "Q_effect_verified": false,
+      "scientific_IC_delta_percent": null
+    },
+    {
+      "pair": [
+        "001",
+        "042"
+      ],
+      "intervention_a": {
+        "before": 160.0,
+        "after": 168.0
+      },
+      "intervention_b": {
+        "before": 0.6,
+        "after": 0.63
+      },
+      "status": "NO_NONADDITIVITY_AT_CHOSEN_POINT",
+      "mixed_difference": {
+        "nominal_energy_delivered_J": 0.0,
+        "heat_to_target_required_J": 0.0,
+        "energy_margin_for_target_J": 0.0,
+        "water_for_absorption_target_g": 0.0,
+        "max_water_before_unmodeled_loss_g": 0.0,
+        "thermal_ceiling_on_evaporation_g": 0.0
+      },
+      "Q_effect_verified": false,
+      "scientific_IC_delta_percent": null
+    },
+    {
+      "pair": [
+        "001",
+        "047"
+      ],
+      "intervention_a": {
+        "before": 160.0,
+        "after": 168.0
+      },
+      "intervention_b": {
+        "before": 22.0,
+        "after": 23.1
+      },
+      "status": "NO_NONADDITIVITY_AT_CHOSEN_POINT",
+      "mixed_difference": {
+        "nominal_energy_delivered_J": 0.0,
+        "heat_to_target_required_J": 0.0,
+        "energy_margin_for_target_J": 0.0,
+        "water_for_absorption_target_g": 0.0,
+        "max_water_before_unmodeled_loss_g": 0.0,
+        "thermal_ceiling_on_evaporation_g": 0.0
+      },
+      "Q_effect_verified": false,
+      "scientific_IC_delta_percent": null
+    },
+    {
+      "pair": [
+        "033",
+        "035"
+      ],
+      "intervention_a": {
+        "before": 1.35,
+        "after": 1.4175000000000002
+      },
+      "intervention_b": {
+        "before": 300.0,
+        "after": 315.0
+      },
+      "status": "NO_NONADDITIVITY_AT_CHOSEN_POINT",
+      "mixed_difference": {
+        "nominal_energy_delivered_J": 0.0,
+        "heat_to_target_required_J": 0.0,
+        "energy_margin_for_target_J": 0.0,
+        "water_for_absorption_target_g": 0.0,
+        "max_water_before_unmodeled_loss_g": 0.0,
+        "thermal_ceiling_on_evaporation_g": 0.0
+      },
+      "Q_effect_verified": false,
+      "scientific_IC_delta_percent": null
+    },
+    {
+      "pair": [
+        "033",
+        "036"
+      ],
+      "intervention_a": {
+        "before": 1.35,
+        "after": 1.4175000000000002
+      },
+      "intervention_b": {
+        "before": 8.0,
+        "after": 8.4
+      },
+      "status": "NO_NONADDITIVITY_AT_CHOSEN_POINT",
+      "mixed_difference": {
+        "nominal_energy_delivered_J": 0.0,
+        "heat_to_target_required_J": 0.0,
+        "energy_margin_for_target_J": 0.0,
+        "water_for_absorption_target_g": 0.0,
+        "max_water_before_unmodeled_loss_g": 0.0,
+        "thermal_ceiling_on_evaporation_g": 0.0
+      },
+      "Q_effect_verified": false,
+      "scientific_IC_delta_percent": null
+    },
+    {
+      "pair": [
+        "033",
+        "037"
+      ],
+      "intervention_a": {
+        "before": 1.35,
+        "after": 1.4175000000000002
+      },
+      "intervention_b": {
+        "before": 22.0,
+        "after": 23.1
+      },
+      "status": "NO_NONADDITIVITY_AT_CHOSEN_POINT",
+      "mixed_difference": {
+        "nominal_energy_delivered_J": 0.0,
+        "heat_to_target_required_J": 0.0,
+        "energy_margin_for_target_J": 0.0,
+        "water_for_absorption_target_g": 0.0,
+        "max_water_before_unmodeled_loss_g": 0.0,
+        "thermal_ceiling_on_evaporation_g": 0.0
+      },
+      "Q_effect_verified": false,
+      "scientific_IC_delta_percent": null
+    },
+    {
+      "pair": [
+        "033",
+        "038"
+      ],
+      "intervention_a": {
+        "before": 1.35,
+        "after": 1.4175000000000002
+      },
+      "intervention_b": {
+        "before": 22.0,
+        "after": 23.1
+      },
+      "status": "NO_NONADDITIVITY_AT_CHOSEN_POINT",
+      "mixed_difference": {
+        "nominal_energy_delivered_J": 0.0,
+        "heat_to_target_required_J": 0.0,
+        "energy_margin_for_target_J": 0.0,
+        "water_for_absorption_target_g": 0.0,
+        "max_water_before_unmodeled_loss_g": 0.0,
+        "thermal_ceiling_on_evaporation_g": 0.0
+      },
+      "Q_effect_verified": false,
+      "scientific_IC_delta_percent": null
+    },
+    {
+      "pair": [
+        "033",
+        "041"
+      ],
+      "intervention_a": {
+        "before": 1.35,
+        "after": 1.4175000000000002
+      },
+      "intervention_b": {
+        "before": 550.0,
+        "after": 577.5
+      },
+      "status": "NO_NONADDITIVITY_AT_CHOSEN_POINT",
+      "mixed_difference": {
+        "nominal_energy_delivered_J": 0.0,
+        "heat_to_target_required_J": 0.0,
+        "energy_margin_for_target_J": 0.0,
+        "water_for_absorption_target_g": 0.0,
+        "max_water_before_unmodeled_loss_g": 0.0,
+        "thermal_ceiling_on_evaporation_g": 0.0
+      },
+      "Q_effect_verified": false,
+      "scientific_IC_delta_percent": null
+    },
+    {
+      "pair": [
+        "033",
+        "042"
+      ],
+      "intervention_a": {
+        "before": 1.35,
+        "after": 1.4175000000000002
+      },
+      "intervention_b": {
+        "before": 0.6,
+        "after": 0.63
+      },
+      "status": "NO_NONADDITIVITY_AT_CHOSEN_POINT",
+      "mixed_difference": {
+        "nominal_energy_delivered_J": 0.0,
+        "heat_to_target_required_J": 0.0,
+        "energy_margin_for_target_J": 0.0,
+        "water_for_absorption_target_g": 0.0,
+        "max_water_before_unmodeled_loss_g": 0.0,
+        "thermal_ceiling_on_evaporation_g": 0.0
+      },
+      "Q_effect_verified": false,
+      "scientific_IC_delta_percent": null
+    },
+    {
+      "pair": [
+        "033",
+        "047"
+      ],
+      "intervention_a": {
+        "before": 1.35,
+        "after": 1.4175000000000002
+      },
+      "intervention_b": {
+        "before": 22.0,
+        "after": 23.1
+      },
+      "status": "NO_NONADDITIVITY_AT_CHOSEN_POINT",
+      "mixed_difference": {
+        "nominal_energy_delivered_J": 0.0,
+        "heat_to_target_required_J": 0.0,
+        "energy_margin_for_target_J": 0.0,
+        "water_for_absorption_target_g": 0.0,
+        "max_water_before_unmodeled_loss_g": 0.0,
+        "thermal_ceiling_on_evaporation_g": 0.0
+      },
+      "Q_effect_verified": false,
+      "scientific_IC_delta_percent": null
+    },
+    {
+      "pair": [
+        "035",
+        "036"
+      ],
+      "intervention_a": {
+        "before": 300.0,
+        "after": 315.0
+      },
+      "intervention_b": {
+        "before": 8.0,
+        "after": 8.4
+      },
+      "status": "NO_NONADDITIVITY_AT_CHOSEN_POINT",
+      "mixed_difference": {
+        "nominal_energy_delivered_J": 0.0,
+        "heat_to_target_required_J": 0.0,
+        "energy_margin_for_target_J": -0.0,
+        "water_for_absorption_target_g": 0.0,
+        "max_water_before_unmodeled_loss_g": 0.0,
+        "thermal_ceiling_on_evaporation_g": 0.0
+      },
+      "Q_effect_verified": false,
+      "scientific_IC_delta_percent": null
+    },
+    {
+      "pair": [
+        "035",
+        "037"
+      ],
+      "intervention_a": {
+        "before": 300.0,
+        "after": 315.0
+      },
+      "intervention_b": {
+        "before": 22.0,
+        "after": 23.1
+      },
+      "status": "PHYSICAL_NONADDITIVITY_DETECTED",
+      "mixed_difference": {
+        "nominal_energy_delivered_J": 0.0,
+        "heat_to_target_required_J": -68.97,
+        "energy_margin_for_target_J": 68.97,
+        "water_for_absorption_target_g": 0.0,
+        "max_water_before_unmodeled_loss_g": 0.0,
+        "thermal_ceiling_on_evaporation_g": 0.030558
+      },
+      "Q_effect_verified": false,
+      "scientific_IC_delta_percent": null
+    },
+    {
+      "pair": [
+        "035",
+        "038"
+      ],
+      "intervention_a": {
+        "before": 300.0,
+        "after": 315.0
+      },
+      "intervention_b": {
+        "before": 22.0,
+        "after": 23.1
+      },
+      "status": "NO_NONADDITIVITY_AT_CHOSEN_POINT",
+      "mixed_difference": {
+        "nominal_energy_delivered_J": 0.0,
+        "heat_to_target_required_J": 0.0,
+        "energy_margin_for_target_J": -0.0,
+        "water_for_absorption_target_g": 0.0,
+        "max_water_before_unmodeled_loss_g": 0.0,
+        "thermal_ceiling_on_evaporation_g": 0.0
+      },
+      "Q_effect_verified": false,
+      "scientific_IC_delta_percent": null
+    },
+    {
+      "pair": [
+        "035",
+        "041"
+      ],
+      "intervention_a": {
+        "before": 300.0,
+        "after": 315.0
+      },
+      "intervention_b": {
+        "before": 550.0,
+        "after": 577.5
+      },
+      "status": "NO_NONADDITIVITY_AT_CHOSEN_POINT",
+      "mixed_difference": {
+        "nominal_energy_delivered_J": 0.0,
+        "heat_to_target_required_J": 0.0,
+        "energy_margin_for_target_J": 0.0,
+        "water_for_absorption_target_g": 0.0,
+        "max_water_before_unmodeled_loss_g": 0.0,
+        "thermal_ceiling_on_evaporation_g": 0.0
+      },
+      "Q_effect_verified": false,
+      "scientific_IC_delta_percent": null
+    },
+    {
+      "pair": [
+        "035",
+        "042"
+      ],
+      "intervention_a": {
+        "before": 300.0,
+        "after": 315.0
+      },
+      "intervention_b": {
+        "before": 0.6,
+        "after": 0.63
+      },
+      "status": "NO_NONADDITIVITY_AT_CHOSEN_POINT",
+      "mixed_difference": {
+        "nominal_energy_delivered_J": 0.0,
+        "heat_to_target_required_J": 0.0,
+        "energy_margin_for_target_J": 0.0,
+        "water_for_absorption_target_g": 0.0,
+        "max_water_before_unmodeled_loss_g": 0.0,
+        "thermal_ceiling_on_evaporation_g": 0.0
+      },
+      "Q_effect_verified": false,
+      "scientific_IC_delta_percent": null
+    },
+    {
+      "pair": [
+        "035",
+        "047"
+      ],
+      "intervention_a": {
+        "before": 300.0,
+        "after": 315.0
+      },
+      "intervention_b": {
+        "before": 22.0,
+        "after": 23.1
+      },
+      "status": "NO_NONADDITIVITY_AT_CHOSEN_POINT",
+      "mixed_difference": {
+        "nominal_energy_delivered_J": 0.0,
+        "heat_to_target_required_J": 0.0,
+        "energy_margin_for_target_J": 0.0,
+        "water_for_absorption_target_g": 0.0,
+        "max_water_before_unmodeled_loss_g": 0.0,
+        "thermal_ceiling_on_evaporation_g": 0.0
+      },
+      "Q_effect_verified": false,
+      "scientific_IC_delta_percent": null
+    },
+    {
+      "pair": [
+        "036",
+        "037"
+      ],
+      "intervention_a": {
+        "before": 8.0,
+        "after": 8.4
+      },
+      "intervention_b": {
+        "before": 22.0,
+        "after": 23.1
+      },
+      "status": "PHYSICAL_NONADDITIVITY_DETECTED",
+      "mixed_difference": {
+        "nominal_energy_delivered_J": 0.0,
+        "heat_to_target_required_J": -1.8392,
+        "energy_margin_for_target_J": 1.8392,
+        "water_for_absorption_target_g": 0.0,
+        "max_water_before_unmodeled_loss_g": 0.0,
+        "thermal_ceiling_on_evaporation_g": 0.000815
+      },
+      "Q_effect_verified": false,
+      "scientific_IC_delta_percent": null
+    },
+    {
+      "pair": [
+        "036",
+        "038"
+      ],
+      "intervention_a": {
+        "before": 8.0,
+        "after": 8.4
+      },
+      "intervention_b": {
+        "before": 22.0,
+        "after": 23.1
+      },
+      "status": "NO_NONADDITIVITY_AT_CHOSEN_POINT",
+      "mixed_difference": {
+        "nominal_energy_delivered_J": 0.0,
+        "heat_to_target_required_J": 0.0,
+        "energy_margin_for_target_J": -0.0,
+        "water_for_absorption_target_g": 0.0,
+        "max_water_before_unmodeled_loss_g": 0.0,
+        "thermal_ceiling_on_evaporation_g": 0.0
+      },
+      "Q_effect_verified": false,
+      "scientific_IC_delta_percent": null
+    },
+    {
+      "pair": [
+        "036",
+        "041"
+      ],
+      "intervention_a": {
+        "before": 8.0,
+        "after": 8.4
+      },
+      "intervention_b": {
+        "before": 550.0,
+        "after": 577.5
+      },
+      "status": "NO_NONADDITIVITY_AT_CHOSEN_POINT",
+      "mixed_difference": {
+        "nominal_energy_delivered_J": 0.0,
+        "heat_to_target_required_J": 0.0,
+        "energy_margin_for_target_J": 0.0,
+        "water_for_absorption_target_g": 0.0,
+        "max_water_before_unmodeled_loss_g": 0.0,
+        "thermal_ceiling_on_evaporation_g": 0.0
+      },
+      "Q_effect_verified": false,
+      "scientific_IC_delta_percent": null
+    },
+    {
+      "pair": [
+        "036",
+        "042"
+      ],
+      "intervention_a": {
+        "before": 8.0,
+        "after": 8.4
+      },
+      "intervention_b": {
+        "before": 0.6,
+        "after": 0.63
+      },
+      "status": "NO_NONADDITIVITY_AT_CHOSEN_POINT",
+      "mixed_difference": {
+        "nominal_energy_delivered_J": 0.0,
+        "heat_to_target_required_J": 0.0,
+        "energy_margin_for_target_J": 0.0,
+        "water_for_absorption_target_g": 0.0,
+        "max_water_before_unmodeled_loss_g": 0.0,
+        "thermal_ceiling_on_evaporation_g": 0.0
+      },
+      "Q_effect_verified": false,
+      "scientific_IC_delta_percent": null
+    },
+    {
+      "pair": [
+        "036",
+        "047"
+      ],
+      "intervention_a": {
+        "before": 8.0,
+        "after": 8.4
+      },
+      "intervention_b": {
+        "before": 22.0,
+        "after": 23.1
+      },
+      "status": "NO_NONADDITIVITY_AT_CHOSEN_POINT",
+      "mixed_difference": {
+        "nominal_energy_delivered_J": 0.0,
+        "heat_to_target_required_J": 0.0,
+        "energy_margin_for_target_J": 0.0,
+        "water_for_absorption_target_g": 0.0,
+        "max_water_before_unmodeled_loss_g": 0.0,
+        "thermal_ceiling_on_evaporation_g": 0.0
+      },
+      "Q_effect_verified": false,
+      "scientific_IC_delta_percent": null
+    },
+    {
+      "pair": [
+        "037",
+        "038"
+      ],
+      "intervention_a": {
+        "before": 22.0,
+        "after": 23.1
+      },
+      "intervention_b": {
+        "before": 22.0,
+        "after": 23.1
+      },
+      "status": "NO_NONADDITIVITY_AT_CHOSEN_POINT",
+      "mixed_difference": {
+        "nominal_energy_delivered_J": 0.0,
+        "heat_to_target_required_J": 0.0,
+        "energy_margin_for_target_J": -0.0,
+        "water_for_absorption_target_g": 0.0,
+        "max_water_before_unmodeled_loss_g": 0.0,
+        "thermal_ceiling_on_evaporation_g": 0.0
+      },
+      "Q_effect_verified": false,
+      "scientific_IC_delta_percent": null
+    },
+    {
+      "pair": [
+        "037",
+        "041"
+      ],
+      "intervention_a": {
+        "before": 22.0,
+        "after": 23.1
+      },
+      "intervention_b": {
+        "before": 550.0,
+        "after": 577.5
+      },
+      "status": "NO_NONADDITIVITY_AT_CHOSEN_POINT",
+      "mixed_difference": {
+        "nominal_energy_delivered_J": 0.0,
+        "heat_to_target_required_J": 0.0,
+        "energy_margin_for_target_J": 0.0,
+        "water_for_absorption_target_g": 0.0,
+        "max_water_before_unmodeled_loss_g": 0.0,
+        "thermal_ceiling_on_evaporation_g": 0.0
+      },
+      "Q_effect_verified": false,
+      "scientific_IC_delta_percent": null
+    },
+    {
+      "pair": [
+        "037",
+        "042"
+      ],
+      "intervention_a": {
+        "before": 22.0,
+        "after": 23.1
+      },
+      "intervention_b": {
+        "before": 0.6,
+        "after": 0.63
+      },
+      "status": "NO_NONADDITIVITY_AT_CHOSEN_POINT",
+      "mixed_difference": {
+        "nominal_energy_delivered_J": 0.0,
+        "heat_to_target_required_J": 0.0,
+        "energy_margin_for_target_J": 0.0,
+        "water_for_absorption_target_g": 0.0,
+        "max_water_before_unmodeled_loss_g": 0.0,
+        "thermal_ceiling_on_evaporation_g": 0.0
+      },
+      "Q_effect_verified": false,
+      "scientific_IC_delta_percent": null
+    },
+    {
+      "pair": [
+        "037",
+        "047"
+      ],
+      "intervention_a": {
+        "before": 22.0,
+        "after": 23.1
+      },
+      "intervention_b": {
+        "before": 22.0,
+        "after": 23.1
+      },
+      "status": "NO_NONADDITIVITY_AT_CHOSEN_POINT",
+      "mixed_difference": {
+        "nominal_energy_delivered_J": 0.0,
+        "heat_to_target_required_J": 0.0,
+        "energy_margin_for_target_J": 0.0,
+        "water_for_absorption_target_g": 0.0,
+        "max_water_before_unmodeled_loss_g": 0.0,
+        "thermal_ceiling_on_evaporation_g": 0.0
+      },
+      "Q_effect_verified": false,
+      "scientific_IC_delta_percent": null
+    },
+    {
+      "pair": [
+        "038",
+        "041"
+      ],
+      "intervention_a": {
+        "before": 22.0,
+        "after": 23.1
+      },
+      "intervention_b": {
+        "before": 550.0,
+        "after": 577.5
+      },
+      "status": "NO_NONADDITIVITY_AT_CHOSEN_POINT",
+      "mixed_difference": {
+        "nominal_energy_delivered_J": 0.0,
+        "heat_to_target_required_J": 0.0,
+        "energy_margin_for_target_J": 0.0,
+        "water_for_absorption_target_g": 0.0,
+        "max_water_before_unmodeled_loss_g": 0.0,
+        "thermal_ceiling_on_evaporation_g": 0.0
+      },
+      "Q_effect_verified": false,
+      "scientific_IC_delta_percent": null
+    },
+    {
+      "pair": [
+        "038",
+        "042"
+      ],
+      "intervention_a": {
+        "before": 22.0,
+        "after": 23.1
+      },
+      "intervention_b": {
+        "before": 0.6,
+        "after": 0.63
+      },
+      "status": "NO_NONADDITIVITY_AT_CHOSEN_POINT",
+      "mixed_difference": {
+        "nominal_energy_delivered_J": 0.0,
+        "heat_to_target_required_J": 0.0,
+        "energy_margin_for_target_J": 0.0,
+        "water_for_absorption_target_g": 0.0,
+        "max_water_before_unmodeled_loss_g": 0.0,
+        "thermal_ceiling_on_evaporation_g": 0.0
+      },
+      "Q_effect_verified": false,
+      "scientific_IC_delta_percent": null
+    },
+    {
+      "pair": [
+        "038",
+        "047"
+      ],
+      "intervention_a": {
+        "before": 22.0,
+        "after": 23.1
+      },
+      "intervention_b": {
+        "before": 22.0,
+        "after": 23.1
+      },
+      "status": "NO_NONADDITIVITY_AT_CHOSEN_POINT",
+      "mixed_difference": {
+        "nominal_energy_delivered_J": 0.0,
+        "heat_to_target_required_J": 0.0,
+        "energy_margin_for_target_J": 0.0,
+        "water_for_absorption_target_g": 0.0,
+        "max_water_before_unmodeled_loss_g": 0.0,
+        "thermal_ceiling_on_evaporation_g": 0.0
+      },
+      "Q_effect_verified": false,
+      "scientific_IC_delta_percent": null
+    },
+    {
+      "pair": [
+        "041",
+        "042"
+      ],
+      "intervention_a": {
+        "before": 550.0,
+        "after": 577.5
+      },
+      "intervention_b": {
+        "before": 0.6,
+        "after": 0.63
+      },
+      "status": "PHYSICAL_NONADDITIVITY_DETECTED",
+      "mixed_difference": {
+        "nominal_energy_delivered_J": 1089.0,
+        "heat_to_target_required_J": 0.0,
+        "energy_margin_for_target_J": 1089.0,
+        "water_for_absorption_target_g": 0.0,
+        "max_water_before_unmodeled_loss_g": 0.0,
+        "thermal_ceiling_on_evaporation_g": 0.482499
+      },
+      "Q_effect_verified": false,
+      "scientific_IC_delta_percent": null
+    },
+    {
+      "pair": [
+        "041",
+        "047"
+      ],
+      "intervention_a": {
+        "before": 550.0,
+        "after": 577.5
+      },
+      "intervention_b": {
+        "before": 22.0,
+        "after": 23.1
+      },
+      "status": "PHYSICAL_NONADDITIVITY_DETECTED",
+      "mixed_difference": {
+        "nominal_energy_delivered_J": 1089.0,
+        "heat_to_target_required_J": 0.0,
+        "energy_margin_for_target_J": 1089.0,
+        "water_for_absorption_target_g": 0.0,
+        "max_water_before_unmodeled_loss_g": 0.0,
+        "thermal_ceiling_on_evaporation_g": 0.482499
+      },
+      "Q_effect_verified": false,
+      "scientific_IC_delta_percent": null
+    },
+    {
+      "pair": [
+        "042",
+        "047"
+      ],
+      "intervention_a": {
+        "before": 0.6,
+        "after": 0.63
+      },
+      "intervention_b": {
+        "before": 22.0,
+        "after": 23.1
+      },
+      "status": "PHYSICAL_NONADDITIVITY_DETECTED",
+      "mixed_difference": {
+        "nominal_energy_delivered_J": 1089.0,
+        "heat_to_target_required_J": 0.0,
+        "energy_margin_for_target_J": 1089.0,
+        "water_for_absorption_target_g": 0.0,
+        "max_water_before_unmodeled_loss_g": 0.0,
+        "thermal_ceiling_on_evaporation_g": 0.482499
+      },
+      "Q_effect_verified": false,
+      "scientific_IC_delta_percent": null
+    }
+  ],
+  "nonadditive_physics_pairs": 7,
+  "no_nonadditivity_at_test_point": 29,
+  "fraction": 0.05,
+  "outcome_quality_is_not_computed": true,
+  "real_Q_effects_proven": 0,
+  "scientific_IC_percent": null,
+  "untested_rubric_interactions": "All rubric pairs outside these nine physical primitives remain unproven; no invented coefficients."
+}
