@@ -62,7 +62,7 @@ class TwoFavoritesTests(unittest.TestCase):
             self.assertEqual(len(meta["openfootball_sha256"]),64)
             self.assertEqual(meta["openfootball_total_season_fixtures"],380)
             self.assertEqual(meta["football_data_cached_rows_prior_to_cutoff"],60)
-            self.assertIn("UNVERIFIED",meta["data_quality_warning"].upper())
+            self.assertIn("NO PUBLISHED_AT OR AVAILABLE_AT PROOFS",meta["data_quality_warning"].upper())
 
 if __name__=="__main__":
     unittest.main(verbosity=2)
