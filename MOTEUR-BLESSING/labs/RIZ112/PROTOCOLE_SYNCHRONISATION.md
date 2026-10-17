@@ -2,7 +2,7 @@
 
 Source canonique : `Terminator364/PROJECT-DRAFTS/main/MOTEUR-BLESSING/labs/RIZ112`.
 
-**Début de chaque conversation de reprise** : lire `CHECKPOINT.json`, ce cahier, les derniers événements du journal, la liste des décisions et les preuves de tests. Vérifier le commit GitHub et la somme SHA de l'archive avant d'ouvrir les travaux. Le code de continuité est `RIZ112|CONTINUE`, et `MOTEUR|CONTINUE` demeure réservé au moteur sportif.
+**Début de chaque conversation de reprise** : lire `CHECKPOINT.json`, ce cahier, les derniers événements du journal, la liste des décisions et les preuves de tests. Vérifier le commit GitHub et la somme SHA de l'archive avant d'ouvrir les travaux. **Le code unique de continuité est `Moteur/continue`**, valable pour le moteur parent et le laboratoire; ouvrir `continuity/NEXT_ACTION.json` et commencer immédiatement le prochain travail.
 
 **Pendant la conversation** : enregistrer dans les fichiers les hypothèses, options, comparaisons, décisions, corrections et résultats observables. Une entrée par événement ; inclure `status` (`USER_DIRECTIVE`, `HYPOTHESIS`, `IMPLEMENTED`, `TESTED`, `FAILED`, `CORRECTED`, `PENDING`, `DEFERRED`), l'origine, la preuve, et éventuellement `supersedes`. Ne pas rapporter des pensées privées : documenter **raisons, hypothèses et conclusions vérifiables**.
 
