@@ -1,4 +1,4 @@
-# RIZ-112 — Cahier mère + étape 5
+# RIZ-112 — Cahier mère et laboratoire actuel H3 (étape 14)
 
 ## À lire pour une nouvelle conversation
 
@@ -8,7 +8,7 @@
 4. **`TRANSFERT_MATRICE.md`** : critères pour réutiliser ce laboratoire dans MATRICE.
 5. **`AUDIT_5_CYCLES_ETAPE5.md`** : preuves et limites de l'avancée présente.
 
-**Code de reprise : `RIZ112|CONTINUE`**. GitHub est la source canonique de cet état : dossier `MOTEUR-BLESSING/labs/RIZ112` sur `Terminator364/PROJECT-DRAFTS/main`. Le code `MOTEUR|CONTINUE` reste pour le moteur sportif.
+**Code unique de reprise : `Moteur/continue`**. Il ouvre le manifeste parent et enchaîne directement sur la prochaine action `continuity/NEXT_ACTION.json`. La source canonique est `Terminator364/PROJECT-DRAFTS/main/MOTEUR-BLESSING/labs/RIZ112`. Les codes anciens sont seulement historiques.
 
 Le dossier `step5` contient deux nouveaux scripts exécutables et le protocole de qualité **DRAFT**. Le dossier `reference/step4` contient une copie du code et des cas JSON nécessaires ; l'archive étape 4 originale y reste conservée, sans modification. Les autres fichiers documentent et auditent les actions, sans livrer une recette.
 
