@@ -3,14 +3,14 @@
   "project": "RIZ112_lab_to_MATRICE",
   "date": "2026-10-17",
   "stage": 14,
-  "status": "H3_309_TESTS_PASS__CONTEXT_REGISTRY_ADDED__SYNC_PENDING",
+  "status": "H3_309_TESTS_PASS__CONTEXT_GITHUB_VERIFIED__CLOUD_SOURCE_BACKED_UP__NO_REAL_IC",
   "continuity_code": "RIZ112|CONTINUE",
   "master": "CAHIER_MERE.md",
   "mandate": "MANDAT_FINITION_112.md",
   "mandate_active": true,
   "journal": {
-    "events": 83,
-    "head": "9a9e907d97edb567e8a3d056f93c1268b962550b7d41a35f096d7130f405f555"
+    "events": 84,
+    "head": "02eb98adcf858d2ea8355cc5e73f2ae113ce2e7faa39f495a54d8fb94f33ab67"
   },
   "cases": {
     "catalogued": 112,
@@ -241,12 +241,14 @@
     "context_master": "CONTEXTE_CONVERSATIONS.md",
     "context_registry": "CONTEXTE_INTEGRAL/REGISTRE_MESSAGES.jsonl",
     "context_protocol": "PROTOCOLE_CONTINUITE_CONTEXTUELLE.md",
-    "context_rows": 16,
+    "context_rows": 17,
     "coverage": "SOME_VERBATIM_EXCERPTS_AND_FLAGGED_RECONSTRUCTIONS_NOT_FULL_RAW_ARCHIVE",
-    "parent_manifest_status": "PENDING_SYNC",
-    "github_status": "PENDING_SYNC",
-    "drive_status": "PENDING_SYNC",
-    "library_status": "PENDING_SYNC",
-    "windows_status": "NOT_YET_VERIFIED"
+    "parent_manifest_status": "GITHUB_UPDATED_AND_READBACK",
+    "github_status": "VERIFIED_CRITICAL_9_OF_9_BEFORE_FINAL_RECEIPT",
+    "drive_status": "SOURCE_ARCHIVE_CONFIRMED_568443_BYTES_PRIVATE_SHA_NOT_INDEPENDENTLY_READ",
+    "library_status": "SOURCE_ARCHIVE_CONFIRMED",
+    "windows_status": "MBMPC_OFFLINE_NOT_SYNCED",
+    "initial_source_archive_sha256": "15182d217e42c2985cb4652ac5c2ee9f6afe6afca55ec148b3c803e52b14ede8",
+    "initial_source_archive_drive": "https://drive.google.com/file/d/1rFq9GiwbRvb-Hk33JayacttjBOUdAabf/view?usp=drivesdk"
   }
 }
