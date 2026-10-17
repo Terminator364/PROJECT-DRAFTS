@@ -1,173 +1,237 @@
 {
-  "schema": "riz112/master-continuity/v6",
-  "project": "RIZ112_lab_to_MATRICE",
-  "date": "2026-10-17",
-  "stage": 14,
-  "status": "H3_309_TESTS_PASS__CONTEXT_UPDATED_20_ENTRIES_88_EVENTS__NO_REAL_IC",
-  "continuity_code": "RIZ112|CONTINUE",
-  "master": "CAHIER_MERE.md",
-  "mandate": "MANDAT_FINITION_112.md",
-  "mandate_active": true,
-  "journal": {
-    "events": 89,
-    "head": "aeb4f2da9434b3fb61609e7d1612812ab1abb4d7b21392f39cee864b804a3859"
-  },
   "cases": {
-    "catalogued": 112,
     "D014_missing_before_stage8": 62,
-    "stage8_typed_routes": 62,
-    "routes_by_kind": {
-      "PRESTART_EVIDENCE_OR_CONSTRAINT": 22,
-      "PRESTART_FORECAST": 3,
-      "PLANNED_ACTION_FEASIBILITY": 26,
-      "PREDECLARED_CONDITIONAL_POLICY": 11
-    },
+    "actual_quality_dimensions_unmodeled": 10,
+    "all_112_roles_traced": true,
     "cases_with_validated_Q_effect": 0,
+    "catalogued": 112,
     "forecast_044_NO_FORMULA": true,
     "poststart_labels_used_as_predictor": 0,
-    "scientific_IC": null,
-    "all_112_roles_traced": true,
     "routes_D014_62": true,
-    "simulated_quality_proxy_dimensions": 4,
-    "actual_quality_dimensions_unmodeled": 10,
-    "scientifically_validated_quality_effects": 0
-  },
-  "tests": {
-    "suite_counts": {
-      "stage4": 22,
-      "stage5": 31,
-      "journal": 10,
-      "stage6": 42,
-      "stage7": 36,
-      "stage8": 19,
-      "stage9": 25,
-      "stage10": 20,
-      "stage11": 13,
-      "stage12": 23,
-      "stage13_H1": 20,
-      "stage13_H2": 21,
-      "stage14_H3": 27
+    "routes_by_kind": {
+      "PLANNED_ACTION_FEASIBILITY": 26,
+      "PREDECLARED_CONDITIONAL_POLICY": 11,
+      "PRESTART_EVIDENCE_OR_CONSTRAINT": 22,
+      "PRESTART_FORECAST": 3
     },
-    "total": 309,
-    "passed": 309,
-    "windows": "NOT_RUN"
+    "scientific_IC": null,
+    "scientifically_validated_quality_effects": 0,
+    "simulated_quality_proxy_dimensions": 4,
+    "stage8_typed_routes": 62
   },
-  "scientific": {
-    "quality_rubric_approved": false,
-    "real_rice_trials": 0,
-    "calibrated_ic": null,
-    "status": "NOT_VALIDATED"
+  "continuity": {
+    "context_master": "CONTEXTE_CONVERSATIONS.md",
+    "context_protocol": "PROTOCOLE_CONTINUITE_CONTEXTUELLE.md",
+    "context_registry": "CONTEXTE_INTEGRAL/REGISTRE_MESSAGES.jsonl",
+    "context_rows": 26,
+    "context_update_rule": "ACTIVE_SESSION_EVERY_RELEVANT_EXCHANGE_AND_CHECKPOINT__NO_BACKGROUND",
+    "coverage": "SOME_VERBATIM_EXCERPTS_AND_FLAGGED_RECONSTRUCTIONS_NOT_FULL_RAW_ARCHIVE",
+    "drive_current_doc": "https://docs.google.com/document/d/13gOTBq7AXnT-f9Lotlw4czwa4i75C4UGdP0i1i0qwZE/edit",
+    "drive_status": "SOURCE_ARCHIVE_CONFIRMED_568443_BYTES_PRIVATE_SHA_NOT_INDEPENDENTLY_READ",
+    "future_work_recorded": true,
+    "github_status": "VERIFIED_CRITICAL_9_OF_9_BEFORE_FINAL_RECEIPT",
+    "initial_source_archive_drive": "https://drive.google.com/file/d/1rFq9GiwbRvb-Hk33JayacttjBOUdAabf/view?usp=drivesdk",
+    "initial_source_archive_sha256": "15182d217e42c2985cb4652ac5c2ee9f6afe6afca55ec148b3c803e52b14ede8",
+    "journal_events": 89,
+    "journal_head": "aeb4f2da9434b3fb61609e7d1612812ab1abb4d7b21392f39cee864b804a3859",
+    "lab_code": "Moteur/continue",
+    "latest_context_ids": [
+      "CTX-0018",
+      "CTX-0019",
+      "CTX-0020"
+    ],
+    "legacy_codes_active": false,
+    "library_status": "SOURCE_ARCHIVE_CONFIRMED",
+    "next_action": "continuity/NEXT_ACTION.json",
+    "next_steps_file": "PLAN_SUITE_RIZ112_MATRICE.md",
+    "old_history": "EXCERPTS_AND_EXPLICITLY_LABELED_RECONSTRUCTIONS",
+    "parent_canonical": "MOTEUR-BLESSING/MANIFEST.json",
+    "parent_codes": [
+      "Moteur/continue"
+    ],
+    "parent_manifest_status": "GITHUB_UPDATED_AND_READBACK",
+    "single_code_contract": "continuity/CONTRAT_CODE_UNIQUE.md",
+    "windows_status": "MBMPC_OFFLINE_NOT_SYNCED",
+    "context_registry_sha256": "1fd01f19d9c32a94e8ad2dc4ab928f38bcb5ef54ceb6eefcbf56832f78fe6e75",
+    "one_code_tests_passed": 6,
+    "historic_regression_tests_passed": 309
   },
-  "next": "Resume H3 without restarting; prioritize 22 remaining mechanistic candidate paths with explicit subparameters, interactions and uncertainty; test/ablate on synthetic cases; then design/approve real Q measurement, collect prestart->observed Q dataset, calibrate and externally validate; do not claim real IC or full 112 quantified effects.",
+  "continuity_code": "Moteur/continue",
+  "date": "2026-10-17",
+  "drive_initial_v8": {
+    "bytes": 206876,
+    "id": "11zabEXKov7S34KNtjX-WljTvTjIsOT5u",
+    "remote_sha_verified": false,
+    "sha256_source": "0571e6723fd082f26e67c511acf58ea7d7f79c78e859587adab4a941bb177a62",
+    "url": "https://drive.google.com/file/d/11zabEXKov7S34KNtjX-WljTvTjIsOT5u/view?usp=drivesdk"
+  },
+  "drive_v12_initial": {
+    "bytes": 418392,
+    "id": "1cLtltKz6eifbuEXFp0M57EtWDiPjjcdN",
+    "sha256_readback_verified": false,
+    "url": "https://drive.google.com/file/d/1cLtltKz6eifbuEXFp0M57EtWDiPjjcdN/view?usp=drivesdk"
+  },
+  "full_packet_replay": "step12/POPULATION_100_COMPLETE_PACKET.jsonl",
+  "journal": {
+    "events": 93,
+    "head": "be9d60c57a6389f2ecff6f755b6f2fc554ba186a44366e9c6ed56ec8d8f2c531"
+  },
+  "last_user_directive": "D034_CANONICAL_SINGLE_CODE_AUTO_RESUME_AND_CONTINUOUS_CONTEXT",
+  "latest_case_audit": "step12/COUNTERFACTUAL_112_V12.json",
+  "latest_code": "step14/anticipatory_physics_h3.py",
+  "latest_contract": "step9/DEMONSTRATION_CONTRACT.json",
+  "latest_h3_ablations": "step14/H3_ABLATIONS.json",
+  "latest_h3_population": "step14/H3_100_RESULTS.jsonl",
+  "latest_lab": "step13/H2_POPULATION_REPORT.json",
+  "latest_user_directive": "CONTINUE_D025_HIERARCHICAL_SUBPARAMETERS_AND_ANTICIPATIONS",
+  "mandate": "MANDAT_FINITION_112.md",
+  "mandate_active": true,
+  "master": "CAHIER_MERE.md",
   "matrice": {
+    "copy_food_coefficients": false,
     "sports_engine_modified": false,
-    "transfer_only_methods": true,
-    "copy_food_coefficients": false
+    "transfer_only_methods": true
   },
   "mirrors": {
-    "github": "READBACK_CONFIRMED_CANONICAL_CONTEXT_7_OF_7_FILES_BEFORE_LAST_FINAL_APPEND",
     "drive": "H3_FINAL_ZIP_570715_BYTES_PRIVATE; CURRENT_VERBATIM_AND_NEXT_PLAN_IN_GOOGLE_DOC_CONFIRMED; NEW_FULL_ZIP_NOT_UPLOADED",
+    "github": "READBACK_CONFIRMED_CANONICAL_CONTEXT_7_OF_7_FILES_BEFORE_LAST_FINAL_APPEND",
     "library": "CURRENT_FULL_H3_CONTEXT_REPRISE_ZIP_CONFIRMED; FINAL_PATCH_UPDATED_COPY_BELOW",
     "windows": "OFFLINE_OR_UNVERIFIED_NO_H3_SYNC"
   },
-  "drive_initial_v8": {
-    "id": "11zabEXKov7S34KNtjX-WljTvTjIsOT5u",
-    "url": "https://drive.google.com/file/d/11zabEXKov7S34KNtjX-WljTvTjIsOT5u/view?usp=drivesdk",
-    "bytes": 206876,
-    "sha256_source": "0571e6723fd082f26e67c511acf58ea7d7f79c78e859587adab4a941bb177a62",
-    "remote_sha_verified": false
+  "new_H2": {
+    "100_scenarios": true,
+    "common_random_numbers": true,
+    "conditional_ic_changes": 22,
+    "no_local_conditional_ic_change": 78,
+    "policy_case": "087",
+    "prestart_only": true,
+    "resource_case": "002",
+    "rice_fields": [
+      "030",
+      "033",
+      "034",
+      "054"
+    ]
   },
-  "scientific_ic_percent": null,
-  "real_Q_probability_percent": null,
-  "last_user_directive": "D030_AND_CTX_0018_0019_CONTINUOUS_CONVERSATION_CONTEXT_AND_NEXT_STEPS",
-  "latest_code": "step14/anticipatory_physics_h3.py",
-  "latest_contract": "step9/DEMONSTRATION_CONTRACT.json",
-  "quality_proxy": "Q*_DEMO 4 unvalidated dimensions, threshold 85",
+  "next": "H4_CLOSE_22_MECHANISTIC_GAPS — start automatically when the user enters Moteur/continue; read continuity/NEXT_ACTION.json",
   "probabilities_demo_percent": {
     "A": 62.4,
     "B": 36.83,
     "C": 0.1
   },
-  "sensitivity_demo_percent": {
-    "A_minus_60g": 44.87,
-    "A_alternate_proxy_scale": 38.2
-  },
-  "real_labeled_cooking_trials": 0,
+  "project": "RIZ112_lab_to_MATRICE",
+  "quality_proxy": "Q*_DEMO 4 unvalidated dimensions, threshold 85",
   "quality_rubric_user_approved": false,
-  "latest_case_audit": "step12/COUNTERFACTUAL_112_V12.json",
-  "step10": {
-    "one_at_a_time_cases_tested": 112,
-    "ic_demo_changed": 11,
-    "abstentions_original": 5,
-    "v9_ic_demo_unchanged": 92,
-    "derived_not_directly_mutable": 4,
-    "v10_quality_targets_frozen": 14,
-    "quality_contract_hash": "f8069c0f12dda329bc24b5e215ad6d885803cd9b21a9be920fca9b16337889e8",
-    "results_on_A_3000_MC": "IC influence conditional on this single synthetic baseline",
-    "tests_new": 20,
-    "tests_total": 205,
-    "tests_passed": 205,
-    "independent_empirical_quality_trials": 0,
-    "science_approved": false
+  "real_Q_probability_percent": null,
+  "real_labeled_cooking_trials": 0,
+  "real_rice_observations": 0,
+  "schema": "riz112/master-continuity/v6",
+  "scientific": {
+    "calibrated_ic": null,
+    "quality_rubric_approved": false,
+    "real_rice_trials": 0,
+    "status": "NOT_VALIDATED"
   },
+  "scientific_ic_percent": null,
+  "sensitivity_demo_percent": {
+    "A_alternate_proxy_scale": 38.2,
+    "A_minus_60g": 44.87
+  },
+  "stage": 14,
   "stage11": {
-    "scenario_seed": 20261017,
-    "scenarios_generated": 60,
-    "ic_demo_computed": 18,
+    "119_vs_112": "UNCLEAR_NEW_SEVEN_NOT_CREATED",
+    "cases_in_input_contract": 112,
+    "cases_with_validated_Q_effect": 0,
     "contradiction_abstentions": 27,
-    "unrated_wood_abstentions": 15,
+    "ic_demo_computed": 18,
+    "independent_rice_experiments": 0,
+    "material_specific_numeric_effect": false,
+    "new_tests": 13,
     "sample_demo_3000_draws_percent": {
       "SYNTH_010": 11.27,
       "SYNTH_018": 28.97
     },
-    "new_tests": 13,
+    "scenario_seed": 20261017,
+    "scenarios_generated": 60,
     "total_tests": 218,
-    "cases_in_input_contract": 112,
-    "cases_with_validated_Q_effect": 0,
-    "119_vs_112": "UNCLEAR_NEW_SEVEN_NOT_CREATED",
-    "material_specific_numeric_effect": false,
-    "independent_rice_experiments": 0
+    "unrated_wood_abstentions": 15
   },
-  "full_packet_replay": "step12/POPULATION_100_COMPLETE_PACKET.jsonl",
   "stage12": {
-    "population": 100,
-    "inputs_direct_varied": 44,
-    "derived": 4,
     "actions_varied": 37,
-    "policies_varied": 13,
-    "outcomes_target_frozen": 14,
-    "draws_per_case": 500,
-    "population_status_counts": {
-      "ABSTAIN_UNSUPPORTED_VESSEL": 47,
-      "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q": 30,
-      "ABSTAIN_PRESTART_CONTRADICTION": 11,
-      "ABSTAIN_CONTRADICTION": 12
-    },
-    "distinct_demo_ic": 12,
-    "counterfactual_n": 224,
+    "all_numeric_effects_empirically_validated": false,
     "categories": {
       "CHANGES_ASSUMED_DEMO_IC_FOR_TESTED_PERTURBATION": 12,
-      "CHANGES_OPERATIONAL_GATES_NOT_CALIBRATED_Q": 52,
-      "NOT_DEMONSTRATED_TO_CHANGE_IC_OR_GATE": 26,
       "CHANGES_ELIGIBILITY_OR_INVALIDATES_ASSUMPTIONS": 4,
+      "CHANGES_OPERATIONAL_GATES_NOT_CALIBRATED_Q": 52,
       "DERIVED_OUTPUT_NOT_INDEPENDENT_RANDOM_INPUT": 4,
+      "NOT_DEMONSTRATED_TO_CHANGE_IC_OR_GATE": 26,
       "TARGET_DEFINITION_LOCKED_NOT_INPUT": 14
     },
-    "unresolved_local_influence_cases": 26,
-    "all_numeric_effects_empirically_validated": false,
-    "wood_material_unsupported": true,
+    "counterfactual_n": 224,
+    "derived": 4,
+    "distinct_demo_ic": 12,
+    "draws_per_case": 500,
+    "inputs_direct_varied": 44,
     "material_label_only_effect": "NONE_WITHOUT_THERMAL_LINKAGE",
     "matrix_sports_modified": false,
-    "original_V11_preserved": true
+    "original_V11_preserved": true,
+    "outcomes_target_frozen": 14,
+    "policies_varied": 13,
+    "population": 100,
+    "population_status_counts": {
+      "ABSTAIN_CONTRADICTION": 12,
+      "ABSTAIN_PRESTART_CONTRADICTION": 11,
+      "ABSTAIN_UNSUPPORTED_VESSEL": 47,
+      "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q": 30
+    },
+    "unresolved_local_influence_cases": 26,
+    "wood_material_unsupported": true
   },
-  "drive_v12_initial": {
-    "id": "1cLtltKz6eifbuEXFp0M57EtWDiPjjcdN",
-    "url": "https://drive.google.com/file/d/1cLtltKz6eifbuEXFp0M57EtWDiPjjcdN/view?usp=drivesdk",
-    "bytes": 418392,
-    "sha256_readback_verified": false
+  "stage14_H3": {
+    "ambient_loss_double_counting_guard": "eta_wall_only_not_net_total",
+    "before_named_pending": 26,
+    "demo_numeric_scenarios": 98,
+    "input_contract_cases": 112,
+    "model_errors": 0,
+    "new_demo_numeric_parent_paths": [
+      "006",
+      "025",
+      "039",
+      "069"
+    ],
+    "no_future_output_labels_used": true,
+    "quality_real_trials": 0,
+    "root_parent_preservation": true,
+    "scenarios": 100,
+    "still_no_new_numeric_path": 22,
+    "structural_zero_power_scenarios": 2,
+    "tests_new": 27,
+    "tests_previous": 282,
+    "tests_total": 309,
+    "validated_effects": 0
+  },
+  "status": "H3_309_TESTS_PASS__CONTINUITY_UNIFIED_D034__H4_NEXT__SCIENTIFIC_IC_NULL",
+  "step10": {
+    "abstentions_original": 5,
+    "derived_not_directly_mutable": 4,
+    "ic_demo_changed": 11,
+    "independent_empirical_quality_trials": 0,
+    "one_at_a_time_cases_tested": 112,
+    "quality_contract_hash": "f8069c0f12dda329bc24b5e215ad6d885803cd9b21a9be920fca9b16337889e8",
+    "results_on_A_3000_MC": "IC influence conditional on this single synthetic baseline",
+    "science_approved": false,
+    "tests_new": 20,
+    "tests_passed": 205,
+    "tests_total": 205,
+    "v10_quality_targets_frozen": 14,
+    "v9_ic_demo_unchanged": 92
   },
   "step13_h1": {
-    "rubrics_with_nested_schema": 112,
+    "anticipated_safety": "WOOD_DIRECT_NOT_SAFELY_MODELED",
+    "comparative_scenarios": 6,
+    "material_profiles": 5,
+    "model_physics": "STEADY_STATE_TOY_THERMAL_RESISTANCE_ONLY",
+    "new_tests_passed": 20,
     "quantitative_examples": [
       "009",
       "010",
@@ -178,89 +242,29 @@
       "041",
       "042"
     ],
-    "material_profiles": 5,
-    "comparative_scenarios": 6,
-    "new_tests_passed": 20,
-    "rerun_v12_tests_passed": 23,
     "real_ic_percent": null,
-    "model_physics": "STEADY_STATE_TOY_THERMAL_RESISTANCE_ONLY",
-    "anticipated_safety": "WOOD_DIRECT_NOT_SAFELY_MODELED",
+    "rerun_v12_tests_passed": 23,
+    "rubrics_with_nested_schema": 112,
     "stage13_files": "step13/"
   },
-  "latest_lab": "step13/H2_POPULATION_REPORT.json",
-  "new_H2": {
-    "100_scenarios": true,
-    "conditional_ic_changes": 22,
-    "no_local_conditional_ic_change": 78,
-    "policy_case": "087",
-    "resource_case": "002",
-    "rice_fields": [
-      "030",
-      "033",
-      "034",
-      "054"
-    ],
-    "common_random_numbers": true,
-    "prestart_only": true
-  },
-  "real_rice_observations": 0,
-  "latest_h3_population": "step14/H3_100_RESULTS.jsonl",
-  "latest_h3_ablations": "step14/H3_ABLATIONS.json",
-  "latest_user_directive": "CONTINUE_D025_HIERARCHICAL_SUBPARAMETERS_AND_ANTICIPATIONS",
-  "stage14_H3": {
-    "input_contract_cases": 112,
-    "new_demo_numeric_parent_paths": [
-      "006",
-      "025",
-      "039",
-      "069"
-    ],
-    "before_named_pending": 26,
-    "still_no_new_numeric_path": 22,
-    "validated_effects": 0,
-    "scenarios": 100,
-    "demo_numeric_scenarios": 98,
-    "structural_zero_power_scenarios": 2,
-    "model_errors": 0,
-    "tests_previous": 282,
-    "tests_new": 27,
-    "tests_total": 309,
-    "quality_real_trials": 0,
-    "no_future_output_labels_used": true,
-    "ambient_loss_double_counting_guard": "eta_wall_only_not_net_total",
-    "root_parent_preservation": true
-  },
-  "continuity": {
-    "parent_canonical": "MOTEUR-BLESSING/MANIFEST.json",
-    "parent_codes": [
-      "MOTEUR|CONTINUE",
-      "Moteur/continue",
-      "MOTEUR BLESSING|CONTINUE"
-    ],
-    "lab_code": "RIZ112|CONTINUE",
-    "context_master": "CONTEXTE_CONVERSATIONS.md",
-    "context_registry": "CONTEXTE_INTEGRAL/REGISTRE_MESSAGES.jsonl",
-    "context_protocol": "PROTOCOLE_CONTINUITE_CONTEXTUELLE.md",
-    "context_rows": 21,
-    "coverage": "SOME_VERBATIM_EXCERPTS_AND_FLAGGED_RECONSTRUCTIONS_NOT_FULL_RAW_ARCHIVE",
-    "parent_manifest_status": "GITHUB_UPDATED_AND_READBACK",
-    "github_status": "VERIFIED_CRITICAL_9_OF_9_BEFORE_FINAL_RECEIPT",
-    "drive_status": "SOURCE_ARCHIVE_CONFIRMED_568443_BYTES_PRIVATE_SHA_NOT_INDEPENDENTLY_READ",
-    "library_status": "SOURCE_ARCHIVE_CONFIRMED",
-    "windows_status": "MBMPC_OFFLINE_NOT_SYNCED",
-    "initial_source_archive_sha256": "15182d217e42c2985cb4652ac5c2ee9f6afe6afca55ec148b3c803e52b14ede8",
-    "initial_source_archive_drive": "https://drive.google.com/file/d/1rFq9GiwbRvb-Hk33JayacttjBOUdAabf/view?usp=drivesdk",
-    "latest_context_ids": [
-      "CTX-0018",
-      "CTX-0019",
-      "CTX-0020"
-    ],
-    "journal_events": 89,
-    "journal_head": "aeb4f2da9434b3fb61609e7d1612812ab1abb4d7b21392f39cee864b804a3859",
-    "context_update_rule": "APPEND_AT_EACH_ACTIVE_SESSION_CHECKPOINT; NOT_BACKGROUND_CONTINUOUS",
-    "old_history": "EXCERPTS_AND_EXPLICITLY_LABELED_RECONSTRUCTIONS",
-    "next_steps_file": "PLAN_SUITE_RIZ112_MATRICE.md",
-    "drive_current_doc": "https://docs.google.com/document/d/13gOTBq7AXnT-f9Lotlw4czwa4i75C4UGdP0i1i0qwZE/edit",
-    "future_work_recorded": true
+  "tests": {
+    "passed": 309,
+    "suite_counts": {
+      "journal": 10,
+      "stage10": 20,
+      "stage11": 13,
+      "stage12": 23,
+      "stage13_H1": 20,
+      "stage13_H2": 21,
+      "stage14_H3": 27,
+      "stage4": 22,
+      "stage5": 31,
+      "stage6": 42,
+      "stage7": 36,
+      "stage8": 19,
+      "stage9": 25
+    },
+    "total": 309,
+    "windows": "NOT_RUN"
   }
 }
