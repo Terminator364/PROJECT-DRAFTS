@@ -1,7 +1,7 @@
 {
   "schema": "riz112/matrice/method-transfer-temporal/v1",
   "date": "2026-10-17",
-  "status": "SYNTHETIC_PREMATCH_TIME_GATES_LOCAL_TESTED",
+  "status": "FIVE_PREMATCH_WINDOWS_LINUX_WINDOWS_REPLAY_VERIFIED",
   "continuity_base_event": "E134",
   "continuity_base_context": "CTX-0056",
   "five_time_windows": [
@@ -12,7 +12,7 @@
     "H-0"
   ],
   "new_local_tests_passed": 24,
-  "new_windows_tests_passed": null,
+  "new_windows_tests_passed": 24,
   "source_class": "SYNTHETIC_PREMATCH_METHOD_TEST",
   "input_packet_sha256": "a24128eeb88daf2100ae5aa42aec0a565724319da0fceec8863d7525f0ce97db",
   "no_post_match_leakage_tested": true,
@@ -23,5 +23,7 @@
   "user_message_captured": false,
   "assumptions": "Horizon labels only ordered; cutoff lead-time margins not prescribed by sports ADN. Independent source timestamps required for production.",
   "output": "RECU_5_FENETRES.json",
-  "scientific_claim": "NO_REAL_MATCH_CALIBRATION_AND_NO_RICE_IC"
+  "scientific_claim": "NO_REAL_MATCH_CALIBRATION_AND_NO_RICE_IC",
+  "windows_report_equal_local_reference": true,
+  "pc_sync_verified_through_event": "E134"
 }
