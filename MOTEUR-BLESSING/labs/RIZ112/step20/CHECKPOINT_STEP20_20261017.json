@@ -50,10 +50,19 @@
   "windows_physics_report_replay_equal": true,
   "windows_112_register_replay_equal": true,
   "context_rows": 40,
-  "journal_events": 116,
-  "journal_head": "347feb41432663f8479f9ca2296fe5d33dd82cffc5ef71ef165f3976ca15b6cc",
+  "journal_events": 117,
+  "journal_head": "71007bb52c5770403e65cb36881a694dc14542272acbda621b2fa82b93c1be0b",
   "trigger_message": "CTX-0039",
   "assistant_checkpoint_message": "CTX-0040",
   "completed_software_step20": true,
-  "scientifically_calibrated": false
+  "scientifically_calibrated": false,
+  "final_archive_receipt": "step20/RECU_ARCHIVE_PC_CLOUD_20261017.json",
+  "final_archive": {
+    "url": "https://drive.google.com/file/d/1DxEoh2KIjkoimVN-COVr-I_hr7ega-Ue/view?usp=drivesdk",
+    "sha256": "aad38f6d3b3f1dc3d37524ba3a72d1ba3169fe8389df97bbb5b630279ff38b84",
+    "bytes": 619078,
+    "files": 258,
+    "drive_download_hash_verified": true,
+    "zip_crc": "PASS"
+  }
 }
