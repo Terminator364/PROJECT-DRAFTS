@@ -204,8 +204,8 @@
     "archive_final_sha256": "6fc5c03d44a605781c66e8f561ed3c1a5fc76ad00c21026cbe98b86a64dbf06b",
     "archive_final_bytes": 87045,
     "archive_final_drive_url": "https://drive.google.com/file/d/1JRFayl6zSgQfyQoJBdxj62I97v4vQ1AL/view?usp=drivesdk",
-    "journal_events": 116,
-    "journal_head": "347feb41432663f8479f9ca2296fe5d33dd82cffc5ef71ef165f3976ca15b6cc",
+    "journal_events": 117,
+    "journal_head": "71007bb52c5770403e65cb36881a694dc14542272acbda621b2fa82b93c1be0b",
     "current_stage": 14,
     "current_zip_sha256": "34887c8ecd5d5e0475b8b03267592e1856c633455b41ff0c8f567860217ac3cb",
     "current_zip_drive": "https://drive.google.com/file/d/1Bzf9scBx1QCACQKE_j4bJL0EvCB1DnrI/view?usp=drivesdk",
@@ -346,8 +346,8 @@
       "runnable_code": "MOTEUR-BLESSING/labs/RIZ112/step16/riz112_unified.py",
       "tests_runner": "MOTEUR-BLESSING/labs/RIZ112/step14/run_regression_h3.py",
       "delivery": "MOTEUR-BLESSING/labs/RIZ112/LIVRAISON_H3_CONTEXTE_20261017.json",
-      "journal_events": 116,
-      "journal_head": "347feb41432663f8479f9ca2296fe5d33dd82cffc5ef71ef165f3976ca15b6cc",
+      "journal_events": 117,
+      "journal_head": "71007bb52c5770403e65cb36881a694dc14542272acbda621b2fa82b93c1be0b",
       "full_zip_sha256": "6e0ac900dcdc72ca97fca31b2d46fa401c0acae7f9e37f2437aad7df6fd4cbcd",
       "full_zip_drive": "https://drive.google.com/file/d/1KMmqbDOCDQSUZREuaU1OzrvLbjnG7VZ2/view?usp=drivesdk",
       "suite_tests_passed": 309,
@@ -458,7 +458,15 @@
       "step20_executable_physical_sensitivity": 9,
       "step20_new_tests_local": 45,
       "step20_new_tests_windows": 45,
-      "total_disjoint_tests": 546
+      "total_disjoint_tests": 546,
+      "step20_archive": {
+        "url": "https://drive.google.com/file/d/1DxEoh2KIjkoimVN-COVr-I_hr7ega-Ue/view?usp=drivesdk",
+        "sha256": "aad38f6d3b3f1dc3d37524ba3a72d1ba3169fe8389df97bbb5b630279ff38b84",
+        "bytes": 619078,
+        "files": 258,
+        "drive_download_hash_verified": true,
+        "zip_crc": "PASS"
+      }
     },
     "latest_code": "MOTEUR-BLESSING/labs/RIZ112/step16/riz112_unified.py",
     "latest_lab": "MOTEUR-BLESSING/labs/RIZ112/step14/H3_RUN_SUMMARY.json",
