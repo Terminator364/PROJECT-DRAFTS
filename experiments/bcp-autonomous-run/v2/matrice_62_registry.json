@@ -1,0 +1,755 @@
+{
+  "schema": "BCP_MATRICE_R8_62_RESEARCH_REGISTRY_V1",
+  "source_repo": "Terminator364/ChatGPT-PC",
+  "source_ref": "research/matrice-r8-g3-depth-audit-2026-10-14",
+  "source_file": "MATRICE/R8_G3_DEEP_20261014/parameter_62_individual_audit_20261015/AUDIT_62_INDEX_COMPARATIF.csv",
+  "generated_date": "2026-10-17",
+  "warning": "Contract registry for data acquisition audit ONLY; no 62/62 parameter collection, no model effects and no PIT replay certification.",
+  "default_status": "OBSERVATION",
+  "families": [
+    {
+      "order": 1,
+      "id": "FIXTURE_ID",
+      "title": "Identité et validité du match",
+      "nature": "SUPPORT",
+      "coverage_mode": "PARTIAL",
+      "candidate_fields": [
+        "Date",
+        "HomeTeam",
+        "AwayTeam"
+      ],
+      "limitation": "CSV results identify teams and match date but lack verified official kickoff/stadium identifiers.",
+      "feature_status": "OBSERVATION",
+      "ic_effect": "DISABLED"
+    },
+    {
+      "order": 2,
+      "id": "LEAGUE_BASE",
+      "title": "Régime de buts de la compétition",
+      "nature": "REFERENCE",
+      "coverage_mode": "DERIVABLE_RESEARCH",
+      "candidate_fields": [
+        "FTHG",
+        "FTAG"
+      ],
+      "limitation": "Historical goals and Over 1.5 research frequencies; no current IC coefficients.",
+      "feature_status": "OBSERVATION",
+      "ic_effect": "DISABLED"
+    },
+    {
+      "order": 3,
+      "id": "TEAM_STRENGTH",
+      "title": "Forces relatives des équipes",
+      "nature": "MECANISME",
+      "coverage_mode": "DERIVABLE_RESEARCH",
+      "candidate_fields": [
+        "Date",
+        "HomeTeam",
+        "AwayTeam",
+        "FTHG",
+        "FTAG"
+      ],
+      "limitation": "Historical home/away goals, opponent normalization NOT yet validated.",
+      "feature_status": "OBSERVATION",
+      "ic_effect": "DISABLED"
+    },
+    {
+      "order": 4,
+      "id": "SCORING_HISTORY",
+      "title": "Historique réglementaire des buts",
+      "nature": "INDICATEUR",
+      "coverage_mode": "DERIVABLE_RESEARCH",
+      "candidate_fields": [
+        "FTHG",
+        "FTAG",
+        "FTR"
+      ],
+      "limitation": "Historical goals and final result; goal minutes absent.",
+      "feature_status": "OBSERVATION",
+      "ic_effect": "DISABLED"
+    },
+    {
+      "order": 5,
+      "id": "SHOT_CREATION",
+      "title": "Production d'occasions et tirs",
+      "nature": "MECANISME",
+      "coverage_mode": "PARTIAL",
+      "candidate_fields": [
+        "HS",
+        "AS",
+        "HST",
+        "AST"
+      ],
+      "limitation": "Optional raw historic shot counts, never equivalent to xG or chance quality.",
+      "feature_status": "OBSERVATION",
+      "ic_effect": "DISABLED"
+    },
+    {
+      "order": 6,
+      "id": "FORM_TRENDS",
+      "title": "Dynamique de forme contextualisée",
+      "nature": "INDICATEUR",
+      "coverage_mode": "DERIVABLE_RESEARCH",
+      "candidate_fields": [
+        "Date",
+        "HomeTeam",
+        "AwayTeam",
+        "FTHG",
+        "FTAG"
+      ],
+      "limitation": "Historical previous fixtures only; any temporal features must exclude target fixture and later games.",
+      "feature_status": "OBSERVATION",
+      "ic_effect": "DISABLED"
+    },
+    {
+      "order": 7,
+      "id": "SQUAD_AVAIL",
+      "title": "Disponibilité des joueurs",
+      "nature": "CONTEXTE",
+      "coverage_mode": "UNAVAILABLE_FROM_RESULT_ARCHIVES",
+      "candidate_fields": [],
+      "limitation": "Needs a separate verified, timestamped, permitted source or a validated derived mechanism.",
+      "feature_status": "OBSERVATION",
+      "ic_effect": "DISABLED"
+    },
+    {
+      "order": 8,
+      "id": "LINEUP_ROTATION",
+      "title": "Onze probable et rotations",
+      "nature": "CONTEXTE",
+      "coverage_mode": "UNAVAILABLE_FROM_RESULT_ARCHIVES",
+      "candidate_fields": [],
+      "limitation": "Needs a separate verified, timestamped, permitted source or a validated derived mechanism.",
+      "feature_status": "OBSERVATION",
+      "ic_effect": "DISABLED"
+    },
+    {
+      "order": 9,
+      "id": "COACH_TRANSITION",
+      "title": "Entraîneur et changements de staff",
+      "nature": "CONTEXTE",
+      "coverage_mode": "UNAVAILABLE_FROM_RESULT_ARCHIVES",
+      "candidate_fields": [],
+      "limitation": "Needs a separate verified, timestamped, permitted source or a validated derived mechanism.",
+      "feature_status": "OBSERVATION",
+      "ic_effect": "DISABLED"
+    },
+    {
+      "order": 10,
+      "id": "TRANSFERS",
+      "title": "Mouvements de l'effectif",
+      "nature": "CONTEXTE",
+      "coverage_mode": "UNAVAILABLE_FROM_RESULT_ARCHIVES",
+      "candidate_fields": [],
+      "limitation": "Needs a separate verified, timestamped, permitted source or a validated derived mechanism.",
+      "feature_status": "OBSERVATION",
+      "ic_effect": "DISABLED"
+    },
+    {
+      "order": 11,
+      "id": "TACTIC_STYLE",
+      "title": "Tactique et organisation collective",
+      "nature": "MECANISME",
+      "coverage_mode": "UNAVAILABLE_FROM_RESULT_ARCHIVES",
+      "candidate_fields": [],
+      "limitation": "Needs a separate verified, timestamped, permitted source or a validated derived mechanism.",
+      "feature_status": "OBSERVATION",
+      "ic_effect": "DISABLED"
+    },
+    {
+      "order": 12,
+      "id": "GK_DEFENSE",
+      "title": "Gardiens et stabilité défensive",
+      "nature": "MECANISME",
+      "coverage_mode": "PARTIAL",
+      "candidate_fields": [
+        "FTHG",
+        "FTAG"
+      ],
+      "limitation": "Goals against are a team result and cannot be attributed to a goalkeeper.",
+      "feature_status": "OBSERVATION",
+      "ic_effect": "DISABLED"
+    },
+    {
+      "order": 13,
+      "id": "REFEREE",
+      "title": "Arbitrage avant match",
+      "nature": "CONTEXTE",
+      "coverage_mode": "PARTIAL",
+      "candidate_fields": [
+        "Referee"
+      ],
+      "limitation": "Names may be present for past matches; no future appointment guarantee.",
+      "feature_status": "OBSERVATION",
+      "ic_effect": "DISABLED"
+    },
+    {
+      "order": 14,
+      "id": "WEATHER",
+      "title": "Conditions météo",
+      "nature": "CONTEXTE",
+      "coverage_mode": "UNAVAILABLE_FROM_RESULT_ARCHIVES",
+      "candidate_fields": [],
+      "limitation": "Needs a separate verified, timestamped, permitted source or a validated derived mechanism.",
+      "feature_status": "OBSERVATION",
+      "ic_effect": "DISABLED"
+    },
+    {
+      "order": 15,
+      "id": "PITCH_STADIUM",
+      "title": "Terrain et stade",
+      "nature": "CONTEXTE",
+      "coverage_mode": "UNAVAILABLE_FROM_RESULT_ARCHIVES",
+      "candidate_fields": [],
+      "limitation": "Needs a separate verified, timestamped, permitted source or a validated derived mechanism.",
+      "feature_status": "OBSERVATION",
+      "ic_effect": "DISABLED"
+    },
+    {
+      "order": 16,
+      "id": "TRAVEL",
+      "title": "Déplacements et fuseaux",
+      "nature": "CONTEXTE",
+      "coverage_mode": "UNAVAILABLE_FROM_RESULT_ARCHIVES",
+      "candidate_fields": [],
+      "limitation": "Needs a separate verified, timestamped, permitted source or a validated derived mechanism.",
+      "feature_status": "OBSERVATION",
+      "ic_effect": "DISABLED"
+    },
+    {
+      "order": 17,
+      "id": "REST_CONGESTION",
+      "title": "Repos et congestion de matches",
+      "nature": "CONTEXTE",
+      "coverage_mode": "PARTIAL",
+      "candidate_fields": [
+        "Date",
+        "HomeTeam",
+        "AwayTeam"
+      ],
+      "limitation": "Dates allow partial days-between-match calculation, not travel, minutes, or true rest.",
+      "feature_status": "OBSERVATION",
+      "ic_effect": "DISABLED"
+    },
+    {
+      "order": 18,
+      "id": "MOTIVATION_CONTEXT",
+      "title": "Enjeux et contexte psychologique",
+      "nature": "CONTEXTE",
+      "coverage_mode": "UNAVAILABLE_FROM_RESULT_ARCHIVES",
+      "candidate_fields": [],
+      "limitation": "Needs a separate verified, timestamped, permitted source or a validated derived mechanism.",
+      "feature_status": "OBSERVATION",
+      "ic_effect": "DISABLED"
+    },
+    {
+      "order": 19,
+      "id": "CUP_TIE",
+      "title": "Confrontation aller-retour et coupe",
+      "nature": "CONTEXTE",
+      "coverage_mode": "UNAVAILABLE_FROM_RESULT_ARCHIVES",
+      "candidate_fields": [],
+      "limitation": "Needs a separate verified, timestamped, permitted source or a validated derived mechanism.",
+      "feature_status": "OBSERVATION",
+      "ic_effect": "DISABLED"
+    },
+    {
+      "order": 20,
+      "id": "INTERNATIONAL",
+      "title": "Matchs des sélections",
+      "nature": "CONTEXTE",
+      "coverage_mode": "UNAVAILABLE_FROM_RESULT_ARCHIVES",
+      "candidate_fields": [],
+      "limitation": "Needs a separate verified, timestamped, permitted source or a validated derived mechanism.",
+      "feature_status": "OBSERVATION",
+      "ic_effect": "DISABLED"
+    },
+    {
+      "order": 21,
+      "id": "PROMOTION_RELEGATION",
+      "title": "Changement de division",
+      "nature": "CONTEXTE",
+      "coverage_mode": "PARTIAL",
+      "candidate_fields": [
+        "HomeTeam",
+        "AwayTeam",
+        "Div"
+      ],
+      "limitation": "Only inferred membership changes, not proof of promotion or relegation.",
+      "feature_status": "OBSERVATION",
+      "ic_effect": "DISABLED"
+    },
+    {
+      "order": 22,
+      "id": "FATIGUE_INJURY_INTERACTION",
+      "title": "État physique et corrélations",
+      "nature": "INTERACTION",
+      "coverage_mode": "UNAVAILABLE_FROM_RESULT_ARCHIVES",
+      "candidate_fields": [],
+      "limitation": "Needs a separate verified, timestamped, permitted source or a validated derived mechanism.",
+      "feature_status": "OBSERVATION",
+      "ic_effect": "DISABLED"
+    },
+    {
+      "order": 23,
+      "id": "SOCIAL_MEDIA",
+      "title": "Information sociale et rumeurs",
+      "nature": "INDICATEUR",
+      "coverage_mode": "UNAVAILABLE_FROM_RESULT_ARCHIVES",
+      "candidate_fields": [],
+      "limitation": "Needs a separate verified, timestamped, permitted source or a validated derived mechanism.",
+      "feature_status": "OBSERVATION",
+      "ic_effect": "DISABLED"
+    },
+    {
+      "order": 24,
+      "id": "MARKET_SIGNAL",
+      "title": "Signaux de marché sans pari",
+      "nature": "INDICATEUR",
+      "coverage_mode": "UNAVAILABLE_FROM_RESULT_ARCHIVES",
+      "candidate_fields": [],
+      "limitation": "Needs a separate verified, timestamped, permitted source or a validated derived mechanism.",
+      "feature_status": "OBSERVATION",
+      "ic_effect": "DISABLED"
+    },
+    {
+      "order": 25,
+      "id": "GOAL_TIMING",
+      "title": "Chronologie et dynamique des buts",
+      "nature": "INDICATEUR",
+      "coverage_mode": "UNAVAILABLE_FROM_RESULT_ARCHIVES",
+      "candidate_fields": [],
+      "limitation": "Needs a separate verified, timestamped, permitted source or a validated derived mechanism.",
+      "feature_status": "OBSERVATION",
+      "ic_effect": "DISABLED"
+    },
+    {
+      "order": 26,
+      "id": "DATA_QUALITY",
+      "title": "Qualité et traçabilité de la preuve",
+      "nature": "SUPPORT",
+      "coverage_mode": "METADATA",
+      "candidate_fields": [
+        "Date",
+        "FTHG",
+        "FTAG",
+        "FTR"
+      ],
+      "limitation": "Hash, source checks, row checks and collection timestamp; provider published_at often absent.",
+      "feature_status": "OBSERVATION",
+      "ic_effect": "DISABLED"
+    },
+    {
+      "order": 27,
+      "id": "MODEL_DOMAIN",
+      "title": "Domaine de validité du modèle",
+      "nature": "SUPPORT",
+      "coverage_mode": "METADATA",
+      "candidate_fields": [
+        "Div",
+        "Date"
+      ],
+      "limitation": "Competition/season identity and observed coverage, not evidence of model portability.",
+      "feature_status": "OBSERVATION",
+      "ic_effect": "DISABLED"
+    },
+    {
+      "order": 28,
+      "id": "FITNESS_RETURN",
+      "title": "Retour de blessure et limites de minutes",
+      "nature": "CONTEXTE",
+      "coverage_mode": "UNAVAILABLE_FROM_RESULT_ARCHIVES",
+      "candidate_fields": [],
+      "limitation": "Needs a separate verified, timestamped, permitted source or a validated derived mechanism.",
+      "feature_status": "OBSERVATION",
+      "ic_effect": "DISABLED"
+    },
+    {
+      "order": 29,
+      "id": "NEUTRAL_VENUE",
+      "title": "Lieu neutre et domicile réel",
+      "nature": "CONTEXTE",
+      "coverage_mode": "UNAVAILABLE_FROM_RESULT_ARCHIVES",
+      "candidate_fields": [],
+      "limitation": "Needs a separate verified, timestamped, permitted source or a validated derived mechanism.",
+      "feature_status": "OBSERVATION",
+      "ic_effect": "DISABLED"
+    },
+    {
+      "order": 30,
+      "id": "DISCIPLINE",
+      "title": "Suspensions et discipline attendue",
+      "nature": "CONTEXTE",
+      "coverage_mode": "PARTIAL",
+      "candidate_fields": [
+        "HY",
+        "AY",
+        "HR",
+        "AR"
+      ],
+      "limitation": "Card counts in historical games, not official suspensions.",
+      "feature_status": "OBSERVATION",
+      "ic_effect": "DISABLED"
+    },
+    {
+      "order": 31,
+      "id": "ATTACK_BUILDUP",
+      "title": "Construction et progression vers les zones dangereuses",
+      "nature": "MECANISME",
+      "coverage_mode": "UNAVAILABLE_FROM_RESULT_ARCHIVES",
+      "candidate_fields": [],
+      "limitation": "Needs a separate verified, timestamped, permitted source or a validated derived mechanism.",
+      "feature_status": "OBSERVATION",
+      "ic_effect": "DISABLED"
+    },
+    {
+      "order": 32,
+      "id": "PRESSING_TURNOVERS",
+      "title": "Pressing et pertes de balle dangereuses",
+      "nature": "MECANISME",
+      "coverage_mode": "UNAVAILABLE_FROM_RESULT_ARCHIVES",
+      "candidate_fields": [],
+      "limitation": "Needs a separate verified, timestamped, permitted source or a validated derived mechanism.",
+      "feature_status": "OBSERVATION",
+      "ic_effect": "DISABLED"
+    },
+    {
+      "order": 33,
+      "id": "TRANSITION_ATTACK",
+      "title": "Contre-attaques et transitions offensives",
+      "nature": "MECANISME",
+      "coverage_mode": "UNAVAILABLE_FROM_RESULT_ARCHIVES",
+      "candidate_fields": [],
+      "limitation": "Needs a separate verified, timestamped, permitted source or a validated derived mechanism.",
+      "feature_status": "OBSERVATION",
+      "ic_effect": "DISABLED"
+    },
+    {
+      "order": 34,
+      "id": "TRANSITION_DEFENSE",
+      "title": "Protection après perte",
+      "nature": "MECANISME",
+      "coverage_mode": "UNAVAILABLE_FROM_RESULT_ARCHIVES",
+      "candidate_fields": [],
+      "limitation": "Needs a separate verified, timestamped, permitted source or a validated derived mechanism.",
+      "feature_status": "OBSERVATION",
+      "ic_effect": "DISABLED"
+    },
+    {
+      "order": 35,
+      "id": "SHOT_QUALITY",
+      "title": "Qualité des tirs futurs potentiels",
+      "nature": "MECANISME",
+      "coverage_mode": "UNAVAILABLE_FROM_RESULT_ARCHIVES",
+      "candidate_fields": [],
+      "limitation": "Needs a separate verified, timestamped, permitted source or a validated derived mechanism.",
+      "feature_status": "OBSERVATION",
+      "ic_effect": "DISABLED"
+    },
+    {
+      "order": 36,
+      "id": "SHOT_CONVERSION",
+      "title": "Finition et réussite des occasions",
+      "nature": "MECANISME",
+      "coverage_mode": "PARTIAL",
+      "candidate_fields": [
+        "HS",
+        "AS",
+        "FTHG",
+        "FTAG"
+      ],
+      "limitation": "Goals-to-shots historical ratio is an imperfect proxy, requires causal/confounding analysis.",
+      "feature_status": "OBSERVATION",
+      "ic_effect": "DISABLED"
+    },
+    {
+      "order": 37,
+      "id": "SHOT_SUPPRESSION",
+      "title": "Capacité à empêcher les occasions adverses",
+      "nature": "MECANISME",
+      "coverage_mode": "PARTIAL",
+      "candidate_fields": [
+        "HS",
+        "AS"
+      ],
+      "limitation": "Shots conceded may be observable historically; no tactical mechanism demonstrated.",
+      "feature_status": "OBSERVATION",
+      "ic_effect": "DISABLED"
+    },
+    {
+      "order": 38,
+      "id": "SETPIECE_ATTACK",
+      "title": "Coups de pied arrêtés offensifs",
+      "nature": "MECANISME",
+      "coverage_mode": "UNAVAILABLE_FROM_RESULT_ARCHIVES",
+      "candidate_fields": [],
+      "limitation": "Needs a separate verified, timestamped, permitted source or a validated derived mechanism.",
+      "feature_status": "OBSERVATION",
+      "ic_effect": "DISABLED"
+    },
+    {
+      "order": 39,
+      "id": "SETPIECE_DEFENSE",
+      "title": "Défense sur phases arrêtées",
+      "nature": "MECANISME",
+      "coverage_mode": "UNAVAILABLE_FROM_RESULT_ARCHIVES",
+      "candidate_fields": [],
+      "limitation": "Needs a separate verified, timestamped, permitted source or a validated derived mechanism.",
+      "feature_status": "OBSERVATION",
+      "ic_effect": "DISABLED"
+    },
+    {
+      "order": 40,
+      "id": "PENALTY_PATHWAYS",
+      "title": "Trajectoires menant à pénalty ou but contre son camp",
+      "nature": "MECANISME",
+      "coverage_mode": "UNAVAILABLE_FROM_RESULT_ARCHIVES",
+      "candidate_fields": [],
+      "limitation": "Needs a separate verified, timestamped, permitted source or a validated derived mechanism.",
+      "feature_status": "OBSERVATION",
+      "ic_effect": "DISABLED"
+    },
+    {
+      "order": 41,
+      "id": "GAME_STATE_POLICY",
+      "title": "Réactions au score et au temps pendant le match",
+      "nature": "ANTICIPATION",
+      "coverage_mode": "UNAVAILABLE_FROM_RESULT_ARCHIVES",
+      "candidate_fields": [],
+      "limitation": "Needs a separate verified, timestamped, permitted source or a validated derived mechanism.",
+      "feature_status": "OBSERVATION",
+      "ic_effect": "DISABLED"
+    },
+    {
+      "order": 42,
+      "id": "SUBSTITUTION_IMPACT",
+      "title": "Banc changements et phases tardives",
+      "nature": "ANTICIPATION",
+      "coverage_mode": "UNAVAILABLE_FROM_RESULT_ARCHIVES",
+      "candidate_fields": [],
+      "limitation": "Needs a separate verified, timestamped, permitted source or a validated derived mechanism.",
+      "feature_status": "OBSERVATION",
+      "ic_effect": "DISABLED"
+    },
+    {
+      "order": 43,
+      "id": "ATTACK_DEF_MATCHUP",
+      "title": "Confrontation spécifique des styles et failles",
+      "nature": "INTERACTION",
+      "coverage_mode": "UNAVAILABLE_FROM_RESULT_ARCHIVES",
+      "candidate_fields": [],
+      "limitation": "Needs a separate verified, timestamped, permitted source or a validated derived mechanism.",
+      "feature_status": "OBSERVATION",
+      "ic_effect": "DISABLED"
+    },
+    {
+      "order": 44,
+      "id": "DEFENCE_STRUCTURE",
+      "title": "Structure des lignes et erreurs défensives",
+      "nature": "MECANISME",
+      "coverage_mode": "UNAVAILABLE_FROM_RESULT_ARCHIVES",
+      "candidate_fields": [],
+      "limitation": "Needs a separate verified, timestamped, permitted source or a validated derived mechanism.",
+      "feature_status": "OBSERVATION",
+      "ic_effect": "DISABLED"
+    },
+    {
+      "order": 45,
+      "id": "PLAY_TIME_RULES",
+      "title": "Temps de jeu et cadre réglementaire",
+      "nature": "SUPPORT",
+      "coverage_mode": "UNAVAILABLE_FROM_RESULT_ARCHIVES",
+      "candidate_fields": [],
+      "limitation": "Needs a separate verified, timestamped, permitted source or a validated derived mechanism.",
+      "feature_status": "OBSERVATION",
+      "ic_effect": "DISABLED"
+    },
+    {
+      "order": 46,
+      "id": "POSSESSION_TERRITORIAL_CONTROL",
+      "title": "Contrôle territorial et conservation utile",
+      "nature": "MECANISME",
+      "coverage_mode": "UNAVAILABLE_FROM_RESULT_ARCHIVES",
+      "candidate_fields": [],
+      "limitation": "Needs a separate verified, timestamped, permitted source or a validated derived mechanism.",
+      "feature_status": "OBSERVATION",
+      "ic_effect": "DISABLED"
+    },
+    {
+      "order": 47,
+      "id": "FINAL_THIRD_ACCESS",
+      "title": "Accès répété aux zones de danger",
+      "nature": "MECANISME",
+      "coverage_mode": "UNAVAILABLE_FROM_RESULT_ARCHIVES",
+      "candidate_fields": [],
+      "limitation": "Needs a separate verified, timestamped, permitted source or a validated derived mechanism.",
+      "feature_status": "OBSERVATION",
+      "ic_effect": "DISABLED"
+    },
+    {
+      "order": 48,
+      "id": "OFF_BALL_MOVEMENT",
+      "title": "Déplacements sans ballon et désorganisation",
+      "nature": "MECANISME",
+      "coverage_mode": "UNAVAILABLE_FROM_RESULT_ARCHIVES",
+      "candidate_fields": [],
+      "limitation": "Needs a separate verified, timestamped, permitted source or a validated derived mechanism.",
+      "feature_status": "OBSERVATION",
+      "ic_effect": "DISABLED"
+    },
+    {
+      "order": 49,
+      "id": "PASSING_COMBINATIONS",
+      "title": "Connectivité et combinaisons collectives",
+      "nature": "MECANISME",
+      "coverage_mode": "UNAVAILABLE_FROM_RESULT_ARCHIVES",
+      "candidate_fields": [],
+      "limitation": "Needs a separate verified, timestamped, permitted source or a validated derived mechanism.",
+      "feature_status": "OBSERVATION",
+      "ic_effect": "DISABLED"
+    },
+    {
+      "order": 50,
+      "id": "WIDE_AERIAL_ATTACK",
+      "title": "Jeu de largeur, centres et menaces aériennes",
+      "nature": "MECANISME",
+      "coverage_mode": "UNAVAILABLE_FROM_RESULT_ARCHIVES",
+      "candidate_fields": [],
+      "limitation": "Needs a separate verified, timestamped, permitted source or a validated derived mechanism.",
+      "feature_status": "OBSERVATION",
+      "ic_effect": "DISABLED"
+    },
+    {
+      "order": 51,
+      "id": "INDIVIDUAL_TECHNICAL_EXECUTION",
+      "title": "Exécution technique individuelle",
+      "nature": "MECANISME",
+      "coverage_mode": "UNAVAILABLE_FROM_RESULT_ARCHIVES",
+      "candidate_fields": [],
+      "limitation": "Needs a separate verified, timestamped, permitted source or a validated derived mechanism.",
+      "feature_status": "OBSERVATION",
+      "ic_effect": "DISABLED"
+    },
+    {
+      "order": 52,
+      "id": "ONE_V_ONE_DUELS",
+      "title": "Duels individuels créateurs ou destructeurs",
+      "nature": "MECANISME",
+      "coverage_mode": "UNAVAILABLE_FROM_RESULT_ARCHIVES",
+      "candidate_fields": [],
+      "limitation": "Needs a separate verified, timestamped, permitted source or a validated derived mechanism.",
+      "feature_status": "OBSERVATION",
+      "ic_effect": "DISABLED"
+    },
+    {
+      "order": 53,
+      "id": "SECOND_BALL_RECOVERY",
+      "title": "Seconds ballons et phases de rebond",
+      "nature": "MECANISME",
+      "coverage_mode": "UNAVAILABLE_FROM_RESULT_ARCHIVES",
+      "candidate_fields": [],
+      "limitation": "Needs a separate verified, timestamped, permitted source or a validated derived mechanism.",
+      "feature_status": "OBSERVATION",
+      "ic_effect": "DISABLED"
+    },
+    {
+      "order": 54,
+      "id": "UNFORCED_MISTAKE_RISK",
+      "title": "Erreurs non provoquées et cadeaux de but",
+      "nature": "MECANISME",
+      "coverage_mode": "UNAVAILABLE_FROM_RESULT_ARCHIVES",
+      "candidate_fields": [],
+      "limitation": "Needs a separate verified, timestamped, permitted source or a validated derived mechanism.",
+      "feature_status": "OBSERVATION",
+      "ic_effect": "DISABLED"
+    },
+    {
+      "order": 55,
+      "id": "TEAM_COHESION",
+      "title": "Cohésion collective et automatismes",
+      "nature": "CONTEXTE",
+      "coverage_mode": "UNAVAILABLE_FROM_RESULT_ARCHIVES",
+      "candidate_fields": [],
+      "limitation": "Needs a separate verified, timestamped, permitted source or a validated derived mechanism.",
+      "feature_status": "OBSERVATION",
+      "ic_effect": "DISABLED"
+    },
+    {
+      "order": 56,
+      "id": "TACTICAL_ADAPTABILITY",
+      "title": "Capacité d’adaptation tactique prévue",
+      "nature": "ANTICIPATION",
+      "coverage_mode": "UNAVAILABLE_FROM_RESULT_ARCHIVES",
+      "candidate_fields": [],
+      "limitation": "Needs a separate verified, timestamped, permitted source or a validated derived mechanism.",
+      "feature_status": "OBSERVATION",
+      "ic_effect": "DISABLED"
+    },
+    {
+      "order": 57,
+      "id": "OPPONENT_SPECIFIC_PREPARATION",
+      "title": "Préparation spécifique à l’adversaire",
+      "nature": "CONTEXTE",
+      "coverage_mode": "UNAVAILABLE_FROM_RESULT_ARCHIVES",
+      "candidate_fields": [],
+      "limitation": "Needs a separate verified, timestamped, permitted source or a validated derived mechanism.",
+      "feature_status": "OBSERVATION",
+      "ic_effect": "DISABLED"
+    },
+    {
+      "order": 58,
+      "id": "MATCH_RHYTHM_POTENTIAL",
+      "title": "Cadence de jeu attendue avant coup d’envoi",
+      "nature": "ANTICIPATION",
+      "coverage_mode": "UNAVAILABLE_FROM_RESULT_ARCHIVES",
+      "candidate_fields": [],
+      "limitation": "Needs a separate verified, timestamped, permitted source or a validated derived mechanism.",
+      "feature_status": "OBSERVATION",
+      "ic_effect": "DISABLED"
+    },
+    {
+      "order": 59,
+      "id": "GK_BUILDUP_DISTRIBUTION",
+      "title": "Relance et risque constructif du gardien",
+      "nature": "MECANISME",
+      "coverage_mode": "UNAVAILABLE_FROM_RESULT_ARCHIVES",
+      "candidate_fields": [],
+      "limitation": "Needs a separate verified, timestamped, permitted source or a validated derived mechanism.",
+      "feature_status": "OBSERVATION",
+      "ic_effect": "DISABLED"
+    },
+    {
+      "order": 60,
+      "id": "HOME_CROWD_PRESSURE",
+      "title": "Présence et influence du public",
+      "nature": "CONTEXTE",
+      "coverage_mode": "UNAVAILABLE_FROM_RESULT_ARCHIVES",
+      "candidate_fields": [],
+      "limitation": "Needs a separate verified, timestamped, permitted source or a validated derived mechanism.",
+      "feature_status": "OBSERVATION",
+      "ic_effect": "DISABLED"
+    },
+    {
+      "order": 61,
+      "id": "EXPECTED_MATCH_PROCESS",
+      "title": "Processus de match anticipé avant T",
+      "nature": "ANTICIPATION",
+      "coverage_mode": "UNAVAILABLE_FROM_RESULT_ARCHIVES",
+      "candidate_fields": [],
+      "limitation": "Needs a separate verified, timestamped, permitted source or a validated derived mechanism.",
+      "feature_status": "OBSERVATION",
+      "ic_effect": "DISABLED"
+    },
+    {
+      "order": 62,
+      "id": "OWN_GOAL_DEFLECTION_PATHWAYS",
+      "title": "Buts contre son camp et déviations",
+      "nature": "MECANISME",
+      "coverage_mode": "UNAVAILABLE_FROM_RESULT_ARCHIVES",
+      "candidate_fields": [],
+      "limitation": "Needs a separate verified, timestamped, permitted source or a validated derived mechanism.",
+      "feature_status": "OBSERVATION",
+      "ic_effect": "DISABLED"
+    }
+  ]
+}
