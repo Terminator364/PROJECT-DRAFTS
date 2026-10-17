@@ -1,0 +1,231 @@
+{
+  "allowed_use": "RESEARCH_ONLY_NO_IC",
+  "code": "E0",
+  "competition": "Premier League",
+  "coverage": {
+    "CSV_RESULT_ONLY": 10
+  },
+  "cutoff_exclusive": "2026-10-17",
+  "date_range": [
+    "2026-10-10",
+    "2026-10-12"
+  ],
+  "fixtures": [
+    {
+      "available_at_pre_match": "UNVERIFIED",
+      "away": "Leeds",
+      "date": "2026-10-10",
+      "football_data_cached_score": [
+        2,
+        1
+      ],
+      "historical_score": [
+        2,
+        1
+      ],
+      "home": "Arsenal",
+      "official_matchday_url": "https://www.premierleague.com/en/matches/premier-league/2026-27/matchweek-6",
+      "openfootball_score": null,
+      "original_away": "Leeds United FC",
+      "original_home": "Arsenal FC",
+      "round": 6,
+      "source_count_with_confirmed_score": 1,
+      "status": "CSV_RESULT_ONLY"
+    },
+    {
+      "available_at_pre_match": "UNVERIFIED",
+      "away": "Brentford",
+      "date": "2026-10-10",
+      "football_data_cached_score": [
+        2,
+        2
+      ],
+      "historical_score": [
+        2,
+        2
+      ],
+      "home": "Aston Villa",
+      "official_matchday_url": "https://www.premierleague.com/en/matches/premier-league/2026-27/matchweek-6",
+      "openfootball_score": null,
+      "original_away": "Brentford FC",
+      "original_home": "Aston Villa FC",
+      "round": 6,
+      "source_count_with_confirmed_score": 1,
+      "status": "CSV_RESULT_ONLY"
+    },
+    {
+      "available_at_pre_match": "UNVERIFIED",
+      "away": "Bournemouth",
+      "date": "2026-10-10",
+      "football_data_cached_score": [
+        5,
+        1
+      ],
+      "historical_score": [
+        5,
+        1
+      ],
+      "home": "Chelsea",
+      "official_matchday_url": "https://www.premierleague.com/en/matches/premier-league/2026-27/matchweek-6",
+      "openfootball_score": null,
+      "original_away": "AFC Bournemouth",
+      "original_home": "Chelsea FC",
+      "round": 6,
+      "source_count_with_confirmed_score": 1,
+      "status": "CSV_RESULT_ONLY"
+    },
+    {
+      "available_at_pre_match": "UNVERIFIED",
+      "away": "Fulham",
+      "date": "2026-10-10",
+      "football_data_cached_score": [
+        2,
+        1
+      ],
+      "historical_score": [
+        2,
+        1
+      ],
+      "home": "Ipswich",
+      "official_matchday_url": "https://www.premierleague.com/en/matches/premier-league/2026-27/matchweek-6",
+      "openfootball_score": null,
+      "original_away": "Fulham FC",
+      "original_home": "Ipswich Town FC",
+      "round": 6,
+      "source_count_with_confirmed_score": 1,
+      "status": "CSV_RESULT_ONLY"
+    },
+    {
+      "available_at_pre_match": "UNVERIFIED",
+      "away": "Tottenham",
+      "date": "2026-10-10",
+      "football_data_cached_score": [
+        1,
+        1
+      ],
+      "historical_score": [
+        1,
+        1
+      ],
+      "home": "Man United",
+      "official_matchday_url": "https://www.premierleague.com/en/matches/premier-league/2026-27/matchweek-6",
+      "openfootball_score": null,
+      "original_away": "Tottenham Hotspur FC",
+      "original_home": "Manchester United FC",
+      "round": 6,
+      "source_count_with_confirmed_score": 1,
+      "status": "CSV_RESULT_ONLY"
+    },
+    {
+      "available_at_pre_match": "UNVERIFIED",
+      "away": "Brighton",
+      "date": "2026-10-10",
+      "football_data_cached_score": [
+        0,
+        2
+      ],
+      "historical_score": [
+        0,
+        2
+      ],
+      "home": "Sunderland",
+      "official_matchday_url": "https://www.premierleague.com/en/matches/premier-league/2026-27/matchweek-6",
+      "openfootball_score": null,
+      "original_away": "Brighton & Hove Albion FC",
+      "original_home": "Sunderland AFC",
+      "round": 6,
+      "source_count_with_confirmed_score": 1,
+      "status": "CSV_RESULT_ONLY"
+    },
+    {
+      "available_at_pre_match": "UNVERIFIED",
+      "away": "Nott'm Forest",
+      "date": "2026-10-11",
+      "football_data_cached_score": [
+        3,
+        1
+      ],
+      "historical_score": [
+        3,
+        1
+      ],
+      "home": "Crystal Palace",
+      "official_matchday_url": "https://www.premierleague.com/en/matches/premier-league/2026-27/matchweek-6",
+      "openfootball_score": null,
+      "original_away": "Nottingham Forest FC",
+      "original_home": "Crystal Palace FC",
+      "round": 6,
+      "source_count_with_confirmed_score": 1,
+      "status": "CSV_RESULT_ONLY"
+    },
+    {
+      "available_at_pre_match": "UNVERIFIED",
+      "away": "Everton",
+      "date": "2026-10-11",
+      "football_data_cached_score": [
+        2,
+        2
+      ],
+      "historical_score": [
+        2,
+        2
+      ],
+      "home": "Hull",
+      "official_matchday_url": "https://www.premierleague.com/en/matches/premier-league/2026-27/matchweek-6",
+      "openfootball_score": null,
+      "original_away": "Everton FC",
+      "original_home": "Hull City AFC",
+      "round": 6,
+      "source_count_with_confirmed_score": 1,
+      "status": "CSV_RESULT_ONLY"
+    },
+    {
+      "available_at_pre_match": "UNVERIFIED",
+      "away": "Man City",
+      "date": "2026-10-11",
+      "football_data_cached_score": [
+        0,
+        3
+      ],
+      "historical_score": [
+        0,
+        3
+      ],
+      "home": "Liverpool",
+      "official_matchday_url": "https://www.premierleague.com/en/matches/premier-league/2026-27/matchweek-6",
+      "openfootball_score": null,
+      "original_away": "Manchester City FC",
+      "original_home": "Liverpool FC",
+      "round": 6,
+      "source_count_with_confirmed_score": 1,
+      "status": "CSV_RESULT_ONLY"
+    },
+    {
+      "available_at_pre_match": "UNVERIFIED",
+      "away": "Newcastle",
+      "date": "2026-10-12",
+      "football_data_cached_score": [
+        4,
+        1
+      ],
+      "historical_score": [
+        4,
+        1
+      ],
+      "home": "Coventry",
+      "official_matchday_url": "https://www.premierleague.com/en/matches/premier-league/2026-27/matchweek-6",
+      "openfootball_score": null,
+      "original_away": "Newcastle United FC",
+      "original_home": "Coventry City FC",
+      "round": 6,
+      "source_count_with_confirmed_score": 1,
+      "status": "CSV_RESULT_ONLY"
+    }
+  ],
+  "matchday": 6,
+  "sources": [
+    "https://raw.githubusercontent.com/openfootball/football.json/master/2026-27/en.1.json",
+    "CACHED_PREVIOUS_FOOTBALL_DATA_CSV",
+    "https://www.premierleague.com/en/matches/premier-league/2026-27/matchweek-6"
+  ]
+}
