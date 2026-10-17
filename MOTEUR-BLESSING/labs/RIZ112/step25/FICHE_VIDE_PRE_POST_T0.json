@@ -1,0 +1,133 @@
+{
+  "schema": "riz112/step25/empty-paired-collection-template/v1",
+  "status": "EMPTY_USER_FILLABLE_TEMPLATE_NOT_EVIDENCE",
+  "experiment_id": null,
+  "source_class": null,
+  "prestart": {
+    "packet_file_path": null,
+    "packet_sha256": null,
+    "registration_utc": null,
+    "freeze_utc": null,
+    "T0_utc": null,
+    "predicted_quality_probability": null,
+    "observer_or_source_id": null,
+    "equipment_id": null
+  },
+  "poststart": {
+    "observer_id": null,
+    "measurement_utc": null,
+    "source_identifier": null,
+    "measurements": {
+      "099": {
+        "status": "NOT_MEASURED",
+        "observation": null,
+        "unit": null,
+        "observed_at_utc": null,
+        "source": null
+      },
+      "100": {
+        "status": "NOT_MEASURED",
+        "observation": null,
+        "unit": null,
+        "observed_at_utc": null,
+        "source": null
+      },
+      "101": {
+        "status": "NOT_MEASURED",
+        "observation": null,
+        "unit": null,
+        "observed_at_utc": null,
+        "source": null
+      },
+      "102": {
+        "status": "NOT_MEASURED",
+        "observation": null,
+        "unit": null,
+        "observed_at_utc": null,
+        "source": null
+      },
+      "103": {
+        "status": "NOT_MEASURED",
+        "observation": null,
+        "unit": null,
+        "observed_at_utc": null,
+        "source": null
+      },
+      "104": {
+        "status": "NOT_MEASURED",
+        "observation": null,
+        "unit": null,
+        "observed_at_utc": null,
+        "source": null
+      },
+      "105": {
+        "status": "NOT_MEASURED",
+        "observation": null,
+        "unit": null,
+        "observed_at_utc": null,
+        "source": null
+      },
+      "106": {
+        "status": "NOT_MEASURED",
+        "observation": null,
+        "unit": null,
+        "observed_at_utc": null,
+        "source": null
+      },
+      "107": {
+        "status": "NOT_MEASURED",
+        "observation": null,
+        "unit": null,
+        "observed_at_utc": null,
+        "source": null
+      },
+      "108": {
+        "status": "NOT_MEASURED",
+        "observation": null,
+        "unit": null,
+        "observed_at_utc": null,
+        "source": null
+      },
+      "109": {
+        "status": "NOT_MEASURED",
+        "observation": null,
+        "unit": null,
+        "observed_at_utc": null,
+        "source": null
+      },
+      "110": {
+        "status": "NOT_MEASURED",
+        "observation": null,
+        "unit": null,
+        "observed_at_utc": null,
+        "source": null
+      },
+      "111": {
+        "status": "NOT_MEASURED",
+        "observation": null,
+        "unit": null,
+        "observed_at_utc": null,
+        "source": null
+      },
+      "112": {
+        "status": "NOT_MEASURED",
+        "observation": null,
+        "unit": null,
+        "observed_at_utc": null,
+        "source": null
+      }
+    }
+  },
+  "Q_formula_approved": false,
+  "Q_score": null,
+  "success_label": null,
+  "scientific_ic_percent": null,
+  "real_rice_trial_count": 0,
+  "instructions": [
+    "Do not fill a value based on the model instead of a measurement.",
+    "Freeze genuine raw inputs before starting heat/T0; timestamps must be real.",
+    "Observe separately only after T0 and record actual missingness, never zero.",
+    "Get explicit quality scoring protocol approval before assigning Q.",
+    "Food safety requires a separate validated check; score does not certify safety."
+  ]
+}
