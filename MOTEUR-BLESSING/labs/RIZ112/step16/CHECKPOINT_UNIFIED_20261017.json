@@ -1,0 +1,69 @@
+{
+  "schema": "riz112/unified/step16/checkpoint/v1",
+  "date": "2026-10-17",
+  "project": "Moteur Blessing / RIZ112 experimental rice prediction laboratory",
+  "canonical_code": "Moteur/continue",
+  "step": 16,
+  "status": "SOFTWARE_DEMONSTRATOR_INTEGRATED_AND_WINDOWS_VALIDATED__NOT_SCIENTIFICALLY_CALIBRATED",
+  "rubrics": {
+    "total_logical_roles": 112,
+    "explicit_preT0_input_plan_target_records": 108,
+    "derived_forecast_slots": [
+      "043",
+      "044",
+      "046",
+      "048"
+    ],
+    "H4_new_diagnostic_contracts": 22,
+    "H4_synthetic_diagnostic_groups": 10,
+    "scientifically_validated_quality_effects": 0
+  },
+  "code": "MOTEUR-BLESSING/labs/RIZ112/step16/riz112_unified.py",
+  "test_runner": "MOTEUR-BLESSING/labs/RIZ112/step14/run_regression_h3.py",
+  "test_counts": {
+    "linux_H3": 309,
+    "linux_step16": 106,
+    "linux_total": 415,
+    "windows_H3": 309,
+    "windows_step16": 106,
+    "windows_total": 415
+  },
+  "windows": {
+    "device": "MBMPC",
+    "python": "3.12.10",
+    "version_directory": "C:\\Users\\Lenovo\\Documents\\Moteur Blessing\\versions\\RIZ112_UNIFIED_20261017",
+    "shortcut": "C:\\Users\\Lenovo\\Desktop\\RIZ-112 - Moteur de riz.lnk",
+    "three_scenarios_verified": true
+  },
+  "synthetic_scenario_IC_DEMO_percent": {
+    "A_BASE": 60.25,
+    "B_REDUCED_POWER": 19.25,
+    "C_LESS_WATER": 0.25
+  },
+  "scientific_ic_percent": null,
+  "real_independently_measured_rice_preparations": 0,
+  "user_approved_Q_rubric": false,
+  "provenance": {
+    "H3_original_zip_sha256": "4a057b8ef981bedc10327b07d92c0b8a120a180047bea7576f057b186f65dd92",
+    "source_full_archive_chatgpt_sha256_initial": "280f75d3899abb8a26dc538adee0125da49a9f70c264c0867fae0444ec0046f7",
+    "windows_bundle_drive_url": "https://drive.google.com/file/d/1wKz04xWuDKiPXT6rNKOCWlAtPzq7WZ6Q/view?usp=drivesdk",
+    "windows_bundle_initial_sha256": "d2fa3a07307f8ee7ade12ae9d551756b60530a24f7a269e24b9429fac49ad8cd",
+    "windows_G_local_copy_checksum_equal": true,
+    "cloud_file_ID_size_verified": true,
+    "cloud_file_hash_independent_verification": "PENDING_AFTER_FINAL_REBUILD"
+  },
+  "continuity": {
+    "journal_events": 102,
+    "journal_head": "e43cfe04a757d9bc263022e4fbc04bd830cec1ecd67e3e0d2675fbcbad221b41",
+    "prior_damaged_journal_forensic_copy": "MOTEUR-BLESSING/labs/RIZ112/journal/JOURNAL_EVENEMENTS_PRE_REPAIR_E098_20261017.jsonl",
+    "context_rows": 33
+  },
+  "next": "QUALITY_Q_PROTOCOL_AND_REAL_OBSERVATIONS_FOR_CALIBRATION",
+  "scope_limits": [
+    "Never claim IC_DEMO is empirical success probability",
+    "Never transfer rice coefficients to football",
+    "No post-T0 predictors",
+    "No automatic background execution",
+    "Do not reconstruct step16 unless evidence shows a defect"
+  ]
+}
