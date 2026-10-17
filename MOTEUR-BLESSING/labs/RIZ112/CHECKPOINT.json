@@ -9,8 +9,8 @@
   "mandate": "MANDAT_FINITION_112.md",
   "mandate_active": true,
   "journal": {
-    "events": 88,
-    "head": "a894f6131e37df085d0d821acf6231d5b22a3bb5974c0d99e33bf7da5af6a02c"
+    "events": 89,
+    "head": "aeb4f2da9434b3fb61609e7d1612812ab1abb4d7b21392f39cee864b804a3859"
   },
   "cases": {
     "catalogued": 112,
@@ -65,10 +65,10 @@
     "copy_food_coefficients": false
   },
   "mirrors": {
-    "github": "EXISTING_H3_VERIFIED; CURRENT_CONTEXT_DELTA_REQUIRES_POST_PUBLISH_READBACK",
-    "drive": "H3_570715_BYTES_FINAL_AND_568443_BYTES_SOURCE_PRESENT_PRIVATE__SHA_REMOTE_NOT_READ",
-    "library": "H3_ZIPS_CONFIRMED__LATEST_CONTEXT_PATCH_PENDING",
-    "windows": "NOT_TESTED_OR_SYNCED_H3"
+    "github": "READBACK_CONFIRMED_CANONICAL_CONTEXT_7_OF_7_FILES_BEFORE_LAST_FINAL_APPEND",
+    "drive": "H3_FINAL_ZIP_570715_BYTES_PRIVATE; CURRENT_VERBATIM_AND_NEXT_PLAN_IN_GOOGLE_DOC_CONFIRMED; NEW_FULL_ZIP_NOT_UPLOADED",
+    "library": "CURRENT_FULL_H3_CONTEXT_REPRISE_ZIP_CONFIRMED; FINAL_PATCH_UPDATED_COPY_BELOW",
+    "windows": "OFFLINE_OR_UNVERIFIED_NO_H3_SYNC"
   },
   "drive_initial_v8": {
     "id": "11zabEXKov7S34KNtjX-WljTvTjIsOT5u",
@@ -241,7 +241,7 @@
     "context_master": "CONTEXTE_CONVERSATIONS.md",
     "context_registry": "CONTEXTE_INTEGRAL/REGISTRE_MESSAGES.jsonl",
     "context_protocol": "PROTOCOLE_CONTINUITE_CONTEXTUELLE.md",
-    "context_rows": 20,
+    "context_rows": 21,
     "coverage": "SOME_VERBATIM_EXCERPTS_AND_FLAGGED_RECONSTRUCTIONS_NOT_FULL_RAW_ARCHIVE",
     "parent_manifest_status": "GITHUB_UPDATED_AND_READBACK",
     "github_status": "VERIFIED_CRITICAL_9_OF_9_BEFORE_FINAL_RECEIPT",
@@ -255,10 +255,12 @@
       "CTX-0019",
       "CTX-0020"
     ],
-    "journal_events": 88,
-    "journal_head": "a894f6131e37df085d0d821acf6231d5b22a3bb5974c0d99e33bf7da5af6a02c",
+    "journal_events": 89,
+    "journal_head": "aeb4f2da9434b3fb61609e7d1612812ab1abb4d7b21392f39cee864b804a3859",
     "context_update_rule": "APPEND_AT_EACH_ACTIVE_SESSION_CHECKPOINT; NOT_BACKGROUND_CONTINUOUS",
     "old_history": "EXCERPTS_AND_EXPLICITLY_LABELED_RECONSTRUCTIONS",
-    "next_steps_file": "PLAN_SUITE_RIZ112_MATRICE.md"
+    "next_steps_file": "PLAN_SUITE_RIZ112_MATRICE.md",
+    "drive_current_doc": "https://docs.google.com/document/d/13gOTBq7AXnT-f9Lotlw4czwa4i75C4UGdP0i1i0qwZE/edit",
+    "future_work_recorded": true
   }
 }
