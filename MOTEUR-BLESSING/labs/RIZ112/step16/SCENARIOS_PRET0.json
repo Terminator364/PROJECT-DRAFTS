@@ -1,0 +1,5 @@
+[
+  {"name":"A_BASE","h3":{"source_uptime":1.0,"water_g":300.0,"draws":400,"seed":20261017}},
+  {"name":"B_POWER_60PC","h3":{"source_uptime":0.6,"water_g":300.0,"draws":400,"seed":20261017}},
+  {"name":"C_WATER_180G","h3":{"source_uptime":1.0,"water_g":180.0,"draws":400,"seed":20261017}}
+]
