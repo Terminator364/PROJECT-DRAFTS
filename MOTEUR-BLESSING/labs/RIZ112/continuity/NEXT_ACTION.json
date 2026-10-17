@@ -128,7 +128,7 @@
     "cloud_receipt_post_snapshot": "E131",
     "unittests_from_cloud_extraction_passed": 6
   },
-  "reconciled_backup_status": "CANONICAL_ZIP_AND_UNMERGED_PC_DELTAS_BOTH_VERIFIED",
+  "reconciled_backup_status": "64_pc_local_deltas_preserved_separately_no_forced_merge",
   "backups": {
     "canonical_zip": "https://drive.google.com/file/d/1oCS4PxMJMTGi41erBMx749OMXS9ErT2z/view?usp=drivesdk",
     "canonical_sha256": "b3846464925901c30f5d8d06b4fb4c34b739ce2e748e26a684ef28fab3598ca2",
@@ -140,7 +140,7 @@
   },
   "methodology_transfer_contract": "MOTEUR-BLESSING/labs/RIZ112/simulations/EXPERIENCE_1000/TRANSFERT_METHODE_MATRICE_PREMATCH.md",
   "e134_cloud_receipt": "MOTEUR-BLESSING/labs/RIZ112/simulations/EXPERIENCE_1000/RECU_REPRISE_E134_20261017.json",
-  "live_pc_git_sync_this_turn": "GITHUB_E137_CLOUD_RECEIPT_PUBLISHED__PC_FINAL_PULL_IN_PROGRESS",
+  "live_pc_git_sync_this_turn": "VERIFIED_GITHUB_TO_WINDOWS_MBMPC_E137_AFTER_NONDESTRUCTIVE_SOURCE_RECONCILIATION",
   "method_transfer_executable": {
     "path": "MOTEUR-BLESSING/labs/RIZ112/simulations/EXPERIENCE_1000/TRANSFERT_PREMATCH/",
     "windows": [
@@ -160,5 +160,8 @@
     "archive_snapshot_event": "E136",
     "archive_url": "https://drive.google.com/file/d/18AHj1Mwr0fz4YuekE-cGIDCJRd8gLX8n/view?usp=drivesdk",
     "independent_cloud_sha256_verified": true
-  }
+  },
+  "last_synced_journal_id": "E137",
+  "last_synced_context_id": "CTX-0059",
+  "last_synced_journal_head": "3b5a8c2746ec00cb9113167d1243537ea6dda529cc634528af6d2e0da3cca8b8"
 }
