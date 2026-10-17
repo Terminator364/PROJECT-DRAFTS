@@ -11,7 +11,7 @@
     "MOTEUR-BLESSING/labs/RIZ112/journal/JOURNAL_EVENEMENTS.jsonl",
     "MOTEUR-BLESSING/labs/RIZ112/CONTEXTE_INTEGRAL/REGISTRE_MESSAGES.jsonl"
   ],
-  "first_technical_action": "Lire Cahier mère jusqu'à E131, le nouveau reçu cloud E130/E131, le rapport des 1000 scénarios et les 18 contrefactuels. Formaliser la méthode de MATRICE pré-match sans déplacer les équations du riz ni fabriquer d'IC réel; préserver l'original technique V1 et les 112 rôles. Aucune expérience culinaire personnelle obligatoire pour cette maquette. Ne pas redémarrer le laboratoire ni créer des Steps fictifs.",
+  "first_technical_action": "Lire Cahier mère jusqu'à E132, les reçus des deux archives Drive, la campagne de 1000 scénarios, ses 18 contrefactuels, puis préparer uniquement le transfert de méthode à MATRICE pré-match. Ne pas transformer Q* simulé en IC réel. Ne pas écraser les 64 fichiers du ZIP forensic dans le dépôt principal sans confrontation.",
   "how_to_continue": "At trigger, verify checkpoint/journal/context and start this task in the same turn. Do not stop after reporting status or request permission again. Commit work and context with proven readback.",
   "lab_next_stage": null,
   "never_do": [
@@ -44,8 +44,8 @@
   "critical_directive_D035": "Cahier mère as durable authority, all accessible context, no blanket assertion of 112 IC causal effects; each counterfactual evidence or explicit abstention",
   "canonical_source": "GitHub main MOTEUR-BLESSING/labs/RIZ112/CAHIER_MERE.md plus journal, exact context register and checkpoint; not ChatGPT memory.",
   "context_capture_limits": "The tool captures only messages actively submitted in-session and available for logging, not autonomous background conversations.",
-  "latest_journal_event_id": "E131",
-  "latest_context_id": "CTX-0053",
+  "latest_journal_event_id": "E132",
+  "latest_context_id": "CTX-0054",
   "journal_chain_verified": true,
   "step18_checkpoint": "MOTEUR-BLESSING/labs/RIZ112/step18/CHECKPOINT_STEP18_20261017.json",
   "step18_windows_status": "PARTIAL_RESOURCE_TESTS_PASS; CONDITIONAL_SUITE_NOT_VALIDATED_TIMEOUT",
@@ -129,5 +129,15 @@
     "zip_snapshot_event": "E130",
     "cloud_receipt_post_snapshot": "E131",
     "unittests_from_cloud_extraction_passed": 6
+  },
+  "reconciled_backup_status": "CANONICAL_ZIP_AND_UNMERGED_PC_DELTAS_BOTH_VERIFIED",
+  "backups": {
+    "canonical_zip": "https://drive.google.com/file/d/1oCS4PxMJMTGi41erBMx749OMXS9ErT2z/view?usp=drivesdk",
+    "canonical_sha256": "b3846464925901c30f5d8d06b4fb4c34b739ce2e748e26a684ef28fab3598ca2",
+    "canonical_snapshot_events": 130,
+    "pc_unmerged_backup": "https://drive.google.com/file/d/1B2rGSZMKjEru1XEazdX1uhDg2JX9og9H/view?usp=drivesdk",
+    "pc_unmerged_sha256": "5bb1ffa358fbfc586515eb29efeea7e7ff3f437349c87fef91d030ab9f71b66f",
+    "pc_unmerged_files": 64,
+    "independent_cloud_crc_sha256_passed": true
   }
 }
