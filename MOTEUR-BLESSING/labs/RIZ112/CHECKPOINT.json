@@ -23,7 +23,7 @@
     "context_master": "CONTEXTE_CONVERSATIONS.md",
     "context_protocol": "PROTOCOLE_CONTINUITE_CONTEXTUELLE.md",
     "context_registry": "CONTEXTE_INTEGRAL/REGISTRE_MESSAGES.jsonl",
-    "context_rows": 31,
+    "context_rows": 33,
     "context_update_rule": "ACTIVE_SESSION_EVERY_RELEVANT_EXCHANGE_AND_CHECKPOINT__NO_BACKGROUND",
     "coverage": "SOME_VERBATIM_EXCERPTS_AND_FLAGGED_RECONSTRUCTIONS_NOT_FULL_RAW_ARCHIVE",
     "drive_current_doc": "https://docs.google.com/document/d/13gOTBq7AXnT-f9Lotlw4czwa4i75C4UGdP0i1i0qwZE/edit",
@@ -32,12 +32,12 @@
     "github_status": "VERIFIED_CRITICAL_9_OF_9_BEFORE_FINAL_RECEIPT",
     "initial_source_archive_drive": "https://drive.google.com/file/d/1rFq9GiwbRvb-Hk33JayacttjBOUdAabf/view?usp=drivesdk",
     "initial_source_archive_sha256": "15182d217e42c2985cb4652ac5c2ee9f6afe6afca55ec148b3c803e52b14ede8",
-    "journal_events": 98,
-    "journal_head": "bc5c777b0d29b97c0b6c6ea22035d0c53601d973fedf1f56e9e42d02c2698cc7",
+    "journal_events": 102,
+    "journal_head": "e43cfe04a757d9bc263022e4fbc04bd830cec1ecd67e3e0d2675fbcbad221b41",
     "lab_code": "Moteur/continue",
     "latest_context_ids": [
-      "CTX-0030",
-      "CTX-0031"
+      "CTX-0032",
+      "CTX-0033"
     ],
     "legacy_codes_active": false,
     "library_status": "SOURCE_ARCHIVE_CONFIRMED",
@@ -74,12 +74,12 @@
   },
   "full_packet_replay": "step12/POPULATION_100_COMPLETE_PACKET.jsonl",
   "journal": {
-    "events": 98,
-    "head": "bc5c777b0d29b97c0b6c6ea22035d0c53601d973fedf1f56e9e42d02c2698cc7"
+    "events": 102,
+    "head": "e43cfe04a757d9bc263022e4fbc04bd830cec1ecd67e3e0d2675fbcbad221b41"
   },
   "last_user_directive": "D034_CANONICAL_SINGLE_CODE_AUTO_RESUME_AND_CONTINUOUS_CONTEXT",
   "latest_case_audit": "step12/COUNTERFACTUAL_112_V12.json",
-  "latest_code": "step15/complete_h4.py (IN_COMPLETE_DRIVE_ARCHIVE)",
+  "latest_code": "step16/riz112_unified.py",
   "latest_contract": "step9/DEMONSTRATION_CONTRACT.json",
   "latest_h3_ablations": "step14/H3_ABLATIONS.json",
   "latest_h3_population": "step14/H3_100_RESULTS.jsonl",
@@ -114,7 +114,7 @@
       "054"
     ]
   },
-  "next": "SCIENTIFIC_EVIDENCE_GATE__NOT_AUTOMATIC; see continuity/NEXT_ACTION.json",
+  "next": "SCIENTIFIC_QUALITY_VALIDATION_REAL_DATA: see continuity/NEXT_ACTION.json",
   "probabilities_demo_percent": {
     "A": 62.4,
     "B": 36.83,
@@ -138,7 +138,7 @@
     "A_alternate_proxy_scale": 38.2,
     "A_minus_60g": 44.87
   },
-  "stage": 15,
+  "stage": 16,
   "stage11": {
     "119_vs_112": "UNCLEAR_NEW_SEVEN_NOT_CREATED",
     "cases_in_input_contract": 112,
@@ -211,7 +211,7 @@
     "tests_total": 309,
     "validated_effects": 0
   },
-  "status": "H4_TECHNICAL_DIAGNOSTIC_CONTRACTS_COMPLETE_22__86_NEW_TESTS_PASS__SCIENTIFIC_IC_NULL",
+  "status": "STEP16_SOFTWARE_DEMONSTRATOR_COMPLETE_415_PASS_WINDOWS_AND_LINUX__Q_IC_NULL",
   "step10": {
     "abstentions_original": 5,
     "derived_not_directly_mutable": 4,
@@ -271,7 +271,9 @@
     "h4a_new_tests_locally_executed": true,
     "previous_h3_309_not_rerun_this_session": true,
     "h4_new_tests_passed": 86,
-    "h4_new_tests_locally_executed": true
+    "h4_new_tests_locally_executed": true,
+    "step16_new_tests_passed": 106,
+    "total_windows_passed_309_plus_106": 415
   },
   "stage15_H4A": {
     "checkpoint": "step15/CHECKPOINT_H4A_20261017.json",
@@ -321,5 +323,19 @@
     "windows_H4": "NOT_TESTED",
     "github_H4B_source": "LINKED_ARCHIVE_ON_DRIVE_NOT_NATIVE_SOURCE",
     "github_readme": "step15/README_H4_FINAL_20261017.md"
+  },
+  "stage16": {
+    "checkpoint": "step16/CHECKPOINT_UNIFIED_20261017.json",
+    "suite_tests_h3": 309,
+    "suite_tests_step16": 106,
+    "tests_total": 415,
+    "tests_linux_passed": 415,
+    "tests_windows_passed": 415,
+    "rubric_roles": 112,
+    "diagnostic_contracts_h4": 22,
+    "scientific_Q_IC": null,
+    "real_rice_trials": 0,
+    "pc_shortcut": "RIZ-112 - Moteur de riz.lnk",
+    "cloud_drive_file_id": "1wKz04xWuDKiPXT6rNKOCWlAtPzq7WZ6Q"
   }
 }
