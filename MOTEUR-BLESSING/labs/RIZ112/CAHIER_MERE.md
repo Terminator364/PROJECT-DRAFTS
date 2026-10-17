@@ -563,3 +563,14 @@ RIZ112 1000 synthetic scenarios preservation and continuity check 2026-10-17. So
 
 ## Contrôle E130 — archivage et mesure sur PC
 La cohérence JSON des 50 premiers messages de contexte et des 128 événements a été confirmée entre GitHub et Windows, malgré leurs fins de lignes différentes. Le vérificateur accepte maintenant les preuves historiques E126–E127 dans le champ `evidence` et les titres de capture anciens, sans réécrire la chaîne. Avant l'insertion E129/E130 : Cahier mère **84 429 octets / 10 922 mots**, registre contextuel **29 592 octets / 3 374 mots**, journal **78 128 octets / 6 740 mots** sur Windows (critère Unicode `\b\w+(?:[’'-]\w+)*\b`). Les volumes continuent de croître lors des nouvelles captures.
+
+
+### Archive verbatim CTX-0053 / E131 / 2026-10-17
+**Rôle** ASSISTANT ; **SHA-256 UTF-8** `69d3321b30fbc7ddf2a0fd0b431a603229560b63a50f1bf79dc75551cd917686` ; **provenance** SIM1000_E130_CLOUD_INDEPENDENT_HASH_CRC_EXTRACTED_TESTS
+
+````text
+E131 RIZ112 SIM1000 final cloud-sync verification. User requested complete preservation/synchronization, captured as CTX-0051/E129. Source GitHub and Windows agreed at E130/CTX-0052 after fixing verifier compatibility for E126/E127; 6/6 Python simulation tests PASS. New git archive plus exact CSV contains 314 files / 745765 bytes; Drive file ID 1oCS4PxMJMTGi41erBMx749OMXS9ErT2z, SHA256 b3846464925901c30f5d8d06b4fb4c34b739ce2e748e26a684ef28fab3598ca2 independently checked on PC, local G copy and fresh cloud download, ZIP CRC clean. Extracted cloud ZIP: journal E130 chain PASS and 6 simulation tests PASS, 52 context rows, 1000 synthetic cases. Latest measured Windows documentation after E130: mother 86576 bytes 11176 words; message registry 31290 bytes 3542 words; events journal 79343 bytes 6808 words; these will grow after E131. Method transfer to MATRICE prematch; no real rice trials, scientific_ic_percent=null, 112 roles not all causally estimated. Post-archive GitHub receipt at simulations/EXPERIENCE_1000/RECU_SYNC_E130_CLOUD_20261017.json.
+````
+
+### Reçu de synchronisation cloud — E131
+Archive immuable E130 : **314 fichiers, 745 765 octets**, SHA-256 `b3846464925901c30f5d8d06b4fb4c34b739ce2e748e26a684ef28fab3598ca2`, Google Drive `1oCS4PxMJMTGi41erBMx749OMXS9ErT2z`. Le contenu extrait depuis un téléchargement indépendant a réussi le contrôle du journal et 6 tests; le CSV contient 1 000 scénarios. Le reçu et l'événement E131 restent sur GitHub **après** le ZIP, par construction. Continuité du projet RIZ112 au service de MATRICE prématch; IC réel reste non calibré.
