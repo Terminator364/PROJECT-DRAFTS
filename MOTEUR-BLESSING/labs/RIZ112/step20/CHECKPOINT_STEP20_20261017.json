@@ -1,0 +1,39 @@
+{
+  "schema": "riz112/step20/checkpoint/v1",
+  "date": "2026-10-17",
+  "stage": 20,
+  "state": "THEORETICAL_PHYSICAL_EVIDENCE_VALIDATED_AS_SOFTWARE__EMPIRICAL_Q_GATE_OPEN",
+  "physical_twin_ids": [
+    "001",
+    "033",
+    "035",
+    "036",
+    "037",
+    "038",
+    "041",
+    "042",
+    "047"
+  ],
+  "physical_twin_tested": 9,
+  "physical_intermediates_responded_in_synthetic_case_A": 9,
+  "additional_not_promoted_to_physical_Q_effects": 89,
+  "postT0_targets_kept_as_labels": 14,
+  "total_rubrics_preserved": 112,
+  "quality_protocol": "step20/PROTOCOLE_Q_14_SORTIES_DRAFT.json",
+  "Q_formula_user_approved": false,
+  "measured_real_preparations": 0,
+  "scientific_ic_percent": null,
+  "real_quality_effects_proven": 0,
+  "new_tests_local": 45,
+  "new_tests_windows": "PENDING",
+  "historical_separate_suites_local": {
+    "H3": 309,
+    "step16": 106,
+    "step17": 23,
+    "step18": 32,
+    "step19": 31
+  },
+  "prior_total": 501,
+  "source_zip_step19_sha256": "78a1e7cb2661c634568a4233d7e3cbbae1c679175de2a2347e2db28295d2e0ec",
+  "next": "Agree metrology / Q formula, gather real paired pre-T0 and post-T0 trials; expand mechanistically defensible conditionals without invented quality effect."
+}
