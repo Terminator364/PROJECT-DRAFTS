@@ -1,0 +1,51 @@
+{
+  "water_specific_heat_J_per_gK": {
+    "value": 4.18,
+    "unit": "J/g/K",
+    "kind": "ASSUMPTION",
+    "available_at_utc": "2026-10-16T12:00:00Z",
+    "source": "STEP20_SYNTHETIC_UNCALIBRATED_HYPOTHESIS__NOT_OBSERVED"
+  },
+  "rice_specific_heat_J_per_gK": {
+    "value": 1.6,
+    "unit": "J/g/K",
+    "kind": "ASSUMPTION",
+    "available_at_utc": "2026-10-16T12:00:00Z",
+    "source": "STEP20_SYNTHETIC_UNCALIBRATED_HYPOTHESIS__NOT_OBSERVED"
+  },
+  "latent_vaporization_J_per_g": {
+    "value": 2257,
+    "unit": "J/g",
+    "kind": "ASSUMPTION",
+    "available_at_utc": "2026-10-16T12:00:00Z",
+    "source": "STEP20_SYNTHETIC_UNCALIBRATED_HYPOTHESIS__NOT_OBSERVED"
+  },
+  "target_water_temperature_C": {
+    "value": 100,
+    "unit": "degC",
+    "kind": "ASSUMPTION",
+    "available_at_utc": "2026-10-16T12:00:00Z",
+    "source": "STEP20_SYNTHETIC_UNCALIBRATED_HYPOTHESIS__NOT_OBSERVED"
+  },
+  "source_uptime_fraction": {
+    "value": 1.0,
+    "unit": "fraction",
+    "kind": "ASSUMPTION",
+    "available_at_utc": "2026-10-16T12:00:00Z",
+    "source": "STEP20_SYNTHETIC_UNCALIBRATED_HYPOTHESIS__NOT_OBSERVED"
+  },
+  "regulation_duty_fraction": {
+    "value": 1.0,
+    "unit": "fraction",
+    "kind": "ASSUMPTION",
+    "available_at_utc": "2026-10-16T12:00:00Z",
+    "source": "STEP20_SYNTHETIC_UNCALIBRATED_HYPOTHESIS__NOT_OBSERVED"
+  },
+  "ambient_heat_loss_W": {
+    "value": 0.0,
+    "unit": "W",
+    "kind": "ASSUMPTION",
+    "available_at_utc": "2026-10-16T12:00:00Z",
+    "source": "STEP20_SYNTHETIC_UNCALIBRATED_HYPOTHESIS__NOT_OBSERVED"
+  }
+}
