@@ -47,6 +47,17 @@ Un IC numérique peut être calculé par simulation Monte-Carlo si les hypothès
 - Une baseline ou un IC simulé n'est pas un IC empirique, et sa stabilité doit être mesurée sous changements de données + contraintes.
 - Les variables servant à définir le résultat futur ne peuvent pas alimenter le calcul pré-match, même pour rendre « 112/112 » plus vendeur.
 
-### Nouvelle règle D025 V13 (2026-10-17) : hiérarchies et anticipations
+## D025 — sous-paramètres imbriqués et anticipations (2026-10-17)
+Transférer **la grammaire du modèle**, pas ses valeurs : paramètre 62 mondes → sous-paramètres numériques/catégoriels/qualitatifs → sous-sous-paramètres → anticipations et scénarios pré-match → graphe de calcul / interactions / incertitude → IC conditionnel de la rencontre. Tester la perturbation d'un sous-paramètre et mesurer le changement dans le graphe et, si pertinent, l'IC. Cas sans effet local possibles (goulot d'étranglement/saturation). Les futurs résultats sportifs (buts, tirs du match) sont des **cibles** et ne sont jamais introduits comme caractéristiques pré-match. Aucun coefficient thermique du riz, aucun seuil fictif Q*, aucun « 112/112 » documentaire ne vaut validation sportive.
 
-Transférer à MATRICE le schéma **monde → paramètre → sous-paramètre → sous-sous-paramètre → conditions/anticipations → mécanismes → sortie**, avec les liens vérifiables, les dépendances communes et les contrefactuels ; n'importer aucune constante de cuisine, aucun Q* fictif, aucune probabilité numérique alimentaire. La règle « un contexte inconnu mérite un modèle de conséquences » n'autorise pas une prédiction sportive non calibrée : les familles de variables doivent avoir preuves pré-match, lois formalisées et contrôle OOS. Une cible future Over1,5 réglementaire reste une définition et non un prédicteur.
+### D026/D027 — Pont anticipations avant l'événement
+
+Le sous-modèle `step13/prospective_branches.py` compare une trajectoire prospective sans correction à une trajectoire conditionnée par **une politique déclarée avant T₀**. Le déclenchement est dérivé d'états **simulés** et jamais de données postérieures au match ou à la cuisson. La probabilité hypothétique d'exécution et les stocks font partie de la provenance de l'IC. MATRICE doit adopter cette *discipline temporelle* sans copier les modèles physiques, valeurs ou pourcentages du riz.
+
+
+## H3 — Règles de transfert (2026-10-17)
+Les 112 rubriques RIZ sont hiérarchiques, mais leurs sous-paramètres ne sont pas des points d IC à sommer. H3 ajoute quatre chemins numériques **supposés** : alimentation, régulation, ambiance, géométrie grain; les tests de contre-factuels incluent les interactions et empêchent de modifier les valeurs des rubriques parentes en écrivant leurs sous-paramètres. **MATRICE** doit réutiliser cette discipline de propagation/pré-match/anticipations/préservation de données, sans copier les équations physiques, constantes ou Q* hypothétique du riz. 22 cases restent encore sans nouvelle loi numérique dans les 26 lacunes identifiées à H1, aucun effet empirique validé.
+
+
+## D030 — Réutilisation du contexte par MOTEUR|CONTINUE
+Le registre conversationnel RIZ-112 et les décisions D001–D030 sont une **source méthodologique** pour la feuille de route sportive; ils ne changent pas le moteur de production, n'autorisent aucune promotion scientifique et ne remplacent ni les 62 mondes ni les données PIT. À la reprise parent, lire `MOTEUR-BLESSING/labs/RIZ112/CONTEXTE_CONVERSATIONS.md` et `CHECKPOINT.json`.
