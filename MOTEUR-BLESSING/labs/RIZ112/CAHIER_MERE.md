@@ -2,7 +2,7 @@
 
 **Référence unique de continuité de l'expérience pédagogique RIZ-112.**
 
-- **Code de reprise** : `RIZ112|CONTINUE` (alias `RIZ/CONTINUE`).
+- **Code unique de reprise (D034)** : `Moteur/continue` ; les anciennes chaînes sont historiques et ne sont plus actives.
 - **Identité** : laboratoire conceptuel et technique de construction du moteur mathématique de **MATRICE ADN R8**. **Ce n'est pas un moteur qui conseille des recettes**.
 - **Source canonique et append-only** : `Terminator364/PROJECT-DRAFTS`, dossier `MOTEUR-BLESSING/labs/RIZ112/` sur `main`. `CAHIER_MERE.md` donne l'état consolidé ; `JOURNAL_EVENEMENTS.jsonl` conserve les entrées factuelles horodatées ; `DECISIONS.md` conserve les décisions, révisions et objections ; `CHECKPOINT.json` pointe vers code, preuves et statut.
 - **Date de naissance du cahier** : 2026-10-16. Tout élément antérieur reconstitué est signalé comme **RECONSTRUIT** à partir de propos disponibles ; ceci **n'est pas une transcription exhaustive de tous les anciens échanges**.
@@ -286,3 +286,14 @@ La synchronisation continue signifie une **mise à jour obligatoire pendant les 
 
 ### Confirmation de synchronisation de contexte — E089
 21 entrées contextuelles, 89 événements vérifiés. GitHub mis à jour, nouvelle version complète en Bibliothèque, Google Doc privé de contexte relu; archive complète H3 précédente disponible sur Drive mais nouvelle version complète pas encore téléversée. Windows non vérifié. Cette transparence est exigée à chaque reprise.
+
+
+## §23 — D034 : CODE UNIQUE ET REPRISE AUTOMATIQUE SUR PROCHAINE ÉTAPE (17 octobre 2026)
+
+**[USER]** « Papa je veux un seul code / Moteur/continue » et « quand je le tape il doit Directement continué vers la prochaine etape selon notre cahier mère » ; l'utilisateur insiste aussi pour que le Cahier mère conserve **CONTINUELLEMENT TOUT LE CONTEXTE** de chaque conversation.
+
+**[DÉCISION]** Le seul code canonique est **`Moteur/continue`** : le manifeste parent, ce Cahier mère, le registre `CONTEXTE_INTEGRAL/REGISTRE_MESSAGES.jsonl`, la rubrique `CONTEXTE_CONVERSATIONS.md`, le checkpoint et `continuity/NEXT_ACTION.json` sont indissociables. Sur déclenchement, lire l'état avancé réel, **commencer le prochain travail** (H4 à ce jour), tester, journaliser et synchroniser; ne plus imposer un choix entre codes ni demander « quelle prochaine étape ? ». Les anciens codes n'existent que dans l'historique des décisions et archives.
+
+**[CONTEXTE ACTUEL COMPLET ACCESSIBLE]** `CONTEXTE_CONVERSATIONS.md` §23 et `CONTEXTE_INTEGRAL/REGISTRE_MESSAGES.jsonl` (CTX-0022 à CTX-0026) contiennent les textes exacts accessibles des demandes et une synthèse des travaux. `continuity/CONTRAT_CODE_UNIQUE.md` donne le protocole vérifiable et le script `continuity/resume.py` valide le checkpoint. Les messages historiques indisponibles sont des reconstitutions balisées, non des verbatims inventés.
+
+**[DERNIER ÉTAT]** H3/14, 309 tests historiques vérifiés en Python/Linux; registre journal chaîné validé; 22 lacunes de sous-mécanismes ; objectif Q*_DEMO fictif, IC réel `null`, n=0 mesures ; priorité H4. Le maintien du Cahier mère prime sur les annonces de versions, mais n'est jamais confondu avec une validation scientifique.
