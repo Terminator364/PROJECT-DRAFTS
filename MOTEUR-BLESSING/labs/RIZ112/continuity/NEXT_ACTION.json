@@ -4,6 +4,8 @@
   "first_files_to_open": [
     "MOTEUR-BLESSING/labs/RIZ112/step18/CHECKPOINT_STEP18_20261017.json",
     "MOTEUR-BLESSING/labs/RIZ112/step18/PROBE_35_ROUTES_SUMMARY.json",
+    "MOTEUR-BLESSING/labs/RIZ112/step18/README.md",
+    "MOTEUR-BLESSING/labs/RIZ112/step18/PROBE_35_ROUTES_SUMMARY.json",
     "MOTEUR-BLESSING/labs/RIZ112/step17/REGISTRE_112_CELLULES.jsonl",
     "MOTEUR-BLESSING/labs/RIZ112/CAHIER_MERE.md",
     "MOTEUR-BLESSING/labs/RIZ112/step17/CHECKPOINT_112_INFLUENCES_20261017.json",
@@ -22,7 +24,7 @@
     "MOTEUR-BLESSING/labs/RIZ112/PLAN_SUITE_RIZ112_MATRICE.md",
     "MOTEUR-BLESSING/labs/RIZ112/step14/H3_26_CASES_LEDGER.json"
   ],
-  "first_technical_action": "Lire le Cahier mère, registre CTX et journal valide E111, checkpoint Step18, scan des 35 voies; réutiliser les 3 bilans de ressources 002/005/008 testés sous Windows et les 2 réponses synthétiques conditionnelles 036/038. Construire les liens physiques admissibles pour les rubriques qui restent non réactives, documenter les abstentions puis établir le protocole de qualité Q et recueillir des expériences réelles avant toute calibration IC. Ne pas relancer 112 boucles coûteuses sur PC 4 Go sans budget de calcul.",
+  "first_technical_action": "Repartir du Step18 : audit 112, 35 initialement sans réponse A±1%, puis 2 influencent l'IC_DEMO dans une autre amplitude (036/038), 3 ont des marges de faisabilité exécutables distinctes (002/005/008). Pour les 30 restants, classer par statut rôle et condition d'activation, implémenter la dépendance pré-T0 mathématiquement fondée quand possible, ou marquer non identifiable; pas de coefficient Q inventé; préserver rubriques cibles non prédictives. Test H3+Step16+Step17+Step18, puis prouver scénarios Windows avec limites CPU; log chaque cellule et chaque message vérifiable dans Cahier mère et journal.",
   "how_to_continue": "At trigger, verify checkpoint/journal/context and start this task in the same turn. Do not stop after reporting status or request permission again. Commit work and context with proven readback.",
   "lab_next_stage": 19,
   "never_do": [
@@ -31,12 +33,12 @@
     "Déclarer calibré un IC fictif",
     "Écraser un GitHub plus avancé par un ZIP ancien"
   ],
-  "next_execution_id": "STEP19_RECONCILE_REMAINING_CONDITIONAL_MECHANISMS",
-  "next_execution_title": "Raccorder sans coefficients arbitraires les rubriques non réactives, tester les conditions puis préparer protocole Q réel",
+  "next_execution_id": "STEP19_RESOLVE_REMAINING_30_UNVERIFIED_ROUTES",
+  "next_execution_title": "Confrontation causale des 30 chaînes sans effet détecté dans les tests, sans imposer d'effet artificiel",
   "progress_checkpoint": "If task interrupts, append evidence to Cahier mère, context and journal, then update this JSON.",
   "project": "RIZ112→MATRICE",
   "schema": "moteur-blessing/next-action/v1",
-  "scientific_status": "NOT_CALIBRATED_IC_NULL",
+  "scientific_status": "REAL_Q_IC_NULL_UNCALIBRATED",
   "h4a_checkpoint": "MOTEUR-BLESSING/labs/RIZ112/step15/CHECKPOINT_H4A_20261017.json",
   "h4a_status": "PARTIAL_7_DIAGNOSTIC_PATHS_29_TESTS_22_REAL_Q_EFFECT_GAPS_UNRESOLVED",
   "h4_technical_gate": "CLOSED",
@@ -58,5 +60,6 @@
   "latest_journal_event_id": "E111",
   "latest_context_id": "CTX-0037",
   "journal_chain_verified": true,
-  "step18_checkpoint": "MOTEUR-BLESSING/labs/RIZ112/step18/CHECKPOINT_STEP18_20261017.json"
+  "step18_checkpoint": "MOTEUR-BLESSING/labs/RIZ112/step18/CHECKPOINT_STEP18_20261017.json",
+  "step18_windows_status": "PARTIAL_RESOURCE_TESTS_PASS; CONDITIONAL_SUITE_NOT_VALIDATED_TIMEOUT"
 }
