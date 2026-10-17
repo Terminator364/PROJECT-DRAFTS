@@ -16,12 +16,12 @@
     "total_heating_min": 17.77954947,
     "h3_status": "DEMO_ASSUMED_MECHANISMS_NOT_REAL_Q",
     "ic_demo_percent": 91.5,
-    "scientific_ic_percent": "",
-    "idealized_energy_feasible": "True",
-    "preloss_water_feasible": "True",
-    "energy_margin_J": "317621.64992927",
+    "scientific_ic_percent": null,
+    "idealized_energy_feasible": true,
+    "preloss_water_feasible": true,
+    "energy_margin_J": 317621.64992927,
     "water_margin_before_losses_g": 58.54209279,
-    "thermal_ceiling_evap_g_NOT_PREDICTION": "140.7273593"
+    "thermal_ceiling_evap_g_NOT_PREDICTION": 140.7273593
   },
   "number_of_contrasts": 18,
   "contrasts": [
