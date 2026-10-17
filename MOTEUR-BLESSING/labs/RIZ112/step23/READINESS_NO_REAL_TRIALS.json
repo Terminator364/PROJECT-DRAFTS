@@ -1,0 +1,17 @@
+{
+  "schema": "riz112/step23/empirical-readiness-gate/v1",
+  "eligible_real_paired_trials": 0,
+  "eligible_ids": [],
+  "ineligible_trials": {},
+  "preregistered_Q_approved": false,
+  "operational_minimum_not_statistical_guarantee": 12,
+  "calibration_allowed_now": false,
+  "scientific_ic_percent": null,
+  "blocking_reasons": [
+    "Q_SCORING_NOT_PREREGISTERED_OR_USER_APPROVED",
+    "INSUFFICIENT_VERIFIABLE_REAL_TRIALS",
+    "CALIBRATION_AND_OUT_OF_SAMPLE_VALIDATION_NOT_RUN"
+  ],
+  "status": "STOP_UNTIL_REAL_MEASUREMENTS_AND_CALIBRATION",
+  "note": "This gate cannot certify calibration, only prerequisites. Held-out validation still mandatory."
+}
