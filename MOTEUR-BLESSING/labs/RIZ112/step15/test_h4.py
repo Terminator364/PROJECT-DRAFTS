@@ -47,8 +47,14 @@ class TestH4(unittest.TestCase):
         self.assertEqual(b['mechanisms']['portions']['dry_rice_per_portion_g'],40)
         self.assertIsNone(a['scientific_ic_percent']);self.assertIsNone(b['scientific_ic_percent'])
     def test_broken_grain_mass_balance(self):
-        x=evaluate_h4_diagnostics(packet(),broken_grain_fraction=doc(.25,'fraction','OBSERVED'))['mechanisms']['grain_rinse']
+        f=doc(.25,'fraction','OBSERVED');f['basis']='dry_mass_fraction'
+        x=evaluate_h4_diagnostics(packet(),broken_grain_fraction=f)['mechanisms']['grain_rinse']
         self.assertAlmostEqual(x['broken_dry_mass_g']+x['intact_dry_mass_g'],160)
+    def test_ambiguous_broken_fraction_rejected(self):
+        with self.assertRaises(H4EvidenceError):evaluate_h4_diagnostics(packet(),broken_grain_fraction=doc(.25,'fraction','OBSERVED'))
+    def test_count_fraction_cannot_be_interpreted_as_mass(self):
+        f=doc(.25,'fraction','OBSERVED');f['basis']='grain_count_fraction'
+        with self.assertRaises(H4EvidenceError):evaluate_h4_diagnostics(packet(),broken_grain_fraction=f)
     def test_rinse_starch_index(self):
         x=evaluate_h4_diagnostics(packet())['mechanisms']['grain_rinse']
         self.assertEqual(x['planned_surface_starch_index_after_rinse'],.3)
