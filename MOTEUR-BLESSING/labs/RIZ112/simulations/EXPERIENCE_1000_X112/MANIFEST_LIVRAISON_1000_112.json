@@ -1,0 +1,18 @@
+{
+  "archive_file": "RIZ112_1000_SCENARIOS_112_RUBRIQUES_IC_DEMO_COMPLET.zip",
+  "members": 286,
+  "size_bytes": 2145776,
+  "sha256": "980074c1aa8c443c5c61f5d5ce26793c5b7040257fd54bc92d0e82b262d3e937",
+  "csv_sha256": "3fdc44d9d38126e729db3179e7bb484112b1fcb9e44c1c09ad2f30a70475dbb5",
+  "xlsx_sha256": "2184cbae47712945a99747a714da3f5ec3ba84f76e12aad2fae91bd3e4cf67db",
+  "full_jsonl_sha256": "1ad87193155c1857351a353da513786d945caf6eaddeb5980738e806a476f701",
+  "scenarios": 1000,
+  "IC_DEMO_non_null": 1000,
+  "rubric_columns": 112,
+  "rubric_roles_varied": 39,
+  "not_observed_postT0_targets": 14,
+  "source": "reuse unmodified original H3 and Step20",
+  "scientific_ic_percent": null,
+  "real_rice_trials": 0,
+  "model_category": "SIMULATION_NOT_EMPIRICALLY_VALIDATED"
+}
