@@ -441,3 +441,15 @@ La réponse utilisateur CTX-0041 donne une **priorité ordinale** à la tendret�
 Step22 fournit un registre de dossiers pré-T0 et de mesures post-T0 distinctes, horodatées et chaînées SHA-256, verrouillées pour un seul rédacteur; le chaînage ne vaut pas horodatage ou signature externe. **Zéro cuisson réelle** enregistrée. Step23 interdit toute promotion vers un IC scientifique tant que barème Q, mesures indépendantes, calibration et validation hors échantillon sont absents. Step24 évalue 36 paires parmi neuf paramètres physiques théoriques ; sept produisent une non-additivité locale au scénario synthétique A, 29 n'en montrent pas au point étudié. Aucun effet causal réel sur la qualité n'en découle.
 
 **Preuves** : code, registres, notes et checkpoints dans `step21/`, `step22/`, `step23/`, `step24/`. Nouveaux tests Python **47/47 PASS localement et Windows MBMPC**, contre-audit d'interactions Windows identique au rapport GitHub. Anciennes suites séparées totalisant 546 tests avaient été validées antérieurement ; elles ne sont pas déclarées toutes relancées ici. Moteur du riz opérationnel techniquement; **scientific_ic_percent=null**, `Q_formula=null`, `real_rice_trials=0`. Prochaine porte de décision : qualité Q mesurable et approuvée, puis essais physiques; ne pas sauter cette dépendance.
+
+
+### Archive verbatim CTX-0043 / E120 / 2026-10-17
+**Rôle** ASSISTANT ; **SHA-256 UTF-8** `6edde89bcb32618823ee71683f8d4cc04298b6fff64f8773cba03471e5812106` ; **provenance** step24_authenticated_drive_retrieval_sha256_crc_receipt
+
+````text
+Step24 closure 2026-10-17: 47/47 new tests Linux+Windows; 36 theoretical physical interaction pairs under synthetic A, 7 local nonadditivities; full offline archive 286 files 650188 bytes SHA256 c7fa993e943cc252e40af7b2cfe3f331a2e2e3b27107c113244515ae7b7e11df. Google Drive URL https://drive.google.com/file/d/12MiMCgr0tWiZBFk2JSvsPK6MVHIl5RJ4/view?usp=drivesdk. Cloud download SHA256 equals PC and G: local copy, ZIP CRC clean. Snapshot frozen at E119; next Step25 Q measurement approval and authentic rice experiments. scientific_ic_percent remains null; zero real Q effects validated.
+````
+
+[executed on device: MBMPC (608dbffc-c6b9-4122-ad36-defa8238a929)]
+
+**Reçu certifié post-snapshot Step24 :** archive 286 fichiers, 650 188 octets, empreinte SHA-256 `c7fa993e943cc252e40af7b2cfe3f331a2e2e3b27107c113244515ae7b7e11df` ; copies PC, lecteur Drive et téléchargement indépendant de Drive concordants ; CRC ZIP validé. Voir `step24/RECU_ARCHIVE_PC_CLOUD_20261017.json`. L'archive est figée à E119 ; les registres GitHub vivants vont jusqu'à E120. Prochain jalon Step25, qualité Q non approuvée, aucun essai réel.
