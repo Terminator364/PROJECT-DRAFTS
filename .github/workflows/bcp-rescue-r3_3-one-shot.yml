@@ -1,10 +1,8 @@
 name: BCP USB Rescue R3.3 - isolated USB port APK build
+# The exceptional one-shot release already succeeded (GitHub run 39049831357).
+# Disallow automatic push triggers and preserve manual reproducibility only.
 on:
-  push:
-    branches:
-      - work/usb-phone-rescue-lab-2026-10-12
-    paths:
-      - USB-PHONE-RESCUE-LAB/ci-r3_3-trigger-20261017.txt
+  workflow_dispatch:
 
 permissions:
   contents: read
