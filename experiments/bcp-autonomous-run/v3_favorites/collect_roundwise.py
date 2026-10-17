@@ -111,7 +111,8 @@ def run(integration, output, getter=download):
                 record["status"]="ON_OR_AFTER_CUTOFF_NO_RESULTS_ADMITTED"
                 record["historical_score"]=None
             else:
-                f=row.get("score",{}).get("ft")
+                score_blob=row.get("score")
+                f=score_blob.get("ft") if isinstance(score_blob,dict) else (score_blob if isinstance(score_blob,list) else None)
                 c=csvdata.get(key)
                 if c: used.add(key)
                 record["openfootball_score"]=f if isinstance(f,list) and len(f)==2 else None
