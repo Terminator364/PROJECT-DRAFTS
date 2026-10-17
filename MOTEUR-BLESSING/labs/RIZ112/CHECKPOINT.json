@@ -32,8 +32,8 @@
     "github_status": "VERIFIED_CRITICAL_9_OF_9_BEFORE_FINAL_RECEIPT",
     "initial_source_archive_drive": "https://drive.google.com/file/d/1rFq9GiwbRvb-Hk33JayacttjBOUdAabf/view?usp=drivesdk",
     "initial_source_archive_sha256": "15182d217e42c2985cb4652ac5c2ee9f6afe6afca55ec148b3c803e52b14ede8",
-    "journal_events": 116,
-    "journal_head": "347feb41432663f8479f9ca2296fe5d33dd82cffc5ef71ef165f3976ca15b6cc",
+    "journal_events": 117,
+    "journal_head": "71007bb52c5770403e65cb36881a694dc14542272acbda621b2fa82b93c1be0b",
     "lab_code": "Moteur/continue",
     "latest_context_ids": [
       "CTX-0039",
@@ -74,8 +74,8 @@
   },
   "full_packet_replay": "step12/POPULATION_100_COMPLETE_PACKET.jsonl",
   "journal": {
-    "events": 116,
-    "head": "347feb41432663f8479f9ca2296fe5d33dd82cffc5ef71ef165f3976ca15b6cc"
+    "events": 117,
+    "head": "71007bb52c5770403e65cb36881a694dc14542272acbda621b2fa82b93c1be0b"
   },
   "last_user_directive": "D034_CANONICAL_SINGLE_CODE_AUTO_RESUME_AND_CONTINUOUS_CONTEXT",
   "latest_case_audit": "step12/COUNTERFACTUAL_112_V12.json",
@@ -417,6 +417,14 @@
     "windows_replayed_reports_equal": true,
     "user_approved_quality_rubric": false,
     "scientific_ic_percent": null,
-    "real_trials": 0
+    "real_trials": 0,
+    "archive_receipt": {
+      "url": "https://drive.google.com/file/d/1DxEoh2KIjkoimVN-COVr-I_hr7ega-Ue/view?usp=drivesdk",
+      "sha256": "aad38f6d3b3f1dc3d37524ba3a72d1ba3169fe8389df97bbb5b630279ff38b84",
+      "bytes": 619078,
+      "files": 258,
+      "drive_download_hash_verified": true,
+      "zip_crc": "PASS"
+    }
   }
 }
