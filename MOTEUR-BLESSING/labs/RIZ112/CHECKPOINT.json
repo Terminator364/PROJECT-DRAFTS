@@ -2,15 +2,15 @@
   "schema": "riz112/master-continuity/v5",
   "project": "RIZ112_lab_to_MATRICE",
   "date": "2026-10-17",
-  "stage": 10,
-  "status": "STEP10_CASE_BY_CASE_IC_INFLUENCE_AUDITED__TARGET_GATE_PATCHED__SCIENCE_NOT_APPROVED",
+  "stage": 11,
+  "status": "STAGE11_RANDOM_SCENARIOS_112_CONTRACTS__REAL_IC_UNVALIDATED",
   "continuity_code": "RIZ112|CONTINUE",
   "master": "CAHIER_MERE.md",
   "mandate": "MANDAT_FINITION_112.md",
   "mandate_active": true,
   "journal": {
-    "events": 54,
-    "head": "d98bca2a5df7883da6a0d710791c01ff5a96e3e27dd9272e1a1e86cc43614d18"
+    "events": 57,
+    "head": "34cc53e9165d107df150062bfb5fc2892d325ec5e38ff26ddd2ea9cb2279c7a8"
   },
   "cases": {
     "catalogued": 112,
@@ -39,8 +39,8 @@
     "old_step6": 42,
     "old_step7": 36,
     "new_step8": 19,
-    "total": 185,
-    "passed": 185,
+    "total": 218,
+    "passed": 218,
     "environment": "ChatGPT container Linux Python 3.13.5",
     "windows": "NOT_TESTED",
     "step9": 25
@@ -51,7 +51,7 @@
     "calibrated_ic": null,
     "status": "NOT_VALIDATED"
   },
-  "next": "Fully define Q (quality target), collect actual trials and calibrate. Do not misrepresent 112 tracked roles as 112 IC effects. Quantify conditional policies/actions only when evidence exists.",
+  "next": "Identify real material/heat couplings and conditional actions, or keep abstentions; obtain measured pre/post data for Q calibration; do not declare all 112 numerical influences.",
   "matrice": {
     "sports_engine_modified": false,
     "transfer_only_methods": true,
@@ -72,8 +72,8 @@
   },
   "scientific_ic_percent": null,
   "real_Q_probability_percent": null,
-  "last_user_directive": "D016_FINISH_ENGINE_AND_EMIT_IC",
-  "latest_code": "step10/ic_integrity_v10.py",
+  "last_user_directive": "D020_RANDOM_SCENARIOS_119_MENTION_NEEDS_CLARIFICATION",
+  "latest_code": "step11/scenario_factory.py",
   "latest_contract": "step9/DEMONSTRATION_CONTRACT.json",
   "quality_proxy": "Q*_DEMO 4 unvalidated dimensions, threshold 85",
   "probabilities_demo_percent": {
@@ -102,5 +102,23 @@
     "tests_passed": 205,
     "independent_empirical_quality_trials": 0,
     "science_approved": false
+  },
+  "stage11": {
+    "scenario_seed": 20261017,
+    "scenarios_generated": 60,
+    "ic_demo_computed": 18,
+    "contradiction_abstentions": 27,
+    "unrated_wood_abstentions": 15,
+    "sample_demo_3000_draws_percent": {
+      "SYNTH_010": 11.27,
+      "SYNTH_018": 28.97
+    },
+    "new_tests": 13,
+    "total_tests": 218,
+    "cases_in_input_contract": 112,
+    "cases_with_validated_Q_effect": 0,
+    "119_vs_112": "UNCLEAR_NEW_SEVEN_NOT_CREATED",
+    "material_specific_numeric_effect": false,
+    "independent_rice_experiments": 0
   }
 }
