@@ -1,4 +1,5 @@
 # Moteur Blessing — commande de reprise unique
+\n**Dernier logiciel RIZ-112 vérifié Step16** : [point de reprise](labs/RIZ112/step16/CHECKPOINT_UNIFIED_20261017.json), [source unifiée](labs/RIZ112/step16/riz112_unified.py), [mode d'emploi](labs/RIZ112/step16/README.md). 309 tests historiques + 106 tests Step16 = **415 PASS Linux et Windows MBMPC**. Raccourci de Bureau RIZ-112 créé; trois IC_DEMO A/B/C produits; **aucun IC de réussite réelle validé**. La ligne plus ancienne « MB-1 V3 dernier checkpoint » ci-dessous reste historique et ne prime pas sur le manifeste canonique.\n
 
 **Dernière exécution H4A (17/10/2026)** : laboratoire RIZ-112 **étape 15 partielle**, 7 nouveaux chemins de diagnostic, **29/29 nouveaux tests locaux PASS**, 22 chemins d'effet Q réel toujours non validés. Le suivi canonique est `MANIFEST.json.riz112_lab.canonical_current` et le prochain acte `labs/RIZ112/continuity/NEXT_ACTION.json` (**H4B**). Ne pas lire les anciennes indications de « dernier checkpoint MB-1 V3 » comme plus récentes que ce pointeur. PC/Drive/Delivery H4A non synchronisés à cette reprise.
 
