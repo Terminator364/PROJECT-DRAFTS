@@ -559,5 +559,13 @@
       "pc_unmerged_files": 64,
       "independent_cloud_crc_sha256_passed": true
     }
+  },
+  "recovery_E134": {
+    "last_event": "E134",
+    "context_entries": 56,
+    "cloud_main_314_crc_and_sha": "PASS",
+    "cloud_forensic_64_checksums": "PASS",
+    "live_pc_sync": "UNCONFIRMED",
+    "report": "simulations/EXPERIENCE_1000/RECU_REPRISE_E134_20261017.json"
   }
 }
