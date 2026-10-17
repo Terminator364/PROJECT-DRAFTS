@@ -37,5 +37,20 @@
   "assistant_test_record_id": "CTX-0042",
   "journal_event_end": "E119",
   "windows_step24_pair_replay_identical": true,
-  "quality_weights_remain_null": true
+  "quality_weights_remain_null": true,
+  "final_archive_receipt": "step24/RECU_ARCHIVE_PC_CLOUD_20261017.json",
+  "final_archive": {
+    "file_id": "12MiMCgr0tWiZBFk2JSvsPK6MVHIl5RJ4",
+    "url": "https://drive.google.com/file/d/12MiMCgr0tWiZBFk2JSvsPK6MVHIl5RJ4/view?usp=drivesdk",
+    "bytes": 650188,
+    "files": 286,
+    "sha256": "c7fa993e943cc252e40af7b2cfe3f331a2e2e3b27107c113244515ae7b7e11df",
+    "pc_copy_and_cloud_download_hash_equal": true,
+    "zip_crc": "PASS",
+    "archive_frozen_before_event": "E120"
+  },
+  "journal_event_count": 120,
+  "context_entries": 43,
+  "journal_head": "e52f0a6b0dee3685b460b966d073d1cd3583edf7cff662b1366af78dc2b53bab",
+  "pc_launcher_verified": true
 }
