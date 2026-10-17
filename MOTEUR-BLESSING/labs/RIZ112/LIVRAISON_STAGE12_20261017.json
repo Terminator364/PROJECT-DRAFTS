@@ -1,0 +1,70 @@
+{
+  "schema": "riz112/stage12/final-delivery/v1",
+  "date": "2026-10-17",
+  "continuity_code": "RIZ112|CONTINUE",
+  "checkpoint": "MOTEUR-BLESSING/labs/RIZ112/CHECKPOINT.json",
+  "journal": "MOTEUR-BLESSING/labs/RIZ112/journal/JOURNAL_EVENEMENTS.jsonl",
+  "master": "MOTEUR-BLESSING/labs/RIZ112/CAHIER_MERE.md",
+  "journal_events": 63,
+  "journal_head": "3736d4f3ba26a08391321933d0acbd22c952dbbd0041cea76d14a817b8b8718c",
+  "coverage": {
+    "full_json_scenarios": 100,
+    "direct_input_fields_with_variety": 44,
+    "derived": 4,
+    "planned_actions": 37,
+    "conditional_policies": 13,
+    "frozen_quality_targets": 14,
+    "statuses": {
+      "ABSTAIN_UNSUPPORTED_VESSEL": 47,
+      "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q": 30,
+      "ABSTAIN_PRESTART_CONTRADICTION": 11,
+      "ABSTAIN_CONTRADICTION": 12
+    },
+    "paired_case_tests": 224,
+    "category_counts": {
+      "numerical_Q_DEMO_effect": 12,
+      "operational_changes": 52,
+      "eligibility_effect": 4,
+      "no_demonstrated_effect_in_two_references": 26,
+      "derived_not_free_input": 4,
+      "quality_targets_not_predictors": 14
+    }
+  },
+  "tests": {
+    "passed": 241,
+    "total": 241,
+    "stage12_new": 23,
+    "windows_run": false
+  },
+  "science": {
+    "actual_rice_trials": 0,
+    "real_success_ic": null,
+    "all_112_quantified": false,
+    "material_specific_effect_unproven": true
+  },
+  "final_zip": {
+    "name": "RIZ112_CAHIER_MERE_STAGE12_FINAL_2026-10-17.zip",
+    "bytes": 418927,
+    "members": 148,
+    "sha256": "3479b95f78aa5c6872e2fdac3633cef97ba6104c7baf4b0b1d9ecc8f9b5cee8d",
+    "crc": "PASS",
+    "manifest_hashes": "PASS",
+    "drive_id": "1ooVdzmJbgW7UksP06ceGCzFqM1dr3OIQ",
+    "url": "https://drive.google.com/file/d/1ooVdzmJbgW7UksP06ceGCzFqM1dr3OIQ/view?usp=drivesdk",
+    "drive_size_readback": 418927,
+    "drive_private": true,
+    "library_file_id": "libfile_1c03671ab3a08191a596afaf9774cef7",
+    "library_path": "/RIZ112_LAB/CAHIER_MERE_STAGE12_2026-10-17/RIZ112_CAHIER_MERE_STAGE12_FINAL_2026-10-17.zip",
+    "independent_remote_sha256_readback": false
+  },
+  "windows": {
+    "device": "MBMPC",
+    "status": "OFFLINE",
+    "stage12_tested": false
+  },
+  "matrice": {
+    "production_modified": false,
+    "methodological_transfer_only": true
+  },
+  "next": "Investigate 26 per-case gaps with measured mechanistic data and real quality experiments; do not assign invented coefficients; keep output future targets frozen."
+}
