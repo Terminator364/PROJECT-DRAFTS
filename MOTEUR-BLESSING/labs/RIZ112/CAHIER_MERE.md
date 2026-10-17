@@ -608,3 +608,26 @@ RIZ112 E134: independently re-downloaded E130 canonical Drive ZIP 314 files 7457
 Deux archives téléchargées depuis Google Drive et recontrôlées dans un environnement distinct : **314 fichiers, 745 765 octets** (canon E130, SHA-256 `b3846464925901c30f5d8d06b4fb4c34b739ce2e748e26a684ef28fab3598ca2`), intégrité CRC PASS, 6 tests du simulateur PASS, chaîne 52 contextes / 130 événements PASS ; archive forensic séparée **64 fichiers locaux** et manifeste, 271 803 octets, SHA-256 `5bb1ffa358fbfc586515eb29efeea7e7ff3f437349c87fef91d030ab9f71b66f`, 64 empreintes internes PASS. Les événements E131 à E134 et leurs reçus sont postérieurs au snapshot E130 : **GitHub reste la source la plus récente**.
 
 Pour l'objectif *MATRICE exclusivement pré-match*, le nouveau `simulations/EXPERIENCE_1000/TRANSFERT_METHODE_MATRICE_PREMATCH.md` expose des portes méthodologiques de gel J-6/J-4/J-3/H-9/H-0, de non-fuite des résultats, d'abstention, de contre-épreuves non linéaires, et de calibration chronologique uniquement sur matches réels. Aucune assimilation du riz ou de son IC fictif aux familles sportives. **Synchronisation GitHub ↔ cloud vérifiée ; synchronisation du Git GitHub vers la copie de travail PC non certifiée dans cette reprise parce que l'exécution distante a été refusée ; préserver les 64 deltas sauvegardés et ne rien écraser.**
+
+
+### Archive verbatim CTX-0057 / E135 / 2026-10-17
+**Rôle** USER ; **SHA-256 UTF-8** `31fbef162594de01bab0cd525c51f74de7bcb15063029fa1a54b2cf5944c80d8` ; **provenance** CURRENT_USER_CONTINUE_FIVE_HORIZONS_20261017
+
+````text
+Continue
+````
+
+
+### Archive verbatim CTX-0058 / E136 / 2026-10-17
+**Rôle** ASSISTANT ; **SHA-256 UTF-8** `49d2ddb64f3b22f51f762797697c81a3955210945854248246ea8f543d997a01` ; **provenance** FIVE_PREMATCH_WINDOWS_24_LOCAL_WINDOWS_TESTS
+
+````text
+Moteur RIZ112 continuation: base E134 CTX0056 source checked against GitHub and archive E130 hash and 6 tests; new independent 5-horizon prematch temporal gate J-6/J-4/J-3/H-9/H-0 published under simulations/EXPERIENCE_1000/TRANSFERT_PREMATCH; 24 tests on Linux and MBMPC Windows PASS, JSON receipt exactly replays GitHub reference; source release checks remain strict, no data from after snapshot cutoffs, UNKNOWN is null, duplicate fields and postmatch labels refused; illustrative synthetic fixture only, 0 real matches, 0 sports probabilities, rice scientific IC=null. Windows Git pull succeeded non-destructively preserving 64 forensic local deltas already backed up separately. GitHub latest base E134 remains mother authority.
+````
+
+
+## Moteur/continue — transfert des fenêtres pré-match validé, 17/10/2026
+
+Pour la compréhension de MATRICE, la campagne RIZ112 **1 000 scénarios synthétiques / 18 contre-épreuves** reste intacte. Le prototype additionnel `simulations/EXPERIENCE_1000/TRANSFERT_PREMATCH/` démontre cinq **gels chronologiques** J-6/J-4/J-3/H-9/H-0, exige `observed_at <= available_at <= ingested_at <= snapshot_cutoff < kickoff`, refuse doublons sémantiques, ambiguïtés UNKNOWN/zéro, modifications de faits sans information nouvelle et labels post-match dans les entrées pré-match. **24 tests Linux + 24 Windows MBMPC PASS**, replay JSON strictement identique. Aucune donnée sportive réelle, aucune probabilité calculée, aucune validation de performance sur un match.
+
+Cette porte est une **preuve de discipline temporelle du logiciel**, à adapter à l'ADN R8 de MATRICE selon REUSE/ADAPT/BUILD ONLY IF GAP; elle n'autorise aucun remplacement d'une structure sportive ou de ses 62 familles. La copie PC a été synchronisée depuis GitHub sans toucher aux 64 deltas locaux forensiques, sauvegardés séparément. La relance utilisateur est conservée exactement dans CTX-0057/E135, le reçu technique dans CTX-0058/E136. L'IC scientifique du riz reste `null`.
