@@ -1,0 +1,98 @@
+{
+  "schema": "MATRICE_R8_PILOT_OFFICIAL_MATCHWEEK7_FACTS_V1",
+  "effective_cutoff_exclusive": "2026-10-17",
+  "disclaimer": "Curated public official announcements for research. Publish day known but publication hour not verified; all model effects disabled.",
+  "leagues": {
+    "E0": {
+      "name": "Premier League",
+      "matchday": 7,
+      "announcement_url": "https://www.premierleague.com/en/news/4731949/match-officials-for-matchweek-7",
+      "published_date": "2026-10-16",
+      "status": "SELECTIVE_SPOT_CHECK_ONLY_TWO_FIXTURES",
+      "referee_claims": [
+        {
+          "home": "Everton",
+          "away": "Chelsea",
+          "referee": "Paul Tierney"
+        },
+        {
+          "home": "Brentford",
+          "away": "Liverpool",
+          "referee": "John Brooks"
+        }
+      ]
+    },
+    "I1": {
+      "name": "Serie A",
+      "matchday": 7,
+      "announcement_url": "https://en.legaseriea.it/serie-a/news/the-referees-for-the-7th-round-x8311",
+      "published_date": "2026-10-14",
+      "status": "ALL_TEN_FIXTURES_DOCUMENTED",
+      "referee_claims": [
+        {
+          "home": "Frosinone",
+          "away": "Sassuolo",
+          "referee": "Marchetti"
+        },
+        {
+          "home": "Venezia",
+          "away": "Napoli",
+          "referee": "Sacchi J. L."
+        },
+        {
+          "home": "Bologna",
+          "away": "Inter",
+          "referee": "Doveri"
+        },
+        {
+          "home": "Roma",
+          "away": "Genoa",
+          "referee": "Abisso"
+        },
+        {
+          "home": "Udinese",
+          "away": "Lecce",
+          "referee": "Guida"
+        },
+        {
+          "home": "Fiorentina",
+          "away": "Como",
+          "referee": "Di Bello"
+        },
+        {
+          "home": "Milan",
+          "away": "Atalanta",
+          "referee": "Chiffi"
+        },
+        {
+          "home": "Juventus",
+          "away": "Lazio",
+          "referee": "Massa"
+        },
+        {
+          "home": "Monza",
+          "away": "Cagliari",
+          "referee": "Calzavara"
+        },
+        {
+          "home": "Parma",
+          "away": "Torino",
+          "referee": "Ayroldi"
+        }
+      ],
+      "separately_observed_official_result": {
+        "home": "Frosinone",
+        "away": "Sassuolo",
+        "match_date": "2026-10-16",
+        "final_score": [
+          4,
+          2
+        ],
+        "source_url": "https://en.legaseriea.it/serie-a",
+        "observed_on": "2026-10-17",
+        "time_of_original_publication": "UNKNOWN",
+        "permitted_use": "RESEARCH_POSTEVENT_ONLY"
+      }
+    }
+  }
+}
