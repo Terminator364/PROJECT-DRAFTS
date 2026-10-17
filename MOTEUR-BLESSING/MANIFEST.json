@@ -441,6 +441,15 @@
         "step18": 32,
         "step19": 31,
         "total_disjoint": 501
+      },
+      "step19_archive_receipt": {
+        "file_id": "1CJiFHQBq3FTcraWa3LSzRhGFpJPd84-0",
+        "url": "https://drive.google.com/file/d/1CJiFHQBq3FTcraWa3LSzRhGFpJPd84-0/view?usp=drivesdk",
+        "bytes": 586505,
+        "sha256": "78a1e7cb2661c634568a4233d7e3cbbae1c679175de2a2347e2db28295d2e0ec",
+        "items": 241,
+        "independent_cloud_sha256_match": true,
+        "zip_crc_pass": true
       }
     },
     "latest_code": "MOTEUR-BLESSING/labs/RIZ112/step16/riz112_unified.py",
