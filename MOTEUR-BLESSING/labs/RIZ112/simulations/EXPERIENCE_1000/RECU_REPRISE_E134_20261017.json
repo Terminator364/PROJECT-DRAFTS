@@ -1,0 +1,47 @@
+{
+  "schema": "riz112/matrice_methodology/sync-audit/v1",
+  "date": "2026-10-17",
+  "event_last": "E134",
+  "context_last": "CTX-0056",
+  "journal_head": "fbd8fe0a607362b0cfd468a2c86301d84aecf180e94e73982ec9c731ce3a3c9d",
+  "canonical": "GitHub main /MOTEUR-BLESSING/labs/RIZ112/CAHIER_MERE.md",
+  "method_transfer_file": "simulations/EXPERIENCE_1000/TRANSFERT_METHODE_MATRICE_PREMATCH.md",
+  "backups": [
+    {
+      "role": "CANONICAL_E130_SNAPSHOT",
+      "drive_url": "https://drive.google.com/file/d/1oCS4PxMJMTGi41erBMx749OMXS9ErT2z/view?usp=drivesdk",
+      "size_bytes": 745765,
+      "members": 314,
+      "sha256": "b3846464925901c30f5d8d06b4fb4c34b739ce2e748e26a684ef28fab3598ca2",
+      "cross_platform_sha256": "PASS_FRESH_CLOUD_DOWNLOAD",
+      "zip_crc": "PASS",
+      "extracted_journal_events": 130,
+      "extracted_context_entries": 52,
+      "python_simulation_tests": "6_PASS"
+    },
+    {
+      "role": "WINDOWS_UNMERGED_DELTAS_E131",
+      "drive_url": "https://drive.google.com/file/d/1B2rGSZMKjEru1XEazdX1uhDg2JX9og9H/view?usp=drivesdk",
+      "size_bytes": 271803,
+      "files": 64,
+      "sha256": "5bb1ffa358fbfc586515eb29efeea7e7ff3f437349c87fef91d030ab9f71b66f",
+      "cross_platform_sha256": "PASS_FRESH_CLOUD_DOWNLOAD",
+      "zip_crc": "PASS",
+      "internal_files_verified_sha256": 64
+    }
+  ],
+  "github_current_state": "E134 / CTX-0056",
+  "simulation_evidence": {
+    "scenarios": 1000,
+    "h3_computed": 690,
+    "h3_abstained": 310,
+    "high_synthetic_demo_IC": 20,
+    "one_factor_contrasts": 18,
+    "scientific_IC_percent": null,
+    "real_quality_trials": 0
+  },
+  "pc_worktree_live_sync_status": "NOT_REVERIFIED_THIS_TURN_REMOTE_PROCESS_EXECUTION_REFUSED",
+  "pc_preservation": "64 files separately backed up, do not force merge or overwrite",
+  "snapshot_scope_warning": "Archive E130 predates E131-E134; newer GitHub journal and transfer file are canonical and intentionally are not in E130 ZIP.",
+  "conclusion": "CLOUD_BACKUPS_VERIFIED_GITHUB_RECONCILED_PC_LIVE_SYNC_UNCONFIRMED"
+}
