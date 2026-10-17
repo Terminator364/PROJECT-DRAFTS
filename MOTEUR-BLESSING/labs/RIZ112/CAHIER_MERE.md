@@ -351,3 +351,8 @@ Continue
 ````text
 Continue
 ````
+
+
+## 17 octobre 2026 — Step18, nouvelles influences matérielles conditionnelles (E110)
+
+Trois chemins nouveaux sont codés après l'audit des 35 rubriques sans réponse détectée en Step16 : **002** eau potable, **005** eau de rinçage, **008** capacité de casserole. Les conversions et quantités auxiliaires sont explicitement hypothétiques, sourcées et datées pré-T0. Sous les hypothèses SYNTHÉTIQUES documentées, changer chaque ressource de +1 % modifie respectivement les marges de faisabilité de **+3,5 ml**, **+10 ml**, **+17 ml**. Cela prouve une réponse du diagnostic intermédiaire, jamais un effet causal calibré sur la qualité Q. Le noyau H3 conserve IC_DEMO A = 60,25 % et `scientific_ic_percent=null`. Sources : `step18/resource_feasibility.py`, `step18/riz112_with_resources.py`, `step18/README.md`, `step18/CHECKPOINT_STEP18_20261017.json`. 20 tests Step18 locaux PASS ; contre-vérification Windows séparée (suite globale coûteuse, à ne pas supposer réussie avant preuve). Le nouveau scanner de conditions Step18 trouve 2 changements IC_DEMO dans d'autres régimes pour 35 rubriques initialement inertes, 33 sans réponse détectée dans les régimes testés. Aucun effet empirique Q validé, et maintien du code unique `Moteur/continue`.
