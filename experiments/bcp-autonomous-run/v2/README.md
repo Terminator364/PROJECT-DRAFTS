@@ -1,3 +1,5 @@
+> ⚠️ **Correctif 17 octobre 2026 — Usage fournisseur** : Football-Data indique que l'automatisation de ses fichiers gratuits doit rester légère, **deux téléchargements automatiques par semaine au maximum**. Les programmations V1 (10 min) et V2 (30 min) ont été arrêtées proprement. Le téléchargeur V2 a été désactivé dans le code. Le remplacement `local_audit.py` réalise des contrôles **sans requêtes réseau** toutes les 5 minutes et un heartbeat toutes les 60 secondes, jusqu'aux échéances originales. Les deux sources sont des archives et ne doivent pas être traitées comme une API minute-par-minute. Documentation fournisseur : https://football-data.co.uk/contact.php et https://football-data.co.uk/data
+
 # BCP Autonomous Run V2 — Collecteur de farine (prototype isolé)
 
 Date : 17 octobre 2026. Dépôt : `Terminator364/PROJECT-DRAFTS`, branche `experiment/bcp-autonomous-data-run-2026-10-17`.
@@ -20,9 +22,9 @@ Les nombres descriptifs Over 1,5 sont des statistiques d'échantillon de recherc
 
 `python -m unittest -v test_collector` depuis le répertoire `v2` (7 tests hors ligne).
 
-`python collector.py --once --output integration` : une passe sur dix fichiers, écrit `integration/receipt.json` puis s'arrête.
+~~`python collector.py --once --output integration`~~ : ancien mode réseau désormais **désactivé**. Les archives précédemment téléchargées restent lisibles en local.
 
-`python collector.py --duration 3600 --interval 60 --refresh 1800 --output runtime` : worker d'une heure, 1 heartbeat/min, une nouvelle collecte toutes les 30 min tant que le PC fonctionne. À relancer depuis le même répertoire en cas d'arrêt, et avant le deadline; aucun nouveau run après état `completed`. Fichier `runtime/STOP` : arrêt propre après l'étape courante.
+~~`python collector.py --duration 3600 --interval 60 --refresh 1800 --output runtime`~~ : ancien mode réseau suspendu. Utiliser `local_audit.py` avec `--source-dir integration --output local_v2 --heartbeat-seconds 60 --audit-seconds 300 --deadline-epoch <échéance>` pour les contrôles **locaux**. Arrêt propre : fichier `local_v2/STOP`.
 
 Les artefacts sont enregistrés **sur le PC** sous `C:\Users\Lenovo\BCP_AUTONOMOUS_TEST_20261017\v2\` :
 `checkpoint.json`, `manifest.json`, `coverage_62.json`, `events.jsonl`, `receipt.json`, `raw/<sha256>.csv`.
