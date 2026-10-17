@@ -2,6 +2,7 @@
   "canonical_trigger": "Moteur/continue",
   "current_verified_lab_stage": 27,
   "first_files_to_open": [
+    "MOTEUR-BLESSING/labs/RIZ112/simulations/EXPERIENCE_1000/TRANSFERT_PREMATCH/AUDIT_COMPATIBILITE_R8_20261017.md",
     "MOTEUR-BLESSING/labs/RIZ112/CAHIER_MERE.md",
     "MOTEUR-BLESSING/labs/RIZ112/simulations/EXPERIENCE_1000/TRANSFERT_PREMATCH/CHECKPOINT_TRANSFERT_TEMPOREL_20261017.json",
     "MOTEUR-BLESSING/labs/RIZ112/simulations/EXPERIENCE_1000/TRANSFERT_PREMATCH/README.md",
@@ -9,7 +10,7 @@
     "MOTEUR-BLESSING/labs/RIZ112/simulations/EXPERIENCE_1000/TRANSFERT_METHODE_MATRICE_PREMATCH.md",
     "MOTEUR-BLESSING/labs/RIZ112/continuity/NEXT_ACTION.json"
   ],
-  "first_technical_action": "Lire le Cahier mère jusqu'à CTX-0058/E136, le checkpoint et le code simulations/EXPERIENCE_1000/TRANSFERT_PREMATCH. Inspecter le dernier état réel de MATRICE R8, ses 62 familles et ses contrats pré-match AVANT d'envisager une intégration; adapter uniquement les contrôles absents: disponibilité à la date de gel, UNKNOWN, duplication, empreintes, fuite post-kickoff, décalages J-6/J-4/J-3/H-9/H-0. Pas de données réelles, pas de promesse sportive et pas de mise à jour de MATRICE sans lire sa feuille de route.",
+  "first_technical_action": "Lire l'audit comparatif en lecture seule, ADN R8 et le pointeur ACTIVE_WORK_HEAD, puis localiser les vrais validateurs de snapshots sur la branche research/matrice-r8-g3-depth-audit-2026-10-14. Décider REUSE/ADAPT/BUILD ONLY IF GAP, sans injecter Q* riz, sans modifier les 62 familles ni inventer des matches. Les étiquettes J-6/J-4/J-3/H-9/H-0 doivent recevoir une politique de coupure réelle; distinguer observed_at, published_at, available_at et ingested_at. Avant tout patch MATRICE, vérifier l'état du travail concurrent et la feuille de route.",
   "how_to_continue": "At trigger, verify checkpoint/journal/context and start this task in the same turn. Do not stop after reporting status or request permission again. Commit work and context with proven readback.",
   "lab_next_stage": null,
   "never_do": [
@@ -18,8 +19,8 @@
     "Déclarer calibré un IC fictif",
     "Écraser un GitHub plus avancé par un ZIP ancien"
   ],
-  "next_execution_id": "REVIEW_MATRICE_R8_ADN_AND_REUSE_EXISTING_PREMATCH_GATES",
-  "next_execution_title": "Comparer les 5 gels temporels aux contrats MATRICE R8, sans écraser MATRICE",
+  "next_execution_id": "AUDIT_REUSE_MATRICE_R8_TEMPORAL_GATES_ON_WORK_BRANCH",
+  "next_execution_title": "Examiner les validateurs temporels existants sur la branche R8 avant adaptation du prototype riz",
   "progress_checkpoint": "If task interrupts, append evidence to Cahier mère, context and journal, then update this JSON.",
   "project": "RIZ112→MATRICE",
   "schema": "moteur-blessing/next-action/v1",
@@ -163,5 +164,20 @@
   },
   "last_synced_journal_id": "E137",
   "last_synced_context_id": "CTX-0059",
-  "last_synced_journal_head": "3b5a8c2746ec00cb9113167d1243537ea6dda529cc634528af6d2e0da3cca8b8"
+  "last_synced_journal_head": "3b5a8c2746ec00cb9113167d1243537ea6dda529cc634528af6d2e0da3cca8b8",
+  "r8_read_only_compatibility_audit": "MOTEUR-BLESSING/labs/RIZ112/simulations/EXPERIENCE_1000/TRANSFERT_PREMATCH/AUDIT_COMPATIBILITE_R8_20261017.md",
+  "last_r8_readback": {
+    "source_branch": "research/matrice-r4-universal-2026-10-10",
+    "adn_blob": "7b77578da413c47a278f3fdd0ad4ab434e4cccc8",
+    "active_work_head_blob": "b700352f7b773a25d263ed2c3313712f0540d31c",
+    "latest_verified_lot_reported": "LOT13",
+    "g3": "OPEN_NOT_ACCEPTED",
+    "g4": "NOT_STARTED",
+    "g5": "NOT_STARTED",
+    "five_horizon_prototype_windows_tested": 5,
+    "tests_linux": 24,
+    "tests_windows": 24,
+    "real_sport_predictions": 0,
+    "matrice_code_modified": false
+  }
 }
