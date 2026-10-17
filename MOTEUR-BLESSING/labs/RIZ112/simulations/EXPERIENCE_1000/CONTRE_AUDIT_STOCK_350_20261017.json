@@ -1,0 +1,50 @@
+{
+  "schema": "riz112/1000-scenario-stock-conflict-correction/v1",
+  "date": "2026-10-17",
+  "scope": "Engineering counter-audit of synthetic rice simulator, not real Q validation",
+  "bug": "Role 035 water_added_g sampled 160-435 g while role 002 potable water stock was fixed at 350 ml; declared resource conflict blocked all scenarios with planned water >350g.",
+  "original": {
+    "scenarios": 1000,
+    "IC_DEMO_calculated": 690,
+    "IC_DEMO_null_from_resource_conflict": 310,
+    "IC_DEMO_85_or_more": 20
+  },
+  "diagnostic": {
+    "all_310_blocked_cases_have_water_g_gt_350": true,
+    "blocked_due_to_one_ml_water": false,
+    "blocked_due_to_zero_setting": false,
+    "example": {
+      "id": "SYN_0009",
+      "water_added_g": 364.32151535,
+      "water_stock_ml": 350,
+      "shortfall_ml": 14.32151535,
+      "original_IC_DEMO": null
+    }
+  },
+  "counterfactual_adjustment": {
+    "only_310_originally_blocked_cases": true,
+    "role_002_new_value": "planned_water_g + 30 ml; explicit synthetic resource addition",
+    "other_9_physical_inputs": "unchanged",
+    "H3_original_draws_per_case": 200,
+    "original_690_IC_DEMO_values": "unchanged"
+  },
+  "corrected_hypothetical_results": {
+    "numeric_IC_DEMO_under_modified_resources": 1000,
+    "still_blocked": 0,
+    "IC_DEMO_85_or_more": 31,
+    "max_IC_DEMO": 91.5,
+    "median_IC_DEMO": 1.5,
+    "SYN_0009_new_stock_ml": 394.32151535,
+    "SYN_0009_new_IC_DEMO": 5
+  },
+  "hashes": {
+    "original_1000_csv_sha256": "af13ca14051fca6853f7bc0527481be93315f91902b8a939fc2480569b0b5bbc",
+    "counterfactual_1000_csv_sha256": "54eac78b487d3039d5da5f25192d40a2189e16158fd90532c84f0ff4e1df16d8",
+    "local_audit_zip_sha256": "f2636eda3e91025b009361e35a205dcddd4f38eb050be48a2d138eedef0ad5cd"
+  },
+  "scope_limitation": "This resolves 310 conditional numerical abstentions by CHANGING inventory of those 310 hypothetical plans; it does not compute IC for original invalid 350ml plans. Only 9 physical dimensions were sampled, not 72 independent source variables. 112 roles include plans/policies/outcomes and aren't 112 independent predictors.",
+  "scientific_IC_percent": null,
+  "real_rice_trials": 0,
+  "user_Q_formula_approved": false,
+  "legacy_1000_results_preserved": true
+}
