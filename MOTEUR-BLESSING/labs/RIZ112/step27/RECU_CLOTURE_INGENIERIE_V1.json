@@ -1,0 +1,31 @@
+{
+  "Q_formula_approved": false,
+  "Q_measurement_candidate_ready": true,
+  "Q_user_approval_required": true,
+  "canonical_resume_code": "Moteur/continue",
+  "finality": "ENGINEERING_GATE_CLOSED__EXTERNAL_EMPIRICAL_GATE_OPEN",
+  "next_external_action": "Confirm Q measurement protocol (including numeric thresholds/weights) and carry out real independent rice trials with frozen preT0 packets and postT0 assessment",
+  "original_112_rubric_empirical_effects_proven": 0,
+  "partition_counts": {
+    "NOT_PROVEN_PHYSICAL_Q_EFFECT": 60,
+    "POST_T0_TARGET_ONLY": 14,
+    "PRE_T0_PLAN_RESOURCE_ROUTE_ONLY": 29,
+    "THEORETICAL_PHYSICAL_INTERMEDIATE_ONLY": 9
+  },
+  "priority_user_confirmed": [
+    "101",
+    "102"
+  ],
+  "real_rice_trials": 0,
+  "release": "ENGINEERING_V1_READY__NOT_EMPIRICALLY_CALIBRATED",
+  "rubric_count": 112,
+  "schema": "riz112/engineering-v1-closure/v1",
+  "scientific_ic_percent": null,
+  "source_digests_sha256": {
+    "step21/PRIORITY_CONFIRMED_NO_WEIGHTS.json": "36b3e29279b213f38e61ee8bf64371a8dfc81e1414e2945d9a8699b6ac7c6c4a",
+    "step25/PROTOCOLE_Q_MESURES_PROPOSE_NON_APPROUVE.json": "8040b4af6e9e2f5fd67bd4cbf4d685dc42c41b29f4606ba37ef0f9697738a68f",
+    "step26/REGISTRE_TRANSVERSAL_112.json": "ca4001478c1fdf1d51d3721c6ed80e0a87b713502cbd8829169e2234d7183f50",
+    "step27/PROPOSITION_Q_DECISION_A_VALIDER.json": "a126b1c4b6820a0cbb2807cf5a651541aa7a6550aa24a2ae8c9fbc7319976575"
+  },
+  "why_no_calibrated_IC": "No approved quality measure, no real paired trials, no held-out calibration; technical tests never establish causal accuracy"
+}
