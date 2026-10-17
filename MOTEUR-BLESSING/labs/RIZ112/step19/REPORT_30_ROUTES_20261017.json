@@ -1,0 +1,449 @@
+{
+  "schema": "riz112/step19/30-preT0-route-counterfactuals/v1",
+  "baseline_packet_sha256": "d2e2d745c3d54c5ed3da2b04f0276572eb67084810a82442094367a2e78a7e2e",
+  "scenario": "A_BASE_SYNTHETIC",
+  "rubrics": [
+    {
+      "rubric": "022",
+      "kind": "PRESTART_RESOURCE_GATE",
+      "before": "AVAILABLE",
+      "after": "UNAVAILABLE",
+      "action_states": {
+        "077": {
+          "before": "PLAN_FEASIBLE_SUBJECT_TO_UNMODELLED_FACTORS",
+          "after": "PLAN_BLOCKED_BY_PRESTART_RESOURCE"
+        }
+      },
+      "quality_effect_evidence": "NONE_REAL_Q"
+    },
+    {
+      "rubric": "023",
+      "kind": "PRESTART_RESOURCE_GATE",
+      "before": "AVAILABLE",
+      "after": "UNAVAILABLE",
+      "action_states": {
+        "081": {
+          "before": "PLAN_FEASIBLE_SUBJECT_TO_UNMODELLED_FACTORS",
+          "after": "PLAN_BLOCKED_BY_PRESTART_RESOURCE"
+        }
+      },
+      "quality_effect_evidence": "NONE_REAL_Q"
+    },
+    {
+      "rubric": "035",
+      "kind": "COHERENT_SHARED_WATER_PLAN",
+      "before": 61.0,
+      "after": 0.0,
+      "delta_ic_demo_points": -61.0,
+      "synced_fields": [
+        "case_inputs.035.value",
+        "prestart.inputs.water_added_g.value"
+      ],
+      "quality_effect_evidence": "NONE_REAL_Q"
+    },
+    {
+      "rubric": "049",
+      "kind": "COUNTERFACTUAL_ACTION_STATUS_ONLY",
+      "planned_before": "PLANNED",
+      "planned_after": "NOT_PLANNED",
+      "affected_planning_routes": {
+        "049": {
+          "before": "PLAN_FEASIBLE_SUBJECT_TO_UNMODELLED_FACTORS",
+          "after": "NOT_IN_PRESTART_PLAN"
+        },
+        "082": {
+          "before": "PLAN_FEASIBLE_SUBJECT_TO_UNMODELLED_FACTORS",
+          "after": "PLAN_BLOCKED_BY_PRESTART_PREDECESSOR"
+        }
+      },
+      "quality_effect_evidence": "NONE_REAL_Q"
+    },
+    {
+      "rubric": "050",
+      "kind": "COUNTERFACTUAL_ACTION_STATUS_ONLY",
+      "planned_before": "PLANNED",
+      "planned_after": "NOT_PLANNED",
+      "affected_planning_routes": {
+        "050": {
+          "before": "PLAN_FEASIBLE_SUBJECT_TO_UNMODELLED_FACTORS",
+          "after": "NOT_IN_PRESTART_PLAN"
+        }
+      },
+      "quality_effect_evidence": "NONE_REAL_Q"
+    },
+    {
+      "rubric": "053",
+      "kind": "COUNTERFACTUAL_ACTION_STATUS_ONLY",
+      "planned_before": "PLANNED",
+      "planned_after": "NOT_PLANNED",
+      "affected_planning_routes": {
+        "053": {
+          "before": "PLAN_FEASIBLE_SUBJECT_TO_UNMODELLED_FACTORS",
+          "after": "NOT_IN_PRESTART_PLAN"
+        }
+      },
+      "quality_effect_evidence": "NONE_REAL_Q"
+    },
+    {
+      "rubric": "055",
+      "kind": "COUNTERFACTUAL_ACTION_STATUS_ONLY",
+      "planned_before": "PLANNED",
+      "planned_after": "NOT_PLANNED",
+      "affected_planning_routes": {
+        "055": {
+          "before": "PLAN_FEASIBLE_SUBJECT_TO_UNMODELLED_FACTORS",
+          "after": "NOT_IN_PRESTART_PLAN"
+        },
+        "057": {
+          "before": "PLAN_FEASIBLE_SUBJECT_TO_UNMODELLED_FACTORS",
+          "after": "PLAN_BLOCKED_BY_PRESTART_PREDECESSOR"
+        }
+      },
+      "quality_effect_evidence": "NONE_REAL_Q"
+    },
+    {
+      "rubric": "057",
+      "kind": "COUNTERFACTUAL_ACTION_STATUS_ONLY",
+      "planned_before": "PLANNED",
+      "planned_after": "NOT_PLANNED",
+      "affected_planning_routes": {
+        "057": {
+          "before": "PLAN_FEASIBLE_SUBJECT_TO_UNMODELLED_FACTORS",
+          "after": "NOT_IN_PRESTART_PLAN"
+        }
+      },
+      "quality_effect_evidence": "NONE_REAL_Q"
+    },
+    {
+      "rubric": "059",
+      "kind": "COUNTERFACTUAL_ACTION_STATUS_ONLY",
+      "planned_before": "PLANNED",
+      "planned_after": "NOT_PLANNED",
+      "affected_planning_routes": {
+        "059": {
+          "before": "PLAN_FEASIBLE_SUBJECT_TO_UNMODELLED_FACTORS",
+          "after": "NOT_IN_PRESTART_PLAN"
+        },
+        "060": {
+          "before": "PLAN_FEASIBLE_SUBJECT_TO_UNMODELLED_FACTORS",
+          "after": "PLAN_BLOCKED_BY_PRESTART_PREDECESSOR"
+        }
+      },
+      "quality_effect_evidence": "NONE_REAL_Q"
+    },
+    {
+      "rubric": "060",
+      "kind": "COUNTERFACTUAL_ACTION_STATUS_ONLY",
+      "planned_before": "PLANNED",
+      "planned_after": "NOT_PLANNED",
+      "affected_planning_routes": {
+        "060": {
+          "before": "PLAN_FEASIBLE_SUBJECT_TO_UNMODELLED_FACTORS",
+          "after": "NOT_IN_PRESTART_PLAN"
+        }
+      },
+      "quality_effect_evidence": "NONE_REAL_Q"
+    },
+    {
+      "rubric": "063",
+      "kind": "COUNTERFACTUAL_ACTION_STATUS_ONLY",
+      "planned_before": "PLANNED",
+      "planned_after": "NOT_PLANNED",
+      "affected_planning_routes": {
+        "063": {
+          "before": "PLAN_FEASIBLE_SUBJECT_TO_UNMODELLED_FACTORS",
+          "after": "NOT_IN_PRESTART_PLAN"
+        }
+      },
+      "quality_effect_evidence": "NONE_REAL_Q"
+    },
+    {
+      "rubric": "064",
+      "kind": "COUNTERFACTUAL_ACTION_STATUS_ONLY",
+      "planned_before": "PLANNED",
+      "planned_after": "NOT_PLANNED",
+      "affected_planning_routes": {
+        "064": {
+          "before": "PLAN_FEASIBLE_SUBJECT_TO_UNMODELLED_FACTORS",
+          "after": "NOT_IN_PRESTART_PLAN"
+        },
+        "068": {
+          "before": "PLAN_FEASIBLE_SUBJECT_TO_UNMODELLED_FACTORS",
+          "after": "PLAN_BLOCKED_BY_PRESTART_PREDECESSOR"
+        },
+        "070": {
+          "before": "PLAN_FEASIBLE_SUBJECT_TO_UNMODELLED_FACTORS",
+          "after": "PLAN_BLOCKED_BY_PRESTART_PREDECESSOR"
+        }
+      },
+      "quality_effect_evidence": "NONE_REAL_Q"
+    },
+    {
+      "rubric": "065",
+      "kind": "COUNTERFACTUAL_ACTION_STATUS_ONLY",
+      "planned_before": "PLANNED",
+      "planned_after": "NOT_PLANNED",
+      "affected_planning_routes": {
+        "065": {
+          "before": "PLAN_FEASIBLE_SUBJECT_TO_UNMODELLED_FACTORS",
+          "after": "NOT_IN_PRESTART_PLAN"
+        },
+        "066": {
+          "before": "PLAN_FEASIBLE_SUBJECT_TO_UNMODELLED_FACTORS",
+          "after": "PLAN_BLOCKED_BY_PRESTART_PREDECESSOR"
+        },
+        "068": {
+          "before": "PLAN_FEASIBLE_SUBJECT_TO_UNMODELLED_FACTORS",
+          "after": "PLAN_BLOCKED_BY_PRESTART_PREDECESSOR"
+        },
+        "074": {
+          "before": "PLAN_FEASIBLE_SUBJECT_TO_UNMODELLED_FACTORS",
+          "after": "PLAN_BLOCKED_BY_PRESTART_PREDECESSOR"
+        }
+      },
+      "quality_effect_evidence": "NONE_REAL_Q"
+    },
+    {
+      "rubric": "066",
+      "kind": "COUNTERFACTUAL_ACTION_STATUS_ONLY",
+      "planned_before": "PLANNED",
+      "planned_after": "NOT_PLANNED",
+      "affected_planning_routes": {
+        "066": {
+          "before": "PLAN_FEASIBLE_SUBJECT_TO_UNMODELLED_FACTORS",
+          "after": "NOT_IN_PRESTART_PLAN"
+        }
+      },
+      "quality_effect_evidence": "NONE_REAL_Q"
+    },
+    {
+      "rubric": "068",
+      "kind": "COUNTERFACTUAL_ACTION_STATUS_ONLY",
+      "planned_before": "PLANNED",
+      "planned_after": "NOT_PLANNED",
+      "affected_planning_routes": {
+        "068": {
+          "before": "PLAN_FEASIBLE_SUBJECT_TO_UNMODELLED_FACTORS",
+          "after": "NOT_IN_PRESTART_PLAN"
+        },
+        "069": {
+          "before": "PLAN_FEASIBLE_SUBJECT_TO_UNMODELLED_FACTORS",
+          "after": "PLAN_BLOCKED_BY_PRESTART_PREDECESSOR"
+        }
+      },
+      "quality_effect_evidence": "NONE_REAL_Q"
+    },
+    {
+      "rubric": "069",
+      "kind": "COUNTERFACTUAL_ACTION_STATUS_ONLY",
+      "planned_before": "PLANNED",
+      "planned_after": "NOT_PLANNED",
+      "affected_planning_routes": {
+        "069": {
+          "before": "PLAN_FEASIBLE_SUBJECT_TO_UNMODELLED_FACTORS",
+          "after": "NOT_IN_PRESTART_PLAN"
+        },
+        "073": {
+          "before": "PLAN_FEASIBLE_SUBJECT_TO_UNMODELLED_FACTORS",
+          "after": "PLAN_BLOCKED_BY_PRESTART_PREDECESSOR"
+        }
+      },
+      "quality_effect_evidence": "NONE_REAL_Q"
+    },
+    {
+      "rubric": "070",
+      "kind": "COUNTERFACTUAL_ACTION_STATUS_ONLY",
+      "planned_before": "PLANNED",
+      "planned_after": "NOT_PLANNED",
+      "affected_planning_routes": {
+        "070": {
+          "before": "PLAN_FEASIBLE_SUBJECT_TO_UNMODELLED_FACTORS",
+          "after": "NOT_IN_PRESTART_PLAN"
+        }
+      },
+      "quality_effect_evidence": "NONE_REAL_Q"
+    },
+    {
+      "rubric": "073",
+      "kind": "COUNTERFACTUAL_ACTION_STATUS_ONLY",
+      "planned_before": "PLANNED",
+      "planned_after": "NOT_PLANNED",
+      "affected_planning_routes": {
+        "073": {
+          "before": "PLAN_FEASIBLE_SUBJECT_TO_UNMODELLED_FACTORS",
+          "after": "NOT_IN_PRESTART_PLAN"
+        }
+      },
+      "quality_effect_evidence": "NONE_REAL_Q"
+    },
+    {
+      "rubric": "074",
+      "kind": "COUNTERFACTUAL_ACTION_STATUS_ONLY",
+      "planned_before": "PLANNED",
+      "planned_after": "NOT_PLANNED",
+      "affected_planning_routes": {
+        "074": {
+          "before": "PLAN_FEASIBLE_SUBJECT_TO_UNMODELLED_FACTORS",
+          "after": "NOT_IN_PRESTART_PLAN"
+        },
+        "075": {
+          "before": "PLAN_FEASIBLE_SUBJECT_TO_UNMODELLED_FACTORS",
+          "after": "PLAN_BLOCKED_BY_PRESTART_PREDECESSOR"
+        }
+      },
+      "quality_effect_evidence": "NONE_REAL_Q"
+    },
+    {
+      "rubric": "075",
+      "kind": "COUNTERFACTUAL_ACTION_STATUS_ONLY",
+      "planned_before": "PLANNED",
+      "planned_after": "NOT_PLANNED",
+      "affected_planning_routes": {
+        "075": {
+          "before": "PLAN_FEASIBLE_SUBJECT_TO_UNMODELLED_FACTORS",
+          "after": "NOT_IN_PRESTART_PLAN"
+        },
+        "076": {
+          "before": "PLAN_FEASIBLE_SUBJECT_TO_UNMODELLED_FACTORS",
+          "after": "PLAN_BLOCKED_BY_PRESTART_PREDECESSOR"
+        }
+      },
+      "quality_effect_evidence": "NONE_REAL_Q"
+    },
+    {
+      "rubric": "076",
+      "kind": "COUNTERFACTUAL_ACTION_STATUS_ONLY",
+      "planned_before": "PLANNED",
+      "planned_after": "NOT_PLANNED",
+      "affected_planning_routes": {
+        "076": {
+          "before": "PLAN_FEASIBLE_SUBJECT_TO_UNMODELLED_FACTORS",
+          "after": "NOT_IN_PRESTART_PLAN"
+        },
+        "077": {
+          "before": "PLAN_FEASIBLE_SUBJECT_TO_UNMODELLED_FACTORS",
+          "after": "PLAN_BLOCKED_BY_PRESTART_PREDECESSOR"
+        },
+        "080": {
+          "before": "PLAN_FEASIBLE_SUBJECT_TO_UNMODELLED_FACTORS",
+          "after": "PLAN_BLOCKED_BY_PRESTART_PREDECESSOR"
+        }
+      },
+      "quality_effect_evidence": "NONE_REAL_Q"
+    },
+    {
+      "rubric": "077",
+      "kind": "COUNTERFACTUAL_ACTION_STATUS_ONLY",
+      "planned_before": "PLANNED",
+      "planned_after": "NOT_PLANNED",
+      "affected_planning_routes": {
+        "077": {
+          "before": "PLAN_FEASIBLE_SUBJECT_TO_UNMODELLED_FACTORS",
+          "after": "NOT_IN_PRESTART_PLAN"
+        }
+      },
+      "quality_effect_evidence": "NONE_REAL_Q"
+    },
+    {
+      "rubric": "080",
+      "kind": "COUNTERFACTUAL_ACTION_STATUS_ONLY",
+      "planned_before": "PLANNED",
+      "planned_after": "NOT_PLANNED",
+      "affected_planning_routes": {
+        "080": {
+          "before": "PLAN_FEASIBLE_SUBJECT_TO_UNMODELLED_FACTORS",
+          "after": "NOT_IN_PRESTART_PLAN"
+        },
+        "081": {
+          "before": "PLAN_FEASIBLE_SUBJECT_TO_UNMODELLED_FACTORS",
+          "after": "PLAN_BLOCKED_BY_PRESTART_PREDECESSOR"
+        }
+      },
+      "quality_effect_evidence": "NONE_REAL_Q"
+    },
+    {
+      "rubric": "081",
+      "kind": "COUNTERFACTUAL_ACTION_STATUS_ONLY",
+      "planned_before": "PLANNED",
+      "planned_after": "NOT_PLANNED",
+      "affected_planning_routes": {
+        "081": {
+          "before": "PLAN_FEASIBLE_SUBJECT_TO_UNMODELLED_FACTORS",
+          "after": "NOT_IN_PRESTART_PLAN"
+        },
+        "082": {
+          "before": "PLAN_FEASIBLE_SUBJECT_TO_UNMODELLED_FACTORS",
+          "after": "PLAN_BLOCKED_BY_PRESTART_PREDECESSOR"
+        },
+        "083": {
+          "before": "PLAN_FEASIBLE_SUBJECT_TO_UNMODELLED_FACTORS",
+          "after": "PLAN_BLOCKED_BY_PRESTART_PREDECESSOR"
+        }
+      },
+      "quality_effect_evidence": "NONE_REAL_Q"
+    },
+    {
+      "rubric": "082",
+      "kind": "COUNTERFACTUAL_ACTION_STATUS_ONLY",
+      "planned_before": "PLANNED",
+      "planned_after": "NOT_PLANNED",
+      "affected_planning_routes": {
+        "082": {
+          "before": "PLAN_FEASIBLE_SUBJECT_TO_UNMODELLED_FACTORS",
+          "after": "NOT_IN_PRESTART_PLAN"
+        }
+      },
+      "quality_effect_evidence": "NONE_REAL_Q"
+    },
+    {
+      "rubric": "083",
+      "kind": "COUNTERFACTUAL_ACTION_STATUS_ONLY",
+      "planned_before": "PLANNED",
+      "planned_after": "NOT_PLANNED",
+      "affected_planning_routes": {
+        "083": {
+          "before": "PLAN_FEASIBLE_SUBJECT_TO_UNMODELLED_FACTORS",
+          "after": "NOT_IN_PRESTART_PLAN"
+        }
+      },
+      "quality_effect_evidence": "NONE_REAL_Q"
+    },
+    {
+      "rubric": "086",
+      "kind": "POLICY_EXISTENCE_ONLY",
+      "before": "PREDECLARED_CONDITIONAL_RULE_NOT_FUTURE_OBSERVATION",
+      "after": "ABSTAIN_UNDEFINED_PRESTART_POLICY",
+      "trigger_not_observed": true,
+      "quality_effect_evidence": "NONE_REAL_Q"
+    },
+    {
+      "rubric": "087",
+      "kind": "POLICY_EXISTENCE_ONLY",
+      "before": "PREDECLARED_CONDITIONAL_RULE_NOT_FUTURE_OBSERVATION",
+      "after": "ABSTAIN_UNDEFINED_PRESTART_POLICY",
+      "trigger_not_observed": true,
+      "quality_effect_evidence": "NONE_REAL_Q"
+    },
+    {
+      "rubric": "090",
+      "kind": "POLICY_EXISTENCE_ONLY",
+      "before": "PREDECLARED_CONDITIONAL_RULE_NOT_FUTURE_OBSERVATION",
+      "after": "ABSTAIN_UNDEFINED_PRESTART_POLICY",
+      "trigger_not_observed": true,
+      "quality_effect_evidence": "NONE_REAL_Q"
+    },
+    {
+      "rubric": "098",
+      "kind": "POLICY_EXISTENCE_ONLY",
+      "before": "PREDECLARED_CONDITIONAL_RULE_NOT_FUTURE_OBSERVATION",
+      "after": "ABSTAIN_UNDEFINED_PRESTART_POLICY",
+      "trigger_not_observed": true,
+      "quality_effect_evidence": "NONE_REAL_Q"
+    }
+  ],
+  "count": 30,
+  "route_statuses_changed": 30,
+  "scientific_ic_percent": null,
+  "real_quality_effects_proven": 0,
+  "statement": "Planning-route status changes, feasibility gates and H3 Q* synthetic IC deltas are not validated real-quality effects."
+}
