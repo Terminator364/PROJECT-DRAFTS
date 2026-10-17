@@ -1,0 +1,30 @@
+{
+  "schema": "riz112/sim1000/e130/independent-cloud-verification/v1",
+  "date": "2026-10-17",
+  "filename": "RIZ112_SIM1000_CONTINUITE_E130_2026-10-17.zip",
+  "drive_id": "1oCS4PxMJMTGi41erBMx749OMXS9ErT2z",
+  "drive_url": "https://drive.google.com/file/d/1oCS4PxMJMTGi41erBMx749OMXS9ErT2z/view?usp=drivesdk",
+  "sha256_pc": "b3846464925901c30f5d8d06b4fb4c34b739ce2e748e26a684ef28fab3598ca2",
+  "sha256_local_G": "b3846464925901c30f5d8d06b4fb4c34b739ce2e748e26a684ef28fab3598ca2",
+  "sha256_independent_cloud_redownload": "b3846464925901c30f5d8d06b4fb4c34b739ce2e748e26a684ef28fab3598ca2",
+  "source_commit": "2f76847a355f0f0cd0ab6fb1d752763d7f512f90",
+  "members": 314,
+  "bytes": 745765,
+  "crc_pass": true,
+  "contains_preT0_synthetic_scenarios": 1000,
+  "scenario_csv_sha256": "af13ca14051fca6853f7bc0527481be93315f91902b8a939fc2480569b0b5bbc",
+  "snapshot_context_rows": 52,
+  "snapshot_journal_events": 130,
+  "snapshot_last_event": "E130",
+  "snapshot_last_context": "CTX-0052",
+  "extracted_archive_tests": {
+    "continuity_check": "PASS",
+    "journal_chain_valid": true,
+    "scenarios_unittest_passed": 6,
+    "scenarios_unittest_failed": 0
+  },
+  "scientific_ic_percent": null,
+  "authentic_rice_trials": 0,
+  "synthesis": "Methodological RIZ112 lab supports MATRICE pre-match causality and abstentions; no empirical calibration or transfer of rice equations to sports.",
+  "notes": "This receipt is posted to canonical GitHub AFTER the ZIP snapshot. The original 1000-simulation ZIP is preserved separately; this is a verified patched, E130-aligned snapshot."
+}
