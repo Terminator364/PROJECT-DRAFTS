@@ -1,0 +1,26 @@
+{
+  "schema": "riz112/matrice/synthetic1000/drive-verified/v1",
+  "date": "2026-10-17",
+  "cloud_file_id": "1IUO4XjgmzZvMicoXe75bEGmYxw2aaZBh",
+  "url": "https://drive.google.com/file/d/1IUO4XjgmzZvMicoXe75bEGmYxw2aaZBh/view?usp=drivesdk",
+  "filename": "RIZ112_METHODOLOGIE_MATRICE_1000_SCENARIOS_2026-10-17.zip",
+  "size_bytes": 740937,
+  "files": 312,
+  "sha256_PC": "e2251d33182c9bcab167267684b8a6d4a2b5434db98c7e6ab967a01b37be7a93",
+  "sha256_downloaded_drive": "e2251d33182c9bcab167267684b8a6d4a2b5434db98c7e6ab967a01b37be7a93",
+  "zip_crc_clean": true,
+  "cloud_extracted_6_tests_passed": true,
+  "csv_rows": 1000,
+  "csv_sha256": "af13ca14051fca6853f7bc0527481be93315f91902b8a939fc2480569b0b5bbc",
+  "reports_reproduced_on_PC": true,
+  "counterfactual_18_reproduced_on_PC": true,
+  "archive_journal_events": 127,
+  "archive_context_rows": 50,
+  "post_archive_receipt_event": "E128",
+  "science": {
+    "scientific_ic_percent": null,
+    "real_rice_trials": 0,
+    "user_Q_formula_approved": false
+  },
+  "note": "The archive is a frozen source+CSV snapshot. E128 receipt and pointers are on GitHub after archive and deliberately not self-contained in the archive."
+}
