@@ -1,0 +1,161 @@
+{
+  "stats": {
+    "schema": "riz112/h3/population/v1",
+    "source_fixture": "H2_100_SCENARIOS_112.jsonl",
+    "scenarios": 100,
+    "numeric_demo_count": 98,
+    "policy_changed_demo_count": 11,
+    "counts_by_status": {
+      "DEMO_ASSUMED_MECHANISMS_NOT_REAL_Q": 98,
+      "NO_NET_POWER_UNDER_ASSUMPTIONS": 2
+    },
+    "new_mechanistic_root_paths": [
+      "006",
+      "025",
+      "039",
+      "069"
+    ],
+    "evidence_level": "MECHANISTIC_DEMO_ASSUMPTIONS_NOT_REAL_RICE_PROBABILITY",
+    "real_observations": 0,
+    "scientific_ic_percent": null,
+    "model_errors": []
+  },
+  "ablations": {
+    "baseline": {
+      "status": "DEMO_ASSUMED_MECHANISMS_NOT_REAL_Q",
+      "baseline_ic_demo_percent": 61.83,
+      "with_policy_ic_demo_percent": 61.83,
+      "energy_W": {
+        "gross_W": 330.0,
+        "loss_W": 0.0,
+        "net_W": 330.0,
+        "nominal_W": 550.0,
+        "eta_wall_only": 0.6
+      },
+      "geometry": {
+        "grain_length_mm": null,
+        "relative_required_hot_time": null
+      },
+      "scientific_ic_percent": null
+    },
+    "source_uptime_0_6": {
+      "status": "DEMO_ASSUMED_MECHANISMS_NOT_REAL_Q",
+      "baseline_ic_demo_percent": 22.13,
+      "with_policy_ic_demo_percent": 22.13,
+      "energy_W": {
+        "gross_W": 198.0,
+        "loss_W": 0.0,
+        "net_W": 198.0,
+        "nominal_W": 550.0,
+        "eta_wall_only": 0.6
+      },
+      "geometry": {
+        "grain_length_mm": null,
+        "relative_required_hot_time": null
+      },
+      "scientific_ic_percent": null
+    },
+    "regulation_duty_0_5": {
+      "status": "DEMO_ASSUMED_MECHANISMS_NOT_REAL_Q",
+      "baseline_ic_demo_percent": 6.03,
+      "with_policy_ic_demo_percent": 6.03,
+      "energy_W": {
+        "gross_W": 165.0,
+        "loss_W": 0.0,
+        "net_W": 165.0,
+        "nominal_W": 550.0,
+        "eta_wall_only": 0.6
+      },
+      "geometry": {
+        "grain_length_mm": null,
+        "relative_required_hot_time": null
+      },
+      "scientific_ic_percent": null
+    },
+    "ambient_UA_1": {
+      "status": "DEMO_ASSUMED_MECHANISMS_NOT_REAL_Q",
+      "baseline_ic_demo_percent": 46.53,
+      "with_policy_ic_demo_percent": 46.53,
+      "energy_W": {
+        "gross_W": 330.0,
+        "loss_W": 76.0,
+        "net_W": 254.0,
+        "nominal_W": 550.0,
+        "eta_wall_only": 0.6
+      },
+      "geometry": {
+        "grain_length_mm": null,
+        "relative_required_hot_time": null
+      },
+      "scientific_ic_percent": null
+    },
+    "grain_length_9": {
+      "status": "DEMO_ASSUMED_MECHANISMS_NOT_REAL_Q",
+      "baseline_ic_demo_percent": 0.6,
+      "with_policy_ic_demo_percent": 0.6,
+      "energy_W": {
+        "gross_W": 330.0,
+        "loss_W": 0.0,
+        "net_W": 330.0,
+        "nominal_W": 550.0,
+        "eta_wall_only": 0.6
+      },
+      "geometry": {
+        "grain_length_mm": 9.0,
+        "relative_required_hot_time": 2.25
+      },
+      "scientific_ic_percent": null
+    },
+    "grain_length_4": {
+      "status": "DEMO_ASSUMED_MECHANISMS_NOT_REAL_Q",
+      "baseline_ic_demo_percent": 62.33,
+      "with_policy_ic_demo_percent": 62.33,
+      "energy_W": {
+        "gross_W": 330.0,
+        "loss_W": 0.0,
+        "net_W": 330.0,
+        "nominal_W": 550.0,
+        "eta_wall_only": 0.6
+      },
+      "geometry": {
+        "grain_length_mm": 4.0,
+        "relative_required_hot_time": 0.4444444444444444
+      },
+      "scientific_ic_percent": null
+    },
+    "water_180": {
+      "status": "DEMO_ASSUMED_MECHANISMS_NOT_REAL_Q",
+      "baseline_ic_demo_percent": 0.07,
+      "with_policy_ic_demo_percent": 0.07,
+      "energy_W": {
+        "gross_W": 330.0,
+        "loss_W": 0.0,
+        "net_W": 330.0,
+        "nominal_W": 550.0,
+        "eta_wall_only": 0.6
+      },
+      "geometry": {
+        "grain_length_mm": null,
+        "relative_required_hot_time": null
+      },
+      "scientific_ic_percent": null
+    },
+    "water_180_policy": {
+      "status": "DEMO_ASSUMED_MECHANISMS_NOT_REAL_Q",
+      "baseline_ic_demo_percent": 0.07,
+      "with_policy_ic_demo_percent": 39.97,
+      "energy_W": {
+        "gross_W": 330.0,
+        "loss_W": 0.0,
+        "net_W": 330.0,
+        "nominal_W": 550.0,
+        "eta_wall_only": 0.6
+      },
+      "geometry": {
+        "grain_length_mm": null,
+        "relative_required_hot_time": null
+      },
+      "scientific_ic_percent": null
+    }
+  }
+}
