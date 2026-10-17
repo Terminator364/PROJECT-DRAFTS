@@ -23,7 +23,7 @@
     "context_master": "CONTEXTE_CONVERSATIONS.md",
     "context_protocol": "PROTOCOLE_CONTINUITE_CONTEXTUELLE.md",
     "context_registry": "CONTEXTE_INTEGRAL/REGISTRE_MESSAGES.jsonl",
-    "context_rows": 27,
+    "context_rows": 29,
     "context_update_rule": "ACTIVE_SESSION_EVERY_RELEVANT_EXCHANGE_AND_CHECKPOINT__NO_BACKGROUND",
     "coverage": "SOME_VERBATIM_EXCERPTS_AND_FLAGGED_RECONSTRUCTIONS_NOT_FULL_RAW_ARCHIVE",
     "drive_current_doc": "https://docs.google.com/document/d/13gOTBq7AXnT-f9Lotlw4czwa4i75C4UGdP0i1i0qwZE/edit",
@@ -32,13 +32,12 @@
     "github_status": "VERIFIED_CRITICAL_9_OF_9_BEFORE_FINAL_RECEIPT",
     "initial_source_archive_drive": "https://drive.google.com/file/d/1rFq9GiwbRvb-Hk33JayacttjBOUdAabf/view?usp=drivesdk",
     "initial_source_archive_sha256": "15182d217e42c2985cb4652ac5c2ee9f6afe6afca55ec148b3c803e52b14ede8",
-    "journal_events": 89,
-    "journal_head": "aeb4f2da9434b3fb61609e7d1612812ab1abb4d7b21392f39cee864b804a3859",
+    "journal_events": 96,
+    "journal_head": "58c71f7db62a3751652916387ee741d947336371f3fa0443df63a03cc854d337",
     "lab_code": "Moteur/continue",
     "latest_context_ids": [
-      "CTX-0018",
-      "CTX-0019",
-      "CTX-0020"
+      "CTX-0028",
+      "CTX-0029"
     ],
     "legacy_codes_active": false,
     "library_status": "SOURCE_ARCHIVE_CONFIRMED",
@@ -75,12 +74,12 @@
   },
   "full_packet_replay": "step12/POPULATION_100_COMPLETE_PACKET.jsonl",
   "journal": {
-    "events": 94,
-    "head": "48876a03d1bf973c9279039f39507903040ba8bf28a3ea709428ccf6e7f83b07"
+    "events": 96,
+    "head": "58c71f7db62a3751652916387ee741d947336371f3fa0443df63a03cc854d337"
   },
   "last_user_directive": "D034_CANONICAL_SINGLE_CODE_AUTO_RESUME_AND_CONTINUOUS_CONTEXT",
   "latest_case_audit": "step12/COUNTERFACTUAL_112_V12.json",
-  "latest_code": "step14/anticipatory_physics_h3.py",
+  "latest_code": "step15/functional_mechanisms_h4.py",
   "latest_contract": "step9/DEMONSTRATION_CONTRACT.json",
   "latest_h3_ablations": "step14/H3_ABLATIONS.json",
   "latest_h3_population": "step14/H3_100_RESULTS.jsonl",
@@ -115,7 +114,7 @@
       "054"
     ]
   },
-  "next": "H4_CLOSE_22_MECHANISTIC_GAPS — start automatically when the user enters Moteur/continue; read continuity/NEXT_ACTION.json",
+  "next": "H4B_REMAINING_15_DIAGNOSTIC_PATHS — see continuity/NEXT_ACTION.json",
   "probabilities_demo_percent": {
     "A": 62.4,
     "B": 36.83,
@@ -139,7 +138,7 @@
     "A_alternate_proxy_scale": 38.2,
     "A_minus_60g": 44.87
   },
-  "stage": 14,
+  "stage": 15,
   "stage11": {
     "119_vs_112": "UNCLEAR_NEW_SEVEN_NOT_CREATED",
     "cases_in_input_contract": 112,
@@ -212,7 +211,7 @@
     "tests_total": 309,
     "validated_effects": 0
   },
-  "status": "H3_309_TESTS_PASS__CONTINUITY_UNIFIED_D034__H4_NEXT__SCIENTIFIC_IC_NULL",
+  "status": "H4A_PARTIAL_7_DIAGNOSTIC_PATHS_29_NEW_TESTS__22_Q_EFFECT_GAPS_OPEN",
   "step10": {
     "abstentions_original": 5,
     "derived_not_directly_mutable": 4,
@@ -267,6 +266,33 @@
       "stage9": 25
     },
     "total": 309,
-    "windows": "NOT_RUN"
+    "windows": "NOT_RUN",
+    "h4a_new_tests_passed": 29,
+    "h4a_new_tests_locally_executed": true,
+    "previous_h3_309_not_rerun_this_session": true
+  },
+  "stage15_H4A": {
+    "checkpoint": "step15/CHECKPOINT_H4A_20261017.json",
+    "code": "step15/functional_mechanisms_h4.py",
+    "tests": "step15/test_h4.py",
+    "rubrics_with_new_diagnostic_routes": [
+      "003",
+      "061",
+      "049",
+      "082",
+      "029",
+      "030",
+      "054"
+    ],
+    "new_mechanism_groups": 3,
+    "tests_new": 29,
+    "local_test_status": "29_PASS",
+    "git_blob_verified": true,
+    "remaining_without_h4a_new_diagnostics": 15,
+    "remaining_real_Q_effect_gap_count": 22,
+    "scientific_ic_percent": null,
+    "windows_h4a": "NOT_TESTED",
+    "drive_h4a": "NOT_SYNCED",
+    "delivery_h4a": "NOT_SENT"
   }
 }
