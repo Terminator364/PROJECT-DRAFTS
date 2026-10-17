@@ -1,0 +1,245 @@
+{
+  "schema": "riz112/step20/nine-coupled-counterfactuals/v1",
+  "perturbation_fraction": 0.01,
+  "tested_semantic_twins": 9,
+  "rows": [
+    {
+      "id": "001",
+      "field": "rice_mass_g",
+      "before": 160.0,
+      "after": 161.6,
+      "physical_metric_deltas": {
+        "energy_margin_for_target_J": -199.68,
+        "water_for_absorption_target_g": 2.16,
+        "max_water_before_unmodeled_loss_g": 0.0,
+        "thermal_ceiling_on_evaporation_g": -0.08847142
+      },
+      "physical_intermediate_responded": true,
+      "scientific_IC_delta_percent": null,
+      "quality_effect_verified": false
+    },
+    {
+      "id": "033",
+      "field": "water_capacity_g_per_g",
+      "before": 1.35,
+      "after": 1.3635000000000002,
+      "physical_metric_deltas": {
+        "energy_margin_for_target_J": 0.0,
+        "water_for_absorption_target_g": 2.16,
+        "max_water_before_unmodeled_loss_g": 0.0,
+        "thermal_ceiling_on_evaporation_g": 0.0
+      },
+      "physical_intermediate_responded": true,
+      "scientific_IC_delta_percent": null,
+      "quality_effect_verified": false
+    },
+    {
+      "id": "035",
+      "field": "water_added_g",
+      "before": 300.0,
+      "after": 303.0,
+      "physical_metric_deltas": {
+        "energy_margin_for_target_J": -978.12,
+        "water_for_absorption_target_g": 0.0,
+        "max_water_before_unmodeled_loss_g": 3.0,
+        "thermal_ceiling_on_evaporation_g": -0.43337173
+      },
+      "physical_intermediate_responded": true,
+      "scientific_IC_delta_percent": null,
+      "quality_effect_verified": false
+    },
+    {
+      "id": "036",
+      "field": "water_retained_g",
+      "before": 8.0,
+      "after": 8.08,
+      "physical_metric_deltas": {
+        "energy_margin_for_target_J": -26.0832,
+        "water_for_absorption_target_g": 0.0,
+        "max_water_before_unmodeled_loss_g": 0.08,
+        "thermal_ceiling_on_evaporation_g": -0.01155658
+      },
+      "physical_intermediate_responded": true,
+      "scientific_IC_delta_percent": null,
+      "quality_effect_verified": false
+    },
+    {
+      "id": "037",
+      "field": "water_initial_C",
+      "before": 22.0,
+      "after": 22.22,
+      "physical_metric_deltas": {
+        "energy_margin_for_target_J": 283.2368,
+        "water_for_absorption_target_g": 0.0,
+        "max_water_before_unmodeled_loss_g": 0.0,
+        "thermal_ceiling_on_evaporation_g": 0.1254926
+      },
+      "physical_intermediate_responded": true,
+      "scientific_IC_delta_percent": null,
+      "quality_effect_verified": false
+    },
+    {
+      "id": "038",
+      "field": "rice_initial_C",
+      "before": 22.0,
+      "after": 22.22,
+      "physical_metric_deltas": {
+        "energy_margin_for_target_J": 56.32,
+        "water_for_absorption_target_g": 0.0,
+        "max_water_before_unmodeled_loss_g": 0.0,
+        "thermal_ceiling_on_evaporation_g": 0.02495348
+      },
+      "physical_intermediate_responded": true,
+      "scientific_IC_delta_percent": null,
+      "quality_effect_verified": false
+    },
+    {
+      "id": "041",
+      "field": "power_W",
+      "before": 550.0,
+      "after": 555.5,
+      "physical_metric_deltas": {
+        "energy_margin_for_target_J": 4356.0,
+        "water_for_absorption_target_g": 0.0,
+        "max_water_before_unmodeled_loss_g": 0.0,
+        "thermal_ceiling_on_evaporation_g": 1.92999557
+      },
+      "physical_intermediate_responded": true,
+      "scientific_IC_delta_percent": null,
+      "quality_effect_verified": false
+    },
+    {
+      "id": "042",
+      "field": "transfer_efficiency",
+      "before": 0.6,
+      "after": 0.606,
+      "physical_metric_deltas": {
+        "energy_margin_for_target_J": 4356.0,
+        "water_for_absorption_target_g": 0.0,
+        "max_water_before_unmodeled_loss_g": 0.0,
+        "thermal_ceiling_on_evaporation_g": 1.92999557
+      },
+      "physical_intermediate_responded": true,
+      "scientific_IC_delta_percent": null,
+      "quality_effect_verified": false
+    },
+    {
+      "id": "047",
+      "field": "total_heating_min",
+      "before": 22.0,
+      "after": 22.22,
+      "physical_metric_deltas": {
+        "energy_margin_for_target_J": 4356.0,
+        "water_for_absorption_target_g": 0.0,
+        "max_water_before_unmodeled_loss_g": 0.0,
+        "thermal_ceiling_on_evaporation_g": 1.92999557
+      },
+      "physical_intermediate_responded": true,
+      "scientific_IC_delta_percent": null,
+      "quality_effect_verified": false
+    }
+  ],
+  "baseline": {
+    "schema": "riz112/step20/conditional-physical-envelope/v1",
+    "status": "THEORETICAL_ENERGY_AND_WATER_BUDGET_ONLY",
+    "physical_account": {
+      "planned_total_water_g": 308.0,
+      "dry_rice_g": 160.0,
+      "water_heat_required_J": 100420.32,
+      "rice_heat_required_J": 19968.0,
+      "nominal_energy_delivered_J": 435600.0,
+      "assumed_heat_loss_J": 0.0,
+      "nonnegative_available_energy_J": 435600.0,
+      "heat_to_target_required_J": 120388.32,
+      "energy_margin_for_target_J": 315211.68,
+      "energy_target_feasible_in_idealized_budget": true,
+      "water_for_absorption_target_g": 216.0,
+      "max_water_before_unmodeled_loss_g": 308.0,
+      "water_target_mass_feasible_before_losses": true,
+      "thermal_ceiling_on_evaporation_g": 139.65958352,
+      "thermal_ceiling_is_not_predicted_evaporation": true
+    },
+    "active_semantic_twins": {
+      "001": {
+        "field": "rice_mass_g",
+        "value": 160.0,
+        "unit": "g",
+        "linked": true
+      },
+      "033": {
+        "field": "water_capacity_g_per_g",
+        "value": 1.35,
+        "unit": "g_per_g",
+        "linked": true
+      },
+      "035": {
+        "field": "water_added_g",
+        "value": 300.0,
+        "unit": "g",
+        "linked": true
+      },
+      "036": {
+        "field": "water_retained_g",
+        "value": 8.0,
+        "unit": "g",
+        "linked": true
+      },
+      "037": {
+        "field": "water_initial_C",
+        "value": 22.0,
+        "unit": "degC",
+        "linked": true
+      },
+      "038": {
+        "field": "rice_initial_C",
+        "value": 22.0,
+        "unit": "degC",
+        "linked": true
+      },
+      "041": {
+        "field": "power_W",
+        "value": 550.0,
+        "unit": "W",
+        "linked": true
+      },
+      "042": {
+        "field": "transfer_efficiency",
+        "value": 0.6,
+        "unit": "fraction",
+        "linked": true
+      },
+      "047": {
+        "field": "total_heating_min",
+        "value": 22.0,
+        "unit": "min",
+        "linked": true
+      }
+    },
+    "assumptions": {
+      "water_specific_heat_J_per_gK": 4.18,
+      "rice_specific_heat_J_per_gK": 1.6,
+      "latent_vaporization_J_per_g": 2257.0,
+      "target_water_temperature_C": 100.0,
+      "source_uptime_fraction": 1.0,
+      "regulation_duty_fraction": 1.0,
+      "ambient_heat_loss_W": 0.0
+    },
+    "provenance": {
+      "packet_sha256": "d2e2d745c3d54c5ed3da2b04f0276572eb67084810a82442094367a2e78a7e2e",
+      "assumptions_sha256": "3a247f307bda2d4e6b075e6ae922a970f11dbd53fab81235df51158ddcf4f05a"
+    },
+    "scientific_ic_percent": null,
+    "Q_real_observed": null,
+    "real_Q_effects_proven": 0,
+    "not_a_real_Q_probability": true,
+    "limitations": [
+      "Constant specific heats and fixed target temperature are explicit simplifications",
+      "Vessel sensible energy, spatial gradients, mass transfer, phase timing, convection, steam loss and pressure are unmodelled",
+      "A nonnegative budget is a necessary-resource proxy, NOT sufficient proof of correct cooking or food safety",
+      "A negative budget does not establish the real physical outcome without measured boundary losses and time profiles",
+      "No quality (Q) score or rice-success probability is inferred from this envelope"
+    ]
+  },
+  "scientific_ic_percent": null,
+  "actual_Q_effects_verified": 0
+}
