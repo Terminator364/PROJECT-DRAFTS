@@ -65,9 +65,9 @@
     "step18": 32,
     "step19": 31
   },
-  "journal_event_count": 113,
+  "journal_event_count": 114,
   "context_rows": 38,
-  "journal_head": "07ebb28af732095706e1d61e001434a4c714163b675567de033be0a0c198589d",
+  "journal_head": "7aa8c1d8e8a12b75c7776e730542cd24228799d204b4a4754a0741bcf352c389",
   "archive_receipt": {
     "file_id": "1CJiFHQBq3FTcraWa3LSzRhGFpJPd84-0",
     "url": "https://drive.google.com/file/d/1CJiFHQBq3FTcraWa3LSzRhGFpJPd84-0/view?usp=drivesdk",
@@ -76,5 +76,6 @@
     "items": 241,
     "independent_cloud_sha256_match": true,
     "zip_crc_pass": true
-  }
+  },
+  "post_archive_sync_event": "E114"
 }
