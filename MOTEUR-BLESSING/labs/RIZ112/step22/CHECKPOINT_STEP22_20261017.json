@@ -12,10 +12,18 @@
     "test_trial_registry.py",
     "trial_registry.py"
   ],
-  "commit_state": "NOT_YET_VERIFIED_WINDOWS_AT_CREATION",
+  "commit_state": "SOURCE_AND_TESTS_GITHUB_PUBLISHED__WINDOWS_MBMPC_PASS",
   "critical_note": "A software test pass or modeled physical sensitivity never establishes calibrated food quality.",
   "paired_real_experiments": 0,
   "storage_policy": "append-only chained, exclusive writer, no trusted timestamp",
   "preT0_seal_required": true,
-  "afterT0_labels_separate": true
+  "afterT0_labels_separate": true,
+  "windows_python": "3.12.10",
+  "windows_new_tests_passed": 14,
+  "windows_test_execution_verified": true,
+  "user_message_id": "CTX-0041",
+  "assistant_test_record_id": "CTX-0042",
+  "journal_event_end": "E119",
+  "windows_step24_pair_replay_identical": null,
+  "quality_weights_remain_null": true
 }
