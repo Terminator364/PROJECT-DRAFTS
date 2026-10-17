@@ -414,3 +414,30 @@ Déclencheur utilisateur CTX-0039 (« Continue » avec espace final exact access
 ### E117 — livraison Step20 contrôlée sur le cloud (17 octobre 2026)
 
 Le ZIP de référence `RIZ112_MOTEUR_UNIFIE_STEP20_2026-10-17.zip` contient **258 fichiers, 619 078 octets**. Il a été produit sur PC MBMPC, recopié sur `G:`, puis téléchargé indépendamment depuis Google Drive (ID `1DxEoh2KIjkoimVN-COVr-I_hr7ega-Ue`) : **SHA-256 identique** `aad38f6d3b3f1dc3d37524ba3a72d1ba3169fe8389df97bbb5b630279ff38b84`; CRC ZIP PASS. Le raccourci Bureau pointe vers le lanceur Step20, testé : Step19 et Step20 réussissent et IC scientifique demeure `null`. Cet enregistrement E117 et son reçu GitHub sont postérieurs au snapshot ZIP E116; ils ont priorité comme journal courant. Source : `step20/RECU_ARCHIVE_PC_CLOUD_20261017.json`.
+
+
+### Archive verbatim CTX-0041 / E118 / 2026-10-17
+**Rôle** USER ; **SHA-256 UTF-8** `e6c6a16a11db3f1856d87b5f2d10cc44f140ac7e8726702f70981f5526828429` ; **provenance** user_confirmed_priority_and_asked_chain_steps21_24_visible_turn
+
+````text
+Oui
+Vas y continue, enchaine les step  
+````
+
+
+### Archive verbatim CTX-0042 / E119 / 2026-10-17
+**Rôle** ASSISTANT ; **SHA-256 UTF-8** `131f0fd2381bddedd30882877babfb3f2e49ebbd63e4182e6cc12ad68307c9fc` ; **provenance** step21_to24_factual_windows_and_local_evidence_47_tests
+
+````text
+Executed Steps21-24: user accepted ordinal priority tenderness 101/grain separation 102 without numerical weights. New tests 10+14+10+13=47 PASS on Linux and Windows MBMPC. Windows Step24 A pair interactions 36/36 exactly replay reference with 7 theoretical physical nonadditivities. No authentic rice trials, no Q formula approved, no real predictive IC, no 112 empirical causal effects. Legacy tests 546 passed in prior separate suites, not all rerun during this turn. Continue after Step24 at Step25 real Q measurement protocol approval and independent paired trials.
+````
+
+[executed on device: MBMPC (608dbffc-c6b9-4122-ad36-defa8238a929)]
+
+## 17 octobre 2026 — Clôture d'ingénierie Steps21–24, limite scientifique préservée
+
+La réponse utilisateur CTX-0041 donne une **priorité ordinale** à la tendreté `101` et à la séparation des grains `102` avant les autres qualités. Elle **n'autorise aucun poids numérique** et **n'approuve pas la formule Q**. Step21 documente cette distinction sans retoucher l'IC de démonstration.
+
+Step22 fournit un registre de dossiers pré-T0 et de mesures post-T0 distinctes, horodatées et chaînées SHA-256, verrouillées pour un seul rédacteur; le chaînage ne vaut pas horodatage ou signature externe. **Zéro cuisson réelle** enregistrée. Step23 interdit toute promotion vers un IC scientifique tant que barème Q, mesures indépendantes, calibration et validation hors échantillon sont absents. Step24 évalue 36 paires parmi neuf paramètres physiques théoriques ; sept produisent une non-additivité locale au scénario synthétique A, 29 n'en montrent pas au point étudié. Aucun effet causal réel sur la qualité n'en découle.
+
+**Preuves** : code, registres, notes et checkpoints dans `step21/`, `step22/`, `step23/`, `step24/`. Nouveaux tests Python **47/47 PASS localement et Windows MBMPC**, contre-audit d'interactions Windows identique au rapport GitHub. Anciennes suites séparées totalisant 546 tests avaient été validées antérieurement ; elles ne sont pas déclarées toutes relancées ici. Moteur du riz opérationnel techniquement; **scientific_ic_percent=null**, `Q_formula=null`, `real_rice_trials=0`. Prochaine porte de décision : qualité Q mesurable et approuvée, puis essais physiques; ne pas sauter cette dépendance.
