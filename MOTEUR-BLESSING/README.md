@@ -1,5 +1,7 @@
 # Moteur Blessing — commande de reprise unique
 
+**Dernière exécution H4A (17/10/2026)** : laboratoire RIZ-112 **étape 15 partielle**, 7 nouveaux chemins de diagnostic, **29/29 nouveaux tests locaux PASS**, 22 chemins d'effet Q réel toujours non validés. Le suivi canonique est `MANIFEST.json.riz112_lab.canonical_current` et le prochain acte `labs/RIZ112/continuity/NEXT_ACTION.json` (**H4B**). Ne pas lire les anciennes indications de « dernier checkpoint MB-1 V3 » comme plus récentes que ce pointeur. PC/Drive/Delivery H4A non synchronisés à cette reprise.
+
 **`Moteur/continue`** est le seul code à utiliser pour reprendre le moteur et son laboratoire RIZ-112. Il relit le dernier checkpoint et le contexte, puis commence directement la prochaine tâche définie dans `labs/RIZ112/continuity/NEXT_ACTION.json`. Les anciennes commandes mentionnées dans les historiques sont obsolètes.
 
 # MOTEUR BLESSING — Projet officiel dans PROJECT-DRAFTS
