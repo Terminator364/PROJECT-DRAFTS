@@ -23,7 +23,7 @@
     "context_master": "CONTEXTE_CONVERSATIONS.md",
     "context_protocol": "PROTOCOLE_CONTINUITE_CONTEXTUELLE.md",
     "context_registry": "CONTEXTE_INTEGRAL/REGISTRE_MESSAGES.jsonl",
-    "context_rows": 38,
+    "context_rows": 40,
     "context_update_rule": "ACTIVE_SESSION_EVERY_RELEVANT_EXCHANGE_AND_CHECKPOINT__NO_BACKGROUND",
     "coverage": "SOME_VERBATIM_EXCERPTS_AND_FLAGGED_RECONSTRUCTIONS_NOT_FULL_RAW_ARCHIVE",
     "drive_current_doc": "https://docs.google.com/document/d/13gOTBq7AXnT-f9Lotlw4czwa4i75C4UGdP0i1i0qwZE/edit",
@@ -32,11 +32,12 @@
     "github_status": "VERIFIED_CRITICAL_9_OF_9_BEFORE_FINAL_RECEIPT",
     "initial_source_archive_drive": "https://drive.google.com/file/d/1rFq9GiwbRvb-Hk33JayacttjBOUdAabf/view?usp=drivesdk",
     "initial_source_archive_sha256": "15182d217e42c2985cb4652ac5c2ee9f6afe6afca55ec148b3c803e52b14ede8",
-    "journal_events": 114,
-    "journal_head": "7aa8c1d8e8a12b75c7776e730542cd24228799d204b4a4754a0741bcf352c389",
+    "journal_events": 116,
+    "journal_head": "347feb41432663f8479f9ca2296fe5d33dd82cffc5ef71ef165f3976ca15b6cc",
     "lab_code": "Moteur/continue",
     "latest_context_ids": [
-      "CTX-0038"
+      "CTX-0039",
+      "CTX-0040"
     ],
     "legacy_codes_active": false,
     "library_status": "SOURCE_ARCHIVE_CONFIRMED",
@@ -73,8 +74,8 @@
   },
   "full_packet_replay": "step12/POPULATION_100_COMPLETE_PACKET.jsonl",
   "journal": {
-    "events": 114,
-    "head": "7aa8c1d8e8a12b75c7776e730542cd24228799d204b4a4754a0741bcf352c389"
+    "events": 116,
+    "head": "347feb41432663f8479f9ca2296fe5d33dd82cffc5ef71ef165f3976ca15b6cc"
   },
   "last_user_directive": "D034_CANONICAL_SINGLE_CODE_AUTO_RESUME_AND_CONTINUOUS_CONTEXT",
   "latest_case_audit": "step12/COUNTERFACTUAL_112_V12.json",
@@ -113,7 +114,7 @@
       "054"
     ]
   },
-  "next": "STEP20_PHYSICAL_INFLUENCE_EVIDENCE_GATE",
+  "next": "STEP21_Q_METROLOGY_APPROVAL_AND_REAL_OBSERVATION_PROTOCOL",
   "probabilities_demo_percent": {
     "A": 62.4,
     "B": 36.83,
@@ -137,7 +138,7 @@
     "A_alternate_proxy_scale": 38.2,
     "A_minus_60g": 44.87
   },
-  "stage": 19,
+  "stage": 20,
   "stage11": {
     "119_vs_112": "UNCLEAR_NEW_SEVEN_NOT_CREATED",
     "cases_in_input_contract": 112,
@@ -210,7 +211,7 @@
     "tests_total": 309,
     "validated_effects": 0
   },
-  "status": "STEP19_30_PRET0_ROUTE_COUNTERFACTUALS_WINDOWS_AND_LINUX_PASS__SCI_Q_IC_NULL",
+  "status": "STEP20_9_CONDITIONAL_PHYSICAL_BUDGETS_45_TESTS_LINUX_WINDOWS__Q_EMPIRICAL_IC_NULL",
   "step10": {
     "abstentions_original": 5,
     "derived_not_directly_mutable": 4,
@@ -400,5 +401,22 @@
       "zip_crc_pass": true
     },
     "post_archive_event_id": "E114"
+  },
+  "step20": {
+    "checkpoint": "step20/CHECKPOINT_STEP20_20261017.json",
+    "report": "step20/RESULTAT_A.json",
+    "register": "step20/REGISTRE_STEP20_112.json",
+    "q_protocol": "step20/PROTOCOLE_Q_14_SORTIES_DRAFT.json",
+    "physically_coupled_source_twins": 9,
+    "synthetic_responding_intermediates": 9,
+    "other_roles_not_promoted": 89,
+    "poststart_target_roles": 14,
+    "new_tests_linux": 45,
+    "new_tests_windows": 45,
+    "disjoint_total_six_suites": 546,
+    "windows_replayed_reports_equal": true,
+    "user_approved_quality_rubric": false,
+    "scientific_ic_percent": null,
+    "real_trials": 0
   }
 }
