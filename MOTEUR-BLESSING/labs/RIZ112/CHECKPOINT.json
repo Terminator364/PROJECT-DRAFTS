@@ -2,15 +2,15 @@
   "schema": "riz112/master-continuity/v5",
   "project": "RIZ112_lab_to_MATRICE",
   "date": "2026-10-17",
-  "stage": 12,
-  "status": "STAGE12_100_COMPLETE_SYNTHETIC_SCENARIOS__224_LOCAL_COUNTERFACTUALS__REAL_IC_NOT_CALIBRATED",
+  "stage": 13,
+  "status": "H1_HIERARCHICAL_SUBPARAMETERS_AND_ANTICIPATIONS__PARTIAL_EXECUTABLE_PHYSICS__REAL_IC_UNCALIBRATED",
   "continuity_code": "RIZ112|CONTINUE",
   "master": "CAHIER_MERE.md",
   "mandate": "MANDAT_FINITION_112.md",
   "mandate_active": true,
   "journal": {
-    "events": 63,
-    "head": "3736d4f3ba26a08391321933d0acbd22c952dbbd0041cea76d14a817b8b8718c"
+    "events": 69,
+    "head": "3855fdd22b733e0599d41a84bafafd1593dd21b9208fdc0576fd605edcb36a7f"
   },
   "cases": {
     "catalogued": 112,
@@ -56,7 +56,7 @@
     "calibrated_ic": null,
     "status": "NOT_VALIDATED"
   },
-  "next": "Identify real material/heat couplings and conditional actions, or keep abstentions; obtain measured pre/post data for Q calibration; do not declare all 112 numerical influences.",
+  "next": "Complete individually justified mechanical paths of 26 gaps and other 112 subtrees; measure real Q with preregistered rubric, then train/calibrate; keep 112 catalogues, do not invent weights",
   "matrice": {
     "sports_engine_modified": false,
     "transfer_only_methods": true,
@@ -77,7 +77,7 @@
   },
   "scientific_ic_percent": null,
   "real_Q_probability_percent": null,
-  "last_user_directive": "D022_BUILD_SCENARIO_SENSITIVITY_112_AND_ACTUAL_EFFECT_GAPS",
+  "last_user_directive": "D025_MULTI_SUBPARAMETER_SUBSUBPARAMETER_ANTICIPATION_PER_RUBRIC",
   "latest_code": "step12/full_variation_v12.py",
   "latest_contract": "step9/DEMONSTRATION_CONTRACT.json",
   "quality_proxy": "Q*_DEMO 4 unvalidated dimensions, threshold 85",
@@ -163,5 +163,26 @@
     "url": "https://drive.google.com/file/d/1cLtltKz6eifbuEXFp0M57EtWDiPjjcdN/view?usp=drivesdk",
     "bytes": 418392,
     "sha256_readback_verified": false
+  },
+  "step13_h1": {
+    "rubrics_with_nested_schema": 112,
+    "quantitative_examples": [
+      "009",
+      "010",
+      "011",
+      "013",
+      "014",
+      "035",
+      "041",
+      "042"
+    ],
+    "material_profiles": 5,
+    "comparative_scenarios": 6,
+    "new_tests_passed": 20,
+    "rerun_v12_tests_passed": 23,
+    "real_ic_percent": null,
+    "model_physics": "STEADY_STATE_TOY_THERMAL_RESISTANCE_ONLY",
+    "anticipated_safety": "WOOD_DIRECT_NOT_SAFELY_MODELED",
+    "stage13_files": "step13/"
   }
 }
