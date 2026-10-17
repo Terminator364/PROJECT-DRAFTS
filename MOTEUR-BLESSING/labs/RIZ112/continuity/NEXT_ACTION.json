@@ -60,11 +60,12 @@
   "critical_directive_D035": "Cahier mère as durable authority, all accessible context, no blanket assertion of 112 IC causal effects; each counterfactual evidence or explicit abstention",
   "canonical_source": "GitHub main MOTEUR-BLESSING/labs/RIZ112/CAHIER_MERE.md plus journal, exact context register and checkpoint; not ChatGPT memory.",
   "context_capture_limits": "The tool captures only messages actively submitted in-session and available for logging, not autonomous background conversations.",
-  "latest_journal_event_id": "E113",
+  "latest_journal_event_id": "E114",
   "latest_context_id": "CTX-0038",
   "journal_chain_verified": true,
   "step18_checkpoint": "MOTEUR-BLESSING/labs/RIZ112/step18/CHECKPOINT_STEP18_20261017.json",
   "step18_windows_status": "PARTIAL_RESOURCE_TESTS_PASS; CONDITIONAL_SUITE_NOT_VALIDATED_TIMEOUT",
   "step19_checkpoint": "MOTEUR-BLESSING/labs/RIZ112/step19/CHECKPOINT_STEP19_20261017.json",
-  "important_limit": "30 planning-route status changes != 30 causal effects on actual rice quality; real IC remains null"
+  "important_limit": "30 planning-route status changes != 30 causal effects on actual rice quality; real IC remains null",
+  "step19_cloud_archive_id": "1CJiFHQBq3FTcraWa3LSzRhGFpJPd84-0"
 }
