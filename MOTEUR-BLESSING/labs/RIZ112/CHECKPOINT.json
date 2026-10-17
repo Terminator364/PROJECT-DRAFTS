@@ -23,7 +23,7 @@
     "context_master": "CONTEXTE_CONVERSATIONS.md",
     "context_protocol": "PROTOCOLE_CONTINUITE_CONTEXTUELLE.md",
     "context_registry": "CONTEXTE_INTEGRAL/REGISTRE_MESSAGES.jsonl",
-    "context_rows": 54,
+    "context_rows": 58,
     "context_update_rule": "ACTIVE_SESSION_EVERY_RELEVANT_EXCHANGE_AND_CHECKPOINT__NO_BACKGROUND",
     "coverage": "SOME_VERBATIM_EXCERPTS_AND_FLAGGED_RECONSTRUCTIONS_NOT_FULL_RAW_ARCHIVE",
     "drive_current_doc": "https://docs.google.com/document/d/13gOTBq7AXnT-f9Lotlw4czwa4i75C4UGdP0i1i0qwZE/edit",
@@ -32,8 +32,8 @@
     "github_status": "VERIFIED_CRITICAL_9_OF_9_BEFORE_FINAL_RECEIPT",
     "initial_source_archive_drive": "https://drive.google.com/file/d/1rFq9GiwbRvb-Hk33JayacttjBOUdAabf/view?usp=drivesdk",
     "initial_source_archive_sha256": "15182d217e42c2985cb4652ac5c2ee9f6afe6afca55ec148b3c803e52b14ede8",
-    "journal_events": 132,
-    "journal_head": "08cdbe4b3c43be0c8df31d86177ede887dcd069d902913059bdbe57f66477ac7",
+    "journal_events": 136,
+    "journal_head": "15647e5f3712514314c2d96bc6985173875267e65f2a6b1ffcf37c24631722c7",
     "lab_code": "Moteur/continue",
     "latest_context_ids": [
       "CTX-0051",
@@ -76,8 +76,8 @@
   },
   "full_packet_replay": "step12/POPULATION_100_COMPLETE_PACKET.jsonl",
   "journal": {
-    "events": 132,
-    "head": "08cdbe4b3c43be0c8df31d86177ede887dcd069d902913059bdbe57f66477ac7"
+    "events": 136,
+    "head": "15647e5f3712514314c2d96bc6985173875267e65f2a6b1ffcf37c24631722c7"
   },
   "last_user_directive": "D034_CANONICAL_SINGLE_CODE_AUTO_RESUME_AND_CONTINUOUS_CONTEXT",
   "latest_case_audit": "step12/COUNTERFACTUAL_112_V12.json",
@@ -116,7 +116,7 @@
       "054"
     ]
   },
-  "next": "TRANSFER_RIZ112_METHOD_TO_MATRICE_PREMATCH_DESIGN",
+  "next": "REVIEW_MATRICE_R8_ADN_AND_REUSE_EXISTING_PREMATCH_GATES",
   "probabilities_demo_percent": {
     "A": 62.4,
     "B": 36.83,
@@ -213,7 +213,7 @@
     "tests_total": 309,
     "validated_effects": 0
   },
-  "status": "ENGINEERING_V1_CLOSED_WINDOWS_VERIFIED__Q_EMPIRICAL_NOT_VALIDATED",
+  "status": "ENGINEERING_V1_CLOSED__SIM1000_VALIDATED__PREMATCH_TRANSFER_WINDOWS_GATE_24_TESTS_PASS",
   "step10": {
     "abstentions_original": 5,
     "derived_not_directly_mutable": 4,
@@ -567,5 +567,22 @@
     "cloud_forensic_64_checksums": "PASS",
     "live_pc_sync": "UNCONFIRMED",
     "report": "simulations/EXPERIENCE_1000/RECU_REPRISE_E134_20261017.json"
+  },
+  "prematch_method_transfer": {
+    "path": "MOTEUR-BLESSING/labs/RIZ112/simulations/EXPERIENCE_1000/TRANSFERT_PREMATCH/CHECKPOINT_TRANSFERT_TEMPOREL_20261017.json",
+    "windows": [
+      "J-6",
+      "J-4",
+      "J-3",
+      "H-9",
+      "H-0"
+    ],
+    "tests_linux": 24,
+    "tests_windows": 24,
+    "pc_replay_equal": true,
+    "real_sports_matches": 0,
+    "no_postmatch_source_claim": true,
+    "independent_timestamp_attestation": false,
+    "scientific_ic_percent": null
   }
 }
