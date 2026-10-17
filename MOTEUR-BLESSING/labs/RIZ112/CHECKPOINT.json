@@ -336,6 +336,15 @@
     "scientific_Q_IC": null,
     "real_rice_trials": 0,
     "pc_shortcut": "RIZ-112 - Moteur de riz.lnk",
-    "cloud_drive_file_id": "1wKz04xWuDKiPXT6rNKOCWlAtPzq7WZ6Q"
+    "cloud_drive_file_id": "1wKz04xWuDKiPXT6rNKOCWlAtPzq7WZ6Q",
+    "cloud_full_bundle": {
+      "url": "https://drive.google.com/file/d/1wKz04xWuDKiPXT6rNKOCWlAtPzq7WZ6Q/view?usp=drivesdk",
+      "sha256": "a6c081bc7e22491e01a8cefd87d1793a420742a3282cc85f4c1762a5b144ebb9",
+      "bytes": 515114,
+      "files": 205,
+      "independent_download_hash_match": true,
+      "zip_crc": "PASS",
+      "journal_events_in_archive": 102
+    }
   }
 }
