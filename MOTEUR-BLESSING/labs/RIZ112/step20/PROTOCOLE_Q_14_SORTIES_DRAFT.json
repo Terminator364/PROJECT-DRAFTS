@@ -1,0 +1,162 @@
+{
+  "schema": "riz112/step20/real-Q-observation-contract/v1",
+  "status": "DRAFT_UNAPPROVED_NEVER_PROMOTE",
+  "target_ids": [
+    "099",
+    "100",
+    "101",
+    "102",
+    "103",
+    "104",
+    "105",
+    "106",
+    "107",
+    "108",
+    "109",
+    "110",
+    "111",
+    "112"
+  ],
+  "target_rubrics": {
+    "099": {
+      "canonical_name": "Salubrité et sécurité alimentaire",
+      "proposed_measurement": "checklist safety/microbiological protocol TBD",
+      "exact_scale": null,
+      "instrument_or_rater": null,
+      "rater_blinding": null,
+      "time_after_start_or_service": null,
+      "measurement_method_finalized": false
+    },
+    "100": {
+      "canonical_name": "Quantité effective",
+      "proposed_measurement": "cooked mass/servings count",
+      "exact_scale": null,
+      "instrument_or_rater": null,
+      "rater_blinding": null,
+      "time_after_start_or_service": null,
+      "measurement_method_finalized": false
+    },
+    "101": {
+      "canonical_name": "Tendreté",
+      "proposed_measurement": "standardized texture panel or texture-instrument TBD",
+      "exact_scale": null,
+      "instrument_or_rater": null,
+      "rater_blinding": null,
+      "time_after_start_or_service": null,
+      "measurement_method_finalized": false
+    },
+    "102": {
+      "canonical_name": "Séparation des grains",
+      "proposed_measurement": "standardized clumping/adhesion count TBD",
+      "exact_scale": null,
+      "instrument_or_rater": null,
+      "rater_blinding": null,
+      "time_after_start_or_service": null,
+      "measurement_method_finalized": false
+    },
+    "103": {
+      "canonical_name": "Homogénéité",
+      "proposed_measurement": "multiple-sample consistency across pot TBD",
+      "exact_scale": null,
+      "instrument_or_rater": null,
+      "rater_blinding": null,
+      "time_after_start_or_service": null,
+      "measurement_method_finalized": false
+    },
+    "104": {
+      "canonical_name": "Intégrité des grains",
+      "proposed_measurement": "mass or count based breakage ratio TBD",
+      "exact_scale": null,
+      "instrument_or_rater": null,
+      "rater_blinding": null,
+      "time_after_start_or_service": null,
+      "measurement_method_finalized": false
+    },
+    "105": {
+      "canonical_name": "Absence d’eau libre excessive",
+      "proposed_measurement": "free-water mass after standardized drain TBD",
+      "exact_scale": null,
+      "instrument_or_rater": null,
+      "rater_blinding": null,
+      "time_after_start_or_service": null,
+      "measurement_method_finalized": false
+    },
+    "106": {
+      "canonical_name": "Absence de zones brûlées",
+      "proposed_measurement": "burned mass/fraction + image protocol TBD",
+      "exact_scale": null,
+      "instrument_or_rater": null,
+      "rater_blinding": null,
+      "time_after_start_or_service": null,
+      "measurement_method_finalized": false
+    },
+    "107": {
+      "canonical_name": "Température de service",
+      "proposed_measurement": "probe temperature °C at agreed service moment",
+      "exact_scale": null,
+      "instrument_or_rater": null,
+      "rater_blinding": null,
+      "time_after_start_or_service": null,
+      "measurement_method_finalized": false
+    },
+    "108": {
+      "canonical_name": "Goût",
+      "proposed_measurement": "blinded sensory panel scale TBD",
+      "exact_scale": null,
+      "instrument_or_rater": null,
+      "rater_blinding": null,
+      "time_after_start_or_service": null,
+      "measurement_method_finalized": false
+    },
+    "109": {
+      "canonical_name": "Arôme",
+      "proposed_measurement": "blinded sensory panel scale TBD",
+      "exact_scale": null,
+      "instrument_or_rater": null,
+      "rater_blinding": null,
+      "time_after_start_or_service": null,
+      "measurement_method_finalized": false
+    },
+    "110": {
+      "canonical_name": "Aspect visuel",
+      "proposed_measurement": "blinded image/standardized panel scale TBD",
+      "exact_scale": null,
+      "instrument_or_rater": null,
+      "rater_blinding": null,
+      "time_after_start_or_service": null,
+      "measurement_method_finalized": false
+    },
+    "111": {
+      "canonical_name": "Maintien de la qualité",
+      "proposed_measurement": "repeat outcomes at fixed post-cook interval TBD",
+      "exact_scale": null,
+      "instrument_or_rater": null,
+      "rater_blinding": null,
+      "time_after_start_or_service": null,
+      "measurement_method_finalized": false
+    },
+    "112": {
+      "canonical_name": "Évaluation globale et décision",
+      "proposed_measurement": "consensus ground-truth decision protocol TBD",
+      "exact_scale": null,
+      "instrument_or_rater": null,
+      "rater_blinding": null,
+      "time_after_start_or_service": null,
+      "measurement_method_finalized": false
+    }
+  },
+  "Q_score_formula": null,
+  "Q_success_threshold_from_user": 85,
+  "independent_trial_count": 0,
+  "approved_by_user": false,
+  "quality_IC_percent": null,
+  "labels_are_postT0_only": true,
+  "predictor_features_must_be_frozen_preT0": true,
+  "minimum_future_requirements": [
+    "User-approved measurement definitions and Q formula before collecting labels",
+    "Real observations with timestamps and frozen prestart dossiers",
+    "Blind or standardized independent outcome collection",
+    "Chronological held-out validation and calibration, with error analysis"
+  ],
+  "safety_note": "A recipe quality threshold never certifies food safety; food safety needs an independent validated protocol"
+}
