@@ -663,3 +663,32 @@ Attends, attends, explique-moi en des termes plus clairs. Je pensais que notre m
 **Correction analytique conditionnelle** : parmi ces 310 cas, la contreposition fictive augmente uniquement le stock pré-T0 à eau ajoutée +30 ml, sans modifier les neuf grandeurs initiales. H3 est relancé à 200 tirages, graine identique, et fournit 310 IC_DEMO supplémentaires ; 690 initiaux sont inchangés. **Total = 1 000 valeurs IC_DEMO conditionnelles** (31 ≥85 au lieu des 20 initiaux), mais ces 310 résultats correspondent à des cas **replanifiés** et non aux 310 dossiers originaux bloqués. Par exemple SYN_0009 : 364,3215 g prévus contre 350 ml disponibles = insuffisance 14,3215 ml ; contre-factuel stock 394,3215 ml → IC_DEMO 5 %. `scientific_ic_percent=null`, aucun Q réel validé.
 
 **GAP toujours ouvert** : la demande d'épreuves incluant 72 variables effectivement mobilisées et les cas extrêmes n'est **pas** satisfaite par la campagne 9D ni par cette réparation de ressource. Le cahier doit exiger un scénario dont chaque variable pertinente est renseignée (valeur, provenance, état), des interventions croisées et des sorties explicites même pour les scénarios infaisables (statut + motif + contrefactuel, sans fabriquer un IC nul). Document source : `simulations/EXPERIENCE_1000/CONTRE_AUDIT_STOCK_350_20261017.json`. Archive détaillée produite dans cette session, distincte du canon GitHub ; voir son SHA-256 dans le rapport.
+
+
+### Archive verbatim CTX-0060 / E138 / 2026-10-17
+**Rôle** USER ; **SHA-256 UTF-8** `9709b9219589b969308645775ab0eeb22a1335439d4868bc5081a0c735b766ec` ; **provenance** user_20261017_mandate_exact_1000x112_numeric_ic
+
+````text
+Travail donc je veux mes 1000 scénarios (112 variable différentes) et ics
+````
+
+
+### Archive verbatim CTX-0061 / E139 / 2026-10-17
+**Rôle** USER ; **SHA-256 UTF-8** `204ee80699c1bd6332ecec1814b78fbbfbca95da41977599655f0ae63a2a02b9` ; **provenance** user_20261017_watch_emoji_exact
+
+````text
+👀
+````
+
+
+### Archive verbatim CTX-0062 / E140 / 2026-10-17
+**Rôle** ASSISTANT ; **SHA-256 UTF-8** `eb60568de7ed3e39a18986cc30c88a877286d487e2a1ea3e5dbc7236315c5cc3` ; **provenance** assistant_20261017_1000x112_Windows_exact_replay_and_drive_sha
+
+````text
+RIZ112 final 1000x112: 1000 unique scenario rows, 112 rubric columns; 98 distinct changing pre-T0 or derived roles; 14 postT0 output rubrics NOT_OBSERVED. 1000 numeric IC_EXPLORATOIRE_PROXY_PCT; highest 94%, 12 >=85%; these are uncalibrated Step9 Qstar Monte Carlo proxies, 200 draws each. Original H3 690 numeric and 310 abstentions preserved. 7/7 tests locally and MBMPC Windows PASS. Windows independently recomputed 1000x112 CSV exact SHA256 db046c7bfad437ee4b8bc78dfa78af3acb60848cd2829185756e6329981b1a63. Complete 16-entry ZIP 1779216 bytes SHA256 225efd46dbfbdd32df5dcafb4134c6a8e7d6c48e08ec144e9837a44106275f40 independently downloaded from Drive, CRC OK. Drive file ID 14S4idgIhMjcmqarKFz4ZbfRpGV2kOesC; GitHub experiment unique path simulations/EXPERIENCE_1000_112. No empirical IC nor 112 proven causal effects; zero real trials; 14 outcome rubrics remain unmeasured. Never conflate 1000 Qstar scores with 1000 scientific success probabilities; MATRICE transfers methodology only.
+````
+
+
+## 17 octobre 2026 — Livraison expérimentale 1000×112 / E138–E140
+
+Le mandat exact utilisateur (CTX-0060) et la relance « 👀 » (CTX-0061) sont archivés ci-dessus. Le paquet complet est téléchargeable via Google Drive `14S4idgIhMjcmqarKFz4ZbfRpGV2kOesC` et Library `/MOTEUR_BLESSING/RIZ112_1000x112_2026-10-17`, ZIP 1 779 216 octets, SHA256 `225efd46dbfbdd32df5dcafb4134c6a8e7d6c48e08ec144e9837a44106275f40` (téléchargement cloud indépendant et CRC validés). Source reproductible et rapport dans `simulations/EXPERIENCE_1000_112/`. 1000 dossiers × 112 rubriques, **98 rubriques pré-T0/forecast varient**, les 14 étiquettes postT0 sont `NOT_OBSERVED_POST_T0`. **1000/1000 IC exploratoires Q*** issus du module Step9, maximum 94%, 12 cas >=85%. **Les 310 abstentions du H3 original restent des abstentions dans une colonne distincte** : un IC Q* alternatif sur ces dossiers n'efface pas le refus H3. 200 tirages/dossier, 7 nouveaux tests Linux/Windows et recomputation intégrale Windows du CSV SHA256 `db046c7bfad437ee4b8bc78dfa78af3acb60848cd2829185756e6329981b1a63`. Le crible indépendant de faisabilité préT0 simplifiée accepte 303/1000 dossiers, sans prétendre connaître la qualité. Il s'agit de **simulation et de méthode pour MATRICE pré-match**, non de 1000 probabilités réelles ni de 112 effets causaux prouvés. Aucun jeu de données réel ni Q approuvé. Ne pas réinitialiser le laboratoire, ne pas écraser les audits R8 concurrents.
