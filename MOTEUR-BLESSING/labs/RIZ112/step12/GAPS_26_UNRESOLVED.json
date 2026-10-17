@@ -1,0 +1,215 @@
+{
+  "schema": "riz112/stage12/explicit-26-gaps/v1",
+  "count": 26,
+  "cases": [
+    {
+      "case": "003",
+      "name": "Sel disponible",
+      "role": "DATA",
+      "local_test": "NO_NUMERIC_OR_GATE_EFFECT_IN_TWO_BASELINES",
+      "next_evidence_needed": "Acquire dated measurable proxy/parameter definition, specify downstream mechanistic law, test ablation on real outcomes.",
+      "effect_on_real_Q": "NOT_ESTABLISHED"
+    },
+    {
+      "case": "006",
+      "name": "Source d’énergie",
+      "role": "DATA",
+      "local_test": "NO_NUMERIC_OR_GATE_EFFECT_IN_TWO_BASELINES",
+      "next_evidence_needed": "Acquire dated measurable proxy/parameter definition, specify downstream mechanistic law, test ablation on real outcomes.",
+      "effect_on_real_Q": "NOT_ESTABLISHED"
+    },
+    {
+      "case": "010",
+      "name": "Matériau de la casserole",
+      "role": "DATA",
+      "local_test": "NO_NUMERIC_OR_GATE_EFFECT_IN_TWO_BASELINES",
+      "next_evidence_needed": "Documented measured material-specific thermal transfer response, wall geometry and prestart provenance; no metal/ceramic bonus.",
+      "effect_on_real_Q": "NOT_ESTABLISHED"
+    },
+    {
+      "case": "011",
+      "name": "Épaisseur du fond",
+      "role": "DATA",
+      "local_test": "NO_NUMERIC_OR_GATE_EFFECT_IN_TWO_BASELINES",
+      "next_evidence_needed": "Acquire dated measurable proxy/parameter definition, specify downstream mechanistic law, test ablation on real outcomes.",
+      "effect_on_real_Q": "NOT_ESTABLISHED"
+    },
+    {
+      "case": "018",
+      "name": "Répartition de la chaleur",
+      "role": "DATA",
+      "local_test": "NO_NUMERIC_OR_GATE_EFFECT_IN_TWO_BASELINES",
+      "next_evidence_needed": "Acquire dated measurable proxy/parameter definition, specify downstream mechanistic law, test ablation on real outcomes.",
+      "effect_on_real_Q": "NOT_ESTABLISHED"
+    },
+    {
+      "case": "022",
+      "name": "Ustensile pour remuer",
+      "role": "DATA",
+      "local_test": "NO_NUMERIC_OR_GATE_EFFECT_IN_TWO_BASELINES",
+      "next_evidence_needed": "Acquire dated measurable proxy/parameter definition, specify downstream mechanistic law, test ablation on real outcomes.",
+      "effect_on_real_Q": "NOT_ESTABLISHED"
+    },
+    {
+      "case": "023",
+      "name": "Récipient de service",
+      "role": "DATA",
+      "local_test": "NO_NUMERIC_OR_GATE_EFFECT_IN_TWO_BASELINES",
+      "next_evidence_needed": "Acquire dated measurable proxy/parameter definition, specify downstream mechanistic law, test ablation on real outcomes.",
+      "effect_on_real_Q": "NOT_ESTABLISHED"
+    },
+    {
+      "case": "024",
+      "name": "Variété",
+      "role": "DATA",
+      "local_test": "NO_NUMERIC_OR_GATE_EFFECT_IN_TWO_BASELINES",
+      "next_evidence_needed": "Acquire dated measurable proxy/parameter definition, specify downstream mechanistic law, test ablation on real outcomes.",
+      "effect_on_real_Q": "NOT_ESTABLISHED"
+    },
+    {
+      "case": "025",
+      "name": "Longueur des grains",
+      "role": "DATA",
+      "local_test": "NO_NUMERIC_OR_GATE_EFFECT_IN_TWO_BASELINES",
+      "next_evidence_needed": "Acquire dated measurable proxy/parameter definition, specify downstream mechanistic law, test ablation on real outcomes.",
+      "effect_on_real_Q": "NOT_ESTABLISHED"
+    },
+    {
+      "case": "029",
+      "name": "Grains cassés",
+      "role": "DATA",
+      "local_test": "NO_NUMERIC_OR_GATE_EFFECT_IN_TWO_BASELINES",
+      "next_evidence_needed": "Acquire dated measurable proxy/parameter definition, specify downstream mechanistic law, test ablation on real outcomes.",
+      "effect_on_real_Q": "NOT_ESTABLISHED"
+    },
+    {
+      "case": "030",
+      "name": "Amidon de surface",
+      "role": "DATA",
+      "local_test": "NO_NUMERIC_OR_GATE_EFFECT_IN_TWO_BASELINES",
+      "next_evidence_needed": "Acquire dated measurable proxy/parameter definition, specify downstream mechanistic law, test ablation on real outcomes.",
+      "effect_on_real_Q": "NOT_ESTABLISHED"
+    },
+    {
+      "case": "031",
+      "name": "Impuretés",
+      "role": "DATA",
+      "local_test": "NO_NUMERIC_OR_GATE_EFFECT_IN_TWO_BASELINES",
+      "next_evidence_needed": "Acquire dated measurable proxy/parameter definition, specify downstream mechanistic law, test ablation on real outcomes.",
+      "effect_on_real_Q": "NOT_ESTABLISHED"
+    },
+    {
+      "case": "039",
+      "name": "Température ambiante",
+      "role": "DATA",
+      "local_test": "NO_NUMERIC_OR_GATE_EFFECT_IN_TWO_BASELINES",
+      "next_evidence_needed": "Acquire dated measurable proxy/parameter definition, specify downstream mechanistic law, test ablation on real outcomes.",
+      "effect_on_real_Q": "NOT_ESTABLISHED"
+    },
+    {
+      "case": "049",
+      "name": "Vérifier les portions",
+      "role": "ACTION_PLAN",
+      "local_test": "NO_NUMERIC_OR_GATE_EFFECT_IN_TWO_BASELINES",
+      "next_evidence_needed": "Specify effect of actual predeclared protocol on physically measured quantities; obtain paired treatment evidence.",
+      "effect_on_real_Q": "NOT_ESTABLISHED"
+    },
+    {
+      "case": "054",
+      "name": "Décider du rinçage",
+      "role": "ACTION_PLAN",
+      "local_test": "NO_NUMERIC_OR_GATE_EFFECT_IN_TWO_BASELINES",
+      "next_evidence_needed": "Specify effect of actual predeclared protocol on physically measured quantities; obtain paired treatment evidence.",
+      "effect_on_real_Q": "NOT_ESTABLISHED"
+    },
+    {
+      "case": "061",
+      "name": "Ajouter le sel",
+      "role": "ACTION_PLAN",
+      "local_test": "NO_NUMERIC_OR_GATE_EFFECT_IN_TWO_BASELINES",
+      "next_evidence_needed": "Specify effect of actual predeclared protocol on physically measured quantities; obtain paired treatment evidence.",
+      "effect_on_real_Q": "NOT_ESTABLISHED"
+    },
+    {
+      "case": "069",
+      "name": "Maintenir le régime thermique",
+      "role": "ACTION_PLAN",
+      "local_test": "NO_NUMERIC_OR_GATE_EFFECT_IN_TWO_BASELINES",
+      "next_evidence_needed": "Specify effect of actual predeclared protocol on physically measured quantities; obtain paired treatment evidence.",
+      "effect_on_real_Q": "NOT_ESTABLISHED"
+    },
+    {
+      "case": "071",
+      "name": "Limiter l’agitation",
+      "role": "ACTION_PLAN",
+      "local_test": "NO_NUMERIC_OR_GATE_EFFECT_IN_TWO_BASELINES",
+      "next_evidence_needed": "Specify effect of actual predeclared protocol on physically measured quantities; obtain paired treatment evidence.",
+      "effect_on_real_Q": "NOT_ESTABLISHED"
+    },
+    {
+      "case": "077",
+      "name": "Égrainer",
+      "role": "ACTION_PLAN",
+      "local_test": "NO_NUMERIC_OR_GATE_EFFECT_IN_TWO_BASELINES",
+      "next_evidence_needed": "Specify effect of actual predeclared protocol on physically measured quantities; obtain paired treatment evidence.",
+      "effect_on_real_Q": "NOT_ESTABLISHED"
+    },
+    {
+      "case": "081",
+      "name": "Transférer le riz",
+      "role": "ACTION_PLAN",
+      "local_test": "NO_NUMERIC_OR_GATE_EFFECT_IN_TWO_BASELINES",
+      "next_evidence_needed": "Specify effect of actual predeclared protocol on physically measured quantities; obtain paired treatment evidence.",
+      "effect_on_real_Q": "NOT_ESTABLISHED"
+    },
+    {
+      "case": "082",
+      "name": "Répartir deux portions",
+      "role": "ACTION_PLAN",
+      "local_test": "NO_NUMERIC_OR_GATE_EFFECT_IN_TWO_BASELINES",
+      "next_evidence_needed": "Specify effect of actual predeclared protocol on physically measured quantities; obtain paired treatment evidence.",
+      "effect_on_real_Q": "NOT_ESTABLISHED"
+    },
+    {
+      "case": "083",
+      "name": "Contrôler la température de service",
+      "role": "ACTION_PLAN",
+      "local_test": "NO_NUMERIC_OR_GATE_EFFECT_IN_TWO_BASELINES",
+      "next_evidence_needed": "Specify effect of actual predeclared protocol on physically measured quantities; obtain paired treatment evidence.",
+      "effect_on_real_Q": "NOT_ESTABLISHED"
+    },
+    {
+      "case": "084",
+      "name": "Limiter le délai",
+      "role": "ACTION_PLAN",
+      "local_test": "NO_NUMERIC_OR_GATE_EFFECT_IN_TWO_BASELINES",
+      "next_evidence_needed": "Specify effect of actual predeclared protocol on physically measured quantities; obtain paired treatment evidence.",
+      "effect_on_real_Q": "NOT_ESTABLISHED"
+    },
+    {
+      "case": "085",
+      "name": "Présenter le résultat",
+      "role": "ACTION_PLAN",
+      "local_test": "NO_NUMERIC_OR_GATE_EFFECT_IN_TWO_BASELINES",
+      "next_evidence_needed": "Specify effect of actual predeclared protocol on physically measured quantities; obtain paired treatment evidence.",
+      "effect_on_real_Q": "NOT_ESTABLISHED"
+    },
+    {
+      "case": "094",
+      "name": "Riz attaché ou brûlé",
+      "role": "POLICY",
+      "local_test": "NO_NUMERIC_OR_GATE_EFFECT_IN_TWO_BASELINES",
+      "next_evidence_needed": "Specify probability and consequence of hypothetical branch; no realized poststart observations as input.",
+      "effect_on_real_Q": "NOT_ESTABLISHED"
+    },
+    {
+      "case": "098",
+      "name": "Situation non récupérable",
+      "role": "POLICY",
+      "local_test": "NO_NUMERIC_OR_GATE_EFFECT_IN_TWO_BASELINES",
+      "next_evidence_needed": "Specify probability and consequence of hypothetical branch; no realized poststart observations as input.",
+      "effect_on_real_Q": "NOT_ESTABLISHED"
+    }
+  ],
+  "interpretation": "Local counterfactual silence is NOT proof case globally irrelevant; no invented coefficients."
+}
