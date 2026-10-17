@@ -390,7 +390,11 @@
       "rubric_roles": 112,
       "Q_effects_validated": 0,
       "real_Q_calibrated_ic_percent": null,
-      "drive_full_windows_bundle": "https://drive.google.com/file/d/1wKz04xWuDKiPXT6rNKOCWlAtPzq7WZ6Q/view?usp=drivesdk"
+      "drive_full_windows_bundle": "https://drive.google.com/file/d/1wKz04xWuDKiPXT6rNKOCWlAtPzq7WZ6Q/view?usp=drivesdk",
+      "windows_bundle_final_sha256": "a6c081bc7e22491e01a8cefd87d1793a420742a3282cc85f4c1762a5b144ebb9",
+      "windows_bundle_final_size_bytes": 515114,
+      "windows_bundle_final_members": 205,
+      "drive_cloud_SHA256_readback": "MATCHES_PC_SHA256_AND_CRC_PASS"
     },
     "latest_code": "MOTEUR-BLESSING/labs/RIZ112/step16/riz112_unified.py",
     "latest_lab": "MOTEUR-BLESSING/labs/RIZ112/step14/H3_RUN_SUMMARY.json",
@@ -414,6 +418,7 @@
     "delivery_h4": "NOT_SENT",
     "step16_checkpoint": "MOTEUR-BLESSING/labs/RIZ112/step16/CHECKPOINT_UNIFIED_20261017.json",
     "windows_step16": "VERIFIED_415_PASS",
-    "drive_step16": "CLOUD_FILE_ID_SIZE_CONFIRMED__HASH_CHECK_PENDING"
+    "drive_step16": "CLOUD_ARCHIVE_SHA256_CRC_AND_SIZE_VERIFIED",
+    "full_windows_archive_sha256": "a6c081bc7e22491e01a8cefd87d1793a420742a3282cc85f4c1762a5b144ebb9"
   }
 }
