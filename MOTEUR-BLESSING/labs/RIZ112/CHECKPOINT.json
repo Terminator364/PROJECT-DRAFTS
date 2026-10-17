@@ -23,7 +23,7 @@
     "context_master": "CONTEXTE_CONVERSATIONS.md",
     "context_protocol": "PROTOCOLE_CONTINUITE_CONTEXTUELLE.md",
     "context_registry": "CONTEXTE_INTEGRAL/REGISTRE_MESSAGES.jsonl",
-    "context_rows": 40,
+    "context_rows": 42,
     "context_update_rule": "ACTIVE_SESSION_EVERY_RELEVANT_EXCHANGE_AND_CHECKPOINT__NO_BACKGROUND",
     "coverage": "SOME_VERBATIM_EXCERPTS_AND_FLAGGED_RECONSTRUCTIONS_NOT_FULL_RAW_ARCHIVE",
     "drive_current_doc": "https://docs.google.com/document/d/13gOTBq7AXnT-f9Lotlw4czwa4i75C4UGdP0i1i0qwZE/edit",
@@ -32,12 +32,12 @@
     "github_status": "VERIFIED_CRITICAL_9_OF_9_BEFORE_FINAL_RECEIPT",
     "initial_source_archive_drive": "https://drive.google.com/file/d/1rFq9GiwbRvb-Hk33JayacttjBOUdAabf/view?usp=drivesdk",
     "initial_source_archive_sha256": "15182d217e42c2985cb4652ac5c2ee9f6afe6afca55ec148b3c803e52b14ede8",
-    "journal_events": 117,
-    "journal_head": "71007bb52c5770403e65cb36881a694dc14542272acbda621b2fa82b93c1be0b",
+    "journal_events": 119,
+    "journal_head": "71d90bb51d2ec80d7dab3d6dfbb49e2e45a479913c82bdda2e17b07d7d8a3268",
     "lab_code": "Moteur/continue",
     "latest_context_ids": [
-      "CTX-0039",
-      "CTX-0040"
+      "CTX-0041",
+      "CTX-0042"
     ],
     "legacy_codes_active": false,
     "library_status": "SOURCE_ARCHIVE_CONFIRMED",
@@ -74,8 +74,8 @@
   },
   "full_packet_replay": "step12/POPULATION_100_COMPLETE_PACKET.jsonl",
   "journal": {
-    "events": 117,
-    "head": "71007bb52c5770403e65cb36881a694dc14542272acbda621b2fa82b93c1be0b"
+    "events": 119,
+    "head": "71d90bb51d2ec80d7dab3d6dfbb49e2e45a479913c82bdda2e17b07d7d8a3268"
   },
   "last_user_directive": "D034_CANONICAL_SINGLE_CODE_AUTO_RESUME_AND_CONTINUOUS_CONTEXT",
   "latest_case_audit": "step12/COUNTERFACTUAL_112_V12.json",
@@ -114,7 +114,7 @@
       "054"
     ]
   },
-  "next": "STEP21_Q_METROLOGY_APPROVAL_AND_REAL_OBSERVATION_PROTOCOL",
+  "next": "STEP25_USER_Q_MEASUREMENT_APPROVAL_AND_AUTHENTIC_RICE_TRIALS",
   "probabilities_demo_percent": {
     "A": 62.4,
     "B": 36.83,
@@ -138,7 +138,7 @@
     "A_alternate_proxy_scale": 38.2,
     "A_minus_60g": 44.87
   },
-  "stage": 20,
+  "stage": 24,
   "stage11": {
     "119_vs_112": "UNCLEAR_NEW_SEVEN_NOT_CREATED",
     "cases_in_input_contract": 112,
@@ -211,7 +211,7 @@
     "tests_total": 309,
     "validated_effects": 0
   },
-  "status": "STEP20_9_CONDITIONAL_PHYSICAL_BUDGETS_45_TESTS_LINUX_WINDOWS__Q_EMPIRICAL_IC_NULL",
+  "status": "STEP24_PRIORITY_CAPTURED_47_NEW_LOCAL_WINDOWS_PASS_36_PHYSICS_PAIRS__IC_REAL_NULL",
   "step10": {
     "abstentions_original": 5,
     "derived_not_directly_mutable": 4,
@@ -426,5 +426,27 @@
       "drive_download_hash_verified": true,
       "zip_crc": "PASS"
     }
+  },
+  "step21_to24": {
+    "priority_confirmed_ids": [
+      "101",
+      "102"
+    ],
+    "prioritized_scores_only_no_weights": true,
+    "step21": "step21/CHECKPOINT_STEP21_20261017.json",
+    "step22": "step22/CHECKPOINT_STEP22_20261017.json",
+    "step23": "step23/CHECKPOINT_STEP23_20261017.json",
+    "step24": "step24/CHECKPOINT_STEP24_20261017.json",
+    "local_new_tests": 47,
+    "windows_new_tests": 47,
+    "disjoint_tests_previous": 546,
+    "disjoint_tests_total_593": 593,
+    "interactions_physical_pairs": 36,
+    "physical_nonadditive_local_pairs": 7,
+    "real_quality_effects_validated": 0,
+    "real_rice_trials": 0,
+    "Q_score_formula_user_approved": false,
+    "scientific_ic_percent": null,
+    "windows_replay_identical": true
   }
 }
