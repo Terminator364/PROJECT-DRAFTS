@@ -25,7 +25,7 @@
   "progress_checkpoint": "If task interrupts, append evidence to Cahier mère, context and journal, then update this JSON.",
   "project": "RIZ112→MATRICE",
   "schema": "moteur-blessing/next-action/v1",
-  "scientific_status": "NO_REAL_Q_DATA_IC_NULL__SYNTHETIC_STUDY_FOR_MATRICE_ONLY",
+  "scientific_status": "UNVALIDATED_REAL_Q_IC_NULL__SYNTHETIC_RICE_METHOD_LAB_FOR_MATRICE",
   "h4a_checkpoint": "MOTEUR-BLESSING/labs/RIZ112/step15/CHECKPOINT_H4A_20261017.json",
   "h4a_status": "PARTIAL_7_DIAGNOSTIC_PATHS_29_TESTS_22_REAL_Q_EFFECT_GAPS_UNRESOLVED",
   "h4_technical_gate": "CLOSED",
@@ -44,7 +44,7 @@
   "critical_directive_D035": "Cahier mère as durable authority, all accessible context, no blanket assertion of 112 IC causal effects; each counterfactual evidence or explicit abstention",
   "canonical_source": "GitHub main MOTEUR-BLESSING/labs/RIZ112/CAHIER_MERE.md plus journal, exact context register and checkpoint; not ChatGPT memory.",
   "context_capture_limits": "The tool captures only messages actively submitted in-session and available for logging, not autonomous background conversations.",
-  "latest_journal_event_id": "E127",
+  "latest_journal_event_id": "E128",
   "latest_context_id": "CTX-0050",
   "journal_chain_verified": true,
   "step18_checkpoint": "MOTEUR-BLESSING/labs/RIZ112/step18/CHECKPOINT_STEP18_20261017.json",
@@ -87,7 +87,7 @@
     "extracted_step27_tests_pass": 21,
     "source_snapshot_journal": "E125"
   },
-  "research_mode": "RIZ112_AS_MATRICE_METHOD_LAB",
+  "research_mode": "TRANSFER_THEORETICAL_METHODS_TO_MATRICE_PREMATCH",
   "simulation_1000": {
     "checkpoint": "MOTEUR-BLESSING/labs/RIZ112/simulations/EXPERIENCE_1000/CHECKPOINT_SIM1000_20261017.json",
     "report": "MOTEUR-BLESSING/labs/RIZ112/simulations/EXPERIENCE_1000/results/RAPPORT_1000.json",
@@ -103,5 +103,16 @@
     "local_and_PC_six_new_tests_passed": true,
     "PC_csv_sha256": "af13ca14051fca6853f7bc0527481be93315f91902b8a939fc2480569b0b5bbc"
   },
-  "engineering_v1_still_closed": true
+  "engineering_v1_still_closed": true,
+  "simulation_1000_final_archive": {
+    "url": "https://drive.google.com/file/d/1IUO4XjgmzZvMicoXe75bEGmYxw2aaZBh/view?usp=drivesdk",
+    "sha256": "e2251d33182c9bcab167267684b8a6d4a2b5434db98c7e6ab967a01b37be7a93",
+    "files": 312,
+    "bytes": 740937,
+    "cloud_independent_sha256_verified": true,
+    "zip_crc_clean": true,
+    "pc_results_equal_local": true,
+    "CSV_rows": 1000,
+    "archived_journal_E127": true
+  }
 }
