@@ -3,14 +3,14 @@
   "project": "RIZ112_lab_to_MATRICE",
   "date": "2026-10-17",
   "stage": 13,
-  "status": "H1_HIERARCHICAL_SUBPARAMETERS_AND_ANTICIPATIONS__PARTIAL_EXECUTABLE_PHYSICS__REAL_IC_UNCALIBRATED",
+  "status": "H2_NESTED_MECHANISMS_AND_PROSPECTIVE_POLICY_EXECUTABLE__NOT_REAL_IC",
   "continuity_code": "RIZ112|CONTINUE",
   "master": "CAHIER_MERE.md",
   "mandate": "MANDAT_FINITION_112.md",
   "mandate_active": true,
   "journal": {
-    "events": 69,
-    "head": "3855fdd22b733e0599d41a84bafafd1593dd21b9208fdc0576fd605edcb36a7f"
+    "events": 73,
+    "head": "4f29307cc1fd6a99db260ccf0577425425b18b3e8666e43e4a3e3dfac96e8827"
   },
   "cases": {
     "catalogued": 112,
@@ -43,12 +43,13 @@
       "stage9": 25,
       "stage10": 20,
       "stage11": 13,
-      "stage12": 23
+      "stage12": 23,
+      "stage13_H1": 20,
+      "stage13_H2": 21
     },
-    "total": 241,
-    "passed": 241,
-    "windows": "NOT_RUN",
-    "environment": "ChatGPT Python/Linux"
+    "total": 282,
+    "passed": 282,
+    "windows": "NOT_RUN"
   },
   "scientific": {
     "quality_rubric_approved": false,
@@ -56,17 +57,17 @@
     "calibrated_ic": null,
     "status": "NOT_VALIDATED"
   },
-  "next": "Complete individually justified mechanical paths of 26 gaps and other 112 subtrees; measure real Q with preregistered rubric, then train/calibrate; keep 112 catalogues, do not invent weights",
+  "next": "Close remaining 26 named subparameter gaps by mechanistic evidence; pre-register Q and collect labeled physical experiments before any scientific IC claim.",
   "matrice": {
     "sports_engine_modified": false,
     "transfer_only_methods": true,
     "copy_food_coefficients": false
   },
   "mirrors": {
-    "github": "STAGE12_MAIN_FILES_PUBLISHED_AND_READABLE",
-    "drive": "V12_ARCHIVE_418392B_PRIVATE_METADATA_VERIFIED",
-    "library": "V12_ARCHIVE_UPLOAD_SUCCEEDED",
-    "windows": "MBMPC_OFFLINE_NO_V12_WINDOWS_TEST"
+    "github": "H2_PENDING",
+    "drive": "H2_PENDING",
+    "library": "H2_PENDING",
+    "windows": "MBMPC NOT_VERIFIED_IN_H2"
   },
   "drive_initial_v8": {
     "id": "11zabEXKov7S34KNtjX-WljTvTjIsOT5u",
@@ -77,8 +78,8 @@
   },
   "scientific_ic_percent": null,
   "real_Q_probability_percent": null,
-  "last_user_directive": "D025_MULTI_SUBPARAMETER_SUBSUBPARAMETER_ANTICIPATION_PER_RUBRIC",
-  "latest_code": "step12/full_variation_v12.py",
+  "last_user_directive": "D026_SUBPARAMETERS_AND_ANTICIPATIONS_CONTINUE",
+  "latest_code": "step13/prospective_branches.py",
   "latest_contract": "step9/DEMONSTRATION_CONTRACT.json",
   "quality_proxy": "Q*_DEMO 4 unvalidated dimensions, threshold 85",
   "probabilities_demo_percent": {
@@ -184,5 +185,22 @@
     "model_physics": "STEADY_STATE_TOY_THERMAL_RESISTANCE_ONLY",
     "anticipated_safety": "WOOD_DIRECT_NOT_SAFELY_MODELED",
     "stage13_files": "step13/"
-  }
+  },
+  "latest_lab": "step13/H2_POPULATION_REPORT.json",
+  "new_H2": {
+    "100_scenarios": true,
+    "conditional_ic_changes": 22,
+    "no_local_conditional_ic_change": 78,
+    "policy_case": "087",
+    "resource_case": "002",
+    "rice_fields": [
+      "030",
+      "033",
+      "034",
+      "054"
+    ],
+    "common_random_numbers": true,
+    "prestart_only": true
+  },
+  "real_rice_observations": 0
 }
