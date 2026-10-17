@@ -36,8 +36,8 @@
   "mother_notebook": "CAHIER_MERE.md",
   "user_context_event": "CTX-0049",
   "assistant_context_event": "CTX-0050",
-  "journal_events": 127,
-  "journal_head": "4ddbffd6ca7dd906aad6b47ecaa9f087eee22e2608c3bb158006821f8cb8aaeb",
+  "journal_events": 130,
+  "journal_head": "4b2a73e55dd0825b3f408767c66118aff23125cac0e364f7084afec33c08ed53",
   "external_validation_required_to_claim_scientific_IC": true,
   "main_learnings": [
     "Proxy models can enter a hypothetical 85–100 zone without being empirically calibrated.",
@@ -45,5 +45,9 @@
     "Coherent linked input variables matter; avoid conflicting duplicate fields.",
     "Nonlinear and null sensitivity in some regimes; avoid forcing effect per rubric.",
     "No empirical sports inference from rice physics; transfer methodology only."
-  ]
+  ],
+  "context_rows": 52,
+  "integrity_verifier_legacy_E126_E127": "FIXED_AND_REPLAYED_WINDOWS",
+  "archive_still_pre_E128": true,
+  "science_note": "No 112 causal effects; all Q* only; transfer methodological patterns, no empirical sports transfer."
 }
