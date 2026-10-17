@@ -1,0 +1,3150 @@
+{
+  "schema": "riz112/stage12/counterfactual-2-baselines/v1",
+  "baselines": [
+    "A",
+    "B"
+  ],
+  "draws_per_trial": 100,
+  "cases": [
+    {
+      "case": "001",
+      "role": "DATA",
+      "category": "CHANGES_ASSUMED_DEMO_IC_FOR_TESTED_PERTURBATION",
+      "trials": [
+        {
+          "baseline": "A",
+          "kind": "PRESTART_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": true,
+          "operational_effect": false,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        },
+        {
+          "baseline": "B",
+          "kind": "PRESTART_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": true,
+          "operational_effect": false,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        }
+      ],
+      "effect_on_real_quality_proven": false
+    },
+    {
+      "case": "002",
+      "role": "DATA",
+      "category": "CHANGES_OPERATIONAL_GATES_NOT_CALIBRATED_Q",
+      "trials": [
+        {
+          "baseline": "A",
+          "kind": "PRESTART_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": true,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        },
+        {
+          "baseline": "B",
+          "kind": "PRESTART_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": true,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        }
+      ],
+      "effect_on_real_quality_proven": false
+    },
+    {
+      "case": "003",
+      "role": "DATA",
+      "category": "NOT_DEMONSTRATED_TO_CHANGE_IC_OR_GATE",
+      "trials": [
+        {
+          "baseline": "A",
+          "kind": "PRESTART_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": false,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        },
+        {
+          "baseline": "B",
+          "kind": "PRESTART_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": false,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        }
+      ],
+      "effect_on_real_quality_proven": false
+    },
+    {
+      "case": "004",
+      "role": "DATA",
+      "category": "CHANGES_OPERATIONAL_GATES_NOT_CALIBRATED_Q",
+      "trials": [
+        {
+          "baseline": "A",
+          "kind": "PRESTART_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": true,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        },
+        {
+          "baseline": "B",
+          "kind": "PRESTART_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": true,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        }
+      ],
+      "effect_on_real_quality_proven": false
+    },
+    {
+      "case": "005",
+      "role": "DATA",
+      "category": "CHANGES_OPERATIONAL_GATES_NOT_CALIBRATED_Q",
+      "trials": [
+        {
+          "baseline": "A",
+          "kind": "PRESTART_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": true,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        },
+        {
+          "baseline": "B",
+          "kind": "PRESTART_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": true,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        }
+      ],
+      "effect_on_real_quality_proven": false
+    },
+    {
+      "case": "006",
+      "role": "DATA",
+      "category": "NOT_DEMONSTRATED_TO_CHANGE_IC_OR_GATE",
+      "trials": [
+        {
+          "baseline": "A",
+          "kind": "PRESTART_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": false,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        },
+        {
+          "baseline": "B",
+          "kind": "PRESTART_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": false,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        }
+      ],
+      "effect_on_real_quality_proven": false
+    },
+    {
+      "case": "007",
+      "role": "DATA",
+      "category": "CHANGES_OPERATIONAL_GATES_NOT_CALIBRATED_Q",
+      "trials": [
+        {
+          "baseline": "A",
+          "kind": "PRESTART_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": true,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        },
+        {
+          "baseline": "B",
+          "kind": "PRESTART_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": true,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        }
+      ],
+      "effect_on_real_quality_proven": false
+    },
+    {
+      "case": "008",
+      "role": "DATA",
+      "category": "CHANGES_OPERATIONAL_GATES_NOT_CALIBRATED_Q",
+      "trials": [
+        {
+          "baseline": "A",
+          "kind": "PRESTART_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": true,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        },
+        {
+          "baseline": "B",
+          "kind": "PRESTART_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": true,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        }
+      ],
+      "effect_on_real_quality_proven": false
+    },
+    {
+      "case": "009",
+      "role": "DATA",
+      "category": "CHANGES_OPERATIONAL_GATES_NOT_CALIBRATED_Q",
+      "trials": [
+        {
+          "baseline": "A",
+          "kind": "PRESTART_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": true,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        },
+        {
+          "baseline": "B",
+          "kind": "PRESTART_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": true,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        }
+      ],
+      "effect_on_real_quality_proven": false
+    },
+    {
+      "case": "010",
+      "role": "DATA",
+      "category": "NOT_DEMONSTRATED_TO_CHANGE_IC_OR_GATE",
+      "trials": [
+        {
+          "baseline": "A",
+          "kind": "PRESTART_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": false,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        },
+        {
+          "baseline": "B",
+          "kind": "PRESTART_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": false,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        }
+      ],
+      "effect_on_real_quality_proven": false
+    },
+    {
+      "case": "011",
+      "role": "DATA",
+      "category": "NOT_DEMONSTRATED_TO_CHANGE_IC_OR_GATE",
+      "trials": [
+        {
+          "baseline": "A",
+          "kind": "PRESTART_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": false,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        },
+        {
+          "baseline": "B",
+          "kind": "PRESTART_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": false,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        }
+      ],
+      "effect_on_real_quality_proven": false
+    },
+    {
+      "case": "012",
+      "role": "DATA",
+      "category": "CHANGES_OPERATIONAL_GATES_NOT_CALIBRATED_Q",
+      "trials": [
+        {
+          "baseline": "A",
+          "kind": "PRESTART_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": true,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        },
+        {
+          "baseline": "B",
+          "kind": "PRESTART_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": true,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        }
+      ],
+      "effect_on_real_quality_proven": false
+    },
+    {
+      "case": "013",
+      "role": "DATA",
+      "category": "CHANGES_ELIGIBILITY_OR_INVALIDATES_ASSUMPTIONS",
+      "trials": [
+        {
+          "baseline": "A",
+          "kind": "PRESTART_INTERVENTION",
+          "status": "ABSTAIN_PRESTART_CONTRADICTION",
+          "numeric_ic_changed": false,
+          "operational_effect": true,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        },
+        {
+          "baseline": "B",
+          "kind": "PRESTART_INTERVENTION",
+          "status": "ABSTAIN_PRESTART_CONTRADICTION",
+          "numeric_ic_changed": false,
+          "operational_effect": true,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        }
+      ],
+      "effect_on_real_quality_proven": false
+    },
+    {
+      "case": "014",
+      "role": "DATA",
+      "category": "CHANGES_ASSUMED_DEMO_IC_FOR_TESTED_PERTURBATION",
+      "trials": [
+        {
+          "baseline": "A",
+          "kind": "PRESTART_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": true,
+          "operational_effect": true,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        },
+        {
+          "baseline": "B",
+          "kind": "PRESTART_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": true,
+          "operational_effect": true,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        }
+      ],
+      "effect_on_real_quality_proven": false
+    },
+    {
+      "case": "015",
+      "role": "DATA",
+      "category": "CHANGES_OPERATIONAL_GATES_NOT_CALIBRATED_Q",
+      "trials": [
+        {
+          "baseline": "A",
+          "kind": "PRESTART_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": true,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        },
+        {
+          "baseline": "B",
+          "kind": "PRESTART_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": true,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        }
+      ],
+      "effect_on_real_quality_proven": false
+    },
+    {
+      "case": "016",
+      "role": "DATA",
+      "category": "CHANGES_OPERATIONAL_GATES_NOT_CALIBRATED_Q",
+      "trials": [
+        {
+          "baseline": "A",
+          "kind": "PRESTART_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": true,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        },
+        {
+          "baseline": "B",
+          "kind": "PRESTART_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": true,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        }
+      ],
+      "effect_on_real_quality_proven": false
+    },
+    {
+      "case": "017",
+      "role": "DATA",
+      "category": "CHANGES_OPERATIONAL_GATES_NOT_CALIBRATED_Q",
+      "trials": [
+        {
+          "baseline": "A",
+          "kind": "PRESTART_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": true,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        },
+        {
+          "baseline": "B",
+          "kind": "PRESTART_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": true,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        }
+      ],
+      "effect_on_real_quality_proven": false
+    },
+    {
+      "case": "018",
+      "role": "DATA",
+      "category": "NOT_DEMONSTRATED_TO_CHANGE_IC_OR_GATE",
+      "trials": [
+        {
+          "baseline": "A",
+          "kind": "PRESTART_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": false,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        },
+        {
+          "baseline": "B",
+          "kind": "PRESTART_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": false,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        }
+      ],
+      "effect_on_real_quality_proven": false
+    },
+    {
+      "case": "019",
+      "role": "DATA",
+      "category": "CHANGES_ELIGIBILITY_OR_INVALIDATES_ASSUMPTIONS",
+      "trials": [
+        {
+          "baseline": "A",
+          "kind": "PRESTART_INTERVENTION",
+          "status": "ABSTAIN_PRESTART_CONTRADICTION",
+          "numeric_ic_changed": false,
+          "operational_effect": true,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        },
+        {
+          "baseline": "B",
+          "kind": "PRESTART_INTERVENTION",
+          "status": "ABSTAIN_PRESTART_CONTRADICTION",
+          "numeric_ic_changed": false,
+          "operational_effect": true,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        }
+      ],
+      "effect_on_real_quality_proven": false
+    },
+    {
+      "case": "020",
+      "role": "DATA",
+      "category": "CHANGES_ELIGIBILITY_OR_INVALIDATES_ASSUMPTIONS",
+      "trials": [
+        {
+          "baseline": "A",
+          "kind": "PRESTART_INTERVENTION",
+          "status": "ABSTAIN_PRESTART_CONTRADICTION",
+          "numeric_ic_changed": false,
+          "operational_effect": true,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        },
+        {
+          "baseline": "B",
+          "kind": "PRESTART_INTERVENTION",
+          "status": "ABSTAIN_PRESTART_CONTRADICTION",
+          "numeric_ic_changed": false,
+          "operational_effect": true,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        }
+      ],
+      "effect_on_real_quality_proven": false
+    },
+    {
+      "case": "021",
+      "role": "DATA",
+      "category": "CHANGES_ELIGIBILITY_OR_INVALIDATES_ASSUMPTIONS",
+      "trials": [
+        {
+          "baseline": "A",
+          "kind": "PRESTART_INTERVENTION",
+          "status": "ABSTAIN_PRESTART_CONTRADICTION",
+          "numeric_ic_changed": false,
+          "operational_effect": true,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        },
+        {
+          "baseline": "B",
+          "kind": "PRESTART_INTERVENTION",
+          "status": "ABSTAIN_PRESTART_CONTRADICTION",
+          "numeric_ic_changed": false,
+          "operational_effect": true,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        }
+      ],
+      "effect_on_real_quality_proven": false
+    },
+    {
+      "case": "022",
+      "role": "DATA",
+      "category": "NOT_DEMONSTRATED_TO_CHANGE_IC_OR_GATE",
+      "trials": [
+        {
+          "baseline": "A",
+          "kind": "PRESTART_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": false,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        },
+        {
+          "baseline": "B",
+          "kind": "PRESTART_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": false,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        }
+      ],
+      "effect_on_real_quality_proven": false
+    },
+    {
+      "case": "023",
+      "role": "DATA",
+      "category": "NOT_DEMONSTRATED_TO_CHANGE_IC_OR_GATE",
+      "trials": [
+        {
+          "baseline": "A",
+          "kind": "PRESTART_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": false,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        },
+        {
+          "baseline": "B",
+          "kind": "PRESTART_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": false,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        }
+      ],
+      "effect_on_real_quality_proven": false
+    },
+    {
+      "case": "024",
+      "role": "DATA",
+      "category": "NOT_DEMONSTRATED_TO_CHANGE_IC_OR_GATE",
+      "trials": [
+        {
+          "baseline": "A",
+          "kind": "PRESTART_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": false,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        },
+        {
+          "baseline": "B",
+          "kind": "PRESTART_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": false,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        }
+      ],
+      "effect_on_real_quality_proven": false
+    },
+    {
+      "case": "025",
+      "role": "DATA",
+      "category": "NOT_DEMONSTRATED_TO_CHANGE_IC_OR_GATE",
+      "trials": [
+        {
+          "baseline": "A",
+          "kind": "PRESTART_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": false,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        },
+        {
+          "baseline": "B",
+          "kind": "PRESTART_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": false,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        }
+      ],
+      "effect_on_real_quality_proven": false
+    },
+    {
+      "case": "026",
+      "role": "DATA",
+      "category": "CHANGES_OPERATIONAL_GATES_NOT_CALIBRATED_Q",
+      "trials": [
+        {
+          "baseline": "A",
+          "kind": "PRESTART_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": true,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        },
+        {
+          "baseline": "B",
+          "kind": "PRESTART_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": true,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        }
+      ],
+      "effect_on_real_quality_proven": false
+    },
+    {
+      "case": "027",
+      "role": "DATA",
+      "category": "CHANGES_OPERATIONAL_GATES_NOT_CALIBRATED_Q",
+      "trials": [
+        {
+          "baseline": "A",
+          "kind": "PRESTART_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": true,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        },
+        {
+          "baseline": "B",
+          "kind": "PRESTART_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": true,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        }
+      ],
+      "effect_on_real_quality_proven": false
+    },
+    {
+      "case": "028",
+      "role": "DATA",
+      "category": "CHANGES_OPERATIONAL_GATES_NOT_CALIBRATED_Q",
+      "trials": [
+        {
+          "baseline": "A",
+          "kind": "PRESTART_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": true,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        },
+        {
+          "baseline": "B",
+          "kind": "PRESTART_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": true,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        }
+      ],
+      "effect_on_real_quality_proven": false
+    },
+    {
+      "case": "029",
+      "role": "DATA",
+      "category": "NOT_DEMONSTRATED_TO_CHANGE_IC_OR_GATE",
+      "trials": [
+        {
+          "baseline": "A",
+          "kind": "PRESTART_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": false,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        },
+        {
+          "baseline": "B",
+          "kind": "PRESTART_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": false,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        }
+      ],
+      "effect_on_real_quality_proven": false
+    },
+    {
+      "case": "030",
+      "role": "DATA",
+      "category": "NOT_DEMONSTRATED_TO_CHANGE_IC_OR_GATE",
+      "trials": [
+        {
+          "baseline": "A",
+          "kind": "PRESTART_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": false,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        },
+        {
+          "baseline": "B",
+          "kind": "PRESTART_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": false,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        }
+      ],
+      "effect_on_real_quality_proven": false
+    },
+    {
+      "case": "031",
+      "role": "DATA",
+      "category": "NOT_DEMONSTRATED_TO_CHANGE_IC_OR_GATE",
+      "trials": [
+        {
+          "baseline": "A",
+          "kind": "PRESTART_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": false,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        },
+        {
+          "baseline": "B",
+          "kind": "PRESTART_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": false,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        }
+      ],
+      "effect_on_real_quality_proven": false
+    },
+    {
+      "case": "032",
+      "role": "DATA",
+      "category": "CHANGES_OPERATIONAL_GATES_NOT_CALIBRATED_Q",
+      "trials": [
+        {
+          "baseline": "A",
+          "kind": "PRESTART_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": true,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        },
+        {
+          "baseline": "B",
+          "kind": "PRESTART_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": true,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        }
+      ],
+      "effect_on_real_quality_proven": false
+    },
+    {
+      "case": "033",
+      "role": "DATA",
+      "category": "CHANGES_ASSUMED_DEMO_IC_FOR_TESTED_PERTURBATION",
+      "trials": [
+        {
+          "baseline": "A",
+          "kind": "PRESTART_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": true,
+          "operational_effect": false,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        },
+        {
+          "baseline": "B",
+          "kind": "PRESTART_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": true,
+          "operational_effect": false,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        }
+      ],
+      "effect_on_real_quality_proven": false
+    },
+    {
+      "case": "034",
+      "role": "DATA",
+      "category": "CHANGES_ASSUMED_DEMO_IC_FOR_TESTED_PERTURBATION",
+      "trials": [
+        {
+          "baseline": "A",
+          "kind": "PRESTART_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": true,
+          "operational_effect": false,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        },
+        {
+          "baseline": "B",
+          "kind": "PRESTART_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": true,
+          "operational_effect": false,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        }
+      ],
+      "effect_on_real_quality_proven": false
+    },
+    {
+      "case": "035",
+      "role": "DATA",
+      "category": "CHANGES_ASSUMED_DEMO_IC_FOR_TESTED_PERTURBATION",
+      "trials": [
+        {
+          "baseline": "A",
+          "kind": "PRESTART_INTERVENTION",
+          "status": "ABSTAIN_PRESTART_CONTRADICTION",
+          "numeric_ic_changed": false,
+          "operational_effect": false,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        },
+        {
+          "baseline": "B",
+          "kind": "PRESTART_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": true,
+          "operational_effect": false,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        }
+      ],
+      "effect_on_real_quality_proven": false
+    },
+    {
+      "case": "036",
+      "role": "DATA",
+      "category": "CHANGES_ASSUMED_DEMO_IC_FOR_TESTED_PERTURBATION",
+      "trials": [
+        {
+          "baseline": "A",
+          "kind": "PRESTART_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": true,
+          "operational_effect": false,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        },
+        {
+          "baseline": "B",
+          "kind": "PRESTART_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": true,
+          "operational_effect": false,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        }
+      ],
+      "effect_on_real_quality_proven": false
+    },
+    {
+      "case": "037",
+      "role": "DATA",
+      "category": "CHANGES_ASSUMED_DEMO_IC_FOR_TESTED_PERTURBATION",
+      "trials": [
+        {
+          "baseline": "A",
+          "kind": "PRESTART_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": true,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        },
+        {
+          "baseline": "B",
+          "kind": "PRESTART_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": true,
+          "operational_effect": true,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        }
+      ],
+      "effect_on_real_quality_proven": false
+    },
+    {
+      "case": "038",
+      "role": "DATA",
+      "category": "CHANGES_ASSUMED_DEMO_IC_FOR_TESTED_PERTURBATION",
+      "trials": [
+        {
+          "baseline": "A",
+          "kind": "PRESTART_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": true,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        },
+        {
+          "baseline": "B",
+          "kind": "PRESTART_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": true,
+          "operational_effect": true,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        }
+      ],
+      "effect_on_real_quality_proven": false
+    },
+    {
+      "case": "039",
+      "role": "DATA",
+      "category": "NOT_DEMONSTRATED_TO_CHANGE_IC_OR_GATE",
+      "trials": [
+        {
+          "baseline": "A",
+          "kind": "PRESTART_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": false,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        },
+        {
+          "baseline": "B",
+          "kind": "PRESTART_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": false,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        }
+      ],
+      "effect_on_real_quality_proven": false
+    },
+    {
+      "case": "040",
+      "role": "DATA",
+      "category": "CHANGES_OPERATIONAL_GATES_NOT_CALIBRATED_Q",
+      "trials": [
+        {
+          "baseline": "A",
+          "kind": "PRESTART_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": true,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        },
+        {
+          "baseline": "B",
+          "kind": "PRESTART_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": true,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        }
+      ],
+      "effect_on_real_quality_proven": false
+    },
+    {
+      "case": "041",
+      "role": "DATA",
+      "category": "CHANGES_ASSUMED_DEMO_IC_FOR_TESTED_PERTURBATION",
+      "trials": [
+        {
+          "baseline": "A",
+          "kind": "PRESTART_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": true,
+          "operational_effect": false,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        },
+        {
+          "baseline": "B",
+          "kind": "PRESTART_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": true,
+          "operational_effect": false,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        }
+      ],
+      "effect_on_real_quality_proven": false
+    },
+    {
+      "case": "042",
+      "role": "DATA",
+      "category": "CHANGES_ASSUMED_DEMO_IC_FOR_TESTED_PERTURBATION",
+      "trials": [
+        {
+          "baseline": "A",
+          "kind": "PRESTART_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": true,
+          "operational_effect": false,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        },
+        {
+          "baseline": "B",
+          "kind": "PRESTART_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": true,
+          "operational_effect": false,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        }
+      ],
+      "effect_on_real_quality_proven": false
+    },
+    {
+      "case": "043",
+      "role": "DERIVED",
+      "category": "DERIVED_OUTPUT_NOT_INDEPENDENT_RANDOM_INPUT",
+      "trials": [
+        {
+          "baseline": "A",
+          "kind": "DERIVED_NOT_DIRECTLY_MUTABLE",
+          "status": "DERIVED_RECALCULATED_NOT_FREE_INPUT",
+          "numeric_ic_changed": false,
+          "operational_effect": false,
+          "contract_trace_changed": false,
+          "error": null
+        },
+        {
+          "baseline": "B",
+          "kind": "DERIVED_NOT_DIRECTLY_MUTABLE",
+          "status": "DERIVED_RECALCULATED_NOT_FREE_INPUT",
+          "numeric_ic_changed": false,
+          "operational_effect": false,
+          "contract_trace_changed": false,
+          "error": null
+        }
+      ],
+      "effect_on_real_quality_proven": false
+    },
+    {
+      "case": "044",
+      "role": "DERIVED",
+      "category": "DERIVED_OUTPUT_NOT_INDEPENDENT_RANDOM_INPUT",
+      "trials": [
+        {
+          "baseline": "A",
+          "kind": "DERIVED_NOT_DIRECTLY_MUTABLE",
+          "status": "DERIVED_RECALCULATED_NOT_FREE_INPUT",
+          "numeric_ic_changed": false,
+          "operational_effect": false,
+          "contract_trace_changed": false,
+          "error": null
+        },
+        {
+          "baseline": "B",
+          "kind": "DERIVED_NOT_DIRECTLY_MUTABLE",
+          "status": "DERIVED_RECALCULATED_NOT_FREE_INPUT",
+          "numeric_ic_changed": false,
+          "operational_effect": false,
+          "contract_trace_changed": false,
+          "error": null
+        }
+      ],
+      "effect_on_real_quality_proven": false
+    },
+    {
+      "case": "045",
+      "role": "DATA",
+      "category": "CHANGES_ASSUMED_DEMO_IC_FOR_TESTED_PERTURBATION",
+      "trials": [
+        {
+          "baseline": "A",
+          "kind": "PRESTART_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": true,
+          "operational_effect": false,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        },
+        {
+          "baseline": "B",
+          "kind": "PRESTART_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": true,
+          "operational_effect": false,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        }
+      ],
+      "effect_on_real_quality_proven": false
+    },
+    {
+      "case": "046",
+      "role": "DERIVED",
+      "category": "DERIVED_OUTPUT_NOT_INDEPENDENT_RANDOM_INPUT",
+      "trials": [
+        {
+          "baseline": "A",
+          "kind": "DERIVED_NOT_DIRECTLY_MUTABLE",
+          "status": "DERIVED_RECALCULATED_NOT_FREE_INPUT",
+          "numeric_ic_changed": false,
+          "operational_effect": false,
+          "contract_trace_changed": false,
+          "error": null
+        },
+        {
+          "baseline": "B",
+          "kind": "DERIVED_NOT_DIRECTLY_MUTABLE",
+          "status": "DERIVED_RECALCULATED_NOT_FREE_INPUT",
+          "numeric_ic_changed": false,
+          "operational_effect": false,
+          "contract_trace_changed": false,
+          "error": null
+        }
+      ],
+      "effect_on_real_quality_proven": false
+    },
+    {
+      "case": "047",
+      "role": "DATA",
+      "category": "CHANGES_ASSUMED_DEMO_IC_FOR_TESTED_PERTURBATION",
+      "trials": [
+        {
+          "baseline": "A",
+          "kind": "PRESTART_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": true,
+          "operational_effect": false,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        },
+        {
+          "baseline": "B",
+          "kind": "PRESTART_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": true,
+          "operational_effect": false,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        }
+      ],
+      "effect_on_real_quality_proven": false
+    },
+    {
+      "case": "048",
+      "role": "DERIVED",
+      "category": "DERIVED_OUTPUT_NOT_INDEPENDENT_RANDOM_INPUT",
+      "trials": [
+        {
+          "baseline": "A",
+          "kind": "DERIVED_NOT_DIRECTLY_MUTABLE",
+          "status": "DERIVED_RECALCULATED_NOT_FREE_INPUT",
+          "numeric_ic_changed": false,
+          "operational_effect": false,
+          "contract_trace_changed": false,
+          "error": null
+        },
+        {
+          "baseline": "B",
+          "kind": "DERIVED_NOT_DIRECTLY_MUTABLE",
+          "status": "DERIVED_RECALCULATED_NOT_FREE_INPUT",
+          "numeric_ic_changed": false,
+          "operational_effect": false,
+          "contract_trace_changed": false,
+          "error": null
+        }
+      ],
+      "effect_on_real_quality_proven": false
+    },
+    {
+      "case": "049",
+      "role": "ACTION_PLAN",
+      "category": "NOT_DEMONSTRATED_TO_CHANGE_IC_OR_GATE",
+      "trials": [
+        {
+          "baseline": "A",
+          "kind": "PLAN_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": false,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        },
+        {
+          "baseline": "B",
+          "kind": "PLAN_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": false,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        }
+      ],
+      "effect_on_real_quality_proven": false
+    },
+    {
+      "case": "050",
+      "role": "ACTION_PLAN",
+      "category": "CHANGES_OPERATIONAL_GATES_NOT_CALIBRATED_Q",
+      "trials": [
+        {
+          "baseline": "A",
+          "kind": "PLAN_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": true,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        },
+        {
+          "baseline": "B",
+          "kind": "PLAN_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": true,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        }
+      ],
+      "effect_on_real_quality_proven": false
+    },
+    {
+      "case": "051",
+      "role": "ACTION_PLAN",
+      "category": "CHANGES_OPERATIONAL_GATES_NOT_CALIBRATED_Q",
+      "trials": [
+        {
+          "baseline": "A",
+          "kind": "PLAN_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": true,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        },
+        {
+          "baseline": "B",
+          "kind": "PLAN_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": true,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        }
+      ],
+      "effect_on_real_quality_proven": false
+    },
+    {
+      "case": "052",
+      "role": "ACTION_PLAN",
+      "category": "CHANGES_OPERATIONAL_GATES_NOT_CALIBRATED_Q",
+      "trials": [
+        {
+          "baseline": "A",
+          "kind": "PLAN_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": true,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        },
+        {
+          "baseline": "B",
+          "kind": "PLAN_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": true,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        }
+      ],
+      "effect_on_real_quality_proven": false
+    },
+    {
+      "case": "053",
+      "role": "ACTION_PLAN",
+      "category": "CHANGES_OPERATIONAL_GATES_NOT_CALIBRATED_Q",
+      "trials": [
+        {
+          "baseline": "A",
+          "kind": "PLAN_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": true,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        },
+        {
+          "baseline": "B",
+          "kind": "PLAN_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": true,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        }
+      ],
+      "effect_on_real_quality_proven": false
+    },
+    {
+      "case": "054",
+      "role": "ACTION_PLAN",
+      "category": "NOT_DEMONSTRATED_TO_CHANGE_IC_OR_GATE",
+      "trials": [
+        {
+          "baseline": "A",
+          "kind": "PLAN_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": false,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        },
+        {
+          "baseline": "B",
+          "kind": "PLAN_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": false,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        }
+      ],
+      "effect_on_real_quality_proven": false
+    },
+    {
+      "case": "055",
+      "role": "ACTION_PLAN",
+      "category": "CHANGES_OPERATIONAL_GATES_NOT_CALIBRATED_Q",
+      "trials": [
+        {
+          "baseline": "A",
+          "kind": "PLAN_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": true,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        },
+        {
+          "baseline": "B",
+          "kind": "PLAN_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": true,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        }
+      ],
+      "effect_on_real_quality_proven": false
+    },
+    {
+      "case": "056",
+      "role": "ACTION_PLAN",
+      "category": "CHANGES_OPERATIONAL_GATES_NOT_CALIBRATED_Q",
+      "trials": [
+        {
+          "baseline": "A",
+          "kind": "PLAN_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": true,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        },
+        {
+          "baseline": "B",
+          "kind": "PLAN_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": true,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        }
+      ],
+      "effect_on_real_quality_proven": false
+    },
+    {
+      "case": "057",
+      "role": "ACTION_PLAN",
+      "category": "CHANGES_OPERATIONAL_GATES_NOT_CALIBRATED_Q",
+      "trials": [
+        {
+          "baseline": "A",
+          "kind": "PLAN_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": true,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        },
+        {
+          "baseline": "B",
+          "kind": "PLAN_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": true,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        }
+      ],
+      "effect_on_real_quality_proven": false
+    },
+    {
+      "case": "058",
+      "role": "ACTION_PLAN",
+      "category": "CHANGES_OPERATIONAL_GATES_NOT_CALIBRATED_Q",
+      "trials": [
+        {
+          "baseline": "A",
+          "kind": "PLAN_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": true,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        },
+        {
+          "baseline": "B",
+          "kind": "PLAN_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": true,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        }
+      ],
+      "effect_on_real_quality_proven": false
+    },
+    {
+      "case": "059",
+      "role": "ACTION_PLAN",
+      "category": "CHANGES_OPERATIONAL_GATES_NOT_CALIBRATED_Q",
+      "trials": [
+        {
+          "baseline": "A",
+          "kind": "PLAN_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": true,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        },
+        {
+          "baseline": "B",
+          "kind": "PLAN_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": true,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        }
+      ],
+      "effect_on_real_quality_proven": false
+    },
+    {
+      "case": "060",
+      "role": "ACTION_PLAN",
+      "category": "CHANGES_OPERATIONAL_GATES_NOT_CALIBRATED_Q",
+      "trials": [
+        {
+          "baseline": "A",
+          "kind": "PLAN_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": true,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        },
+        {
+          "baseline": "B",
+          "kind": "PLAN_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": true,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        }
+      ],
+      "effect_on_real_quality_proven": false
+    },
+    {
+      "case": "061",
+      "role": "ACTION_PLAN",
+      "category": "NOT_DEMONSTRATED_TO_CHANGE_IC_OR_GATE",
+      "trials": [
+        {
+          "baseline": "A",
+          "kind": "PLAN_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": false,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        },
+        {
+          "baseline": "B",
+          "kind": "PLAN_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": false,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        }
+      ],
+      "effect_on_real_quality_proven": false
+    },
+    {
+      "case": "062",
+      "role": "ACTION_PLAN",
+      "category": "CHANGES_OPERATIONAL_GATES_NOT_CALIBRATED_Q",
+      "trials": [
+        {
+          "baseline": "A",
+          "kind": "PLAN_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": true,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        },
+        {
+          "baseline": "B",
+          "kind": "PLAN_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": true,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        }
+      ],
+      "effect_on_real_quality_proven": false
+    },
+    {
+      "case": "063",
+      "role": "ACTION_PLAN",
+      "category": "CHANGES_OPERATIONAL_GATES_NOT_CALIBRATED_Q",
+      "trials": [
+        {
+          "baseline": "A",
+          "kind": "PLAN_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": true,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        },
+        {
+          "baseline": "B",
+          "kind": "PLAN_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": true,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        }
+      ],
+      "effect_on_real_quality_proven": false
+    },
+    {
+      "case": "064",
+      "role": "ACTION_PLAN",
+      "category": "CHANGES_OPERATIONAL_GATES_NOT_CALIBRATED_Q",
+      "trials": [
+        {
+          "baseline": "A",
+          "kind": "PLAN_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": true,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        },
+        {
+          "baseline": "B",
+          "kind": "PLAN_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": true,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        }
+      ],
+      "effect_on_real_quality_proven": false
+    },
+    {
+      "case": "065",
+      "role": "ACTION_PLAN",
+      "category": "CHANGES_OPERATIONAL_GATES_NOT_CALIBRATED_Q",
+      "trials": [
+        {
+          "baseline": "A",
+          "kind": "PLAN_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": true,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        },
+        {
+          "baseline": "B",
+          "kind": "PLAN_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": true,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        }
+      ],
+      "effect_on_real_quality_proven": false
+    },
+    {
+      "case": "066",
+      "role": "ACTION_PLAN",
+      "category": "CHANGES_OPERATIONAL_GATES_NOT_CALIBRATED_Q",
+      "trials": [
+        {
+          "baseline": "A",
+          "kind": "PLAN_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": true,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        },
+        {
+          "baseline": "B",
+          "kind": "PLAN_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": true,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        }
+      ],
+      "effect_on_real_quality_proven": false
+    },
+    {
+      "case": "067",
+      "role": "ACTION_PLAN",
+      "category": "CHANGES_OPERATIONAL_GATES_NOT_CALIBRATED_Q",
+      "trials": [
+        {
+          "baseline": "A",
+          "kind": "PLAN_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": true,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        },
+        {
+          "baseline": "B",
+          "kind": "PLAN_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": true,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        }
+      ],
+      "effect_on_real_quality_proven": false
+    },
+    {
+      "case": "068",
+      "role": "ACTION_PLAN",
+      "category": "CHANGES_OPERATIONAL_GATES_NOT_CALIBRATED_Q",
+      "trials": [
+        {
+          "baseline": "A",
+          "kind": "PLAN_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": true,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        },
+        {
+          "baseline": "B",
+          "kind": "PLAN_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": true,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        }
+      ],
+      "effect_on_real_quality_proven": false
+    },
+    {
+      "case": "069",
+      "role": "ACTION_PLAN",
+      "category": "NOT_DEMONSTRATED_TO_CHANGE_IC_OR_GATE",
+      "trials": [
+        {
+          "baseline": "A",
+          "kind": "PLAN_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": false,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        },
+        {
+          "baseline": "B",
+          "kind": "PLAN_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": false,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        }
+      ],
+      "effect_on_real_quality_proven": false
+    },
+    {
+      "case": "070",
+      "role": "ACTION_PLAN",
+      "category": "CHANGES_OPERATIONAL_GATES_NOT_CALIBRATED_Q",
+      "trials": [
+        {
+          "baseline": "A",
+          "kind": "PLAN_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": true,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        },
+        {
+          "baseline": "B",
+          "kind": "PLAN_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": true,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        }
+      ],
+      "effect_on_real_quality_proven": false
+    },
+    {
+      "case": "071",
+      "role": "ACTION_PLAN",
+      "category": "NOT_DEMONSTRATED_TO_CHANGE_IC_OR_GATE",
+      "trials": [
+        {
+          "baseline": "A",
+          "kind": "PLAN_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": false,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        },
+        {
+          "baseline": "B",
+          "kind": "PLAN_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": false,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        }
+      ],
+      "effect_on_real_quality_proven": false
+    },
+    {
+      "case": "072",
+      "role": "ACTION_PLAN",
+      "category": "CHANGES_OPERATIONAL_GATES_NOT_CALIBRATED_Q",
+      "trials": [
+        {
+          "baseline": "A",
+          "kind": "PLAN_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": true,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        },
+        {
+          "baseline": "B",
+          "kind": "PLAN_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": true,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        }
+      ],
+      "effect_on_real_quality_proven": false
+    },
+    {
+      "case": "073",
+      "role": "ACTION_PLAN",
+      "category": "CHANGES_OPERATIONAL_GATES_NOT_CALIBRATED_Q",
+      "trials": [
+        {
+          "baseline": "A",
+          "kind": "PLAN_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": true,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        },
+        {
+          "baseline": "B",
+          "kind": "PLAN_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": true,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        }
+      ],
+      "effect_on_real_quality_proven": false
+    },
+    {
+      "case": "074",
+      "role": "ACTION_PLAN",
+      "category": "CHANGES_OPERATIONAL_GATES_NOT_CALIBRATED_Q",
+      "trials": [
+        {
+          "baseline": "A",
+          "kind": "PLAN_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": true,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        },
+        {
+          "baseline": "B",
+          "kind": "PLAN_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": true,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        }
+      ],
+      "effect_on_real_quality_proven": false
+    },
+    {
+      "case": "075",
+      "role": "ACTION_PLAN",
+      "category": "CHANGES_OPERATIONAL_GATES_NOT_CALIBRATED_Q",
+      "trials": [
+        {
+          "baseline": "A",
+          "kind": "PLAN_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": true,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        },
+        {
+          "baseline": "B",
+          "kind": "PLAN_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": true,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        }
+      ],
+      "effect_on_real_quality_proven": false
+    },
+    {
+      "case": "076",
+      "role": "ACTION_PLAN",
+      "category": "CHANGES_OPERATIONAL_GATES_NOT_CALIBRATED_Q",
+      "trials": [
+        {
+          "baseline": "A",
+          "kind": "PLAN_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": true,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        },
+        {
+          "baseline": "B",
+          "kind": "PLAN_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": true,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        }
+      ],
+      "effect_on_real_quality_proven": false
+    },
+    {
+      "case": "077",
+      "role": "ACTION_PLAN",
+      "category": "NOT_DEMONSTRATED_TO_CHANGE_IC_OR_GATE",
+      "trials": [
+        {
+          "baseline": "A",
+          "kind": "PLAN_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": false,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        },
+        {
+          "baseline": "B",
+          "kind": "PLAN_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": false,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        }
+      ],
+      "effect_on_real_quality_proven": false
+    },
+    {
+      "case": "078",
+      "role": "ACTION_PLAN",
+      "category": "CHANGES_OPERATIONAL_GATES_NOT_CALIBRATED_Q",
+      "trials": [
+        {
+          "baseline": "A",
+          "kind": "PLAN_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": true,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        },
+        {
+          "baseline": "B",
+          "kind": "PLAN_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": true,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        }
+      ],
+      "effect_on_real_quality_proven": false
+    },
+    {
+      "case": "079",
+      "role": "ACTION_PLAN",
+      "category": "CHANGES_OPERATIONAL_GATES_NOT_CALIBRATED_Q",
+      "trials": [
+        {
+          "baseline": "A",
+          "kind": "PLAN_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": true,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        },
+        {
+          "baseline": "B",
+          "kind": "PLAN_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": true,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        }
+      ],
+      "effect_on_real_quality_proven": false
+    },
+    {
+      "case": "080",
+      "role": "ACTION_PLAN",
+      "category": "CHANGES_OPERATIONAL_GATES_NOT_CALIBRATED_Q",
+      "trials": [
+        {
+          "baseline": "A",
+          "kind": "PLAN_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": true,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        },
+        {
+          "baseline": "B",
+          "kind": "PLAN_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": true,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        }
+      ],
+      "effect_on_real_quality_proven": false
+    },
+    {
+      "case": "081",
+      "role": "ACTION_PLAN",
+      "category": "NOT_DEMONSTRATED_TO_CHANGE_IC_OR_GATE",
+      "trials": [
+        {
+          "baseline": "A",
+          "kind": "PLAN_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": false,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        },
+        {
+          "baseline": "B",
+          "kind": "PLAN_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": false,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        }
+      ],
+      "effect_on_real_quality_proven": false
+    },
+    {
+      "case": "082",
+      "role": "ACTION_PLAN",
+      "category": "NOT_DEMONSTRATED_TO_CHANGE_IC_OR_GATE",
+      "trials": [
+        {
+          "baseline": "A",
+          "kind": "PLAN_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": false,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        },
+        {
+          "baseline": "B",
+          "kind": "PLAN_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": false,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        }
+      ],
+      "effect_on_real_quality_proven": false
+    },
+    {
+      "case": "083",
+      "role": "ACTION_PLAN",
+      "category": "NOT_DEMONSTRATED_TO_CHANGE_IC_OR_GATE",
+      "trials": [
+        {
+          "baseline": "A",
+          "kind": "PLAN_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": false,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        },
+        {
+          "baseline": "B",
+          "kind": "PLAN_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": false,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        }
+      ],
+      "effect_on_real_quality_proven": false
+    },
+    {
+      "case": "084",
+      "role": "ACTION_PLAN",
+      "category": "NOT_DEMONSTRATED_TO_CHANGE_IC_OR_GATE",
+      "trials": [
+        {
+          "baseline": "A",
+          "kind": "PLAN_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": false,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        },
+        {
+          "baseline": "B",
+          "kind": "PLAN_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": false,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        }
+      ],
+      "effect_on_real_quality_proven": false
+    },
+    {
+      "case": "085",
+      "role": "ACTION_PLAN",
+      "category": "NOT_DEMONSTRATED_TO_CHANGE_IC_OR_GATE",
+      "trials": [
+        {
+          "baseline": "A",
+          "kind": "PLAN_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": false,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        },
+        {
+          "baseline": "B",
+          "kind": "PLAN_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": false,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        }
+      ],
+      "effect_on_real_quality_proven": false
+    },
+    {
+      "case": "086",
+      "role": "POLICY",
+      "category": "CHANGES_OPERATIONAL_GATES_NOT_CALIBRATED_Q",
+      "trials": [
+        {
+          "baseline": "A",
+          "kind": "POLICY_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": true,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        },
+        {
+          "baseline": "B",
+          "kind": "POLICY_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": true,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        }
+      ],
+      "effect_on_real_quality_proven": false
+    },
+    {
+      "case": "087",
+      "role": "POLICY",
+      "category": "CHANGES_OPERATIONAL_GATES_NOT_CALIBRATED_Q",
+      "trials": [
+        {
+          "baseline": "A",
+          "kind": "POLICY_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": true,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        },
+        {
+          "baseline": "B",
+          "kind": "POLICY_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": true,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        }
+      ],
+      "effect_on_real_quality_proven": false
+    },
+    {
+      "case": "088",
+      "role": "POLICY",
+      "category": "CHANGES_OPERATIONAL_GATES_NOT_CALIBRATED_Q",
+      "trials": [
+        {
+          "baseline": "A",
+          "kind": "POLICY_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": true,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        },
+        {
+          "baseline": "B",
+          "kind": "POLICY_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": true,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        }
+      ],
+      "effect_on_real_quality_proven": false
+    },
+    {
+      "case": "089",
+      "role": "POLICY",
+      "category": "CHANGES_OPERATIONAL_GATES_NOT_CALIBRATED_Q",
+      "trials": [
+        {
+          "baseline": "A",
+          "kind": "POLICY_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": true,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        },
+        {
+          "baseline": "B",
+          "kind": "POLICY_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": true,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        }
+      ],
+      "effect_on_real_quality_proven": false
+    },
+    {
+      "case": "090",
+      "role": "POLICY",
+      "category": "CHANGES_OPERATIONAL_GATES_NOT_CALIBRATED_Q",
+      "trials": [
+        {
+          "baseline": "A",
+          "kind": "POLICY_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": true,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        },
+        {
+          "baseline": "B",
+          "kind": "POLICY_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": true,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        }
+      ],
+      "effect_on_real_quality_proven": false
+    },
+    {
+      "case": "091",
+      "role": "POLICY",
+      "category": "CHANGES_OPERATIONAL_GATES_NOT_CALIBRATED_Q",
+      "trials": [
+        {
+          "baseline": "A",
+          "kind": "POLICY_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": true,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        },
+        {
+          "baseline": "B",
+          "kind": "POLICY_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": true,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        }
+      ],
+      "effect_on_real_quality_proven": false
+    },
+    {
+      "case": "092",
+      "role": "POLICY",
+      "category": "CHANGES_OPERATIONAL_GATES_NOT_CALIBRATED_Q",
+      "trials": [
+        {
+          "baseline": "A",
+          "kind": "POLICY_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": true,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        },
+        {
+          "baseline": "B",
+          "kind": "POLICY_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": true,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        }
+      ],
+      "effect_on_real_quality_proven": false
+    },
+    {
+      "case": "093",
+      "role": "POLICY",
+      "category": "CHANGES_OPERATIONAL_GATES_NOT_CALIBRATED_Q",
+      "trials": [
+        {
+          "baseline": "A",
+          "kind": "POLICY_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": true,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        },
+        {
+          "baseline": "B",
+          "kind": "POLICY_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": true,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        }
+      ],
+      "effect_on_real_quality_proven": false
+    },
+    {
+      "case": "094",
+      "role": "POLICY",
+      "category": "NOT_DEMONSTRATED_TO_CHANGE_IC_OR_GATE",
+      "trials": [
+        {
+          "baseline": "A",
+          "kind": "POLICY_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": false,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        },
+        {
+          "baseline": "B",
+          "kind": "POLICY_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": false,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        }
+      ],
+      "effect_on_real_quality_proven": false
+    },
+    {
+      "case": "095",
+      "role": "POLICY",
+      "category": "CHANGES_OPERATIONAL_GATES_NOT_CALIBRATED_Q",
+      "trials": [
+        {
+          "baseline": "A",
+          "kind": "POLICY_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": true,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        },
+        {
+          "baseline": "B",
+          "kind": "POLICY_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": true,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        }
+      ],
+      "effect_on_real_quality_proven": false
+    },
+    {
+      "case": "096",
+      "role": "POLICY",
+      "category": "CHANGES_OPERATIONAL_GATES_NOT_CALIBRATED_Q",
+      "trials": [
+        {
+          "baseline": "A",
+          "kind": "POLICY_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": true,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        },
+        {
+          "baseline": "B",
+          "kind": "POLICY_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": true,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        }
+      ],
+      "effect_on_real_quality_proven": false
+    },
+    {
+      "case": "097",
+      "role": "POLICY",
+      "category": "CHANGES_OPERATIONAL_GATES_NOT_CALIBRATED_Q",
+      "trials": [
+        {
+          "baseline": "A",
+          "kind": "POLICY_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": true,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        },
+        {
+          "baseline": "B",
+          "kind": "POLICY_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": true,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        }
+      ],
+      "effect_on_real_quality_proven": false
+    },
+    {
+      "case": "098",
+      "role": "POLICY",
+      "category": "NOT_DEMONSTRATED_TO_CHANGE_IC_OR_GATE",
+      "trials": [
+        {
+          "baseline": "A",
+          "kind": "POLICY_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": false,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        },
+        {
+          "baseline": "B",
+          "kind": "POLICY_INTERVENTION",
+          "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+          "numeric_ic_changed": false,
+          "operational_effect": false,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": false
+        }
+      ],
+      "effect_on_real_quality_proven": false
+    },
+    {
+      "case": "099",
+      "role": "QUALITY_TARGET",
+      "category": "TARGET_DEFINITION_LOCKED_NOT_INPUT",
+      "trials": [
+        {
+          "baseline": "A",
+          "kind": "TARGET_SPEC_INTERVENTION",
+          "status": "ABSTAIN_TARGET_CONTRACT_CHANGED",
+          "numeric_ic_changed": false,
+          "operational_effect": false,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": true
+        },
+        {
+          "baseline": "B",
+          "kind": "TARGET_SPEC_INTERVENTION",
+          "status": "ABSTAIN_TARGET_CONTRACT_CHANGED",
+          "numeric_ic_changed": false,
+          "operational_effect": false,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": true
+        }
+      ],
+      "effect_on_real_quality_proven": false
+    },
+    {
+      "case": "100",
+      "role": "QUALITY_TARGET",
+      "category": "TARGET_DEFINITION_LOCKED_NOT_INPUT",
+      "trials": [
+        {
+          "baseline": "A",
+          "kind": "TARGET_SPEC_INTERVENTION",
+          "status": "ABSTAIN_TARGET_CONTRACT_CHANGED",
+          "numeric_ic_changed": false,
+          "operational_effect": false,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": true
+        },
+        {
+          "baseline": "B",
+          "kind": "TARGET_SPEC_INTERVENTION",
+          "status": "ABSTAIN_TARGET_CONTRACT_CHANGED",
+          "numeric_ic_changed": false,
+          "operational_effect": false,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": true
+        }
+      ],
+      "effect_on_real_quality_proven": false
+    },
+    {
+      "case": "101",
+      "role": "QUALITY_TARGET",
+      "category": "TARGET_DEFINITION_LOCKED_NOT_INPUT",
+      "trials": [
+        {
+          "baseline": "A",
+          "kind": "TARGET_SPEC_INTERVENTION",
+          "status": "ABSTAIN_TARGET_CONTRACT_CHANGED",
+          "numeric_ic_changed": false,
+          "operational_effect": false,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": true
+        },
+        {
+          "baseline": "B",
+          "kind": "TARGET_SPEC_INTERVENTION",
+          "status": "ABSTAIN_TARGET_CONTRACT_CHANGED",
+          "numeric_ic_changed": false,
+          "operational_effect": false,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": true
+        }
+      ],
+      "effect_on_real_quality_proven": false
+    },
+    {
+      "case": "102",
+      "role": "QUALITY_TARGET",
+      "category": "TARGET_DEFINITION_LOCKED_NOT_INPUT",
+      "trials": [
+        {
+          "baseline": "A",
+          "kind": "TARGET_SPEC_INTERVENTION",
+          "status": "ABSTAIN_TARGET_CONTRACT_CHANGED",
+          "numeric_ic_changed": false,
+          "operational_effect": false,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": true
+        },
+        {
+          "baseline": "B",
+          "kind": "TARGET_SPEC_INTERVENTION",
+          "status": "ABSTAIN_TARGET_CONTRACT_CHANGED",
+          "numeric_ic_changed": false,
+          "operational_effect": false,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": true
+        }
+      ],
+      "effect_on_real_quality_proven": false
+    },
+    {
+      "case": "103",
+      "role": "QUALITY_TARGET",
+      "category": "TARGET_DEFINITION_LOCKED_NOT_INPUT",
+      "trials": [
+        {
+          "baseline": "A",
+          "kind": "TARGET_SPEC_INTERVENTION",
+          "status": "ABSTAIN_TARGET_CONTRACT_CHANGED",
+          "numeric_ic_changed": false,
+          "operational_effect": false,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": true
+        },
+        {
+          "baseline": "B",
+          "kind": "TARGET_SPEC_INTERVENTION",
+          "status": "ABSTAIN_TARGET_CONTRACT_CHANGED",
+          "numeric_ic_changed": false,
+          "operational_effect": false,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": true
+        }
+      ],
+      "effect_on_real_quality_proven": false
+    },
+    {
+      "case": "104",
+      "role": "QUALITY_TARGET",
+      "category": "TARGET_DEFINITION_LOCKED_NOT_INPUT",
+      "trials": [
+        {
+          "baseline": "A",
+          "kind": "TARGET_SPEC_INTERVENTION",
+          "status": "ABSTAIN_TARGET_CONTRACT_CHANGED",
+          "numeric_ic_changed": false,
+          "operational_effect": false,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": true
+        },
+        {
+          "baseline": "B",
+          "kind": "TARGET_SPEC_INTERVENTION",
+          "status": "ABSTAIN_TARGET_CONTRACT_CHANGED",
+          "numeric_ic_changed": false,
+          "operational_effect": false,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": true
+        }
+      ],
+      "effect_on_real_quality_proven": false
+    },
+    {
+      "case": "105",
+      "role": "QUALITY_TARGET",
+      "category": "TARGET_DEFINITION_LOCKED_NOT_INPUT",
+      "trials": [
+        {
+          "baseline": "A",
+          "kind": "TARGET_SPEC_INTERVENTION",
+          "status": "ABSTAIN_TARGET_CONTRACT_CHANGED",
+          "numeric_ic_changed": false,
+          "operational_effect": false,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": true
+        },
+        {
+          "baseline": "B",
+          "kind": "TARGET_SPEC_INTERVENTION",
+          "status": "ABSTAIN_TARGET_CONTRACT_CHANGED",
+          "numeric_ic_changed": false,
+          "operational_effect": false,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": true
+        }
+      ],
+      "effect_on_real_quality_proven": false
+    },
+    {
+      "case": "106",
+      "role": "QUALITY_TARGET",
+      "category": "TARGET_DEFINITION_LOCKED_NOT_INPUT",
+      "trials": [
+        {
+          "baseline": "A",
+          "kind": "TARGET_SPEC_INTERVENTION",
+          "status": "ABSTAIN_TARGET_CONTRACT_CHANGED",
+          "numeric_ic_changed": false,
+          "operational_effect": false,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": true
+        },
+        {
+          "baseline": "B",
+          "kind": "TARGET_SPEC_INTERVENTION",
+          "status": "ABSTAIN_TARGET_CONTRACT_CHANGED",
+          "numeric_ic_changed": false,
+          "operational_effect": false,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": true
+        }
+      ],
+      "effect_on_real_quality_proven": false
+    },
+    {
+      "case": "107",
+      "role": "QUALITY_TARGET",
+      "category": "TARGET_DEFINITION_LOCKED_NOT_INPUT",
+      "trials": [
+        {
+          "baseline": "A",
+          "kind": "TARGET_SPEC_INTERVENTION",
+          "status": "ABSTAIN_TARGET_CONTRACT_CHANGED",
+          "numeric_ic_changed": false,
+          "operational_effect": false,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": true
+        },
+        {
+          "baseline": "B",
+          "kind": "TARGET_SPEC_INTERVENTION",
+          "status": "ABSTAIN_TARGET_CONTRACT_CHANGED",
+          "numeric_ic_changed": false,
+          "operational_effect": false,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": true
+        }
+      ],
+      "effect_on_real_quality_proven": false
+    },
+    {
+      "case": "108",
+      "role": "QUALITY_TARGET",
+      "category": "TARGET_DEFINITION_LOCKED_NOT_INPUT",
+      "trials": [
+        {
+          "baseline": "A",
+          "kind": "TARGET_SPEC_INTERVENTION",
+          "status": "ABSTAIN_TARGET_CONTRACT_CHANGED",
+          "numeric_ic_changed": false,
+          "operational_effect": false,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": true
+        },
+        {
+          "baseline": "B",
+          "kind": "TARGET_SPEC_INTERVENTION",
+          "status": "ABSTAIN_TARGET_CONTRACT_CHANGED",
+          "numeric_ic_changed": false,
+          "operational_effect": false,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": true
+        }
+      ],
+      "effect_on_real_quality_proven": false
+    },
+    {
+      "case": "109",
+      "role": "QUALITY_TARGET",
+      "category": "TARGET_DEFINITION_LOCKED_NOT_INPUT",
+      "trials": [
+        {
+          "baseline": "A",
+          "kind": "TARGET_SPEC_INTERVENTION",
+          "status": "ABSTAIN_TARGET_CONTRACT_CHANGED",
+          "numeric_ic_changed": false,
+          "operational_effect": false,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": true
+        },
+        {
+          "baseline": "B",
+          "kind": "TARGET_SPEC_INTERVENTION",
+          "status": "ABSTAIN_TARGET_CONTRACT_CHANGED",
+          "numeric_ic_changed": false,
+          "operational_effect": false,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": true
+        }
+      ],
+      "effect_on_real_quality_proven": false
+    },
+    {
+      "case": "110",
+      "role": "QUALITY_TARGET",
+      "category": "TARGET_DEFINITION_LOCKED_NOT_INPUT",
+      "trials": [
+        {
+          "baseline": "A",
+          "kind": "TARGET_SPEC_INTERVENTION",
+          "status": "ABSTAIN_TARGET_CONTRACT_CHANGED",
+          "numeric_ic_changed": false,
+          "operational_effect": false,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": true
+        },
+        {
+          "baseline": "B",
+          "kind": "TARGET_SPEC_INTERVENTION",
+          "status": "ABSTAIN_TARGET_CONTRACT_CHANGED",
+          "numeric_ic_changed": false,
+          "operational_effect": false,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": true
+        }
+      ],
+      "effect_on_real_quality_proven": false
+    },
+    {
+      "case": "111",
+      "role": "QUALITY_TARGET",
+      "category": "TARGET_DEFINITION_LOCKED_NOT_INPUT",
+      "trials": [
+        {
+          "baseline": "A",
+          "kind": "TARGET_SPEC_INTERVENTION",
+          "status": "ABSTAIN_TARGET_CONTRACT_CHANGED",
+          "numeric_ic_changed": false,
+          "operational_effect": false,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": true
+        },
+        {
+          "baseline": "B",
+          "kind": "TARGET_SPEC_INTERVENTION",
+          "status": "ABSTAIN_TARGET_CONTRACT_CHANGED",
+          "numeric_ic_changed": false,
+          "operational_effect": false,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": true
+        }
+      ],
+      "effect_on_real_quality_proven": false
+    },
+    {
+      "case": "112",
+      "role": "QUALITY_TARGET",
+      "category": "TARGET_DEFINITION_LOCKED_NOT_INPUT",
+      "trials": [
+        {
+          "baseline": "A",
+          "kind": "TARGET_SPEC_INTERVENTION",
+          "status": "ABSTAIN_TARGET_CONTRACT_CHANGED",
+          "numeric_ic_changed": false,
+          "operational_effect": false,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": true
+        },
+        {
+          "baseline": "B",
+          "kind": "TARGET_SPEC_INTERVENTION",
+          "status": "ABSTAIN_TARGET_CONTRACT_CHANGED",
+          "numeric_ic_changed": false,
+          "operational_effect": false,
+          "contract_trace_changed": true,
+          "error": null,
+          "target_guard_activated": true
+        }
+      ],
+      "effect_on_real_quality_proven": false
+    }
+  ],
+  "categories": {
+    "CHANGES_ASSUMED_DEMO_IC_FOR_TESTED_PERTURBATION": 12,
+    "CHANGES_OPERATIONAL_GATES_NOT_CALIBRATED_Q": 52,
+    "NOT_DEMONSTRATED_TO_CHANGE_IC_OR_GATE": 26,
+    "CHANGES_ELIGIBILITY_OR_INVALIDATES_ASSUMPTIONS": 4,
+    "DERIVED_OUTPUT_NOT_INDEPENDENT_RANDOM_INPUT": 4,
+    "TARGET_DEFINITION_LOCKED_NOT_INPUT": 14
+  },
+  "tested_counterfactuals": 224,
+  "real_trials": 0,
+  "scientific_ic": null,
+  "warning": "Affects SIMULATED Q* or a gate, not necessarily real rice success; 14 outcomes are targets, not predictors."
+}
