@@ -55,3 +55,9 @@ Ajouter une nouvelle entrée `CTX-xxxx` pour chaque nouvelle directive et chaque
 
 ## Vérification de la synchronisation (E084)
 GitHub : 9/9 blobs critiques identiques, manifeste parent actualisé ; Drive privé : archive source initiale 568443 octets retrouvée ; Bibliothèque : copie retrouvée ; PC MBMPC : hors ligne, pas de copie ni tests Windows. Les éventuelles variantes finales du ZIP ont leur propre reçu séparé pour éviter une empreinte SHA-256 auto-référente.
+
+## Vérification de continuité des messages actuels — CTX-0018 à CTX-0020, E085–E088
+
+L’utilisateur demande **mot pour mot** que le contexte soit continuellement écrit et que la suite soit planifiée. Les messages exacts figurent dans `CONTEXTE_INTEGRAL/REGISTRE_MESSAGES.jsonl`; l’état H3 et les limitations sont dans le journal. **Règle de fonctionnement** : conserver le contexte à chaque séance de travail et à chaque checkpoint, ne pas promettre d’écriture en arrière-plan lorsque ChatGPT est inactif.
+
+**Statut scientifique** : 309 tests logiciels historiques H3 ; 22 mécanismes n’ont pas encore de chemin numérique même fictif ; aucune préparation réelle observée ni IC calibré. Le plan de continuation est `PLAN_SUITE_RIZ112_MATRICE.md`. H3 Drive confirmé par existence et taille, SHA non relu directement sur Drive. PC non synchronisé.
