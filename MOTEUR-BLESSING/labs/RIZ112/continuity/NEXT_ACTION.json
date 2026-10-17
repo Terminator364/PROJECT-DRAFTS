@@ -52,8 +52,8 @@
   "critical_directive_D035": "Cahier mère as durable authority, all accessible context, no blanket assertion of 112 IC causal effects; each counterfactual evidence or explicit abstention",
   "canonical_source": "GitHub main MOTEUR-BLESSING/labs/RIZ112/CAHIER_MERE.md plus journal, exact context register and checkpoint; not ChatGPT memory.",
   "context_capture_limits": "The tool captures only messages actively submitted in-session and available for logging, not autonomous background conversations.",
-  "latest_journal_event_id": "E122",
-  "latest_context_id": "CTX-0045",
+  "latest_journal_event_id": "E123",
+  "latest_context_id": "CTX-0046",
   "journal_chain_verified": true,
   "step18_checkpoint": "MOTEUR-BLESSING/labs/RIZ112/step18/CHECKPOINT_STEP18_20261017.json",
   "step18_windows_status": "PARTIAL_RESOURCE_TESTS_PASS; CONDITIONAL_SUITE_NOT_VALIDATED_TIMEOUT",
@@ -79,5 +79,6 @@
   "drive_sha256_verified": true,
   "step25_checkpoint": "MOTEUR-BLESSING/labs/RIZ112/step25/CHECKPOINT_STEP25_20261017.json",
   "step26_checkpoint": "MOTEUR-BLESSING/labs/RIZ112/step26/CHECKPOINT_STEP26_20261017.json",
-  "critical_nonpromotion": "9 theoretical physical intermediate roles, 29 other plan routes, 14 post-T0 targets and 60 other roles; 30 Step19 routes include rubric 035 as overlapping with 9 physical; zero actual Q causal effects established"
+  "critical_nonpromotion": "9 theoretical physical intermediate roles, 29 other plan routes, 14 post-T0 targets and 60 other roles; 30 Step19 routes include rubric 035 as overlapping with 9 physical; zero actual Q causal effects established",
+  "step26_cloud_receipt_url": "https://drive.google.com/file/d/1A-rUjr570r1_wwbKstua_FAOpIOSlfpj/view?usp=drivesdk"
 }
