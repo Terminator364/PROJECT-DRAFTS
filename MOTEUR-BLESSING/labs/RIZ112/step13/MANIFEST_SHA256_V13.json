@@ -12,9 +12,9 @@
     "SYNCHRONISATION_ETAPE8.md": "f32c4afb6dd9212f596232e35dfa779bda79664affe6facfc4432627bbece70e",
     "RESTANT_62_REGISTRE.json": "1c82dc1bf9401fa988ef548b746cc04b495b9c9b91ec8d1fa14080723ef5e36a",
     "MANDAT_FINITION_112.md": "af32858ea3f1a61db482b26a09bed07a8a39d07be17068755bfb6a067ba35d0c",
-    "CAHIER_MERE.md": "d544e10a38d083b230b5861e6b761a60eb8411789e7f24f58826e3c79a51bc9e",
+    "CAHIER_MERE.md": "733e71983696c825e4601a98a6e40e881ab555dbc2409f91a97ba73534e08379",
     "DECISIONS.md": "06b47d8bddc40687bb93182e5c2cb8556263185d9faf23794cee776aa1e638c2",
-    "CHECKPOINT.json": "0cf346aac82e8da601ed5f93d483188aa033a5015dcc7d8eafb87a94a5f9825a",
+    "CHECKPOINT.json": "963e29cc9ca93c537a866977bc75cadb4ac191bd1aa4f1a8ea37e4a6271d7d15",
     "SYNCHRONISATION_ETAPE7.md": "be5a554a5df45ed7ee94b20b8243c9c0931258510ba43bbf72e8c2fcaaa8d9d3",
     "README.md": "c5eb29b2bf1004a3d54f11426986cb24fd62a440b638d0c3f7ccacb7c7762bea",
     "TESTS_STEP5_FINAL.log": "ea4638fa5a28a21528dc9eccd5742704b6836c3c9c6d911174ceedf489c3c36a",
@@ -27,7 +27,7 @@
     "step13/build_stage13.py": "dd7d5cbc8b0576975ef3bc38c9ca76edae2d5eadfca88a73f340032afbf3758c",
     "step13/causal_demo.py": "2837272e088e20a95f7c7d3ecb3be82a9f14ac0f0eeb8c09781ce6abe08e5c67",
     "step13/TEST_REPORT.json": "e52c637569024fedbc54a2603efeb4f332af2068c38a9cbdf5a9d595edb214b8",
-    "step13/CHECKPOINT_STAGE13.json": "0cf346aac82e8da601ed5f93d483188aa033a5015dcc7d8eafb87a94a5f9825a",
+    "step13/CHECKPOINT_STAGE13.json": "963e29cc9ca93c537a866977bc75cadb4ac191bd1aa4f1a8ea37e4a6271d7d15",
     "step13/AUDIT_CINQ_CYCLES.md": "4d53e2a23d2133d96366360ccfc2ca4ec19a4981a7738459982ba29d7c1b03d7",
     "step13/FULL_TEST_REPORT.json": "9e72d287bb82dde05ad780b95c84f2c44c74e79e8af37c4fcf371d0a5ce45349",
     "step13/test_stage13.py": "c17a0e02b86c043e9a2b3455b4558bd73ad0a4d023d9c956bbc2e8f71886857f",
@@ -63,6 +63,7 @@
     "step12/COUNTERFACTUAL_112_V12.json": "7aa4eeb99cbafe4a94ed28ae105509ed18c36588ceb86502ee3ce37368fe7ea0",
     "step12/RAPPORT_100_112_V12.json": "e6ca29ca116731f3a86138fd104a878dac62c86c7188f8c3c2b252c544f7a275",
     "step12/test_stage12.py": "b5a05a9f132900252563244b9a3073705c906800856b8bcfdcb80b11d7c53720",
+    "step12/MANIFEST_SHA256_V12.json": "bcdd55d4cdbf093e090b470658854d288ea3eff43c6c84c093da663d52683522",
     "step12/CHECKPOINT_STAGE12.json": "3c9e853af54e84175bf8d0bd609ad66a4167fba15c3ffcaa5bb31dae38b06c73",
     "reference/ORIGINAL_ETAPE4.zip": "5e28c684e0cd2743db8e95c7ced0625bbfd05d8fd02fc559e4663424e7c52764",
     "step8/D014_ROUTES_TRACE.json": "bf7923e5de47a4ece2fb7cb66c049e584624255f06cbcdb45c123b699dfd8df8",
@@ -74,7 +75,7 @@
     "step8/README.md": "47e10bb24becb55866849e34b5f65e05889aedbed20952da61c48daebb59ab21",
     "step8/functional_routes.py": "82c0145dfddf48580282d4ef2f42f031fe8bf6af5ff44291a3676451be009ec2",
     "journal/seed_events.py": "7e67b1493903951bb97c0d63dfbacda04c9c963cc248b05d1cb1dfc39df5519e",
-    "journal/JOURNAL_EVENEMENTS.jsonl": "25ec7e2881d194f74140ad4ef376284c16edef0a8cf4c918aaa7646027d3a384",
+    "journal/JOURNAL_EVENEMENTS.jsonl": "7b11a17307530a42d1b0e52305bd8763610155a50f47360bfa9c0a6fce81e63d",
     "journal/test_journal.py": "da65a2593f66926276524b3b083a077d82bc2e596436692e1178b36335fd9828",
     "journal/TESTS_JOURNAL.log": "c98eeb6046aa169572a9d520e893f7200b8683d0fff33bd23e4710860a3adaf5",
     "journal/journal_tool.py": "b986f8c1b25a31b312011e0ed2f30d230e2c5a5b8135e6da3aa0ee210b44884b",
@@ -161,5 +162,5 @@
     "reference/original_step4_replay/RIZ112_ETAPE4/tests/test_compare.py": "e9f4c922d0f4014fc7b36539dc1fdc684eac2f987cea7f6e4e89e741f4decc3f",
     "reference/original_step4_replay/RIZ112_ETAPE4/tests/test_riz112.py": "c8c0d804330ec02a0bb176e27749850432d828eab2043b4e571a9f8765cfc1ff"
   },
-  "files_count": 159
+  "files_count": 160
 }
