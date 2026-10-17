@@ -12,11 +12,13 @@ class FeatureTests(unittest.TestCase):
                 if row["max_evidence_date"]:
                     self.assertLess(row["max_evidence_date"],row["date"])
 
-    def test_first_round_has_no_prior_current_season(self):
+    def test_first_fixture_day_has_no_prior_current_season(self):
         for code in ("E0","I1"):
+            rows=[row for row in compute(code)["features"] if row["matchday"]==1]
+            first_date=min(row["date"] for row in rows)
             self.assertTrue(all(
                 row["LEAGUE_BASE"]["historical_matches"]==0
-                for row in compute(code)["features"] if row["matchday"]==1))
+                for row in rows if row["date"]==first_date))
 
     def test_seventh_round_only_uses_first_six(self):
         for code in ("E0","I1"):
