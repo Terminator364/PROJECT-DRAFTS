@@ -356,3 +356,22 @@ Continue
 ## 17 octobre 2026 — Step18, nouvelles influences matérielles conditionnelles (E110)
 
 Trois chemins nouveaux sont codés après l'audit des 35 rubriques sans réponse détectée en Step16 : **002** eau potable, **005** eau de rinçage, **008** capacité de casserole. Les conversions et quantités auxiliaires sont explicitement hypothétiques, sourcées et datées pré-T0. Sous les hypothèses SYNTHÉTIQUES documentées, changer chaque ressource de +1 % modifie respectivement les marges de faisabilité de **+3,5 ml**, **+10 ml**, **+17 ml**. Cela prouve une réponse du diagnostic intermédiaire, jamais un effet causal calibré sur la qualité Q. Le noyau H3 conserve IC_DEMO A = 60,25 % et `scientific_ic_percent=null`. Sources : `step18/resource_feasibility.py`, `step18/riz112_with_resources.py`, `step18/README.md`, `step18/CHECKPOINT_STEP18_20261017.json`. 20 tests Step18 locaux PASS ; contre-vérification Windows séparée (suite globale coûteuse, à ne pas supposer réussie avant preuve). Le nouveau scanner de conditions Step18 trouve 2 changements IC_DEMO dans d'autres régimes pour 35 rubriques initialement inertes, 33 sans réponse détectée dans les régimes testés. Aucun effet empirique Q validé, et maintien du code unique `Moteur/continue`.
+
+
+### Archive verbatim CTX-0038 / E112 / 2026-10-17
+**Rôle** USER ; **SHA-256 UTF-8** `31fbef162594de01bab0cd525c51f74de7bcb15063029fa1a54b2cf5944c80d8` ; **provenance** current_user_message_step19_continue_2026-10-17
+
+````text
+Continue
+````
+
+
+## Étape 19 — vérification des 30 routes restantes (17 octobre 2026)
+
+**Directive exacte de reprise** conservée dans CTX-0038/E112 : « Continue ». L'historique reconstitué ne devient jamais un verbatim inventé.
+
+Le Step18 restait à 30 rubriques sans voie d'influence physique Q réelle démontrée. Le Step19 ajoute les fichiers `step19/route_integrity.py`, `counterfactual_matrix.py`, `REPORT_30_ROUTES_20261017.json`, leurs tests et checkpoint. Les 30 se répartissent en 23 **actions planifiées**, 4 **politiques conditionnelles non déclenchées**, 2 **ressources matérielles** (022 ustensile pour égrainer, 023 récipient de service) et 1 **valeur dupliquée d'eau planifiée 035**. Une variation de la fiche 035 seule était ignorée par la primitive H3 ; le Step19 refuse désormais la divergence et la contre-épreuve synchronise les deux chemins. Les deux ressources peuvent bloquer une action prévue ; les dépendances d'action et les règles de correction sont des états de plan ou d'attente, jamais une preuve de qualité obtenue.
+
+**Preuves** : 31/31 nouveaux tests Step19 réussis dans l'environnement ChatGPT/Linux et **31/31 sur Windows MBMPC**, le rapport Windows des 30 interventions étant identique à l'original. Step18 : suite élargie à 32/32 en local et Windows, et exemple sur Windows exécuté. Total de tests disjoints H3 309 + Step16 106 + Step17 23 + Step18 32 + Step19 31 = **501 assertions/test-cases réussis par suites séparées**, pas une campagne unifiée de 501 testée d'une traite.
+
+**Contre-audit crucial** : `30 changements de statut de route` dans l'audit Step19 signifie principalement changement des plans eux-mêmes, parfois de leurs dépendants ; cela **ne signifie surtout pas** `30 influences sur la qualité du riz`. Effets expérimentaux Q démontrés = 0; probabilités `scientific_ic_percent = null`. Une perturbation de 035 montre uniquement une variation de Q* H3 (IC_DEMO), sous 100 tirages fixés, distincte des trois références antérieures 400 tirages. Porte scientifique toujours ouverte. Les révisions au cœur H3 ne sont pas appliquées sans garde-fous ni test des scénarios.
