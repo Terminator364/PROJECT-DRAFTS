@@ -537,3 +537,10 @@ Le riz sert exclusivement de maquette méthodologique préparant MATRICE **prém
 **Principe de transfert MATRICE :** modéliser les dépendances, contre-factuels, conditions de validité, absence d'effet observable localement, interactions non linéaires et abstentions. Mettre en doute les proxy-scores; ne jamais transférer l'IC_DEMO ou les unités physiques du riz aux matchs. Le projet MATRICE conserve son périmètre exclusivement pré-match et ses propres familles, sans mélange de dépôts. Le programme ne requiert aucun essai réel pendant cette exploration théorique.
 
 **Limite temporelle :** aucun processus ne capture les messages de nouveaux chats hors exécution; chaque reprise `Moteur/continue` relit le Cahier mère GitHub et journal chaîné.
+
+
+### E128 — reçu externe de l'expérience numérique RIZ112 → MATRICE (17 octobre 2026)
+
+L'expérience complémentaire de **1 000 scénarios synthétiques** et **18 contre-épreuves** est reproduite à l'identique sous Linux et sur Windows MBMPC (six tests nouveaux PASS). Le ZIP canonique contient **312 fichiers**, **740 937 octets**, un CSV de **1 000 lignes**, rapport détaillé et logiciel V1; archive accessible dans Google Drive `1IUO4XjgmzZvMicoXe75bEGmYxw2aaZBh`. Son SHA-256 `e2251d33182c9bcab167267684b8a6d4a2b5434db98c7e6ab967a01b37be7a93` correspond à l'empreinte PC et au téléchargement Drive indépendant; CRC ZIP PASS; six tests PASS après extraction. L'instantané ZIP contient le journal jusqu'à E127; **E128 et son reçu restent dans le registre GitHub vivant**, sans paradoxe autoréférentiel.
+
+**Résultats démonstratifs** : H3 690 calculs, 310 abstentions, 20 IC_DEMO>=85 %, 664 bilans énergie+eau théoriquement admissibles. **Aucune probabilité vraie de qualité ou de réussite, aucun essai de cuisson, aucune calibration Q : `scientific_ic_percent=null`.** La finalité est l'apprentissage de l'architecture causale **MATRICE pré-match**. Ne pas réclamer de 1 000 cuissons réelles à l'utilisateur pour cette simulation. Preuves et reçus dans `simulations/EXPERIENCE_1000/` et événements E126–E128.
