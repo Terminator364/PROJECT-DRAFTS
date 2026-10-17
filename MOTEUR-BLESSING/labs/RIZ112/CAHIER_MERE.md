@@ -335,3 +335,19 @@ Et oui justement le problème c'est ça. Il faut que le moteur, comme tu dis, di
 ````text
 Continue
 ````
+
+
+### Archive verbatim CTX-0035 / E106 / 2026-10-17 (capture archivée, unicité du tour non vérifiée)
+**Rôle** USER ; **SHA-256 UTF-8** `31fbef162594de01bab0cd525c51f74de7bcb15063029fa1a54b2cf5944c80d8` ; **provenance enregistrée** User turn 2026-10-17 15:xx continuation number 1, verbatim ; **ATTENTION** : texte identique à CTX-0037, ne pas déduire trois messages utilisateur distincts sans identité de tour.
+
+````text
+Continue
+````
+
+
+### Archive verbatim CTX-0036 / E107 / 2026-10-17 (capture archivée, unicité du tour non vérifiée)
+**Rôle** USER ; **SHA-256 UTF-8** `31fbef162594de01bab0cd525c51f74de7bcb15063029fa1a54b2cf5944c80d8` ; **provenance enregistrée** User turn 2026-10-17 16:02 continuation number 2, verbatim ; **ATTENTION** : texte identique à CTX-0037, ne pas déduire trois messages utilisateur distincts sans identité de tour.
+
+````text
+Continue
+````
