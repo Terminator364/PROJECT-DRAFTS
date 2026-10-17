@@ -27,8 +27,20 @@
   "windows_replayed_reference_JSON_exactly": true,
   "windows_python": "3.12.10",
   "mbm_pc_verified": true,
-  "journal_head": "7cb2ad87b02ed00bf5dc9790e75a2461a6b589d48272f4403750a570e7851f56",
+  "journal_head": "90fb4f2e5a938e88a9285c4eeca170407fe466b452c7f6bd42a2303830b01863",
   "journal_events": 122,
-  "context_entries": 45,
-  "Q_approved": false
+  "context_entries": 46,
+  "Q_approved": false,
+  "archive_receipt": {
+    "url": "https://drive.google.com/file/d/1A-rUjr570r1_wwbKstua_FAOpIOSlfpj/view?usp=drivesdk",
+    "drive_file_id": "1A-rUjr570r1_wwbKstua_FAOpIOSlfpj",
+    "full_zip_sha256": "e6cdd681764692173f95f2e465a5b807a1291bbda3ea913099eb70026792083c",
+    "full_zip_bytes": 1089735,
+    "full_zip_members": 386,
+    "portable_source_sha256": "566f900fdcc40c9ac6877ec91d042ca1c7686859dd2f2b930b30dc2930f947fe",
+    "portable_file_members": 308,
+    "cloud_download_sha_equal_pc": true,
+    "zip_crc": "PASS"
+  },
+  "journal_event_count": 123
 }
