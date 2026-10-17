@@ -67,5 +67,14 @@
   },
   "journal_event_count": 113,
   "context_rows": 38,
-  "journal_head": "07ebb28af732095706e1d61e001434a4c714163b675567de033be0a0c198589d"
+  "journal_head": "07ebb28af732095706e1d61e001434a4c714163b675567de033be0a0c198589d",
+  "archive_receipt": {
+    "file_id": "1CJiFHQBq3FTcraWa3LSzRhGFpJPd84-0",
+    "url": "https://drive.google.com/file/d/1CJiFHQBq3FTcraWa3LSzRhGFpJPd84-0/view?usp=drivesdk",
+    "bytes": 586505,
+    "sha256": "78a1e7cb2661c634568a4233d7e3cbbae1c679175de2a2347e2db28295d2e0ec",
+    "items": 241,
+    "independent_cloud_sha256_match": true,
+    "zip_crc_pass": true
+  }
 }
