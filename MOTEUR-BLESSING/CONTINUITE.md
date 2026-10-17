@@ -43,3 +43,14 @@ Actualiser `JOURNAL.md`, `MANIFEST.json`, `ETAT_V112.md` ou son successeur, et l
 - **372 exigences** : 25 correspondances directes de conception, 50 contextuelles, 297 non reliées ; 11 voies d'acquisition candidates et 12 groupes de partage de primitives. **Aucune correspondance = validation sportive**.
 - **Synchronisation** : Drive privé + bibliothèque ChatGPT pour les ZIP, GitHub pour l'autorité documentaire, PC MBMPC pour la continuité et le checkpoint. **L'archive ZIP complète a été transférée depuis Google Drive pour ordinateur (lecteur G:), vérifiée SHA-256, extraite dans un dossier versionné sur MBMPC et 215/215 tests Windows ont réussi.** Le téléchargement HTTP nu requiert toujours l'authentification Google, mais le lecteur déjà autorisé l'a évité. Reçu Windows et journal conservés sur Drive.
 - **Scientifique** : score uniquement pré-match 90 minutes ; `EXPERIMENTAL_NOT_APPROVED`; aucune vraie archive PIT tierce authentifiée. Préserver exactement cet état et continuer vers les données historiques authentifiées, pas vers l'activation prématurée des coefficients.
+
+
+## Continuité unifiée MATRICE ↔ RIZ-112 — 17 octobre 2026
+
+- **Codes parent** : `MOTEUR|CONTINUE`, `Moteur/continue` et `MOTEUR BLESSING|CONTINUE`. Ouvrir d'abord `MOTEUR-BLESSING/MANIFEST.json` et les preuves `MB-1`, puis la clé `riz112_lab.canonical_current`.
+- **Code laboratoire** : `RIZ112|CONTINUE`; reprendre le même H3 via `labs/RIZ112/CAHIER_MERE.md` et `CHECKPOINT.json`.
+- **Contexte CONTINUEL** : rubrique permanente `labs/RIZ112/CONTEXTE_CONVERSATIONS.md`, registre `CONTEXTE_INTEGRAL/REGISTRE_MESSAGES.jsonl`, protocole `PROTOCOLE_CONTINUITE_CONTEXTUELLE.md`, décisions et journal de 83 événements. Ajouter les échanges et corrections à chaque nouvelle séance, avec provenance exacte; anciens fragments non littéraux qualifiés.
+- **Moteur H3** : `labs/RIZ112/step14/anticipatory_physics_h3.py`, vérification `run_regression_h3.py` **309/309 PASS sous Linux/ChatGPT**. 112 rubriques en contrats hiérarchiques, 4 nouveaux chemins numériques hypothétiques, **22 liens numériques encore ouverts**; `IC scientifique=null`, aucun essai de riz réel et aucune promotion du moteur sportif.
+- **Copies H3 contextuelles** : GitHub (sources et pointeurs), Drive privé (`1rFq9GiwbRvb-Hk33JayacttjBOUdAabf`, 568443 octets vérifiés), Bibliothèque ChatGPT, SHA-256 source `15182d217e42c2985cb4652ac5c2ee9f6afe6afca55ec148b3c803e52b14ede8`. Drive n'a pas fourni d'empreinte SHA-256 indépendante.
+- **PC MBMPC** : hors ligne au contrôle ; **pas** de synchronisation ni de validation Windows H3.
+- **Incident d'origine** : GitHub était en retrait (V13/67 événements contre local H3/79); corrigé par le checkpoint 83 événements et le nouveau pointeur parent. Ne jamais écraser une version plus avancée sans comparaison, ni confondre un ZIP disponible avec l'achèvement d'une synchronisation des sources.
