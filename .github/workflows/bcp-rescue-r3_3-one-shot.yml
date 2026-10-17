@@ -1,0 +1,86 @@
+name: BCP USB Rescue R3.3 - isolated USB port APK build
+on:
+  push:
+    branches:
+      - work/usb-phone-rescue-lab-2026-10-12
+    paths:
+      - USB-PHONE-RESCUE-LAB/ci-r3_3-trigger-20261017.txt
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 22
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - name: Verify R3.3 immutable source
+        shell: bash
+        run: |
+          set -euo pipefail
+          base64 -d USB-PHONE-RESCUE-LAB/r3_3-source-bundle.tar.gz.base64 >/tmp/rescue-r33.tar.gz
+          echo '8211012bfdd7730550d912e0fb7c05ccb43761725e292166db0f2a4fb11363b3  /tmp/rescue-r33.tar.gz' | sha256sum -c -
+          tar -tzf /tmp/rescue-r33.tar.gz | grep '^r33/android/app/build.gradle$'
+          tar -xzf /tmp/rescue-r33.tar.gz
+          python3 - <<'PY'
+          import pathlib,json,hashlib
+          root=pathlib.Path('r33')
+          manifest=json.loads((root/'SOURCE_SHA256_MANIFEST.json').read_text())
+          for rel,meta in manifest['files'].items():
+              p=root/rel
+              assert p.is_file(),rel
+              assert len(p.read_bytes())==meta['bytes'],rel
+              assert hashlib.sha256(p.read_bytes()).hexdigest()==meta['sha256'],rel
+          print('SOURCE_VERIFIED',len(manifest['files']))
+          PY
+      - name: Run complete regression before building
+        working-directory: r33
+        run: python3 -m unittest discover -s tests -q
+      - name: Android SDK API 35
+        shell: bash
+        run: |
+          set -euo pipefail
+          SDKMGR="$(find "$ANDROID_HOME/cmdline-tools" -name sdkmanager -type f | sort -V | tail -1)"
+          test -x "$SDKMGR"
+          if [[ ! -f "$ANDROID_HOME/platforms/android-35/android.jar" || ! -x "$ANDROID_HOME/build-tools/35.0.0/apksigner" ]]; then
+            "$SDKMGR" 'platforms;android-35' 'build-tools;35.0.0'
+          fi
+          test -f "$ANDROID_HOME/platforms/android-35/android.jar"
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.9'
+      - name: Compile R3.3 unsigned release
+        working-directory: r33/android
+        run: gradle --no-daemon --stacktrace :app:assembleRelease
+      - name: Verify package version / unsigned hash
+        shell: bash
+        run: |
+          set -euo pipefail
+          APK="r33/android/app/build/outputs/apk/release/app-release-unsigned.apk"
+          test -s "$APK"
+          "$ANDROID_HOME/build-tools/35.0.0/aapt" dump badging "$APK" | grep '^package:' | tee apk-package.txt
+          grep -F "name='com.blessing.rescuebridge'" apk-package.txt
+          grep -F "versionCode='5'" apk-package.txt
+          sha256sum "$APK" | tee apk-unsigned-sha256.txt
+          cp "$ANDROID_HOME/build-tools/35.0.0/lib/apksigner.jar" apk-signing-tool.jar
+          sha256sum apk-signing-tool.jar | tee signing-tool-sha256.txt
+          echo "The APK is UNSIGNED until locally signed on MBMPC with durable PKCS12 identity." > README_SIGNING_FIRST.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: BCP-USB-Rescue-R3.3-UNSIGNED-and-SIGNER
+          path: |
+            r33/android/app/build/outputs/apk/release/app-release-unsigned.apk
+            apk-package.txt
+            apk-unsigned-sha256.txt
+            apk-signing-tool.jar
+            signing-tool-sha256.txt
+            README_SIGNING_FIRST.txt
+          retention-days: 7
+          if-no-files-found: error
