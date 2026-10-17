@@ -1,0 +1,148 @@
+{
+  "schema": "moteur-riz112-to-matrice/prematch-proof/v1",
+  "source_class": "SYNTHETIC_PREMATCH_METHOD_TEST",
+  "fixture_id": "SYNTHE_MATCH_UNREAL_001",
+  "kickoff_at_utc": "2026-11-20T20:00:00Z",
+  "snapshots": [
+    {
+      "window": "J-6",
+      "snapshot_cutoff_at_utc": "2026-11-14T20:00:00Z",
+      "facts": [
+        {
+          "field": "fixture_kickoff",
+          "value": "SCHEDULED",
+          "state": "CONFIRMED",
+          "source_id": "synthetic:schedule_v1",
+          "unit": "synthetic_category",
+          "information_scope": "PRE_MATCH",
+          "observed_at_utc": "2026-11-11T19:58:00Z",
+          "available_at_utc": "2026-11-11T20:00:00Z",
+          "ingested_at_utc": "2026-11-11T20:01:00Z"
+        },
+        {
+          "field": "lineup_status",
+          "value": null,
+          "state": "UNKNOWN",
+          "source_id": "synthetic:unconfirmed",
+          "unit": "synthetic_category",
+          "information_scope": "PRE_MATCH",
+          "observed_at_utc": "2026-11-11T19:58:00Z",
+          "available_at_utc": "2026-11-11T20:00:00Z",
+          "ingested_at_utc": "2026-11-11T20:01:00Z"
+        }
+      ]
+    },
+    {
+      "window": "J-4",
+      "snapshot_cutoff_at_utc": "2026-11-16T20:00:00Z",
+      "facts": [
+        {
+          "field": "fixture_kickoff",
+          "value": "SCHEDULED",
+          "state": "CONFIRMED",
+          "source_id": "synthetic:schedule_v1",
+          "unit": "synthetic_category",
+          "information_scope": "PRE_MATCH",
+          "observed_at_utc": "2026-11-11T19:58:00Z",
+          "available_at_utc": "2026-11-11T20:00:00Z",
+          "ingested_at_utc": "2026-11-11T20:01:00Z"
+        },
+        {
+          "field": "lineup_status",
+          "value": "PROVISIONAL",
+          "state": "PROVISIONAL",
+          "source_id": "synthetic:provisional_lineup",
+          "unit": "synthetic_category",
+          "information_scope": "PRE_MATCH",
+          "observed_at_utc": "2026-11-15T19:58:00Z",
+          "available_at_utc": "2026-11-15T20:00:00Z",
+          "ingested_at_utc": "2026-11-15T20:01:00Z"
+        }
+      ]
+    },
+    {
+      "window": "J-3",
+      "snapshot_cutoff_at_utc": "2026-11-17T20:00:00Z",
+      "facts": [
+        {
+          "field": "fixture_kickoff",
+          "value": "SCHEDULED",
+          "state": "CONFIRMED",
+          "source_id": "synthetic:schedule_v1",
+          "unit": "synthetic_category",
+          "information_scope": "PRE_MATCH",
+          "observed_at_utc": "2026-11-11T19:58:00Z",
+          "available_at_utc": "2026-11-11T20:00:00Z",
+          "ingested_at_utc": "2026-11-11T20:01:00Z"
+        },
+        {
+          "field": "lineup_status",
+          "value": "PROVISIONAL",
+          "state": "PROVISIONAL",
+          "source_id": "synthetic:provisional_lineup",
+          "unit": "synthetic_category",
+          "information_scope": "PRE_MATCH",
+          "observed_at_utc": "2026-11-15T19:58:00Z",
+          "available_at_utc": "2026-11-15T20:00:00Z",
+          "ingested_at_utc": "2026-11-15T20:01:00Z"
+        }
+      ]
+    },
+    {
+      "window": "H-9",
+      "snapshot_cutoff_at_utc": "2026-11-20T11:00:00Z",
+      "facts": [
+        {
+          "field": "fixture_kickoff",
+          "value": "SCHEDULED",
+          "state": "CONFIRMED",
+          "source_id": "synthetic:schedule_v1",
+          "unit": "synthetic_category",
+          "information_scope": "PRE_MATCH",
+          "observed_at_utc": "2026-11-11T19:58:00Z",
+          "available_at_utc": "2026-11-11T20:00:00Z",
+          "ingested_at_utc": "2026-11-11T20:01:00Z"
+        },
+        {
+          "field": "lineup_status",
+          "value": "UPDATED",
+          "state": "PROVISIONAL",
+          "source_id": "synthetic:lineup_update",
+          "unit": "synthetic_category",
+          "information_scope": "PRE_MATCH",
+          "observed_at_utc": "2026-11-20T07:58:00Z",
+          "available_at_utc": "2026-11-20T08:00:00Z",
+          "ingested_at_utc": "2026-11-20T08:01:00Z"
+        }
+      ]
+    },
+    {
+      "window": "H-0",
+      "snapshot_cutoff_at_utc": "2026-11-20T19:50:00Z",
+      "facts": [
+        {
+          "field": "fixture_kickoff",
+          "value": "SCHEDULED",
+          "state": "CONFIRMED",
+          "source_id": "synthetic:schedule_v1",
+          "unit": "synthetic_category",
+          "information_scope": "PRE_MATCH",
+          "observed_at_utc": "2026-11-11T19:58:00Z",
+          "available_at_utc": "2026-11-11T20:00:00Z",
+          "ingested_at_utc": "2026-11-11T20:01:00Z"
+        },
+        {
+          "field": "lineup_status",
+          "value": "CONFIRMED",
+          "state": "CONFIRMED",
+          "source_id": "synthetic:lineup_confirmed",
+          "unit": "synthetic_category",
+          "information_scope": "PRE_MATCH",
+          "observed_at_utc": "2026-11-20T18:58:00Z",
+          "available_at_utc": "2026-11-20T19:00:00Z",
+          "ingested_at_utc": "2026-11-20T19:01:00Z"
+        }
+      ]
+    }
+  ]
+}
