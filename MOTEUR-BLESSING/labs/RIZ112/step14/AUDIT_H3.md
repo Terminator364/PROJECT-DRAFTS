@@ -1,0 +1,9 @@
+# Audit en cinq cycles — H3 (17 octobre 2026)
+
+1. **Construction** — Ajout de quatre racines chiffrées : 006 disponibilité d'énergie, 069 régulation, 039 bilan des pertes vers l'ambiance, 025 géométrie du grain (avec diffusivité relative 024) ; branche 087 conservée. Comparaison à tirages identiques, traces nommées et `scientific_ic_percent=null`.
+2. **Audit** — Tests de monotonicité sur puissance, température ambiante, géométrie; validation des domaines; séparation entre rendement d'interface et pertes ambiantes pour limiter le double comptage; stock d'eau en quantité totale disponible.
+3. **Contre-audit** — Une première exécution de 100 dossiers produisait des erreurs **uniquement dans l'enregistrement des rapports** (`'targets'` au lieu de `target_contract`) : 100 erreurs d'écriture rapportées, malgré 98 calculs internes. CORRIGÉ en lisant la structure réelle. Modifier la diffusion sans définir la longueur de grain passait silencieusement : CORRIGÉ avec exception explicite.
+4. **Correction** — Raccordement `rice_profile` H2 aux valeurs d'entrée H3 au lieu de le laisser ignoré ; correction du schéma des 14 cibles fixes; comparaison toujours à `seed` identique, RNG physique distinct du RNG d'exécution hypothétique.
+5. **Réanalyse** — 100/100 dossiers rapportés : 98 sorties de Q\* et 2 cas d'énergie nette nulle, 0 erreur de modèle ; **309 tests logiciels réussis** (282 historiques et 27 nouveaux). 4 nouvelles racines à effet chiffré hypothétique ; 22 des 26 lacunes nominatives restent sans nouveau chemin numérique. Aucune validation scientifique de Q, aucun essai réel. Interdit de dire « 112 influences numériques validées ».
+
+**MATRICE** : transférer contrôle temporel, sous-paramètres déclarés, compatibilité des unités et suivi des branches, non les équations ni coefficients alimentaires hypothétiques.
