@@ -1,0 +1,239 @@
+{
+  "schema": "riz112/hierarchy-scenarios/h1",
+  "source_rubric_count": 112,
+  "draws": 500,
+  "seed": 3,
+  "scenarios": {
+    "A_cuivre_couvercle": {
+      "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+      "material": "copper",
+      "heat_path": "direct",
+      "ic_demo_percent": 61.2,
+      "scientific_ic_percent": null,
+      "baseline_q_demo": 88.188,
+      "anticipations": [
+        {
+          "id": "ANTICIPATE_WALL_CONDUCTION",
+          "equation": "R_wall=t/(k*A); P_wall_max=deltaT/(R_wall+R_contact); eta=min(eta_nominal,P_wall_max/P_heater)",
+          "material": "copper",
+          "k_W_mK": 401.0,
+          "diameter_cm": 18,
+          "thickness_mm": 2,
+          "R_wall_K_W": 0.000196,
+          "R_total_K_W": 0.065196,
+          "power_wall_upper_bound_W": 368.121,
+          "effective_transfer_efficiency": 0.6,
+          "assumption": "steady-state illustrative thermal circuit"
+        }
+      ],
+      "thermal_path": {
+        "conductivity_W_mK": 401.0,
+        "area_m2": 0.025446900494077322,
+        "wall_thickness_mm": 2,
+        "R_wall_K_W": 0.00019599759008884622,
+        "effective_eta": 0.6
+      },
+      "warnings": [
+        "Q*_DEMO uses four unvalidated quality proxies, not actual rice quality",
+        "contact resistance and driving delta T are scenario assumptions, not measurements",
+        "all pot/safety compatibility assumptions are NOT certified"
+      ],
+      "no_poststart_input": true,
+      "source_packet_112_roles_preserved": true,
+      "details": []
+    },
+    "B_ceramique_couvercle": {
+      "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+      "material": "ceramic_rated",
+      "heat_path": "direct",
+      "ic_demo_percent": 22.8,
+      "scientific_ic_percent": null,
+      "baseline_q_demo": 80.386,
+      "anticipations": [
+        {
+          "id": "ANTICIPATE_WALL_CONDUCTION",
+          "equation": "R_wall=t/(k*A); P_wall_max=deltaT/(R_wall+R_contact); eta=min(eta_nominal,P_wall_max/P_heater)",
+          "material": "ceramic_rated",
+          "k_W_mK": 1.4,
+          "diameter_cm": 18,
+          "thickness_mm": 2,
+          "R_wall_K_W": 0.056139,
+          "R_total_K_W": 0.121139,
+          "power_wall_upper_bound_W": 198.119,
+          "effective_transfer_efficiency": 0.360216,
+          "assumption": "steady-state illustrative thermal circuit"
+        }
+      ],
+      "thermal_path": {
+        "conductivity_W_mK": 1.4,
+        "area_m2": 0.025446900494077322,
+        "wall_thickness_mm": 2,
+        "R_wall_K_W": 0.05613930973259096,
+        "effective_eta": 0.36021638007256895
+      },
+      "warnings": [
+        "Q*_DEMO uses four unvalidated quality proxies, not actual rice quality",
+        "contact resistance and driving delta T are scenario assumptions, not measurements",
+        "all pot/safety compatibility assumptions are NOT certified"
+      ],
+      "no_poststart_input": true,
+      "source_packet_112_roles_preserved": true,
+      "details": []
+    },
+    "C_cuivre_sans_couvercle": {
+      "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+      "material": "copper",
+      "heat_path": "direct",
+      "ic_demo_percent": 44.0,
+      "scientific_ic_percent": null,
+      "baseline_q_demo": 77.965,
+      "anticipations": [
+        {
+          "id": "ANTICIPATE_NO_LID",
+          "action": "064",
+          "kind": "RESOURCE_CONSTRAINED_PLAN"
+        },
+        {
+          "id": "ANTICIPATE_NO_LID",
+          "action": "070",
+          "kind": "RESOURCE_CONSTRAINED_PLAN"
+        },
+        {
+          "id": "ANTICIPATE_NO_LID",
+          "action": "080",
+          "kind": "RESOURCE_CONSTRAINED_PLAN"
+        },
+        {
+          "id": "ANTICIPATE_VAPOR_LOSS",
+          "condition": "lid_present",
+          "factor": 2.2,
+          "status": "UNVALIDATED_VAPOR_MULTIPLIER"
+        },
+        {
+          "id": "ANTICIPATE_WALL_CONDUCTION",
+          "equation": "R_wall=t/(k*A); P_wall_max=deltaT/(R_wall+R_contact); eta=min(eta_nominal,P_wall_max/P_heater)",
+          "material": "copper",
+          "k_W_mK": 401.0,
+          "diameter_cm": 18,
+          "thickness_mm": 2,
+          "R_wall_K_W": 0.000196,
+          "R_total_K_W": 0.065196,
+          "power_wall_upper_bound_W": 368.121,
+          "effective_transfer_efficiency": 0.6,
+          "assumption": "steady-state illustrative thermal circuit"
+        }
+      ],
+      "thermal_path": {
+        "conductivity_W_mK": 401.0,
+        "area_m2": 0.025446900494077322,
+        "wall_thickness_mm": 2,
+        "R_wall_K_W": 0.00019599759008884622,
+        "effective_eta": 0.6
+      },
+      "warnings": [
+        "Q*_DEMO uses four unvalidated quality proxies, not actual rice quality",
+        "contact resistance and driving delta T are scenario assumptions, not measurements",
+        "all pot/safety compatibility assumptions are NOT certified"
+      ],
+      "no_poststart_input": true,
+      "source_packet_112_roles_preserved": true,
+      "details": []
+    },
+    "D_cuivre_moins_eau": {
+      "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+      "material": "copper",
+      "heat_path": "direct",
+      "ic_demo_percent": 0.2,
+      "scientific_ic_percent": null,
+      "baseline_q_demo": 53.905,
+      "anticipations": [
+        {
+          "id": "ANTICIPATE_WALL_CONDUCTION",
+          "equation": "R_wall=t/(k*A); P_wall_max=deltaT/(R_wall+R_contact); eta=min(eta_nominal,P_wall_max/P_heater)",
+          "material": "copper",
+          "k_W_mK": 401.0,
+          "diameter_cm": 18,
+          "thickness_mm": 2,
+          "R_wall_K_W": 0.000196,
+          "R_total_K_W": 0.065196,
+          "power_wall_upper_bound_W": 368.121,
+          "effective_transfer_efficiency": 0.6,
+          "assumption": "steady-state illustrative thermal circuit"
+        }
+      ],
+      "thermal_path": {
+        "conductivity_W_mK": 401.0,
+        "area_m2": 0.025446900494077322,
+        "wall_thickness_mm": 2,
+        "R_wall_K_W": 0.00019599759008884622,
+        "effective_eta": 0.6
+      },
+      "warnings": [
+        "Q*_DEMO uses four unvalidated quality proxies, not actual rice quality",
+        "contact resistance and driving delta T are scenario assumptions, not measurements",
+        "all pot/safety compatibility assumptions are NOT certified"
+      ],
+      "no_poststart_input": true,
+      "source_packet_112_roles_preserved": true,
+      "details": []
+    },
+    "E_bois_contact_direct_non_adapte": {
+      "status": "UNSAFE_DIRECT_HEAT_PATH",
+      "ic_demo_percent": 0.0,
+      "ic_demo_interpretation": "STRUCTURAL_ZERO_IN_ASSUMED_SAFE_PROCESS_MODEL_NOT_EMPIRICAL_SUCCESS_PROBABILITY",
+      "scientific_ic_percent": null,
+      "no_poststart_input": true,
+      "material": "wood_unrated",
+      "heat_path": "direct",
+      "anticipations": [
+        {
+          "id": "ANTICIPATE_HEAT_COMPATIBILITY",
+          "reason": "unrated wooden vessel on direct heat lacks safe validated thermal path",
+          "decision": "ASSUMED_SAFE_PATH_UNAVAILABLE"
+        }
+      ],
+      "warning": "Do not attempt direct heating of an unrated wooden vessel; 0 is a model convention, not a measured probability of rice quality."
+    },
+    "F_bois_avec_insert_metal_hypothetique": {
+      "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+      "material": "wood_unrated",
+      "heat_path": "indirect_metal_insert",
+      "ic_demo_percent": 61.2,
+      "scientific_ic_percent": null,
+      "baseline_q_demo": 88.188,
+      "anticipations": [
+        {
+          "id": "ANTICIPATE_WALL_CONDUCTION",
+          "equation": "R_wall=t/(k*A); P_wall_max=deltaT/(R_wall+R_contact); eta=min(eta_nominal,P_wall_max/P_heater)",
+          "material": "iron",
+          "k_W_mK": 83.5,
+          "diameter_cm": 18,
+          "thickness_mm": 2,
+          "R_wall_K_W": 0.000941,
+          "R_total_K_W": 0.065941,
+          "power_wall_upper_bound_W": 363.96,
+          "effective_transfer_efficiency": 0.6,
+          "assumption": "steady-state illustrative thermal circuit"
+        }
+      ],
+      "thermal_path": {
+        "conductivity_W_mK": 83.5,
+        "area_m2": 0.025446900494077322,
+        "wall_thickness_mm": 2,
+        "R_wall_K_W": 0.0009412578877320639,
+        "effective_eta": 0.6
+      },
+      "warnings": [
+        "Q*_DEMO uses four unvalidated quality proxies, not actual rice quality",
+        "contact resistance and driving delta T are scenario assumptions, not measurements",
+        "all pot/safety compatibility assumptions are NOT certified"
+      ],
+      "no_poststart_input": true,
+      "source_packet_112_roles_preserved": true,
+      "details": []
+    }
+  },
+  "scientific_ic": null,
+  "measured_trails": 0,
+  "warning": "THERMAL INTERFACE ASSUMED; Q*_DEMO NOT REAL RICE QUALITY. WOOD DIRECT PATH UNSAFE."
+}
