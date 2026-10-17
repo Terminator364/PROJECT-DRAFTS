@@ -23,7 +23,7 @@
     "context_master": "CONTEXTE_CONVERSATIONS.md",
     "context_protocol": "PROTOCOLE_CONTINUITE_CONTEXTUELLE.md",
     "context_registry": "CONTEXTE_INTEGRAL/REGISTRE_MESSAGES.jsonl",
-    "context_rows": 48,
+    "context_rows": 50,
     "context_update_rule": "ACTIVE_SESSION_EVERY_RELEVANT_EXCHANGE_AND_CHECKPOINT__NO_BACKGROUND",
     "coverage": "SOME_VERBATIM_EXCERPTS_AND_FLAGGED_RECONSTRUCTIONS_NOT_FULL_RAW_ARCHIVE",
     "drive_current_doc": "https://docs.google.com/document/d/13gOTBq7AXnT-f9Lotlw4czwa4i75C4UGdP0i1i0qwZE/edit",
@@ -32,8 +32,8 @@
     "github_status": "VERIFIED_CRITICAL_9_OF_9_BEFORE_FINAL_RECEIPT",
     "initial_source_archive_drive": "https://drive.google.com/file/d/1rFq9GiwbRvb-Hk33JayacttjBOUdAabf/view?usp=drivesdk",
     "initial_source_archive_sha256": "15182d217e42c2985cb4652ac5c2ee9f6afe6afca55ec148b3c803e52b14ede8",
-    "journal_events": 125,
-    "journal_head": "b99b0f1d22be95b2f6f8939b97c8b482a35a74a2594e338ebb1a02056cd1e6f1",
+    "journal_events": 127,
+    "journal_head": "4ddbffd6ca7dd906aad6b47ecaa9f087eee22e2608c3bb158006821f8cb8aaeb",
     "lab_code": "Moteur/continue",
     "latest_context_ids": [
       "CTX-0047",
@@ -74,8 +74,8 @@
   },
   "full_packet_replay": "step12/POPULATION_100_COMPLETE_PACKET.jsonl",
   "journal": {
-    "events": 125,
-    "head": "b99b0f1d22be95b2f6f8939b97c8b482a35a74a2594e338ebb1a02056cd1e6f1"
+    "events": 127,
+    "head": "4ddbffd6ca7dd906aad6b47ecaa9f087eee22e2608c3bb158006821f8cb8aaeb"
   },
   "last_user_directive": "D034_CANONICAL_SINGLE_CODE_AUTO_RESUME_AND_CONTINUOUS_CONTEXT",
   "latest_case_audit": "step12/COUNTERFACTUAL_112_V12.json",
@@ -114,7 +114,7 @@
       "054"
     ]
   },
-  "next": "AWAIT_Q_PROTOCOL_APPROVAL_AND_AUTHENTIC_RICE_OBSERVATIONS",
+  "next": "TRANSFER_RIZ112_METHOD_TO_MATRICE_PREMATCH_DESIGN",
   "probabilities_demo_percent": {
     "A": 62.4,
     "B": 36.83,
@@ -518,5 +518,20 @@
       "extracted_step27_tests_pass": 21,
       "source_snapshot_journal": "E125"
     }
+  },
+  "simulation_methodology_for_MATRICE": {
+    "checkpoint": "MOTEUR-BLESSING/labs/RIZ112/simulations/EXPERIENCE_1000/CHECKPOINT_SIM1000_20261017.json",
+    "report": "MOTEUR-BLESSING/labs/RIZ112/simulations/EXPERIENCE_1000/results/RAPPORT_1000.json",
+    "counterfactuals": "MOTEUR-BLESSING/labs/RIZ112/simulations/EXPERIENCE_1000/results/CONTREFACTUELS_18.json",
+    "runs": 1000,
+    "variables_changed": 9,
+    "model_numeric_outputs": 690,
+    "abstentions": 310,
+    "ic_demo_at_least_85": 20,
+    "idealized_physical_feasible": 664,
+    "real_quality_effects_proven": 0,
+    "scientific_ic_percent": null,
+    "local_and_PC_six_new_tests_passed": true,
+    "PC_csv_sha256": "af13ca14051fca6853f7bc0527481be93315f91902b8a939fc2480569b0b5bbc"
   }
 }
