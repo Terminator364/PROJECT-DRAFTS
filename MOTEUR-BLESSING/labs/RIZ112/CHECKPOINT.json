@@ -3,14 +3,14 @@
   "project": "RIZ112_lab_to_MATRICE",
   "date": "2026-10-17",
   "stage": 13,
-  "status": "H2_NESTED_MECHANISMS_AND_PROSPECTIVE_POLICY_EXECUTABLE__NOT_REAL_IC",
+  "status": "STAGE13_HIERARCHICAL_SUBPARAMETERS_ANTICIPATIONS_IC_DEMO_100_100__NOT_REAL_IC",
   "continuity_code": "RIZ112|CONTINUE",
   "master": "CAHIER_MERE.md",
   "mandate": "MANDAT_FINITION_112.md",
   "mandate_active": true,
   "journal": {
-    "events": 73,
-    "head": "4f29307cc1fd6a99db260ccf0577425425b18b3e8666e43e4a3e3dfac96e8827"
+    "events": 66,
+    "head": "b68091190166201895792f23c9defe62c503771f08f3bf9eab4a9cff08191763"
   },
   "cases": {
     "catalogued": 112,
@@ -44,12 +44,12 @@
       "stage10": 20,
       "stage11": 13,
       "stage12": 23,
-      "stage13_H1": 20,
-      "stage13_H2": 21
+      "stage13": 32
     },
-    "total": 282,
-    "passed": 282,
-    "windows": "NOT_RUN"
+    "total": 273,
+    "passed": 273,
+    "windows": "NOT_RUN",
+    "environment": "ChatGPT Python/Linux"
   },
   "scientific": {
     "quality_rubric_approved": false,
@@ -57,17 +57,17 @@
     "calibrated_ic": null,
     "status": "NOT_VALIDATED"
   },
-  "next": "Close remaining 26 named subparameter gaps by mechanistic evidence; pre-register Q and collect labeled physical experiments before any scientific IC claim.",
+  "next": "Vérifier sur des mesures réelles les propriétés et conditions de chauffe, la qualité Q et calibrer ; compléter 112 voies pertinentes sans bonus arbitraires.",
   "matrice": {
     "sports_engine_modified": false,
     "transfer_only_methods": true,
     "copy_food_coefficients": false
   },
   "mirrors": {
-    "github": "H2_PENDING",
-    "drive": "H2_PENDING",
-    "library": "H2_PENDING",
-    "windows": "MBMPC NOT_VERIFIED_IN_H2"
+    "github": "PENDING_ST13_SYNC",
+    "drive": "PENDING_ST13_SYNC",
+    "library": "PENDING_ST13_SYNC",
+    "windows": "NOT_VERIFIED"
   },
   "drive_initial_v8": {
     "id": "11zabEXKov7S34KNtjX-WljTvTjIsOT5u",
@@ -78,8 +78,8 @@
   },
   "scientific_ic_percent": null,
   "real_Q_probability_percent": null,
-  "last_user_directive": "D026_SUBPARAMETERS_AND_ANTICIPATIONS_CONTINUE",
-  "latest_code": "step13/prospective_branches.py",
+  "last_user_directive": "D022_BUILD_SCENARIO_SENSITIVITY_112_AND_ACTUAL_EFFECT_GAPS",
+  "latest_code": "step12/full_variation_v12.py",
   "latest_contract": "step9/DEMONSTRATION_CONTRACT.json",
   "quality_proxy": "Q*_DEMO 4 unvalidated dimensions, threshold 85",
   "probabilities_demo_percent": {
@@ -165,42 +165,25 @@
     "bytes": 418392,
     "sha256_readback_verified": false
   },
-  "step13_h1": {
-    "rubrics_with_nested_schema": 112,
-    "quantitative_examples": [
-      "009",
-      "010",
-      "011",
-      "013",
-      "014",
-      "035",
-      "041",
-      "042"
+  "stage13": {
+    "files": [
+      "step13/hierarchy.py",
+      "step13/causal_demo.py",
+      "step13/build_stage13.py",
+      "step13/test_stage13.py",
+      "step13/REGISTRE_HIERARCHIE_112.json"
     ],
-    "material_profiles": 5,
-    "comparative_scenarios": 6,
-    "new_tests_passed": 20,
-    "rerun_v12_tests_passed": 23,
-    "real_ic_percent": null,
-    "model_physics": "STEADY_STATE_TOY_THERMAL_RESISTANCE_ONLY",
-    "anticipated_safety": "WOOD_DIRECT_NOT_SAFELY_MODELED",
-    "stage13_files": "step13/"
-  },
-  "latest_lab": "step13/H2_POPULATION_REPORT.json",
-  "new_H2": {
-    "100_scenarios": true,
-    "conditional_ic_changes": 22,
-    "no_local_conditional_ic_change": 78,
-    "policy_case": "087",
-    "resource_case": "002",
-    "rice_fields": [
-      "030",
-      "033",
-      "034",
-      "054"
-    ],
-    "common_random_numbers": true,
-    "prestart_only": true
-  },
-  "real_rice_observations": 0
+    "roles": 112,
+    "subsub_parameter_slots": 998,
+    "synthetic_profiles": 100,
+    "profiles_with_demo_ic": 100,
+    "real_success_ic": null,
+    "all_case_effects_empirically_validated": false,
+    "tests_pass": 273,
+    "new_tests_pass": 32,
+    "matrice_modified": false,
+    "wood_direct": "ASSUMED_RISK_QSTAR_ZERO_NOT_EMPIRICAL",
+    "unknowns_are_zero": false,
+    "future_target_labels_used_as_inputs": false
+  }
 }
