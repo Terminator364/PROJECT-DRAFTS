@@ -1,0 +1,188 @@
+{
+  "schema": "riz112/master-continuity/v5",
+  "project": "RIZ112_lab_to_MATRICE",
+  "date": "2026-10-17",
+  "stage": 13,
+  "status": "H1_HIERARCHICAL_SUBPARAMETERS_AND_ANTICIPATIONS__PARTIAL_EXECUTABLE_PHYSICS__REAL_IC_UNCALIBRATED",
+  "continuity_code": "RIZ112|CONTINUE",
+  "master": "CAHIER_MERE.md",
+  "mandate": "MANDAT_FINITION_112.md",
+  "mandate_active": true,
+  "journal": {
+    "events": 69,
+    "head": "3855fdd22b733e0599d41a84bafafd1593dd21b9208fdc0576fd605edcb36a7f"
+  },
+  "cases": {
+    "catalogued": 112,
+    "D014_missing_before_stage8": 62,
+    "stage8_typed_routes": 62,
+    "routes_by_kind": {
+      "PRESTART_EVIDENCE_OR_CONSTRAINT": 22,
+      "PRESTART_FORECAST": 3,
+      "PLANNED_ACTION_FEASIBILITY": 26,
+      "PREDECLARED_CONDITIONAL_POLICY": 11
+    },
+    "cases_with_validated_Q_effect": 0,
+    "forecast_044_NO_FORMULA": true,
+    "poststart_labels_used_as_predictor": 0,
+    "scientific_IC": null,
+    "all_112_roles_traced": true,
+    "routes_D014_62": true,
+    "simulated_quality_proxy_dimensions": 4,
+    "actual_quality_dimensions_unmodeled": 10,
+    "scientifically_validated_quality_effects": 0
+  },
+  "tests": {
+    "suite_counts": {
+      "stage4": 22,
+      "stage5": 31,
+      "journal": 10,
+      "stage6": 42,
+      "stage7": 36,
+      "stage8": 19,
+      "stage9": 25,
+      "stage10": 20,
+      "stage11": 13,
+      "stage12": 23
+    },
+    "total": 241,
+    "passed": 241,
+    "windows": "NOT_RUN",
+    "environment": "ChatGPT Python/Linux"
+  },
+  "scientific": {
+    "quality_rubric_approved": false,
+    "real_rice_trials": 0,
+    "calibrated_ic": null,
+    "status": "NOT_VALIDATED"
+  },
+  "next": "Complete individually justified mechanical paths of 26 gaps and other 112 subtrees; measure real Q with preregistered rubric, then train/calibrate; keep 112 catalogues, do not invent weights",
+  "matrice": {
+    "sports_engine_modified": false,
+    "transfer_only_methods": true,
+    "copy_food_coefficients": false
+  },
+  "mirrors": {
+    "github": "STAGE12_MAIN_FILES_PUBLISHED_AND_READABLE",
+    "drive": "V12_ARCHIVE_418392B_PRIVATE_METADATA_VERIFIED",
+    "library": "V12_ARCHIVE_UPLOAD_SUCCEEDED",
+    "windows": "MBMPC_OFFLINE_NO_V12_WINDOWS_TEST"
+  },
+  "drive_initial_v8": {
+    "id": "11zabEXKov7S34KNtjX-WljTvTjIsOT5u",
+    "url": "https://drive.google.com/file/d/11zabEXKov7S34KNtjX-WljTvTjIsOT5u/view?usp=drivesdk",
+    "bytes": 206876,
+    "sha256_source": "0571e6723fd082f26e67c511acf58ea7d7f79c78e859587adab4a941bb177a62",
+    "remote_sha_verified": false
+  },
+  "scientific_ic_percent": null,
+  "real_Q_probability_percent": null,
+  "last_user_directive": "D025_MULTI_SUBPARAMETER_SUBSUBPARAMETER_ANTICIPATION_PER_RUBRIC",
+  "latest_code": "step12/full_variation_v12.py",
+  "latest_contract": "step9/DEMONSTRATION_CONTRACT.json",
+  "quality_proxy": "Q*_DEMO 4 unvalidated dimensions, threshold 85",
+  "probabilities_demo_percent": {
+    "A": 62.4,
+    "B": 36.83,
+    "C": 0.1
+  },
+  "sensitivity_demo_percent": {
+    "A_minus_60g": 44.87,
+    "A_alternate_proxy_scale": 38.2
+  },
+  "real_labeled_cooking_trials": 0,
+  "quality_rubric_user_approved": false,
+  "latest_case_audit": "step12/COUNTERFACTUAL_112_V12.json",
+  "step10": {
+    "one_at_a_time_cases_tested": 112,
+    "ic_demo_changed": 11,
+    "abstentions_original": 5,
+    "v9_ic_demo_unchanged": 92,
+    "derived_not_directly_mutable": 4,
+    "v10_quality_targets_frozen": 14,
+    "quality_contract_hash": "f8069c0f12dda329bc24b5e215ad6d885803cd9b21a9be920fca9b16337889e8",
+    "results_on_A_3000_MC": "IC influence conditional on this single synthetic baseline",
+    "tests_new": 20,
+    "tests_total": 205,
+    "tests_passed": 205,
+    "independent_empirical_quality_trials": 0,
+    "science_approved": false
+  },
+  "stage11": {
+    "scenario_seed": 20261017,
+    "scenarios_generated": 60,
+    "ic_demo_computed": 18,
+    "contradiction_abstentions": 27,
+    "unrated_wood_abstentions": 15,
+    "sample_demo_3000_draws_percent": {
+      "SYNTH_010": 11.27,
+      "SYNTH_018": 28.97
+    },
+    "new_tests": 13,
+    "total_tests": 218,
+    "cases_in_input_contract": 112,
+    "cases_with_validated_Q_effect": 0,
+    "119_vs_112": "UNCLEAR_NEW_SEVEN_NOT_CREATED",
+    "material_specific_numeric_effect": false,
+    "independent_rice_experiments": 0
+  },
+  "full_packet_replay": "step12/POPULATION_100_COMPLETE_PACKET.jsonl",
+  "stage12": {
+    "population": 100,
+    "inputs_direct_varied": 44,
+    "derived": 4,
+    "actions_varied": 37,
+    "policies_varied": 13,
+    "outcomes_target_frozen": 14,
+    "draws_per_case": 500,
+    "population_status_counts": {
+      "ABSTAIN_UNSUPPORTED_VESSEL": 47,
+      "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q": 30,
+      "ABSTAIN_PRESTART_CONTRADICTION": 11,
+      "ABSTAIN_CONTRADICTION": 12
+    },
+    "distinct_demo_ic": 12,
+    "counterfactual_n": 224,
+    "categories": {
+      "CHANGES_ASSUMED_DEMO_IC_FOR_TESTED_PERTURBATION": 12,
+      "CHANGES_OPERATIONAL_GATES_NOT_CALIBRATED_Q": 52,
+      "NOT_DEMONSTRATED_TO_CHANGE_IC_OR_GATE": 26,
+      "CHANGES_ELIGIBILITY_OR_INVALIDATES_ASSUMPTIONS": 4,
+      "DERIVED_OUTPUT_NOT_INDEPENDENT_RANDOM_INPUT": 4,
+      "TARGET_DEFINITION_LOCKED_NOT_INPUT": 14
+    },
+    "unresolved_local_influence_cases": 26,
+    "all_numeric_effects_empirically_validated": false,
+    "wood_material_unsupported": true,
+    "material_label_only_effect": "NONE_WITHOUT_THERMAL_LINKAGE",
+    "matrix_sports_modified": false,
+    "original_V11_preserved": true
+  },
+  "drive_v12_initial": {
+    "id": "1cLtltKz6eifbuEXFp0M57EtWDiPjjcdN",
+    "url": "https://drive.google.com/file/d/1cLtltKz6eifbuEXFp0M57EtWDiPjjcdN/view?usp=drivesdk",
+    "bytes": 418392,
+    "sha256_readback_verified": false
+  },
+  "step13_h1": {
+    "rubrics_with_nested_schema": 112,
+    "quantitative_examples": [
+      "009",
+      "010",
+      "011",
+      "013",
+      "014",
+      "035",
+      "041",
+      "042"
+    ],
+    "material_profiles": 5,
+    "comparative_scenarios": 6,
+    "new_tests_passed": 20,
+    "rerun_v12_tests_passed": 23,
+    "real_ic_percent": null,
+    "model_physics": "STEADY_STATE_TOY_THERMAL_RESISTANCE_ONLY",
+    "anticipated_safety": "WOOD_DIRECT_NOT_SAFELY_MODELED",
+    "stage13_files": "step13/"
+  }
+}
