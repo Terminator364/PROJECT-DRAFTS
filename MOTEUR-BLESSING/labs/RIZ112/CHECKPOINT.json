@@ -23,7 +23,7 @@
     "context_master": "CONTEXTE_CONVERSATIONS.md",
     "context_protocol": "PROTOCOLE_CONTINUITE_CONTEXTUELLE.md",
     "context_registry": "CONTEXTE_INTEGRAL/REGISTRE_MESSAGES.jsonl",
-    "context_rows": 42,
+    "context_rows": 43,
     "context_update_rule": "ACTIVE_SESSION_EVERY_RELEVANT_EXCHANGE_AND_CHECKPOINT__NO_BACKGROUND",
     "coverage": "SOME_VERBATIM_EXCERPTS_AND_FLAGGED_RECONSTRUCTIONS_NOT_FULL_RAW_ARCHIVE",
     "drive_current_doc": "https://docs.google.com/document/d/13gOTBq7AXnT-f9Lotlw4czwa4i75C4UGdP0i1i0qwZE/edit",
@@ -32,12 +32,13 @@
     "github_status": "VERIFIED_CRITICAL_9_OF_9_BEFORE_FINAL_RECEIPT",
     "initial_source_archive_drive": "https://drive.google.com/file/d/1rFq9GiwbRvb-Hk33JayacttjBOUdAabf/view?usp=drivesdk",
     "initial_source_archive_sha256": "15182d217e42c2985cb4652ac5c2ee9f6afe6afca55ec148b3c803e52b14ede8",
-    "journal_events": 119,
-    "journal_head": "71d90bb51d2ec80d7dab3d6dfbb49e2e45a479913c82bdda2e17b07d7d8a3268",
+    "journal_events": 120,
+    "journal_head": "e52f0a6b0dee3685b460b966d073d1cd3583edf7cff662b1366af78dc2b53bab",
     "lab_code": "Moteur/continue",
     "latest_context_ids": [
       "CTX-0041",
-      "CTX-0042"
+      "CTX-0042",
+      "CTX-0043"
     ],
     "legacy_codes_active": false,
     "library_status": "SOURCE_ARCHIVE_CONFIRMED",
@@ -74,8 +75,8 @@
   },
   "full_packet_replay": "step12/POPULATION_100_COMPLETE_PACKET.jsonl",
   "journal": {
-    "events": 119,
-    "head": "71d90bb51d2ec80d7dab3d6dfbb49e2e45a479913c82bdda2e17b07d7d8a3268"
+    "events": 120,
+    "head": "e52f0a6b0dee3685b460b966d073d1cd3583edf7cff662b1366af78dc2b53bab"
   },
   "last_user_directive": "D034_CANONICAL_SINGLE_CODE_AUTO_RESUME_AND_CONTINUOUS_CONTEXT",
   "latest_case_audit": "step12/COUNTERFACTUAL_112_V12.json",
@@ -447,6 +448,16 @@
     "real_rice_trials": 0,
     "Q_score_formula_user_approved": false,
     "scientific_ic_percent": null,
-    "windows_replay_identical": true
+    "windows_replay_identical": true,
+    "final_archive": {
+      "file_id": "12MiMCgr0tWiZBFk2JSvsPK6MVHIl5RJ4",
+      "url": "https://drive.google.com/file/d/12MiMCgr0tWiZBFk2JSvsPK6MVHIl5RJ4/view?usp=drivesdk",
+      "bytes": 650188,
+      "files": 286,
+      "sha256": "c7fa993e943cc252e40af7b2cfe3f331a2e2e3b27107c113244515ae7b7e11df",
+      "pc_copy_and_cloud_download_hash_equal": true,
+      "zip_crc": "PASS",
+      "archive_frozen_before_event": "E120"
+    }
   }
 }
