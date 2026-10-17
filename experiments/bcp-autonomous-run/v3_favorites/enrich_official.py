@@ -4,7 +4,7 @@ import json
 from pathlib import Path
 
 HERE=Path(__file__).resolve().parent
-STORE=HERE/"outputs"
+STORE=HERE/"outputs" if (HERE/"outputs").exists() else HERE/"reports"
 sources=json.loads((HERE/"official_week7_evidence.json").read_text(encoding="utf8"))
 tot=0
 confirmed=[]
