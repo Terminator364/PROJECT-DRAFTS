@@ -47,9 +47,6 @@ Un IC numérique peut être calculé par simulation Monte-Carlo si les hypothès
 - Une baseline ou un IC simulé n'est pas un IC empirique, et sa stabilité doit être mesurée sous changements de données + contraintes.
 - Les variables servant à définir le résultat futur ne peuvent pas alimenter le calcul pré-match, même pour rendre « 112/112 » plus vendeur.
 
-## D025 — sous-paramètres imbriqués et anticipations (2026-10-17)
-Transférer **la grammaire du modèle**, pas ses valeurs : paramètre 62 mondes → sous-paramètres numériques/catégoriels/qualitatifs → sous-sous-paramètres → anticipations et scénarios pré-match → graphe de calcul / interactions / incertitude → IC conditionnel de la rencontre. Tester la perturbation d'un sous-paramètre et mesurer le changement dans le graphe et, si pertinent, l'IC. Cas sans effet local possibles (goulot d'étranglement/saturation). Les futurs résultats sportifs (buts, tirs du match) sont des **cibles** et ne sont jamais introduits comme caractéristiques pré-match. Aucun coefficient thermique du riz, aucun seuil fictif Q*, aucun « 112/112 » documentaire ne vaut validation sportive.
+### Nouvelle règle D025 V13 (2026-10-17) : hiérarchies et anticipations
 
-### D026/D027 — Pont anticipations avant l'événement
-
-Le sous-modèle `step13/prospective_branches.py` compare une trajectoire prospective sans correction à une trajectoire conditionnée par **une politique déclarée avant T₀**. Le déclenchement est dérivé d'états **simulés** et jamais de données postérieures au match ou à la cuisson. La probabilité hypothétique d'exécution et les stocks font partie de la provenance de l'IC. MATRICE doit adopter cette *discipline temporelle* sans copier les modèles physiques, valeurs ou pourcentages du riz.
+Transférer à MATRICE le schéma **monde → paramètre → sous-paramètre → sous-sous-paramètre → conditions/anticipations → mécanismes → sortie**, avec les liens vérifiables, les dépendances communes et les contrefactuels ; n'importer aucune constante de cuisine, aucun Q* fictif, aucune probabilité numérique alimentaire. La règle « un contexte inconnu mérite un modèle de conséquences » n'autorise pas une prédiction sportive non calibrée : les familles de variables doivent avoir preuves pré-match, lois formalisées et contrôle OOS. Une cible future Over1,5 réglementaire reste une définition et non un prédicteur.
