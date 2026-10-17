@@ -4,7 +4,7 @@
   "date": "2026-10-17",
   "user_request": "Travail donc je veux mes 1000 scénarios (112 variable différentes) et ics",
   "follow_up": "👀",
-  "status": "DELIVERED_1000X112_SYNTHETIC_ALL_1000_NUMERIC_IC_PROXY__H3_310_ABSTAIN",
+  "status": "DELIVERED_1000X112_1000_NUMERIC_EXPLORATORY_IC_CLOUD_AND_PC_REPLAY_VERIFIED",
   "row_count": 1000,
   "columns_rubrics": 112,
   "prestart_or_theoretical_forecast_rubrics_varied": 98,
@@ -34,7 +34,7 @@
     "README_LIVRAISON_1000x112.md"
   ],
   "tests_local": "7/7 PASS",
-  "Windows_tests": "NOT_YET_VERIFIED",
+  "Windows_tests": "7/7 PASS on MBMPC",
   "data_distribution": {
     "drive_zip": "https://drive.google.com/file/d/14S4idgIhMjcmqarKFz4ZbfRpGV2kOesC/view?usp=drivesdk",
     "drive_xlsx": "https://docs.google.com/spreadsheets/d/1TiZUal8VHouLWlShMHBNi3pr0DB7nyMY/edit?usp=drivesdk",
@@ -48,5 +48,18 @@
     "drive_zip_redownload_sha_match": true,
     "zip_crc": "PASS"
   },
-  "critical_distinction": "1000 numeric proxy ICs are 1000 modeled frequencies under assumptions. H3 original 310 nulls remain. Only modeled physical bridges modify proxy; other 98 roles varied do not imply causal effects. No postT0 outcomes were observed or used."
+  "critical_distinction": "1000 numeric proxy ICs are 1000 modeled frequencies under assumptions. H3 original 310 nulls remain. Only modeled physical bridges modify proxy; other 98 roles varied do not imply causal effects. No postT0 outcomes were observed or used.",
+  "windows_replayed_all_1000": true,
+  "windows_csv_sha256": "db046c7bfad437ee4b8bc78dfa78af3acb60848cd2829185756e6329981b1a63",
+  "cloud_zip_crc": "PASS",
+  "pc_google_drive_copy_same_sha": true,
+  "continuity": {
+    "context_rows": 62,
+    "journal_events": 140,
+    "journal_head": "e276b9536b508f9374501cd24c070d8345e7cd3264a95cddfc68a80199772a58",
+    "user_message": "CTX-0060",
+    "user_followup": "CTX-0061",
+    "assistant_receipt": "CTX-0062",
+    "latest_chain_verify": "PASS_WINDOWS"
+  }
 }
