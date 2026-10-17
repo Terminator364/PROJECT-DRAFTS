@@ -193,7 +193,7 @@
   },
   "scientific_status": "EXPERIMENTAL_NOT_APPROVED",
   "riz112_lab": {
-    "status": "H2_EXECUTABLE_NESTED_RICE_PROFILE_AND_PRESTART_CONDITIONAL_POLICY__REAL_IC_NULL",
+    "status": "STAGE13_HIERARCHICAL_SUBPARAMS_100_DEMO_NOT_CALIBRATED",
     "continuity_code": "RIZ112|CONTINUE",
     "master": "MOTEUR-BLESSING/labs/RIZ112/CAHIER_MERE.md",
     "checkpoint": "MOTEUR-BLESSING/labs/RIZ112/CHECKPOINT.json",
@@ -206,8 +206,8 @@
     "archive_final_sha256": "6fc5c03d44a605781c66e8f561ed3c1a5fc76ad00c21026cbe98b86a64dbf06b",
     "archive_final_bytes": 87045,
     "archive_final_drive_url": "https://drive.google.com/file/d/1JRFayl6zSgQfyQoJBdxj62I97v4vQ1AL/view?usp=drivesdk",
-    "journal_events": 74,
-    "journal_head": "ee3f6acdec045c5094c25fd3efaac82d09b4bcfb6a6a95d7ee7e078ed10c2a3b",
+    "journal_events": 67,
+    "journal_head": "76dff187946aaab8f7a51783f417d6008b41f88b79cfeb5ae65515677b589bed",
     "current_stage": 13,
     "current_zip_sha256": "34887c8ecd5d5e0475b8b03267592e1856c633455b41ff0c8f567860217ac3cb",
     "current_zip_drive": "https://drive.google.com/file/d/1Bzf9scBx1QCACQKE_j4bJL0EvCB1DnrI/view?usp=drivesdk",
@@ -274,7 +274,7 @@
     "latest_drive_mirror": "STEP9_ONLY__STEP10_UPLOAD_BLOCKED_BY_MISSING_CONVERSATION_EXPORT_URI",
     "windows_stage10": "NOT_TESTED",
     "latest_user_directive": "D026_CONTINUE_NESTED_SUBPARAMETERS_AND_ANTICIPATIONS",
-    "source": "MOTEUR-BLESSING/labs/RIZ112/step13/prospective_branches.py",
+    "source": "MOTEUR-BLESSING/labs/RIZ112/step13/causal_demo.py",
     "scenario_total": 100,
     "demo_numeric": 18,
     "demo_abstentions": 42,
@@ -293,7 +293,7 @@
     "eligibility_veto_cases": 4,
     "remaining_local_influence_gaps": 26,
     "scientific_ic": null,
-    "latest_archive_sha256": "2b68850cd5920951da7488d345ee3d297738cb5f836bd6ec5420324f6ecbeec2",
+    "latest_archive_sha256": "098cd21cbf41da80db761be2190d2b7b58877a1dc2ef981cdfdd61d1702a4624",
     "latest_private_drive_archive": "https://drive.google.com/file/d/1ooVdzmJbgW7UksP06ceGCzFqM1dr3OIQ/view?usp=drivesdk",
     "windows_stage12": "MBMPC_OFFLINE_NOT_TESTED",
     "hierarchy": "MOTEUR-BLESSING/labs/RIZ112/step13/H1_HIERARCHIE_112.json",
@@ -326,6 +326,10 @@
     "final_archive_library_path": "/RIZ112_LAB/CAHIER_MERE_STAGE13_H2_2026-10-17/RIZ112_CAHIER_MERE_H2_ANTICIPATIONS_FINAL_2026-10-17.zip",
     "drive_h2_prefinal": "https://drive.google.com/file/d/1dsssLdPefSjx1oXFrjBKbE7TNEKBQt48/view?usp=drivesdk",
     "cloud_drive_final_archive": "NOT_YET_UPLOADED",
-    "windows_stage13": "NOT_TESTED"
+    "windows_stage13": "NOT_TESTED",
+    "regression_tests_passed": 273,
+    "experimental_ics_per_100_scenarios": 100,
+    "latest_drive_archive": "https://drive.google.com/file/d/1rBwEiqMsDUSNaX8EmaYNdxMIiGHcg_mb/view?usp=drivesdk",
+    "windows_status": "OFFLINE_NOT_TESTED"
   }
 }
