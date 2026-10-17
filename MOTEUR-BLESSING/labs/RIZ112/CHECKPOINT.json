@@ -23,7 +23,7 @@
     "context_master": "CONTEXTE_CONVERSATIONS.md",
     "context_protocol": "PROTOCOLE_CONTINUITE_CONTEXTUELLE.md",
     "context_registry": "CONTEXTE_INTEGRAL/REGISTRE_MESSAGES.jsonl",
-    "context_rows": 45,
+    "context_rows": 46,
     "context_update_rule": "ACTIVE_SESSION_EVERY_RELEVANT_EXCHANGE_AND_CHECKPOINT__NO_BACKGROUND",
     "coverage": "SOME_VERBATIM_EXCERPTS_AND_FLAGGED_RECONSTRUCTIONS_NOT_FULL_RAW_ARCHIVE",
     "drive_current_doc": "https://docs.google.com/document/d/13gOTBq7AXnT-f9Lotlw4czwa4i75C4UGdP0i1i0qwZE/edit",
@@ -32,12 +32,13 @@
     "github_status": "VERIFIED_CRITICAL_9_OF_9_BEFORE_FINAL_RECEIPT",
     "initial_source_archive_drive": "https://drive.google.com/file/d/1rFq9GiwbRvb-Hk33JayacttjBOUdAabf/view?usp=drivesdk",
     "initial_source_archive_sha256": "15182d217e42c2985cb4652ac5c2ee9f6afe6afca55ec148b3c803e52b14ede8",
-    "journal_events": 122,
-    "journal_head": "7cb2ad87b02ed00bf5dc9790e75a2461a6b589d48272f4403750a570e7851f56",
+    "journal_events": 123,
+    "journal_head": "90fb4f2e5a938e88a9285c4eeca170407fe466b452c7f6bd42a2303830b01863",
     "lab_code": "Moteur/continue",
     "latest_context_ids": [
       "CTX-0044",
-      "CTX-0045"
+      "CTX-0045",
+      "CTX-0046"
     ],
     "legacy_codes_active": false,
     "library_status": "SOURCE_ARCHIVE_CONFIRMED",
@@ -74,8 +75,8 @@
   },
   "full_packet_replay": "step12/POPULATION_100_COMPLETE_PACKET.jsonl",
   "journal": {
-    "events": 122,
-    "head": "7cb2ad87b02ed00bf5dc9790e75a2461a6b589d48272f4403750a570e7851f56"
+    "events": 123,
+    "head": "90fb4f2e5a938e88a9285c4eeca170407fe466b452c7f6bd42a2303830b01863"
   },
   "last_user_directive": "D034_CANONICAL_SINGLE_CODE_AUTO_RESUME_AND_CONTINUOUS_CONTEXT",
   "latest_case_audit": "step12/COUNTERFACTUAL_112_V12.json",
@@ -485,6 +486,17 @@
     ],
     "tests_linux": 24,
     "tests_windows": 24,
-    "IC_real": null
+    "IC_real": null,
+    "archive_receipt": {
+      "url": "https://drive.google.com/file/d/1A-rUjr570r1_wwbKstua_FAOpIOSlfpj/view?usp=drivesdk",
+      "drive_file_id": "1A-rUjr570r1_wwbKstua_FAOpIOSlfpj",
+      "full_zip_sha256": "e6cdd681764692173f95f2e465a5b807a1291bbda3ea913099eb70026792083c",
+      "full_zip_bytes": 1089735,
+      "full_zip_members": 386,
+      "portable_source_sha256": "566f900fdcc40c9ac6877ec91d042ca1c7686859dd2f2b930b30dc2930f947fe",
+      "portable_file_members": 308,
+      "cloud_download_sha_equal_pc": true,
+      "zip_crc": "PASS"
+    }
   }
 }
