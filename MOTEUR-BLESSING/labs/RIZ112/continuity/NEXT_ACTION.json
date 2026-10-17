@@ -1,7 +1,9 @@
 {
   "canonical_trigger": "Moteur/continue",
-  "current_verified_lab_stage": 15,
+  "current_verified_lab_stage": 16,
   "first_files_to_open": [
+    "MOTEUR-BLESSING/labs/RIZ112/step16/CHECKPOINT_UNIFIED_20261017.json",
+    "MOTEUR-BLESSING/labs/RIZ112/step16/README.md",
     "MOTEUR-BLESSING/labs/RIZ112/step15/CHECKPOINT_H4_FINAL_20261017.json",
     "MOTEUR-BLESSING/labs/RIZ112/step15/README_H4A.md",
     "MOTEUR-BLESSING/labs/RIZ112/step15/CHECKPOINT_H4A_20261017.json",
@@ -14,24 +16,24 @@
     "MOTEUR-BLESSING/labs/RIZ112/PLAN_SUITE_RIZ112_MATRICE.md",
     "MOTEUR-BLESSING/labs/RIZ112/step14/H3_26_CASES_LEDGER.json"
   ],
-  "first_technical_action": "Contrôler l'archive H4 22 contrats/86 tests via le reçu GitHub, puis définir protocole Q reproductible et plan de collecte d'expériences réelles pré/post-T0. N'attribuer aucun IC réel sans observations, approbation du barème et calibration hors échantillon. Ne pas recommencer H4.",
+  "first_technical_action": "Reprendre le moteur expérimental Step16 prouvé 415/415 tests sur Linux et Windows. Définir avec l'utilisateur un protocole reproductible de qualité Q>=85 et un tableau d'acquisition réel pré-T0 et étiquettes post-T0, puis uniquement apprendre/calibrer avec données réelles et tester hors-échantillon. Ne pas réinventer les 112 rubriques ni annoncer un IC scientifique avant ces observations.",
   "how_to_continue": "At trigger, verify checkpoint/journal/context and start this task in the same turn. Do not stop after reporting status or request permission again. Commit work and context with proven readback.",
-  "lab_next_stage": 16,
+  "lab_next_stage": 17,
   "never_do": [
     "Inventer 22 coefficients pour forcer un effet IC",
     "Utiliser des résultats après T0 comme prédicteurs",
     "Déclarer calibré un IC fictif",
     "Écraser un GitHub plus avancé par un ZIP ancien"
   ],
-  "next_execution_id": "SCIENTIFIC_EVIDENCE_GATE__NOT_AUTOMATIC_COMPLETION",
-  "next_execution_title": "Collecter données réelles et protocole Q avant calibration scientifique",
+  "next_execution_id": "SCIENTIFIC_QUALITY_VALIDATION_REAL_DATA",
+  "next_execution_title": "Définir le barème Q puis collecter des cuissons réelles pour calibration, sans modifier les simulations validées",
   "progress_checkpoint": "If task interrupts, append evidence to Cahier mère, context and journal, then update this JSON.",
   "project": "RIZ112→MATRICE",
   "schema": "moteur-blessing/next-action/v1",
   "scientific_status": "NOT_CALIBRATED_IC_NULL",
   "h4a_checkpoint": "MOTEUR-BLESSING/labs/RIZ112/step15/CHECKPOINT_H4A_20261017.json",
   "h4a_status": "PARTIAL_7_DIAGNOSTIC_PATHS_29_TESTS_22_REAL_Q_EFFECT_GAPS_UNRESOLVED",
-  "h4_technical_gate": "CLOSED_FOR_DIAGNOSTIC_CONTRACTS_22_OF_22",
+  "h4_technical_gate": "CLOSED",
   "h4_final_checkpoint": "MOTEUR-BLESSING/labs/RIZ112/step15/CHECKPOINT_H4_FINAL_20261017.json",
   "h4b_status": "TECHNICAL_DIAGNOSTIC_COMPLETED__SCIENTIFIC_VALIDATION_OPEN",
   "pending_external_evidence": [
@@ -39,5 +41,7 @@
     "Pre-registered quality Q rubric",
     "Independent measurements",
     "Chronological out-of-sample calibration"
-  ]
+  ],
+  "step16_checkpoint": "MOTEUR-BLESSING/labs/RIZ112/step16/CHECKPOINT_UNIFIED_20261017.json",
+  "next_action_requires_external_empirical_data": true
 }
