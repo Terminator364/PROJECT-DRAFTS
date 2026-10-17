@@ -1,0 +1,1723 @@
+{
+  "schema": "riz112/step17/effect-path-audit/v1",
+  "input_sha256": "d2e2d745c3d54c5ed3da2b04f0276572eb67084810a82442094367a2e78a7e2e",
+  "baseline_ic_demo_percent": 60.25,
+  "baseline_scientific_ic_percent": null,
+  "rubrics_total": 112,
+  "rubrics_by_group": {
+    "case_inputs": 44,
+    "action_plans": 37,
+    "correction_policies": 13,
+    "target_contract": 14,
+    "derived": 4
+  },
+  "summary_response_counts": {
+    "IC_DEMO_CHANGED_ONLY": 9,
+    "NO_DOWNSTREAM_RESPONSE_IN_IMPLEMENTED_CODE": 35,
+    "UNKNOWN_NO_MEASURED_BASELINE__NO_FAKE_ZERO": 20,
+    "INTERMEDIATE_CHANGED_IC_DEMO_STABLE": 6,
+    "NO_PREDECLARED_VALID_ALTERNATIVE_FOR_CATEGORICAL_INPUT": 1,
+    "COUNTERFACTUAL_REJECTED": 5,
+    "UNKNOWN_PLANNED_ACTION__DO_NOT_INVENT_ACTION": 13,
+    "POLICY_UNDEFINED_OR_UNKNOWN__NO_INVENTED_CORRECTION": 9,
+    "TARGET_IS_A_LABEL_OR_MEASUREMENT_RULE_NOT_PRET0_CAUSAL_INPUT": 14
+  },
+  "intervention_size_policy": "local 1% counterfactual for numeric values, not a causal effect magnitude",
+  "does_not_establish_real_Q_effects": true,
+  "caveat": "Changes in IC_DEMO are conditional properties of the existing synthetic model, never measurements or calibrated percentages for real quality.",
+  "rows": [
+    {
+      "rubric": "001",
+      "group": "case_inputs",
+      "source": "dossier_initial_de_demonstration",
+      "state": "OBSERVED",
+      "effect_on_Q": "NOT_IDENTIFIABLE_WITHOUT_REAL_TRIALS",
+      "intervention": {
+        "before": 160.0,
+        "after": 161.6,
+        "test_type": "SINGLE_CASE_RECORD"
+      },
+      "case_only": {
+        "status": "REJECTED_BY_MODEL_OR_CONTRACT",
+        "error_type": "H4EvidenceError",
+        "error_excerpt": "case 001 and physical rice_mass_g disagree"
+      },
+      "linked_primitive": "rice_mass_g",
+      "coherent_case_plus_physical": {
+        "status": "EXECUTED",
+        "evidence": {
+          "ic_demo_delta_points": 4.25,
+          "h3_intermediates_changed": false,
+          "h4_diagnostic_changed": false,
+          "response": "IC_DEMO_CHANGED_ONLY"
+        }
+      }
+    },
+    {
+      "rubric": "002",
+      "group": "case_inputs",
+      "source": "SYNTHETIC_HYPOTHESIS_PRESTART",
+      "state": "ASSUMPTION",
+      "effect_on_Q": "NOT_IDENTIFIABLE_WITHOUT_REAL_TRIALS",
+      "intervention": {
+        "before": 350.0,
+        "after": 353.5,
+        "test_type": "SINGLE_CASE_RECORD"
+      },
+      "case_only": {
+        "status": "EXECUTED",
+        "evidence": {
+          "ic_demo_delta_points": 0.0,
+          "h3_intermediates_changed": false,
+          "h4_diagnostic_changed": false,
+          "response": "NO_DOWNSTREAM_RESPONSE_IN_IMPLEMENTED_CODE"
+        }
+      }
+    },
+    {
+      "rubric": "003",
+      "group": "case_inputs",
+      "source": "NOT_COLLECTED_FOR_SYNTHETIC_DEMONSTRATION",
+      "state": "UNKNOWN",
+      "effect_on_Q": "NOT_IDENTIFIABLE_WITHOUT_REAL_TRIALS",
+      "intervention": null,
+      "reason": "UNKNOWN_NO_MEASURED_BASELINE__NO_FAKE_ZERO"
+    },
+    {
+      "rubric": "004",
+      "group": "case_inputs",
+      "source": "NOT_COLLECTED_FOR_SYNTHETIC_DEMONSTRATION",
+      "state": "UNKNOWN",
+      "effect_on_Q": "NOT_IDENTIFIABLE_WITHOUT_REAL_TRIALS",
+      "intervention": null,
+      "reason": "UNKNOWN_NO_MEASURED_BASELINE__NO_FAKE_ZERO"
+    },
+    {
+      "rubric": "005",
+      "group": "case_inputs",
+      "source": "SYNTHETIC_HYPOTHESIS_PRESTART",
+      "state": "ASSUMPTION",
+      "effect_on_Q": "NOT_IDENTIFIABLE_WITHOUT_REAL_TRIALS",
+      "intervention": {
+        "before": 1000.0,
+        "after": 1010.0,
+        "test_type": "SINGLE_CASE_RECORD"
+      },
+      "case_only": {
+        "status": "EXECUTED",
+        "evidence": {
+          "ic_demo_delta_points": 0.0,
+          "h3_intermediates_changed": false,
+          "h4_diagnostic_changed": false,
+          "response": "NO_DOWNSTREAM_RESPONSE_IN_IMPLEMENTED_CODE"
+        }
+      }
+    },
+    {
+      "rubric": "006",
+      "group": "case_inputs",
+      "source": "NOT_COLLECTED_FOR_SYNTHETIC_DEMONSTRATION",
+      "state": "UNKNOWN",
+      "effect_on_Q": "NOT_IDENTIFIABLE_WITHOUT_REAL_TRIALS",
+      "intervention": null,
+      "reason": "UNKNOWN_NO_MEASURED_BASELINE__NO_FAKE_ZERO"
+    },
+    {
+      "rubric": "007",
+      "group": "case_inputs",
+      "source": "NOT_COLLECTED_FOR_SYNTHETIC_DEMONSTRATION",
+      "state": "UNKNOWN",
+      "effect_on_Q": "NOT_IDENTIFIABLE_WITHOUT_REAL_TRIALS",
+      "intervention": null,
+      "reason": "UNKNOWN_NO_MEASURED_BASELINE__NO_FAKE_ZERO"
+    },
+    {
+      "rubric": "008",
+      "group": "case_inputs",
+      "source": "SYNTHETIC_HYPOTHESIS_PRESTART",
+      "state": "ASSUMPTION",
+      "effect_on_Q": "NOT_IDENTIFIABLE_WITHOUT_REAL_TRIALS",
+      "intervention": {
+        "before": 1700.0,
+        "after": 1717.0,
+        "test_type": "SINGLE_CASE_RECORD"
+      },
+      "case_only": {
+        "status": "EXECUTED",
+        "evidence": {
+          "ic_demo_delta_points": 0.0,
+          "h3_intermediates_changed": false,
+          "h4_diagnostic_changed": false,
+          "response": "NO_DOWNSTREAM_RESPONSE_IN_IMPLEMENTED_CODE"
+        }
+      }
+    },
+    {
+      "rubric": "009",
+      "group": "case_inputs",
+      "source": "NOT_COLLECTED_FOR_SYNTHETIC_DEMONSTRATION",
+      "state": "UNKNOWN",
+      "effect_on_Q": "NOT_IDENTIFIABLE_WITHOUT_REAL_TRIALS",
+      "intervention": null,
+      "reason": "UNKNOWN_NO_MEASURED_BASELINE__NO_FAKE_ZERO"
+    },
+    {
+      "rubric": "010",
+      "group": "case_inputs",
+      "source": "NOT_COLLECTED_FOR_SYNTHETIC_DEMONSTRATION",
+      "state": "UNKNOWN",
+      "effect_on_Q": "NOT_IDENTIFIABLE_WITHOUT_REAL_TRIALS",
+      "intervention": null,
+      "reason": "UNKNOWN_NO_MEASURED_BASELINE__NO_FAKE_ZERO"
+    },
+    {
+      "rubric": "011",
+      "group": "case_inputs",
+      "source": "NOT_COLLECTED_FOR_SYNTHETIC_DEMONSTRATION",
+      "state": "UNKNOWN",
+      "effect_on_Q": "NOT_IDENTIFIABLE_WITHOUT_REAL_TRIALS",
+      "intervention": null,
+      "reason": "UNKNOWN_NO_MEASURED_BASELINE__NO_FAKE_ZERO"
+    },
+    {
+      "rubric": "012",
+      "group": "case_inputs",
+      "source": "NOT_COLLECTED_FOR_SYNTHETIC_DEMONSTRATION",
+      "state": "UNKNOWN",
+      "effect_on_Q": "NOT_IDENTIFIABLE_WITHOUT_REAL_TRIALS",
+      "intervention": null,
+      "reason": "UNKNOWN_NO_MEASURED_BASELINE__NO_FAKE_ZERO"
+    },
+    {
+      "rubric": "013",
+      "group": "case_inputs",
+      "source": "SYNTHETIC_HYPOTHESIS_PRESTART",
+      "state": "ASSUMPTION",
+      "effect_on_Q": "NOT_IDENTIFIABLE_WITHOUT_REAL_TRIALS",
+      "intervention": {
+        "before": true,
+        "after": false,
+        "test_type": "SINGLE_CASE_RECORD"
+      },
+      "case_only": {
+        "status": "EXECUTED",
+        "evidence": {
+          "ic_demo_delta_points": null,
+          "h3_intermediates_changed": true,
+          "h4_diagnostic_changed": false,
+          "response": "INTERMEDIATE_CHANGED_IC_DEMO_STABLE"
+        }
+      }
+    },
+    {
+      "rubric": "014",
+      "group": "case_inputs",
+      "source": "hypothese_de_demonstration",
+      "state": "ASSUMPTION",
+      "effect_on_Q": "NOT_IDENTIFIABLE_WITHOUT_REAL_TRIALS",
+      "intervention": {
+        "before": 1.0,
+        "after": 0.99,
+        "test_type": "SINGLE_CASE_RECORD"
+      },
+      "case_only": {
+        "status": "REJECTED_BY_MODEL_OR_CONTRACT",
+        "error_type": "HierarchyError",
+        "error_excerpt": "base simulator failed: 014 inconsistent with stage4 driver lid_multiplier"
+      },
+      "linked_primitive": "lid_multiplier",
+      "coherent_case_plus_physical": {
+        "status": "EXECUTED",
+        "evidence": {
+          "ic_demo_delta_points": -0.75,
+          "h3_intermediates_changed": false,
+          "h4_diagnostic_changed": false,
+          "response": "IC_DEMO_CHANGED_ONLY"
+        }
+      }
+    },
+    {
+      "rubric": "015",
+      "group": "case_inputs",
+      "source": "NOT_COLLECTED_FOR_SYNTHETIC_DEMONSTRATION",
+      "state": "UNKNOWN",
+      "effect_on_Q": "NOT_IDENTIFIABLE_WITHOUT_REAL_TRIALS",
+      "intervention": null,
+      "reason": "UNKNOWN_NO_MEASURED_BASELINE__NO_FAKE_ZERO"
+    },
+    {
+      "rubric": "016",
+      "group": "case_inputs",
+      "source": "NOT_COLLECTED_FOR_SYNTHETIC_DEMONSTRATION",
+      "state": "UNKNOWN",
+      "effect_on_Q": "NOT_IDENTIFIABLE_WITHOUT_REAL_TRIALS",
+      "intervention": null,
+      "reason": "UNKNOWN_NO_MEASURED_BASELINE__NO_FAKE_ZERO"
+    },
+    {
+      "rubric": "017",
+      "group": "case_inputs",
+      "source": "NOT_COLLECTED_FOR_SYNTHETIC_DEMONSTRATION",
+      "state": "UNKNOWN",
+      "effect_on_Q": "NOT_IDENTIFIABLE_WITHOUT_REAL_TRIALS",
+      "intervention": null,
+      "reason": "UNKNOWN_NO_MEASURED_BASELINE__NO_FAKE_ZERO"
+    },
+    {
+      "rubric": "018",
+      "group": "case_inputs",
+      "source": "NOT_COLLECTED_FOR_SYNTHETIC_DEMONSTRATION",
+      "state": "UNKNOWN",
+      "effect_on_Q": "NOT_IDENTIFIABLE_WITHOUT_REAL_TRIALS",
+      "intervention": null,
+      "reason": "UNKNOWN_NO_MEASURED_BASELINE__NO_FAKE_ZERO"
+    },
+    {
+      "rubric": "019",
+      "group": "case_inputs",
+      "source": "SYNTHETIC_HYPOTHESIS_PRESTART",
+      "state": "ASSUMPTION",
+      "effect_on_Q": "NOT_IDENTIFIABLE_WITHOUT_REAL_TRIALS",
+      "intervention": {
+        "before": true,
+        "after": false,
+        "test_type": "SINGLE_CASE_RECORD"
+      },
+      "case_only": {
+        "status": "EXECUTED",
+        "evidence": {
+          "ic_demo_delta_points": null,
+          "h3_intermediates_changed": true,
+          "h4_diagnostic_changed": false,
+          "response": "INTERMEDIATE_CHANGED_IC_DEMO_STABLE"
+        }
+      }
+    },
+    {
+      "rubric": "020",
+      "group": "case_inputs",
+      "source": "SYNTHETIC_HYPOTHESIS_PRESTART",
+      "state": "ASSUMPTION",
+      "effect_on_Q": "NOT_IDENTIFIABLE_WITHOUT_REAL_TRIALS",
+      "intervention": {
+        "before": true,
+        "after": false,
+        "test_type": "SINGLE_CASE_RECORD"
+      },
+      "case_only": {
+        "status": "EXECUTED",
+        "evidence": {
+          "ic_demo_delta_points": null,
+          "h3_intermediates_changed": true,
+          "h4_diagnostic_changed": false,
+          "response": "INTERMEDIATE_CHANGED_IC_DEMO_STABLE"
+        }
+      }
+    },
+    {
+      "rubric": "021",
+      "group": "case_inputs",
+      "source": "SYNTHETIC_HYPOTHESIS_PRESTART",
+      "state": "ASSUMPTION",
+      "effect_on_Q": "NOT_IDENTIFIABLE_WITHOUT_REAL_TRIALS",
+      "intervention": {
+        "before": true,
+        "after": false,
+        "test_type": "SINGLE_CASE_RECORD"
+      },
+      "case_only": {
+        "status": "EXECUTED",
+        "evidence": {
+          "ic_demo_delta_points": null,
+          "h3_intermediates_changed": true,
+          "h4_diagnostic_changed": false,
+          "response": "INTERMEDIATE_CHANGED_IC_DEMO_STABLE"
+        }
+      }
+    },
+    {
+      "rubric": "022",
+      "group": "case_inputs",
+      "source": "SYNTHETIC_HYPOTHESIS_PRESTART",
+      "state": "ASSUMPTION",
+      "effect_on_Q": "NOT_IDENTIFIABLE_WITHOUT_REAL_TRIALS",
+      "intervention": {
+        "before": true,
+        "after": false,
+        "test_type": "SINGLE_CASE_RECORD"
+      },
+      "case_only": {
+        "status": "EXECUTED",
+        "evidence": {
+          "ic_demo_delta_points": 0.0,
+          "h3_intermediates_changed": false,
+          "h4_diagnostic_changed": false,
+          "response": "NO_DOWNSTREAM_RESPONSE_IN_IMPLEMENTED_CODE"
+        }
+      }
+    },
+    {
+      "rubric": "023",
+      "group": "case_inputs",
+      "source": "SYNTHETIC_HYPOTHESIS_PRESTART",
+      "state": "ASSUMPTION",
+      "effect_on_Q": "NOT_IDENTIFIABLE_WITHOUT_REAL_TRIALS",
+      "intervention": {
+        "before": true,
+        "after": false,
+        "test_type": "SINGLE_CASE_RECORD"
+      },
+      "case_only": {
+        "status": "EXECUTED",
+        "evidence": {
+          "ic_demo_delta_points": 0.0,
+          "h3_intermediates_changed": false,
+          "h4_diagnostic_changed": false,
+          "response": "NO_DOWNSTREAM_RESPONSE_IN_IMPLEMENTED_CODE"
+        }
+      }
+    },
+    {
+      "rubric": "024",
+      "group": "case_inputs",
+      "source": "dossier_initial_de_demonstration",
+      "state": "OBSERVED",
+      "effect_on_Q": "NOT_IDENTIFIABLE_WITHOUT_REAL_TRIALS",
+      "intervention": null,
+      "reason": "NO_PREDECLARED_VALID_ALTERNATIVE_FOR_CATEGORICAL_INPUT"
+    },
+    {
+      "rubric": "025",
+      "group": "case_inputs",
+      "source": "NOT_COLLECTED_FOR_SYNTHETIC_DEMONSTRATION",
+      "state": "UNKNOWN",
+      "effect_on_Q": "NOT_IDENTIFIABLE_WITHOUT_REAL_TRIALS",
+      "intervention": null,
+      "reason": "UNKNOWN_NO_MEASURED_BASELINE__NO_FAKE_ZERO"
+    },
+    {
+      "rubric": "026",
+      "group": "case_inputs",
+      "source": "NOT_COLLECTED_FOR_SYNTHETIC_DEMONSTRATION",
+      "state": "UNKNOWN",
+      "effect_on_Q": "NOT_IDENTIFIABLE_WITHOUT_REAL_TRIALS",
+      "intervention": null,
+      "reason": "UNKNOWN_NO_MEASURED_BASELINE__NO_FAKE_ZERO"
+    },
+    {
+      "rubric": "027",
+      "group": "case_inputs",
+      "source": "NOT_COLLECTED_FOR_SYNTHETIC_DEMONSTRATION",
+      "state": "UNKNOWN",
+      "effect_on_Q": "NOT_IDENTIFIABLE_WITHOUT_REAL_TRIALS",
+      "intervention": null,
+      "reason": "UNKNOWN_NO_MEASURED_BASELINE__NO_FAKE_ZERO"
+    },
+    {
+      "rubric": "028",
+      "group": "case_inputs",
+      "source": "NOT_COLLECTED_FOR_SYNTHETIC_DEMONSTRATION",
+      "state": "UNKNOWN",
+      "effect_on_Q": "NOT_IDENTIFIABLE_WITHOUT_REAL_TRIALS",
+      "intervention": null,
+      "reason": "UNKNOWN_NO_MEASURED_BASELINE__NO_FAKE_ZERO"
+    },
+    {
+      "rubric": "029",
+      "group": "case_inputs",
+      "source": "NOT_COLLECTED_FOR_SYNTHETIC_DEMONSTRATION",
+      "state": "UNKNOWN",
+      "effect_on_Q": "NOT_IDENTIFIABLE_WITHOUT_REAL_TRIALS",
+      "intervention": null,
+      "reason": "UNKNOWN_NO_MEASURED_BASELINE__NO_FAKE_ZERO"
+    },
+    {
+      "rubric": "030",
+      "group": "case_inputs",
+      "source": "hypothese_de_demonstration",
+      "state": "ASSUMPTION",
+      "effect_on_Q": "NOT_IDENTIFIABLE_WITHOUT_REAL_TRIALS",
+      "intervention": {
+        "before": 0.5,
+        "after": 0.51,
+        "test_type": "SINGLE_CASE_RECORD"
+      },
+      "case_only": {
+        "status": "REJECTED_BY_MODEL_OR_CONTRACT",
+        "error_type": "H4EvidenceError",
+        "error_excerpt": "case 030 and surface_starch_index disagree"
+      },
+      "linked_primitive": "surface_starch_index",
+      "coherent_case_plus_physical": {
+        "status": "EXECUTED",
+        "evidence": {
+          "ic_demo_delta_points": 0.0,
+          "h3_intermediates_changed": false,
+          "h4_diagnostic_changed": true,
+          "response": "INTERMEDIATE_CHANGED_IC_DEMO_STABLE"
+        }
+      }
+    },
+    {
+      "rubric": "031",
+      "group": "case_inputs",
+      "source": "NOT_COLLECTED_FOR_SYNTHETIC_DEMONSTRATION",
+      "state": "UNKNOWN",
+      "effect_on_Q": "NOT_IDENTIFIABLE_WITHOUT_REAL_TRIALS",
+      "intervention": null,
+      "reason": "UNKNOWN_NO_MEASURED_BASELINE__NO_FAKE_ZERO"
+    },
+    {
+      "rubric": "032",
+      "group": "case_inputs",
+      "source": "NOT_COLLECTED_FOR_SYNTHETIC_DEMONSTRATION",
+      "state": "UNKNOWN",
+      "effect_on_Q": "NOT_IDENTIFIABLE_WITHOUT_REAL_TRIALS",
+      "intervention": null,
+      "reason": "UNKNOWN_NO_MEASURED_BASELINE__NO_FAKE_ZERO"
+    },
+    {
+      "rubric": "033",
+      "group": "case_inputs",
+      "source": "hypothese_de_demonstration",
+      "state": "ASSUMPTION",
+      "effect_on_Q": "NOT_IDENTIFIABLE_WITHOUT_REAL_TRIALS",
+      "intervention": {
+        "before": 1.35,
+        "after": 1.3635000000000002,
+        "test_type": "SINGLE_CASE_RECORD"
+      },
+      "case_only": {
+        "status": "REJECTED_BY_MODEL_OR_CONTRACT",
+        "error_type": "HierarchyError",
+        "error_excerpt": "base simulator failed: 033 inconsistent with stage4 driver water_capacity_g_per_g"
+      },
+      "linked_primitive": "water_capacity_g_per_g",
+      "coherent_case_plus_physical": {
+        "status": "EXECUTED",
+        "evidence": {
+          "ic_demo_delta_points": 3.5,
+          "h3_intermediates_changed": false,
+          "h4_diagnostic_changed": false,
+          "response": "IC_DEMO_CHANGED_ONLY"
+        }
+      }
+    },
+    {
+      "rubric": "034",
+      "group": "case_inputs",
+      "source": "hypothese_de_demonstration",
+      "state": "ASSUMPTION",
+      "effect_on_Q": "NOT_IDENTIFIABLE_WITHOUT_REAL_TRIALS",
+      "intervention": {
+        "before": 12.0,
+        "after": 12.12,
+        "test_type": "SINGLE_CASE_RECORD"
+      },
+      "case_only": {
+        "status": "REJECTED_BY_MODEL_OR_CONTRACT",
+        "error_type": "HierarchyError",
+        "error_excerpt": "base simulator failed: 034 inconsistent with stage4 driver hot_time_needed_min"
+      },
+      "linked_primitive": "hot_time_needed_min",
+      "coherent_case_plus_physical": {
+        "status": "EXECUTED",
+        "evidence": {
+          "ic_demo_delta_points": -0.5,
+          "h3_intermediates_changed": false,
+          "h4_diagnostic_changed": false,
+          "response": "IC_DEMO_CHANGED_ONLY"
+        }
+      }
+    },
+    {
+      "rubric": "035",
+      "group": "case_inputs",
+      "source": "dossier_initial_de_demonstration",
+      "state": "PLANNED",
+      "effect_on_Q": "NOT_IDENTIFIABLE_WITHOUT_REAL_TRIALS",
+      "intervention": {
+        "before": 300.0,
+        "after": 303.0,
+        "test_type": "SINGLE_CASE_RECORD"
+      },
+      "case_only": {
+        "status": "EXECUTED",
+        "evidence": {
+          "ic_demo_delta_points": 0.0,
+          "h3_intermediates_changed": false,
+          "h4_diagnostic_changed": false,
+          "response": "NO_DOWNSTREAM_RESPONSE_IN_IMPLEMENTED_CODE"
+        }
+      },
+      "linked_primitive": "water_added_g",
+      "coherent_case_plus_physical": {
+        "status": "EXECUTED",
+        "evidence": {
+          "ic_demo_delta_points": 0.0,
+          "h3_intermediates_changed": false,
+          "h4_diagnostic_changed": false,
+          "response": "NO_DOWNSTREAM_RESPONSE_IN_IMPLEMENTED_CODE"
+        }
+      }
+    },
+    {
+      "rubric": "036",
+      "group": "case_inputs",
+      "source": "hypothese_de_demonstration",
+      "state": "ASSUMPTION",
+      "effect_on_Q": "NOT_IDENTIFIABLE_WITHOUT_REAL_TRIALS",
+      "intervention": {
+        "before": 8.0,
+        "after": 8.08,
+        "test_type": "SINGLE_CASE_RECORD"
+      },
+      "case_only": {
+        "status": "REJECTED_BY_MODEL_OR_CONTRACT",
+        "error_type": "HierarchyError",
+        "error_excerpt": "base simulator failed: 036 inconsistent with stage4 driver water_retained_g"
+      },
+      "linked_primitive": "water_retained_g",
+      "coherent_case_plus_physical": {
+        "status": "EXECUTED",
+        "evidence": {
+          "ic_demo_delta_points": 0.0,
+          "h3_intermediates_changed": false,
+          "h4_diagnostic_changed": false,
+          "response": "NO_DOWNSTREAM_RESPONSE_IN_IMPLEMENTED_CODE"
+        }
+      }
+    },
+    {
+      "rubric": "037",
+      "group": "case_inputs",
+      "source": "dossier_initial_de_demonstration",
+      "state": "OBSERVED",
+      "effect_on_Q": "NOT_IDENTIFIABLE_WITHOUT_REAL_TRIALS",
+      "intervention": {
+        "before": 22.0,
+        "after": 22.22,
+        "test_type": "SINGLE_CASE_RECORD"
+      },
+      "case_only": {
+        "status": "REJECTED_BY_MODEL_OR_CONTRACT",
+        "error_type": "HierarchyError",
+        "error_excerpt": "base simulator failed: 037 inconsistent with stage4 driver water_initial_C"
+      },
+      "linked_primitive": "water_initial_C",
+      "coherent_case_plus_physical": {
+        "status": "EXECUTED",
+        "evidence": {
+          "ic_demo_delta_points": 0.25,
+          "h3_intermediates_changed": false,
+          "h4_diagnostic_changed": false,
+          "response": "IC_DEMO_CHANGED_ONLY"
+        }
+      }
+    },
+    {
+      "rubric": "038",
+      "group": "case_inputs",
+      "source": "dossier_initial_de_demonstration",
+      "state": "OBSERVED",
+      "effect_on_Q": "NOT_IDENTIFIABLE_WITHOUT_REAL_TRIALS",
+      "intervention": {
+        "before": 22.0,
+        "after": 22.22,
+        "test_type": "SINGLE_CASE_RECORD"
+      },
+      "case_only": {
+        "status": "REJECTED_BY_MODEL_OR_CONTRACT",
+        "error_type": "HierarchyError",
+        "error_excerpt": "base simulator failed: 038 inconsistent with stage4 driver rice_initial_C"
+      },
+      "linked_primitive": "rice_initial_C",
+      "coherent_case_plus_physical": {
+        "status": "EXECUTED",
+        "evidence": {
+          "ic_demo_delta_points": 0.0,
+          "h3_intermediates_changed": false,
+          "h4_diagnostic_changed": false,
+          "response": "NO_DOWNSTREAM_RESPONSE_IN_IMPLEMENTED_CODE"
+        }
+      }
+    },
+    {
+      "rubric": "039",
+      "group": "case_inputs",
+      "source": "SYNTHETIC_HYPOTHESIS_PRESTART",
+      "state": "ASSUMPTION",
+      "effect_on_Q": "NOT_IDENTIFIABLE_WITHOUT_REAL_TRIALS",
+      "intervention": {
+        "before": 24.0,
+        "after": 24.24,
+        "test_type": "SINGLE_CASE_RECORD"
+      },
+      "case_only": {
+        "status": "EXECUTED",
+        "evidence": {
+          "ic_demo_delta_points": 0.0,
+          "h3_intermediates_changed": true,
+          "h4_diagnostic_changed": false,
+          "response": "INTERMEDIATE_CHANGED_IC_DEMO_STABLE"
+        }
+      }
+    },
+    {
+      "rubric": "040",
+      "group": "case_inputs",
+      "source": "NOT_COLLECTED_FOR_SYNTHETIC_DEMONSTRATION",
+      "state": "UNKNOWN",
+      "effect_on_Q": "NOT_IDENTIFIABLE_WITHOUT_REAL_TRIALS",
+      "intervention": null,
+      "reason": "UNKNOWN_NO_MEASURED_BASELINE__NO_FAKE_ZERO"
+    },
+    {
+      "rubric": "041",
+      "group": "case_inputs",
+      "source": "dossier_initial_de_demonstration",
+      "state": "PLANNED",
+      "effect_on_Q": "NOT_IDENTIFIABLE_WITHOUT_REAL_TRIALS",
+      "intervention": {
+        "before": 550.0,
+        "after": 555.5,
+        "test_type": "SINGLE_CASE_RECORD"
+      },
+      "case_only": {
+        "status": "REJECTED_BY_MODEL_OR_CONTRACT",
+        "error_type": "HierarchyError",
+        "error_excerpt": "base simulator failed: 041 inconsistent with stage4 driver power_W"
+      },
+      "linked_primitive": "power_W",
+      "coherent_case_plus_physical": {
+        "status": "EXECUTED",
+        "evidence": {
+          "ic_demo_delta_points": 0.5,
+          "h3_intermediates_changed": true,
+          "h4_diagnostic_changed": false,
+          "response": "IC_DEMO_CHANGED_ONLY"
+        }
+      }
+    },
+    {
+      "rubric": "042",
+      "group": "case_inputs",
+      "source": "hypothese_de_demonstration",
+      "state": "ASSUMPTION",
+      "effect_on_Q": "NOT_IDENTIFIABLE_WITHOUT_REAL_TRIALS",
+      "intervention": {
+        "before": 0.6,
+        "after": 0.61,
+        "test_type": "SINGLE_CASE_RECORD"
+      },
+      "case_only": {
+        "status": "EXECUTED",
+        "evidence": {
+          "ic_demo_delta_points": 0.0,
+          "h3_intermediates_changed": false,
+          "h4_diagnostic_changed": false,
+          "response": "NO_DOWNSTREAM_RESPONSE_IN_IMPLEMENTED_CODE"
+        }
+      },
+      "linked_primitive": "transfer_efficiency",
+      "coherent_case_plus_physical": {
+        "status": "EXECUTED",
+        "evidence": {
+          "ic_demo_delta_points": 0.75,
+          "h3_intermediates_changed": true,
+          "h4_diagnostic_changed": false,
+          "response": "IC_DEMO_CHANGED_ONLY"
+        }
+      }
+    },
+    {
+      "rubric": "043",
+      "group": "derived",
+      "state": "DERIVED_OUTPUT_NOT_INDEPENDENT_INPUT",
+      "intervention": null,
+      "effect_on_Q": "NOT_IDENTIFIABLE_WITHOUT_REAL_TRIALS"
+    },
+    {
+      "rubric": "044",
+      "group": "derived",
+      "state": "DERIVED_OUTPUT_NOT_INDEPENDENT_INPUT",
+      "intervention": null,
+      "effect_on_Q": "NOT_IDENTIFIABLE_WITHOUT_REAL_TRIALS"
+    },
+    {
+      "rubric": "045",
+      "group": "case_inputs",
+      "source": "hypothese_de_demonstration",
+      "state": "ASSUMPTION",
+      "effect_on_Q": "NOT_IDENTIFIABLE_WITHOUT_REAL_TRIALS",
+      "intervention": {
+        "before": 4.0,
+        "after": 4.04,
+        "test_type": "SINGLE_CASE_RECORD"
+      },
+      "case_only": {
+        "status": "REJECTED_BY_MODEL_OR_CONTRACT",
+        "error_type": "HierarchyError",
+        "error_excerpt": "base simulator failed: 045 inconsistent with stage4 driver evap_reference_g_per_min"
+      },
+      "linked_primitive": "evap_reference_g_per_min",
+      "coherent_case_plus_physical": {
+        "status": "EXECUTED",
+        "evidence": {
+          "ic_demo_delta_points": 0.75,
+          "h3_intermediates_changed": false,
+          "h4_diagnostic_changed": false,
+          "response": "IC_DEMO_CHANGED_ONLY"
+        }
+      }
+    },
+    {
+      "rubric": "046",
+      "group": "derived",
+      "state": "DERIVED_OUTPUT_NOT_INDEPENDENT_INPUT",
+      "intervention": null,
+      "effect_on_Q": "NOT_IDENTIFIABLE_WITHOUT_REAL_TRIALS"
+    },
+    {
+      "rubric": "047",
+      "group": "case_inputs",
+      "source": "dossier_initial_de_demonstration",
+      "state": "PLANNED",
+      "effect_on_Q": "NOT_IDENTIFIABLE_WITHOUT_REAL_TRIALS",
+      "intervention": {
+        "before": 22.0,
+        "after": 22.22,
+        "test_type": "SINGLE_CASE_RECORD"
+      },
+      "case_only": {
+        "status": "REJECTED_BY_MODEL_OR_CONTRACT",
+        "error_type": "HierarchyError",
+        "error_excerpt": "base simulator failed: 047 inconsistent with stage4 driver total_heating_min"
+      },
+      "linked_primitive": "total_heating_min",
+      "coherent_case_plus_physical": {
+        "status": "EXECUTED",
+        "evidence": {
+          "ic_demo_delta_points": 2.0,
+          "h3_intermediates_changed": false,
+          "h4_diagnostic_changed": false,
+          "response": "IC_DEMO_CHANGED_ONLY"
+        }
+      }
+    },
+    {
+      "rubric": "048",
+      "group": "derived",
+      "state": "DERIVED_OUTPUT_NOT_INDEPENDENT_INPUT",
+      "intervention": null,
+      "effect_on_Q": "NOT_IDENTIFIABLE_WITHOUT_REAL_TRIALS"
+    },
+    {
+      "rubric": "049",
+      "group": "action_plans",
+      "source": "SYNTHETIC_PLANNING_NO_ACTUAL_EXECUTION",
+      "state": "PLANNED",
+      "effect_on_Q": "NOT_IDENTIFIABLE_WITHOUT_REAL_TRIALS",
+      "intervention": {
+        "before": "PLANNED",
+        "after": "NOT_PLANNED",
+        "test_type": "COUNTERFACTUAL_CANCEL_PLANNED_ACTION"
+      },
+      "case_only": {
+        "status": "EXECUTED",
+        "evidence": {
+          "ic_demo_delta_points": 0.0,
+          "h3_intermediates_changed": false,
+          "h4_diagnostic_changed": false,
+          "response": "NO_DOWNSTREAM_RESPONSE_IN_IMPLEMENTED_CODE"
+        }
+      }
+    },
+    {
+      "rubric": "050",
+      "group": "action_plans",
+      "source": "SYNTHETIC_PLANNING_NO_ACTUAL_EXECUTION",
+      "state": "PLANNED",
+      "effect_on_Q": "NOT_IDENTIFIABLE_WITHOUT_REAL_TRIALS",
+      "intervention": {
+        "before": "PLANNED",
+        "after": "NOT_PLANNED",
+        "test_type": "COUNTERFACTUAL_CANCEL_PLANNED_ACTION"
+      },
+      "case_only": {
+        "status": "EXECUTED",
+        "evidence": {
+          "ic_demo_delta_points": 0.0,
+          "h3_intermediates_changed": false,
+          "h4_diagnostic_changed": false,
+          "response": "NO_DOWNSTREAM_RESPONSE_IN_IMPLEMENTED_CODE"
+        }
+      }
+    },
+    {
+      "rubric": "051",
+      "group": "action_plans",
+      "source": "SYNTHETIC_PLANNING_NO_ACTUAL_EXECUTION",
+      "state": "UNKNOWN",
+      "effect_on_Q": "NOT_IDENTIFIABLE_WITHOUT_REAL_TRIALS",
+      "intervention": null,
+      "reason": "UNKNOWN_PLANNED_ACTION__DO_NOT_INVENT_ACTION"
+    },
+    {
+      "rubric": "052",
+      "group": "action_plans",
+      "source": "SYNTHETIC_PLANNING_NO_ACTUAL_EXECUTION",
+      "state": "UNKNOWN",
+      "effect_on_Q": "NOT_IDENTIFIABLE_WITHOUT_REAL_TRIALS",
+      "intervention": null,
+      "reason": "UNKNOWN_PLANNED_ACTION__DO_NOT_INVENT_ACTION"
+    },
+    {
+      "rubric": "053",
+      "group": "action_plans",
+      "source": "SYNTHETIC_PLANNING_NO_ACTUAL_EXECUTION",
+      "state": "PLANNED",
+      "effect_on_Q": "NOT_IDENTIFIABLE_WITHOUT_REAL_TRIALS",
+      "intervention": {
+        "before": "PLANNED",
+        "after": "NOT_PLANNED",
+        "test_type": "COUNTERFACTUAL_CANCEL_PLANNED_ACTION"
+      },
+      "case_only": {
+        "status": "EXECUTED",
+        "evidence": {
+          "ic_demo_delta_points": 0.0,
+          "h3_intermediates_changed": false,
+          "h4_diagnostic_changed": false,
+          "response": "NO_DOWNSTREAM_RESPONSE_IN_IMPLEMENTED_CODE"
+        }
+      }
+    },
+    {
+      "rubric": "054",
+      "group": "action_plans",
+      "source": "SYNTHETIC_PLANNING_NO_ACTUAL_EXECUTION",
+      "state": "PLANNED",
+      "effect_on_Q": "NOT_IDENTIFIABLE_WITHOUT_REAL_TRIALS",
+      "intervention": {
+        "before": "PLANNED",
+        "after": "NOT_PLANNED",
+        "test_type": "COUNTERFACTUAL_CANCEL_PLANNED_ACTION"
+      },
+      "case_only": {
+        "status": "REJECTED_BY_MODEL_OR_CONTRACT",
+        "error_type": "H4EvidenceError",
+        "error_excerpt": "positive rinsing fraction requires a predeclared plan 054"
+      }
+    },
+    {
+      "rubric": "055",
+      "group": "action_plans",
+      "source": "SYNTHETIC_PLANNING_NO_ACTUAL_EXECUTION",
+      "state": "PLANNED",
+      "effect_on_Q": "NOT_IDENTIFIABLE_WITHOUT_REAL_TRIALS",
+      "intervention": {
+        "before": "PLANNED",
+        "after": "NOT_PLANNED",
+        "test_type": "COUNTERFACTUAL_CANCEL_PLANNED_ACTION"
+      },
+      "case_only": {
+        "status": "EXECUTED",
+        "evidence": {
+          "ic_demo_delta_points": 0.0,
+          "h3_intermediates_changed": false,
+          "h4_diagnostic_changed": false,
+          "response": "NO_DOWNSTREAM_RESPONSE_IN_IMPLEMENTED_CODE"
+        }
+      }
+    },
+    {
+      "rubric": "056",
+      "group": "action_plans",
+      "source": "SYNTHETIC_PLANNING_NO_ACTUAL_EXECUTION",
+      "state": "UNKNOWN",
+      "effect_on_Q": "NOT_IDENTIFIABLE_WITHOUT_REAL_TRIALS",
+      "intervention": null,
+      "reason": "UNKNOWN_PLANNED_ACTION__DO_NOT_INVENT_ACTION"
+    },
+    {
+      "rubric": "057",
+      "group": "action_plans",
+      "source": "SYNTHETIC_PLANNING_NO_ACTUAL_EXECUTION",
+      "state": "PLANNED",
+      "effect_on_Q": "NOT_IDENTIFIABLE_WITHOUT_REAL_TRIALS",
+      "intervention": {
+        "before": "PLANNED",
+        "after": "NOT_PLANNED",
+        "test_type": "COUNTERFACTUAL_CANCEL_PLANNED_ACTION"
+      },
+      "case_only": {
+        "status": "EXECUTED",
+        "evidence": {
+          "ic_demo_delta_points": 0.0,
+          "h3_intermediates_changed": false,
+          "h4_diagnostic_changed": false,
+          "response": "NO_DOWNSTREAM_RESPONSE_IN_IMPLEMENTED_CODE"
+        }
+      }
+    },
+    {
+      "rubric": "058",
+      "group": "action_plans",
+      "source": "SYNTHETIC_PLANNING_NO_ACTUAL_EXECUTION",
+      "state": "UNKNOWN",
+      "effect_on_Q": "NOT_IDENTIFIABLE_WITHOUT_REAL_TRIALS",
+      "intervention": null,
+      "reason": "UNKNOWN_PLANNED_ACTION__DO_NOT_INVENT_ACTION"
+    },
+    {
+      "rubric": "059",
+      "group": "action_plans",
+      "source": "SYNTHETIC_PLANNING_NO_ACTUAL_EXECUTION",
+      "state": "PLANNED",
+      "effect_on_Q": "NOT_IDENTIFIABLE_WITHOUT_REAL_TRIALS",
+      "intervention": {
+        "before": "PLANNED",
+        "after": "NOT_PLANNED",
+        "test_type": "COUNTERFACTUAL_CANCEL_PLANNED_ACTION"
+      },
+      "case_only": {
+        "status": "EXECUTED",
+        "evidence": {
+          "ic_demo_delta_points": 0.0,
+          "h3_intermediates_changed": false,
+          "h4_diagnostic_changed": false,
+          "response": "NO_DOWNSTREAM_RESPONSE_IN_IMPLEMENTED_CODE"
+        }
+      }
+    },
+    {
+      "rubric": "060",
+      "group": "action_plans",
+      "source": "SYNTHETIC_PLANNING_NO_ACTUAL_EXECUTION",
+      "state": "PLANNED",
+      "effect_on_Q": "NOT_IDENTIFIABLE_WITHOUT_REAL_TRIALS",
+      "intervention": {        "before": "PLANNED",
+        "after": "NOT_PLANNED",
+        "test_type": "COUNTERFACTUAL_CANCEL_PLANNED_ACTION"
+      },
+      "case_only": {
+        "status": "EXECUTED",
+        "evidence": {
+          "ic_demo_delta_points": 0.0,
+          "h3_intermediates_changed": false,
+          "h4_diagnostic_changed": false,
+          "response": "NO_DOWNSTREAM_RESPONSE_IN_IMPLEMENTED_CODE"
+        }
+      }
+    },
+    {
+      "rubric": "061",
+      "group": "action_plans",
+      "source": "SYNTHETIC_PLANNING_NO_ACTUAL_EXECUTION",
+      "state": "UNKNOWN",
+      "effect_on_Q": "NOT_IDENTIFIABLE_WITHOUT_REAL_TRIALS",
+      "intervention": null,
+      "reason": "UNKNOWN_PLANNED_ACTION__DO_NOT_INVENT_ACTION"
+    },
+    {
+      "rubric": "062",
+      "group": "action_plans",
+      "source": "SYNTHETIC_PLANNING_NO_ACTUAL_EXECUTION",
+      "state": "UNKNOWN",
+      "effect_on_Q": "NOT_IDENTIFIABLE_WITHOUT_REAL_TRIALS",
+      "intervention": null,
+      "reason": "UNKNOWN_PLANNED_ACTION__DO_NOT_INVENT_ACTION"
+    },
+    {
+      "rubric": "063",
+      "group": "action_plans",
+      "source": "SYNTHETIC_PLANNING_NO_ACTUAL_EXECUTION",
+      "state": "PLANNED",
+      "effect_on_Q": "NOT_IDENTIFIABLE_WITHOUT_REAL_TRIALS",
+      "intervention": {
+        "before": "PLANNED",
+        "after": "NOT_PLANNED",
+        "test_type": "COUNTERFACTUAL_CANCEL_PLANNED_ACTION"
+      },
+      "case_only": {
+        "status": "EXECUTED",
+        "evidence": {
+          "ic_demo_delta_points": 0.0,
+          "h3_intermediates_changed": false,
+          "h4_diagnostic_changed": false,
+          "response": "NO_DOWNSTREAM_RESPONSE_IN_IMPLEMENTED_CODE"
+        }
+      }
+    },
+    {
+      "rubric": "064",
+      "group": "action_plans",
+      "source": "SYNTHETIC_PLANNING_NO_ACTUAL_EXECUTION",
+      "state": "PLANNED",
+      "effect_on_Q": "NOT_IDENTIFIABLE_WITHOUT_REAL_TRIALS",
+      "intervention": {
+        "before": "PLANNED",
+        "after": "NOT_PLANNED",
+        "test_type": "COUNTERFACTUAL_CANCEL_PLANNED_ACTION"
+      },
+      "case_only": {
+        "status": "EXECUTED",
+        "evidence": {
+          "ic_demo_delta_points": 0.0,
+          "h3_intermediates_changed": false,
+          "h4_diagnostic_changed": false,
+          "response": "NO_DOWNSTREAM_RESPONSE_IN_IMPLEMENTED_CODE"
+        }
+      }
+    },
+    {
+      "rubric": "065",
+      "group": "action_plans",
+      "source": "SYNTHETIC_PLANNING_NO_ACTUAL_EXECUTION",
+      "state": "PLANNED",
+      "effect_on_Q": "NOT_IDENTIFIABLE_WITHOUT_REAL_TRIALS",
+      "intervention": {
+        "before": "PLANNED",
+        "after": "NOT_PLANNED",
+        "test_type": "COUNTERFACTUAL_CANCEL_PLANNED_ACTION"
+      },
+      "case_only": {
+        "status": "EXECUTED",
+        "evidence": {
+          "ic_demo_delta_points": 0.0,
+          "h3_intermediates_changed": false,
+          "h4_diagnostic_changed": false,
+          "response": "NO_DOWNSTREAM_RESPONSE_IN_IMPLEMENTED_CODE"
+        }
+      }
+    },
+    {
+      "rubric": "066",
+      "group": "action_plans",
+      "source": "SYNTHETIC_PLANNING_NO_ACTUAL_EXECUTION",
+      "state": "PLANNED",
+      "effect_on_Q": "NOT_IDENTIFIABLE_WITHOUT_REAL_TRIALS",
+      "intervention": {
+        "before": "PLANNED",
+        "after": "NOT_PLANNED",
+        "test_type": "COUNTERFACTUAL_CANCEL_PLANNED_ACTION"
+      },
+      "case_only": {
+        "status": "EXECUTED",
+        "evidence": {
+          "ic_demo_delta_points": 0.0,
+          "h3_intermediates_changed": false,
+          "h4_diagnostic_changed": false,
+          "response": "NO_DOWNSTREAM_RESPONSE_IN_IMPLEMENTED_CODE"
+        }
+      }
+    },
+    {
+      "rubric": "067",
+      "group": "action_plans",
+      "source": "SYNTHETIC_PLANNING_NO_ACTUAL_EXECUTION",
+      "state": "UNKNOWN",
+      "effect_on_Q": "NOT_IDENTIFIABLE_WITHOUT_REAL_TRIALS",
+      "intervention": null,
+      "reason": "UNKNOWN_PLANNED_ACTION__DO_NOT_INVENT_ACTION"
+    },
+    {
+      "rubric": "068",
+      "group": "action_plans",
+      "source": "SYNTHETIC_PLANNING_NO_ACTUAL_EXECUTION",
+      "state": "PLANNED",
+      "effect_on_Q": "NOT_IDENTIFIABLE_WITHOUT_REAL_TRIALS",
+      "intervention": {
+        "before": "PLANNED",
+        "after": "NOT_PLANNED",
+        "test_type": "COUNTERFACTUAL_CANCEL_PLANNED_ACTION"
+      },
+      "case_only": {
+        "status": "EXECUTED",
+        "evidence": {
+          "ic_demo_delta_points": 0.0,
+          "h3_intermediates_changed": false,
+          "h4_diagnostic_changed": false,
+          "response": "NO_DOWNSTREAM_RESPONSE_IN_IMPLEMENTED_CODE"
+        }
+      }
+    },
+    {
+      "rubric": "069",
+      "group": "action_plans",
+      "source": "SYNTHETIC_PLANNING_NO_ACTUAL_EXECUTION",
+      "state": "PLANNED",
+      "effect_on_Q": "NOT_IDENTIFIABLE_WITHOUT_REAL_TRIALS",
+      "intervention": {
+        "before": "PLANNED",
+        "after": "NOT_PLANNED",
+        "test_type": "COUNTERFACTUAL_CANCEL_PLANNED_ACTION"
+      },
+      "case_only": {
+        "status": "EXECUTED",
+        "evidence": {
+          "ic_demo_delta_points": 0.0,
+          "h3_intermediates_changed": false,
+          "h4_diagnostic_changed": false,
+          "response": "NO_DOWNSTREAM_RESPONSE_IN_IMPLEMENTED_CODE"
+        }
+      }
+    },
+    {
+      "rubric": "070",
+      "group": "action_plans",
+      "source": "SYNTHETIC_PLANNING_NO_ACTUAL_EXECUTION",
+      "state": "PLANNED",
+      "effect_on_Q": "NOT_IDENTIFIABLE_WITHOUT_REAL_TRIALS",
+      "intervention": {
+        "before": "PLANNED",
+        "after": "NOT_PLANNED",
+        "test_type": "COUNTERFACTUAL_CANCEL_PLANNED_ACTION"
+      },
+      "case_only": {
+        "status": "EXECUTED",
+        "evidence": {
+          "ic_demo_delta_points": 0.0,
+          "h3_intermediates_changed": false,
+          "h4_diagnostic_changed": false,
+          "response": "NO_DOWNSTREAM_RESPONSE_IN_IMPLEMENTED_CODE"
+        }
+      }
+    },
+    {
+      "rubric": "071",
+      "group": "action_plans",
+      "source": "SYNTHETIC_PLANNING_NO_ACTUAL_EXECUTION",
+      "state": "UNKNOWN",
+      "effect_on_Q": "NOT_IDENTIFIABLE_WITHOUT_REAL_TRIALS",
+      "intervention": null,
+      "reason": "UNKNOWN_PLANNED_ACTION__DO_NOT_INVENT_ACTION"
+    },
+    {
+      "rubric": "072",
+      "group": "action_plans",
+      "source": "SYNTHETIC_PLANNING_NO_ACTUAL_EXECUTION",
+      "state": "UNKNOWN",
+      "effect_on_Q": "NOT_IDENTIFIABLE_WITHOUT_REAL_TRIALS",
+      "intervention": null,
+      "reason": "UNKNOWN_PLANNED_ACTION__DO_NOT_INVENT_ACTION"
+    },
+    {
+      "rubric": "073",
+      "group": "action_plans",
+      "source": "SYNTHETIC_PLANNING_NO_ACTUAL_EXECUTION",
+      "state": "PLANNED",
+      "effect_on_Q": "NOT_IDENTIFIABLE_WITHOUT_REAL_TRIALS",
+      "intervention": {
+        "before": "PLANNED",
+        "after": "NOT_PLANNED",
+        "test_type": "COUNTERFACTUAL_CANCEL_PLANNED_ACTION"
+      },
+      "case_only": {
+        "status": "EXECUTED",
+        "evidence": {
+          "ic_demo_delta_points": 0.0,
+          "h3_intermediates_changed": false,
+          "h4_diagnostic_changed": false,
+          "response": "NO_DOWNSTREAM_RESPONSE_IN_IMPLEMENTED_CODE"
+        }
+      }
+    },
+    {
+      "rubric": "074",
+      "group": "action_plans",
+      "source": "SYNTHETIC_PLANNING_NO_ACTUAL_EXECUTION",
+      "state": "PLANNED",
+      "effect_on_Q": "NOT_IDENTIFIABLE_WITHOUT_REAL_TRIALS",
+      "intervention": {
+        "before": "PLANNED",
+        "after": "NOT_PLANNED",
+        "test_type": "COUNTERFACTUAL_CANCEL_PLANNED_ACTION"
+      },
+      "case_only": {
+        "status": "EXECUTED",
+        "evidence": {
+          "ic_demo_delta_points": 0.0,
+          "h3_intermediates_changed": false,
+          "h4_diagnostic_changed": false,
+          "response": "NO_DOWNSTREAM_RESPONSE_IN_IMPLEMENTED_CODE"
+        }
+      }
+    },
+    {
+      "rubric": "075",
+      "group": "action_plans",
+      "source": "SYNTHETIC_PLANNING_NO_ACTUAL_EXECUTION",
+      "state": "PLANNED",
+      "effect_on_Q": "NOT_IDENTIFIABLE_WITHOUT_REAL_TRIALS",
+      "intervention": {
+        "before": "PLANNED",
+        "after": "NOT_PLANNED",
+        "test_type": "COUNTERFACTUAL_CANCEL_PLANNED_ACTION"
+      },
+      "case_only": {
+        "status": "EXECUTED",
+        "evidence": {
+          "ic_demo_delta_points": 0.0,
+          "h3_intermediates_changed": false,
+          "h4_diagnostic_changed": false,
+          "response": "NO_DOWNSTREAM_RESPONSE_IN_IMPLEMENTED_CODE"
+        }
+      }
+    },
+    {
+      "rubric": "076",
+      "group": "action_plans",
+      "source": "SYNTHETIC_PLANNING_NO_ACTUAL_EXECUTION",
+      "state": "PLANNED",
+      "effect_on_Q": "NOT_IDENTIFIABLE_WITHOUT_REAL_TRIALS",
+      "intervention": {
+        "before": "PLANNED",
+        "after": "NOT_PLANNED",
+        "test_type": "COUNTERFACTUAL_CANCEL_PLANNED_ACTION"
+      },
+      "case_only": {
+        "status": "EXECUTED",
+        "evidence": {
+          "ic_demo_delta_points": 0.0,
+          "h3_intermediates_changed": false,
+          "h4_diagnostic_changed": false,
+          "response": "NO_DOWNSTREAM_RESPONSE_IN_IMPLEMENTED_CODE"
+        }
+      }
+    },
+    {
+      "rubric": "077",
+      "group": "action_plans",
+      "source": "SYNTHETIC_PLANNING_NO_ACTUAL_EXECUTION",
+      "state": "PLANNED",
+      "effect_on_Q": "NOT_IDENTIFIABLE_WITHOUT_REAL_TRIALS",
+      "intervention": {
+        "before": "PLANNED",
+        "after": "NOT_PLANNED",
+        "test_type": "COUNTERFACTUAL_CANCEL_PLANNED_ACTION"
+      },
+      "case_only": {
+        "status": "EXECUTED",
+        "evidence": {
+          "ic_demo_delta_points": 0.0,
+          "h3_intermediates_changed": false,
+          "h4_diagnostic_changed": false,
+          "response": "NO_DOWNSTREAM_RESPONSE_IN_IMPLEMENTED_CODE"
+        }
+      }
+    },
+    {
+      "rubric": "078",
+      "group": "action_plans",
+      "source": "SYNTHETIC_PLANNING_NO_ACTUAL_EXECUTION",
+      "state": "UNKNOWN",
+      "effect_on_Q": "NOT_IDENTIFIABLE_WITHOUT_REAL_TRIALS",
+      "intervention": null,
+      "reason": "UNKNOWN_PLANNED_ACTION__DO_NOT_INVENT_ACTION"
+    },
+    {
+      "rubric": "079",
+      "group": "action_plans",
+      "source": "SYNTHETIC_PLANNING_NO_ACTUAL_EXECUTION",
+      "state": "UNKNOWN",
+      "effect_on_Q": "NOT_IDENTIFIABLE_WITHOUT_REAL_TRIALS",
+      "intervention": null,
+      "reason": "UNKNOWN_PLANNED_ACTION__DO_NOT_INVENT_ACTION"
+    },
+    {
+      "rubric": "080",
+      "group": "action_plans",
+      "source": "SYNTHETIC_PLANNING_NO_ACTUAL_EXECUTION",
+      "state": "PLANNED",
+      "effect_on_Q": "NOT_IDENTIFIABLE_WITHOUT_REAL_TRIALS",
+      "intervention": {
+        "before": "PLANNED",
+        "after": "NOT_PLANNED",
+        "test_type": "COUNTERFACTUAL_CANCEL_PLANNED_ACTION"
+      },
+      "case_only": {
+        "status": "EXECUTED",
+        "evidence": {
+          "ic_demo_delta_points": 0.0,
+          "h3_intermediates_changed": false,
+          "h4_diagnostic_changed": false,
+          "response": "NO_DOWNSTREAM_RESPONSE_IN_IMPLEMENTED_CODE"
+        }
+      }
+    },
+    {
+      "rubric": "081",
+      "group": "action_plans",
+      "source": "SYNTHETIC_PLANNING_NO_ACTUAL_EXECUTION",
+      "state": "PLANNED",
+      "effect_on_Q": "NOT_IDENTIFIABLE_WITHOUT_REAL_TRIALS",
+      "intervention": {
+        "before": "PLANNED",
+        "after": "NOT_PLANNED",
+        "test_type": "COUNTERFACTUAL_CANCEL_PLANNED_ACTION"
+      },
+      "case_only": {
+        "status": "EXECUTED",
+        "evidence": {
+          "ic_demo_delta_points": 0.0,
+          "h3_intermediates_changed": false,
+          "h4_diagnostic_changed": false,
+          "response": "NO_DOWNSTREAM_RESPONSE_IN_IMPLEMENTED_CODE"
+        }
+      }
+    },
+    {
+      "rubric": "082",
+      "group": "action_plans",
+      "source": "SYNTHETIC_PLANNING_NO_ACTUAL_EXECUTION",
+      "state": "PLANNED",
+      "effect_on_Q": "NOT_IDENTIFIABLE_WITHOUT_REAL_TRIALS",
+      "intervention": {
+        "before": "PLANNED",
+        "after": "NOT_PLANNED",
+        "test_type": "COUNTERFACTUAL_CANCEL_PLANNED_ACTION"
+      },
+      "case_only": {
+        "status": "EXECUTED",
+        "evidence": {
+          "ic_demo_delta_points": 0.0,
+          "h3_intermediates_changed": false,
+          "h4_diagnostic_changed": false,
+          "response": "NO_DOWNSTREAM_RESPONSE_IN_IMPLEMENTED_CODE"
+        }
+      }
+    },
+    {
+      "rubric": "083",
+      "group": "action_plans",
+      "source": "SYNTHETIC_PLANNING_NO_ACTUAL_EXECUTION",
+      "state": "PLANNED",
+      "effect_on_Q": "NOT_IDENTIFIABLE_WITHOUT_REAL_TRIALS",
+      "intervention": {
+        "before": "PLANNED",
+        "after": "NOT_PLANNED",
+        "test_type": "COUNTERFACTUAL_CANCEL_PLANNED_ACTION"
+      },
+      "case_only": {
+        "status": "EXECUTED",
+        "evidence": {
+          "ic_demo_delta_points": 0.0,
+          "h3_intermediates_changed": false,
+          "h4_diagnostic_changed": false,
+          "response": "NO_DOWNSTREAM_RESPONSE_IN_IMPLEMENTED_CODE"
+        }
+      }
+    },
+    {
+      "rubric": "084",
+      "group": "action_plans",
+      "source": "SYNTHETIC_PLANNING_NO_ACTUAL_EXECUTION",
+      "state": "UNKNOWN",
+      "effect_on_Q": "NOT_IDENTIFIABLE_WITHOUT_REAL_TRIALS",
+      "intervention": null,
+      "reason": "UNKNOWN_PLANNED_ACTION__DO_NOT_INVENT_ACTION"
+    },
+    {
+      "rubric": "085",
+      "group": "action_plans",
+      "source": "SYNTHETIC_PLANNING_NO_ACTUAL_EXECUTION",
+      "state": "UNKNOWN",
+      "effect_on_Q": "NOT_IDENTIFIABLE_WITHOUT_REAL_TRIALS",
+      "intervention": null,
+      "reason": "UNKNOWN_PLANNED_ACTION__DO_NOT_INVENT_ACTION"
+    },
+    {
+      "rubric": "086",
+      "group": "correction_policies",
+      "source": "HYPOTHETICAL_BRANCH_DEFINED_PRESTART",
+      "state": "DEFINED",
+      "effect_on_Q": "NOT_IDENTIFIABLE_WITHOUT_REAL_TRIALS",
+      "intervention": {
+        "before": "DEFINED",
+        "after": "UNDEFINED",
+        "test_type": "REMOVE_PREDECLARED_POLICY"
+      },
+      "case_only": {
+        "status": "EXECUTED",
+        "evidence": {
+          "ic_demo_delta_points": 0.0,
+          "h3_intermediates_changed": false,
+          "h4_diagnostic_changed": false,
+          "response": "NO_DOWNSTREAM_RESPONSE_IN_IMPLEMENTED_CODE"
+        }
+      }
+    },
+    {
+      "rubric": "087",
+      "group": "correction_policies",
+      "source": "HYPOTHETICAL_BRANCH_DEFINED_PRESTART",
+      "state": "DEFINED",
+      "effect_on_Q": "NOT_IDENTIFIABLE_WITHOUT_REAL_TRIALS",
+      "intervention": {
+        "before": "DEFINED",
+        "after": "UNDEFINED",
+        "test_type": "REMOVE_PREDECLARED_POLICY"
+      },
+      "case_only": {
+        "status": "EXECUTED",
+        "evidence": {
+          "ic_demo_delta_points": 0.0,
+          "h3_intermediates_changed": false,
+          "h4_diagnostic_changed": false,
+          "response": "NO_DOWNSTREAM_RESPONSE_IN_IMPLEMENTED_CODE"
+        }
+      }
+    },
+    {
+      "rubric": "088",
+      "group": "correction_policies",
+      "source": "NO_POLICY_PREDECLARED",
+      "state": "UNDEFINED",
+      "effect_on_Q": "NOT_IDENTIFIABLE_WITHOUT_REAL_TRIALS",
+      "intervention": null,
+      "reason": "POLICY_UNDEFINED_OR_UNKNOWN__NO_INVENTED_CORRECTION"
+    },
+    {
+      "rubric": "089",
+      "group": "correction_policies",
+      "source": "NO_POLICY_PREDECLARED",
+      "state": "UNDEFINED",
+      "effect_on_Q": "NOT_IDENTIFIABLE_WITHOUT_REAL_TRIALS",
+      "intervention": null,
+      "reason": "POLICY_UNDEFINED_OR_UNKNOWN__NO_INVENTED_CORRECTION"
+    },
+    {
+      "rubric": "090",
+      "group": "correction_policies",
+      "source": "HYPOTHETICAL_BRANCH_DEFINED_PRESTART",
+      "state": "DEFINED",
+      "effect_on_Q": "NOT_IDENTIFIABLE_WITHOUT_REAL_TRIALS",
+      "intervention": {
+        "before": "DEFINED",
+        "after": "UNDEFINED",
+        "test_type": "REMOVE_PREDECLARED_POLICY"
+      },
+      "case_only": {
+        "status": "EXECUTED",
+        "evidence": {
+          "ic_demo_delta_points": 0.0,
+          "h3_intermediates_changed": false,
+          "h4_diagnostic_changed": false,
+          "response": "NO_DOWNSTREAM_RESPONSE_IN_IMPLEMENTED_CODE"
+        }
+      }
+    },
+    {
+      "rubric": "091",
+      "group": "correction_policies",
+      "source": "NO_POLICY_PREDECLARED",
+      "state": "UNDEFINED",
+      "effect_on_Q": "NOT_IDENTIFIABLE_WITHOUT_REAL_TRIALS",
+      "intervention": null,
+      "reason": "POLICY_UNDEFINED_OR_UNKNOWN__NO_INVENTED_CORRECTION"
+    },
+    {
+      "rubric": "092",
+      "group": "correction_policies",
+      "source": "NO_POLICY_PREDECLARED",
+      "state": "UNDEFINED",
+      "effect_on_Q": "NOT_IDENTIFIABLE_WITHOUT_REAL_TRIALS",
+      "intervention": null,
+      "reason": "POLICY_UNDEFINED_OR_UNKNOWN__NO_INVENTED_CORRECTION"
+    },
+    {
+      "rubric": "093",
+      "group": "correction_policies",
+      "source": "NO_POLICY_PREDECLARED",
+      "state": "UNDEFINED",
+      "effect_on_Q": "NOT_IDENTIFIABLE_WITHOUT_REAL_TRIALS",
+      "intervention": null,
+      "reason": "POLICY_UNDEFINED_OR_UNKNOWN__NO_INVENTED_CORRECTION"
+    },
+    {
+      "rubric": "094",
+      "group": "correction_policies",
+      "source": "NO_POLICY_PREDECLARED",
+      "state": "UNDEFINED",
+      "effect_on_Q": "NOT_IDENTIFIABLE_WITHOUT_REAL_TRIALS",
+      "intervention": null,
+      "reason": "POLICY_UNDEFINED_OR_UNKNOWN__NO_INVENTED_CORRECTION"
+    },
+    {
+      "rubric": "095",
+      "group": "correction_policies",
+      "source": "NO_POLICY_PREDECLARED",
+      "state": "UNDEFINED",
+      "effect_on_Q": "NOT_IDENTIFIABLE_WITHOUT_REAL_TRIALS",
+      "intervention": null,
+      "reason": "POLICY_UNDEFINED_OR_UNKNOWN__NO_INVENTED_CORRECTION"
+    },
+    {
+      "rubric": "096",
+      "group": "correction_policies",
+      "source": "NO_POLICY_PREDECLARED",
+      "state": "UNDEFINED",
+      "effect_on_Q": "NOT_IDENTIFIABLE_WITHOUT_REAL_TRIALS",
+      "intervention": null,
+      "reason": "POLICY_UNDEFINED_OR_UNKNOWN__NO_INVENTED_CORRECTION"
+    },
+    {
+      "rubric": "097",
+      "group": "correction_policies",
+      "source": "NO_POLICY_PREDECLARED",
+      "state": "UNDEFINED",
+      "effect_on_Q": "NOT_IDENTIFIABLE_WITHOUT_REAL_TRIALS",
+      "intervention": null,
+      "reason": "POLICY_UNDEFINED_OR_UNKNOWN__NO_INVENTED_CORRECTION"
+    },
+    {
+      "rubric": "098",
+      "group": "correction_policies",
+      "source": "HYPOTHETICAL_BRANCH_DEFINED_PRESTART",
+      "state": "DEFINED",
+      "effect_on_Q": "NOT_IDENTIFIABLE_WITHOUT_REAL_TRIALS",
+      "intervention": {
+        "before": "DEFINED",
+        "after": "UNDEFINED",
+        "test_type": "REMOVE_PREDECLARED_POLICY"
+      },
+      "case_only": {
+        "status": "EXECUTED",
+        "evidence": {
+          "ic_demo_delta_points": 0.0,
+          "h3_intermediates_changed": false,
+          "h4_diagnostic_changed": false,
+          "response": "NO_DOWNSTREAM_RESPONSE_IN_IMPLEMENTED_CODE"
+        }
+      }
+    },
+    {
+      "rubric": "099",
+      "group": "target_contract",
+      "source": null,
+      "state": "DRAFT",
+      "effect_on_Q": "NOT_IDENTIFIABLE_WITHOUT_REAL_TRIALS",
+      "intervention": null,
+      "reason": "TARGET_IS_A_LABEL_OR_MEASUREMENT_RULE_NOT_PRET0_CAUSAL_INPUT"
+    },
+    {
+      "rubric": "100",
+      "group": "target_contract",
+      "source": null,
+      "state": "DRAFT",
+      "effect_on_Q": "NOT_IDENTIFIABLE_WITHOUT_REAL_TRIALS",
+      "intervention": null,
+      "reason": "TARGET_IS_A_LABEL_OR_MEASUREMENT_RULE_NOT_PRET0_CAUSAL_INPUT"
+    },
+    {
+      "rubric": "101",
+      "group": "target_contract",
+      "source": null,
+      "state": "DRAFT",
+      "effect_on_Q": "NOT_IDENTIFIABLE_WITHOUT_REAL_TRIALS",
+      "intervention": null,
+      "reason": "TARGET_IS_A_LABEL_OR_MEASUREMENT_RULE_NOT_PRET0_CAUSAL_INPUT"
+    },
+    {
+      "rubric": "102",
+      "group": "target_contract",
+      "source": null,
+      "state": "DRAFT",
+      "effect_on_Q": "NOT_IDENTIFIABLE_WITHOUT_REAL_TRIALS",
+      "intervention": null,
+      "reason": "TARGET_IS_A_LABEL_OR_MEASUREMENT_RULE_NOT_PRET0_CAUSAL_INPUT"
+    },
+    {
+      "rubric": "103",
+      "group": "target_contract",
+      "source": null,
+      "state": "DRAFT",
+      "effect_on_Q": "NOT_IDENTIFIABLE_WITHOUT_REAL_TRIALS",
+      "intervention": null,
+      "reason": "TARGET_IS_A_LABEL_OR_MEASUREMENT_RULE_NOT_PRET0_CAUSAL_INPUT"
+    },
+    {
+      "rubric": "104",
+      "group": "target_contract",
+      "source": null,
+      "state": "DRAFT",
+      "effect_on_Q": "NOT_IDENTIFIABLE_WITHOUT_REAL_TRIALS",
+      "intervention": null,
+      "reason": "TARGET_IS_A_LABEL_OR_MEASUREMENT_RULE_NOT_PRET0_CAUSAL_INPUT"
+    },
+    {
+      "rubric": "105",
+      "group": "target_contract",
+      "source": null,
+      "state": "DRAFT",
+      "effect_on_Q": "NOT_IDENTIFIABLE_WITHOUT_REAL_TRIALS",
+      "intervention": null,
+      "reason": "TARGET_IS_A_LABEL_OR_MEASUREMENT_RULE_NOT_PRET0_CAUSAL_INPUT"
+    },
+    {
+      "rubric": "106",
+      "group": "target_contract",
+      "source": null,
+      "state": "DRAFT",
+      "effect_on_Q": "NOT_IDENTIFIABLE_WITHOUT_REAL_TRIALS",
+      "intervention": null,
+      "reason": "TARGET_IS_A_LABEL_OR_MEASUREMENT_RULE_NOT_PRET0_CAUSAL_INPUT"
+    },
+    {
+      "rubric": "107",
+      "group": "target_contract",
+      "source": null,
+      "state": "DRAFT",
+      "effect_on_Q": "NOT_IDENTIFIABLE_WITHOUT_REAL_TRIALS",
+      "intervention": null,
+      "reason": "TARGET_IS_A_LABEL_OR_MEASUREMENT_RULE_NOT_PRET0_CAUSAL_INPUT"
+    },
+    {
+      "rubric": "108",
+      "group": "target_contract",
+      "source": null,
+      "state": "DRAFT",
+      "effect_on_Q": "NOT_IDENTIFIABLE_WITHOUT_REAL_TRIALS",
+      "intervention": null,
+      "reason": "TARGET_IS_A_LABEL_OR_MEASUREMENT_RULE_NOT_PRET0_CAUSAL_INPUT"
+    },
+    {
+      "rubric": "109",
+      "group": "target_contract",
+      "source": null,
+      "state": "DRAFT",
+      "effect_on_Q": "NOT_IDENTIFIABLE_WITHOUT_REAL_TRIALS",
+      "intervention": null,
+      "reason": "TARGET_IS_A_LABEL_OR_MEASUREMENT_RULE_NOT_PRET0_CAUSAL_INPUT"
+    },
+    {
+      "rubric": "110",
+      "group": "target_contract",
+      "source": null,
+      "state": "DRAFT",
+      "effect_on_Q": "NOT_IDENTIFIABLE_WITHOUT_REAL_TRIALS",
+      "intervention": null,
+      "reason": "TARGET_IS_A_LABEL_OR_MEASUREMENT_RULE_NOT_PRET0_CAUSAL_INPUT"
+    },
+    {
+      "rubric": "111",
+      "group": "target_contract",
+      "source": null,
+      "state": "DRAFT",
+      "effect_on_Q": "NOT_IDENTIFIABLE_WITHOUT_REAL_TRIALS",
+      "intervention": null,
+      "reason": "TARGET_IS_A_LABEL_OR_MEASUREMENT_RULE_NOT_PRET0_CAUSAL_INPUT"
+    },
+    {
+      "rubric": "112",
+      "group": "target_contract",
+      "source": null,
+      "state": "DRAFT",
+      "effect_on_Q": "NOT_IDENTIFIABLE_WITHOUT_REAL_TRIALS",
+      "intervention": null,
+      "reason": "TARGET_IS_A_LABEL_OR_MEASUREMENT_RULE_NOT_PRET0_CAUSAL_INPUT"
+    }
+  ]
+}
