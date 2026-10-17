@@ -93,20 +93,30 @@ def cutoff_context(day,cutoff):
             "snapshot_captured_now_not_proof_of_prior_access":True}
 
 
-def make_family_inventory(registry, available_columns, empirical_count):
+def make_family_inventory(registry, available_columns, match_rows):
     result=[]
     for family in registry["families"]:
         fid=family["id"]
         candidates=sorted(FIELDS.get(fid,set()))
         observed=[x for x in candidates if x in available_columns]
-        data_evidence=("HISTORICAL_OBSERVATIONS" if observed and fid not in PROXY_ONLY
-                       else "HISTORICAL_PROXY_ONLY" if observed else "NOT_IN_THIS_DATASET")
+        filled={field:sum(clean(r["raw"].get(field)) is not None for r in match_rows)
+                for field in observed}
+        any_valid=sum(any(clean(r["raw"].get(field)) is not None for field in observed)
+                      for r in match_rows)
+        all_valid=sum(bool(observed) and all(clean(r["raw"].get(field)) is not None
+                                                 for field in observed)
+                      for r in match_rows)
+        data_evidence=("HISTORICAL_OBSERVATIONS" if any_valid and fid not in PROXY_ONLY
+                       else "HISTORICAL_PROXY_ONLY" if any_valid else "NOT_IN_THIS_DATASET")
         result.append({"family_id":fid,"family_name":family["title"],
                        "candidate_fields":candidates,"fields_present_in_archive":observed,
-                       "observed_match_count":empirical_count if observed else 0,
+                       "field_nonempty_counts":filled,
+                       "matches_with_any_mapped_field":any_valid,
+                       "matches_with_all_mapped_fields":all_valid,
+                       "observed_match_count":any_valid,
                        "evidence_level":data_evidence,
                        "prematch_PIT_certified":False,"ic_eligible":False,
-                       "warning":"Field presence is not evidence of a validated R8 mechanism"})
+                       "warning":"Column presence/filled historical values do not prove full R8 scientific validity"})
     return result
 
 
@@ -218,7 +228,7 @@ def build(cutoff=date(2026,10,17), output=None, base=ROOT):
             daysets.append({"matchday":round_idx,"completed":len(ready),"unresolved":len(missing)})
         orphan=sorted(set(by_key)-used)
         if orphan:raise ValueError("Unmapped historical fixtures "+str(orphan[:3]))
-        inventory=make_family_inventory(frozen,set(reader.fieldnames or []),len(historical))
+        inventory=make_family_inventory(frozen,set(reader.fieldnames or []),historical)
         l3_report=[{"parent":w["id"],"children":w["children"],
                     "candidate_fields_present": sorted(set(FIELDS.get(w["id"],set())) & set(reader.fieldnames or [])),
                     "feature_PIT_verified":False}
