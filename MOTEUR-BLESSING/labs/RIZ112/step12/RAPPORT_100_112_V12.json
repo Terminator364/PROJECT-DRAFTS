@@ -1,0 +1,116 @@
+{
+  "schema": "riz112/stage12/consolidated-audit/v1",
+  "population": {
+    "scenarios": 100,
+    "draws_each": 500,
+    "counts": {
+      "ABSTAIN_UNSUPPORTED_VESSEL": 47,
+      "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q": 30,
+      "ABSTAIN_PRESTART_CONTRADICTION": 11,
+      "ABSTAIN_CONTRADICTION": 12
+    },
+    "all_44_prestart_varied": true,
+    "distinct_numeric_demo_ic": 12,
+    "quality_targets_frozen": true
+  },
+  "counterfactual": {
+    "cases": 112,
+    "paired_interventions": 224,
+    "statuses": {
+      "CHANGES_ASSUMED_DEMO_IC_FOR_TESTED_PERTURBATION": 12,
+      "CHANGES_OPERATIONAL_GATES_NOT_CALIBRATED_Q": 52,
+      "NOT_DEMONSTRATED_TO_CHANGE_IC_OR_GATE": 26,
+      "CHANGES_ELIGIBILITY_OR_INVALIDATES_ASSUMPTIONS": 4,
+      "DERIVED_OUTPUT_NOT_INDEPENDENT_RANDOM_INPUT": 4,
+      "TARGET_DEFINITION_LOCKED_NOT_INPUT": 14
+    }
+  },
+  "material_label_only": {
+    "only_modified_case": "010",
+    "material_A": "metal",
+    "material_B": "ceramic_rated",
+    "same_core_physical_inputs": true,
+    "ic_demo_A": 71.4,
+    "ic_demo_B": 71.4,
+    "same_demo_ic": true,
+    "finding": "material measured thermal parameters not mapped: NO fabricated label effect",
+    "causal_inference_from_material_label": false
+  },
+  "numeric_examples_from_original_A_at_3000_draws": {
+    "water_300g": 62.4,
+    "water_240g": 44.87,
+    "efficiency_0_45": 44.6,
+    "efficiency_0_75": 68.77
+  },
+  "scientific_status": "NO_REAL_RICE_Q_CALIBRATION",
+  "scientific_ic_percent": null,
+  "matrice": "NO_SPORTS_MODEL_MODIFICATION; methods and safeguards only",
+  "pit": "Original synthetic date labels are self-declared and not externally authenticated",
+  "software_regression": {
+    "suites": {
+      "stage4": {
+        "total": 22,
+        "passed": 22,
+        "failed": 0,
+        "errors": 0
+      },
+      "stage5": {
+        "total": 31,
+        "passed": 31,
+        "failed": 0,
+        "errors": 0
+      },
+      "journal": {
+        "total": 10,
+        "passed": 10,
+        "failed": 0,
+        "errors": 0
+      },
+      "stage6": {
+        "total": 42,
+        "passed": 42,
+        "failed": 0,
+        "errors": 0
+      },
+      "stage7": {
+        "total": 36,
+        "passed": 36,
+        "failed": 0,
+        "errors": 0
+      },
+      "stage8": {
+        "total": 19,
+        "passed": 19,
+        "failed": 0,
+        "errors": 0
+      },
+      "stage9": {
+        "total": 25,
+        "passed": 25,
+        "failed": 0,
+        "errors": 0
+      },
+      "stage10": {
+        "total": 20,
+        "passed": 20,
+        "failed": 0,
+        "errors": 0
+      },
+      "stage11": {
+        "total": 13,
+        "passed": 13,
+        "failed": 0,
+        "errors": 0
+      },
+      "stage12": {
+        "total": 23,
+        "passed": 23,
+        "failed": 0,
+        "errors": 0
+      }
+    },
+    "total": 241,
+    "passed": 241,
+    "failed_suites": []
+  }
+}
