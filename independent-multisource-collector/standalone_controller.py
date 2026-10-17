@@ -98,6 +98,7 @@ def build_reports(state):
     """No network IO: reconcile immutable cached CSV against OpenFootball JSON."""
     sys.path.insert(0, str(PILOT))
     import matchday_crosscheck as matching
+    from third_party_adapter import compare as compare_third
     manifest = json.loads((PILOT / "integration" / "manifest.json").read_text(encoding="utf-8"))
     out = {"generated_utc": iso(), "cutoff_exclusive": cutoff().isoformat(),
            "project": "COLLECTEUR_AUTONOME_MULTISOURCES",
@@ -127,6 +128,7 @@ def build_reports(state):
             "unmapped_names": audit["unmapped_aliases"],
             "anomaly_count": len(audit["anomalies"]),
             "months": audit["month_priority"],
+            "third_source": compare_third(code, audit, cutoff(), PILOT),
         }
     save(REPORTS / "LATEST_TWO_LEAGUES.json", out)
     log("local_audit_completed", leagues=2, cutoff=out["cutoff_exclusive"],
