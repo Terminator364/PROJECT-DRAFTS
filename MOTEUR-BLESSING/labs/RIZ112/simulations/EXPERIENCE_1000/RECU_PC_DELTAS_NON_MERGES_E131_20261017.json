@@ -1,0 +1,20 @@
+{
+  "schema": "riz112/pc_local_deltas/forensic_backup/v1",
+  "date": "2026-10-17",
+  "purpose": "Preserve all 64 modified/untracked local RIZ112 files from MBMPC without auto-promoting them or overwriting the GitHub canonical implementation.",
+  "archive": "RIZ112_PC_DELTAS_NON_MERGES_E131_2026-10-17.zip",
+  "drive_url": "https://drive.google.com/file/d/1B2rGSZMKjEru1XEazdX1uhDg2JX9og9H/view?usp=drivesdk",
+  "drive_id": "1B2rGSZMKjEru1XEazdX1uhDg2JX9og9H",
+  "files": 64,
+  "total_raw_file_bytes": 1060123,
+  "archive_bytes": 271803,
+  "sha256": "5bb1ffa358fbfc586515eb29efeea7e7ff3f437349c87fef91d030ab9f71b66f",
+  "git_head_at_capture": "9ab5449e9a06d84ea38e89a81f93dd57f40f65ef",
+  "cloud_redownload_sha256_verified": true,
+  "zip_crc": "PASS",
+  "all_inner_file_sha256_matches_manifest": true,
+  "restore_policy": "Do not blindly merge backup files into GitHub; compare individual paths, versions and evidence before optional selective integration.",
+  "canonical_archive": "https://drive.google.com/file/d/1oCS4PxMJMTGi41erBMx749OMXS9ErT2z/view?usp=drivesdk",
+  "canonical_archive_sha256": "b3846464925901c30f5d8d06b4fb4c34b739ce2e748e26a684ef28fab3598ca2",
+  "scientific_ic_percent": null
+}
