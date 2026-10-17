@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-"""Standalone data-collection lab (not the MATRICE prediction engine).
-Runs local audits every 5m; selectively refreshes OpenFootball once per 24h.
-Football-Data and TheSportsDB remain cached only pending source-specific limits.
+"""Standalone two-league collector: one process, different source cadences.
+One-minute heartbeat, five-minute TheSportsDB updates, five-minute local audits,
+daily OpenFootball. Football-Data remains cached under source restrictions.
 """
 import argparse
 from datetime import datetime, timedelta, timezone
@@ -27,6 +27,7 @@ SOURCES = {
 }
 FRESHNESS_SECONDS = 86400
 LOCAL_AUDIT_SECONDS = 300
+FIVE_MINUTE_SOURCE_SECONDS = 300
 HEARTBEAT_SECONDS = 60
 
 
@@ -106,7 +107,7 @@ def build_reports(state):
            "leagues": {}, "providers": {
                "Football-Data": "cached only; repeated network polling disabled",
                "OpenFootball": "daily automated check; public domain",
-               "TheSportsDB": "cached limited sample; repeated polling disabled",
+               "TheSportsDB": "5-minute free-tier pre-match daily event probe (3 events/day/league max)",
            }}
     ROUNDS.mkdir(parents=True, exist_ok=True)
     for code in ("E0", "I1"):
@@ -174,6 +175,20 @@ def main():
                 break
             if not args.offline and time.time() - state["last_openfootball_fetch_epoch"] >= FRESHNESS_SECONDS:
                 refresh_openfootball(state)
+            if (not args.offline and
+                time.time() >= state.get("tdb_pause_until_epoch", 0) and
+                time.time() - state.get("last_five_minute_fetch_epoch", 0) >= FIVE_MINUTE_SOURCE_SECONDS):
+                from five_minute_provider import refresh as refresh_five_minute
+                try:
+                    probed = refresh_five_minute(
+                        state, ROOT / "03_FOURNISSEURS" / "THESPORTSDB_PREMATCH")
+                    log("five_minute_external_collection", **probed["counts"])
+                    state["last_five_minute_error"] = None
+                except Exception as exc:
+                    state["last_five_minute_error"] = type(exc).__name__ + ": " + str(exc)[:180]
+                    state["last_five_minute_fetch_epoch"] = time.time()
+                    log("five_minute_external_failure", error=state["last_five_minute_error"])
+                save(path, state)
             if not state["last_local_audit_epoch"] or time.time() - state["last_local_audit_epoch"] >= LOCAL_AUDIT_SECONDS:
                 try:
                     summary = build_reports(state)
