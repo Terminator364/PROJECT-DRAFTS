@@ -23,7 +23,7 @@
     "context_master": "CONTEXTE_CONVERSATIONS.md",
     "context_protocol": "PROTOCOLE_CONTINUITE_CONTEXTUELLE.md",
     "context_registry": "CONTEXTE_INTEGRAL/REGISTRE_MESSAGES.jsonl",
-    "context_rows": 43,
+    "context_rows": 45,
     "context_update_rule": "ACTIVE_SESSION_EVERY_RELEVANT_EXCHANGE_AND_CHECKPOINT__NO_BACKGROUND",
     "coverage": "SOME_VERBATIM_EXCERPTS_AND_FLAGGED_RECONSTRUCTIONS_NOT_FULL_RAW_ARCHIVE",
     "drive_current_doc": "https://docs.google.com/document/d/13gOTBq7AXnT-f9Lotlw4czwa4i75C4UGdP0i1i0qwZE/edit",
@@ -32,13 +32,12 @@
     "github_status": "VERIFIED_CRITICAL_9_OF_9_BEFORE_FINAL_RECEIPT",
     "initial_source_archive_drive": "https://drive.google.com/file/d/1rFq9GiwbRvb-Hk33JayacttjBOUdAabf/view?usp=drivesdk",
     "initial_source_archive_sha256": "15182d217e42c2985cb4652ac5c2ee9f6afe6afca55ec148b3c803e52b14ede8",
-    "journal_events": 120,
-    "journal_head": "e52f0a6b0dee3685b460b966d073d1cd3583edf7cff662b1366af78dc2b53bab",
+    "journal_events": 122,
+    "journal_head": "7cb2ad87b02ed00bf5dc9790e75a2461a6b589d48272f4403750a570e7851f56",
     "lab_code": "Moteur/continue",
     "latest_context_ids": [
-      "CTX-0041",
-      "CTX-0042",
-      "CTX-0043"
+      "CTX-0044",
+      "CTX-0045"
     ],
     "legacy_codes_active": false,
     "library_status": "SOURCE_ARCHIVE_CONFIRMED",
@@ -75,8 +74,8 @@
   },
   "full_packet_replay": "step12/POPULATION_100_COMPLETE_PACKET.jsonl",
   "journal": {
-    "events": 120,
-    "head": "e52f0a6b0dee3685b460b966d073d1cd3583edf7cff662b1366af78dc2b53bab"
+    "events": 122,
+    "head": "7cb2ad87b02ed00bf5dc9790e75a2461a6b589d48272f4403750a570e7851f56"
   },
   "last_user_directive": "D034_CANONICAL_SINGLE_CODE_AUTO_RESUME_AND_CONTINUOUS_CONTEXT",
   "latest_case_audit": "step12/COUNTERFACTUAL_112_V12.json",
@@ -115,7 +114,7 @@
       "054"
     ]
   },
-  "next": "STEP25_USER_Q_MEASUREMENT_APPROVAL_AND_AUTHENTIC_RICE_TRIALS",
+  "next": "STEP27_Q_MEASUREMENT_USER_APPROVAL_AND_AUTHENTIC_OBSERVATION_GATE",
   "probabilities_demo_percent": {
     "A": 62.4,
     "B": 36.83,
@@ -139,7 +138,7 @@
     "A_alternate_proxy_scale": 38.2,
     "A_minus_60g": 44.87
   },
-  "stage": 24,
+  "stage": 26,
   "stage11": {
     "119_vs_112": "UNCLEAR_NEW_SEVEN_NOT_CREATED",
     "cases_in_input_contract": 112,
@@ -212,7 +211,7 @@
     "tests_total": 309,
     "validated_effects": 0
   },
-  "status": "STEP24_PRIORITY_CAPTURED_47_NEW_LOCAL_WINDOWS_PASS_36_PHYSICS_PAIRS__IC_REAL_NULL",
+  "status": "STEP25_Q_PROPOSAL_NOT_APPROVED_STEP26_112_EVIDENCE_AUDIT__PC_60_TESTS_PASS_SCI_IC_NULL",
   "step10": {
     "abstentions_original": 5,
     "derived_not_directly_mutable": 4,
@@ -459,5 +458,33 @@
       "zip_crc": "PASS",
       "archive_frozen_before_event": "E120"
     }
+  },
+  "step25": {
+    "checkpoint": "step25/CHECKPOINT_STEP25_20261017.json",
+    "priority": [
+      "101",
+      "102"
+    ],
+    "outcome_rubrics": 14,
+    "approved_Q_formula": false,
+    "real_trials": 0,
+    "tests_linux": 36,
+    "tests_windows": 36
+  },
+  "step26": {
+    "checkpoint": "step26/CHECKPOINT_STEP26_20261017.json",
+    "register": "step26/REGISTRE_TRANSVERSAL_112.json",
+    "partition": {
+      "theoretical_physical": 9,
+      "plan_resource_distinct": 29,
+      "poststart_outcomes": 14,
+      "other_not_proven": 60
+    },
+    "step19_overlaps": [
+      "035"
+    ],
+    "tests_linux": 24,
+    "tests_windows": 24,
+    "IC_real": null
   }
 }
