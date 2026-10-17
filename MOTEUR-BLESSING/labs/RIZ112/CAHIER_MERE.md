@@ -380,3 +380,32 @@ Le Step18 restait à 30 rubriques sans voie d'influence physique Q réelle démo
 ### E114 — archive cloud validée après clôture technique Step19
 
 Le raccourci Windows `RIZ-112 - Moteur de riz.lnk` exécute désormais le nouveau lanceur `step19/LANCER_RIZ112_STEP19.cmd` (Step16 A/B/C, Step18, Step19, 31 tests). Exécution à distance vérifiée, code sortie zéro. L'archive PC contient **241 fichiers / 586 505 octets** ; sa copie Drive ID `1CJiFHQBq3FTcraWa3LSzRhGFpJPd84-0` a été retéléchargée, empreinte SHA-256 `78a1e7cb2661c634568a4233d7e3cbbae1c679175de2a2347e2db28295d2e0ec` et CRC ZIP vérifiés. **Archivage figé avant l'événement E114** : GitHub reste le suivi canonique du reçu post-archive. Les **30 changements de plan/route ne démontrent aucun effet réel sur Q** ; IC scientifique demeure nul. Archive du message utilisateur CTX-0038 conservée. Source : `step19/RECU_ARCHIVE_PC_CLOUD_20261017.json` et E114 du journal chaîné.
+
+
+### Archive verbatim CTX-0039 / E115 / 2026-10-17
+**Rôle** USER ; **SHA-256 UTF-8** `9560cc3b00c2b8db71ea64a275419e58c735957209c4e88ed476788b5834b7fb` ; **provenance** user_current_chat_step20_continue_2026_10_17
+
+````text
+Continue 
+````
+
+
+### Archive verbatim CTX-0040 / E116 / 2026-10-17
+**Rôle** ASSISTANT ; **SHA-256 UTF-8** `e7d9e5d30cfbed89fa6f47294e4ccb5f8cca2a0211191cf8e93459815d5aae35` ; **provenance** assistant_step20_factual_checkpoint_and_PC_45_tests
+
+````text
+Step20: 45/45 new tests Linux and Windows MBMPC; 9/9 semantic physical twins produce theoretical intermediate responses in synthetic scenario A, 112-cell register replay byte-equivalent on PC, 14 post-T0 outcome rubrics segregated as unapproved Q metrology draft. H3 IC_DEMO unchanged, real Q scientific_ic_percent=null; no rice trials. Previous separate suites 309+106+23+32+31 pass locally. Next: quality measurement agreement and genuine experimental validation.
+````
+
+[executed on device: MBMPC (608dbffc-c6b9-4122-ad36-defa8238a929)]
+
+
+## Step20 — 17 octobre 2026 : deux registres distincts (physique / qualité)
+
+Déclencheur utilisateur CTX-0039 (« Continue » avec espace final exact accessible), archive assistant CTX-0040, événements chaînés E115 et E116. Preuves dans `step20/` : modèles `physical_influence_envelope.py`, `quality_outcome_protocol.py`, registre `REGISTRE_STEP20_112.json`, protocole `PROTOCOLE_Q_14_SORTIES_DRAFT.json` et contre-épreuves.
+
+**Nine couples physiques vérifiés** : 001 masse de riz, 033 cible d'absorption, 035 eau ajoutée, 036 eau retenue, 037 température eau, 038 température riz, 041 puissance, 042 rendement, 047 durée. Toute contradiction entre `case_inputs` et `prestart.inputs` est rejetée. Le bilan énergie/matière et un plafond d'évaporation **théoriques** sont calculés sous sept hypothèses physiques de démonstration déclarées, pas des mesures de cuisson réelles et pas une nouvelle distribution Q. Une variation ±1 % produit une réponse d'au moins une variable physique pour chacun des neuf couples sur le dossier synthétique A. **45/45 tests Step20 passent localement et sur Windows MBMPC**, et Windows reproduit les deux rapports JSON de référence exactement.
+
+**État des 112 rôles** : neuf réponses intermédiaires physiques Step20, 14 rubriques 099–112 exclues des prédicteurs et réservées aux sorties après T0, 89 autres rôles non promus en effets Q par ce lot. L'existence d'une route et l'effet sur Q réel sont deux assertions différentes. Aucun Q réel mesuré, aucune règle Q préenregistrée approuvée, aucune calibration; `scientific_ic_percent=null`, effets Q réels prouvés 0. Le barème de qualité pour deux portions reste **DRAFT**, à valider avant tout entraînement et avant toute revendication de réussite.
+
+**Reprise** : `Moteur/continue` ouvre Step20 checkpoint, journal E116 / CTX-0040, puis passe à la prochaine porte : protocole de mesure de Q et collecte d'essais indépendants pré-T0/post-T0. Ne jamais effacer le Cahier mère ni affirmer une collecte autonome hors session. Les tests des étapes antérieures restent distincts : 309 + 106 + 23 + 32 + 31 + 45 = **546 tests par suites séparées**, pas une unique commande monolithique.
