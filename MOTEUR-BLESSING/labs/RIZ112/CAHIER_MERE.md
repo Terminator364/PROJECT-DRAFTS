@@ -297,3 +297,13 @@ La synchronisation continue signifie une **mise à jour obligatoire pendant les 
 **[CONTEXTE ACTUEL COMPLET ACCESSIBLE]** `CONTEXTE_CONVERSATIONS.md` §23 et `CONTEXTE_INTEGRAL/REGISTRE_MESSAGES.jsonl` (CTX-0022 à CTX-0026) contiennent les textes exacts accessibles des demandes et une synthèse des travaux. `continuity/CONTRAT_CODE_UNIQUE.md` donne le protocole vérifiable et le script `continuity/resume.py` valide le checkpoint. Les messages historiques indisponibles sont des reconstitutions balisées, non des verbatims inventés.
 
 **[DERNIER ÉTAT]** H3/14, 309 tests historiques vérifiés en Python/Linux; registre journal chaîné validé; 22 lacunes de sous-mécanismes ; objectif Q*_DEMO fictif, IC réel `null`, n=0 mesures ; priorité H4. Le maintien du Cahier mère prime sur les annonces de versions, mais n'est jamais confondu avec une validation scientifique.
+
+## 17 octobre 2026 — H4A exécuté, audit et contre-audit (E095–E096)
+
+**Demande utilisateur effective** : `Moteur/continue` (CTX-0028, verbatim). Reprise selon D034 sans revenir au ZIP V1.1.2. La source d'autorité GitHub était H3/étape 14 (309 tests historiques, 4 mécanismes numériques, 22 lacunes Q). Les **169 tests de la V1.1.2** ont été relancés sur Linux dans cette séance, mais pas les 309 historiques H3, ni Windows.
+
+**Construction H4A** : `step15/functional_mechanisms_h4.py` exécute trois mécanismes diagnostiques pré-T0 sur sept rubriques : 003+061 (stock/dosage sel), 049+082 (partage de masse sèche en portions), 029+030+054 (fraction MASSIQUE de grains cassés et indice de rinçage). Aucun effet Q supposé, aucun score sportif touché, `scientific_ic_percent=null`.
+
+**Audit contradictoire** : rejets temporels et d'unités, refus de UNKNOWN→0, plans d'actions obligatoires, cohérence des primitives, absence d'informations post-T0. Un défaut découvert pendant le contre-audit : fraction de grains cassés en nombre ≠ fraction de masse; corrigé par `basis=dry_mass_fraction` explicite. Après correction, **29/29 tests synthétiques locaux PASS**; code et tests GitHub ont leurs empreintes de blob vérifiées : `4c97bdefc2b65764379cd98db6ec5e2feeb45484` et `726063de32e3e0bd6ab2518838ada022970b8150`.
+
+**Limites** : les 7 diagnostics ne sont pas 7 gains de prédiction. Les 22 liens vers Q réel restent non validés, 15 rubriques n'ont pas encore reçu les nouveaux diagnostics H4A. Aucune cuisson empirique, aucune preuve PIT tierce, aucune calibration. Pas de test Windows H4A ni de synchronisation H4A sur Drive/Delivery constatée. Checkpoint `step15/CHECKPOINT_H4A_20261017.json`; prochaine action `continuity/NEXT_ACTION.json` (H4B). Contexte 29 entrées et journal E096/96.
