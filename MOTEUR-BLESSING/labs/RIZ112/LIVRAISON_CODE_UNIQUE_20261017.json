@@ -1,0 +1,54 @@
+{
+  "schema": "moteur/continuity-single-code/receipt-v1",
+  "date": "2026-10-17",
+  "only_active_code": "Moteur/continue",
+  "scope": "Moteur Blessing and RIZ112/MATRICE methodology",
+  "current_stage": 14,
+  "current_status": "H3_309_TESTS_PASS__H4_NEXT__REAL_IC_NULL",
+  "context": {
+    "master": "MOTEUR-BLESSING/labs/RIZ112/CONTEXTE_CONVERSATIONS.md",
+    "registry": "MOTEUR-BLESSING/labs/RIZ112/CONTEXTE_INTEGRAL/REGISTRE_MESSAGES.jsonl",
+    "rows": 27,
+    "includes_current_user_verbatims": true,
+    "older_history": "partial verbatim + explicitly flagged reconstructions",
+    "capture": "during active conversation and checkpoints"
+  },
+  "journal": {
+    "events": 94,
+    "hash_chain": "48876a03d1bf973c9279039f39507903040ba8bf28a3ea709428ccf6e7f83b07"
+  },
+  "tests": {
+    "historical_h3": 309,
+    "new_continuity": 6,
+    "total": 315,
+    "environment": "ChatGPT/Linux",
+    "windows": "NOT_RUN"
+  },
+  "next_action": "MOTEUR-BLESSING/labs/RIZ112/continuity/NEXT_ACTION.json",
+  "next_id": "H4_CLOSE_22_MECHANISTIC_GAPS",
+  "scientific": {
+    "real_quality_trials": 0,
+    "calibrated_ic": null,
+    "matrice_sports_engine_modified": false
+  },
+  "archive": {
+    "name": "RIZ112_MOTEUR_CONTINUITE_UNIQUE_FINAL_2026-10-17.zip",
+    "bytes": 795542,
+    "sha256": "4a057b8ef981bedc10327b07d92c0b8a120a180047bea7576f057b186f65dd92",
+    "members": 232,
+    "zip_crc": "PASS",
+    "source_hashes_verified": 231,
+    "drive_id": "1hp6uP8izdFh8IQdx9jSCGZnXNbCs7g5p",
+    "drive_url": "https://drive.google.com/file/d/1hp6uP8izdFh8IQdx9jSCGZnXNbCs7g5p/view?usp=drivesdk",
+    "library_path": "/RIZ112_LAB/CAHIER_MERE_CODE_UNIQUE_2026-10-17/RIZ112_MOTEUR_CONTINUITE_UNIQUE_FINAL_2026-10-17.zip",
+    "library_file_id": "file_0000000010a4820eb983b3a7b9781ae9",
+    "drive_sha256_independently_verified": false
+  },
+  "pc": {
+    "device": "MBMPC",
+    "remote_status": "OFFLINE",
+    "synced": false
+  },
+  "background_process": false,
+  "trigger_execution": "read canonical sources then start H4 in same conversation without confirmation"
+}
