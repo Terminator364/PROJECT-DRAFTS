@@ -1,0 +1,53 @@
+{
+  "schema": "riz112/stage13/full-regression/v1",
+  "date": "2026-10-17",
+  "suites": {
+    "reference/original_step4_replay/RIZ112_ETAPE4/tests": {
+      "count": 22,
+      "pass": true
+    },
+    "step5": {
+      "count": 31,
+      "pass": true
+    },
+    "journal": {
+      "count": 10,
+      "pass": true
+    },
+    "step6": {
+      "count": 42,
+      "pass": true
+    },
+    "step7": {
+      "count": 36,
+      "pass": true
+    },
+    "step8": {
+      "count": 19,
+      "pass": true
+    },
+    "step9": {
+      "count": 25,
+      "pass": true
+    },
+    "step10": {
+      "count": 20,
+      "pass": true
+    },
+    "step11": {
+      "count": 13,
+      "pass": true
+    },
+    "step12": {
+      "count": 23,
+      "pass": true
+    },
+    "step13": {
+      "count": 32,
+      "pass": true
+    }
+  },
+  "passed": 273,
+  "all_pass": true,
+  "real_world_validation": false
+}
