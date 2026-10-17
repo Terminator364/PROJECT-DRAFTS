@@ -2,15 +2,15 @@
   "schema": "riz112/master-continuity/v5",
   "project": "RIZ112_lab_to_MATRICE",
   "date": "2026-10-17",
-  "stage": 11,
-  "status": "STAGE11_RANDOM_SCENARIOS_112_CONTRACTS__REAL_IC_UNVALIDATED",
+  "stage": 12,
+  "status": "STAGE12_100_COMPLETE_SYNTHETIC_SCENARIOS__224_LOCAL_COUNTERFACTUALS__REAL_IC_NOT_CALIBRATED",
   "continuity_code": "RIZ112|CONTINUE",
   "master": "CAHIER_MERE.md",
   "mandate": "MANDAT_FINITION_112.md",
   "mandate_active": true,
   "journal": {
-    "events": 57,
-    "head": "34cc53e9165d107df150062bfb5fc2892d325ec5e38ff26ddd2ea9cb2279c7a8"
+    "events": 62,
+    "head": "4128a2404e468e2c244a4c8b27ea8028c684bee27a0ec61d6e65ea28ff6a3428"
   },
   "cases": {
     "catalogued": 112,
@@ -33,17 +33,22 @@
     "scientifically_validated_quality_effects": 0
   },
   "tests": {
-    "old_step4": 22,
-    "old_step5": 31,
-    "journal": 10,
-    "old_step6": 42,
-    "old_step7": 36,
-    "new_step8": 19,
-    "total": 218,
-    "passed": 218,
-    "environment": "ChatGPT container Linux Python 3.13.5",
-    "windows": "NOT_TESTED",
-    "step9": 25
+    "suite_counts": {
+      "stage4": 22,
+      "stage5": 31,
+      "journal": 10,
+      "stage6": 42,
+      "stage7": 36,
+      "stage8": 19,
+      "stage9": 25,
+      "stage10": 20,
+      "stage11": 13,
+      "stage12": 23
+    },
+    "total": 241,
+    "passed": 241,
+    "windows": "NOT_RUN",
+    "environment": "ChatGPT Python/Linux"
   },
   "scientific": {
     "quality_rubric_approved": false,
@@ -58,10 +63,10 @@
     "copy_food_coefficients": false
   },
   "mirrors": {
-    "github": "MASTER_AND_CODE_PUBLISHED_PENDING_FINAL_CHECKPOINT_UPDATE",
-    "library": "STAGE8_ARCHIVE_AND_FILES_PRESENT_BASE_VERSION",
-    "drive": "V8_ARCHIVE_UPLOADED_206876B_VERIFIED_METADATA_NO_REMOTE_SHA",
-    "windows": "MBMPC_OFFLINE_NOT_TESTED"
+    "github": "SYNC_PENDING",
+    "drive": "SYNC_PENDING",
+    "library": "SYNC_PENDING",
+    "windows": "NOT_RUN"
   },
   "drive_initial_v8": {
     "id": "11zabEXKov7S34KNtjX-WljTvTjIsOT5u",
@@ -72,8 +77,8 @@
   },
   "scientific_ic_percent": null,
   "real_Q_probability_percent": null,
-  "last_user_directive": "D020_RANDOM_SCENARIOS_119_MENTION_NEEDS_CLARIFICATION",
-  "latest_code": "step11/scenario_factory.py",
+  "last_user_directive": "D022_BUILD_SCENARIO_SENSITIVITY_112_AND_ACTUAL_EFFECT_GAPS",
+  "latest_code": "step12/full_variation_v12.py",
   "latest_contract": "step9/DEMONSTRATION_CONTRACT.json",
   "quality_proxy": "Q*_DEMO 4 unvalidated dimensions, threshold 85",
   "probabilities_demo_percent": {
@@ -87,7 +92,7 @@
   },
   "real_labeled_cooking_trials": 0,
   "quality_rubric_user_approved": false,
-  "latest_case_audit": "step10/INTERVENTIONS_112_STAGE9.json",
+  "latest_case_audit": "step12/COUNTERFACTUAL_112_V12.json",
   "step10": {
     "one_at_a_time_cases_tested": 112,
     "ic_demo_changed": 11,
@@ -120,5 +125,37 @@
     "119_vs_112": "UNCLEAR_NEW_SEVEN_NOT_CREATED",
     "material_specific_numeric_effect": false,
     "independent_rice_experiments": 0
+  },
+  "full_packet_replay": "step12/POPULATION_100_COMPLETE_PACKET.jsonl",
+  "stage12": {
+    "population": 100,
+    "inputs_direct_varied": 44,
+    "derived": 4,
+    "actions_varied": 37,
+    "policies_varied": 13,
+    "outcomes_target_frozen": 14,
+    "draws_per_case": 500,
+    "population_status_counts": {
+      "ABSTAIN_UNSUPPORTED_VESSEL": 47,
+      "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q": 30,
+      "ABSTAIN_PRESTART_CONTRADICTION": 11,
+      "ABSTAIN_CONTRADICTION": 12
+    },
+    "distinct_demo_ic": 12,
+    "counterfactual_n": 224,
+    "categories": {
+      "CHANGES_ASSUMED_DEMO_IC_FOR_TESTED_PERTURBATION": 12,
+      "CHANGES_OPERATIONAL_GATES_NOT_CALIBRATED_Q": 52,
+      "NOT_DEMONSTRATED_TO_CHANGE_IC_OR_GATE": 26,
+      "CHANGES_ELIGIBILITY_OR_INVALIDATES_ASSUMPTIONS": 4,
+      "DERIVED_OUTPUT_NOT_INDEPENDENT_RANDOM_INPUT": 4,
+      "TARGET_DEFINITION_LOCKED_NOT_INPUT": 14
+    },
+    "unresolved_local_influence_cases": 26,
+    "all_numeric_effects_empirically_validated": false,
+    "wood_material_unsupported": true,
+    "material_label_only_effect": "NONE_WITHOUT_THERMAL_LINKAGE",
+    "matrix_sports_modified": false,
+    "original_V11_preserved": true
   }
 }
