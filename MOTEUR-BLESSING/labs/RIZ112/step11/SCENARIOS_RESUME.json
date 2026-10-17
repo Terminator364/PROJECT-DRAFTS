@@ -1,0 +1,1578 @@
+{
+  "seed": 20261017,
+  "total": 60,
+  "draws_per_scenario": 300,
+  "status_counts": {
+    "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q": 18,
+    "ABSTAIN_PRESTART_CONTRADICTION": 15,
+    "ABSTAIN_CONTRADICTION": 12,
+    "ABSTAIN_UNSUPPORTED_VESSEL": 15
+  },
+  "ic_demo_nonzero": 6,
+  "scientific_ic": null,
+  "rows": [
+    {
+      "name": "SYNTH_20261017_000",
+      "scenario": {
+        "material": "ceramic_rated",
+        "lid": true,
+        "rice_g": 220,
+        "water_g": 160,
+        "power_W": 280,
+        "heat_min": 28,
+        "water_stock_g": 700,
+        "pot_capacity_ml": 1000
+      },
+      "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+      "ic_demo_percent": 0.0,
+      "scientific_ic_percent": null,
+      "reason": null,
+      "conflicts": null
+    },
+    {
+      "name": "SYNTH_20261017_001",
+      "scenario": {
+        "material": "metal",
+        "lid": false,
+        "rice_g": 130,
+        "water_g": 160,
+        "power_W": 280,
+        "heat_min": 34,
+        "water_stock_g": 180,
+        "pot_capacity_ml": 1000
+      },
+      "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+      "ic_demo_percent": 0.0,
+      "scientific_ic_percent": null,
+      "reason": null,
+      "conflicts": null
+    },
+    {
+      "name": "SYNTH_20261017_002",
+      "scenario": {
+        "material": "metal",
+        "lid": false,
+        "rice_g": 290,
+        "water_g": 380,
+        "power_W": 700,
+        "heat_min": 16,
+        "water_stock_g": 1200,
+        "pot_capacity_ml": 2300
+      },
+      "status": "ABSTAIN_PRESTART_CONTRADICTION",
+      "ic_demo_percent": null,
+      "scientific_ic_percent": null,
+      "reason": null,
+      "conflicts": [
+        {
+          "case": "017",
+          "decision": {
+            "state": "CONTRADICTED",
+            "refs": [
+              "017",
+              "068"
+            ],
+            "reason": "Power adjustment needed if reduction planned",
+            "measurement": null
+          }
+        },
+        {
+          "case": "068",
+          "decision": {
+            "state": "CONTRADICTED",
+            "refs": [
+              "017",
+              "068"
+            ],
+            "reason": "Declared resource required for action",
+            "measurement": false
+          }
+        }
+      ]
+    },
+    {
+      "name": "SYNTH_20261017_003",
+      "scenario": {
+        "material": "ceramic_rated",
+        "lid": true,
+        "rice_g": 220,
+        "water_g": 300,
+        "power_W": 400,
+        "heat_min": 28,
+        "water_stock_g": 180,
+        "pot_capacity_ml": 1000
+      },
+      "status": "ABSTAIN_CONTRADICTION",
+      "ic_demo_percent": null,
+      "scientific_ic_percent": null,
+      "reason": null,
+      "conflicts": [
+        {
+          "cases": [
+            "002",
+            "035"
+          ],
+          "type": "RESOURCE_SHORTAGE",
+          "message": "declared potable water stock below planned added water (ml≈g idealized)"
+        }
+      ]
+    },
+    {
+      "name": "SYNTH_20261017_004",
+      "scenario": {
+        "material": "metal",
+        "lid": false,
+        "rice_g": 290,
+        "water_g": 110,
+        "power_W": 550,
+        "heat_min": 28,
+        "water_stock_g": 1200,
+        "pot_capacity_ml": 1000
+      },
+      "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+      "ic_demo_percent": 0.0,
+      "scientific_ic_percent": null,
+      "reason": null,
+      "conflicts": null
+    },
+    {
+      "name": "SYNTH_20261017_005",
+      "scenario": {
+        "material": "wood_unrated",
+        "lid": true,
+        "rice_g": 130,
+        "water_g": 110,
+        "power_W": 700,
+        "heat_min": 16,
+        "water_stock_g": 1200,
+        "pot_capacity_ml": 550
+      },
+      "status": "ABSTAIN_UNSUPPORTED_VESSEL",
+      "ic_demo_percent": null,
+      "scientific_ic_percent": null,
+      "reason": "No valid heat-transfer / direct-heating compatibility model for wooden vessel",
+      "conflicts": null
+    },
+    {
+      "name": "SYNTH_20261017_006",
+      "scenario": {
+        "material": "metal",
+        "lid": false,
+        "rice_g": 220,
+        "water_g": 380,
+        "power_W": 400,
+        "heat_min": 22,
+        "water_stock_g": 180,
+        "pot_capacity_ml": 2300
+      },
+      "status": "ABSTAIN_CONTRADICTION",
+      "ic_demo_percent": null,
+      "scientific_ic_percent": null,
+      "reason": null,
+      "conflicts": [
+        {
+          "cases": [
+            "002",
+            "035"
+          ],
+          "type": "RESOURCE_SHORTAGE",
+          "message": "declared potable water stock below planned added water (ml≈g idealized)"
+        }
+      ]
+    },
+    {
+      "name": "SYNTH_20261017_007",
+      "scenario": {
+        "material": "metal",
+        "lid": false,
+        "rice_g": 160,
+        "water_g": 500,
+        "power_W": 400,
+        "heat_min": 12,
+        "water_stock_g": 1200,
+        "pot_capacity_ml": 550
+      },
+      "status": "ABSTAIN_PRESTART_CONTRADICTION",
+      "ic_demo_percent": null,
+      "scientific_ic_percent": null,
+      "reason": null,
+      "conflicts": [
+        {
+          "case": "017",
+          "decision": {
+            "state": "CONTRADICTED",
+            "refs": [
+              "017",
+              "068"
+            ],
+            "reason": "Power adjustment needed if reduction planned",
+            "measurement": null
+          }
+        },
+        {
+          "case": "068",
+          "decision": {
+            "state": "CONTRADICTED",
+            "refs": [
+              "017",
+              "068"
+            ],
+            "reason": "Declared resource required for action",
+            "measurement": false
+          }
+        }
+      ]
+    },
+    {
+      "name": "SYNTH_20261017_008",
+      "scenario": {
+        "material": "ceramic_rated",
+        "lid": false,
+        "rice_g": 160,
+        "water_g": 230,
+        "power_W": 550,
+        "heat_min": 34,
+        "water_stock_g": 1200,
+        "pot_capacity_ml": 2300
+      },
+      "status": "ABSTAIN_PRESTART_CONTRADICTION",
+      "ic_demo_percent": null,
+      "scientific_ic_percent": null,
+      "reason": null,
+      "conflicts": [
+        {
+          "case": "017",
+          "decision": {
+            "state": "CONTRADICTED",
+            "refs": [
+              "017",
+              "068"
+            ],
+            "reason": "Power adjustment needed if reduction planned",
+            "measurement": null
+          }
+        },
+        {
+          "case": "068",
+          "decision": {
+            "state": "CONTRADICTED",
+            "refs": [
+              "017",
+              "068"
+            ],
+            "reason": "Declared resource required for action",
+            "measurement": false
+          }
+        }
+      ]
+    },
+    {
+      "name": "SYNTH_20261017_009",
+      "scenario": {
+        "material": "metal",
+        "lid": false,
+        "rice_g": 290,
+        "water_g": 160,
+        "power_W": 700,
+        "heat_min": 34,
+        "water_stock_g": 180,
+        "pot_capacity_ml": 550
+      },
+      "status": "ABSTAIN_PRESTART_CONTRADICTION",
+      "ic_demo_percent": null,
+      "scientific_ic_percent": null,
+      "reason": null,
+      "conflicts": [
+        {
+          "case": "017",
+          "decision": {
+            "state": "CONTRADICTED",
+            "refs": [
+              "017",
+              "068"
+            ],
+            "reason": "Power adjustment needed if reduction planned",
+            "measurement": null
+          }
+        },
+        {
+          "case": "068",
+          "decision": {
+            "state": "CONTRADICTED",
+            "refs": [
+              "017",
+              "068"
+            ],
+            "reason": "Declared resource required for action",
+            "measurement": false
+          }
+        }
+      ]
+    },
+    {
+      "name": "SYNTH_20261017_010",
+      "scenario": {
+        "material": "ceramic_rated",
+        "lid": true,
+        "rice_g": 290,
+        "water_g": 380,
+        "power_W": 550,
+        "heat_min": 28,
+        "water_stock_g": 700,
+        "pot_capacity_ml": 550
+      },
+      "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+      "ic_demo_percent": 11.0,
+      "scientific_ic_percent": null,
+      "reason": null,
+      "conflicts": null
+    },
+    {
+      "name": "SYNTH_20261017_011",
+      "scenario": {
+        "material": "metal",
+        "lid": true,
+        "rice_g": 130,
+        "water_g": 500,
+        "power_W": 550,
+        "heat_min": 28,
+        "water_stock_g": 180,
+        "pot_capacity_ml": 1700
+      },
+      "status": "ABSTAIN_CONTRADICTION",
+      "ic_demo_percent": null,
+      "scientific_ic_percent": null,
+      "reason": null,
+      "conflicts": [
+        {
+          "cases": [
+            "002",
+            "035"
+          ],
+          "type": "RESOURCE_SHORTAGE",
+          "message": "declared potable water stock below planned added water (ml≈g idealized)"
+        }
+      ]
+    },
+    {
+      "name": "SYNTH_20261017_012",
+      "scenario": {
+        "material": "ceramic_rated",
+        "lid": true,
+        "rice_g": 290,
+        "water_g": 230,
+        "power_W": 950,
+        "heat_min": 34,
+        "water_stock_g": 700,
+        "pot_capacity_ml": 550
+      },
+      "status": "ABSTAIN_PRESTART_CONTRADICTION",
+      "ic_demo_percent": null,
+      "scientific_ic_percent": null,
+      "reason": null,
+      "conflicts": [
+        {
+          "case": "017",
+          "decision": {
+            "state": "CONTRADICTED",
+            "refs": [
+              "017",
+              "068"
+            ],
+            "reason": "Power adjustment needed if reduction planned",
+            "measurement": null
+          }
+        },
+        {
+          "case": "068",
+          "decision": {
+            "state": "CONTRADICTED",
+            "refs": [
+              "017",
+              "068"
+            ],
+            "reason": "Declared resource required for action",
+            "measurement": false
+          }
+        }
+      ]
+    },
+    {
+      "name": "SYNTH_20261017_013",
+      "scenario": {
+        "material": "wood_unrated",
+        "lid": false,
+        "rice_g": 90,
+        "water_g": 380,
+        "power_W": 550,
+        "heat_min": 34,
+        "water_stock_g": 700,
+        "pot_capacity_ml": 550
+      },
+      "status": "ABSTAIN_UNSUPPORTED_VESSEL",
+      "ic_demo_percent": null,
+      "scientific_ic_percent": null,
+      "reason": "No valid heat-transfer / direct-heating compatibility model for wooden vessel",
+      "conflicts": null
+    },
+    {
+      "name": "SYNTH_20261017_014",
+      "scenario": {
+        "material": "ceramic_rated",
+        "lid": false,
+        "rice_g": 160,
+        "water_g": 500,
+        "power_W": 950,
+        "heat_min": 34,
+        "water_stock_g": 1200,
+        "pot_capacity_ml": 550
+      },
+      "status": "ABSTAIN_PRESTART_CONTRADICTION",
+      "ic_demo_percent": null,
+      "scientific_ic_percent": null,
+      "reason": null,
+      "conflicts": [
+        {
+          "case": "017",
+          "decision": {
+            "state": "CONTRADICTED",
+            "refs": [
+              "017",
+              "068"
+            ],
+            "reason": "Power adjustment needed if reduction planned",
+            "measurement": null
+          }
+        },
+        {
+          "case": "068",
+          "decision": {
+            "state": "CONTRADICTED",
+            "refs": [
+              "017",
+              "068"
+            ],
+            "reason": "Declared resource required for action",
+            "measurement": false
+          }
+        }
+      ]
+    },
+    {
+      "name": "SYNTH_20261017_015",
+      "scenario": {
+        "material": "metal",
+        "lid": false,
+        "rice_g": 220,
+        "water_g": 500,
+        "power_W": 280,
+        "heat_min": 34,
+        "water_stock_g": 180,
+        "pot_capacity_ml": 2300
+      },
+      "status": "ABSTAIN_CONTRADICTION",
+      "ic_demo_percent": null,
+      "scientific_ic_percent": null,
+      "reason": null,
+      "conflicts": [
+        {
+          "cases": [
+            "002",
+            "035"
+          ],
+          "type": "RESOURCE_SHORTAGE",
+          "message": "declared potable water stock below planned added water (ml≈g idealized)"
+        }
+      ]
+    },
+    {
+      "name": "SYNTH_20261017_016",
+      "scenario": {
+        "material": "metal",
+        "lid": false,
+        "rice_g": 220,
+        "water_g": 300,
+        "power_W": 550,
+        "heat_min": 12,
+        "water_stock_g": 1200,
+        "pot_capacity_ml": 550
+      },
+      "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+      "ic_demo_percent": 1.33,
+      "scientific_ic_percent": null,
+      "reason": null,
+      "conflicts": null
+    },
+    {
+      "name": "SYNTH_20261017_017",
+      "scenario": {
+        "material": "ceramic_rated",
+        "lid": false,
+        "rice_g": 290,
+        "water_g": 380,
+        "power_W": 400,
+        "heat_min": 34,
+        "water_stock_g": 700,
+        "pot_capacity_ml": 550
+      },
+      "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+      "ic_demo_percent": 1.0,
+      "scientific_ic_percent": null,
+      "reason": null,
+      "conflicts": null
+    },
+    {
+      "name": "SYNTH_20261017_018",
+      "scenario": {
+        "material": "metal",
+        "lid": false,
+        "rice_g": 220,
+        "water_g": 500,
+        "power_W": 700,
+        "heat_min": 28,
+        "water_stock_g": 1200,
+        "pot_capacity_ml": 1000
+      },
+      "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+      "ic_demo_percent": 30.67,
+      "scientific_ic_percent": null,
+      "reason": null,
+      "conflicts": null
+    },
+    {
+      "name": "SYNTH_20261017_019",
+      "scenario": {
+        "material": "metal",
+        "lid": false,
+        "rice_g": 160,
+        "water_g": 160,
+        "power_W": 950,
+        "heat_min": 28,
+        "water_stock_g": 180,
+        "pot_capacity_ml": 2300
+      },
+      "status": "ABSTAIN_PRESTART_CONTRADICTION",
+      "ic_demo_percent": null,
+      "scientific_ic_percent": null,
+      "reason": null,
+      "conflicts": [
+        {
+          "case": "017",
+          "decision": {
+            "state": "CONTRADICTED",
+            "refs": [
+              "017",
+              "068"
+            ],
+            "reason": "Power adjustment needed if reduction planned",
+            "measurement": null
+          }
+        },
+        {
+          "case": "068",
+          "decision": {
+            "state": "CONTRADICTED",
+            "refs": [
+              "017",
+              "068"
+            ],
+            "reason": "Declared resource required for action",
+            "measurement": false
+          }
+        }
+      ]
+    },
+    {
+      "name": "SYNTH_20261017_020",
+      "scenario": {
+        "material": "metal",
+        "lid": true,
+        "rice_g": 290,
+        "water_g": 500,
+        "power_W": 950,
+        "heat_min": 22,
+        "water_stock_g": 180,
+        "pot_capacity_ml": 2300
+      },
+      "status": "ABSTAIN_CONTRADICTION",
+      "ic_demo_percent": null,
+      "scientific_ic_percent": null,
+      "reason": null,
+      "conflicts": [
+        {
+          "cases": [
+            "002",
+            "035"
+          ],
+          "type": "RESOURCE_SHORTAGE",
+          "message": "declared potable water stock below planned added water (ml≈g idealized)"
+        }
+      ]
+    },
+    {
+      "name": "SYNTH_20261017_021",
+      "scenario": {
+        "material": "ceramic_rated",
+        "lid": false,
+        "rice_g": 290,
+        "water_g": 380,
+        "power_W": 950,
+        "heat_min": 28,
+        "water_stock_g": 350,
+        "pot_capacity_ml": 1700
+      },
+      "status": "ABSTAIN_CONTRADICTION",
+      "ic_demo_percent": null,
+      "scientific_ic_percent": null,
+      "reason": null,
+      "conflicts": [
+        {
+          "cases": [
+            "002",
+            "035"
+          ],
+          "type": "RESOURCE_SHORTAGE",
+          "message": "declared potable water stock below planned added water (ml≈g idealized)"
+        }
+      ]
+    },
+    {
+      "name": "SYNTH_20261017_022",
+      "scenario": {
+        "material": "ceramic_rated",
+        "lid": true,
+        "rice_g": 290,
+        "water_g": 160,
+        "power_W": 700,
+        "heat_min": 12,
+        "water_stock_g": 350,
+        "pot_capacity_ml": 550
+      },
+      "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+      "ic_demo_percent": 0.0,
+      "scientific_ic_percent": null,
+      "reason": null,
+      "conflicts": null
+    },
+    {
+      "name": "SYNTH_20261017_023",
+      "scenario": {
+        "material": "ceramic_rated",
+        "lid": true,
+        "rice_g": 90,
+        "water_g": 380,
+        "power_W": 950,
+        "heat_min": 28,
+        "water_stock_g": 350,
+        "pot_capacity_ml": 550
+      },
+      "status": "ABSTAIN_CONTRADICTION",
+      "ic_demo_percent": null,
+      "scientific_ic_percent": null,
+      "reason": null,
+      "conflicts": [
+        {
+          "cases": [
+            "002",
+            "035"
+          ],
+          "type": "RESOURCE_SHORTAGE",
+          "message": "declared potable water stock below planned added water (ml≈g idealized)"
+        }
+      ]
+    },
+    {
+      "name": "SYNTH_20261017_024",
+      "scenario": {
+        "material": "ceramic_rated",
+        "lid": true,
+        "rice_g": 130,
+        "water_g": 300,
+        "power_W": 950,
+        "heat_min": 22,
+        "water_stock_g": 350,
+        "pot_capacity_ml": 1000
+      },
+      "status": "ABSTAIN_PRESTART_CONTRADICTION",
+      "ic_demo_percent": null,
+      "scientific_ic_percent": null,
+      "reason": null,
+      "conflicts": [
+        {
+          "case": "017",
+          "decision": {
+            "state": "CONTRADICTED",
+            "refs": [
+              "017",
+              "068"
+            ],
+            "reason": "Power adjustment needed if reduction planned",
+            "measurement": null
+          }
+        },
+        {
+          "case": "068",
+          "decision": {
+            "state": "CONTRADICTED",
+            "refs": [
+              "017",
+              "068"
+            ],
+            "reason": "Declared resource required for action",
+            "measurement": false
+          }
+        }
+      ]
+    },
+    {
+      "name": "SYNTH_20261017_025",
+      "scenario": {
+        "material": "wood_unrated",
+        "lid": true,
+        "rice_g": 290,
+        "water_g": 500,
+        "power_W": 550,
+        "heat_min": 28,
+        "water_stock_g": 350,
+        "pot_capacity_ml": 1000
+      },
+      "status": "ABSTAIN_UNSUPPORTED_VESSEL",
+      "ic_demo_percent": null,
+      "scientific_ic_percent": null,
+      "reason": "No valid heat-transfer / direct-heating compatibility model for wooden vessel",
+      "conflicts": null
+    },
+    {
+      "name": "SYNTH_20261017_026",
+      "scenario": {
+        "material": "ceramic_rated",
+        "lid": true,
+        "rice_g": 90,
+        "water_g": 300,
+        "power_W": 700,
+        "heat_min": 16,
+        "water_stock_g": 700,
+        "pot_capacity_ml": 550
+      },
+      "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+      "ic_demo_percent": 0.0,
+      "scientific_ic_percent": null,
+      "reason": null,
+      "conflicts": null
+    },
+    {
+      "name": "SYNTH_20261017_027",
+      "scenario": {
+        "material": "ceramic_rated",
+        "lid": true,
+        "rice_g": 290,
+        "water_g": 500,
+        "power_W": 400,
+        "heat_min": 12,
+        "water_stock_g": 1200,
+        "pot_capacity_ml": 2300
+      },
+      "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+      "ic_demo_percent": 0.0,
+      "scientific_ic_percent": null,
+      "reason": null,
+      "conflicts": null
+    },
+    {
+      "name": "SYNTH_20261017_028",
+      "scenario": {
+        "material": "wood_unrated",
+        "lid": true,
+        "rice_g": 290,
+        "water_g": 110,
+        "power_W": 950,
+        "heat_min": 16,
+        "water_stock_g": 180,
+        "pot_capacity_ml": 550
+      },
+      "status": "ABSTAIN_UNSUPPORTED_VESSEL",
+      "ic_demo_percent": null,
+      "scientific_ic_percent": null,
+      "reason": "No valid heat-transfer / direct-heating compatibility model for wooden vessel",
+      "conflicts": null
+    },
+    {
+      "name": "SYNTH_20261017_029",
+      "scenario": {
+        "material": "ceramic_rated",
+        "lid": false,
+        "rice_g": 90,
+        "water_g": 230,
+        "power_W": 950,
+        "heat_min": 28,
+        "water_stock_g": 700,
+        "pot_capacity_ml": 1700
+      },
+      "status": "ABSTAIN_PRESTART_CONTRADICTION",
+      "ic_demo_percent": null,
+      "scientific_ic_percent": null,
+      "reason": null,
+      "conflicts": [
+        {
+          "case": "017",
+          "decision": {
+            "state": "CONTRADICTED",
+            "refs": [
+              "017",
+              "068"
+            ],
+            "reason": "Power adjustment needed if reduction planned",
+            "measurement": null
+          }
+        },
+        {
+          "case": "068",
+          "decision": {
+            "state": "CONTRADICTED",
+            "refs": [
+              "017",
+              "068"
+            ],
+            "reason": "Declared resource required for action",
+            "measurement": false
+          }
+        }
+      ]
+    },
+    {
+      "name": "SYNTH_20261017_030",
+      "scenario": {
+        "material": "wood_unrated",
+        "lid": false,
+        "rice_g": 220,
+        "water_g": 500,
+        "power_W": 550,
+        "heat_min": 34,
+        "water_stock_g": 1200,
+        "pot_capacity_ml": 1700
+      },
+      "status": "ABSTAIN_UNSUPPORTED_VESSEL",
+      "ic_demo_percent": null,
+      "scientific_ic_percent": null,
+      "reason": "No valid heat-transfer / direct-heating compatibility model for wooden vessel",
+      "conflicts": null
+    },
+    {
+      "name": "SYNTH_20261017_031",
+      "scenario": {
+        "material": "ceramic_rated",
+        "lid": true,
+        "rice_g": 290,
+        "water_g": 380,
+        "power_W": 950,
+        "heat_min": 22,
+        "water_stock_g": 180,
+        "pot_capacity_ml": 550
+      },
+      "status": "ABSTAIN_CONTRADICTION",
+      "ic_demo_percent": null,
+      "scientific_ic_percent": null,
+      "reason": null,
+      "conflicts": [
+        {
+          "cases": [
+            "002",
+            "035"
+          ],
+          "type": "RESOURCE_SHORTAGE",
+          "message": "declared potable water stock below planned added water (ml≈g idealized)"
+        }
+      ]
+    },
+    {
+      "name": "SYNTH_20261017_032",
+      "scenario": {
+        "material": "wood_unrated",
+        "lid": true,
+        "rice_g": 90,
+        "water_g": 110,
+        "power_W": 550,
+        "heat_min": 16,
+        "water_stock_g": 180,
+        "pot_capacity_ml": 550
+      },
+      "status": "ABSTAIN_UNSUPPORTED_VESSEL",
+      "ic_demo_percent": null,
+      "scientific_ic_percent": null,
+      "reason": "No valid heat-transfer / direct-heating compatibility model for wooden vessel",
+      "conflicts": null
+    },
+    {
+      "name": "SYNTH_20261017_033",
+      "scenario": {
+        "material": "wood_unrated",
+        "lid": true,
+        "rice_g": 130,
+        "water_g": 380,
+        "power_W": 950,
+        "heat_min": 34,
+        "water_stock_g": 180,
+        "pot_capacity_ml": 2300
+      },
+      "status": "ABSTAIN_UNSUPPORTED_VESSEL",
+      "ic_demo_percent": null,
+      "scientific_ic_percent": null,
+      "reason": "No valid heat-transfer / direct-heating compatibility model for wooden vessel",
+      "conflicts": null
+    },
+    {
+      "name": "SYNTH_20261017_034",
+      "scenario": {
+        "material": "metal",
+        "lid": false,
+        "rice_g": 130,
+        "water_g": 160,
+        "power_W": 550,
+        "heat_min": 12,
+        "water_stock_g": 180,
+        "pot_capacity_ml": 1700
+      },
+      "status": "ABSTAIN_PRESTART_CONTRADICTION",
+      "ic_demo_percent": null,
+      "scientific_ic_percent": null,
+      "reason": null,
+      "conflicts": [
+        {
+          "case": "017",
+          "decision": {
+            "state": "CONTRADICTED",
+            "refs": [
+              "017",
+              "068"
+            ],
+            "reason": "Power adjustment needed if reduction planned",
+            "measurement": null
+          }
+        },
+        {
+          "case": "068",
+          "decision": {
+            "state": "CONTRADICTED",
+            "refs": [
+              "017",
+              "068"
+            ],
+            "reason": "Declared resource required for action",
+            "measurement": false
+          }
+        }
+      ]
+    },
+    {
+      "name": "SYNTH_20261017_035",
+      "scenario": {
+        "material": "ceramic_rated",
+        "lid": false,
+        "rice_g": 90,
+        "water_g": 500,
+        "power_W": 950,
+        "heat_min": 28,
+        "water_stock_g": 700,
+        "pot_capacity_ml": 550
+      },
+      "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+      "ic_demo_percent": 4.0,
+      "scientific_ic_percent": null,
+      "reason": null,
+      "conflicts": null
+    },
+    {
+      "name": "SYNTH_20261017_036",
+      "scenario": {
+        "material": "wood_unrated",
+        "lid": true,
+        "rice_g": 160,
+        "water_g": 230,
+        "power_W": 700,
+        "heat_min": 22,
+        "water_stock_g": 700,
+        "pot_capacity_ml": 2300
+      },
+      "status": "ABSTAIN_UNSUPPORTED_VESSEL",
+      "ic_demo_percent": null,
+      "scientific_ic_percent": null,
+      "reason": "No valid heat-transfer / direct-heating compatibility model for wooden vessel",
+      "conflicts": null
+    },
+    {
+      "name": "SYNTH_20261017_037",
+      "scenario": {
+        "material": "metal",
+        "lid": true,
+        "rice_g": 90,
+        "water_g": 500,
+        "power_W": 950,
+        "heat_min": 16,
+        "water_stock_g": 350,
+        "pot_capacity_ml": 1700
+      },
+      "status": "ABSTAIN_CONTRADICTION",
+      "ic_demo_percent": null,
+      "scientific_ic_percent": null,
+      "reason": null,
+      "conflicts": [
+        {
+          "cases": [
+            "002",
+            "035"
+          ],
+          "type": "RESOURCE_SHORTAGE",
+          "message": "declared potable water stock below planned added water (ml≈g idealized)"
+        }
+      ]
+    },
+    {
+      "name": "SYNTH_20261017_038",
+      "scenario": {
+        "material": "wood_unrated",
+        "lid": false,
+        "rice_g": 90,
+        "water_g": 500,
+        "power_W": 550,
+        "heat_min": 16,
+        "water_stock_g": 1200,
+        "pot_capacity_ml": 2300
+      },
+      "status": "ABSTAIN_UNSUPPORTED_VESSEL",
+      "ic_demo_percent": null,
+      "scientific_ic_percent": null,
+      "reason": "No valid heat-transfer / direct-heating compatibility model for wooden vessel",
+      "conflicts": null
+    },
+    {
+      "name": "SYNTH_20261017_039",
+      "scenario": {
+        "material": "wood_unrated",
+        "lid": true,
+        "rice_g": 220,
+        "water_g": 160,
+        "power_W": 550,
+        "heat_min": 34,
+        "water_stock_g": 180,
+        "pot_capacity_ml": 550
+      },
+      "status": "ABSTAIN_UNSUPPORTED_VESSEL",
+      "ic_demo_percent": null,
+      "scientific_ic_percent": null,
+      "reason": "No valid heat-transfer / direct-heating compatibility model for wooden vessel",
+      "conflicts": null
+    },
+    {
+      "name": "SYNTH_20261017_040",
+      "scenario": {
+        "material": "metal",
+        "lid": false,
+        "rice_g": 290,
+        "water_g": 500,
+        "power_W": 280,
+        "heat_min": 28,
+        "water_stock_g": 1200,
+        "pot_capacity_ml": 550
+      },
+      "status": "ABSTAIN_PRESTART_CONTRADICTION",
+      "ic_demo_percent": null,
+      "scientific_ic_percent": null,
+      "reason": null,
+      "conflicts": [
+        {
+          "case": "017",
+          "decision": {
+            "state": "CONTRADICTED",
+            "refs": [
+              "017",
+              "068"
+            ],
+            "reason": "Power adjustment needed if reduction planned",
+            "measurement": null
+          }
+        },
+        {
+          "case": "068",
+          "decision": {
+            "state": "CONTRADICTED",
+            "refs": [
+              "017",
+              "068"
+            ],
+            "reason": "Declared resource required for action",
+            "measurement": false
+          }
+        }
+      ]
+    },
+    {
+      "name": "SYNTH_20261017_041",
+      "scenario": {
+        "material": "wood_unrated",
+        "lid": true,
+        "rice_g": 130,
+        "water_g": 230,
+        "power_W": 280,
+        "heat_min": 16,
+        "water_stock_g": 700,
+        "pot_capacity_ml": 1000
+      },
+      "status": "ABSTAIN_UNSUPPORTED_VESSEL",
+      "ic_demo_percent": null,
+      "scientific_ic_percent": null,
+      "reason": "No valid heat-transfer / direct-heating compatibility model for wooden vessel",
+      "conflicts": null
+    },
+    {
+      "name": "SYNTH_20261017_042",
+      "scenario": {
+        "material": "ceramic_rated",
+        "lid": false,
+        "rice_g": 90,
+        "water_g": 300,
+        "power_W": 700,
+        "heat_min": 22,
+        "water_stock_g": 1200,
+        "pot_capacity_ml": 1000
+      },
+      "status": "ABSTAIN_PRESTART_CONTRADICTION",
+      "ic_demo_percent": null,
+      "scientific_ic_percent": null,
+      "reason": null,
+      "conflicts": [
+        {
+          "case": "017",
+          "decision": {
+            "state": "CONTRADICTED",
+            "refs": [
+              "017",
+              "068"
+            ],
+            "reason": "Power adjustment needed if reduction planned",
+            "measurement": null
+          }
+        },
+        {
+          "case": "068",
+          "decision": {
+            "state": "CONTRADICTED",
+            "refs": [
+              "017",
+              "068"
+            ],
+            "reason": "Declared resource required for action",
+            "measurement": false
+          }
+        }
+      ]
+    },
+    {
+      "name": "SYNTH_20261017_043",
+      "scenario": {
+        "material": "metal",
+        "lid": true,
+        "rice_g": 90,
+        "water_g": 230,
+        "power_W": 550,
+        "heat_min": 12,
+        "water_stock_g": 350,
+        "pot_capacity_ml": 550
+      },
+      "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+      "ic_demo_percent": 0.0,
+      "scientific_ic_percent": null,
+      "reason": null,
+      "conflicts": null
+    },
+    {
+      "name": "SYNTH_20261017_044",
+      "scenario": {
+        "material": "metal",
+        "lid": false,
+        "rice_g": 160,
+        "water_g": 380,
+        "power_W": 700,
+        "heat_min": 12,
+        "water_stock_g": 350,
+        "pot_capacity_ml": 550
+      },
+      "status": "ABSTAIN_CONTRADICTION",
+      "ic_demo_percent": null,
+      "scientific_ic_percent": null,
+      "reason": null,
+      "conflicts": [
+        {
+          "cases": [
+            "002",
+            "035"
+          ],
+          "type": "RESOURCE_SHORTAGE",
+          "message": "declared potable water stock below planned added water (ml≈g idealized)"
+        }
+      ]
+    },
+    {
+      "name": "SYNTH_20261017_045",
+      "scenario": {
+        "material": "ceramic_rated",
+        "lid": false,
+        "rice_g": 290,
+        "water_g": 160,
+        "power_W": 950,
+        "heat_min": 34,
+        "water_stock_g": 1200,
+        "pot_capacity_ml": 1000
+      },
+      "status": "ABSTAIN_PRESTART_CONTRADICTION",
+      "ic_demo_percent": null,
+      "scientific_ic_percent": null,
+      "reason": null,
+      "conflicts": [
+        {
+          "case": "017",
+          "decision": {
+            "state": "CONTRADICTED",
+            "refs": [
+              "017",
+              "068"
+            ],
+            "reason": "Power adjustment needed if reduction planned",
+            "measurement": null
+          }
+        },
+        {
+          "case": "068",
+          "decision": {
+            "state": "CONTRADICTED",
+            "refs": [
+              "017",
+              "068"
+            ],
+            "reason": "Declared resource required for action",
+            "measurement": false
+          }
+        }
+      ]
+    },
+    {
+      "name": "SYNTH_20261017_046",
+      "scenario": {
+        "material": "ceramic_rated",
+        "lid": true,
+        "rice_g": 90,
+        "water_g": 230,
+        "power_W": 550,
+        "heat_min": 16,
+        "water_stock_g": 180,
+        "pot_capacity_ml": 550
+      },
+      "status": "ABSTAIN_CONTRADICTION",
+      "ic_demo_percent": null,
+      "scientific_ic_percent": null,
+      "reason": null,
+      "conflicts": [
+        {
+          "cases": [
+            "002",
+            "035"
+          ],
+          "type": "RESOURCE_SHORTAGE",
+          "message": "declared potable water stock below planned added water (ml≈g idealized)"
+        }
+      ]
+    },
+    {
+      "name": "SYNTH_20261017_047",
+      "scenario": {
+        "material": "wood_unrated",
+        "lid": false,
+        "rice_g": 290,
+        "water_g": 160,
+        "power_W": 550,
+        "heat_min": 28,
+        "water_stock_g": 1200,
+        "pot_capacity_ml": 1700
+      },
+      "status": "ABSTAIN_UNSUPPORTED_VESSEL",
+      "ic_demo_percent": null,
+      "scientific_ic_percent": null,
+      "reason": "No valid heat-transfer / direct-heating compatibility model for wooden vessel",
+      "conflicts": null
+    },
+    {
+      "name": "SYNTH_20261017_048",
+      "scenario": {
+        "material": "wood_unrated",
+        "lid": true,
+        "rice_g": 220,
+        "water_g": 110,
+        "power_W": 700,
+        "heat_min": 28,
+        "water_stock_g": 350,
+        "pot_capacity_ml": 550
+      },
+      "status": "ABSTAIN_UNSUPPORTED_VESSEL",
+      "ic_demo_percent": null,
+      "scientific_ic_percent": null,
+      "reason": "No valid heat-transfer / direct-heating compatibility model for wooden vessel",
+      "conflicts": null
+    },
+    {
+      "name": "SYNTH_20261017_049",
+      "scenario": {
+        "material": "ceramic_rated",
+        "lid": false,
+        "rice_g": 130,
+        "water_g": 230,
+        "power_W": 700,
+        "heat_min": 12,
+        "water_stock_g": 1200,
+        "pot_capacity_ml": 1700
+      },
+      "status": "ABSTAIN_PRESTART_CONTRADICTION",
+      "ic_demo_percent": null,
+      "scientific_ic_percent": null,
+      "reason": null,
+      "conflicts": [
+        {
+          "case": "017",
+          "decision": {
+            "state": "CONTRADICTED",
+            "refs": [
+              "017",
+              "068"
+            ],
+            "reason": "Power adjustment needed if reduction planned",
+            "measurement": null
+          }
+        },
+        {
+          "case": "068",
+          "decision": {
+            "state": "CONTRADICTED",
+            "refs": [
+              "017",
+              "068"
+            ],
+            "reason": "Declared resource required for action",
+            "measurement": false
+          }
+        }
+      ]
+    },
+    {
+      "name": "SYNTH_20261017_050",
+      "scenario": {
+        "material": "metal",
+        "lid": false,
+        "rice_g": 160,
+        "water_g": 160,
+        "power_W": 950,
+        "heat_min": 28,
+        "water_stock_g": 350,
+        "pot_capacity_ml": 1700
+      },
+      "status": "ABSTAIN_PRESTART_CONTRADICTION",
+      "ic_demo_percent": null,
+      "scientific_ic_percent": null,
+      "reason": null,
+      "conflicts": [
+        {
+          "case": "017",
+          "decision": {
+            "state": "CONTRADICTED",
+            "refs": [
+              "017",
+              "068"
+            ],
+            "reason": "Power adjustment needed if reduction planned",
+            "measurement": null
+          }
+        },
+        {
+          "case": "068",
+          "decision": {
+            "state": "CONTRADICTED",
+            "refs": [
+              "017",
+              "068"
+            ],
+            "reason": "Declared resource required for action",
+            "measurement": false
+          }
+        }
+      ]
+    },
+    {
+      "name": "SYNTH_20261017_051",
+      "scenario": {
+        "material": "ceramic_rated",
+        "lid": true,
+        "rice_g": 160,
+        "water_g": 380,
+        "power_W": 280,
+        "heat_min": 34,
+        "water_stock_g": 1200,
+        "pot_capacity_ml": 1000
+      },
+      "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+      "ic_demo_percent": 0.0,
+      "scientific_ic_percent": null,
+      "reason": null,
+      "conflicts": null
+    },
+    {
+      "name": "SYNTH_20261017_052",
+      "scenario": {
+        "material": "metal",
+        "lid": true,
+        "rice_g": 90,
+        "water_g": 230,
+        "power_W": 280,
+        "heat_min": 16,
+        "water_stock_g": 700,
+        "pot_capacity_ml": 1000
+      },
+      "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+      "ic_demo_percent": 0.0,
+      "scientific_ic_percent": null,
+      "reason": null,
+      "conflicts": null
+    },
+    {
+      "name": "SYNTH_20261017_053",
+      "scenario": {
+        "material": "ceramic_rated",
+        "lid": false,
+        "rice_g": 160,
+        "water_g": 110,
+        "power_W": 950,
+        "heat_min": 22,
+        "water_stock_g": 700,
+        "pot_capacity_ml": 550
+      },
+      "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+      "ic_demo_percent": 0.0,
+      "scientific_ic_percent": null,
+      "reason": null,
+      "conflicts": null
+    },
+    {
+      "name": "SYNTH_20261017_054",
+      "scenario": {
+        "material": "metal",
+        "lid": true,
+        "rice_g": 160,
+        "water_g": 230,
+        "power_W": 950,
+        "heat_min": 12,
+        "water_stock_g": 350,
+        "pot_capacity_ml": 550
+      },
+      "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+      "ic_demo_percent": 1.33,
+      "scientific_ic_percent": null,
+      "reason": null,
+      "conflicts": null
+    },
+    {
+      "name": "SYNTH_20261017_055",
+      "scenario": {
+        "material": "ceramic_rated",
+        "lid": true,
+        "rice_g": 160,
+        "water_g": 160,
+        "power_W": 400,
+        "heat_min": 16,
+        "water_stock_g": 180,
+        "pot_capacity_ml": 2300
+      },
+      "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+      "ic_demo_percent": 0.0,
+      "scientific_ic_percent": null,
+      "reason": null,
+      "conflicts": null
+    },
+    {
+      "name": "SYNTH_20261017_056",
+      "scenario": {
+        "material": "metal",
+        "lid": false,
+        "rice_g": 290,
+        "water_g": 380,
+        "power_W": 280,
+        "heat_min": 16,
+        "water_stock_g": 1200,
+        "pot_capacity_ml": 1000
+      },
+      "status": "DEMONSTRATION_ASSUMPTIONS_ONLY_NOT_REAL_Q",
+      "ic_demo_percent": 0.0,
+      "scientific_ic_percent": null,
+      "reason": null,
+      "conflicts": null
+    },
+    {
+      "name": "SYNTH_20261017_057",
+      "scenario": {
+        "material": "wood_unrated",
+        "lid": false,
+        "rice_g": 220,
+        "water_g": 230,
+        "power_W": 950,
+        "heat_min": 28,
+        "water_stock_g": 180,
+        "pot_capacity_ml": 2300
+      },
+      "status": "ABSTAIN_UNSUPPORTED_VESSEL",
+      "ic_demo_percent": null,
+      "scientific_ic_percent": null,
+      "reason": "No valid heat-transfer / direct-heating compatibility model for wooden vessel",
+      "conflicts": null
+    },
+    {
+      "name": "SYNTH_20261017_058",
+      "scenario": {
+        "material": "wood_unrated",
+        "lid": false,
+        "rice_g": 290,
+        "water_g": 110,
+        "power_W": 400,
+        "heat_min": 28,
+        "water_stock_g": 350,
+        "pot_capacity_ml": 1700
+      },
+      "status": "ABSTAIN_UNSUPPORTED_VESSEL",
+      "ic_demo_percent": null,
+      "scientific_ic_percent": null,
+      "reason": "No valid heat-transfer / direct-heating compatibility model for wooden vessel",
+      "conflicts": null
+    },
+    {
+      "name": "SYNTH_20261017_059",
+      "scenario": {
+        "material": "ceramic_rated",
+        "lid": true,
+        "rice_g": 130,
+        "water_g": 300,
+        "power_W": 950,
+        "heat_min": 34,
+        "water_stock_g": 180,
+        "pot_capacity_ml": 1000
+      },
+      "status": "ABSTAIN_CONTRADICTION",
+      "ic_demo_percent": null,
+      "scientific_ic_percent": null,
+      "reason": null,
+      "conflicts": [
+        {
+          "cases": [
+            "002",
+            "035"
+          ],
+          "type": "RESOURCE_SHORTAGE",
+          "message": "declared potable water stock below planned added water (ml≈g idealized)"
+        }
+      ]
+    }
+  ]
+}
