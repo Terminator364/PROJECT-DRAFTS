@@ -204,8 +204,8 @@
     "archive_final_sha256": "6fc5c03d44a605781c66e8f561ed3c1a5fc76ad00c21026cbe98b86a64dbf06b",
     "archive_final_bytes": 87045,
     "archive_final_drive_url": "https://drive.google.com/file/d/1JRFayl6zSgQfyQoJBdxj62I97v4vQ1AL/view?usp=drivesdk",
-    "journal_events": 132,
-    "journal_head": "08cdbe4b3c43be0c8df31d86177ede887dcd069d902913059bdbe57f66477ac7",
+    "journal_events": 134,
+    "journal_head": "fbd8fe0a607362b0cfd468a2c86301d84aecf180e94e73982ec9c731ce3a3c9d",
     "current_stage": 14,
     "current_zip_sha256": "34887c8ecd5d5e0475b8b03267592e1856c633455b41ff0c8f567860217ac3cb",
     "current_zip_drive": "https://drive.google.com/file/d/1Bzf9scBx1QCACQKE_j4bJL0EvCB1DnrI/view?usp=drivesdk",
@@ -577,7 +577,7 @@
     },
     "latest_code": "MOTEUR-BLESSING/labs/RIZ112/step16/riz112_unified.py",
     "latest_lab": "MOTEUR-BLESSING/labs/RIZ112/step14/H3_RUN_SUMMARY.json",
-    "context_rows": 54,
+    "context_rows": 56,
     "single_code_contract": "MOTEUR-BLESSING/labs/RIZ112/continuity/CONTRAT_CODE_UNIQUE.md",
     "next_action": "MOTEUR-BLESSING/labs/RIZ112/continuity/NEXT_ACTION.json",
     "next_execution": "TRANSFER_RIZ112_METHOD_TO_MATRICE_PREMATCH_DESIGN",
@@ -603,6 +603,8 @@
     "step18_checkpoint": "MOTEUR-BLESSING/labs/RIZ112/step18/CHECKPOINT_STEP18_20261017.json",
     "step19_checkpoint": "MOTEUR-BLESSING/labs/RIZ112/step19/CHECKPOINT_STEP19_20261017.json",
     "step20_checkpoint": "MOTEUR-BLESSING/labs/RIZ112/step20/CHECKPOINT_STEP20_20261017.json",
-    "step27_checkpoint": "MOTEUR-BLESSING/labs/RIZ112/step27/CHECKPOINT_RELEASE_V1.json"
+    "step27_checkpoint": "MOTEUR-BLESSING/labs/RIZ112/step27/CHECKPOINT_RELEASE_V1.json",
+    "last_cloud_verification_event": "E134",
+    "cloud_verification_receipt": "MOTEUR-BLESSING/labs/RIZ112/simulations/EXPERIENCE_1000/RECU_REPRISE_E134_20261017.json"
   }
 }
