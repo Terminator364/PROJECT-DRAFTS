@@ -1,0 +1,29 @@
+{
+  "canonical_trigger": "Moteur/continue",
+  "current_verified_lab_stage": 14,
+  "first_files_to_open": [
+    "MOTEUR-BLESSING/MANIFEST.json",
+    "MOTEUR-BLESSING/CONTINUITE.md",
+    "MOTEUR-BLESSING/labs/RIZ112/CHECKPOINT.json",
+    "MOTEUR-BLESSING/labs/RIZ112/CAHIER_MERE.md",
+    "MOTEUR-BLESSING/labs/RIZ112/CONTEXTE_CONVERSATIONS.md",
+    "MOTEUR-BLESSING/labs/RIZ112/CONTEXTE_INTEGRAL/REGISTRE_MESSAGES.jsonl",
+    "MOTEUR-BLESSING/labs/RIZ112/PLAN_SUITE_RIZ112_MATRICE.md",
+    "MOTEUR-BLESSING/labs/RIZ112/step14/H3_26_CASES_LEDGER.json"
+  ],
+  "first_technical_action": "Ouvrir le registre H3 des 26 cas; sélectionner les 22 restants; inspecter pour chacun les sous-paramètres, anticipations, formules candidates et preuves. Commencer effectivement le raccordement testé par un lot cohérent, sans attendre une nouvelle instruction.",
+  "how_to_continue": "At trigger, verify checkpoint/journal/context and start this task in the same turn. Do not stop after reporting status or request permission again. Commit work and context with proven readback.",
+  "lab_next_stage": 15,
+  "never_do": [
+    "Inventer 22 coefficients pour forcer un effet IC",
+    "Utiliser des résultats après T0 comme prédicteurs",
+    "Déclarer calibré un IC fictif",
+    "Écraser un GitHub plus avancé par un ZIP ancien"
+  ],
+  "next_execution_id": "H4_CLOSE_22_MECHANISTIC_GAPS",
+  "next_execution_title": "Raccordements H4 des sous-paramètres et anticipations encore incomplets",
+  "progress_checkpoint": "If task interrupts, append evidence to Cahier mère, context and journal, then update this JSON.",
+  "project": "RIZ112→MATRICE",
+  "schema": "moteur-blessing/next-action/v1",
+  "scientific_status": "EXPERIMENTAL_DEMO_ONLY_NOT_CALIBRATED"
+}
