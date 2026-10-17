@@ -3,14 +3,15 @@
   "current_verified_lab_stage": 27,
   "first_files_to_open": [
     "MOTEUR-BLESSING/labs/RIZ112/CAHIER_MERE.md",
+    "MOTEUR-BLESSING/labs/RIZ112/simulations/EXPERIENCE_1000/CHECKPOINT_SIM1000_20261017.json",
+    "MOTEUR-BLESSING/labs/RIZ112/simulations/EXPERIENCE_1000/results/RAPPORT_1000.json",
+    "MOTEUR-BLESSING/labs/RIZ112/simulations/EXPERIENCE_1000/results/CONTREFACTUELS_18.json",
+    "MOTEUR-BLESSING/labs/RIZ112/simulations/EXPERIENCE_1000/RAPPORT_FR.md",
     "MOTEUR-BLESSING/labs/RIZ112/step27/CHECKPOINT_RELEASE_V1.json",
-    "MOTEUR-BLESSING/labs/RIZ112/step27/RECU_CLOTURE_INGENIERIE_V1.json",
-    "MOTEUR-BLESSING/labs/RIZ112/step27/PROPOSITION_Q_DECISION_A_VALIDER.json",
-    "MOTEUR-BLESSING/labs/RIZ112/continuity/NEXT_ACTION.json",
     "MOTEUR-BLESSING/labs/RIZ112/journal/JOURNAL_EVENEMENTS.jsonl",
     "MOTEUR-BLESSING/labs/RIZ112/CONTEXTE_INTEGRAL/REGISTRE_MESSAGES.jsonl"
   ],
-  "first_technical_action": "V1 d'ingénierie clôturée; ne plus ajouter de Steps artificiels. Lire step27/CHECKPOINT_RELEASE_V1.json, step27/RECU_CLOTURE_INGENIERIE_V1.json, Cahier mère et E125; préserver 112 rôles et limites. Proposer à l'utilisateur le barème Q (chiffré dans step27/PROPOSITION_Q_DECISION_A_VALIDER.json) comme PROPOSITION seulement: priorités 101/102 approuvées ordinalement, aucun poids/porte approuvé. Après accord précis, recueillir cuissons réelles préT0/postT0, calibrer et valider hors-échantillon. Ne jamais forcer 112 variations IC.",
+  "first_technical_action": "Confronter le Cahier mère E127/CTX-0050, simulations/EXPERIENCE_1000/CHECKPOINT_SIM1000_20261017.json, RAPPORT_FR.md, résultats et 18 contre-épreuves. Extraire pour MATRICE une architecture de simulation pré-match : traçabilité, abstention, interactions, observations inconnues, perturbations cohérentes et impossibilité de transformer des Q* fictifs en probabilités vérifiées. Ne pas mélanger MATRICE sports à l'analogie riz, et ne pas recréer le programme de riz. La V1 est techniquement close. La phase culinaire empirique n'est pas une obligation imposée à l'utilisateur pour ces travaux de conception.",
   "how_to_continue": "At trigger, verify checkpoint/journal/context and start this task in the same turn. Do not stop after reporting status or request permission again. Commit work and context with proven readback.",
   "lab_next_stage": null,
   "never_do": [
@@ -19,12 +20,12 @@
     "Déclarer calibré un IC fictif",
     "Écraser un GitHub plus avancé par un ZIP ancien"
   ],
-  "next_execution_id": "AWAIT_Q_PROTOCOL_APPROVAL_AND_AUTHENTIC_RICE_OBSERVATIONS",
-  "next_execution_title": "Validation externe de Q et vrais essais, logiciel V1 fini",
+  "next_execution_id": "TRANSFER_RIZ112_METHOD_TO_MATRICE_PREMATCH_DESIGN",
+  "next_execution_title": "Lire les 1 000 scénarios, les 18 contre-épreuves et formaliser les règles de transfert méthodologique vers MATRICE",
   "progress_checkpoint": "If task interrupts, append evidence to Cahier mère, context and journal, then update this JSON.",
   "project": "RIZ112→MATRICE",
   "schema": "moteur-blessing/next-action/v1",
-  "scientific_status": "NO_USER_APPROVED_Q_OR_REAL_RICE_TRIALS_IC_NULL",
+  "scientific_status": "NO_REAL_Q_DATA_IC_NULL__SYNTHETIC_STUDY_FOR_MATRICE_ONLY",
   "h4a_checkpoint": "MOTEUR-BLESSING/labs/RIZ112/step15/CHECKPOINT_H4A_20261017.json",
   "h4a_status": "PARTIAL_7_DIAGNOSTIC_PATHS_29_TESTS_22_REAL_Q_EFFECT_GAPS_UNRESOLVED",
   "h4_technical_gate": "CLOSED",
@@ -43,8 +44,8 @@
   "critical_directive_D035": "Cahier mère as durable authority, all accessible context, no blanket assertion of 112 IC causal effects; each counterfactual evidence or explicit abstention",
   "canonical_source": "GitHub main MOTEUR-BLESSING/labs/RIZ112/CAHIER_MERE.md plus journal, exact context register and checkpoint; not ChatGPT memory.",
   "context_capture_limits": "The tool captures only messages actively submitted in-session and available for logging, not autonomous background conversations.",
-  "latest_journal_event_id": "E125",
-  "latest_context_id": "CTX-0048",
+  "latest_journal_event_id": "E127",
+  "latest_context_id": "CTX-0050",
   "journal_chain_verified": true,
   "step18_checkpoint": "MOTEUR-BLESSING/labs/RIZ112/step18/CHECKPOINT_STEP18_20261017.json",
   "step18_windows_status": "PARTIAL_RESOURCE_TESTS_PASS; CONDITIONAL_SUITE_NOT_VALIDATED_TIMEOUT",
@@ -85,5 +86,22 @@
     "zip_crc": "PASS",
     "extracted_step27_tests_pass": 21,
     "source_snapshot_journal": "E125"
-  }
+  },
+  "research_mode": "RIZ112_AS_MATRICE_METHOD_LAB",
+  "simulation_1000": {
+    "checkpoint": "MOTEUR-BLESSING/labs/RIZ112/simulations/EXPERIENCE_1000/CHECKPOINT_SIM1000_20261017.json",
+    "report": "MOTEUR-BLESSING/labs/RIZ112/simulations/EXPERIENCE_1000/results/RAPPORT_1000.json",
+    "counterfactuals": "MOTEUR-BLESSING/labs/RIZ112/simulations/EXPERIENCE_1000/results/CONTREFACTUELS_18.json",
+    "runs": 1000,
+    "variables_changed": 9,
+    "model_numeric_outputs": 690,
+    "abstentions": 310,
+    "ic_demo_at_least_85": 20,
+    "idealized_physical_feasible": 664,
+    "real_quality_effects_proven": 0,
+    "scientific_ic_percent": null,
+    "local_and_PC_six_new_tests_passed": true,
+    "PC_csv_sha256": "af13ca14051fca6853f7bc0527481be93315f91902b8a939fc2480569b0b5bbc"
+  },
+  "engineering_v1_still_closed": true
 }
