@@ -46,3 +46,6 @@ Un IC numérique peut être calculé par simulation Monte-Carlo si les hypothès
 - Un nom de catégorie (p. ex. matériau de marmite) sans propriété mesurée est comme un nom de compétition/joueur sans collecte d'effet : ne jamais fabriquer le coefficient correspondant.
 - Une baseline ou un IC simulé n'est pas un IC empirique, et sa stabilité doit être mesurée sous changements de données + contraintes.
 - Les variables servant à définir le résultat futur ne peuvent pas alimenter le calcul pré-match, même pour rendre « 112/112 » plus vendeur.
+
+## D025 — sous-paramètres imbriqués et anticipations (2026-10-17)
+Transférer **la grammaire du modèle**, pas ses valeurs : paramètre 62 mondes → sous-paramètres numériques/catégoriels/qualitatifs → sous-sous-paramètres → anticipations et scénarios pré-match → graphe de calcul / interactions / incertitude → IC conditionnel de la rencontre. Tester la perturbation d'un sous-paramètre et mesurer le changement dans le graphe et, si pertinent, l'IC. Cas sans effet local possibles (goulot d'étranglement/saturation). Les futurs résultats sportifs (buts, tirs du match) sont des **cibles** et ne sont jamais introduits comme caractéristiques pré-match. Aucun coefficient thermique du riz, aucun seuil fictif Q*, aucun « 112/112 » documentaire ne vaut validation sportive.
