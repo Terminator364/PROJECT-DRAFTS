@@ -18,3 +18,8 @@ Même règle, mais le point d'entrée canonique est `MOTEUR-BLESSING/labs/RIZ112
 - Pas de données de résultat futur comme prédicteur.
 - Pas d'équivalence logiciel PASS ↔ modèle scientifique validé.
 - Pas de dépendance aux actions GitHub automatiques, ni coût de cloud obligatoire.
+
+
+## Priorité D034 (remplace les déclencheurs multiples, 17/10/2026)
+
+**Une seule commande : `Moteur/continue`.** Toute autre graphie dans l'histoire n'est pas une deuxième option active. Au déclenchement, exécuter directement la prochaine tâche disponible dans `continuity/NEXT_ACTION.json`, après confrontation du manifeste parent, du checkpoint, du Cahier mère et des registres contextuels. Mettre à jour les contextes verbatim accessibles **pendant** chaque session et au checkpoint; sans processus externe programmé, aucune collecte hors ligne n'est possible.
