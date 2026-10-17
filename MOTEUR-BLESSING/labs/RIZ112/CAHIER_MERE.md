@@ -574,3 +574,14 @@ E131 RIZ112 SIM1000 final cloud-sync verification. User requested complete prese
 
 ### Reçu de synchronisation cloud — E131
 Archive immuable E130 : **314 fichiers, 745 765 octets**, SHA-256 `b3846464925901c30f5d8d06b4fb4c34b739ce2e748e26a684ef28fab3598ca2`, Google Drive `1oCS4PxMJMTGi41erBMx749OMXS9ErT2z`. Le contenu extrait depuis un téléchargement indépendant a réussi le contrôle du journal et 6 tests; le CSV contient 1 000 scénarios. Le reçu et l'événement E131 restent sur GitHub **après** le ZIP, par construction. Continuité du projet RIZ112 au service de MATRICE prématch; IC réel reste non calibré.
+
+
+### Archive verbatim CTX-0054 / E132 / 2026-10-17
+**Rôle** ASSISTANT ; **SHA-256 UTF-8** `615e75cafefa2794d1dd2c7b2cfd9bca1a40be979c6aa7cfc3f590c36eaf6bc2` ; **provenance** PC_64_NONMERGED_FILES_FORENSIC_CLOUD_VERIFIED_ALL_SHA256
+
+````text
+RIZ112 final backup audit E132: At GitHub main E131 the verified 1000-scenario snapshot has 314 members / 745765 bytes / SHA256 b3846464925901c30f5d8d06b4fb4c34b739ce2e748e26a684ef28fab3598ca2 and Drive ID 1oCS4PxMJMTGi41erBMx749OMXS9ErT2z. Independent cloud extraction passed sha256, CRC, 6 tests and context chain. Separately preserved all 64 modified/untracked files that were still on MBMPC: 1060123 raw bytes, forensic ZIP 271803 bytes SHA256 5bb1ffa358fbfc586515eb29efeea7e7ff3f437349c87fef91d030ab9f71b66f, Google Drive 1B2rGSZMKjEru1XEazdX1uhDg2JX9og9H, independently downloaded and 64 individual inner hashes checked. No local files deleted or force-merged into GitHub. GitHub receipt simulations/EXPERIENCE_1000/RECU_PC_DELTAS_NON_MERGES_E131_20261017.json. Preserved MATRiCE methodological intent, frozen pre-T0, 1000 hypothetical scenarios, 20 synthetic IC_DEMO>=85 of 1000; no real IC; source of truth is GitHub Cahier mere, checkpoints and append-only journal. The two Drive ZIP snapshots predate E132 by design.
+````
+
+### Sauvegarde de sécurité des modifications locales — E132
+Les **64 fichiers RIZ112 modifiés/non suivis par GitHub** ont été archivés sans suppression ni intégration forcée. ZIP indépendant : **271 803 octets**, empreinte `5bb1ffa358fbfc586515eb29efeea7e7ff3f437349c87fef91d030ab9f71b66f`, Google Drive `1B2rGSZMKjEru1XEazdX1uhDg2JX9og9H`, CRC PASS, **64 empreintes internes validées** depuis le téléchargement cloud. Ce ZIP n'est pas la source canonique : pour restaurer un de ses fichiers, confronter sa version et son contenu au dépôt GitHub. L'archive canonique de la campagne 1 000 scénarios reste `1oCS4PxMJMTGi41erBMx749OMXS9ErT2z`. Le journal vivant atteint E132, au-delà des deux instantanés ZIP.
