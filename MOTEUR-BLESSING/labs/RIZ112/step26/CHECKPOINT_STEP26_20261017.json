@@ -21,7 +21,14 @@
   "real_trials_count": 0,
   "quality_protocol_user_approved": false,
   "step26_new_tests_linux": 24,
-  "step26_new_tests_windows": null,
+  "step26_new_tests_windows": 24,
   "source_registry": "step26/REGISTRE_TRANSVERSAL_112.json",
-  "next": "Prioritize 60 remaining routes based on justified pre-T0 causal models and empirical experiments; never force Q. Obtain user's measurement protocol approval and real quality observations."
+  "next": "Prioritize 60 remaining routes based on justified pre-T0 causal models and empirical experiments; never force Q. Obtain user's measurement protocol approval and real quality observations.",
+  "windows_replayed_reference_JSON_exactly": true,
+  "windows_python": "3.12.10",
+  "mbm_pc_verified": true,
+  "journal_head": "7cb2ad87b02ed00bf5dc9790e75a2461a6b589d48272f4403750a570e7851f56",
+  "journal_events": 122,
+  "context_entries": 45,
+  "Q_approved": false
 }
