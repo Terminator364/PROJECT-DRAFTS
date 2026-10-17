@@ -204,8 +204,8 @@
     "archive_final_sha256": "6fc5c03d44a605781c66e8f561ed3c1a5fc76ad00c21026cbe98b86a64dbf06b",
     "archive_final_bytes": 87045,
     "archive_final_drive_url": "https://drive.google.com/file/d/1JRFayl6zSgQfyQoJBdxj62I97v4vQ1AL/view?usp=drivesdk",
-    "journal_events": 137,
-    "journal_head": "3b5a8c2746ec00cb9113167d1243537ea6dda529cc634528af6d2e0da3cca8b8",
+    "journal_events": 140,
+    "journal_head": "e276b9536b508f9374501cd24c070d8345e7cd3264a95cddfc68a80199772a58",
     "current_stage": 14,
     "current_zip_sha256": "34887c8ecd5d5e0475b8b03267592e1856c633455b41ff0c8f567860217ac3cb",
     "current_zip_drive": "https://drive.google.com/file/d/1Bzf9scBx1QCACQKE_j4bJL0EvCB1DnrI/view?usp=drivesdk",
@@ -580,7 +580,7 @@
     },
     "latest_code": "MOTEUR-BLESSING/labs/RIZ112/step16/riz112_unified.py",
     "latest_lab": "MOTEUR-BLESSING/labs/RIZ112/step14/H3_RUN_SUMMARY.json",
-    "context_rows": 59,
+    "context_rows": 62,
     "single_code_contract": "MOTEUR-BLESSING/labs/RIZ112/continuity/CONTRAT_CODE_UNIQUE.md",
     "next_action": "MOTEUR-BLESSING/labs/RIZ112/continuity/NEXT_ACTION.json",
     "next_execution": "REVIEW_MATRICE_R8_ADN_AND_REUSE_EXISTING_PREMATCH_GATES",
@@ -608,6 +608,26 @@
     "step20_checkpoint": "MOTEUR-BLESSING/labs/RIZ112/step20/CHECKPOINT_STEP20_20261017.json",
     "step27_checkpoint": "MOTEUR-BLESSING/labs/RIZ112/step27/CHECKPOINT_RELEASE_V1.json",
     "last_cloud_verification_event": "E134",
-    "cloud_verification_receipt": "MOTEUR-BLESSING/labs/RIZ112/simulations/EXPERIENCE_1000/RECU_REPRISE_E134_20261017.json"
+    "cloud_verification_receipt": "MOTEUR-BLESSING/labs/RIZ112/simulations/EXPERIENCE_1000/RECU_REPRISE_E134_20261017.json",
+    "simulation_1000x112": {
+      "checkpoint": "MOTEUR-BLESSING/labs/RIZ112/simulations/EXPERIENCE_1000_112/CHECKPOINT_1000X112_20261017.json",
+      "scenario_count": 1000,
+      "rubric_count": 112,
+      "distinct_varying_preT0_and_forecasts": 98,
+      "postT0_targets_unobserved": 14,
+      "synthetic_proxy_IC_numeric": 1000,
+      "synthetic_proxy_ge85": 12,
+      "H3_original_numeric": 690,
+      "H3_original_abstained": 310,
+      "scientific_ic_percent": null,
+      "windows_replay_tests": 7,
+      "windows_csv_hash_match": true,
+      "cloud_zip_url": "https://drive.google.com/file/d/14S4idgIhMjcmqarKFz4ZbfRpGV2kOesC/view?usp=drivesdk",
+      "cloud_spreadsheet_url": "https://docs.google.com/spreadsheets/d/1TiZUal8VHouLWlShMHBNi3pr0DB7nyMY/edit?usp=drivesdk",
+      "cloud_zip_sha256": "225efd46dbfbdd32df5dcafb4134c6a8e7d6c48e08ec144e9837a44106275f40",
+      "latest_journal_event": "E140",
+      "latest_context": "CTX-0062",
+      "journal_head": "e276b9536b508f9374501cd24c070d8345e7cd3264a95cddfc68a80199772a58"
+    }
   }
 }
