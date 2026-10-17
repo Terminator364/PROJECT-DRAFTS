@@ -507,6 +507,16 @@
     "windows_steps21_27_tests_passed": 128,
     "aggregate_historic_separate_suite_passes": 674,
     "real_rice_trials": 0,
-    "scientific_ic_percent": null
+    "scientific_ic_percent": null,
+    "final_engineering_archive": {
+      "url": "https://drive.google.com/file/d/12xXW-Q_3znv9_4enPqUJYAx9U9vUZ-GK/view?usp=drivesdk",
+      "sha256": "7536dd8ac0b13f6a550033347906d56866b824995f0f5cfa9fb364c571eec04b",
+      "bytes": 638249,
+      "files": 300,
+      "independent_download_checksum_match": true,
+      "zip_crc": "PASS",
+      "extracted_step27_tests_pass": 21,
+      "source_snapshot_journal": "E125"
+    }
   }
 }
