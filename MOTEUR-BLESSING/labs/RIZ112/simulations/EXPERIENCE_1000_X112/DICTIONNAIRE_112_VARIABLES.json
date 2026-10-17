@@ -1,0 +1,903 @@
+{
+  "schema": "riz112/simulated112/columns/v1",
+  "source": "step26 evidence ledger",
+  "columns": [
+    {
+      "id": "001",
+      "name": "Masse de riz disponible",
+      "category": "THEORETICAL_PHYSICAL_INTERMEDIATE_ONLY",
+      "varying_in_1000": true,
+      "used_in_H3_proxy_directly": true,
+      "post_T0_output_never_a_predictor": false
+    },
+    {
+      "id": "002",
+      "name": "Eau potable disponible",
+      "category": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "varying_in_1000": true,
+      "used_in_H3_proxy_directly": false,
+      "post_T0_output_never_a_predictor": false
+    },
+    {
+      "id": "003",
+      "name": "Sel disponible",
+      "category": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "varying_in_1000": true,
+      "used_in_H3_proxy_directly": false,
+      "post_T0_output_never_a_predictor": false
+    },
+    {
+      "id": "004",
+      "name": "Matière grasse éventuelle",
+      "category": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "varying_in_1000": true,
+      "used_in_H3_proxy_directly": false,
+      "post_T0_output_never_a_predictor": false
+    },
+    {
+      "id": "005",
+      "name": "Eau de rinçage disponible",
+      "category": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "varying_in_1000": true,
+      "used_in_H3_proxy_directly": false,
+      "post_T0_output_never_a_predictor": false
+    },
+    {
+      "id": "006",
+      "name": "Source d’énergie",
+      "category": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "varying_in_1000": false,
+      "used_in_H3_proxy_directly": false,
+      "post_T0_output_never_a_predictor": false
+    },
+    {
+      "id": "007",
+      "name": "Fiabilité de la source d’énergie",
+      "category": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "varying_in_1000": true,
+      "used_in_H3_proxy_directly": true,
+      "post_T0_output_never_a_predictor": false
+    },
+    {
+      "id": "008",
+      "name": "Capacité de la casserole",
+      "category": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "varying_in_1000": true,
+      "used_in_H3_proxy_directly": false,
+      "post_T0_output_never_a_predictor": false
+    },
+    {
+      "id": "009",
+      "name": "Diamètre de la casserole",
+      "category": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "varying_in_1000": true,
+      "used_in_H3_proxy_directly": true,
+      "post_T0_output_never_a_predictor": false
+    },
+    {
+      "id": "010",
+      "name": "Matériau de la casserole",
+      "category": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "varying_in_1000": true,
+      "used_in_H3_proxy_directly": true,
+      "post_T0_output_never_a_predictor": false
+    },
+    {
+      "id": "011",
+      "name": "Épaisseur du fond",
+      "category": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "varying_in_1000": true,
+      "used_in_H3_proxy_directly": true,
+      "post_T0_output_never_a_predictor": false
+    },
+    {
+      "id": "012",
+      "name": "État du fond",
+      "category": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "varying_in_1000": false,
+      "used_in_H3_proxy_directly": false,
+      "post_T0_output_never_a_predictor": false
+    },
+    {
+      "id": "013",
+      "name": "Présence du couvercle",
+      "category": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "varying_in_1000": true,
+      "used_in_H3_proxy_directly": true,
+      "post_T0_output_never_a_predictor": false
+    },
+    {
+      "id": "014",
+      "name": "Ajustement du couvercle",
+      "category": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "varying_in_1000": true,
+      "used_in_H3_proxy_directly": true,
+      "post_T0_output_never_a_predictor": false
+    },
+    {
+      "id": "015",
+      "name": "Évacuation de la vapeur",
+      "category": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "varying_in_1000": false,
+      "used_in_H3_proxy_directly": false,
+      "post_T0_output_never_a_predictor": false
+    },
+    {
+      "id": "016",
+      "name": "Type de foyer",
+      "category": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "varying_in_1000": false,
+      "used_in_H3_proxy_directly": false,
+      "post_T0_output_never_a_predictor": false
+    },
+    {
+      "id": "017",
+      "name": "Réglage de puissance",
+      "category": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "varying_in_1000": false,
+      "used_in_H3_proxy_directly": false,
+      "post_T0_output_never_a_predictor": false
+    },
+    {
+      "id": "018",
+      "name": "Répartition de la chaleur",
+      "category": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "varying_in_1000": true,
+      "used_in_H3_proxy_directly": false,
+      "post_T0_output_never_a_predictor": false
+    },
+    {
+      "id": "019",
+      "name": "Balance",
+      "category": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "varying_in_1000": false,
+      "used_in_H3_proxy_directly": false,
+      "post_T0_output_never_a_predictor": false
+    },
+    {
+      "id": "020",
+      "name": "Instrument de mesure de l’eau",
+      "category": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "varying_in_1000": false,
+      "used_in_H3_proxy_directly": false,
+      "post_T0_output_never_a_predictor": false
+    },
+    {
+      "id": "021",
+      "name": "Passoire",
+      "category": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "varying_in_1000": false,
+      "used_in_H3_proxy_directly": false,
+      "post_T0_output_never_a_predictor": false
+    },
+    {
+      "id": "022",
+      "name": "Ustensile pour remuer",
+      "category": "PRE_T0_PLAN_RESOURCE_ROUTE_ONLY",
+      "varying_in_1000": false,
+      "used_in_H3_proxy_directly": false,
+      "post_T0_output_never_a_predictor": false
+    },
+    {
+      "id": "023",
+      "name": "Récipient de service",
+      "category": "PRE_T0_PLAN_RESOURCE_ROUTE_ONLY",
+      "varying_in_1000": false,
+      "used_in_H3_proxy_directly": false,
+      "post_T0_output_never_a_predictor": false
+    },
+    {
+      "id": "024",
+      "name": "Variété",
+      "category": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "varying_in_1000": false,
+      "used_in_H3_proxy_directly": false,
+      "post_T0_output_never_a_predictor": false
+    },
+    {
+      "id": "025",
+      "name": "Longueur des grains",
+      "category": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "varying_in_1000": true,
+      "used_in_H3_proxy_directly": true,
+      "post_T0_output_never_a_predictor": false
+    },
+    {
+      "id": "026",
+      "name": "Traitement du riz",
+      "category": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "varying_in_1000": false,
+      "used_in_H3_proxy_directly": false,
+      "post_T0_output_never_a_predictor": false
+    },
+    {
+      "id": "027",
+      "name": "Lot et provenance",
+      "category": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "varying_in_1000": false,
+      "used_in_H3_proxy_directly": false,
+      "post_T0_output_never_a_predictor": false
+    },
+    {
+      "id": "028",
+      "name": "Ancienneté et conservation",
+      "category": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "varying_in_1000": true,
+      "used_in_H3_proxy_directly": false,
+      "post_T0_output_never_a_predictor": false
+    },
+    {
+      "id": "029",
+      "name": "Grains cassés",
+      "category": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "varying_in_1000": true,
+      "used_in_H3_proxy_directly": false,
+      "post_T0_output_never_a_predictor": false
+    },
+    {
+      "id": "030",
+      "name": "Amidon de surface",
+      "category": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "varying_in_1000": true,
+      "used_in_H3_proxy_directly": true,
+      "post_T0_output_never_a_predictor": false
+    },
+    {
+      "id": "031",
+      "name": "Impuretés",
+      "category": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "varying_in_1000": true,
+      "used_in_H3_proxy_directly": false,
+      "post_T0_output_never_a_predictor": false
+    },
+    {
+      "id": "032",
+      "name": "Humidité initiale",
+      "category": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "varying_in_1000": true,
+      "used_in_H3_proxy_directly": false,
+      "post_T0_output_never_a_predictor": false
+    },
+    {
+      "id": "033",
+      "name": "Capacité et vitesse d’absorption",
+      "category": "THEORETICAL_PHYSICAL_INTERMEDIATE_ONLY",
+      "varying_in_1000": true,
+      "used_in_H3_proxy_directly": true,
+      "post_T0_output_never_a_predictor": false
+    },
+    {
+      "id": "034",
+      "name": "Comportement à la gélatinisation",
+      "category": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "varying_in_1000": true,
+      "used_in_H3_proxy_directly": true,
+      "post_T0_output_never_a_predictor": false
+    },
+    {
+      "id": "035",
+      "name": "Eau ajoutée",
+      "category": "THEORETICAL_PHYSICAL_INTERMEDIATE_ONLY",
+      "varying_in_1000": true,
+      "used_in_H3_proxy_directly": true,
+      "post_T0_output_never_a_predictor": false
+    },
+    {
+      "id": "036",
+      "name": "Eau résiduelle après rinçage",
+      "category": "THEORETICAL_PHYSICAL_INTERMEDIATE_ONLY",
+      "varying_in_1000": true,
+      "used_in_H3_proxy_directly": true,
+      "post_T0_output_never_a_predictor": false
+    },
+    {
+      "id": "037",
+      "name": "Température initiale de l’eau",
+      "category": "THEORETICAL_PHYSICAL_INTERMEDIATE_ONLY",
+      "varying_in_1000": true,
+      "used_in_H3_proxy_directly": true,
+      "post_T0_output_never_a_predictor": false
+    },
+    {
+      "id": "038",
+      "name": "Température initiale du riz",
+      "category": "THEORETICAL_PHYSICAL_INTERMEDIATE_ONLY",
+      "varying_in_1000": true,
+      "used_in_H3_proxy_directly": true,
+      "post_T0_output_never_a_predictor": false
+    },
+    {
+      "id": "039",
+      "name": "Température ambiante",
+      "category": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "varying_in_1000": true,
+      "used_in_H3_proxy_directly": true,
+      "post_T0_output_never_a_predictor": false
+    },
+    {
+      "id": "040",
+      "name": "Altitude et pression",
+      "category": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "varying_in_1000": false,
+      "used_in_H3_proxy_directly": false,
+      "post_T0_output_never_a_predictor": false
+    },
+    {
+      "id": "041",
+      "name": "Puissance choisie",
+      "category": "THEORETICAL_PHYSICAL_INTERMEDIATE_ONLY",
+      "varying_in_1000": true,
+      "used_in_H3_proxy_directly": true,
+      "post_T0_output_never_a_predictor": false
+    },
+    {
+      "id": "042",
+      "name": "Transfert thermique",
+      "category": "THEORETICAL_PHYSICAL_INTERMEDIATE_ONLY",
+      "varying_in_1000": true,
+      "used_in_H3_proxy_directly": true,
+      "post_T0_output_never_a_predictor": false
+    },
+    {
+      "id": "043",
+      "name": "Moment d’ébullition",
+      "category": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "varying_in_1000": false,
+      "used_in_H3_proxy_directly": false,
+      "post_T0_output_never_a_predictor": false
+    },
+    {
+      "id": "044",
+      "name": "Stabilité du frémissement",
+      "category": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "varying_in_1000": false,
+      "used_in_H3_proxy_directly": false,
+      "post_T0_output_never_a_predictor": false
+    },
+    {
+      "id": "045",
+      "name": "Évaporation estimée",
+      "category": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "varying_in_1000": true,
+      "used_in_H3_proxy_directly": true,
+      "post_T0_output_never_a_predictor": false
+    },
+    {
+      "id": "046",
+      "name": "Fuites de vapeur",
+      "category": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "varying_in_1000": false,
+      "used_in_H3_proxy_directly": false,
+      "post_T0_output_never_a_predictor": false
+    },
+    {
+      "id": "047",
+      "name": "Durée de cuisson envisagée",
+      "category": "THEORETICAL_PHYSICAL_INTERMEDIATE_ONLY",
+      "varying_in_1000": true,
+      "used_in_H3_proxy_directly": true,
+      "post_T0_output_never_a_predictor": false
+    },
+    {
+      "id": "048",
+      "name": "Bilan hydrique prévisionnel",
+      "category": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "varying_in_1000": true,
+      "used_in_H3_proxy_directly": false,
+      "post_T0_output_never_a_predictor": false
+    },
+    {
+      "id": "049",
+      "name": "Vérifier les portions",
+      "category": "PRE_T0_PLAN_RESOURCE_ROUTE_ONLY",
+      "varying_in_1000": false,
+      "used_in_H3_proxy_directly": false,
+      "post_T0_output_never_a_predictor": false
+    },
+    {
+      "id": "050",
+      "name": "Peser le riz",
+      "category": "PRE_T0_PLAN_RESOURCE_ROUTE_ONLY",
+      "varying_in_1000": false,
+      "used_in_H3_proxy_directly": false,
+      "post_T0_output_never_a_predictor": false
+    },
+    {
+      "id": "051",
+      "name": "Trier et inspecter",
+      "category": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "varying_in_1000": false,
+      "used_in_H3_proxy_directly": false,
+      "post_T0_output_never_a_predictor": false
+    },
+    {
+      "id": "052",
+      "name": "Choisir la méthode",
+      "category": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "varying_in_1000": false,
+      "used_in_H3_proxy_directly": false,
+      "post_T0_output_never_a_predictor": false
+    },
+    {
+      "id": "053",
+      "name": "Préparer le dosage initial",
+      "category": "PRE_T0_PLAN_RESOURCE_ROUTE_ONLY",
+      "varying_in_1000": false,
+      "used_in_H3_proxy_directly": false,
+      "post_T0_output_never_a_predictor": false
+    },
+    {
+      "id": "054",
+      "name": "Décider du rinçage",
+      "category": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "varying_in_1000": false,
+      "used_in_H3_proxy_directly": false,
+      "post_T0_output_never_a_predictor": false
+    },
+    {
+      "id": "055",
+      "name": "Premier rinçage",
+      "category": "PRE_T0_PLAN_RESOURCE_ROUTE_ONLY",
+      "varying_in_1000": false,
+      "used_in_H3_proxy_directly": false,
+      "post_T0_output_never_a_predictor": false
+    },
+    {
+      "id": "056",
+      "name": "Rinçage complémentaire",
+      "category": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "varying_in_1000": true,
+      "used_in_H3_proxy_directly": false,
+      "post_T0_output_never_a_predictor": false
+    },
+    {
+      "id": "057",
+      "name": "Égouttage",
+      "category": "PRE_T0_PLAN_RESOURCE_ROUTE_ONLY",
+      "varying_in_1000": false,
+      "used_in_H3_proxy_directly": false,
+      "post_T0_output_never_a_predictor": false
+    },
+    {
+      "id": "058",
+      "name": "Évaluer l’eau retenue",
+      "category": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "varying_in_1000": false,
+      "used_in_H3_proxy_directly": false,
+      "post_T0_output_never_a_predictor": false
+    },
+    {
+      "id": "059",
+      "name": "Mettre le riz dans la casserole",
+      "category": "PRE_T0_PLAN_RESOURCE_ROUTE_ONLY",
+      "varying_in_1000": false,
+      "used_in_H3_proxy_directly": false,
+      "post_T0_output_never_a_predictor": false
+    },
+    {
+      "id": "060",
+      "name": "Ajouter l’eau",
+      "category": "PRE_T0_PLAN_RESOURCE_ROUTE_ONLY",
+      "varying_in_1000": false,
+      "used_in_H3_proxy_directly": false,
+      "post_T0_output_never_a_predictor": false
+    },
+    {
+      "id": "061",
+      "name": "Ajouter le sel",
+      "category": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "varying_in_1000": true,
+      "used_in_H3_proxy_directly": false,
+      "post_T0_output_never_a_predictor": false
+    },
+    {
+      "id": "062",
+      "name": "Ajouter la matière grasse",
+      "category": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "varying_in_1000": true,
+      "used_in_H3_proxy_directly": false,
+      "post_T0_output_never_a_predictor": false
+    },
+    {
+      "id": "063",
+      "name": "Vérifier la capacité",
+      "category": "PRE_T0_PLAN_RESOURCE_ROUTE_ONLY",
+      "varying_in_1000": false,
+      "used_in_H3_proxy_directly": false,
+      "post_T0_output_never_a_predictor": false
+    },
+    {
+      "id": "064",
+      "name": "Positionner le couvercle",
+      "category": "PRE_T0_PLAN_RESOURCE_ROUTE_ONLY",
+      "varying_in_1000": true,
+      "used_in_H3_proxy_directly": false,
+      "post_T0_output_never_a_predictor": false
+    },
+    {
+      "id": "065",
+      "name": "Démarrer la chauffe",
+      "category": "PRE_T0_PLAN_RESOURCE_ROUTE_ONLY",
+      "varying_in_1000": false,
+      "used_in_H3_proxy_directly": false,
+      "post_T0_output_never_a_predictor": false
+    },
+    {
+      "id": "066",
+      "name": "Amener à ébullition",
+      "category": "PRE_T0_PLAN_RESOURCE_ROUTE_ONLY",
+      "varying_in_1000": false,
+      "used_in_H3_proxy_directly": false,
+      "post_T0_output_never_a_predictor": false
+    },
+    {
+      "id": "067",
+      "name": "Observer mousse et débordement",
+      "category": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "varying_in_1000": false,
+      "used_in_H3_proxy_directly": false,
+      "post_T0_output_never_a_predictor": false
+    },
+    {
+      "id": "068",
+      "name": "Réduire le feu et couvrir",
+      "category": "PRE_T0_PLAN_RESOURCE_ROUTE_ONLY",
+      "varying_in_1000": false,
+      "used_in_H3_proxy_directly": false,
+      "post_T0_output_never_a_predictor": false
+    },
+    {
+      "id": "069",
+      "name": "Maintenir le régime thermique",
+      "category": "PRE_T0_PLAN_RESOURCE_ROUTE_ONLY",
+      "varying_in_1000": false,
+      "used_in_H3_proxy_directly": false,
+      "post_T0_output_never_a_predictor": false
+    },
+    {
+      "id": "070",
+      "name": "Gérer le couvercle",
+      "category": "PRE_T0_PLAN_RESOURCE_ROUTE_ONLY",
+      "varying_in_1000": true,
+      "used_in_H3_proxy_directly": false,
+      "post_T0_output_never_a_predictor": false
+    },
+    {
+      "id": "071",
+      "name": "Limiter l’agitation",
+      "category": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "varying_in_1000": true,
+      "used_in_H3_proxy_directly": false,
+      "post_T0_output_never_a_predictor": false
+    },
+    {
+      "id": "072",
+      "name": "Suivre l’hydratation",
+      "category": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "varying_in_1000": false,
+      "used_in_H3_proxy_directly": false,
+      "post_T0_output_never_a_predictor": false
+    },
+    {
+      "id": "073",
+      "name": "Déterminer la fin de chauffe",
+      "category": "PRE_T0_PLAN_RESOURCE_ROUTE_ONLY",
+      "varying_in_1000": false,
+      "used_in_H3_proxy_directly": false,
+      "post_T0_output_never_a_predictor": false
+    },
+    {
+      "id": "074",
+      "name": "Couper le feu",
+      "category": "PRE_T0_PLAN_RESOURCE_ROUTE_ONLY",
+      "varying_in_1000": false,
+      "used_in_H3_proxy_directly": false,
+      "post_T0_output_never_a_predictor": false
+    },
+    {
+      "id": "075",
+      "name": "Commencer le repos",
+      "category": "PRE_T0_PLAN_RESOURCE_ROUTE_ONLY",
+      "varying_in_1000": false,
+      "used_in_H3_proxy_directly": false,
+      "post_T0_output_never_a_predictor": false
+    },
+    {
+      "id": "076",
+      "name": "Respecter le repos",
+      "category": "PRE_T0_PLAN_RESOURCE_ROUTE_ONLY",
+      "varying_in_1000": false,
+      "used_in_H3_proxy_directly": false,
+      "post_T0_output_never_a_predictor": false
+    },
+    {
+      "id": "077",
+      "name": "Égrainer",
+      "category": "PRE_T0_PLAN_RESOURCE_ROUTE_ONLY",
+      "varying_in_1000": false,
+      "used_in_H3_proxy_directly": false,
+      "post_T0_output_never_a_predictor": false
+    },
+    {
+      "id": "078",
+      "name": "Examiner l’humidité finale",
+      "category": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "varying_in_1000": false,
+      "used_in_H3_proxy_directly": false,
+      "post_T0_output_never_a_predictor": false
+    },
+    {
+      "id": "079",
+      "name": "Décider d’une finition",
+      "category": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "varying_in_1000": false,
+      "used_in_H3_proxy_directly": false,
+      "post_T0_output_never_a_predictor": false
+    },
+    {
+      "id": "080",
+      "name": "Ouvrir pour servir",
+      "category": "PRE_T0_PLAN_RESOURCE_ROUTE_ONLY",
+      "varying_in_1000": true,
+      "used_in_H3_proxy_directly": false,
+      "post_T0_output_never_a_predictor": false
+    },
+    {
+      "id": "081",
+      "name": "Transférer le riz",
+      "category": "PRE_T0_PLAN_RESOURCE_ROUTE_ONLY",
+      "varying_in_1000": false,
+      "used_in_H3_proxy_directly": false,
+      "post_T0_output_never_a_predictor": false
+    },
+    {
+      "id": "082",
+      "name": "Répartir deux portions",
+      "category": "PRE_T0_PLAN_RESOURCE_ROUTE_ONLY",
+      "varying_in_1000": false,
+      "used_in_H3_proxy_directly": false,
+      "post_T0_output_never_a_predictor": false
+    },
+    {
+      "id": "083",
+      "name": "Contrôler la température de service",
+      "category": "PRE_T0_PLAN_RESOURCE_ROUTE_ONLY",
+      "varying_in_1000": false,
+      "used_in_H3_proxy_directly": false,
+      "post_T0_output_never_a_predictor": false
+    },
+    {
+      "id": "084",
+      "name": "Limiter le délai",
+      "category": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "varying_in_1000": true,
+      "used_in_H3_proxy_directly": false,
+      "post_T0_output_never_a_predictor": false
+    },
+    {
+      "id": "085",
+      "name": "Présenter le résultat",
+      "category": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "varying_in_1000": false,
+      "used_in_H3_proxy_directly": false,
+      "post_T0_output_never_a_predictor": false
+    },
+    {
+      "id": "086",
+      "name": "Excès d’eau",
+      "category": "PRE_T0_PLAN_RESOURCE_ROUTE_ONLY",
+      "varying_in_1000": false,
+      "used_in_H3_proxy_directly": false,
+      "post_T0_output_never_a_predictor": false
+    },
+    {
+      "id": "087",
+      "name": "Manque d’eau",
+      "category": "PRE_T0_PLAN_RESOURCE_ROUTE_ONLY",
+      "varying_in_1000": false,
+      "used_in_H3_proxy_directly": false,
+      "post_T0_output_never_a_predictor": false
+    },
+    {
+      "id": "088",
+      "name": "Chaleur excessive",
+      "category": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "varying_in_1000": false,
+      "used_in_H3_proxy_directly": false,
+      "post_T0_output_never_a_predictor": false
+    },
+    {
+      "id": "089",
+      "name": "Chaleur insuffisante",
+      "category": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "varying_in_1000": false,
+      "used_in_H3_proxy_directly": false,
+      "post_T0_output_never_a_predictor": false
+    },
+    {
+      "id": "090",
+      "name": "Couvercle inadapté",
+      "category": "PRE_T0_PLAN_RESOURCE_ROUTE_ONLY",
+      "varying_in_1000": false,
+      "used_in_H3_proxy_directly": false,
+      "post_T0_output_never_a_predictor": false
+    },
+    {
+      "id": "091",
+      "name": "Évaporation excessive",
+      "category": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "varying_in_1000": false,
+      "used_in_H3_proxy_directly": false,
+      "post_T0_output_never_a_predictor": false
+    },
+    {
+      "id": "092",
+      "name": "Frémissement instable",
+      "category": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "varying_in_1000": false,
+      "used_in_H3_proxy_directly": false,
+      "post_T0_output_never_a_predictor": false
+    },
+    {
+      "id": "093",
+      "name": "Débordement",
+      "category": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "varying_in_1000": false,
+      "used_in_H3_proxy_directly": false,
+      "post_T0_output_never_a_predictor": false
+    },
+    {
+      "id": "094",
+      "name": "Riz attaché ou brûlé",
+      "category": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "varying_in_1000": false,
+      "used_in_H3_proxy_directly": false,
+      "post_T0_output_never_a_predictor": false
+    },
+    {
+      "id": "095",
+      "name": "Grains agglutinés",
+      "category": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "varying_in_1000": false,
+      "used_in_H3_proxy_directly": false,
+      "post_T0_output_never_a_predictor": false
+    },
+    {
+      "id": "096",
+      "name": "Grains trop fermes",
+      "category": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "varying_in_1000": false,
+      "used_in_H3_proxy_directly": false,
+      "post_T0_output_never_a_predictor": false
+    },
+    {
+      "id": "097",
+      "name": "Riz pâteux",
+      "category": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "varying_in_1000": false,
+      "used_in_H3_proxy_directly": false,
+      "post_T0_output_never_a_predictor": false
+    },
+    {
+      "id": "098",
+      "name": "Situation non récupérable",
+      "category": "PRE_T0_PLAN_RESOURCE_ROUTE_ONLY",
+      "varying_in_1000": false,
+      "used_in_H3_proxy_directly": false,
+      "post_T0_output_never_a_predictor": false
+    },
+    {
+      "id": "099",
+      "name": "Salubrité et sécurité alimentaire",
+      "category": "POST_T0_TARGET_ONLY",
+      "varying_in_1000": false,
+      "used_in_H3_proxy_directly": false,
+      "post_T0_output_never_a_predictor": true
+    },
+    {
+      "id": "100",
+      "name": "Quantité effective",
+      "category": "POST_T0_TARGET_ONLY",
+      "varying_in_1000": false,
+      "used_in_H3_proxy_directly": false,
+      "post_T0_output_never_a_predictor": true
+    },
+    {
+      "id": "101",
+      "name": "Tendreté",
+      "category": "POST_T0_TARGET_ONLY",
+      "varying_in_1000": false,
+      "used_in_H3_proxy_directly": false,
+      "post_T0_output_never_a_predictor": true
+    },
+    {
+      "id": "102",
+      "name": "Séparation des grains",
+      "category": "POST_T0_TARGET_ONLY",
+      "varying_in_1000": false,
+      "used_in_H3_proxy_directly": false,
+      "post_T0_output_never_a_predictor": true
+    },
+    {
+      "id": "103",
+      "name": "Homogénéité",
+      "category": "POST_T0_TARGET_ONLY",
+      "varying_in_1000": false,
+      "used_in_H3_proxy_directly": false,
+      "post_T0_output_never_a_predictor": true
+    },
+    {
+      "id": "104",
+      "name": "Intégrité des grains",
+      "category": "POST_T0_TARGET_ONLY",
+      "varying_in_1000": false,
+      "used_in_H3_proxy_directly": false,
+      "post_T0_output_never_a_predictor": true
+    },
+    {
+      "id": "105",
+      "name": "Absence d’eau libre excessive",
+      "category": "POST_T0_TARGET_ONLY",
+      "varying_in_1000": false,
+      "used_in_H3_proxy_directly": false,
+      "post_T0_output_never_a_predictor": true
+    },
+    {
+      "id": "106",
+      "name": "Absence de zones brûlées",
+      "category": "POST_T0_TARGET_ONLY",
+      "varying_in_1000": false,
+      "used_in_H3_proxy_directly": false,
+      "post_T0_output_never_a_predictor": true
+    },
+    {
+      "id": "107",
+      "name": "Température de service",
+      "category": "POST_T0_TARGET_ONLY",
+      "varying_in_1000": false,
+      "used_in_H3_proxy_directly": false,
+      "post_T0_output_never_a_predictor": true
+    },
+    {
+      "id": "108",
+      "name": "Goût",
+      "category": "POST_T0_TARGET_ONLY",
+      "varying_in_1000": false,
+      "used_in_H3_proxy_directly": false,
+      "post_T0_output_never_a_predictor": true
+    },
+    {
+      "id": "109",
+      "name": "Arôme",
+      "category": "POST_T0_TARGET_ONLY",
+      "varying_in_1000": false,
+      "used_in_H3_proxy_directly": false,
+      "post_T0_output_never_a_predictor": true
+    },
+    {
+      "id": "110",
+      "name": "Aspect visuel",
+      "category": "POST_T0_TARGET_ONLY",
+      "varying_in_1000": false,
+      "used_in_H3_proxy_directly": false,
+      "post_T0_output_never_a_predictor": true
+    },
+    {
+      "id": "111",
+      "name": "Maintien de la qualité",
+      "category": "POST_T0_TARGET_ONLY",
+      "varying_in_1000": false,
+      "used_in_H3_proxy_directly": false,
+      "post_T0_output_never_a_predictor": true
+    },
+    {
+      "id": "112",
+      "name": "Évaluation globale et décision",
+      "category": "POST_T0_TARGET_ONLY",
+      "varying_in_1000": false,
+      "used_in_H3_proxy_directly": false,
+      "post_T0_output_never_a_predictor": true
+    }
+  ],
+  "note": "112 roles != 112 independent continuously valued causal variables; 14 output columns deliberately unmeasured"
+}
