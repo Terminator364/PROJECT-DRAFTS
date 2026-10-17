@@ -1,0 +1,21 @@
+{
+  "schema": "riz112/h3/population/v1",
+  "source_fixture": "H2_100_SCENARIOS_112.jsonl",
+  "scenarios": 100,
+  "numeric_demo_count": 98,
+  "policy_changed_demo_count": 11,
+  "counts_by_status": {
+    "DEMO_ASSUMED_MECHANISMS_NOT_REAL_Q": 98,
+    "NO_NET_POWER_UNDER_ASSUMPTIONS": 2
+  },
+  "new_mechanistic_root_paths": [
+    "006",
+    "025",
+    "039",
+    "069"
+  ],
+  "evidence_level": "MECHANISTIC_DEMO_ASSUMPTIONS_NOT_REAL_RICE_PROBABILITY",
+  "real_observations": 0,
+  "scientific_ic_percent": null,
+  "model_errors": []
+}
