@@ -515,7 +515,17 @@
       "step27_ready": true,
       "step27_windows_tests_passed": 21,
       "windows_recent_tests_21_27": 128,
-      "cumulative_separate_suite_tests": 674
+      "cumulative_separate_suite_tests": 674,
+      "final_engineering_V1_archive": {
+        "url": "https://drive.google.com/file/d/12xXW-Q_3znv9_4enPqUJYAx9U9vUZ-GK/view?usp=drivesdk",
+        "sha256": "7536dd8ac0b13f6a550033347906d56866b824995f0f5cfa9fb364c571eec04b",
+        "bytes": 638249,
+        "files": 300,
+        "independent_download_checksum_match": true,
+        "zip_crc": "PASS",
+        "extracted_step27_tests_pass": 21,
+        "source_snapshot_journal": "E125"
+      }
     },
     "latest_code": "MOTEUR-BLESSING/labs/RIZ112/step16/riz112_unified.py",
     "latest_lab": "MOTEUR-BLESSING/labs/RIZ112/step14/H3_RUN_SUMMARY.json",
