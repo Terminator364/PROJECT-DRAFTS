@@ -1,0 +1,57 @@
+{
+  "schema": "riz112/d025/hierarchical-model-receipt/v1",
+  "date": "2026-10-17",
+  "decision": "D025",
+  "code": "RIZ112|CONTINUE",
+  "archive": {
+    "name": "RIZ112_CAHIER_MERE_HIERARCHIE_D025_2026-10-17.zip",
+    "bytes": 459683,
+    "members": 158,
+    "sha256": "2b68850cd5920951da7488d345ee3d297738cb5f836bd6ec5420324f6ecbeec2",
+    "crc": "PASS",
+    "local_internal_manifest_entries": 157
+  },
+  "drive": {
+    "url": "https://drive.google.com/file/d/1B5wrDs5691nLaqNPK5Y2SbDAHF9SNuMp/view?usp=drivesdk",
+    "size_readback": 459683,
+    "private": true,
+    "remote_sha256_readback": false
+  },
+  "library": {
+    "path": "/RIZ112_LAB/HIERARCHIE_D025_2026-10-17/RIZ112_CAHIER_MERE_HIERARCHIE_D025_2026-10-17.zip"
+  },
+  "notebook": "MOTEUR-BLESSING/labs/RIZ112/CAHIER_MERE.md",
+  "checkpoint": "MOTEUR-BLESSING/labs/RIZ112/CHECKPOINT.json",
+  "nested_catalogue": "MOTEUR-BLESSING/labs/RIZ112/step13/H1_HIERARCHIE_112.json",
+  "executable": "MOTEUR-BLESSING/labs/RIZ112/step13/hierarchical_engine.py",
+  "test_file": "MOTEUR-BLESSING/labs/RIZ112/step13/test_hierarchical_engine.py",
+  "numeric_scenarios": "MOTEUR-BLESSING/labs/RIZ112/step13/H1_SCENARIOS.json",
+  "unproven_submodels": "MOTEUR-BLESSING/labs/RIZ112/step13/H1_26_PENDING_MECHANISMS.json",
+  "recorded_journal": {
+    "events": 69,
+    "head": "3855fdd22b733e0599d41a84bafafd1593dd21b9208fdc0576fd605edcb36a7f"
+  },
+  "proofs": {
+    "hierarchy_rubrics": 112,
+    "unique_new_tests": 20,
+    "rerun_prior_tests": 23,
+    "total_tests_run_this_turn": 43,
+    "simulation_draws_per_example": 500,
+    "calibrated_IC": null,
+    "validated_112_numeric_effects": false,
+    "real_rice_trials": 0
+  },
+  "examples": {
+    "copper_demo_ic_percent": 61.2,
+    "ceramic_demo_ic_percent": 22.8,
+    "copper_without_lid_demo_ic_percent": 44,
+    "copper_less_water_demo_ic_percent": 0.2
+  },
+  "limitations": [
+    "A material label is converted to a rough physical conductivity but wall/interface simplifications are assumptions",
+    "Wood direct heat is marked unsafe and its zero is a model convention, not empirical probability",
+    "Source V12 is preserved, but 112 nested schemas are not 112 fully validated physical mechanisms",
+    "No empirical rice quality or sports forecast validation"
+  ],
+  "transfer_matrice": "hierarchy/anticipation methodology only"
+}
