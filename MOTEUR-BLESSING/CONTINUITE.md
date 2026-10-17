@@ -1,4 +1,12 @@
-# MOTEUR|CONTINUE — contrat de reprise obligatoire
+# Moteur/continue — contrat de reprise unique (D034, 17/10/2026)
+
+**COMMANDE UNIQUE ACTIVE : `Moteur/continue`.** Elle remplace les anciens déclencheurs du moteur et du laboratoire RIZ-112, cités plus bas uniquement comme historique. Ne pas proposer plusieurs codes.
+
+**Au déclenchement dans une nouvelle conversation :** ouvrir `MOTEUR-BLESSING/MANIFEST.json`, suivre le checkpoint courant `labs/RIZ112/CHECKPOINT.json`, lire le Cahier mère, `CONTEXTE_CONVERSATIONS.md`, `CONTEXTE_INTEGRAL/REGISTRE_MESSAGES.jsonl`, décisions et journal, puis **commencer directement** l'action de `labs/RIZ112/continuity/NEXT_ACTION.json` dans le même échange. Ne pas se limiter à annoncer l'étape et ne pas demander de reconfirmer une reprise déjà demandée.
+
+**Contexte permanent :** conserver chaque instruction, feedback, résumé vérifiable d'action, objection, erreur, test, décision et dernier état accessible pendant la session et à la clôture. Les anciens échanges sans transcription littérale doivent être signalés comme reconstitutions. Aucune exécution en arrière-plan lorsque le chat est inactif.
+
+---
 
 ## Déclencheur
 Quand l'utilisateur écrit **`MOTEUR|CONTINUE`** ou **`MOTEUR BLESSING|CONTINUE`**, le nouvel assistant **doit reprendre au dernier checkpoint fiable**, sans repartir à zéro ni demander un long récapitulatif.
