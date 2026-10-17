@@ -1,0 +1,297 @@
+{
+  "schema": "riz112/step25/quality-metrology-proposal/v1",
+  "status": "PROPOSAL_NOT_APPROVED",
+  "user_confirmed_only": {
+    "priority_tier": [
+      "101",
+      "102"
+    ],
+    "quality_goal": "white rice for two people",
+    "Q_pass_threshold": 85
+  },
+  "target_ids": [
+    "099",
+    "100",
+    "101",
+    "102",
+    "103",
+    "104",
+    "105",
+    "106",
+    "107",
+    "108",
+    "109",
+    "110",
+    "111",
+    "112"
+  ],
+  "rubrics": {
+    "099": {
+      "name": "Salubrité et sécurité alimentaire",
+      "category": "food_safety_separate",
+      "candidate_method": "Food safety checklist and independent verified practices; NOT a sensory score",
+      "candidate_unit": "PASS/FAIL/UNKNOWN",
+      "standardized_sample_locations": [],
+      "assessor_blinding": "NOT_DEFINED",
+      "timing_after_service_minutes": null,
+      "sample_mass_g": null,
+      "instrument_or_rater_approved": false,
+      "measurement_approved": false,
+      "field_value": null,
+      "status": "PROPOSED_NOT_OBSERVED"
+    },
+    "100": {
+      "name": "Quantité effective",
+      "category": "descriptive",
+      "candidate_method": "Weigh cooked yield or count portions on stated serving plates",
+      "candidate_unit": "g or count",
+      "standardized_sample_locations": [],
+      "assessor_blinding": "NOT_DEFINED",
+      "timing_after_service_minutes": null,
+      "sample_mass_g": null,
+      "instrument_or_rater_approved": false,
+      "measurement_approved": false,
+      "field_value": null,
+      "status": "PROPOSED_NOT_OBSERVED"
+    },
+    "101": {
+      "name": "Tendreté",
+      "category": "priority_ordinal",
+      "candidate_method": "Blind three-location tenderness check, with separate under/overcooking direction",
+      "candidate_unit": "ordinal 0..4 + direction",
+      "standardized_sample_locations": [
+        "top",
+        "middle",
+        "bottom"
+      ],
+      "assessor_blinding": "RECOMMENDED_NOT_APPROVED",
+      "timing_after_service_minutes": null,
+      "sample_mass_g": null,
+      "instrument_or_rater_approved": false,
+      "measurement_approved": false,
+      "field_value": null,
+      "status": "PROPOSED_NOT_OBSERVED"
+    },
+    "102": {
+      "name": "Séparation des grains",
+      "category": "priority_fraction",
+      "candidate_method": "On three fixed-location samples, count separable grains out of all observed grains",
+      "candidate_unit": "fraction 0..1",
+      "standardized_sample_locations": [
+        "top",
+        "middle",
+        "bottom"
+      ],
+      "assessor_blinding": "RECOMMENDED_NOT_APPROVED",
+      "timing_after_service_minutes": null,
+      "sample_mass_g": null,
+      "instrument_or_rater_approved": false,
+      "measurement_approved": false,
+      "field_value": null,
+      "status": "PROPOSED_NOT_OBSERVED"
+    },
+    "103": {
+      "name": "Homogénéité",
+      "category": "descriptive",
+      "candidate_method": "Compare three pot locations for within-batch texture uniformity",
+      "candidate_unit": "ordinal 0..4",
+      "standardized_sample_locations": [],
+      "assessor_blinding": "NOT_DEFINED",
+      "timing_after_service_minutes": null,
+      "sample_mass_g": null,
+      "instrument_or_rater_approved": false,
+      "measurement_approved": false,
+      "field_value": null,
+      "status": "PROPOSED_NOT_OBSERVED"
+    },
+    "104": {
+      "name": "Intégrité des grains",
+      "category": "descriptive",
+      "candidate_method": "Count broken vs whole grains on standardized samples",
+      "candidate_unit": "fraction 0..1",
+      "standardized_sample_locations": [],
+      "assessor_blinding": "NOT_DEFINED",
+      "timing_after_service_minutes": null,
+      "sample_mass_g": null,
+      "instrument_or_rater_approved": false,
+      "measurement_approved": false,
+      "field_value": null,
+      "status": "PROPOSED_NOT_OBSERVED"
+    },
+    "105": {
+      "name": "Absence d’eau libre excessive",
+      "category": "descriptive",
+      "candidate_method": "Measure remaining free water after agreed interval, preferably by mass",
+      "candidate_unit": "g or observable ordinal",
+      "standardized_sample_locations": [],
+      "assessor_blinding": "NOT_DEFINED",
+      "timing_after_service_minutes": null,
+      "sample_mass_g": null,
+      "instrument_or_rater_approved": false,
+      "measurement_approved": false,
+      "field_value": null,
+      "status": "PROPOSED_NOT_OBSERVED"
+    },
+    "106": {
+      "name": "Absence de zones brûlées",
+      "category": "descriptive",
+      "candidate_method": "Count visibly burnt areas and mass; note smoke/odour separately",
+      "candidate_unit": "g or area fraction",
+      "standardized_sample_locations": [],
+      "assessor_blinding": "NOT_DEFINED",
+      "timing_after_service_minutes": null,
+      "sample_mass_g": null,
+      "instrument_or_rater_approved": false,
+      "measurement_approved": false,
+      "field_value": null,
+      "status": "PROPOSED_NOT_OBSERVED"
+    },
+    "107": {
+      "name": "Température de service",
+      "category": "descriptive",
+      "candidate_method": "Measure temperature at the declared serving time",
+      "candidate_unit": "degrees Celsius",
+      "standardized_sample_locations": [],
+      "assessor_blinding": "NOT_DEFINED",
+      "timing_after_service_minutes": null,
+      "sample_mass_g": null,
+      "instrument_or_rater_approved": false,
+      "measurement_approved": false,
+      "field_value": null,
+      "status": "PROPOSED_NOT_OBSERVED"
+    },
+    "108": {
+      "name": "Goût",
+      "category": "secondary_sensory",
+      "candidate_method": "Blind taste panel, standardized scale",
+      "candidate_unit": "ordinal 0..4",
+      "standardized_sample_locations": [],
+      "assessor_blinding": "RECOMMENDED_NOT_APPROVED",
+      "timing_after_service_minutes": null,
+      "sample_mass_g": null,
+      "instrument_or_rater_approved": false,
+      "measurement_approved": false,
+      "field_value": null,
+      "status": "PROPOSED_NOT_OBSERVED"
+    },
+    "109": {
+      "name": "Arôme",
+      "category": "secondary_sensory",
+      "candidate_method": "Blind aroma panel, standardized scale",
+      "candidate_unit": "ordinal 0..4",
+      "standardized_sample_locations": [],
+      "assessor_blinding": "RECOMMENDED_NOT_APPROVED",
+      "timing_after_service_minutes": null,
+      "sample_mass_g": null,
+      "instrument_or_rater_approved": false,
+      "measurement_approved": false,
+      "field_value": null,
+      "status": "PROPOSED_NOT_OBSERVED"
+    },
+    "110": {
+      "name": "Aspect visuel",
+      "category": "secondary_sensory",
+      "candidate_method": "Blind photo/visual rating and description",
+      "candidate_unit": "ordinal 0..4",
+      "standardized_sample_locations": [],
+      "assessor_blinding": "RECOMMENDED_NOT_APPROVED",
+      "timing_after_service_minutes": null,
+      "sample_mass_g": null,
+      "instrument_or_rater_approved": false,
+      "measurement_approved": false,
+      "field_value": null,
+      "status": "PROPOSED_NOT_OBSERVED"
+    },
+    "111": {
+      "name": "Maintien de la qualité",
+      "category": "descriptive",
+      "candidate_method": "Repeat primary texture measurements at agreed interval",
+      "candidate_unit": "ordinal 0..4",
+      "standardized_sample_locations": [],
+      "assessor_blinding": "NOT_DEFINED",
+      "timing_after_service_minutes": null,
+      "sample_mass_g": null,
+      "instrument_or_rater_approved": false,
+      "measurement_approved": false,
+      "field_value": null,
+      "status": "PROPOSED_NOT_OBSERVED"
+    },
+    "112": {
+      "name": "Évaluation globale et décision",
+      "category": "label_only",
+      "candidate_method": "Independent overall judgment after observations, not predictor",
+      "candidate_unit": "UNDECIDED/GOOD/NOT_GOOD",
+      "standardized_sample_locations": [],
+      "assessor_blinding": "NOT_DEFINED",
+      "timing_after_service_minutes": null,
+      "sample_mass_g": null,
+      "instrument_or_rater_approved": false,
+      "measurement_approved": false,
+      "field_value": null,
+      "status": "PROPOSED_NOT_OBSERVED"
+    }
+  },
+  "candidate_tenderness_scale": {
+    "unit": "ordinal 0..4 PROPOSED",
+    "levels": {
+      "0": "far outside acceptable texture",
+      "1": "markedly outside",
+      "2": "partially matches",
+      "3": "mostly desired",
+      "4": "desired, consistent texture"
+    },
+    "direction_required_when_below_4": [
+      "too_firm",
+      "too_soft",
+      "heterogeneous",
+      "unknown"
+    ],
+    "measurement_locations": [
+      "top",
+      "middle",
+      "bottom"
+    ],
+    "approval_status": "PROPOSED"
+  },
+  "candidate_separation_measure": {
+    "unit": "fraction of separated grains",
+    "range": [
+      0,
+      1
+    ],
+    "sample_protocol": "count discernible grains and separately adhering grains in three spatial samples; denominator strictly positive",
+    "thresholds_for_0_to_4": null,
+    "approval_status": "PROPOSED"
+  },
+  "candidate_decision_structures": [
+    {
+      "id": "NON_COMPENSATORY_PRIORITY",
+      "description": "Tenderness and separation must both clear agreed gates; secondary qualities cannot offset major failure of either",
+      "proposed_gates": null,
+      "numeric_Q_formula": null
+    },
+    {
+      "id": "TWO_TIER_WEIGHTED",
+      "description": "First-tier tenderness and separation outweigh each secondary attribute; explicit weights/aggregator and thresholds require separate user approval",
+      "proposed_weights": null,
+      "numeric_Q_formula": null
+    }
+  ],
+  "safety_protocol": "INDEPENDENT_NOT_CERTIFIED_BY_Q",
+  "Q_score_formula": null,
+  "Q_numerical_weights": null,
+  "Q_success_label": null,
+  "approved_by_user": false,
+  "scientific_ic_percent": null,
+  "real_trials_count": 0,
+  "no_postT0_predictor_leakage": true,
+  "open_approvals": [
+    "final sample size and time window",
+    "tenderness anchors and direction",
+    "grain-separation denominator and thresholds",
+    "food safety independent safeguards",
+    "aggregation policy/weights if used",
+    "rater blinding and repeatability"
+  ],
+  "scientific_claim": "NONE; only draft measurement proposal"
+}
