@@ -1,11 +1,8 @@
 {
   "schema": "moteur-blessing/continuity/v1",
   "project": "Moteur Blessing",
-  "continuity_code": "MOTEUR|CONTINUE",
-  "aliases": [
-    "MOTEUR BLESSING|CONTINUE",
-    "Moteur/continue"
-  ],
+  "continuity_code": "Moteur/continue",
+  "aliases": [],
   "created_utc": "2026-10-16",
   "source_version": "V1.1.2",
   "authority": "Terminator364/ChatGPT-PC MATRICE ADN R8",
@@ -195,7 +192,7 @@
   "scientific_status": "EXPERIMENTAL_NOT_APPROVED",
   "riz112_lab": {
     "status": "H3_EXECUTABLE_AND_CONTEXT_SYNCHRONIZED__309_TESTS_PASS__NOT_SCIENTIFICALLY_CALIBRATED",
-    "continuity_code": "RIZ112|CONTINUE",
+    "continuity_code": "Moteur/continue",
     "master": "MOTEUR-BLESSING/labs/RIZ112/CAHIER_MERE.md",
     "checkpoint": "MOTEUR-BLESSING/labs/RIZ112/CHECKPOINT.json",
     "journal": "MOTEUR-BLESSING/labs/RIZ112/journal/JOURNAL_EVENEMENTS.jsonl",
@@ -207,7 +204,7 @@
     "archive_final_sha256": "6fc5c03d44a605781c66e8f561ed3c1a5fc76ad00c21026cbe98b86a64dbf06b",
     "archive_final_bytes": 87045,
     "archive_final_drive_url": "https://drive.google.com/file/d/1JRFayl6zSgQfyQoJBdxj62I97v4vQ1AL/view?usp=drivesdk",
-    "journal_events": 89,
+    "journal_events": 93,
     "journal_head": "aeb4f2da9434b3fb61609e7d1612812ab1abb4d7b21392f39cee864b804a3859",
     "current_stage": 14,
     "current_zip_sha256": "34887c8ecd5d5e0475b8b03267592e1856c633455b41ff0c8f567860217ac3cb",
@@ -367,6 +364,10 @@
       "new_full_zip_drive": "NOT_UPLOADED__DRIVE_HAS_PRIOR_H3_ARCHIVE_AND_CURRENT_CONTEXT_DOC"
     },
     "latest_code": "MOTEUR-BLESSING/labs/RIZ112/step14/anticipatory_physics_h3.py",
-    "latest_lab": "MOTEUR-BLESSING/labs/RIZ112/step14/H3_RUN_SUMMARY.json"
+    "latest_lab": "MOTEUR-BLESSING/labs/RIZ112/step14/H3_RUN_SUMMARY.json",
+    "context_rows": 26,
+    "single_code_contract": "MOTEUR-BLESSING/labs/RIZ112/continuity/CONTRAT_CODE_UNIQUE.md",
+    "next_action": "MOTEUR-BLESSING/labs/RIZ112/continuity/NEXT_ACTION.json",
+    "next_execution": "H4_CLOSE_22_MECHANISTIC_GAPS"
   }
 }
