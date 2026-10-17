@@ -1,0 +1,49 @@
+{
+  "schema": "riz112/stage11/delivery-index/v1",
+  "date": "2026-10-17",
+  "continuity_code": "RIZ112|CONTINUE",
+  "user_requirement": "Generate different A/B prestart scenarios across all available conditions, propagate dependencies into numeric result, explain why each case influences/not; '119' mentioned but canonical catalogue=112.",
+  "master": "MOTEUR-BLESSING/labs/RIZ112/CAHIER_MERE.md",
+  "source": "MOTEUR-BLESSING/labs/RIZ112/step11/scenario_factory.py",
+  "tests": {
+    "passed": 218,
+    "total": 218,
+    "stage11_new": 13,
+    "original_stage4_from_embedded_zip": 22
+  },
+  "case_summary": "MOTEUR-BLESSING/labs/RIZ112/step11/SCENARIOS_RESUME.json",
+  "generation": {
+    "seed": 20261017,
+    "total": 60,
+    "role_contract": 112,
+    "planned_actions": 37,
+    "policies": 13,
+    "outcome_targets_not_randomized": 14,
+    "derived_computed": 4,
+    "numeric_demo_computed": 18,
+    "contradiction_abstentions": 27,
+    "unsupported_wood_abstentions": 15,
+    "nonzero_demo": 6
+  },
+  "sample_3000_draws_demo_percent": {
+    "SYNTH_20261017_010": 11.27,
+    "SYNTH_20261017_018": 28.97
+  },
+  "model_status": "EXPERIMENTAL_DEMO_ONLY_NOT_EMPIRICALLY_CALIBRATED",
+  "numeric_material_effect_established": false,
+  "quality_real_prob_percent": null,
+  "artifact": {
+    "name": "RIZ112_CAHIER_MERE_STAGE11_GENERATEUR_SCENARIOS_2026-10-17.zip",
+    "bytes": 317367,
+    "members": 116,
+    "sha256": "fda9ccd6f5ca6102a24dc8128bc1de78f8cfe22ffabc22fe2ab52e891062d6f0",
+    "drive_url": "https://drive.google.com/file/d/1FDqBSlQSNTh08Mg9UGPxZE2NlMX5inzP/view?usp=drivesdk",
+    "drive_size_verified": 317367,
+    "drive_private": true,
+    "library": "/RIZ112_LAB/CAHIER_MERE_STAGE11_2026-10-17/RIZ112_CAHIER_MERE_STAGE11_GENERATEUR_SCENARIOS_2026-10-17.zip",
+    "github_files": "source,tests,README,manifest,results summary,journal,notebook",
+    "windows": "MBMPC OFFLINE: not installed/tested",
+    "independent_drive_checksum_readback": false
+  },
+  "future_gap": "Measure and validate vessel material and all missing causal interactions; user said 119, seven extra undefined; preserve 112 until clarified."
+}
