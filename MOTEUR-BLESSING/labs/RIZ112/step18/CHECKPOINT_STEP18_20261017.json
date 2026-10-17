@@ -1,7 +1,7 @@
 {
   "schema": "riz112/step18/checkpoint/v1",
   "date": "2026-10-17",
-  "status": "THREE_RESOURCE_INTERMEDIATE_PATHS_CODED__REAL_Q_IC_NULL",
+  "status": "STEP18_3_RESOURCE_PATHS_WINDOWS_AND_LINUX_PASS__REAL_Q_IC_NULL",
   "status_step16": "PRESERVED_415_TESTS",
   "step17_audit_112": {
     "IC_DEMO_CHANGED_ONLY": 9,
@@ -17,7 +17,7 @@
   "step17_tests_local": 23,
   "step17_tests_windows": 23,
   "step18_tests_local": 20,
-  "step18_tests_windows": "PENDING",
+  "step18_tests_windows": 20,
   "total_new_step17_step18_tests_local": 43,
   "rubrics_newly_diagnostic_responsive": [
     "002",
@@ -26,8 +26,8 @@
   ],
   "intermediate_deltas_ml": {
     "002": 3.5,
-    "005": 10.0,
-    "008": 17.0
+    "005": 10,
+    "008": 17
   },
   "new_paths_are_Q_causes": false,
   "scientific_ic_percent": null,
@@ -40,5 +40,17 @@
   ],
   "integrated_entrypoint": "step18/riz112_with_resources.py",
   "full_rubric_causes_validated": 0,
-  "next": "Continue conditional causal diagnostics; mandatory real-Q measurement protocol remains open; no invented influence."
+  "next": "Continue conditional causal diagnostics; mandatory real-Q measurement protocol remains open; no invented influence.",
+  "windows_resource_tests_pass": 17,
+  "windows_integration_tests_pass": 3,
+  "windows_expensive_conditional_probe_suite": "NOT_COMPLETED",
+  "total_new_step17_step18_tests_windows": 43,
+  "step18_conditional_route_probe": {
+    "initially_static_step16": 35,
+    "responsive_in_other_synthetic_regimes": 2,
+    "undetected_in_tested_regimes": 33,
+    "source": "step18/PROBE_35_ROUTES_SUMMARY.json",
+    "windows_test_suite": "NOT_COMPLETED"
+  },
+  "evidence_journal_head": "2286f8743ef477b6245273d2a16290667ecf87c87ec2e25dc1d65736659f62b8"
 }
