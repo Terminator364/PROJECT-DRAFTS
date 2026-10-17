@@ -1,0 +1,24 @@
+{
+  "schema": "riz112/step21/checkpoint/v1",
+  "project": "RIZ112",
+  "step": 21,
+  "status": "QUALITATIVE_PRIORITY_CONFIRMED_BUT_NO_Q_WEIGHTS",
+  "new_tests_locally_passed": 10,
+  "scientific_ic_percent": null,
+  "real_rice_trials": 0,
+  "Q_score_formula_user_approved": false,
+  "description": "User-confirmed tenderness and grain separation priority only",
+  "code_and_test_paths": [
+    "quality_priority.py",
+    "test_quality_priority.py"
+  ],
+  "commit_state": "NOT_YET_VERIFIED_WINDOWS_AT_CREATION",
+  "critical_note": "A software test pass or modeled physical sensitivity never establishes calibrated food quality.",
+  "priority_accepted": [
+    "101",
+    "102"
+  ],
+  "numerical_weights": null,
+  "Q_formula": null,
+  "outcome_targets": 14
+}
