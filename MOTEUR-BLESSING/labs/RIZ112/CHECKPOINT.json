@@ -32,8 +32,8 @@
     "github_status": "VERIFIED_CRITICAL_9_OF_9_BEFORE_FINAL_RECEIPT",
     "initial_source_archive_drive": "https://drive.google.com/file/d/1rFq9GiwbRvb-Hk33JayacttjBOUdAabf/view?usp=drivesdk",
     "initial_source_archive_sha256": "15182d217e42c2985cb4652ac5c2ee9f6afe6afca55ec148b3c803e52b14ede8",
-    "journal_events": 108,
-    "journal_head": "88b02c21b46dc21ae36cfd2880843ee102d62ce6ff805d8a5b71e7c4ea3337ee",
+    "journal_events": 111,
+    "journal_head": "2286f8743ef477b6245273d2a16290667ecf87c87ec2e25dc1d65736659f62b8",
     "lab_code": "Moteur/continue",
     "latest_context_ids": [
       "CTX-0034",
@@ -76,12 +76,12 @@
   },
   "full_packet_replay": "step12/POPULATION_100_COMPLETE_PACKET.jsonl",
   "journal": {
-    "events": 108,
-    "head": "88b02c21b46dc21ae36cfd2880843ee102d62ce6ff805d8a5b71e7c4ea3337ee"
+    "events": 111,
+    "head": "2286f8743ef477b6245273d2a16290667ecf87c87ec2e25dc1d65736659f62b8"
   },
   "last_user_directive": "D034_CANONICAL_SINGLE_CODE_AUTO_RESUME_AND_CONTINUOUS_CONTEXT",
   "latest_case_audit": "step12/COUNTERFACTUAL_112_V12.json",
-  "latest_code": "step16/riz112_unified.py",
+  "latest_code": "step18/riz112_with_resources.py",
   "latest_contract": "step9/DEMONSTRATION_CONTRACT.json",
   "latest_h3_ablations": "step14/H3_ABLATIONS.json",
   "latest_h3_population": "step14/H3_100_RESULTS.jsonl",
@@ -116,7 +116,7 @@
       "054"
     ]
   },
-  "next": "STEP18_CAUSAL_ROUTE_RECONCILIATION",
+  "next": "STEP19_RECONCILE_REMAINING_CONDITIONAL_MECHANISMS",
   "probabilities_demo_percent": {
     "A": 62.4,
     "B": 36.83,
@@ -140,7 +140,7 @@
     "A_alternate_proxy_scale": 38.2,
     "A_minus_60g": 44.87
   },
-  "stage": 17,
+  "stage": 18,
   "stage11": {
     "119_vs_112": "UNCLEAR_NEW_SEVEN_NOT_CREATED",
     "cases_in_input_contract": 112,
@@ -213,7 +213,7 @@
     "tests_total": 309,
     "validated_effects": 0
   },
-  "status": "STEP17_112_AUDITED__23_STEP17_WINDOWS_TESTS_PASS__CAUSAL_GAPS_OPEN",
+  "status": "STEP18_3_NEW_FEASIBILITY_PATHS_VALIDATED_WINDOWS_20_LINUX_20__NOT_REAL_Q",
   "step10": {
     "abstentions_original": 5,
     "derived_not_directly_mutable": 4,
@@ -363,5 +363,30 @@
     "step17_tests_windows": 23,
     "windows_report_replay_equal": true,
     "linux_total_tests": 438
+  },
+  "step18": {
+    "checkpoint": "step18/CHECKPOINT_STEP18_20261017.json",
+    "step17_112_baseline_no_downstream_response": 35,
+    "new_resource_routes_conditional": [
+      "002",
+      "005",
+      "008"
+    ],
+    "numeric_proxy_margin_deltas_ml": {
+      "002": 3.5,
+      "005": 10,
+      "008": 17
+    },
+    "step18_test_windows_verified": 20,
+    "step18_test_linux_verified": 20,
+    "step17_test_windows_verified": 23,
+    "step16_test_windows_verified": 415,
+    "conditional_probe_found_other_regimes": [
+      "036",
+      "038"
+    ],
+    "conditional_probe_33_undetected_in_tested_regimes": true,
+    "conditional_probe_windows_exhaustive": "NOT_COMPLETED",
+    "scientific_ic_percent": null
   }
 }
