@@ -1,0 +1,398 @@
+{
+  "schema": "riz112/unified-pre-T0/step18-v1",
+  "preparation_id": "A_couvercle_ajuste",
+  "input_sha256": "d2e2d745c3d54c5ed3da2b04f0276572eb67084810a82442094367a2e78a7e2e",
+  "preT0_contract": {
+    "declared_prestart_or_target_records": 108,
+    "derived_forecast_roles": [
+      "043",
+      "044",
+      "046",
+      "048"
+    ],
+    "logical_total_rubrics": 112,
+    "status_counts": {
+      "OBSERVED": 4,
+      "ASSUMPTION": 17,
+      "UNKNOWN": 33,
+      "PLANNED": 27,
+      "DEFINED": 4,
+      "UNDEFINED": 9
+    },
+    "post_T0_values_accepted": 0,
+    "source_independent_archive_verification": false
+  },
+  "H4": {
+    "schema": "riz112/H4/composite/v1",
+    "status": "22_RUBRIC_DIAGNOSTIC_CONTRACTS__NOT_CALIBRATED",
+    "h3_original_gaps": 22,
+    "rubrics_with_diagnostic_contract": 22,
+    "rubric_ids": [
+      "003",
+      "010",
+      "011",
+      "018",
+      "022",
+      "023",
+      "024",
+      "029",
+      "030",
+      "031",
+      "049",
+      "054",
+      "061",
+      "071",
+      "077",
+      "081",
+      "082",
+      "083",
+      "084",
+      "085",
+      "094",
+      "098"
+    ],
+    "number_of_new_h4_mechanism_groups": 10,
+    "a": {
+      "schema": "riz112/H4A/diagnostic/v1",
+      "status": "PRESTART_DIAGNOSTICS_ONLY",
+      "mechanisms": {
+        "salt": {
+          "status": "UNKNOWN_INPUT_OR_UNDECLARED_PLAN",
+          "available_g": null,
+          "planned_g": null,
+          "feasible": null,
+          "cases": [
+            "003",
+            "061"
+          ]
+        },
+        "portions": {
+          "status": "UNKNOWN_PLAN",
+          "planned_count": null,
+          "cases": [
+            "049",
+            "082"
+          ]
+        },
+        "grain_rinse": {
+          "status": "CALCULATED_PRESTART_MASS_AND_INDEX_DIAGNOSTICS",
+          "broken_grain_fraction": null,
+          "broken_dry_mass_g": null,
+          "intact_dry_mass_g": null,
+          "planned_surface_starch_index_after_rinse": 0.3,
+          "starch_index_model": "bookkeeping index only; not measured final adhesiveness",
+          "cases": [
+            "029",
+            "030",
+            "054"
+          ]
+        }
+      },
+      "rubric_paths": [
+        "003",
+        "061",
+        "049",
+        "082",
+        "029",
+        "030",
+        "054"
+      ],
+      "distinct_primitive_groups": [
+        "salt_inventory_vs_planned_dose",
+        "dry_rice_mass_vs_count",
+        "broken_mass_and_surface_starch_rinse"
+      ],
+      "scientific_ic_percent": null,
+      "new_q_effects_calibrated": 0,
+      "post_start_values_consumed": 0,
+      "independently_authenticated_source_times": false,
+      "limitations": [
+        "No predicted cooked mass, taste, texture or final quality",
+        "No double-counting with H3 rice-profile physical inputs",
+        "Declared timestamps are not independently authenticated PIT evidence"
+      ]
+    },
+    "b": {
+      "schema": "riz112/H4B/diagnostics/v1",
+      "status": "DIAGNOSTICS_ONLY__NOT_REAL_Q",
+      "rubric_paths": [
+        "010",
+        "011",
+        "018",
+        "022",
+        "023",
+        "024",
+        "031",
+        "071",
+        "077",
+        "081",
+        "083",
+        "084",
+        "085",
+        "094",
+        "098"
+      ],
+      "mechanism_groups": {
+        "thermal_wall": null,
+        "temperature_distribution": {
+          "min_C": null,
+          "max_C": null,
+          "spread_C": null,
+          "burn_threshold_predeclared_C": null,
+          "cases": [
+            "018"
+          ]
+        },
+        "handling": {
+          "planned_agitations": null,
+          "planned_fluffings": null,
+          "tool_type": null,
+          "total_planned_contacts": null,
+          "effect_on_grain_breakage": null,
+          "cases": [
+            "022",
+            "071",
+            "077"
+          ]
+        },
+        "variety": {
+          "rice_variety": "long_white_hypothesis",
+          "assumed_amylose_fraction": null,
+          "dry_amylose_mass_g": null,
+          "cases": [
+            "024"
+          ]
+        },
+        "impurities": {
+          "initial_dry_mass_fraction": null,
+          "assumed_sorting_removal": null,
+          "expected_remaining_dry_mass_fraction": null,
+          "safety_certified": false,
+          "cases": [
+            "031"
+          ]
+        },
+        "service": {
+          "forecast_service_C": null,
+          "delay_overrun_min": null,
+          "at_least_declared_target": null,
+          "cases": [
+            "023",
+            "081",
+            "083",
+            "084",
+            "085"
+          ],
+          "observed_service_temperature_used": false
+        },
+        "policies": {
+          "burn_trigger_hypothetical": null,
+          "stop_trigger_hypothetical": null,
+          "policies_executed_in_reality": false,
+          "cases": [
+            "094",
+            "098"
+          ]
+        }
+      },
+      "groups_without_full_numeric_path": [
+        "handling",
+        "impurities",
+        "policies",
+        "service",
+        "temperature_distribution",
+        "thermal_wall",
+        "variety"
+      ],
+      "scientific_ic_percent": null,
+      "real_rice_experiments": 0,
+      "validated_Q_effects": 0,
+      "post_T0_observed_predictors": 0,
+      "provenance_independently_timestamped": false,
+      "warnings": [
+        "Scenario equations and actions are not validated quality laws",
+        "All supplemental fields must be frozen before preparation",
+        "No implicit future measurements, no safety guarantee, no quality IC"
+      ]
+    },
+    "real_Q_effects_estimated": 0,
+    "scientific_ic_percent": null,
+    "post_T0_predictors": 0,
+    "actual_observations": 0,
+    "product_promoted": false,
+    "next_gate": "Observe controlled pre-T0 to post-T0 trials, predefine Q, measure repeatability, calibrate and validate out-of-sample; then transfer only architecture to sport"
+  },
+  "H3_demonstration": {
+    "schema": "riz112/H3/v1",
+    "status": "H3_DEMONSTRATION_ONLY__NOT_REAL_Q",
+    "baseline_ic_demo_percent": 60.25,
+    "policy_ic_demo_percent": 60.25,
+    "policy_delta_percentage_points": 0.0,
+    "scientific_ic_percent": null,
+    "draws": 400,
+    "seed": 20261017,
+    "energy_W": {
+      "gross_W": 330.0,
+      "loss_W": 0.0,
+      "net_W": 330.0,
+      "nominal_W": 550.0,
+      "eta_wall_only": 0.6
+    },
+    "geometry": {
+      "grain_length_mm": null,
+      "relative_required_hot_time": null
+    },
+    "forecast_events": {
+      "policy_shortfall_triggers": 0,
+      "hypothetical_executions": 0
+    },
+    "material": "copper",
+    "trace": [
+      {
+        "id": "ANTICIPATE_WALL_CONDUCTION",
+        "equation": "R_wall=t/(k*A); P_wall_max=deltaT/(R_wall+R_contact); eta=min(eta_nominal,P_wall_max/P_heater)",
+        "material": "copper",
+        "k_W_mK": 401.0,
+        "diameter_cm": 18.0,
+        "thickness_mm": 2.0,
+        "R_wall_K_W": 0.000196,
+        "R_total_K_W": 0.065196,
+        "power_wall_upper_bound_W": 368.121,
+        "effective_transfer_efficiency": 0.6,
+        "assumption": "steady-state illustrative thermal circuit"
+      },
+      {
+        "id": "H3_SOURCE_AVAILABILITY",
+        "case": "006",
+        "fraction_of_scheduled_power_available": 1.0
+      },
+      {
+        "id": "H3_REGULATION_DUTY",
+        "case": "069",
+        "fraction_of_available_power_delivered": 1.0
+      },
+      {
+        "id": "H3_AMBIENT_LOSS",
+        "case": "039",
+        "formula": "UA*max(0,100C-Tamb)",
+        "ambient_C": 24.0,
+        "UA_W_per_K": 0.0,
+        "lost_W": 0.0
+      },
+      {
+        "id": "H3_GRAIN_PENETRATION",
+        "case": "025",
+        "length_mm": null,
+        "diffusion_ratio": 1.0,
+        "grain_aspect_ratio": 3.0,
+        "reference_aspect_ratio": 3.0,
+        "relative_required_hot_time": null
+      }
+    ],
+    "no_poststart_values_used": true,
+    "parent_categorical_case006_preserved": true,
+    "parent_action_case069_preserved": true,
+    "target_definition": "Q*_DEMO minimum four unvalidated quality proxies >=85",
+    "warning": [
+      "No independent trial data; this IC is not an empirical chance of successful rice",
+      "eta_wall_only is reinterpreted by the user-declared gross interface assumption: never use if eta already includes ambient losses",
+      "Q* proxy and thermal coefficients require measurement and calibration"
+    ],
+    "status_original_h3": "DEMO_ASSUMED_MECHANISMS_NOT_REAL_Q"
+  },
+  "ic_demo_percent": 60.25,
+  "scientific_ic_percent": null,
+  "science_status": "EXPERIMENTAL_NOT_CALIBRATED",
+  "validated_Q_effects": 0,
+  "real_rice_trials": 0,
+  "model_provenance": {
+    "H3": "original step14",
+    "H4": "H4A+H4B",
+    "calibration_dataset": null
+  },
+  "message": "An IC_DEMO is a synthetic Q* fraction, NOT a calibrated probability of cooking success",
+  "step18_resource_constraints": {
+    "schema": "riz112/step18/resource-feasibility/v1",
+    "case_ids": [
+      "001",
+      "002",
+      "005",
+      "008",
+      "035",
+      "054"
+    ],
+    "diagnostics": {
+      "cooking_water_inventory": {
+        "status": "COMPUTED_PLAN_FEASIBILITY",
+        "margin_ml": 50.0,
+        "details": {
+          "stock_ml": 350.0,
+          "planned_water_ml": 300.0,
+          "feasible_by_volume": true
+        },
+        "is_quality_effect": false,
+        "scientific_ic_percent": null
+      },
+      "rinse_water_inventory": {
+        "status": "COMPUTED_PLAN_FEASIBILITY",
+        "margin_ml": 880.0,
+        "details": {
+          "stock_ml": 1000.0,
+          "planned_rinse_ml": 120.0,
+          "feasible_by_volume": true
+        },
+        "is_quality_effect": false,
+        "scientific_ic_percent": null
+      },
+      "pot_initial_load_proxy": {
+        "status": "COMPUTED_INITIAL_LOAD_PROXY_NOT_SAFETY_APPROVAL",
+        "margin_ml": 1200.0,
+        "details": {
+          "pot_capacity_ml": 1700.0,
+          "dry_rice_bulk_volume_ml": 200.0,
+          "planned_liquid_ml": 300.0,
+          "additive_loading_proxy_ml": 500.0,
+          "proxy_margin_nonnegative": true,
+          "limitation": "Dry bulk plus water is a planning proxy; trapped voids, mixing and grain swelling make it nonvalidated for final fill or overflow."
+        },
+        "is_quality_effect": false,
+        "scientific_ic_percent": null
+      }
+    },
+    "assumptions_used": [
+      "rice_bulk_density_g_per_ml",
+      "rinse_volume_planned_ml",
+      "water_density_g_per_ml"
+    ],
+    "scientific_ic_percent": null,
+    "limits": "Only local resource constraints; no evidence of change to the real quality Q, IC_DEMO or physiological food safety."
+  },
+  "step18_counterfactuals": {
+    "002": {
+      "case_id": "002",
+      "status": "COUNTERFACTUAL_EXECUTED",
+      "mechanism": "cooking_water_inventory",
+      "delta_margin_ml": 3.5,
+      "scientific_ic_percent": null
+    },
+    "005": {
+      "case_id": "005",
+      "status": "COUNTERFACTUAL_EXECUTED",
+      "mechanism": "rinse_water_inventory",
+      "delta_margin_ml": 10.0,
+      "scientific_ic_percent": null
+    },
+    "008": {
+      "case_id": "008",
+      "status": "COUNTERFACTUAL_EXECUTED",
+      "mechanism": "pot_initial_load_proxy",
+      "delta_margin_ml": 17.0,
+      "scientific_ic_percent": null
+    }
+  },
+  "effect_promotion_status": "NONE_CALIBRATED__ALL_STEP18_IMPACTS_ON_INTERMEDIATE_DIAGNOSTICS_ONLY",
+  "limitations": [
+    "An IC_DEMO is a synthetic Q* fraction, NOT a calibrated probability of cooking success",
+    "Only local resource constraints; no evidence of change to the real quality Q, IC_DEMO or physiological food safety."
+  ]
+}
