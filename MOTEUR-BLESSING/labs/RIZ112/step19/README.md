@@ -25,3 +25,5 @@ python step19/counterfactual_matrix.py --lab-root . --packet step6/examples/A_co
 ## Continuation
 
 Ne pas mettre une case en « validée causalement » sans mécanisme fondé et essai observé. Prochaine porte : audit des routes physiques encore non chiffrées, statut des actions dans l'anticipation (pas dans les observations), protocole Q>=85 préenregistré et calibration sur véritables cuissons. Le **Cahier mère GitHub reste l'autorité**, avec le registre de contexte et le journal chaîné; aucune capture autonome de messages entre conversations n'est possible sans mécanisme planifié externe.
+
+**Lancement Windows intégré** : `step19/LANCER_RIZ112_STEP19.cmd` génère A/B/C Step16, marges Step18, matrice de routes Step19 et exécute 31 tests Step19. Il quitte avec code différent de zéro en cas d’échec. Ce lanceur n’assimile pas le résultat synthétique à un IC réel.
