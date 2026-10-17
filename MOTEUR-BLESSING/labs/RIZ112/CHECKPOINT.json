@@ -9,8 +9,8 @@
   "mandate": "MANDAT_FINITION_112.md",
   "mandate_active": true,
   "journal": {
-    "events": 62,
-    "head": "4128a2404e468e2c244a4c8b27ea8028c684bee27a0ec61d6e65ea28ff6a3428"
+    "events": 63,
+    "head": "3736d4f3ba26a08391321933d0acbd22c952dbbd0041cea76d14a817b8b8718c"
   },
   "cases": {
     "catalogued": 112,
@@ -63,10 +63,10 @@
     "copy_food_coefficients": false
   },
   "mirrors": {
-    "github": "SYNC_PENDING",
-    "drive": "SYNC_PENDING",
-    "library": "SYNC_PENDING",
-    "windows": "NOT_RUN"
+    "github": "STAGE12_MAIN_FILES_PUBLISHED_AND_READABLE",
+    "drive": "V12_ARCHIVE_418392B_PRIVATE_METADATA_VERIFIED",
+    "library": "V12_ARCHIVE_UPLOAD_SUCCEEDED",
+    "windows": "MBMPC_OFFLINE_NO_V12_WINDOWS_TEST"
   },
   "drive_initial_v8": {
     "id": "11zabEXKov7S34KNtjX-WljTvTjIsOT5u",
@@ -157,5 +157,11 @@
     "material_label_only_effect": "NONE_WITHOUT_THERMAL_LINKAGE",
     "matrix_sports_modified": false,
     "original_V11_preserved": true
+  },
+  "drive_v12_initial": {
+    "id": "1cLtltKz6eifbuEXFp0M57EtWDiPjjcdN",
+    "url": "https://drive.google.com/file/d/1cLtltKz6eifbuEXFp0M57EtWDiPjjcdN/view?usp=drivesdk",
+    "bytes": 418392,
+    "sha256_readback_verified": false
   }
 }
