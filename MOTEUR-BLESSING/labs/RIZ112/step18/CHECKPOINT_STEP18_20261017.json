@@ -1,7 +1,7 @@
 {
   "schema": "riz112/step18/checkpoint/v1",
   "date": "2026-10-17",
-  "status": "STEP18_3_RESOURCE_PATHS_WINDOWS_AND_LINUX_PASS__REAL_Q_IC_NULL",
+  "status": "STEP18_PARTIAL_CAUSAL_ROUTE_RECONCILIATION__RESOURCE_FEASIBILITY_3__CONDITIONAL_IC_DEMO_2__REAL_Q_IC_NULL",
   "status_step16": "PRESERVED_415_TESTS",
   "step17_audit_112": {
     "IC_DEMO_CHANGED_ONLY": 9,
@@ -16,7 +16,7 @@
   },
   "step17_tests_local": 23,
   "step17_tests_windows": 23,
-  "step18_tests_local": 20,
+  "step18_tests_local": 32,
   "step18_tests_windows": 20,
   "total_new_step17_step18_tests_local": 43,
   "rubrics_newly_diagnostic_responsive": [
@@ -40,7 +40,7 @@
   ],
   "integrated_entrypoint": "step18/riz112_with_resources.py",
   "full_rubric_causes_validated": 0,
-  "next": "Continue conditional causal diagnostics; mandatory real-Q measurement protocol remains open; no invented influence.",
+  "next": "Step19: trace, prioritize and repair remaining 30 no-detected-response routes by real pre-T0 mechanisms, not fabricated impact weights; calibrate Q only with actual observations.",
   "windows_resource_tests_pass": 17,
   "windows_integration_tests_pass": 3,
   "windows_expensive_conditional_probe_suite": "NOT_COMPLETED",
@@ -52,5 +52,31 @@
     "source": "step18/PROBE_35_ROUTES_SUMMARY.json",
     "windows_test_suite": "NOT_COMPLETED"
   },
-  "evidence_journal_head": "2286f8743ef477b6245273d2a16290667ecf87c87ec2e25dc1d65736659f62b8"
+  "evidence_journal_head": "2286f8743ef477b6245273d2a16290667ecf87c87ec2e25dc1d65736659f62b8",
+  "step18_resource_tests_windows_confirmed": 17,
+  "step18_conditional_full_suite_windows": "NOT_VALIDATED_TIMEOUT",
+  "rubrics_with_documented_new_intermediate_routes": [
+    "002",
+    "005",
+    "008"
+  ],
+  "rubrics_newly_conditional_IC_DEMO_responsive": [
+    "036",
+    "038"
+  ],
+  "rubrics_remaining_without_detected_downstream_response_in_tested_conditions": 30,
+  "probe_summary": "step18/PROBE_35_ROUTES_SUMMARY.json",
+  "probe_parts": [
+    "step18/PROBE_35_ROUTES_PART_1.jsonl",
+    "step18/PROBE_35_ROUTES_PART_2.jsonl",
+    "step18/PROBE_35_ROUTES_PART_3.jsonl"
+  ],
+  "conditional_test_cases": 3,
+  "conditional_amplitudes": [
+    0.01,
+    0.1,
+    0.25
+  ],
+  "real_Q_ic": null,
+  "remaining_empirical_Q_validation": "OPEN"
 }
