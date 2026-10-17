@@ -1,0 +1,33 @@
+{
+  "schema": "riz112/step20/verified-archive-receipt/v1",
+  "date": "2026-10-17",
+  "archive": "RIZ112_MOTEUR_UNIFIE_STEP20_2026-10-17.zip",
+  "drive_file_id": "1DxEoh2KIjkoimVN-COVr-I_hr7ega-Ue",
+  "drive_url": "https://drive.google.com/file/d/1DxEoh2KIjkoimVN-COVr-I_hr7ega-Ue/view?usp=drivesdk",
+  "bytes": 619078,
+  "files": 258,
+  "sha256_pc": "aad38f6d3b3f1dc3d37524ba3a72d1ba3169fe8389df97bbb5b630279ff38b84",
+  "sha256_drive_independent_download": "aad38f6d3b3f1dc3d37524ba3a72d1ba3169fe8389df97bbb5b630279ff38b84",
+  "zip_crc_check": "PASS",
+  "contents_verified": {
+    "step20_physical_rubrics": 9,
+    "total_rubrics": 112,
+    "quality_targets": 14,
+    "actual_quality_effects_validated": 0,
+    "journal_events_in_archive": 116
+  },
+  "tests": {
+    "h3": 309,
+    "step16": 106,
+    "step17": 23,
+    "step18": 32,
+    "step19": 31,
+    "step20": 45,
+    "local_disjoint_total": 546,
+    "windows_step20_passed": 45,
+    "windows_exact_report_and_register_replay": true,
+    "windows_launcher": "PASS"
+  },
+  "status": "SOFTWARE_PHYSICAL_ENVELOPE_VALIDATED__NO_SCIENTIFIC_Q_IC",
+  "caveat": "Archive freezes journal at E116; post-archive receipt event and metadata are kept on current GitHub. No autonomous chat capture outside invoked sessions."
+}
