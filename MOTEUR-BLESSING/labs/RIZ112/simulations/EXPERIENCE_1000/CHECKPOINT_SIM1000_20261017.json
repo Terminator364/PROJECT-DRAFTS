@@ -36,8 +36,8 @@
   "mother_notebook": "CAHIER_MERE.md",
   "user_context_event": "CTX-0049",
   "assistant_context_event": "CTX-0050",
-  "journal_events": 130,
-  "journal_head": "4b2a73e55dd0825b3f408767c66118aff23125cac0e364f7084afec33c08ed53",
+  "journal_events": 131,
+  "journal_head": "c0e906f69de94619eb575f23fa99d2729f18e3b36317218062bb130451629ea6",
   "external_validation_required_to_claim_scientific_IC": true,
   "main_learnings": [
     "Proxy models can enter a hypothetical 85–100 zone without being empirically calibrated.",
@@ -46,8 +46,20 @@
     "Nonlinear and null sensitivity in some regimes; avoid forcing effect per rubric.",
     "No empirical sports inference from rice physics; transfer methodology only."
   ],
-  "context_rows": 52,
+  "context_rows": 53,
   "integrity_verifier_legacy_E126_E127": "FIXED_AND_REPLAYED_WINDOWS",
   "archive_still_pre_E128": true,
-  "science_note": "No 112 causal effects; all Q* only; transfer methodological patterns, no empirical sports transfer."
+  "science_note": "No 112 causal effects; all Q* only; transfer methodological patterns, no empirical sports transfer.",
+  "latest_cloud_archive": {
+    "url": "https://drive.google.com/file/d/1oCS4PxMJMTGi41erBMx749OMXS9ErT2z/view?usp=drivesdk",
+    "sha256": "b3846464925901c30f5d8d06b4fb4c34b739ce2e748e26a684ef28fab3598ca2",
+    "bytes": 745765,
+    "members": 314,
+    "sha_verified_cloud_against_PC": true,
+    "crc": "PASS",
+    "zip_snapshot_event": "E130",
+    "cloud_receipt_post_snapshot": "E131",
+    "unittests_from_cloud_extraction_passed": 6
+  },
+  "current_simulation_results_1000_reproducible": true
 }
