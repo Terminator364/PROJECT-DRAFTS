@@ -5,7 +5,7 @@ import json
 from pathlib import Path
 
 BASE=Path(__file__).resolve().parent
-OUT=BASE/"outputs"
+OUT=BASE/"outputs" if (BASE/"outputs").exists() else BASE/"reports"
 
 def load(code):
     rows=[]
