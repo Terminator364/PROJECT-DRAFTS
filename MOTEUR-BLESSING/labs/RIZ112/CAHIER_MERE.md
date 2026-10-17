@@ -585,3 +585,26 @@ RIZ112 final backup audit E132: At GitHub main E131 the verified 1000-scenario s
 
 ### Sauvegarde de sécurité des modifications locales — E132
 Les **64 fichiers RIZ112 modifiés/non suivis par GitHub** ont été archivés sans suppression ni intégration forcée. ZIP indépendant : **271 803 octets**, empreinte `5bb1ffa358fbfc586515eb29efeea7e7ff3f437349c87fef91d030ab9f71b66f`, Google Drive `1B2rGSZMKjEru1XEazdX1uhDg2JX9og9H`, CRC PASS, **64 empreintes internes validées** depuis le téléchargement cloud. Ce ZIP n'est pas la source canonique : pour restaurer un de ses fichiers, confronter sa version et son contenu au dépôt GitHub. L'archive canonique de la campagne 1 000 scénarios reste `1oCS4PxMJMTGi41erBMx749OMXS9ErT2z`. Le journal vivant atteint E132, au-delà des deux instantanés ZIP.
+
+
+
+### Archive verbatim CTX-0055 / E133 / 2026-10-17
+**Rôle** USER ; **SHA-256 UTF-8** `9560cc3b00c2b8db71ea64a275419e58c735957209c4e88ed476788b5834b7fb` ; **provenance** CURRENT_USER_CONTINUE_AFTER_E132_CLOUD_VERIFICATION
+
+````text
+Continue 
+````
+
+
+### Archive verbatim CTX-0056 / E134 / 2026-10-17
+**Rôle** ASSISTANT ; **SHA-256 UTF-8** `f47ec8dcb67013f24109e8847e172ee56ab6366ac64db5b13f3121027f9e97f7` ; **provenance** E134_CLOUD_2_ARCHIVES_HASH_CRC_64_FILES_TRANSFER_MATRICE
+
+````text
+RIZ112 E134: independently re-downloaded E130 canonical Drive ZIP 314 files 745765 bytes SHA256 b3846464925901c30f5d8d06b4fb4c34b739ce2e748e26a684ef28fab3598ca2; ZIP CRC pass; extracted chain 52 contexts/130 events valid; six synthetic experiment tests PASS. Independently re-downloaded the separate E131 PC forensic ZIP 271803 bytes SHA256 5bb1ffa358fbfc586515eb29efeea7e7ff3f437349c87fef91d030ab9f71b66f; all 64 internal file SHA256 checks PASS. Live GitHub at E132/CTX-0054 remains canonical; 1000 synthetic scenarios and 18 counterfactuals preserved. Transfer methodological document to MATRICE prematch published; no rice coefficients or Q* scores transferred. Latest remote PC git pull not confirmed in this specific turn due remote process execution refusal; preserve the distinction between cloud-verified and PC-current synchronization. Scientific IC remains null.
+````
+
+## Continuité E134 — réinspection indépendante des deux sauvegardes et contrat de transfert
+
+Deux archives téléchargées depuis Google Drive et recontrôlées dans un environnement distinct : **314 fichiers, 745 765 octets** (canon E130, SHA-256 `b3846464925901c30f5d8d06b4fb4c34b739ce2e748e26a684ef28fab3598ca2`), intégrité CRC PASS, 6 tests du simulateur PASS, chaîne 52 contextes / 130 événements PASS ; archive forensic séparée **64 fichiers locaux** et manifeste, 271 803 octets, SHA-256 `5bb1ffa358fbfc586515eb29efeea7e7ff3f437349c87fef91d030ab9f71b66f`, 64 empreintes internes PASS. Les événements E131 à E134 et leurs reçus sont postérieurs au snapshot E130 : **GitHub reste la source la plus récente**.
+
+Pour l'objectif *MATRICE exclusivement pré-match*, le nouveau `simulations/EXPERIENCE_1000/TRANSFERT_METHODE_MATRICE_PREMATCH.md` expose des portes méthodologiques de gel J-6/J-4/J-3/H-9/H-0, de non-fuite des résultats, d'abstention, de contre-épreuves non linéaires, et de calibration chronologique uniquement sur matches réels. Aucune assimilation du riz ou de son IC fictif aux familles sportives. **Synchronisation GitHub ↔ cloud vérifiée ; synchronisation du Git GitHub vers la copie de travail PC non certifiée dans cette reprise parce que l'exécution distante a été refusée ; préserver les 64 deltas sauvegardés et ne rien écraser.**
