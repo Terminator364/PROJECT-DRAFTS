@@ -1,0 +1,43 @@
+{
+  "schema": "riz112/step22/acquisition-protocol/v1",
+  "status": "DRAFT_NO_REAL_TRIALS",
+  "source_classes": [
+    "SYNTHETIC_REHEARSAL",
+    "REAL_OBSERVATION"
+  ],
+  "freeze_before_T0": true,
+  "predictor_inputs_frozen_before_T0": true,
+  "outcome_labels_after_T0_only": true,
+  "quality_protocol_user_approved": false,
+  "real_observations_registered": 0,
+  "missing_value_policy": "explicit null + NOT_MEASURED; NEVER implicit zero",
+  "measurement_priority": [
+    "101",
+    "102"
+  ],
+  "postT0_target_ids": [
+    "099",
+    "100",
+    "101",
+    "102",
+    "103",
+    "104",
+    "105",
+    "106",
+    "107",
+    "108",
+    "109",
+    "110",
+    "111",
+    "112"
+  ],
+  "identity": "Stable experiment_id and packet sha256 links",
+  "log_mode": "append-only hash chain, one writer; external signature required for tamper resistance",
+  "record_must_include": [
+    "timestamp",
+    "source_identifier",
+    "observer_id",
+    "equipment/procedure version"
+  ],
+  "network_required": false
+}
