@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
-"""Standalone two-league collector: one process, different source cadences.
-One-minute heartbeat, five-minute TheSportsDB updates, five-minute local audits,
-daily OpenFootball. Football-Data remains cached under source restrictions.
+"""Independent historic-first collector: a single worker and evidence pipeline.
+Every five minutes backfills J1-through-present historic matchdays from an approved
+free source; every five minutes performs offline comparisons; daily OpenFootball.
+No live data or prediction engine, finished-match outcomes used only as labels.
 """
 import argparse
 from datetime import datetime, timedelta, timezone
@@ -107,7 +108,7 @@ def build_reports(state):
            "leagues": {}, "providers": {
                "Football-Data": "cached only; repeated network polling disabled",
                "OpenFootball": "daily automated check; public domain",
-               "TheSportsDB": "5-minute free-tier pre-match daily event probe (3 events/day/league max)",
+               "TheSportsDB": "5-minute J1-forward historical eventsday backfill (3 events/day/league free-tier maximum)",
            }}
     ROUNDS.mkdir(parents=True, exist_ok=True)
     for code in ("E0", "I1"):
@@ -178,11 +179,14 @@ def main():
             if (not args.offline and
                 time.time() >= state.get("tdb_pause_until_epoch", 0) and
                 time.time() - state.get("last_five_minute_fetch_epoch", 0) >= FIVE_MINUTE_SOURCE_SECONDS):
-                from five_minute_provider import refresh as refresh_five_minute
+                from historical_provider_backfill import refresh as refresh_historical
                 try:
-                    probed = refresh_five_minute(
-                        state, ROOT / "03_FOURNISSEURS" / "THESPORTSDB_PREMATCH")
-                    log("five_minute_external_collection", **probed["counts"])
+                    probed = refresh_historical(state)
+                    log("five_minute_historical_collection",
+                        total_tasks=probed["date_tasks_total"],
+                        completed=probed["date_tasks_validated"],
+                        remaining=probed["date_tasks_remaining"],
+                        http_requests=probed["this_cycle_http_requests"])
                     state["last_five_minute_error"] = None
                 except Exception as exc:
                     state["last_five_minute_error"] = type(exc).__name__ + ": " + str(exc)[:180]
