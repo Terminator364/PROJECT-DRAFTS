@@ -1,0 +1,44 @@
+{
+  "schema": "riz112/step18/checkpoint/v1",
+  "date": "2026-10-17",
+  "status": "THREE_RESOURCE_INTERMEDIATE_PATHS_CODED__REAL_Q_IC_NULL",
+  "status_step16": "PRESERVED_415_TESTS",
+  "step17_audit_112": {
+    "IC_DEMO_CHANGED_ONLY": 9,
+    "NO_DOWNSTREAM_RESPONSE_IN_IMPLEMENTED_CODE": 35,
+    "UNKNOWN_NO_MEASURED_BASELINE__NO_FAKE_ZERO": 20,
+    "INTERMEDIATE_CHANGED_IC_DEMO_STABLE": 6,
+    "NO_PREDECLARED_VALID_ALTERNATIVE_FOR_CATEGORICAL_INPUT": 1,
+    "COUNTERFACTUAL_REJECTED": 5,
+    "UNKNOWN_PLANNED_ACTION__DO_NOT_INVENT_ACTION": 13,
+    "POLICY_UNDEFINED_OR_UNKNOWN__NO_INVENTED_CORRECTION": 9,
+    "TARGET_IS_A_LABEL_OR_MEASUREMENT_RULE_NOT_PRET0_CAUSAL_INPUT": 14
+  },
+  "step17_tests_local": 23,
+  "step17_tests_windows": 23,
+  "step18_tests_local": 20,
+  "step18_tests_windows": "PENDING",
+  "total_new_step17_step18_tests_local": 43,
+  "rubrics_newly_diagnostic_responsive": [
+    "002",
+    "005",
+    "008"
+  ],
+  "intermediate_deltas_ml": {
+    "002": 3.5,
+    "005": 10.0,
+    "008": 17.0
+  },
+  "new_paths_are_Q_causes": false,
+  "scientific_ic_percent": null,
+  "baseline_ic_demo_percent": 60.25,
+  "real_trials": 0,
+  "assumptions": [
+    "rho_water=1g/ml SYNTHETIC",
+    "bulk_rice=0.8g/ml SYNTHETIC",
+    "rinse_target=120ml SYNTHETIC"
+  ],
+  "integrated_entrypoint": "step18/riz112_with_resources.py",
+  "full_rubric_causes_validated": 0,
+  "next": "Continue conditional causal diagnostics; mandatory real-Q measurement protocol remains open; no invented influence."
+}
