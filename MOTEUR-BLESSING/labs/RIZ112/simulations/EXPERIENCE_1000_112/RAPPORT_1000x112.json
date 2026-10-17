@@ -1,0 +1,1742 @@
+{
+  "schema": "riz112/synthetic1000x112/contract/v1",
+  "simulation": true,
+  "seed": 20261017,
+  "draws_per_scenario": 200,
+  "rows": 1000,
+  "columns_112": [
+    "R001",
+    "R002",
+    "R003",
+    "R004",
+    "R005",
+    "R006",
+    "R007",
+    "R008",
+    "R009",
+    "R010",
+    "R011",
+    "R012",
+    "R013",
+    "R014",
+    "R015",
+    "R016",
+    "R017",
+    "R018",
+    "R019",
+    "R020",
+    "R021",
+    "R022",
+    "R023",
+    "R024",
+    "R025",
+    "R026",
+    "R027",
+    "R028",
+    "R029",
+    "R030",
+    "R031",
+    "R032",
+    "R033",
+    "R034",
+    "R035",
+    "R036",
+    "R037",
+    "R038",
+    "R039",
+    "R040",
+    "R041",
+    "R042",
+    "R043",
+    "R044",
+    "R045",
+    "R046",
+    "R047",
+    "R048",
+    "R049",
+    "R050",
+    "R051",
+    "R052",
+    "R053",
+    "R054",
+    "R055",
+    "R056",
+    "R057",
+    "R058",
+    "R059",
+    "R060",
+    "R061",
+    "R062",
+    "R063",
+    "R064",
+    "R065",
+    "R066",
+    "R067",
+    "R068",
+    "R069",
+    "R070",
+    "R071",
+    "R072",
+    "R073",
+    "R074",
+    "R075",
+    "R076",
+    "R077",
+    "R078",
+    "R079",
+    "R080",
+    "R081",
+    "R082",
+    "R083",
+    "R084",
+    "R085",
+    "R086",
+    "R087",
+    "R088",
+    "R089",
+    "R090",
+    "R091",
+    "R092",
+    "R093",
+    "R094",
+    "R095",
+    "R096",
+    "R097",
+    "R098",
+    "R099",
+    "R100",
+    "R101",
+    "R102",
+    "R103",
+    "R104",
+    "R105",
+    "R106",
+    "R107",
+    "R108",
+    "R109",
+    "R110",
+    "R111",
+    "R112"
+  ],
+  "distinct_preT0_or_derived_columns": 98,
+  "outcome_columns_unobserved": 14,
+  "rubric_state_audit": {
+    "001": {
+      "name": "Masse de riz disponible",
+      "role_group": "case_inputs",
+      "proof": "THEORETICAL_PHYSICAL_INTERMEDIATE_ONLY",
+      "distinct_values": 1000,
+      "examples": [
+        "120.03365908",
+        "120.17254224",
+        "120.31961727",
+        "120.41814079",
+        "120.57517726",
+        "120.71272147"
+      ],
+      "role_is_preT0_or_forecast": true,
+      "enters_IC_proxy_directly": true,
+      "confirmed_effect_on_real_Q": false
+    },
+    "002": {
+      "name": "Eau potable disponible",
+      "role_group": "case_inputs",
+      "proof": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "distinct_values": 1000,
+      "examples": [
+        "129.2584802",
+        "133.132769",
+        "133.8154199",
+        "142.2512048",
+        "142.577159",
+        "144.0031597"
+      ],
+      "role_is_preT0_or_forecast": true,
+      "enters_IC_proxy_directly": false,
+      "confirmed_effect_on_real_Q": false
+    },
+    "003": {
+      "name": "Sel disponible",
+      "role_group": "case_inputs",
+      "proof": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "distinct_values": 1000,
+      "examples": [
+        "0.0231376",
+        "0.0251322",
+        "0.0645607",
+        "0.0673307",
+        "0.0757237",
+        "0.0813539"
+      ],
+      "role_is_preT0_or_forecast": true,
+      "enters_IC_proxy_directly": false,
+      "confirmed_effect_on_real_Q": false
+    },
+    "004": {
+      "name": "Matière grasse éventuelle",
+      "role_group": "case_inputs",
+      "proof": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "distinct_values": 1000,
+      "examples": [
+        "0.0186732",
+        "0.0274513",
+        "0.0421662",
+        "0.056043",
+        "0.0731512",
+        "0.0773213"
+      ],
+      "role_is_preT0_or_forecast": true,
+      "enters_IC_proxy_directly": false,
+      "confirmed_effect_on_real_Q": false
+    },
+    "005": {
+      "name": "Eau de rinçage disponible",
+      "role_group": "case_inputs",
+      "proof": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "distinct_values": 1000,
+      "examples": [
+        "1001.5388542",
+        "1001.5540869",
+        "1002.3086064",
+        "1002.7250545",
+        "1003.6026136",
+        "1006.68366"
+      ],
+      "role_is_preT0_or_forecast": true,
+      "enters_IC_proxy_directly": false,
+      "confirmed_effect_on_real_Q": false
+    },
+    "006": {
+      "name": "Source d’énergie",
+      "role_group": "case_inputs",
+      "proof": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "distinct_values": 3,
+      "examples": [
+        "charcoal",
+        "electricity",
+        "gas"
+      ],
+      "role_is_preT0_or_forecast": true,
+      "enters_IC_proxy_directly": false,
+      "confirmed_effect_on_real_Q": false
+    },
+    "007": {
+      "name": "Fiabilité de la source d’énergie",
+      "role_group": "case_inputs",
+      "proof": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "distinct_values": 1000,
+      "examples": [
+        "0.6503254",
+        "0.6504416",
+        "0.6504837",
+        "0.6506098",
+        "0.6507525",
+        "0.6508396"
+      ],
+      "role_is_preT0_or_forecast": true,
+      "enters_IC_proxy_directly": false,
+      "confirmed_effect_on_real_Q": false
+    },
+    "008": {
+      "name": "Capacité de la casserole",
+      "role_group": "case_inputs",
+      "proof": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "distinct_values": 657,
+      "examples": [
+        "1001.4203699",
+        "1002.4748781",
+        "1003.9628494",
+        "1004.1638919",
+        "1004.2254373",
+        "1008.1662616"
+      ],
+      "role_is_preT0_or_forecast": true,
+      "enters_IC_proxy_directly": false,
+      "confirmed_effect_on_real_Q": false
+    },
+    "009": {
+      "name": "Diamètre de la casserole",
+      "role_group": "case_inputs",
+      "proof": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "distinct_values": 1000,
+      "examples": [
+        "14.0128917",
+        "14.0168218",
+        "14.0195171",
+        "14.0613583",
+        "14.0858335",
+        "14.1278981"
+      ],
+      "role_is_preT0_or_forecast": true,
+      "enters_IC_proxy_directly": false,
+      "confirmed_effect_on_real_Q": false
+    },
+    "010": {
+      "name": "Matériau de la casserole",
+      "role_group": "case_inputs",
+      "proof": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "distinct_values": 3,
+      "examples": [
+        "aluminium",
+        "copper",
+        "steel"
+      ],
+      "role_is_preT0_or_forecast": true,
+      "enters_IC_proxy_directly": false,
+      "confirmed_effect_on_real_Q": false
+    },
+    "011": {
+      "name": "Épaisseur du fond",
+      "role_group": "case_inputs",
+      "proof": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "distinct_values": 1000,
+      "examples": [
+        "1.2001068",
+        "1.2029036",
+        "1.203446",
+        "1.2067246",
+        "1.2169807",
+        "1.2227733"
+      ],
+      "role_is_preT0_or_forecast": true,
+      "enters_IC_proxy_directly": false,
+      "confirmed_effect_on_real_Q": false
+    },
+    "012": {
+      "name": "État du fond",
+      "role_group": "case_inputs",
+      "proof": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "distinct_values": 3,
+      "examples": [
+        "clean_flat",
+        "slightly_warped",
+        "worn"
+      ],
+      "role_is_preT0_or_forecast": true,
+      "enters_IC_proxy_directly": false,
+      "confirmed_effect_on_real_Q": false
+    },
+    "013": {
+      "name": "Présence du couvercle",
+      "role_group": "case_inputs",
+      "proof": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "distinct_values": 2,
+      "examples": [
+        "False",
+        "True"
+      ],
+      "role_is_preT0_or_forecast": true,
+      "enters_IC_proxy_directly": false,
+      "confirmed_effect_on_real_Q": false
+    },
+    "014": {
+      "name": "Ajustement du couvercle",
+      "role_group": "case_inputs",
+      "proof": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "distinct_values": 645,
+      "examples": [
+        "0.65",
+        "0.6503917",
+        "0.6524353",
+        "0.6526323",
+        "0.654922",
+        "0.6561075"
+      ],
+      "role_is_preT0_or_forecast": true,
+      "enters_IC_proxy_directly": true,
+      "confirmed_effect_on_real_Q": false
+    },
+    "015": {
+      "name": "Évacuation de la vapeur",
+      "role_group": "case_inputs",
+      "proof": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "distinct_values": 3,
+      "examples": [
+        "narrow_vent",
+        "unvented",
+        "vented"
+      ],
+      "role_is_preT0_or_forecast": true,
+      "enters_IC_proxy_directly": false,
+      "confirmed_effect_on_real_Q": false
+    },
+    "016": {
+      "name": "Type de foyer",
+      "role_group": "case_inputs",
+      "proof": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "distinct_values": 3,
+      "examples": [
+        "charcoal_stove",
+        "electric_hotplate",
+        "gas_burner"
+      ],
+      "role_is_preT0_or_forecast": true,
+      "enters_IC_proxy_directly": false,
+      "confirmed_effect_on_real_Q": false
+    },
+    "017": {
+      "name": "Réglage de puissance",
+      "role_group": "case_inputs",
+      "proof": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "distinct_values": 2,
+      "examples": [
+        "False",
+        "True"
+      ],
+      "role_is_preT0_or_forecast": true,
+      "enters_IC_proxy_directly": false,
+      "confirmed_effect_on_real_Q": false
+    },
+    "018": {
+      "name": "Répartition de la chaleur",
+      "role_group": "case_inputs",
+      "proof": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "distinct_values": 1000,
+      "examples": [
+        "0.4502591",
+        "0.450373",
+        "0.4505375",
+        "0.4507962",
+        "0.4509116",
+        "0.452642"
+      ],
+      "role_is_preT0_or_forecast": true,
+      "enters_IC_proxy_directly": false,
+      "confirmed_effect_on_real_Q": false
+    },
+    "019": {
+      "name": "Balance",
+      "role_group": "case_inputs",
+      "proof": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "distinct_values": 2,
+      "examples": [
+        "False",
+        "True"
+      ],
+      "role_is_preT0_or_forecast": true,
+      "enters_IC_proxy_directly": false,
+      "confirmed_effect_on_real_Q": false
+    },
+    "020": {
+      "name": "Instrument de mesure de l’eau",
+      "role_group": "case_inputs",
+      "proof": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "distinct_values": 2,
+      "examples": [
+        "False",
+        "True"
+      ],
+      "role_is_preT0_or_forecast": true,
+      "enters_IC_proxy_directly": false,
+      "confirmed_effect_on_real_Q": false
+    },
+    "021": {
+      "name": "Passoire",
+      "role_group": "case_inputs",
+      "proof": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "distinct_values": 2,
+      "examples": [
+        "False",
+        "True"
+      ],
+      "role_is_preT0_or_forecast": true,
+      "enters_IC_proxy_directly": false,
+      "confirmed_effect_on_real_Q": false
+    },
+    "022": {
+      "name": "Ustensile pour remuer",
+      "role_group": "case_inputs",
+      "proof": "PRE_T0_PLAN_RESOURCE_ROUTE_ONLY",
+      "distinct_values": 2,
+      "examples": [
+        "False",
+        "True"
+      ],
+      "role_is_preT0_or_forecast": true,
+      "enters_IC_proxy_directly": false,
+      "confirmed_effect_on_real_Q": false
+    },
+    "023": {
+      "name": "Récipient de service",
+      "role_group": "case_inputs",
+      "proof": "PRE_T0_PLAN_RESOURCE_ROUTE_ONLY",
+      "distinct_values": 2,
+      "examples": [
+        "False",
+        "True"
+      ],
+      "role_is_preT0_or_forecast": true,
+      "enters_IC_proxy_directly": false,
+      "confirmed_effect_on_real_Q": false
+    },
+    "024": {
+      "name": "Variété",
+      "role_group": "case_inputs",
+      "proof": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "distinct_values": 3,
+      "examples": [
+        "long_white_hypothesis",
+        "medium_white_hypothesis",
+        "short_white_hypothesis"
+      ],
+      "role_is_preT0_or_forecast": true,
+      "enters_IC_proxy_directly": false,
+      "confirmed_effect_on_real_Q": false
+    },
+    "025": {
+      "name": "Longueur des grains",
+      "role_group": "case_inputs",
+      "proof": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "distinct_values": 1000,
+      "examples": [
+        "4.5006542",
+        "4.5046487",
+        "4.5072678",
+        "4.5171184",
+        "4.5214866",
+        "4.5236065"
+      ],
+      "role_is_preT0_or_forecast": true,
+      "enters_IC_proxy_directly": false,
+      "confirmed_effect_on_real_Q": false
+    },
+    "026": {
+      "name": "Traitement du riz",
+      "role_group": "case_inputs",
+      "proof": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "distinct_values": 3,
+      "examples": [
+        "parboiled",
+        "polished",
+        "unprocessed"
+      ],
+      "role_is_preT0_or_forecast": true,
+      "enters_IC_proxy_directly": false,
+      "confirmed_effect_on_real_Q": false
+    },
+    "027": {
+      "name": "Lot et provenance",
+      "role_group": "case_inputs",
+      "proof": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "distinct_values": 3,
+      "examples": [
+        "lot_A_synthetic",
+        "lot_B_synthetic",
+        "lot_C_synthetic"
+      ],
+      "role_is_preT0_or_forecast": true,
+      "enters_IC_proxy_directly": false,
+      "confirmed_effect_on_real_Q": false
+    },
+    "028": {
+      "name": "Ancienneté et conservation",
+      "role_group": "case_inputs",
+      "proof": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "distinct_values": 1000,
+      "examples": [
+        "100.8029213",
+        "101.1547607",
+        "102.5619926",
+        "102.5987318",
+        "102.6356622",
+        "102.8435867"
+      ],
+      "role_is_preT0_or_forecast": true,
+      "enters_IC_proxy_directly": false,
+      "confirmed_effect_on_real_Q": false
+    },
+    "029": {
+      "name": "Grains cassés",
+      "role_group": "case_inputs",
+      "proof": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "distinct_values": 1000,
+      "examples": [
+        "0.0002854",
+        "0.0005466",
+        "0.0006302",
+        "0.0011751",
+        "0.0011885",
+        "0.0013669"
+      ],
+      "role_is_preT0_or_forecast": true,
+      "enters_IC_proxy_directly": false,
+      "confirmed_effect_on_real_Q": false
+    },
+    "030": {
+      "name": "Amidon de surface",
+      "role_group": "case_inputs",
+      "proof": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "distinct_values": 1000,
+      "examples": [
+        "0.180133",
+        "0.1808256",
+        "0.1808634",
+        "0.1813315",
+        "0.1817299",
+        "0.1832372"
+      ],
+      "role_is_preT0_or_forecast": true,
+      "enters_IC_proxy_directly": true,
+      "confirmed_effect_on_real_Q": false
+    },
+    "031": {
+      "name": "Impuretés",
+      "role_group": "case_inputs",
+      "proof": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "distinct_values": 1000,
+      "examples": [
+        "0.0001031",
+        "0.0001358",
+        "0.0001651",
+        "0.0002164",
+        "0.0002913",
+        "0.0003051"
+      ],
+      "role_is_preT0_or_forecast": true,
+      "enters_IC_proxy_directly": false,
+      "confirmed_effect_on_real_Q": false
+    },
+    "032": {
+      "name": "Humidité initiale",
+      "role_group": "case_inputs",
+      "proof": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "distinct_values": 999,
+      "examples": [
+        "0.0800628",
+        "0.0802384",
+        "0.0805321",
+        "0.0807703",
+        "0.0808575",
+        "0.0810501"
+      ],
+      "role_is_preT0_or_forecast": true,
+      "enters_IC_proxy_directly": false,
+      "confirmed_effect_on_real_Q": false
+    },
+    "033": {
+      "name": "Capacité et vitesse d’absorption",
+      "role_group": "case_inputs",
+      "proof": "THEORETICAL_PHYSICAL_INTERMEDIATE_ONLY",
+      "distinct_values": 1000,
+      "examples": [
+        "1.0001305",
+        "1.00115246",
+        "1.00242874",
+        "1.00349819",
+        "1.00405266",
+        "1.00452966"
+      ],
+      "role_is_preT0_or_forecast": true,
+      "enters_IC_proxy_directly": true,
+      "confirmed_effect_on_real_Q": false
+    },
+    "034": {
+      "name": "Comportement à la gélatinisation",
+      "role_group": "case_inputs",
+      "proof": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "distinct_values": 1000,
+      "examples": [
+        "10.0070847",
+        "10.0361592",
+        "10.0414828",
+        "10.1012626",
+        "10.1098474",
+        "10.1121978"
+      ],
+      "role_is_preT0_or_forecast": true,
+      "enters_IC_proxy_directly": true,
+      "confirmed_effect_on_real_Q": false
+    },
+    "035": {
+      "name": "Eau ajoutée",
+      "role_group": "case_inputs",
+      "proof": "THEORETICAL_PHYSICAL_INTERMEDIATE_ONLY",
+      "distinct_values": 1000,
+      "examples": [
+        "160.20190122",
+        "160.30747164",
+        "160.69278741",
+        "161.02244391",
+        "161.35843642",
+        "161.42717069"
+      ],
+      "role_is_preT0_or_forecast": true,
+      "enters_IC_proxy_directly": true,
+      "confirmed_effect_on_real_Q": false
+    },
+    "036": {
+      "name": "Eau résiduelle après rinçage",
+      "role_group": "case_inputs",
+      "proof": "THEORETICAL_PHYSICAL_INTERMEDIATE_ONLY",
+      "distinct_values": 1000,
+      "examples": [
+        "0.01413611",
+        "0.0478406",
+        "0.05614646",
+        "0.0814423",
+        "0.11255739",
+        "0.13611329"
+      ],
+      "role_is_preT0_or_forecast": true,
+      "enters_IC_proxy_directly": true,
+      "confirmed_effect_on_real_Q": false
+    },
+    "037": {
+      "name": "Température initiale de l’eau",
+      "role_group": "case_inputs",
+      "proof": "THEORETICAL_PHYSICAL_INTERMEDIATE_ONLY",
+      "distinct_values": 1000,
+      "examples": [
+        "12.01522415",
+        "12.04330716",
+        "12.07001598",
+        "12.10174974",
+        "12.11297676",
+        "12.14824667"
+      ],
+      "role_is_preT0_or_forecast": true,
+      "enters_IC_proxy_directly": true,
+      "confirmed_effect_on_real_Q": false
+    },
+    "038": {
+      "name": "Température initiale du riz",
+      "role_group": "case_inputs",
+      "proof": "THEORETICAL_PHYSICAL_INTERMEDIATE_ONLY",
+      "distinct_values": 1000,
+      "examples": [
+        "12.02203753",
+        "12.03708983",
+        "12.07245973",
+        "12.09316579",
+        "12.1207756",
+        "12.13742455"
+      ],
+      "role_is_preT0_or_forecast": true,
+      "enters_IC_proxy_directly": true,
+      "confirmed_effect_on_real_Q": false
+    },
+    "039": {
+      "name": "Température ambiante",
+      "role_group": "case_inputs",
+      "proof": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "distinct_values": 1000,
+      "examples": [
+        "15.0098844",
+        "15.0171876",
+        "15.0248123",
+        "15.0557723",
+        "15.0625269",
+        "15.067285"
+      ],
+      "role_is_preT0_or_forecast": true,
+      "enters_IC_proxy_directly": false,
+      "confirmed_effect_on_real_Q": false
+    },
+    "040": {
+      "name": "Altitude et pression",
+      "role_group": "case_inputs",
+      "proof": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "distinct_values": 1000,
+      "examples": [
+        "1004.0468978",
+        "1006.2614756",
+        "1007.8789524",
+        "101.6556013",
+        "1010.6666969",
+        "1011.6295602"
+      ],
+      "role_is_preT0_or_forecast": true,
+      "enters_IC_proxy_directly": false,
+      "confirmed_effect_on_real_Q": false
+    },
+    "041": {
+      "name": "Puissance choisie",
+      "role_group": "case_inputs",
+      "proof": "THEORETICAL_PHYSICAL_INTERMEDIATE_ONLY",
+      "distinct_values": 1000,
+      "examples": [
+        "280.18739685",
+        "280.66025171",
+        "281.45750054",
+        "282.29048143",
+        "282.58457959",
+        "283.22244902"
+      ],
+      "role_is_preT0_or_forecast": true,
+      "enters_IC_proxy_directly": true,
+      "confirmed_effect_on_real_Q": false
+    },
+    "042": {
+      "name": "Transfert thermique",
+      "role_group": "case_inputs",
+      "proof": "THEORETICAL_PHYSICAL_INTERMEDIATE_ONLY",
+      "distinct_values": 1000,
+      "examples": [
+        "0.3504513",
+        "0.35053625",
+        "0.35096403",
+        "0.3517393",
+        "0.35212949",
+        "0.35246281"
+      ],
+      "role_is_preT0_or_forecast": true,
+      "enters_IC_proxy_directly": true,
+      "confirmed_effect_on_real_Q": false
+    },
+    "043": {
+      "name": "Moment d’ébullition",
+      "role_group": "derived",
+      "proof": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "distinct_values": 1000,
+      "examples": [
+        "1.641055",
+        "1.745223",
+        "1.983647",
+        "10.084372",
+        "10.086606",
+        "10.093681"
+      ],
+      "role_is_preT0_or_forecast": true,
+      "enters_IC_proxy_directly": false,
+      "confirmed_effect_on_real_Q": false
+    },
+    "044": {
+      "name": "Stabilité du frémissement",
+      "role_group": "derived",
+      "proof": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "distinct_values": 332,
+      "examples": [
+        "0.0",
+        "0.007042",
+        "0.008682",
+        "0.015182",
+        "0.043023",
+        "0.129932"
+      ],
+      "role_is_preT0_or_forecast": true,
+      "enters_IC_proxy_directly": false,
+      "confirmed_effect_on_real_Q": false
+    },
+    "045": {
+      "name": "Évaporation estimée",
+      "role_group": "case_inputs",
+      "proof": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "distinct_values": 1000,
+      "examples": [
+        "1.5021545",
+        "1.5210832",
+        "1.5298617",
+        "1.534779",
+        "1.5351292",
+        "1.5449013"
+      ],
+      "role_is_preT0_or_forecast": true,
+      "enters_IC_proxy_directly": true,
+      "confirmed_effect_on_real_Q": false
+    },
+    "046": {
+      "name": "Fuites de vapeur",
+      "role_group": "derived",
+      "proof": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "distinct_values": 990,
+      "examples": [
+        "0.0",
+        "0.121756",
+        "0.618142",
+        "0.934183",
+        "1.150222",
+        "10.126605"
+      ],
+      "role_is_preT0_or_forecast": true,
+      "enters_IC_proxy_directly": false,
+      "confirmed_effect_on_real_Q": false
+    },
+    "047": {
+      "name": "Durée de cuisson envisagée",
+      "role_group": "case_inputs",
+      "proof": "THEORETICAL_PHYSICAL_INTERMEDIATE_ONLY",
+      "distinct_values": 1000,
+      "examples": [
+        "12.01933514",
+        "12.03102708",
+        "12.06113332",
+        "12.10307129",
+        "12.11246237",
+        "12.13760223"
+      ],
+      "role_is_preT0_or_forecast": true,
+      "enters_IC_proxy_directly": true,
+      "confirmed_effect_on_real_Q": false
+    },
+    "048": {
+      "name": "Bilan hydrique prévisionnel",
+      "role_group": "derived",
+      "proof": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "distinct_values": 1000,
+      "examples": [
+        "-0.51232",
+        "-0.850916",
+        "-1.289034",
+        "-1.838102",
+        "-10.121661",
+        "-10.165587"
+      ],
+      "role_is_preT0_or_forecast": true,
+      "enters_IC_proxy_directly": false,
+      "confirmed_effect_on_real_Q": false
+    },
+    "049": {
+      "name": "Vérifier les portions",
+      "role_group": "action_plans",
+      "proof": "PRE_T0_PLAN_RESOURCE_ROUTE_ONLY",
+      "distinct_values": 2,
+      "examples": [
+        "NOT_PLANNED",
+        "PLANNED"
+      ],
+      "role_is_preT0_or_forecast": true,
+      "enters_IC_proxy_directly": false,
+      "confirmed_effect_on_real_Q": false
+    },
+    "050": {
+      "name": "Peser le riz",
+      "role_group": "action_plans",
+      "proof": "PRE_T0_PLAN_RESOURCE_ROUTE_ONLY",
+      "distinct_values": 2,
+      "examples": [
+        "NOT_PLANNED",
+        "PLANNED"
+      ],
+      "role_is_preT0_or_forecast": true,
+      "enters_IC_proxy_directly": false,
+      "confirmed_effect_on_real_Q": false
+    },
+    "051": {
+      "name": "Trier et inspecter",
+      "role_group": "action_plans",
+      "proof": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "distinct_values": 2,
+      "examples": [
+        "NOT_PLANNED",
+        "PLANNED"
+      ],
+      "role_is_preT0_or_forecast": true,
+      "enters_IC_proxy_directly": false,
+      "confirmed_effect_on_real_Q": false
+    },
+    "052": {
+      "name": "Choisir la méthode",
+      "role_group": "action_plans",
+      "proof": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "distinct_values": 2,
+      "examples": [
+        "NOT_PLANNED",
+        "PLANNED"
+      ],
+      "role_is_preT0_or_forecast": true,
+      "enters_IC_proxy_directly": false,
+      "confirmed_effect_on_real_Q": false
+    },
+    "053": {
+      "name": "Préparer le dosage initial",
+      "role_group": "action_plans",
+      "proof": "PRE_T0_PLAN_RESOURCE_ROUTE_ONLY",
+      "distinct_values": 2,
+      "examples": [
+        "NOT_PLANNED",
+        "PLANNED"
+      ],
+      "role_is_preT0_or_forecast": true,
+      "enters_IC_proxy_directly": false,
+      "confirmed_effect_on_real_Q": false
+    },
+    "054": {
+      "name": "Décider du rinçage",
+      "role_group": "action_plans",
+      "proof": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "distinct_values": 2,
+      "examples": [
+        "NOT_PLANNED",
+        "PLANNED"
+      ],
+      "role_is_preT0_or_forecast": true,
+      "enters_IC_proxy_directly": true,
+      "confirmed_effect_on_real_Q": false
+    },
+    "055": {
+      "name": "Premier rinçage",
+      "role_group": "action_plans",
+      "proof": "PRE_T0_PLAN_RESOURCE_ROUTE_ONLY",
+      "distinct_values": 2,
+      "examples": [
+        "NOT_PLANNED",
+        "PLANNED"
+      ],
+      "role_is_preT0_or_forecast": true,
+      "enters_IC_proxy_directly": false,
+      "confirmed_effect_on_real_Q": false
+    },
+    "056": {
+      "name": "Rinçage complémentaire",
+      "role_group": "action_plans",
+      "proof": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "distinct_values": 2,
+      "examples": [
+        "NOT_PLANNED",
+        "PLANNED"
+      ],
+      "role_is_preT0_or_forecast": true,
+      "enters_IC_proxy_directly": false,
+      "confirmed_effect_on_real_Q": false
+    },
+    "057": {
+      "name": "Égouttage",
+      "role_group": "action_plans",
+      "proof": "PRE_T0_PLAN_RESOURCE_ROUTE_ONLY",
+      "distinct_values": 2,
+      "examples": [
+        "NOT_PLANNED",
+        "PLANNED"
+      ],      "role_is_preT0_or_forecast": true,
+      "enters_IC_proxy_directly": false,
+      "confirmed_effect_on_real_Q": false
+    },
+    "058": {
+      "name": "Évaluer l’eau retenue",
+      "role_group": "action_plans",
+      "proof": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "distinct_values": 2,
+      "examples": [
+        "NOT_PLANNED",
+        "PLANNED"
+      ],
+      "role_is_preT0_or_forecast": true,
+      "enters_IC_proxy_directly": false,
+      "confirmed_effect_on_real_Q": false
+    },
+    "059": {
+      "name": "Mettre le riz dans la casserole",
+      "role_group": "action_plans",
+      "proof": "PRE_T0_PLAN_RESOURCE_ROUTE_ONLY",
+      "distinct_values": 2,
+      "examples": [
+        "NOT_PLANNED",
+        "PLANNED"
+      ],
+      "role_is_preT0_or_forecast": true,
+      "enters_IC_proxy_directly": false,
+      "confirmed_effect_on_real_Q": false
+    },
+    "060": {
+      "name": "Ajouter l’eau",
+      "role_group": "action_plans",
+      "proof": "PRE_T0_PLAN_RESOURCE_ROUTE_ONLY",
+      "distinct_values": 2,
+      "examples": [
+        "NOT_PLANNED",
+        "PLANNED"
+      ],
+      "role_is_preT0_or_forecast": true,
+      "enters_IC_proxy_directly": false,
+      "confirmed_effect_on_real_Q": false
+    },
+    "061": {
+      "name": "Ajouter le sel",
+      "role_group": "action_plans",
+      "proof": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "distinct_values": 2,
+      "examples": [
+        "NOT_PLANNED",
+        "PLANNED"
+      ],
+      "role_is_preT0_or_forecast": true,
+      "enters_IC_proxy_directly": false,
+      "confirmed_effect_on_real_Q": false
+    },
+    "062": {
+      "name": "Ajouter la matière grasse",
+      "role_group": "action_plans",
+      "proof": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "distinct_values": 2,
+      "examples": [
+        "NOT_PLANNED",
+        "PLANNED"
+      ],
+      "role_is_preT0_or_forecast": true,
+      "enters_IC_proxy_directly": false,
+      "confirmed_effect_on_real_Q": false
+    },
+    "063": {
+      "name": "Vérifier la capacité",
+      "role_group": "action_plans",
+      "proof": "PRE_T0_PLAN_RESOURCE_ROUTE_ONLY",
+      "distinct_values": 2,
+      "examples": [
+        "NOT_PLANNED",
+        "PLANNED"
+      ],
+      "role_is_preT0_or_forecast": true,
+      "enters_IC_proxy_directly": false,
+      "confirmed_effect_on_real_Q": false
+    },
+    "064": {
+      "name": "Positionner le couvercle",
+      "role_group": "action_plans",
+      "proof": "PRE_T0_PLAN_RESOURCE_ROUTE_ONLY",
+      "distinct_values": 2,
+      "examples": [
+        "NOT_PLANNED",
+        "PLANNED"
+      ],
+      "role_is_preT0_or_forecast": true,
+      "enters_IC_proxy_directly": false,
+      "confirmed_effect_on_real_Q": false
+    },
+    "065": {
+      "name": "Démarrer la chauffe",
+      "role_group": "action_plans",
+      "proof": "PRE_T0_PLAN_RESOURCE_ROUTE_ONLY",
+      "distinct_values": 2,
+      "examples": [
+        "NOT_PLANNED",
+        "PLANNED"
+      ],
+      "role_is_preT0_or_forecast": true,
+      "enters_IC_proxy_directly": false,
+      "confirmed_effect_on_real_Q": false
+    },
+    "066": {
+      "name": "Amener à ébullition",
+      "role_group": "action_plans",
+      "proof": "PRE_T0_PLAN_RESOURCE_ROUTE_ONLY",
+      "distinct_values": 2,
+      "examples": [
+        "NOT_PLANNED",
+        "PLANNED"
+      ],
+      "role_is_preT0_or_forecast": true,
+      "enters_IC_proxy_directly": false,
+      "confirmed_effect_on_real_Q": false
+    },
+    "067": {
+      "name": "Observer mousse et débordement",
+      "role_group": "action_plans",
+      "proof": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "distinct_values": 2,
+      "examples": [
+        "NOT_PLANNED",
+        "PLANNED"
+      ],
+      "role_is_preT0_or_forecast": true,
+      "enters_IC_proxy_directly": false,
+      "confirmed_effect_on_real_Q": false
+    },
+    "068": {
+      "name": "Réduire le feu et couvrir",
+      "role_group": "action_plans",
+      "proof": "PRE_T0_PLAN_RESOURCE_ROUTE_ONLY",
+      "distinct_values": 2,
+      "examples": [
+        "NOT_PLANNED",
+        "PLANNED"
+      ],
+      "role_is_preT0_or_forecast": true,
+      "enters_IC_proxy_directly": false,
+      "confirmed_effect_on_real_Q": false
+    },
+    "069": {
+      "name": "Maintenir le régime thermique",
+      "role_group": "action_plans",
+      "proof": "PRE_T0_PLAN_RESOURCE_ROUTE_ONLY",
+      "distinct_values": 2,
+      "examples": [
+        "NOT_PLANNED",
+        "PLANNED"
+      ],
+      "role_is_preT0_or_forecast": true,
+      "enters_IC_proxy_directly": false,
+      "confirmed_effect_on_real_Q": false
+    },
+    "070": {
+      "name": "Gérer le couvercle",
+      "role_group": "action_plans",
+      "proof": "PRE_T0_PLAN_RESOURCE_ROUTE_ONLY",
+      "distinct_values": 2,
+      "examples": [
+        "NOT_PLANNED",
+        "PLANNED"
+      ],
+      "role_is_preT0_or_forecast": true,
+      "enters_IC_proxy_directly": false,
+      "confirmed_effect_on_real_Q": false
+    },
+    "071": {
+      "name": "Limiter l’agitation",
+      "role_group": "action_plans",
+      "proof": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "distinct_values": 2,
+      "examples": [
+        "NOT_PLANNED",
+        "PLANNED"
+      ],
+      "role_is_preT0_or_forecast": true,
+      "enters_IC_proxy_directly": false,
+      "confirmed_effect_on_real_Q": false
+    },
+    "072": {
+      "name": "Suivre l’hydratation",
+      "role_group": "action_plans",
+      "proof": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "distinct_values": 2,
+      "examples": [
+        "NOT_PLANNED",
+        "PLANNED"
+      ],
+      "role_is_preT0_or_forecast": true,
+      "enters_IC_proxy_directly": false,
+      "confirmed_effect_on_real_Q": false
+    },
+    "073": {
+      "name": "Déterminer la fin de chauffe",
+      "role_group": "action_plans",
+      "proof": "PRE_T0_PLAN_RESOURCE_ROUTE_ONLY",
+      "distinct_values": 2,
+      "examples": [
+        "NOT_PLANNED",
+        "PLANNED"
+      ],
+      "role_is_preT0_or_forecast": true,
+      "enters_IC_proxy_directly": false,
+      "confirmed_effect_on_real_Q": false
+    },
+    "074": {
+      "name": "Couper le feu",
+      "role_group": "action_plans",
+      "proof": "PRE_T0_PLAN_RESOURCE_ROUTE_ONLY",
+      "distinct_values": 2,
+      "examples": [
+        "NOT_PLANNED",
+        "PLANNED"
+      ],
+      "role_is_preT0_or_forecast": true,
+      "enters_IC_proxy_directly": false,
+      "confirmed_effect_on_real_Q": false
+    },
+    "075": {
+      "name": "Commencer le repos",
+      "role_group": "action_plans",
+      "proof": "PRE_T0_PLAN_RESOURCE_ROUTE_ONLY",
+      "distinct_values": 2,
+      "examples": [
+        "NOT_PLANNED",
+        "PLANNED"
+      ],
+      "role_is_preT0_or_forecast": true,
+      "enters_IC_proxy_directly": false,
+      "confirmed_effect_on_real_Q": false
+    },
+    "076": {
+      "name": "Respecter le repos",
+      "role_group": "action_plans",
+      "proof": "PRE_T0_PLAN_RESOURCE_ROUTE_ONLY",
+      "distinct_values": 2,
+      "examples": [
+        "NOT_PLANNED",
+        "PLANNED"
+      ],
+      "role_is_preT0_or_forecast": true,
+      "enters_IC_proxy_directly": false,
+      "confirmed_effect_on_real_Q": false
+    },
+    "077": {
+      "name": "Égrainer",
+      "role_group": "action_plans",
+      "proof": "PRE_T0_PLAN_RESOURCE_ROUTE_ONLY",
+      "distinct_values": 2,
+      "examples": [
+        "NOT_PLANNED",
+        "PLANNED"
+      ],
+      "role_is_preT0_or_forecast": true,
+      "enters_IC_proxy_directly": false,
+      "confirmed_effect_on_real_Q": false
+    },
+    "078": {
+      "name": "Examiner l’humidité finale",
+      "role_group": "action_plans",
+      "proof": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "distinct_values": 2,
+      "examples": [
+        "NOT_PLANNED",
+        "PLANNED"
+      ],
+      "role_is_preT0_or_forecast": true,
+      "enters_IC_proxy_directly": false,
+      "confirmed_effect_on_real_Q": false
+    },
+    "079": {
+      "name": "Décider d’une finition",
+      "role_group": "action_plans",
+      "proof": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "distinct_values": 2,
+      "examples": [
+        "NOT_PLANNED",
+        "PLANNED"
+      ],
+      "role_is_preT0_or_forecast": true,
+      "enters_IC_proxy_directly": false,
+      "confirmed_effect_on_real_Q": false
+    },
+    "080": {
+      "name": "Ouvrir pour servir",
+      "role_group": "action_plans",
+      "proof": "PRE_T0_PLAN_RESOURCE_ROUTE_ONLY",
+      "distinct_values": 2,
+      "examples": [
+        "NOT_PLANNED",
+        "PLANNED"
+      ],
+      "role_is_preT0_or_forecast": true,
+      "enters_IC_proxy_directly": false,
+      "confirmed_effect_on_real_Q": false
+    },
+    "081": {
+      "name": "Transférer le riz",
+      "role_group": "action_plans",
+      "proof": "PRE_T0_PLAN_RESOURCE_ROUTE_ONLY",
+      "distinct_values": 2,
+      "examples": [
+        "NOT_PLANNED",
+        "PLANNED"
+      ],
+      "role_is_preT0_or_forecast": true,
+      "enters_IC_proxy_directly": false,
+      "confirmed_effect_on_real_Q": false
+    },
+    "082": {
+      "name": "Répartir deux portions",
+      "role_group": "action_plans",
+      "proof": "PRE_T0_PLAN_RESOURCE_ROUTE_ONLY",
+      "distinct_values": 2,
+      "examples": [
+        "NOT_PLANNED",
+        "PLANNED"
+      ],
+      "role_is_preT0_or_forecast": true,
+      "enters_IC_proxy_directly": false,
+      "confirmed_effect_on_real_Q": false
+    },
+    "083": {
+      "name": "Contrôler la température de service",
+      "role_group": "action_plans",
+      "proof": "PRE_T0_PLAN_RESOURCE_ROUTE_ONLY",
+      "distinct_values": 2,
+      "examples": [
+        "NOT_PLANNED",
+        "PLANNED"
+      ],
+      "role_is_preT0_or_forecast": true,
+      "enters_IC_proxy_directly": false,
+      "confirmed_effect_on_real_Q": false
+    },
+    "084": {
+      "name": "Limiter le délai",
+      "role_group": "action_plans",
+      "proof": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "distinct_values": 2,
+      "examples": [
+        "NOT_PLANNED",
+        "PLANNED"
+      ],
+      "role_is_preT0_or_forecast": true,
+      "enters_IC_proxy_directly": false,
+      "confirmed_effect_on_real_Q": false
+    },
+    "085": {
+      "name": "Présenter le résultat",
+      "role_group": "action_plans",
+      "proof": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "distinct_values": 2,
+      "examples": [
+        "NOT_PLANNED",
+        "PLANNED"
+      ],
+      "role_is_preT0_or_forecast": true,
+      "enters_IC_proxy_directly": false,
+      "confirmed_effect_on_real_Q": false
+    },
+    "086": {
+      "name": "Excès d’eau",
+      "role_group": "correction_policies",
+      "proof": "PRE_T0_PLAN_RESOURCE_ROUTE_ONLY",
+      "distinct_values": 2,
+      "examples": [
+        "DEFINED",
+        "UNDEFINED"
+      ],
+      "role_is_preT0_or_forecast": true,
+      "enters_IC_proxy_directly": false,
+      "confirmed_effect_on_real_Q": false
+    },
+    "087": {
+      "name": "Manque d’eau",
+      "role_group": "correction_policies",
+      "proof": "PRE_T0_PLAN_RESOURCE_ROUTE_ONLY",
+      "distinct_values": 2,
+      "examples": [
+        "DEFINED",
+        "UNDEFINED"
+      ],
+      "role_is_preT0_or_forecast": true,
+      "enters_IC_proxy_directly": false,
+      "confirmed_effect_on_real_Q": false
+    },
+    "088": {
+      "name": "Chaleur excessive",
+      "role_group": "correction_policies",
+      "proof": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "distinct_values": 2,
+      "examples": [
+        "DEFINED",
+        "UNDEFINED"
+      ],
+      "role_is_preT0_or_forecast": true,
+      "enters_IC_proxy_directly": false,
+      "confirmed_effect_on_real_Q": false
+    },
+    "089": {
+      "name": "Chaleur insuffisante",
+      "role_group": "correction_policies",
+      "proof": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "distinct_values": 2,
+      "examples": [
+        "DEFINED",
+        "UNDEFINED"
+      ],
+      "role_is_preT0_or_forecast": true,
+      "enters_IC_proxy_directly": false,
+      "confirmed_effect_on_real_Q": false
+    },
+    "090": {
+      "name": "Couvercle inadapté",
+      "role_group": "correction_policies",
+      "proof": "PRE_T0_PLAN_RESOURCE_ROUTE_ONLY",
+      "distinct_values": 2,
+      "examples": [
+        "DEFINED",
+        "UNDEFINED"
+      ],
+      "role_is_preT0_or_forecast": true,
+      "enters_IC_proxy_directly": false,
+      "confirmed_effect_on_real_Q": false
+    },
+    "091": {
+      "name": "Évaporation excessive",
+      "role_group": "correction_policies",
+      "proof": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "distinct_values": 2,
+      "examples": [
+        "DEFINED",
+        "UNDEFINED"
+      ],
+      "role_is_preT0_or_forecast": true,
+      "enters_IC_proxy_directly": false,
+      "confirmed_effect_on_real_Q": false
+    },
+    "092": {
+      "name": "Frémissement instable",
+      "role_group": "correction_policies",
+      "proof": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "distinct_values": 2,
+      "examples": [
+        "DEFINED",
+        "UNDEFINED"
+      ],
+      "role_is_preT0_or_forecast": true,
+      "enters_IC_proxy_directly": false,
+      "confirmed_effect_on_real_Q": false
+    },
+    "093": {
+      "name": "Débordement",
+      "role_group": "correction_policies",
+      "proof": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "distinct_values": 2,
+      "examples": [
+        "DEFINED",
+        "UNDEFINED"
+      ],
+      "role_is_preT0_or_forecast": true,
+      "enters_IC_proxy_directly": false,
+      "confirmed_effect_on_real_Q": false
+    },
+    "094": {
+      "name": "Riz attaché ou brûlé",
+      "role_group": "correction_policies",
+      "proof": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "distinct_values": 2,
+      "examples": [
+        "DEFINED",
+        "UNDEFINED"
+      ],
+      "role_is_preT0_or_forecast": true,
+      "enters_IC_proxy_directly": false,
+      "confirmed_effect_on_real_Q": false
+    },
+    "095": {
+      "name": "Grains agglutinés",
+      "role_group": "correction_policies",
+      "proof": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "distinct_values": 2,
+      "examples": [
+        "DEFINED",
+        "UNDEFINED"
+      ],
+      "role_is_preT0_or_forecast": true,
+      "enters_IC_proxy_directly": false,
+      "confirmed_effect_on_real_Q": false
+    },
+    "096": {
+      "name": "Grains trop fermes",
+      "role_group": "correction_policies",
+      "proof": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "distinct_values": 2,
+      "examples": [
+        "DEFINED",
+        "UNDEFINED"
+      ],
+      "role_is_preT0_or_forecast": true,
+      "enters_IC_proxy_directly": false,
+      "confirmed_effect_on_real_Q": false
+    },
+    "097": {
+      "name": "Riz pâteux",
+      "role_group": "correction_policies",
+      "proof": "NOT_PROVEN_PHYSICAL_Q_EFFECT",
+      "distinct_values": 2,
+      "examples": [
+        "DEFINED",
+        "UNDEFINED"
+      ],
+      "role_is_preT0_or_forecast": true,
+      "enters_IC_proxy_directly": false,
+      "confirmed_effect_on_real_Q": false
+    },
+    "098": {
+      "name": "Situation non récupérable",
+      "role_group": "correction_policies",
+      "proof": "PRE_T0_PLAN_RESOURCE_ROUTE_ONLY",
+      "distinct_values": 2,
+      "examples": [
+        "DEFINED",
+        "UNDEFINED"
+      ],
+      "role_is_preT0_or_forecast": true,
+      "enters_IC_proxy_directly": false,
+      "confirmed_effect_on_real_Q": false
+    },
+    "099": {
+      "name": "Salubrité et sécurité alimentaire",
+      "role_group": "target_contract",
+      "proof": "POST_T0_TARGET_ONLY",
+      "distinct_values": 1,
+      "examples": [
+        "NOT_OBSERVED_POST_T0"
+      ],
+      "role_is_preT0_or_forecast": false,
+      "enters_IC_proxy_directly": false,
+      "confirmed_effect_on_real_Q": false
+    },
+    "100": {
+      "name": "Quantité effective",
+      "role_group": "target_contract",
+      "proof": "POST_T0_TARGET_ONLY",
+      "distinct_values": 1,
+      "examples": [
+        "NOT_OBSERVED_POST_T0"
+      ],
+      "role_is_preT0_or_forecast": false,
+      "enters_IC_proxy_directly": false,
+      "confirmed_effect_on_real_Q": false
+    },
+    "101": {
+      "name": "Tendreté",
+      "role_group": "target_contract",
+      "proof": "POST_T0_TARGET_ONLY",
+      "distinct_values": 1,
+      "examples": [
+        "NOT_OBSERVED_POST_T0"
+      ],
+      "role_is_preT0_or_forecast": false,
+      "enters_IC_proxy_directly": false,
+      "confirmed_effect_on_real_Q": false
+    },
+    "102": {
+      "name": "Séparation des grains",
+      "role_group": "target_contract",
+      "proof": "POST_T0_TARGET_ONLY",
+      "distinct_values": 1,
+      "examples": [
+        "NOT_OBSERVED_POST_T0"
+      ],
+      "role_is_preT0_or_forecast": false,
+      "enters_IC_proxy_directly": false,
+      "confirmed_effect_on_real_Q": false
+    },
+    "103": {
+      "name": "Homogénéité",
+      "role_group": "target_contract",
+      "proof": "POST_T0_TARGET_ONLY",
+      "distinct_values": 1,
+      "examples": [
+        "NOT_OBSERVED_POST_T0"
+      ],
+      "role_is_preT0_or_forecast": false,
+      "enters_IC_proxy_directly": false,
+      "confirmed_effect_on_real_Q": false
+    },
+    "104": {
+      "name": "Intégrité des grains",
+      "role_group": "target_contract",
+      "proof": "POST_T0_TARGET_ONLY",
+      "distinct_values": 1,
+      "examples": [
+        "NOT_OBSERVED_POST_T0"
+      ],
+      "role_is_preT0_or_forecast": false,
+      "enters_IC_proxy_directly": false,
+      "confirmed_effect_on_real_Q": false
+    },
+    "105": {
+      "name": "Absence d’eau libre excessive",
+      "role_group": "target_contract",
+      "proof": "POST_T0_TARGET_ONLY",
+      "distinct_values": 1,
+      "examples": [
+        "NOT_OBSERVED_POST_T0"
+      ],
+      "role_is_preT0_or_forecast": false,
+      "enters_IC_proxy_directly": false,
+      "confirmed_effect_on_real_Q": false
+    },
+    "106": {
+      "name": "Absence de zones brûlées",
+      "role_group": "target_contract",
+      "proof": "POST_T0_TARGET_ONLY",
+      "distinct_values": 1,
+      "examples": [
+        "NOT_OBSERVED_POST_T0"
+      ],
+      "role_is_preT0_or_forecast": false,
+      "enters_IC_proxy_directly": false,
+      "confirmed_effect_on_real_Q": false
+    },
+    "107": {
+      "name": "Température de service",
+      "role_group": "target_contract",
+      "proof": "POST_T0_TARGET_ONLY",
+      "distinct_values": 1,
+      "examples": [
+        "NOT_OBSERVED_POST_T0"
+      ],
+      "role_is_preT0_or_forecast": false,
+      "enters_IC_proxy_directly": false,
+      "confirmed_effect_on_real_Q": false
+    },
+    "108": {
+      "name": "Goût",
+      "role_group": "target_contract",
+      "proof": "POST_T0_TARGET_ONLY",
+      "distinct_values": 1,
+      "examples": [
+        "NOT_OBSERVED_POST_T0"
+      ],
+      "role_is_preT0_or_forecast": false,
+      "enters_IC_proxy_directly": false,
+      "confirmed_effect_on_real_Q": false
+    },
+    "109": {
+      "name": "Arôme",
+      "role_group": "target_contract",
+      "proof": "POST_T0_TARGET_ONLY",
+      "distinct_values": 1,
+      "examples": [
+        "NOT_OBSERVED_POST_T0"
+      ],
+      "role_is_preT0_or_forecast": false,
+      "enters_IC_proxy_directly": false,
+      "confirmed_effect_on_real_Q": false
+    },
+    "110": {
+      "name": "Aspect visuel",
+      "role_group": "target_contract",
+      "proof": "POST_T0_TARGET_ONLY",
+      "distinct_values": 1,
+      "examples": [
+        "NOT_OBSERVED_POST_T0"
+      ],
+      "role_is_preT0_or_forecast": false,
+      "enters_IC_proxy_directly": false,
+      "confirmed_effect_on_real_Q": false
+    },
+    "111": {
+      "name": "Maintien de la qualité",
+      "role_group": "target_contract",
+      "proof": "POST_T0_TARGET_ONLY",
+      "distinct_values": 1,
+      "examples": [
+        "NOT_OBSERVED_POST_T0"
+      ],
+      "role_is_preT0_or_forecast": false,
+      "enters_IC_proxy_directly": false,
+      "confirmed_effect_on_real_Q": false
+    },
+    "112": {
+      "name": "Évaluation globale et décision",
+      "role_group": "target_contract",
+      "proof": "POST_T0_TARGET_ONLY",
+      "distinct_values": 1,
+      "examples": [
+        "NOT_OBSERVED_POST_T0"
+      ],
+      "role_is_preT0_or_forecast": false,
+      "enters_IC_proxy_directly": false,
+      "confirmed_effect_on_real_Q": false
+    }
+  },
+  "IC_exploratoire": {
+    "all_1000_have_numeric_score": true,
+    "min": 0.0,
+    "max": 94.0,
+    "median": 0.0,
+    "count_ge_85": 12,
+    "count_gt_0": 388
+  },
+  "H3_original": {
+    "evaluated": 690,
+    "abstained": 310,
+    "max": 91.5,
+    "count_ge_85": 20
+  },
+  "provenance": {
+    "baseline_csv": "simulations/EXPERIENCE_1000/results/SCENARIOS_1000_SYNTHETIQUES.csv",
+    "old_H3_engine": "step14/anticipatory_physics_h3.py",
+    "new_proxy": "step9/ic_simulation_v1.py original proxy_scores+sample_packet+reference step4 physical_analyze",
+    "original_seed": 20261017
+  },
+  "disclaimer": "IC_EXPLORATOIRE_PROXY_PCT is an assumed Q* threshold crossing Monte Carlo percentage, not actual success probability. For 310 H3 abstained the original H3 remains null. No 112 independent causal effects. 14 targets not observed. Some pre-T0 options only descriptive and have zero declared direct effect in Q*.",
+  "csv_sha256": "db046c7bfad437ee4b8bc78dfa78af3acb60848cd2829185756e6329981b1a63",
+  "supplemental_preT0_screening": {
+    "status": "illustrative_independent_filter_not_quality_score",
+    "counts": {
+      "ALL_SCREENED": 303,
+      "WATER_STOCK_OK": 763,
+      "VESSEL_OK": 1000,
+      "HEATING_PLAN_OK": 569,
+      "ORIGINAL_PHYSICS_FAVORABLE": 664
+    },
+    "source": "AUDIT_PRET0_1000.csv",
+    "constraints": "water stock g≈ml assumed; pot 20% headroom; heating plan predeclared; original Step20 physics. Declared statuses may not be realized."
+  },
+  "dictionary_csv_sha256": "8a2d8a397ea5e3e934da7607a59856512e9f7e565bff139bf726d113d49002d8",
+  "screening_csv_sha256": "75a4b80413df7f5bc11e7784d12af5e0bb9980eefb0244dda0a99aa9bd1c8bcd"
+}
