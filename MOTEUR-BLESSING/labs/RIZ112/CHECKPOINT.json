@@ -23,7 +23,7 @@
     "context_master": "CONTEXTE_CONVERSATIONS.md",
     "context_protocol": "PROTOCOLE_CONTINUITE_CONTEXTUELLE.md",
     "context_registry": "CONTEXTE_INTEGRAL/REGISTRE_MESSAGES.jsonl",
-    "context_rows": 50,
+    "context_rows": 52,
     "context_update_rule": "ACTIVE_SESSION_EVERY_RELEVANT_EXCHANGE_AND_CHECKPOINT__NO_BACKGROUND",
     "coverage": "SOME_VERBATIM_EXCERPTS_AND_FLAGGED_RECONSTRUCTIONS_NOT_FULL_RAW_ARCHIVE",
     "drive_current_doc": "https://docs.google.com/document/d/13gOTBq7AXnT-f9Lotlw4czwa4i75C4UGdP0i1i0qwZE/edit",
@@ -32,12 +32,12 @@
     "github_status": "VERIFIED_CRITICAL_9_OF_9_BEFORE_FINAL_RECEIPT",
     "initial_source_archive_drive": "https://drive.google.com/file/d/1rFq9GiwbRvb-Hk33JayacttjBOUdAabf/view?usp=drivesdk",
     "initial_source_archive_sha256": "15182d217e42c2985cb4652ac5c2ee9f6afe6afca55ec148b3c803e52b14ede8",
-    "journal_events": 128,
-    "journal_head": "ab3906b513cd3baa356d93904874d6c4672f767bfc85eae7becc5716147096be",
+    "journal_events": 130,
+    "journal_head": "4b2a73e55dd0825b3f408767c66118aff23125cac0e364f7084afec33c08ed53",
     "lab_code": "Moteur/continue",
     "latest_context_ids": [
-      "CTX-0047",
-      "CTX-0048"
+      "CTX-0051",
+      "CTX-0052"
     ],
     "legacy_codes_active": false,
     "library_status": "SOURCE_ARCHIVE_CONFIRMED",
@@ -74,8 +74,8 @@
   },
   "full_packet_replay": "step12/POPULATION_100_COMPLETE_PACKET.jsonl",
   "journal": {
-    "events": 128,
-    "head": "ab3906b513cd3baa356d93904874d6c4672f767bfc85eae7becc5716147096be"
+    "events": 130,
+    "head": "4b2a73e55dd0825b3f408767c66118aff23125cac0e364f7084afec33c08ed53"
   },
   "last_user_directive": "D034_CANONICAL_SINGLE_CODE_AUTO_RESUME_AND_CONTINUOUS_CONTEXT",
   "latest_case_audit": "step12/COUNTERFACTUAL_112_V12.json",
@@ -544,5 +544,11 @@
       "CSV_rows": 1000,
       "archived_journal_E127": true
     }
+  },
+  "simulation1000_continuity_sync": {
+    "event": "E130",
+    "rows": 1000,
+    "cloud_original_archive_sha256": "e2251d33182c9bcab167267684b8a6d4a2b5434db98c7e6ab967a01b37be7a93",
+    "patched_legacy_trace_verifier": true
   }
 }
