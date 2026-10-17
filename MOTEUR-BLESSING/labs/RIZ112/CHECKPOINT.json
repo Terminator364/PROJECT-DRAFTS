@@ -116,7 +116,7 @@
       "054"
     ]
   },
-  "next": "STEP19_RECONCILE_REMAINING_CONDITIONAL_MECHANISMS",
+  "next": "STEP19_RESOLVE_REMAINING_30_UNVERIFIED_ROUTES",
   "probabilities_demo_percent": {
     "A": 62.4,
     "B": 36.83,
@@ -213,7 +213,7 @@
     "tests_total": 309,
     "validated_effects": 0
   },
-  "status": "STEP18_3_NEW_FEASIBILITY_PATHS_VALIDATED_WINDOWS_20_LINUX_20__NOT_REAL_Q",
+  "status": "STEP18_PARTIAL_CAUSAL_ROUTE_RECONCILIATION__30_UNPROVEN__Q_IC_NULL",
   "step10": {
     "abstentions_original": 5,
     "derived_not_directly_mutable": 4,
@@ -366,27 +366,19 @@
   },
   "step18": {
     "checkpoint": "step18/CHECKPOINT_STEP18_20261017.json",
-    "step17_112_baseline_no_downstream_response": 35,
-    "new_resource_routes_conditional": [
+    "resource_margin_paths": [
       "002",
       "005",
       "008"
     ],
-    "numeric_proxy_margin_deltas_ml": {
-      "002": 3.5,
-      "005": 10,
-      "008": 17
-    },
-    "step18_test_windows_verified": 20,
-    "step18_test_linux_verified": 20,
-    "step17_test_windows_verified": 23,
-    "step16_test_windows_verified": 415,
-    "conditional_probe_found_other_regimes": [
+    "conditional_IC_DEMO_paths": [
       "036",
       "038"
     ],
-    "conditional_probe_33_undetected_in_tested_regimes": true,
-    "conditional_probe_windows_exhaustive": "NOT_COMPLETED",
+    "remaining_no_response_cases_in_tested_scenarios": 30,
+    "local_step18_tests_passed": 32,
+    "windows_resource_tests_passed": 17,
+    "windows_full_conditional_suite": "TIMED_OUT_NOT_VERIFIED",
     "scientific_ic_percent": null
   }
 }
