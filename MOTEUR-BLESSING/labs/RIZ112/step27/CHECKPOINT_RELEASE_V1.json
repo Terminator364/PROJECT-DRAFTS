@@ -2,7 +2,7 @@
   "schema": "riz112/step27/engineering-release-checkpoint/v1",
   "date": "2026-10-17",
   "stage": 27,
-  "status": "SOFTWARE_V1_RELEASE_CANDIDATE__SCIENTIFIC_Q_AND_IC_PENDING_EXTERNAL_VALIDATION",
+  "status": "ENGINEERING_V1_CLOSED_AND_WINDOWS_VERIFIED__SCIENTIFIC_Q_IC_OPEN",
   "satisfies_initial_user_goal_fully": false,
   "milestone": "bounded engineering completion; no more step numbering until new evidence",
   "lab": "RIZ112",
@@ -26,7 +26,7 @@
   },
   "test_results": {
     "step27_local_pass": 21,
-    "step27_windows_pass": null,
+    "step27_windows_pass": 21,
     "historical_suites": {
       "H3": 309,
       "Step16": 106,
@@ -37,7 +37,11 @@
       "Steps21-24": 47,
       "Step25": 36,
       "Step26": 24
-    }
+    },
+    "steps21_27_windows_128_passed": true,
+    "steps21_27_windows_total": 128,
+    "local_step27_passed": 21,
+    "historical_cumulative_separate_suites": 674
   },
   "scientific": {
     "Q_formula_approved": false,
@@ -51,5 +55,10 @@
     "Calibration and independent out-of-sample verification"
   ],
   "timeline": "software can close during this session; empirical calibration requires real cooking sessions, cannot promise calendar duration",
-  "integrity": "No fabricated empirical data, no input/output leakage; technical tests do not prove culinary prediction"
+  "integrity": "No fabricated empirical data, no input/output leakage; technical tests do not prove culinary prediction",
+  "windows_launcher": "PASS_DESKTOP_SHORTCUT_UPDATED",
+  "remote_pc": "MBMPC",
+  "current_journal_event_count": 125,
+  "current_context_entries": 48,
+  "current_journal_head": "b99b0f1d22be95b2f6f8939b97c8b482a35a74a2594e338ebb1a02056cd1e6f1"
 }
