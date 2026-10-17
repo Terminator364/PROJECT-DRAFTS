@@ -30,6 +30,18 @@ def check():
  for row in contexts:
   if row.get('origin')=='USER' and row.get('full_raw_message_available') and not row.get('content'):
    raise ValueError('Malformed full user context')
+  # Enforce traceability for all messages captured via this tool, including
+  # Unicode-exact text, journal citation and mother-notebook inclusion.
+  if 'journal_event_id' in row:
+   cid=row['event_ref'];eid=row['journal_event_id'];raw=row['content']
+   if text_sha(raw)!=row.get('utf8_sha256'):
+    raise ValueError('Context SHA mismatch: '+cid)
+   matches=[e for e in journals if e['id']==eid]
+   if len(matches)!=1 or cid not in matches[0]['summary'] or row['utf8_sha256'] not in matches[0]['summary']:
+    raise ValueError('Missing journal evidence: '+cid)
+   mother_text=MOTHER.read_text(encoding='utf-8')
+   if ('Archive verbatim '+cid+' / '+eid) not in mother_text or row['utf8_sha256'] not in mother_text or ('\n'+raw+'\n') not in mother_text:
+    raise ValueError('Mother notebook capture missing: '+cid)
  return {'context_rows':len(contexts),'journal_events':len(journals),
          'journal_head':journals[-1]['digest'] if journals else 'GENESIS','journal_chain_valid':True}
 
