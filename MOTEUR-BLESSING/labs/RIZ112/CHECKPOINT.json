@@ -389,6 +389,15 @@
     "step19_new_tests_local": 31,
     "total_disjoint_tests_pc_and_local": 501,
     "real_quality_effects_proven": 0,
-    "scientific_ic_percent": null
+    "scientific_ic_percent": null,
+    "archive_receipt": {
+      "file_id": "1CJiFHQBq3FTcraWa3LSzRhGFpJPd84-0",
+      "url": "https://drive.google.com/file/d/1CJiFHQBq3FTcraWa3LSzRhGFpJPd84-0/view?usp=drivesdk",
+      "bytes": 586505,
+      "sha256": "78a1e7cb2661c634568a4233d7e3cbbae1c679175de2a2347e2db28295d2e0ec",
+      "items": 241,
+      "independent_cloud_sha256_match": true,
+      "zip_crc_pass": true
+    }
   }
 }
