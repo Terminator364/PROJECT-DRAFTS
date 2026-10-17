@@ -1,0 +1,33 @@
+{
+  "schema": "riz112/step24/checkpoint/v1",
+  "project": "RIZ112",
+  "step": 24,
+  "status": "PHYSICAL_PAIRWISE_INTERACTION_AUDIT_COMPLETE_Q_UNPROVEN",
+  "new_tests_locally_passed": 13,
+  "scientific_ic_percent": null,
+  "real_rice_trials": 0,
+  "Q_score_formula_user_approved": false,
+  "description": "36 pairwise experiments among 9 physical primitives; no real Q effect asserted",
+  "code_and_test_paths": [
+    "interaction_matrix.py",
+    "test_interaction_matrix.py"
+  ],
+  "commit_state": "NOT_YET_VERIFIED_WINDOWS_AT_CREATION",
+  "critical_note": "A software test pass or modeled physical sensitivity never establishes calibrated food quality.",
+  "nine_tested_physical_rubrics": [
+    "001",
+    "033",
+    "035",
+    "036",
+    "037",
+    "038",
+    "041",
+    "042",
+    "047"
+  ],
+  "unique_tested_pairs": 36,
+  "nonadditive_physical_pairs_case_A": 7,
+  "nonadditivity_absent_at_test_point": 29,
+  "all_112_rubric_pairs_proven": false,
+  "real_Q_effects_proven": 0
+}
