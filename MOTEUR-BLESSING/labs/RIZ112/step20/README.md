@@ -11,6 +11,10 @@
 - `quality_outcome_protocol.py` propose un **contrat DRAFT** des **14 rubriques de sortie** 099–112 (salubrité, quantité, tendreté, séparation, homogénéité, intégrité, eau libre, brûlure, température, goût, arôme, visuel, maintien, décision). **Aucun barème Q validé, aucune formule agrégée, aucune observation réelle**. Les rubriques post-T0 sont séparées des variables prédictives ; aucune fuite temporelle n'est permise.
 - `build_register_112.py` conserve la totalité des 112 rôles et les conclusions antérieures, mais étiquette **9 réponses physiques théoriques**, **14 cibles de sortie**, **89 autres rubriques** non promues à de nouveaux effets physiques. **Effets empiriques validés sur Q : zéro.**
 
+## Lancement Windows depuis Desktop Commander ou raccourci
+
+`step20/LANCER_RIZ112_STEP20.cmd` relance le Step19 existant, régénère l’enveloppe physique et le registre 112, exécute 45 tests, puis retourne un code d'échec en cas de problème. Aucun clic utilisateur n'est nécessaire pour les vérifications à distance.
+
 ## Commandes hors ligne
 
 Depuis `labs/RIZ112/` :
