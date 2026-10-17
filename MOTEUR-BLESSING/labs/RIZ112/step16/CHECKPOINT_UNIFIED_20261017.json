@@ -50,7 +50,11 @@
     "windows_bundle_initial_sha256": "d2fa3a07307f8ee7ade12ae9d551756b60530a24f7a269e24b9429fac49ad8cd",
     "windows_G_local_copy_checksum_equal": true,
     "cloud_file_ID_size_verified": true,
-    "cloud_file_hash_independent_verification": "PENDING_AFTER_FINAL_REBUILD"
+    "cloud_file_hash_independent_verification": "VERIFIED_BY_AUTHENTICATED_DRIVE_DOWNLOAD_AND_SHA256_EQUAL_TO_PC",
+    "windows_bundle_final_sha256": "a6c081bc7e22491e01a8cefd87d1793a420742a3282cc85f4c1762a5b144ebb9",
+    "windows_bundle_final_bytes": 515114,
+    "windows_bundle_final_files": 205,
+    "cloud_zip_crc_test": "PASS"
   },
   "continuity": {
     "journal_events": 102,
