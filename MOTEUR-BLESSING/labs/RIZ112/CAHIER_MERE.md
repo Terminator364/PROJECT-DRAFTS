@@ -235,3 +235,14 @@ Construction V12 : 100 dossiers JSON intégraux ; 44 données/conditions directe
 Tests de confrontation : 112 cases × deux situations A/B = 224 contre-interventions (avec 100 tirages chacune). 12 perturbations changent l'IC fictif, 52 modifient un contrôle opérationnel, 4 changent l'admissibilité, 26 ne montrent aucun effet dans ces tests ; 4 sorties calculées et 14 critères de réussite n'ont pas vocation à être mutés librement. **241/241 tests réussis**. Liste détaillée des 26 cas : `step12/GAPS_26_UNRESOLVED.json`. Rapports : `step12/RAPPORT_100_112_V12.json`, `step12/COUNTERFACTUAL_112_V12.json`, fichiers JSONL de 100 situations.
 
 Démonstration contradictoire essentielle : métal vs céramique sans propriété thermique ajustée → même IC fictif ; modification explicite du rendement thermique de 0,45 à 0,75 → 44,60% contre 68,77% sur A, **mais cela ne prouve pas l'effet du matériau**. Les coefficients du modèle Q* restent des hypothèses, aucun modèle sportif MATRICE modifié, aucune préparation réelle ni calibrage.
+
+
+## §18 — D025 : hiérarchie des 112 rubriques et anticipations (17 octobre 2026)
+
+**Retour utilisateur confirmé sans ambiguïté :** une rubrique peut avoir plusieurs sous-paramètres et sous-sous-paramètres, avec des anticipations. Les rubriques ne sont pas 112 coefficients indépendants; chaque situation est soumise à des sous-modèles imbriqués et des interactions; une variation conditionnelle peut, mais ne doit pas obligatoirement, changer l'IC.
+
+**Exécution H1 :** `step13/hierarchical_engine.py`, `H1_HIERARCHIE_112.json` et `H1_SCENARIOS.json` contiennent un premier registre imbriqué de 112 cas (schéma initial, non 112 lois) et le couplage numérique `matériau + diamètre + épaisseur + interface → résistance de conduction → rendement thermique effectif → ancien graphe eau/chaleur → Q*_DEMO`. Le couvercle absent provoque une anticipation de plan et de vapeur, au lieu d'une abstention de catégorie. Le bois direct non homologué reste marqué **NON SÛR** ; un insert métallique hypothétique est un montage différent.
+
+**Preuves :** 20 tests supplémentaires H1 réussis + 23 de V12 relancés, scènes comparables 500 tirages. Les coefficients d'interface et les quatre dimensions de Q*_DEMO sont des hypothèses non calibrées. Les 112 sous-arbres présents ne signifient pas 112 effets validés. **Aucun résultat de sécurité/cuisson réel ni probabilité scientifique validée.** Sources techniques approximatives et audit disponibles dans `step13/README_HIERARCHIE.md`.
+
+**Pont vers MATRICE :** transposer uniquement la structure paramètre→sous-paramètre→anticipation→mécanisme→IC, jamais les constantes de riz, les conventions fictives, ni une conversion artificielle des sorties/contraintes en prédicteurs.
