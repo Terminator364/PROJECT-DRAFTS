@@ -1,0 +1,95 @@
+{
+  "schema": "riz112/synthetic1000-valid-112/1",
+  "scenario_count": 1000,
+  "numeric_IC_DEMO_count": 1000,
+  "real_Q_IC_count": 0,
+  "original_1000_recorded_baseline": {
+    "count": 1000,
+    "numeric": 690,
+    "abstained": 310,
+    "status": "preserved in older archive"
+  },
+  "seed": 20261018,
+  "h3_seed": 20261017,
+  "draws_per_scenario": 200,
+  "candidate_count": 1900,
+  "candidate_count_examined": 1448,
+  "rejected_candidates_before_reaching_1000": 448,
+  "rejection_reasons": {
+    "BASELINE_NOT_ESTIMABLE": 448
+  },
+  "reject_sampling_conditioned_on_H3_eligibility": true,
+  "design": "1900 point nine-dimensional Latin hypercube, first 1000 eligible for H3; do not estimate unconditional rates from conditional sample",
+  "rubrics_per_scenario": 112,
+  "explicit_packet_records": 108,
+  "derived_internal_roles": 4,
+  "actually_perturbed_rubrics": [
+    "001",
+    "033",
+    "035",
+    "036",
+    "037",
+    "038",
+    "041",
+    "042",
+    "047"
+  ],
+  "perturbed_rubric_count": 9,
+  "constant_unknown_or_predeclared_rubrics": 103,
+  "postT0_output_ids": [
+    "099",
+    "100",
+    "101",
+    "102",
+    "103",
+    "104",
+    "105",
+    "106",
+    "107",
+    "108",
+    "109",
+    "110",
+    "111",
+    "112"
+  ],
+  "scientific_ic_percent": null,
+  "quality_threshold_applies_only_to_Q_star_proxy": 85,
+  "one_per_scenario": "One IC_DEMO from 200 synthetic draws per scenario; not an empirical probability",
+  "warning": [
+    "Full 112 rubric columns do NOT mean 112 distinct or independently varied features",
+    "14 postT0 output rubric values are deliberately null; no future leakage",
+    "Conditional rejection of non-calculable scenarios induces selection bias",
+    "No numerical weights for Q real were authorized",
+    "This is NOT validation for MATRICE sports, only a transferable method"
+  ],
+  "source_archive": "RIZ112_METHODOLOGIE_MATRICE_1000_SCENARIOS_2026-10-17.zip",
+  "source_code": "generer_1000_ic112.py",
+  "columns": 120,
+  "numeric_ic_summary": {
+    "min": 0.0,
+    "max": 92.5,
+    "n_at_least_85": 22
+  },
+  "files": {
+    "generer_1000_ic112.py": {
+      "bytes": 9574,
+      "sha256": "7fdae5087b6459aaa3486338754e874ba520de70dc663cf15b22c942bcb3d2c4"
+    },
+    "1000_SCENARIOS_112_COLONNES_1000_IC_DEMO.csv": {
+      "bytes": 1565219,
+      "sha256": "37f3c1bcc41c6956908e97a713bda9ede4c8eea668d11a0dc9f3bee2cc09691f"
+    },
+    "GUIDE_DE_LECTURE.md": {
+      "bytes": 1839,
+      "sha256": "c39c5d6d01fad8b7865bbabf9dc642d732ef0797db82050d3d31c016a379bc2d"
+    },
+    "CATALOGUE_112_RUBRIQUES.json": {
+      "bytes": 13460,
+      "sha256": "d7b38eba49c829bd47b3a2f7c6ccb939ef51d4907439908ca84ca097aae5f17a"
+    },
+    "1000_SCENARIOS_112_RUBRIQUES_DETAIL.jsonl": {
+      "bytes": 14889641,
+      "sha256": "b2e6bbff4d40dc1b1aef2478f52e0fed480193878865ee09e05b07396432b9f4"
+    }
+  }
+}
