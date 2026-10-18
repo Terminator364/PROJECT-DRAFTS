@@ -200,5 +200,19 @@
     "latest_journal_event": "E140",
     "latest_context": "CTX-0062",
     "journal_head": "e276b9536b508f9374501cd24c070d8345e7cd3264a95cddfc68a80199772a58"
+  },
+  "latest_delivered_simulation_20261018": {
+    "scenario_count": 1000,
+    "numeric_demo_ics": 1000,
+    "rubric_slots": 112,
+    "perturbed_rubrics": 9,
+    "postT0_unobserved": 14,
+    "github_receipt": "MOTEUR-BLESSING/labs/RIZ112/simulations/EXPERIENCE_1000_VALIDES_112/RECU_LIVRAISON_CLOUD_20261018.json",
+    "drive_url": "https://drive.google.com/file/d/1GQMDD5LgU31TYSKsAwrbRwzMWZKcS6Bm/view?usp=drivesdk",
+    "sha256": "bb53e428da33e84f546843adaa3f63398e10a4438179769a61fbf0a048887032",
+    "scientific_ic_percent": null,
+    "quality_data_real": false,
+    "selection_bias": "first 1000 H3 computable from 1448 candidates",
+    "reference": "No 112 independent causal predictors; 112-role comprehensive packet"
   }
 }
