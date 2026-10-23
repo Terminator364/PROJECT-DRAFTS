@@ -1545,3 +1545,13 @@ Relecture réelle du projet `Terminator364/ChatGPT-PC`, branche `research/matric
 - Message : MOTEUR: append hash chained E163 V0.2 checkpoint
 - Fichiers concernés : MOTEUR-BLESSING/labs/RIZ112/journal/JOURNAL_EVENEMENTS.jsonl
 - Provenance : événement GitHub push. Ceci ne contient PAS les messages privés ChatGPT non consignés explicitement.
+
+---
+
+## 23 octobre 2026 — D055 : reprise Moteur/continue et premier lot V0.2
+
+Après lecture de la directive D054 et de la version canonique V0.1, construction dans `MOTEUR-BLESSING/labs/MATRICE_LOGIC_FIRST_V02/` d'un **incrément du moteur logique sport, sans recommencer ni modifier MATRICE 2.0** : copie à blob identique du noyau V0.1, 17 véritables IDs R8 L3 supplémentaires, 6 hypothèses supplémentaires par équipe, voies d'attaque centrale/aérienne/seconde phase, conditions de transitions, contexte de pertes et réaction éventuelle si une équipe est menée. **31/355 sous-paramètres** ont désormais un point d'exécution logique dans le code, **324/355 restent sans raccordement**. Le générateur `registry_builder.py` prépare l'inventaire des 355 depuis le compilateur R8 V22, mais sa reproduction intégrale sur source réelle est encore ouverte.
+
+**Preuve et limites séparées** : 19/19 tests locaux réussis avec un double de compatibilité V0.1, code et tests à blobs identiques relus sur GitHub. Le PC MBMPC est hors ligne et les tests intégrés contre la vraie base V0.1 et le vrai corpus 355 n'ont pas été rejoués ici. La direction HIGH/LOW de plusieurs champs reste une hypothèse de travail à contre-auditer. Plusieurs chemins peuvent décrire la même occasion ; leur regroupement ne constitue ni un décompte de buts, ni un taux Over1.5. **IC théorique probabiliste = null ; IC calibré = null ; précision 85 % non démontrée.** Aucun jeu de vrais matchs ajouté, aucune calibration, aucun déploiement MATRICE.
+
+**Continuité :** journal E163, décision D055, reçu `MATRICE_LOGIC_FIRST_V02/CHECKPOINT_D055_20261023.json`. Prochaine action `continuity/NEXT_ACTION.json` : vérification intégrée du code et du registre, puis poursuite des 324 candidats par lots ; maintenir la logique avant acquisition statistique. Drive n'est pas déclaré synchronisé sans lecture réciproque.
