@@ -1,0 +1,475 @@
+{
+  "schema": "matrice/r8/logical-engine-world-coverage/v1",
+  "canonical_parent_world_count": 62,
+  "documentary_candidate_child_count_per_verified_R8_checkpoint": 355,
+  "connected_child_ids_count": 14,
+  "unconnected_documentary_child_ids_count": 341,
+  "connected_parent_world_count": 14,
+  "not_yet_connected_parent_world_count": 48,
+  "number_of_independent_numeric_IC_model_coefficients_added": 0,
+  "catalogue_scope": "Compact 62-world roster and 14 mapped L3 child IDs; not a reconstruction of all 355 archival contracts",
+  "worlds": [
+    {
+      "parent_world": "FIXTURE_ID",
+      "mapped_L3_child_ids": [],
+      "mapped_children": 0,
+      "status": "DOCUMENTARY_NOT_YET_CONNECTED",
+      "sporting_effect_numeric_calibrated": false
+    },
+    {
+      "parent_world": "LEAGUE_BASE",
+      "mapped_L3_child_ids": [],
+      "mapped_children": 0,
+      "status": "DOCUMENTARY_NOT_YET_CONNECTED",
+      "sporting_effect_numeric_calibrated": false
+    },
+    {
+      "parent_world": "TEAM_STRENGTH",
+      "mapped_L3_child_ids": [
+        "TEAM_STRENGTH.ATTACK_OPPONENT_ADJUSTED"
+      ],
+      "mapped_children": 1,
+      "status": "SOME_LOGIC_RULES_CONNECTED",
+      "sporting_effect_numeric_calibrated": false
+    },
+    {
+      "parent_world": "SCORING_HISTORY",
+      "mapped_L3_child_ids": [],
+      "mapped_children": 0,
+      "status": "DOCUMENTARY_NOT_YET_CONNECTED",
+      "sporting_effect_numeric_calibrated": false
+    },
+    {
+      "parent_world": "SHOT_CREATION",
+      "mapped_L3_child_ids": [
+        "SHOT_CREATION.SHOT_VOLUME_EXPOSURE"
+      ],
+      "mapped_children": 1,
+      "status": "SOME_LOGIC_RULES_CONNECTED",
+      "sporting_effect_numeric_calibrated": false
+    },
+    {
+      "parent_world": "FORM_TRENDS",
+      "mapped_L3_child_ids": [],
+      "mapped_children": 0,
+      "status": "DOCUMENTARY_NOT_YET_CONNECTED",
+      "sporting_effect_numeric_calibrated": false
+    },
+    {
+      "parent_world": "SQUAD_AVAIL",
+      "mapped_L3_child_ids": [],
+      "mapped_children": 0,
+      "status": "DOCUMENTARY_NOT_YET_CONNECTED",
+      "sporting_effect_numeric_calibrated": false
+    },
+    {
+      "parent_world": "LINEUP_ROTATION",
+      "mapped_L3_child_ids": [],
+      "mapped_children": 0,
+      "status": "DOCUMENTARY_NOT_YET_CONNECTED",
+      "sporting_effect_numeric_calibrated": false
+    },
+    {
+      "parent_world": "COACH_TRANSITION",
+      "mapped_L3_child_ids": [],
+      "mapped_children": 0,
+      "status": "DOCUMENTARY_NOT_YET_CONNECTED",
+      "sporting_effect_numeric_calibrated": false
+    },
+    {
+      "parent_world": "TRANSFERS",
+      "mapped_L3_child_ids": [],
+      "mapped_children": 0,
+      "status": "DOCUMENTARY_NOT_YET_CONNECTED",
+      "sporting_effect_numeric_calibrated": false
+    },
+    {
+      "parent_world": "TACTIC_STYLE",
+      "mapped_L3_child_ids": [
+        "TACTIC_STYLE.BLOCK_STRUCTURE"
+      ],
+      "mapped_children": 1,
+      "status": "SOME_LOGIC_RULES_CONNECTED",
+      "sporting_effect_numeric_calibrated": false
+    },
+    {
+      "parent_world": "GK_DEFENSE",
+      "mapped_L3_child_ids": [
+        "GK_DEFENSE.POSTSHOT_SAVE_CONDITIONAL"
+      ],
+      "mapped_children": 1,
+      "status": "SOME_LOGIC_RULES_CONNECTED",
+      "sporting_effect_numeric_calibrated": false
+    },
+    {
+      "parent_world": "REFEREE",
+      "mapped_L3_child_ids": [],
+      "mapped_children": 0,
+      "status": "DOCUMENTARY_NOT_YET_CONNECTED",
+      "sporting_effect_numeric_calibrated": false
+    },
+    {
+      "parent_world": "WEATHER",
+      "mapped_L3_child_ids": [],
+      "mapped_children": 0,
+      "status": "DOCUMENTARY_NOT_YET_CONNECTED",
+      "sporting_effect_numeric_calibrated": false
+    },
+    {
+      "parent_world": "PITCH_STADIUM",
+      "mapped_L3_child_ids": [],
+      "mapped_children": 0,
+      "status": "DOCUMENTARY_NOT_YET_CONNECTED",
+      "sporting_effect_numeric_calibrated": false
+    },
+    {
+      "parent_world": "TRAVEL",
+      "mapped_L3_child_ids": [],
+      "mapped_children": 0,
+      "status": "DOCUMENTARY_NOT_YET_CONNECTED",
+      "sporting_effect_numeric_calibrated": false
+    },
+    {
+      "parent_world": "REST_CONGESTION",
+      "mapped_L3_child_ids": [],
+      "mapped_children": 0,
+      "status": "DOCUMENTARY_NOT_YET_CONNECTED",
+      "sporting_effect_numeric_calibrated": false
+    },
+    {
+      "parent_world": "MOTIVATION_CONTEXT",
+      "mapped_L3_child_ids": [],
+      "mapped_children": 0,
+      "status": "DOCUMENTARY_NOT_YET_CONNECTED",
+      "sporting_effect_numeric_calibrated": false
+    },
+    {
+      "parent_world": "CUP_TIE",
+      "mapped_L3_child_ids": [],
+      "mapped_children": 0,
+      "status": "DOCUMENTARY_NOT_YET_CONNECTED",
+      "sporting_effect_numeric_calibrated": false
+    },
+    {
+      "parent_world": "INTERNATIONAL",
+      "mapped_L3_child_ids": [],
+      "mapped_children": 0,
+      "status": "DOCUMENTARY_NOT_YET_CONNECTED",
+      "sporting_effect_numeric_calibrated": false
+    },
+    {
+      "parent_world": "PROMOTION_RELEGATION",
+      "mapped_L3_child_ids": [],
+      "mapped_children": 0,
+      "status": "DOCUMENTARY_NOT_YET_CONNECTED",
+      "sporting_effect_numeric_calibrated": false
+    },
+    {
+      "parent_world": "FATIGUE_INJURY_INTERACTION",
+      "mapped_L3_child_ids": [],
+      "mapped_children": 0,
+      "status": "DOCUMENTARY_NOT_YET_CONNECTED",
+      "sporting_effect_numeric_calibrated": false
+    },
+    {
+      "parent_world": "SOCIAL_MEDIA",
+      "mapped_L3_child_ids": [],
+      "mapped_children": 0,
+      "status": "DOCUMENTARY_NOT_YET_CONNECTED",
+      "sporting_effect_numeric_calibrated": false
+    },
+    {
+      "parent_world": "MARKET_SIGNAL",
+      "mapped_L3_child_ids": [],
+      "mapped_children": 0,
+      "status": "DOCUMENTARY_NOT_YET_CONNECTED",
+      "sporting_effect_numeric_calibrated": false
+    },
+    {
+      "parent_world": "GOAL_TIMING",
+      "mapped_L3_child_ids": [],
+      "mapped_children": 0,
+      "status": "DOCUMENTARY_NOT_YET_CONNECTED",
+      "sporting_effect_numeric_calibrated": false
+    },
+    {
+      "parent_world": "DATA_QUALITY",
+      "mapped_L3_child_ids": [],
+      "mapped_children": 0,
+      "status": "DOCUMENTARY_NOT_YET_CONNECTED",
+      "sporting_effect_numeric_calibrated": false
+    },
+    {
+      "parent_world": "MODEL_DOMAIN",
+      "mapped_L3_child_ids": [],
+      "mapped_children": 0,
+      "status": "DOCUMENTARY_NOT_YET_CONNECTED",
+      "sporting_effect_numeric_calibrated": false
+    },
+    {
+      "parent_world": "FITNESS_RETURN",
+      "mapped_L3_child_ids": [],
+      "mapped_children": 0,
+      "status": "DOCUMENTARY_NOT_YET_CONNECTED",
+      "sporting_effect_numeric_calibrated": false
+    },
+    {
+      "parent_world": "NEUTRAL_VENUE",
+      "mapped_L3_child_ids": [],
+      "mapped_children": 0,
+      "status": "DOCUMENTARY_NOT_YET_CONNECTED",
+      "sporting_effect_numeric_calibrated": false
+    },
+    {
+      "parent_world": "DISCIPLINE",
+      "mapped_L3_child_ids": [],
+      "mapped_children": 0,
+      "status": "DOCUMENTARY_NOT_YET_CONNECTED",
+      "sporting_effect_numeric_calibrated": false
+    },
+    {
+      "parent_world": "ATTACK_BUILDUP",
+      "mapped_L3_child_ids": [
+        "ATTACK_BUILDUP.BALL_SECURITY_PRESSURE"
+      ],
+      "mapped_children": 1,
+      "status": "SOME_LOGIC_RULES_CONNECTED",
+      "sporting_effect_numeric_calibrated": false
+    },
+    {
+      "parent_world": "PRESSING_TURNOVERS",
+      "mapped_L3_child_ids": [
+        "PRESSING_TURNOVERS.PRESS_TRIGGER_SCOPE"
+      ],
+      "mapped_children": 1,
+      "status": "SOME_LOGIC_RULES_CONNECTED",
+      "sporting_effect_numeric_calibrated": false
+    },
+    {
+      "parent_world": "TRANSITION_ATTACK",
+      "mapped_L3_child_ids": [
+        "TRANSITION_ATTACK.PROGRESSION_SPEED_SCOPE"
+      ],
+      "mapped_children": 1,
+      "status": "SOME_LOGIC_RULES_CONNECTED",
+      "sporting_effect_numeric_calibrated": false
+    },
+    {
+      "parent_world": "TRANSITION_DEFENSE",
+      "mapped_L3_child_ids": [
+        "TRANSITION_DEFENSE.REST_DEFENSE_AT_LOSS"
+      ],
+      "mapped_children": 1,
+      "status": "SOME_LOGIC_RULES_CONNECTED",
+      "sporting_effect_numeric_calibrated": false
+    },
+    {
+      "parent_world": "SHOT_QUALITY",
+      "mapped_L3_child_ids": [
+        "SHOT_QUALITY.LOCATION_ANGLE_DISTANCE"
+      ],
+      "mapped_children": 1,
+      "status": "SOME_LOGIC_RULES_CONNECTED",
+      "sporting_effect_numeric_calibrated": false
+    },
+    {
+      "parent_world": "SHOT_CONVERSION",
+      "mapped_L3_child_ids": [
+        "SHOT_CONVERSION.ON_TARGET_EXECUTION"
+      ],
+      "mapped_children": 1,
+      "status": "SOME_LOGIC_RULES_CONNECTED",
+      "sporting_effect_numeric_calibrated": false
+    },
+    {
+      "parent_world": "SHOT_SUPPRESSION",
+      "mapped_L3_child_ids": [
+        "SHOT_SUPPRESSION.PRE_SHOT_ACCESS_DENIAL"
+      ],
+      "mapped_children": 1,
+      "status": "SOME_LOGIC_RULES_CONNECTED",
+      "sporting_effect_numeric_calibrated": false
+    },
+    {
+      "parent_world": "SETPIECE_ATTACK",
+      "mapped_L3_child_ids": [
+        "SETPIECE_ATTACK.CORNER_DELIVERY_PROFILE"
+      ],
+      "mapped_children": 1,
+      "status": "SOME_LOGIC_RULES_CONNECTED",
+      "sporting_effect_numeric_calibrated": false
+    },
+    {
+      "parent_world": "SETPIECE_DEFENSE",
+      "mapped_L3_child_ids": [
+        "SETPIECE_DEFENSE.FIRST_CONTACT"
+      ],
+      "mapped_children": 1,
+      "status": "SOME_LOGIC_RULES_CONNECTED",
+      "sporting_effect_numeric_calibrated": false
+    },
+    {
+      "parent_world": "PENALTY_PATHWAYS",
+      "mapped_L3_child_ids": [],
+      "mapped_children": 0,
+      "status": "DOCUMENTARY_NOT_YET_CONNECTED",
+      "sporting_effect_numeric_calibrated": false
+    },
+    {
+      "parent_world": "GAME_STATE_POLICY",
+      "mapped_L3_child_ids": [
+        "GAME_STATE_POLICY.TRAIL_RESPONSE_POLICY"
+      ],
+      "mapped_children": 1,
+      "status": "SOME_LOGIC_RULES_CONNECTED",
+      "sporting_effect_numeric_calibrated": false
+    },
+    {
+      "parent_world": "SUBSTITUTION_IMPACT",
+      "mapped_L3_child_ids": [],
+      "mapped_children": 0,
+      "status": "DOCUMENTARY_NOT_YET_CONNECTED",
+      "sporting_effect_numeric_calibrated": false
+    },
+    {
+      "parent_world": "ATTACK_DEF_MATCHUP",
+      "mapped_L3_child_ids": [],
+      "mapped_children": 0,
+      "status": "DOCUMENTARY_NOT_YET_CONNECTED",
+      "sporting_effect_numeric_calibrated": false
+    },
+    {
+      "parent_world": "DEFENCE_STRUCTURE",
+      "mapped_L3_child_ids": [],
+      "mapped_children": 0,
+      "status": "DOCUMENTARY_NOT_YET_CONNECTED",
+      "sporting_effect_numeric_calibrated": false
+    },
+    {
+      "parent_world": "PLAY_TIME_RULES",
+      "mapped_L3_child_ids": [],
+      "mapped_children": 0,
+      "status": "DOCUMENTARY_NOT_YET_CONNECTED",
+      "sporting_effect_numeric_calibrated": false
+    },
+    {
+      "parent_world": "POSSESSION_TERRITORIAL_CONTROL",
+      "mapped_L3_child_ids": [],
+      "mapped_children": 0,
+      "status": "DOCUMENTARY_NOT_YET_CONNECTED",
+      "sporting_effect_numeric_calibrated": false
+    },
+    {
+      "parent_world": "FINAL_THIRD_ACCESS",
+      "mapped_L3_child_ids": [],
+      "mapped_children": 0,
+      "status": "DOCUMENTARY_NOT_YET_CONNECTED",
+      "sporting_effect_numeric_calibrated": false
+    },
+    {
+      "parent_world": "OFF_BALL_MOVEMENT",
+      "mapped_L3_child_ids": [],
+      "mapped_children": 0,
+      "status": "DOCUMENTARY_NOT_YET_CONNECTED",
+      "sporting_effect_numeric_calibrated": false
+    },
+    {
+      "parent_world": "PASSING_COMBINATIONS",
+      "mapped_L3_child_ids": [],
+      "mapped_children": 0,
+      "status": "DOCUMENTARY_NOT_YET_CONNECTED",
+      "sporting_effect_numeric_calibrated": false
+    },
+    {
+      "parent_world": "WIDE_AERIAL_ATTACK",
+      "mapped_L3_child_ids": [],
+      "mapped_children": 0,
+      "status": "DOCUMENTARY_NOT_YET_CONNECTED",
+      "sporting_effect_numeric_calibrated": false
+    },
+    {
+      "parent_world": "INDIVIDUAL_TECHNICAL_EXECUTION",
+      "mapped_L3_child_ids": [],
+      "mapped_children": 0,
+      "status": "DOCUMENTARY_NOT_YET_CONNECTED",
+      "sporting_effect_numeric_calibrated": false
+    },
+    {
+      "parent_world": "ONE_V_ONE_DUELS",
+      "mapped_L3_child_ids": [],
+      "mapped_children": 0,
+      "status": "DOCUMENTARY_NOT_YET_CONNECTED",
+      "sporting_effect_numeric_calibrated": false
+    },
+    {
+      "parent_world": "SECOND_BALL_RECOVERY",
+      "mapped_L3_child_ids": [],
+      "mapped_children": 0,
+      "status": "DOCUMENTARY_NOT_YET_CONNECTED",
+      "sporting_effect_numeric_calibrated": false
+    },
+    {
+      "parent_world": "UNFORCED_MISTAKE_RISK",
+      "mapped_L3_child_ids": [],
+      "mapped_children": 0,
+      "status": "DOCUMENTARY_NOT_YET_CONNECTED",
+      "sporting_effect_numeric_calibrated": false
+    },
+    {
+      "parent_world": "TEAM_COHESION",
+      "mapped_L3_child_ids": [],
+      "mapped_children": 0,
+      "status": "DOCUMENTARY_NOT_YET_CONNECTED",
+      "sporting_effect_numeric_calibrated": false
+    },
+    {
+      "parent_world": "TACTICAL_ADAPTABILITY",
+      "mapped_L3_child_ids": [],
+      "mapped_children": 0,
+      "status": "DOCUMENTARY_NOT_YET_CONNECTED",
+      "sporting_effect_numeric_calibrated": false
+    },
+    {
+      "parent_world": "OPPONENT_SPECIFIC_PREPARATION",
+      "mapped_L3_child_ids": [],
+      "mapped_children": 0,
+      "status": "DOCUMENTARY_NOT_YET_CONNECTED",
+      "sporting_effect_numeric_calibrated": false
+    },
+    {
+      "parent_world": "MATCH_RHYTHM_POTENTIAL",
+      "mapped_L3_child_ids": [],
+      "mapped_children": 0,
+      "status": "DOCUMENTARY_NOT_YET_CONNECTED",
+      "sporting_effect_numeric_calibrated": false
+    },
+    {
+      "parent_world": "GK_BUILDUP_DISTRIBUTION",
+      "mapped_L3_child_ids": [],
+      "mapped_children": 0,
+      "status": "DOCUMENTARY_NOT_YET_CONNECTED",
+      "sporting_effect_numeric_calibrated": false
+    },
+    {
+      "parent_world": "HOME_CROWD_PRESSURE",
+      "mapped_L3_child_ids": [],
+      "mapped_children": 0,
+      "status": "DOCUMENTARY_NOT_YET_CONNECTED",
+      "sporting_effect_numeric_calibrated": false
+    },
+    {
+      "parent_world": "EXPECTED_MATCH_PROCESS",
+      "mapped_L3_child_ids": [],
+      "mapped_children": 0,
+      "status": "DOCUMENTARY_NOT_YET_CONNECTED",
+      "sporting_effect_numeric_calibrated": false
+    },
+    {
+      "parent_world": "OWN_GOAL_DEFLECTION_PATHWAYS",
+      "mapped_L3_child_ids": [],
+      "mapped_children": 0,
+      "status": "DOCUMENTARY_NOT_YET_CONNECTED",
+      "sporting_effect_numeric_calibrated": false
+    }
+  ]
+}
