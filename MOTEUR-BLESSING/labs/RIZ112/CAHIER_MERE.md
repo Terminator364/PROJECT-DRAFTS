@@ -1394,3 +1394,11 @@ Relecture réelle du projet `Terminator364/ChatGPT-PC`, branche `research/matric
 **Limites / interdictions :** ces trois cas utilisent des états HIGH/MEDIUM/LOW/UNKNOWN **hypothétiques**, et non des mesures réelles catégorisées par des lois calibrées. `IC_over15_percent=null`; ni Over1,5 garanti, ni pourcentage sportif réel. Aucun modèle de production MATRICE modifié. Les mécanismes sont des hypothèses logiques **et non des probabilités**. Chaque donnée future devra avoir provenance, horodatage avant kickoff, définition, dénominateur et domaine.
 
 **Livraison durable** : GitHub `MOTEUR-BLESSING/labs/MATRICE_LOGIC_FIRST_V01/`, code/test/readme/3 exemples/rapport de couverture 62; archive **`MATRICE_R8_MOTEUR_LOGIQUE_V0_1_20261023.zip`**, SHA256 **`f392715cf3996aa23130ac43b3593ee1e73b7ad4f24052c342f189e189cd4c2c`**, 35 591 octets, 22 fichiers, CRC ZIP vérifié; Bibliothèque `/MOTEUR/MATRICE_LOGIQUE_V01/` id `libfile_20479f4fe5d08191af018e1ae06c7463`. **Prochaine étape** : porter les rôles et chemins au reste des 355 contrats, intégrer les vraies valeurs et seulement après apprendre un modèle probabiliste calibré sur matchs gelés. Reprise `Moteur/continue` puis `MATRICE|CONTINUE`.
+
+
+### Synchronisation automatique GitHub — 2026-10-23T17:44:59.116620+00:00
+
+- Commit source : e453d05dd0b024ffeb16d80e14b3df05561f8296
+- Message : docs(moteur): D053 archive verified logic-first MATRICE V0.1 mechanism prototype
+- Fichiers concernés : MOTEUR-BLESSING/labs/RIZ112/CAHIER_MERE.md
+- Provenance : événement GitHub push. Ceci ne contient PAS les messages privés ChatGPT non consignés explicitement.
