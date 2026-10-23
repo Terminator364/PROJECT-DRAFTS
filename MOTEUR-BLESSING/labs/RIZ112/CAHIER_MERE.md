@@ -1141,3 +1141,11 @@ La demande canonique n'est pas de créer une succession de registres décoratifs
 **PORTE LOGICIELLE 1000×44 : PASS et auditée par rejeu intégral.** Il est confirmé que la chaîne source aléatoire cohérente → 44 paramètres pré-T0 → mécanismes → qualité Q* → 128 MC → IC par situation a réellement fonctionné 1000 fois. **PORTE SCIENTIFIQUE / fiabilité empirique : PAS encore franchie.** Le barème Q* ainsi que les constantes hydriques/thermiques et distributions d'incertitude sont encore hypothétiques; pas de cuisson réelle, IC scientifique null. De nombreuses configurations sont volontairement difficiles dans la campagne de test, d'où 798 zéros numériques.
 
 **Étape suivante sans redémarrer le projet :** durcir le contrat de reprise et d'audit (vérifier input complet, source/seed/gel T0, variation des 44, couverture contextuelle, contrôle de rejouabilité), tester la robustesse au nombre de tirages Monte Carlo et aux hypothèses, puis transfert de **méthodologie** aux nombreuses familles/sous-paramètres pré-match de MATRICE, jamais transfert des constantes culinaires. Le Cahier mère couvre **tout le projet MOTEUR**. Aucun automate de capture périodique des chats privés n'est réactivé : la continuité est documentée et mise à jour pendant les séances actives.
+
+
+### Synchronisation automatique GitHub — 2026-10-23T14:00:12.895246+00:00
+
+- Commit source : e097730d1f5cb5f4075161f646183500a0c0e43f
+- Message : docs(moteur): D047 exact full replay 1000x44, user verbatim, receipts and continuation
+- Fichiers concernés : MOTEUR-BLESSING/labs/RIZ112/CAHIER_MERE.md, MOTEUR-BLESSING/labs/RIZ112/CHECKPOINT.json, MOTEUR-BLESSING/labs/RIZ112/CONTEXTE_INTEGRAL/REGISTRE_MESSAGES.jsonl, MOTEUR-BLESSING/labs/RIZ112/DECISIONS.md, MOTEUR-BLESSING/labs/RIZ112/journal/JOURNAL_EVENEMENTS.jsonl
+- Provenance : événement GitHub push. Ceci ne contient PAS les messages privés ChatGPT non consignés explicitement.
