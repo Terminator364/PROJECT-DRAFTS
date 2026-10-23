@@ -1260,3 +1260,18 @@ Rapport canonique : [CONTRAT_1_IC_GLOBAL_44_IMPACTS_CONDITIONNELS_20261023.md](p
 - Message : docs(riz112): true A-to-Z trace of 44 inputs through physical model, Qstar, global IC and conditional effects
 - Fichiers concernés : MOTEUR-BLESSING/labs/RIZ112/pret0_focus/V3_1/FONCTIONNEMENT_DE_A_A_Z_IC44_20261023.md
 - Provenance : événement GitHub push. Ceci ne contient PAS les messages privés ChatGPT non consignés explicitement.
+
+
+## 2026-10-23 — Explication A–Z vérifiée sur le code V3.1, scénario S0001
+
+**Demande utilisateur (message de cette conversation) :** « Mais attends pour que je comprenne vu que peut être tu ne comprends pas ma vision. Explique moi, concrètement de a à z comment le moteur agit comment il prend les 44 paramètres et me donne les ics ».
+
+**Relecture du code local archivé** dans le ZIP D050 (`RIZ112_CONTRAT_A_1000_SCENARIOS_44_PARAMETRES_20261023.zip`) et **rejeu effectif de S0001** à partir de `INPUTS_1000x44.csv`, `generate_v3._apply`, `ic44_v3._nominal_if_power_operates`, `grade_physics`, `simulate(draws=128, seed=20261023*100000)`. Rapport développé, source et valeurs : [FONCTIONNEMENT_DE_A_A_Z_IC44_20261023.md](pret0_focus/V3_1/FONCTIONNEMENT_DE_A_A_Z_IC44_20261023.md).
+
+**Contrat stable D050 réexpliqué :** 1000 scénarios générés par graine 20261023 et cinq strates pré-définies, **44 paramètres** par scénario (certains corrélés), **1000 IC globaux** via mécanismes hydriques, thermiques, profils hypothétiques, dimensions Q* pondérées (27/21/15/13/11/8/5) et règle fictive `Q*>=85`. Les **128 essais internes** servent seulement à estimer l'IC du scénario et sont remplaçables; `IC=100×k/128`, pas 128 scénarios. Puis 44 contre-examens conditionnels par scénario : même monde et moteur, modifier uniquement un facteur j, recalculer l'IC de la situation entière, mesurer son delta. Pas de 44 probabilités autonomes indépendantes ni d'addition des deltas.
+
+**S0001 recalculé à partir du code :** eau prévue 306,90 g, évaporation estimée 31,416 g, eau restante 287,329 g, cible 283,946 g, ratio hydratation 1,01191. Q* nominal `93,841885/100`. Avec graine historique et 128 mondes internes : **83 réussites, IC global `64,844%`** (brut 64,84375%) ; qualité moyenne MC, pannes incluses, `85,752/100`. Exemple d'influence R002 eau disponible 546,27→250 mL : `IC 64,844→33,594%`, delta −31,250 points. R005 eau rinçage 901,45→90 mL : `IC 64,844→64,844%`, effet nul local, ne prouve pas inutilité globale.
+
+**Portée de l'exécution actuelle :** 1000 IC globaux archivés, 44000 variations Q* nominales calculées, **748 IC conditionnels réellement exécutés (S0001–S0017)**, **43252 IC conditionnels restant**. **Le modèle reste hypothétique et non validé empiriquement, `IC scientifique = null`**. Les 798 zéros V3.1 sont 0 réussite sur 128 simulations internes, non une absence de calcul, et peuvent manquer de résolution. La méthode de contribution est sensible aux choix des alternatives et aux dépendances (modifier une seule valeur peut quitter l'espace de corrélation d'origine).
+
+**Code de continuité :** `Moteur/continue`. Reprendre D050 et ce rapport A–Z sans redémarrer l'expérience. La présente séance ne prétend pas avoir terminé les 43252 IC conditionnels restants.
