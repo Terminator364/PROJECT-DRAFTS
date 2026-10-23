@@ -1,0 +1,53 @@
+{
+  "schema": "MOTEUR_D065_SINGLE_ENTRY_CHECKPOINT_PENDING_E2E",
+  "date": "2026-10-23",
+  "continuity_code": "Moteur/continue",
+  "source_branch": "Terminator364/ChatGPT-PC:research/matrice-r8-g3-depth-audit-2026-10-14",
+  "private_audit_branch": "Terminator364/ChatGPT-PC:research/moteur-logic-first-d057-2026-10-23",
+  "core_files": [
+    "moteur_unique_v1.py",
+    "source_mechanism_dossiers_v11.py",
+    "causal_stages_v07.py",
+    "theoretical_ic_v08.py",
+    "shot_process_v10.py"
+  ],
+  "source_contracts": {
+    "worlds": 62,
+    "registered_subparameters": 355,
+    "source_documentary_edges": 1088,
+    "conceptual_stages": 7,
+    "original_archived_contracts": 12,
+    "source_written_operational_dossiers_goal": 355
+  },
+  "last_verified": {
+    "D062": {
+      "passed": 55,
+      "total": 55,
+      "source_routes": 355,
+      "synthetic_grid_cases": 1000,
+      "theoretical_Poisson_IC": true
+    },
+    "D063": {
+      "passed": 67,
+      "total": 67,
+      "shot_conversion_Poisson_binomial_IC": true
+    },
+    "D065_initial": {
+      "unit_tests_passed": 76,
+      "full_original_R8_one_command": "FAILED_PRE_SCHEMA_ADAPTER_FIX",
+      "error": "SOURCE_SIX_HORIZONS_MISSING on source V22 alternative key",
+      "current_adapter_fix_committed": true,
+      "new_full_integration_receipt": "PENDING_NOT_VERIFIED"
+    }
+  },
+  "limits": {
+    "scientifically_calibrated_IC": null,
+    "real_match_predictive_accuracy": null,
+    "all_355_signed_goal_mechanisms": false,
+    "remaining_without_signed_effects": 324,
+    "PC_verified": false,
+    "full_Drive_ZIP_verified": false
+  },
+  "next_execution": "MOTEUR_D065_VERIFY_SOURCE_V22_AND_FINISH_INTEGRATION",
+  "journal_event": "E170"
+}
