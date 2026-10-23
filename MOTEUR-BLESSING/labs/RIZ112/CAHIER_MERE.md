@@ -1244,3 +1244,11 @@ Rapport canonique : [CONTRAT_1_IC_GLOBAL_44_IMPACTS_CONDITIONNELS_20261023.md](p
 ### Conditions de clôture et continuité
 
 **Une campagne complète A n'est validée que si chaque situation parmi les 1000 possède ses 44 contrefactuels IC recalculés**, sans valeurs arbitraires, avec cohérence des 44 entrées et comparabilité des graines. La valeur IC scientifique reste `null` (aucune calibration réelle). La prochaine étape conserve les archives et poursuit les lots S0018–S1000. Au déclenchement `Moteur/continue`, lire `CHECKPOINT.json`, cette entrée D050, le rapport D050 et l'archive utilisateur ; ne jamais annoncer que 44 000 IC conditionnels ont déjà été calculés.
+
+
+### Synchronisation automatique GitHub — 2026-10-23T15:19:10.312906+00:00
+
+- Commit source : 0dd04a30dd5e4b0f29aa533f4220b4f5e2807b17
+- Message : docs(moteur): D050 confirm contract A, 44000 Q impacts, 748 conditional ICs and exact continuity journal
+- Fichiers concernés : MOTEUR-BLESSING/labs/RIZ112/CAHIER_MERE.md, MOTEUR-BLESSING/labs/RIZ112/CHECKPOINT.json, MOTEUR-BLESSING/labs/RIZ112/CONTEXTE_INTEGRAL/REGISTRE_MESSAGES.jsonl, MOTEUR-BLESSING/labs/RIZ112/DECISIONS.md, MOTEUR-BLESSING/labs/RIZ112/journal/JOURNAL_EVENEMENTS.jsonl
+- Provenance : événement GitHub push. Ceci ne contient PAS les messages privés ChatGPT non consignés explicitement.
