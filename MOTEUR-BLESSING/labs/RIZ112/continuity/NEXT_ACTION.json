@@ -44,7 +44,7 @@
   "critical_directive_D035": "Cahier mère as durable authority, all accessible context, no blanket assertion of 112 IC causal effects; each counterfactual evidence or explicit abstention",
   "canonical_source": "GitHub main MOTEUR-BLESSING/labs/RIZ112/CAHIER_MERE.md plus journal, exact context register and checkpoint; not ChatGPT memory.",
   "context_capture_limits": "The tool captures only messages actively submitted in-session and available for logging, not autonomous background conversations.",
-  "latest_journal_event_id": "E167",
+  "latest_journal_event_id": "E168",
   "latest_context_id": "CTX-0082",
   "journal_chain_verified": false,
   "step18_checkpoint": "MOTEUR-BLESSING/labs/RIZ112/step18/CHECKPOINT_STEP18_20261017.json",
@@ -267,12 +267,12 @@
   "logic_first_v02_D055_integration_status": "PENDING_REAL_BASELINE_RUN",
   "logic_first_v02_D055_drive_status": "CAHIER_DOC_MIRROR_READBACK_TRUE_FULL_ZIP_NOT_BACKED_UP",
   "latest_technical_checkpoint": "MOTEUR-BLESSING/labs/MATRICE_LOGIC_FIRST_V03/CHECKPOINT_D058_20261023.json",
-  "journal_head": "63045a4086a9f8ade8c779845d751452d797fd540e7c0ed73ad0d15c23e77146",
+  "journal_head": "82cfd0c57108fd2d76c0e1b88ccb329788656969d4436fe24b0524d1b6b34552",
   "mirror_status_D056": "GOOGLE_DOC_READBACK_VERIFIED; FULL_ZIP_NOT_SYNCED",
   "next_tests_count": 31,
   "latest_audit": "MOTEUR-BLESSING/labs/MATRICE_LOGIC_FIRST_V03/README.md",
   "latest_unverified_changes": [],
-  "continuity_gap": "Manual causal mechanism review remains; complete ZIP Drive mirror and MBMPC test not verified, Google Docs mother notebook D058 updated/readback.",
+  "continuity_gap": "D060 integrity repair awaiting independent CI rerun; semantic causal mechanism mapping of 324 remains; full ZIP Drive and PC testing not verified.",
   "latest_verified_D058": {
     "private_CI_receipt": "Terminator364/ChatGPT-PC:MATRICE/R8_G3_DEEP_20261014/MOTEUR_LOGIC_FIRST_D057/CI_READBACK_D057.json",
     "pass_tests": 31,
@@ -280,5 +280,16 @@
     "legacy_archive_contracts": 12,
     "not_calibrated": true,
     "google_doc_readback": true
+  },
+  "latest_continuity_repair": {
+    "decision": "D060",
+    "forensic_original": "journal/forensics/ORIGINAL_CHAIN_WITH_UNVERIFIED_E165_E167_20261023.jsonl",
+    "hash_chain_recomputed_only_for": [
+      "E165",
+      "E166",
+      "E167"
+    ],
+    "repair_event": "E168",
+    "journal_validation": "CI_RERUN_PENDING"
   }
 }
