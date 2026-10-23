@@ -1,0 +1,45 @@
+ID,Paramètre,Unité,A,B,C,D,E,F,G,H,I,J
+001,Masse de riz disponible,g,164.2,240.4,249.1,165.8,149.2,138.3,276.3,215.3,171.8,214.6
+002,Eau potable disponible,mL,465.9,174.9,659.3,398.6,371.5,383.0,795.1,498.3,382.0,553.5
+003,Sel disponible,g,3.053,2.006,0.458,2.998,1.244,3.32,0.888,2.099,2.206,0.761
+004,Matière grasse éventuelle,g,7.779,0.386,8.503,3.064,1.199,6.025,9.078,1.665,7.034,4.235
+005,Eau de rinçage disponible,mL,602.9,108.1,839.1,576.9,1163.2,628.0,1010.6,348.0,481.9,859.3
+006,Source d’énergie,cat.,gas,electricity,gas,gas,gas,charcoal,charcoal,electricity,electricity,gas
+007,Fiabilité de la source d’énergie,fraction,0.7926,0.8217,0.8123,0.9492,0.9024,0.8225,0.5545,0.9715,0.8855,0.8378
+008,Capacité de la casserole,mL,1351.3,1500.4,1800.8,2033.7,641.9,2784.0,2757.9,2331.6,2550.6,2339.4
+009,Diamètre de la casserole,cm,23.377,22.765,23.713,22.174,22.973,18.672,25.073,25.4,20.571,25.991
+010,Matériau de la casserole,cat.,aluminium,steel,aluminium,aluminium,ceramic,copper,aluminium,copper,ceramic,steel
+011,Épaisseur du fond,mm,2.597,2.746,4.341,3.889,2.972,4.329,4.401,2.437,1.852,2.72
+012,État du fond,cat.,worn,worn,worn,slightly_warped,worn,slightly_warped,worn,worn,slightly_warped,clean_flat
+013,Présence du couvercle,booléen,True,True,True,True,True,True,True,True,True,False
+014,Ajustement du couvercle,coefficient,1.1584,0.9304,0.997,0.8035,0.8751,1.0364,0.9685,0.8137,0.9482,0.8906
+015,Évacuation de la vapeur,cat.,narrow_vent,narrow_vent,unvented,narrow_vent,unvented,narrow_vent,unvented,vented,narrow_vent,vented
+016,Type de foyer,cat.,gas_burner,electric_hotplate,gas_burner,gas_burner,gas_burner,charcoal_stove,charcoal_stove,electric_hotplate,electric_hotplate,gas_burner
+017,Réglage de puissance,booléen,True,True,True,False,True,True,True,False,True,True
+018,Répartition de la chaleur,fraction,0.5476,0.696,0.9051,0.7365,0.8992,0.6188,0.897,0.8731,0.8837,0.7474
+019,Balance,booléen,True,True,False,True,True,True,True,True,True,True
+020,Instrument de mesure de l’eau,booléen,False,False,True,False,True,True,False,True,False,True
+021,Passoire,booléen,True,True,True,False,True,True,False,True,True,True
+022,Ustensile pour remuer,booléen,False,True,True,False,True,False,True,True,False,True
+023,Récipient de service,booléen,True,True,True,False,True,True,True,False,True,True
+024,Variété,cat.,medium_white_hypothesis,medium_white_hypothesis,long_white_hypothesis,long_white_hypothesis,medium_white_hypothesis,short_white_hypothesis,medium_white_hypothesis,long_white_hypothesis,medium_white_hypothesis,long_white_hypothesis
+025,Longueur des grains,mm,5.307,5.533,6.229,6.99,6.026,4.782,5.562,6.528,6.345,6.746
+026,Traitement du riz,cat.,polished,unprocessed,parboiled,polished,parboiled,polished,parboiled,unprocessed,polished,polished
+027,Lot et provenance,cat.,lot_B_synthetic,lot_A_synthetic,lot_B_synthetic,lot_C_synthetic,lot_B_synthetic,lot_A_synthetic,lot_A_synthetic,lot_B_synthetic,lot_B_synthetic,lot_B_synthetic
+028,Ancienneté et conservation,jours,290.0,574.6,443.8,377.9,61.5,347.4,151.4,350.3,218.5,50.7
+029,Grains cassés,fraction,0.0405,0.0392,0.0606,0.0399,0.032,0.0349,0.1359,0.021,0.2352,0.0629
+030,Amidon de surface,fraction,0.3467,0.6465,0.3588,0.9162,0.4418,0.4955,0.1846,0.1942,0.5189,0.619
+031,Impuretés,fraction,0.03265,0.02709,0.02424,0.00788,0.01323,0.03246,0.00337,0.03037,0.10817,0.01792
+032,Humidité initiale,fraction,0.1134,0.1184,0.1478,0.1351,0.1557,0.177,0.1291,0.1725,0.1371,0.1528
+033,Capacité et vitesse d’absorption,g/g,1.8157,1.5728,1.5819,1.7275,1.2424,1.418,1.4415,1.5311,1.6416,1.2853
+034,Comportement à la gélatinisation,min,11.906,18.791,18.705,11.82,13.775,17.73,11.791,17.017,8.829,17.347
+035,Eau ajoutée,g,248.4,505.2,378.8,278.4,298.5,245.0,479.0,409.8,288.4,441.4
+036,Eau résiduelle après rinçage,g,14.043,8.527,6.103,7.586,6.025,16.02,12.022,4.679,9.83,12.455
+037,Température initiale de l’eau,°C,21.692,26.141,23.787,26.682,15.803,25.01,16.432,16.314,29.24,22.209
+038,Température initiale du riz,°C,23.568,29.682,28.924,26.162,24.372,28.767,23.947,18.109,28.322,25.065
+039,Température ambiante,°C,22.989,28.099,28.34,24.927,22.543,29.939,21.943,22.782,26.721,22.389
+040,Altitude et pression,m,890.42,350.06,1058.72,573.87,198.2,1724.21,912.94,1684.53,1749.83,1416.29
+041,Puissance choisie,W,1095.04,1160.33,230.83,773.9,833.37,921.1,664.83,1074.77,662.02,1101.09
+042,Transfert thermique,fraction,0.7114,0.7135,0.5799,0.6859,0.6086,0.7755,0.6285,0.5732,0.622,0.7826
+045,Évaporation estimée,g/min,4.652,2.605,1.813,4.248,4.001,10.927,2.89,6.147,5.079,5.813
+047,Durée de cuisson envisagée,min,18.181,14.287,16.178,15.558,15.348,18.113,21.707,18.883,17.412,18.672
