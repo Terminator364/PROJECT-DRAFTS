@@ -14,7 +14,7 @@ from source_graph_v04 import extract_original_archives, SourceGraphError
 
 TEXTUAL=("definition_du_sous_parametre","definition","description","scope",
          "mechanistic_hypothesis","mechanism","rationale","target_fact",
-         "problem_definition","study_goal","question","purpose","name_fr")
+         "problem_definition","study_goal","question","purpose")
 def original_lookup(root:Path, rows:list[dict[str,Any]])->dict[str,dict[str,Any]]:
     contracts={}
     original_archive=None
