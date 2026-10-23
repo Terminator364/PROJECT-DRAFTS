@@ -1157,3 +1157,11 @@ La demande canonique n'est pas de créer une succession de registres décoratifs
 - Message : feat(riz112): expose one scenario IC plus 44 conditional per-parameter IC counterfactuals
 - Fichiers concernés : MOTEUR-BLESSING/labs/RIZ112/pret0_focus/V3_1/diagnostic_44_impact_IC.py
 - Provenance : événement GitHub push. Ceci ne contient PAS les messages privés ChatGPT non consignés explicitement.
+
+
+### Synchronisation automatique GitHub — 2026-10-23T14:36:13.255438+00:00
+
+- Commit source : febb79303743f02785e9318b7d26176492c2922c
+- Message : docs(riz112): restore preT0 44-input scenario contract and clarify per-factor conditional IC versus global IC
+- Fichiers concernés : MOTEUR-BLESSING/labs/RIZ112/pret0_focus/V3_1/CONTRAT_1_IC_GLOBAL_44_IMPACTS_CONDITIONNELS_20261023.md
+- Provenance : événement GitHub push. Ceci ne contient PAS les messages privés ChatGPT non consignés explicitement.
