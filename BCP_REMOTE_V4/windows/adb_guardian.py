@@ -17,7 +17,7 @@ def emit(code,detail):
     with LOG.open("a",encoding="utf-8") as f:
         f.write(json.dumps({"utc":int(time.time()),"code":code,"detail":detail},separators=(",",":"))+"\n")
 def adb(*args,timeout=9):
-    return subprocess.run([str(ADB),*args],capture_output=True,text=True,timeout=timeout,check=False)
+    return subprocess.run([str(ADB),*args],capture_output=True,text=True,timeout=timeout,check=False,creationflags=(subprocess.CREATE_NO_WINDOW if os.name=="nt" else 0))
 def unique_authorized_serial():
     r=adb("devices","-l")
     if r.returncode: return None
