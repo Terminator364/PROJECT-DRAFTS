@@ -1,0 +1,68 @@
+{
+  "schema": "MOTEUR_D067_ARCHIVED_V12_313_RETROSPECTIVE_COUNTERAUDIT",
+  "analysis_date": "2026-10-23",
+  "source_type": "USER_DRIVE_XLSX_ARCHIVE_REPLAY_NOT_NATIVE_PIT_EXPORT",
+  "legacy_model_selected": "C1_LEAGUE_POISSON",
+  "unique_match_rows": 313,
+  "cohorts": {
+    "TRAIN": {
+      "n": 181,
+      "over15_observed": 135,
+      "mean_forecast": 0.7578600340585623,
+      "brier": 0.19062888250773577
+    },
+    "VALIDATION": {
+      "n": 72,
+      "over15_observed": 59,
+      "mean_forecast": 0.7415364290861105,
+      "brier": 0.15374892543105
+    },
+    "TEST_LOCKED_OCT": {
+      "n": 55,
+      "over15_observed": 49,
+      "observed_frequency": 0.8909090909090909,
+      "mean_forecast": 0.7673334730672725,
+      "model_brier": 0.11466550415245978,
+      "reference_brier": 0.11466550415245978,
+      "reference_minus_model_brier": 0,
+      "base_rate_from_TRAIN": 0.7458563535911602,
+      "train_constant_forecast_brier_on_test": 0.11823037924805276,
+      "model_gain_over_train_constant": 0.003564875095592973,
+      "model_mean_minus_observed_frequency": -0.12357561784181836
+    },
+    "POST_MATCH_REPLAY_OCT15": {
+      "n": 5,
+      "over15_observed": 4,
+      "mean_forecast": 0.7360453286,
+      "brier": 0.16409019999388197
+    }
+  },
+  "source_contract_param_worlds": 62,
+  "legacy_parameter_fixture_slots": 19406,
+  "legacy_slot_statuses": {
+    "UNOBSERVED": 16555,
+    "DATE_DERIVED": 1599,
+    "DERIVED_FROM_BASE": 626,
+    "ASSUMED_IDENTITY_MATCHED": 313,
+    "RULE_ASSUMED_VERIFY_AET": 313
+  },
+  "fraction_unobserved": 0.8530866742244667,
+  "scored_param_worlds_incremental_weights_activated": 0,
+  "archived_score_source_distinct_links_reported": 21,
+  "truth_gates": {
+    "first_publication_before_each_T0_attributed_and_verified": false,
+    "regulation_90min_score_independently_verified": false,
+    "external_matches_independent_representative_sample_verified": false,
+    "comparing_model_to_reference_yields_performance_gain": false,
+    "source_records_per_match_validated": false
+  },
+  "assertions": [
+    "This is a retrospective analysis only, not historical predictions published before matches.",
+    "Brier score measures squared probability error; it is NOT % prediction accuracy.",
+    "Exact equality of IC V12 vs IC comp on locked test yields zero incremental Brier benefit.",
+    "Over 1.5 on this locked test is 49/55; sample is strongly positive-skewed.",
+    "A backtest lacking verified historical publisher timestamps may contain retrospective hindsight and is not certified PIT."
+  ],
+  "recommended_deployment_status": "DO_NOT_CERTIFY_SPORTING_PREDICTOR",
+  "next_needed": "Legal source rights, issued-at/first-seen timestamps, 90min results and clean future held-out games. Evaluate D066 chronological baseline and 355 mechanism family additions against TRAIN-only selected comparator."
+}
