@@ -1334,3 +1334,11 @@ Rapport canonique : [CONTRAT_1_IC_GLOBAL_44_IMPACTS_CONDITIONNELS_20261023.md](p
 ### Prochaines portes recommandées
 
 **RIZ** : achever seulement les impacts IC conditionnels manquants, audit de résolution Monte Carlo et interactions non additives, sans regénérer les scénarios ni recopier ses coefficients. **MATRICE** : G3 preuves et données PIT, G4 apprentissage et calibration de l'IC de l'événement Over1.5 (90 minutes), G5 intégration/test et revues prospectives. Conserver `IC scientifique RIZ = null` et `précision scientifique MATRICE = non certifiée` jusqu'aux preuves.
+
+
+### Synchronisation automatique GitHub — 2026-10-23T17:02:17.986607+00:00
+
+- Commit source : c0848daaf225a8b78de9413059ef870f17aee563
+- Message : docs(moteur): explain RIZ-to-MATRICE architecture transfer versus unproven forecasting precision
+- Fichiers concernés : MOTEUR-BLESSING/labs/RIZ112/CAHIER_MERE.md
+- Provenance : événement GitHub push. Ceci ne contient PAS les messages privés ChatGPT non consignés explicitement.
