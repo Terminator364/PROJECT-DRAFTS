@@ -1,0 +1,52 @@
+{
+  "schema": "MATRICE_LOGIC_FIRST_V02_D055_CHECKPOINT",
+  "date": "2026-10-23",
+  "trigger": "Moteur/continue",
+  "decision": "D055",
+  "active_stage": "V0.2_Lot01_BEFORE_DATA",
+  "canonical_worlds": 62,
+  "source_R8_documentary_children": 355,
+  "previous_executable_children": 14,
+  "new_executable_children": 17,
+  "total_executable_child_ids": 31,
+  "remaining_documented_not_wired": 324,
+  "new_hypothesis_rules_per_side": 6,
+  "legacy_rules_per_side": 7,
+  "rule_evaluations_per_fixture": 26,
+  "source_exact_v01_sha": "83fa4e00ff405d8d07fd8c5aeb066014802e7f8e",
+  "github_dir": "MOTEUR-BLESSING/labs/MATRICE_LOGIC_FIRST_V02",
+  "github_files": [
+    "base_v01.py",
+    "logic_engine_v02.py",
+    "test_v02.py",
+    "registry_builder.py",
+    "test_registry.py",
+    "README.md"
+  ],
+  "code_blob_sha": "8d114ffaef1dfe0d01753414d02d9e8a95edb12b",
+  "tests_blob_sha": "c63e2a7f0cfdef13485b431ab9ef5b4eb3d6cbd7",
+  "registry_blob_sha": "db8774a31c904303ad8eeeeefc98dec4fe1392f8",
+  "registry_tests_blob_sha": "98a7ebb13309a517fdac9485617e4cba6fd3213a",
+  "local_unit_tests": {
+    "pass": 19,
+    "fail": 0,
+    "ran_against": "local V0.1 compatibility stub; not exact actual base"
+  },
+  "remaining_verification": [
+    "Run tests with exact actual V0.1 baseline (base_v01.py)",
+    "Build full 355 registry from actual R8 compile_v22.current()",
+    "Human validate 17 additional state directions and semantic pathways",
+    "Update Drive mirror if connected and readback"
+  ],
+  "probability_outputs": {
+    "IC_theoretical_under_hypotheses": null,
+    "IC_calibrated": null
+  },
+  "note": "V0.2 first incremental logic lot, do not claim all 355 classified or scored; 31 executable synthetic hypotheses, not empirical effects",
+  "pc_status_at_reprise": "MBMPC_OFFLINE",
+  "github_readback": true,
+  "drive_synced": false,
+  "matrice_2_0_modified": false,
+  "source_branch_modified": false,
+  "next_goal": "V0.2 integrated execution and semantic audit, then next batch from remaining 324"
+}
