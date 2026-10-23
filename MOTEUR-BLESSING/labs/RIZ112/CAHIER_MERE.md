@@ -939,3 +939,47 @@ Générer de nouveaux mondes synthétiques **44 paramètres pré-T0** et produir
 - Message : docs(riz112): publish full 10x44 simulation report and methodology
 - Fichiers concernés : MOTEUR-BLESSING/labs/RIZ112/pret0_focus/SIM_PRET0_10_V2_20261023/RAPPORT_10x44.md
 - Provenance : événement GitHub push. Ceci ne contient PAS les messages privés ChatGPT non consignés explicitement.
+
+
+## 23 octobre 2026 — D044 : 10 simulations × 44 paramètres pré-T0 (440 valeurs)
+
+**Message utilisateur 1, verbatim intégral (CTX-0065):**
+
+> Voilà. Déjà pour la fonctionnalité, comme j'ai dit du cahier mère, le cahier mère, c'est pas seulement pour les risques. C'est pour le moteur, en fait. Tout le projet moteur, c'est ce cahier mère-là. Et ensuite des actifs, tous les automates. Ça doit se faire genre, quand on relance comme ça. Moi par exemple, je t'écris, ChatGPT, le cahier mère. Toi tu me réponds, ChatGPT, le cahier mère. Tu vois. Et ça doit se faire de manière automatique, pas avec des automates. Oui. Mais dans un premier temps, produis-moi d'abord dix simulations pour que je voie. Dix simulations. Donc t'as 440 normalement paramètres aléatoires. Ça doit me donner dix ici. Tout bien documenté là. Produis-moi ça d'abord que je voie.
+
+**Message utilisateur 2, verbatim (CTX-0066):** « travail! »
+
+### Reprise et exécution réelle (preuves)
+
+- Décision utilisateur **D044** : le Cahier mère porte sur **TOUT le projet MOTEUR**, décisions et analyses, pas seulement sur les risques. La continuité doit être maintenue pendant les interactions actives et au code **Moteur/continue**, sans tâche planifiée ChatGPT. La tâche ChatGPT « Synchronisation Cahier mère RIZ112 » a été explicitement **désactivée**.
+- Les 10 simulations A..J ont été **produites** avec 44 valeurs synthétiques pré-préparation chacune, soit **440 valeurs**. Génération déterministe graine `20261023`, distributions conditionnelles cohérentes (pas 440 tirages indépendants). Période de gel des entrées pré-T0 `2026-10-23T11:05:00Z`, début fictif `2026-10-23T12:10:00Z`.
+- Matrice source complète sur GitHub : [MATRICE_44x10.csv](https://github.com/Terminator364/PROJECT-DRAFTS/blob/main/MOTEUR-BLESSING/labs/RIZ112/pret0_focus/SIM_PRET0_10_V2_20261023/MATRICE_44x10.csv) ; scripts de rejeu sur moteur canonique `pret0_focus/ic44_v2.py` : `pret0_focus/SIM_PRET0_10_V2_20261023/rejouer_sur_moteur_canonique.py`.
+- **Rejeu canonique indépendant PASS** : GitHub Actions [run 39945875371](https://github.com/Terminator364/PROJECT-DRAFTS/actions/runs/39945875371) — reconnaît 10×44=440 valeurs, compare 10 IC_DEMO à 10 décimales avec les résultats calculés localement, toutes étapes succès.
+- Les tentatives précédentes [39945546527](https://github.com/Terminator364/PROJECT-DRAFTS/actions/runs/39945546527) et [39945699901](https://github.com/Terminator364/PROJECT-DRAFTS/actions/runs/39945699901) avaient échoué **uniquement lors du git rebase de publication automatique du reçu** ; le calcul avait réussi. Le reçu a été publié directement sur GitHub, et le workflow corrigé a été retesté avec succès.
+- Sur les **440 contrefactuels locaux** (un paramètre à la fois par scénario), **392** IC_DEMO changés, **48** neutralités locales. Ceci est compatible avec les influences conditionnelles : chaque paramètre peut influencer l'IC dans certains contextes, pas dans chaque contexte.
+- **0 préparation réelle, 0 apprentissage empirique, IC_SCIENTIFIQUE = null.** Les 10 IC affichés ne sont **PAS** des fréquences de réussite réelles. La convention multiplicative de 7 canaux et la faisabilité compriment les scores ; seuils/profils non calibrés. Ne pas exporter coefficients ou valeurs du riz vers MATRICE.
+
+### Résultats canoniques détaillés
+
+| Scénario | Contexte | IC_DEMO_V2 (%) |
+|---|---|---:|
+| A | équilibré | 0.7268531182 |
+| B | eau insuffisante | 0.3153417356 |
+| C | chauffe faible | 0.0754995897 |
+| D | riz amidonné | 1.8853456931 |
+| E | volume limite | 0.1120223208 |
+| F | forte évaporation | 0.9816381081 |
+| G | source instable | 0.0604030525 |
+| H | bonne préparation | 2.4735166649 |
+| I | grains fragiles | 0.1643630843 |
+| J | conditions mixtes | 1.4813796447 |
+
+Moyenne descriptive `0.82763630119 %`. Toute la chaîne précédente de 1 000 scénarios historiques a été **préservée sans écrasement**.
+
+### Références de reprise et conservation
+
+- Sources et rapport GitHub : `pret0_focus/SIM_PRET0_10_V2_20261023/` (matrice, script, reçu, rapport).
+- Résultat canonique : https://github.com/Terminator364/PROJECT-DRAFTS/blob/main/MOTEUR-BLESSING/labs/RIZ112/pret0_focus/SIM_PRET0_10_V2_20261023/RECU_CANONIQUE_10x44.json
+- Livraison sous la conversation : fichier ZIP `RIZ112_10_SIMULATIONS_440_PARAMETRES_V2_20261023.zip` (paquets et détail JSON, tableau Excel, matrice CSV, contrefactuels, code, manifest et SHA) + classeur XLSX. Les liens sandbox ne sont pas des URL GitHub permanentes ; la matrice et le reçu sont conservés dans le dépôt.
+- **Règle de continuité** : à chaque intervention active du projet, lire l'état canonique à jour, noter message utilisateur accessible, travail réellement fait, preuves, échecs, décisions, limites et prochaine étape dans le Cahier mère. Ce n'est **pas** une capture technique automatique de tous les messages ChatGPT en dehors de la séance. L'auto-journal GitHub déclenché par push ne capture que les commits.
+- **Prochaine porte** : analyse critique des 10 cas et de la forme d'IC/ICE, puis seulement extension à 1 000 cas versionnés si demandé ; conserver les scénarios historiques intacts.

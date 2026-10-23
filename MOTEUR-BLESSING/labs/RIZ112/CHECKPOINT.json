@@ -83,7 +83,7 @@
     "events": 144,
     "head": "272dd9517a850fe17091a01ff288b8b0a7922368ad4e277596514e8ce9bccebd"
   },
-  "last_user_directive": "CTX-0064: 44 PRESTART must affect IC_DEMO in applicable conditions, not only be routed; one round; permanent continuity.",
+  "last_user_directive": "CTX-0065 + CTX-0066: Mother notebook captures all of MOTEUR; produce ten 44-input scenarios now; no ChatGPT scheduled reminder.",
   "latest_case_audit": "step12/COUNTERFACTUAL_112_V12.json",
   "latest_code": "pret0_focus/pipeline44.py",
   "latest_contract": "step9/DEMONSTRATION_CONTRACT.json",
@@ -676,5 +676,42 @@
     "github_auto_changelog_workflow": ".github/workflows/riz112-auto-continuity.yml",
     "github_auto_changelog_verified_run": "https://github.com/Terminator364/PROJECT-DRAFTS/actions/runs/39942610499",
     "private_chat_messages_auto_ingested": false
+  },
+  "simulation_10x44_20261023": {
+    "date": "2026-10-23",
+    "schema": "riz112/pret0/10x44/v2",
+    "status": "TEN_SCENARIOS_CANONICALLY_REPLAYED",
+    "seed": 20261023,
+    "scenarios": 10,
+    "variables_each": 44,
+    "generated_values": 440,
+    "ice_demo_A_to_J": [
+      0.7268531182,
+      0.3153417356,
+      0.0754995897,
+      1.8853456931,
+      0.1120223208,
+      0.9816381081,
+      0.0604030525,
+      2.4735166649,
+      0.1643630843,
+      1.4813796447
+    ],
+    "empirical_ic": null,
+    "real_observations": 0,
+    "local_mutation_checks": 440,
+    "mutations_changing_demo_ice": 392,
+    "mutations_neutral": 48,
+    "canonical_github_ci": "https://github.com/Terminator364/PROJECT-DRAFTS/actions/runs/39945875371",
+    "matrix": "pret0_focus/SIM_PRET0_10_V2_20261023/MATRICE_44x10.csv",
+    "canonical_receipt": "pret0_focus/SIM_PRET0_10_V2_20261023/RECU_CANONIQUE_10x44.json",
+    "report": "pret0_focus/SIM_PRET0_10_V2_20261023/RAPPORT_10x44.md",
+    "context_records": [
+      "CTX-0065",
+      "CTX-0066"
+    ],
+    "schedule_based_google_doc_watcher_enabled": false,
+    "original_1000_simulations_preserved": true,
+    "next": "Critically inspect ten simulated cases and IC aggregation before 1000-run expansion"
   }
 }
