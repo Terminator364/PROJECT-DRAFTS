@@ -629,5 +629,31 @@
       "latest_context": "CTX-0062",
       "journal_head": "e276b9536b508f9374501cd24c070d8345e7cd3264a95cddfc68a80199772a58"
     }
+  },
+  "latest_active_resume": {
+    "date": "2026-10-23",
+    "trigger": "Moteur/continue",
+    "decision": "D054",
+    "active_workstream": "MATRICE_R8_LOGIC_FIRST_V02_BEFORE_DATA",
+    "first_pointer": "MOTEUR-BLESSING/labs/RIZ112/continuity/NEXT_ACTION.json",
+    "handoff": "MOTEUR-BLESSING/labs/RIZ112/continuity/REPRISE_PRIORITE_LOGIQUE_D054_20261023.md",
+    "mother": "MOTEUR-BLESSING/labs/RIZ112/CAHIER_MERE.md",
+    "source_prototype": "MOTEUR-BLESSING/labs/MATRICE_LOGIC_FIRST_V01/",
+    "r8_repo": "Terminator364/ChatGPT-PC",
+    "r8_branch": "research/matrice-r8-g3-depth-audit-2026-10-14",
+    "r8_worlds": 62,
+    "r8_documentary_children": 355,
+    "r8_active_wired_children": 14,
+    "r8_remaining_unwired": 341,
+    "unit_tests_reexecuted": {
+      "passed": 22,
+      "total": 22
+    },
+    "zip_sha256": "f392715cf3996aa23130ac43b3593ee1e73b7ad4f24052c342f189e189cd4c2c",
+    "scoring": "LOGICAL_ISSUES_ONLY; probabilistic_IC null until explicitly specified assumptions and calibration",
+    "status": "NEXT_V02_WORK_NOT_COMPLETED",
+    "previous_RIZ": "PRESERVED_SECONDARY",
+    "user_context": "CTX-0077",
+    "journal_head": "E162"
   }
 }
