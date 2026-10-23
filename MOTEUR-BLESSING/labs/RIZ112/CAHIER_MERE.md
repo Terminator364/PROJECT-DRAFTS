@@ -983,3 +983,11 @@ Moyenne descriptive `0.82763630119 %`. Toute la chaîne précédente de 1 000 sc
 - Livraison sous la conversation : fichier ZIP `RIZ112_10_SIMULATIONS_440_PARAMETRES_V2_20261023.zip` (paquets et détail JSON, tableau Excel, matrice CSV, contrefactuels, code, manifest et SHA) + classeur XLSX. Les liens sandbox ne sont pas des URL GitHub permanentes ; la matrice et le reçu sont conservés dans le dépôt.
 - **Règle de continuité** : à chaque intervention active du projet, lire l'état canonique à jour, noter message utilisateur accessible, travail réellement fait, preuves, échecs, décisions, limites et prochaine étape dans le Cahier mère. Ce n'est **pas** une capture technique automatique de tous les messages ChatGPT en dehors de la séance. L'auto-journal GitHub déclenché par push ne capture que les commits.
 - **Prochaine porte** : analyse critique des 10 cas et de la forme d'IC/ICE, puis seulement extension à 1 000 cas versionnés si demandé ; conserver les scénarios historiques intacts.
+
+
+### Synchronisation automatique GitHub — 2026-10-23T11:31:27.795621+00:00
+
+- Commit source : 8caf61936684e2882bd035a7da3e8f176e57ed70
+- Message : docs(moteur): D044 ten 44-field simulations, exact user requests, mother diary and parent continuity
+- Fichiers concernés : MOTEUR-BLESSING/labs/RIZ112/CAHIER_MERE.md, MOTEUR-BLESSING/labs/RIZ112/CHECKPOINT.json, MOTEUR-BLESSING/labs/RIZ112/CONTEXTE_INTEGRAL/REGISTRE_MESSAGES.jsonl, MOTEUR-BLESSING/labs/RIZ112/DECISIONS.md
+- Provenance : événement GitHub push. Ceci ne contient PAS les messages privés ChatGPT non consignés explicitement.
