@@ -1,0 +1,73 @@
+{
+  "schema": "riz112/preT0/10x44/canonical-readback/v1",
+  "date": "2026-10-23",
+  "seed": 20261023,
+  "scenarios": 10,
+  "inputs_each": 44,
+  "inputs_total": 440,
+  "model": "pret0_focus/ic44_v2.py",
+  "matrix_path": "MOTEUR-BLESSING/labs/RIZ112/pret0_focus/SIM_PRET0_10_V2_20261023/MATRICE_44x10.csv",
+  "canonical_calculation_run": "https://github.com/Terminator364/PROJECT-DRAFTS/actions/runs/39945546527",
+  "canonical_execution_status": "MODEL_REPLAY_SUCCEEDED__CI_PUSH_RECEIPT_STEP_FAILED",
+  "scientific_IC": null,
+  "empirical_validation": false,
+  "results": [
+    {
+      "scenario": "A",
+      "description": "équilibré",
+      "IC_DEMO_PCT": 0.7268531182
+    },
+    {
+      "scenario": "B",
+      "description": "eau insuffisante",
+      "IC_DEMO_PCT": 0.3153417356
+    },
+    {
+      "scenario": "C",
+      "description": "chauffe faible",
+      "IC_DEMO_PCT": 0.0754995897
+    },
+    {
+      "scenario": "D",
+      "description": "riz amidonné",
+      "IC_DEMO_PCT": 1.8853456931
+    },
+    {
+      "scenario": "E",
+      "description": "volume limite",
+      "IC_DEMO_PCT": 0.1120223208
+    },
+    {
+      "scenario": "F",
+      "description": "forte évaporation",
+      "IC_DEMO_PCT": 0.9816381081
+    },
+    {
+      "scenario": "G",
+      "description": "source instable",
+      "IC_DEMO_PCT": 0.0604030525
+    },
+    {
+      "scenario": "H",
+      "description": "bonne préparation",
+      "IC_DEMO_PCT": 2.4735166649
+    },
+    {
+      "scenario": "I",
+      "description": "grains fragiles",
+      "IC_DEMO_PCT": 0.1643630843
+    },
+    {
+      "scenario": "J",
+      "description": "conditions mixtes",
+      "IC_DEMO_PCT": 1.4813796447
+    }
+  ],
+  "local_counterfactual_assay": {
+    "evaluations": 440,
+    "changed": 392,
+    "neutral": 48,
+    "engine": "local synchronized IC44-v2 snapshot"
+  },
+  "disclaimer": "These are a synthetic, uncalibrated model demonstrator. The score is NOT a probability of actual success or a MATRICE Over1.5 probability."
+}
