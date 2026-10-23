@@ -67,8 +67,14 @@ def dossiers(semantics:dict[str,Any], original:dict[str,dict[str,Any]])->dict[st
         evidence=c.get("evidence_search_plan",c.get("source_search_plan"))
         if not isinstance(evidence,list) or not evidence:
             raise SourceGraphError("SOURCE_EVIDENCE_PLAN_MISSING:"+cid)
-        anticipations=c.get("anticipations_by_horizon",c.get("anticipation_by_horizon"))
-        if not isinstance(anticipations,list) or len(anticipations)!=6:
+        # R8 V22 has two legitimate source schemas, with competing historical
+        # field spellings. Never infer a horizon: only normalize original rows.
+        older=c.get("anticipations_by_horizon")
+        newer=c.get("anticipation_by_horizon")
+        anticipations=(older if isinstance(older,list) and len(older)==6
+                       else newer if isinstance(newer,list) and len(newer)==6
+                       else None)
+        if anticipations is None:
             raise SourceGraphError("SOURCE_SIX_HORIZONS_MISSING:"+cid)
         plan=[]
         for h in anticipations:
