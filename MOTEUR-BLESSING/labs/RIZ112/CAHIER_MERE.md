@@ -1219,3 +1219,28 @@ Rapport canonique : [CONTRAT_1_IC_GLOBAL_44_IMPACTS_CONDITIONNELS_20261023.md](p
 - Message : docs(riz112): D050 user-confirmed contract A with 44000 Q diagnostics and 748 real IC counterfactuals
 - Fichiers concernés : MOTEUR-BLESSING/labs/RIZ112/pret0_focus/V3_1/D050_CONTRAT_A_RECU_1000x44_20261023.md
 - Provenance : événement GitHub push. Ceci ne contient PAS les messages privés ChatGPT non consignés explicitement.
+
+
+## 23 octobre 2026 — D050 : l'utilisateur CONFIRME définitivement le contrat A (1 IC global + 44 impacts conditionnels)
+
+### Verbatim utilisateur (CTX-0072, texte intégral)
+
+> « Je confirme A : un IC global par scénario, avec 44 effets individuels conditionnels. Inscris cette définition dans le Cahier mère et continue sur cette architecture. »
+
+### Décision D050 — remplace toute ambiguïté laissée par D049
+
+**CONTRAT A CONFIRMÉ :** pour chaque scénario pré-préparation T0 : 44 paramètres (R001–R042, R045 et R047), interactions physiques et conditionnelles, **un IC global de la situation complète** et **44 diagnostics d'effet individuel conditionnel**. Le diagnostic `j` utilise les **43 autres valeurs inchangées**, une alternative explicitée, le **même modèle**, les **mêmes hypothèses** et **la même graine de calcul** : `IC_global_alt_j` et `ΔIC_j = IC_global_alt_j - IC_global_original`. Les 44 IC contrefactuels ne sont **pas** des probabilités autonomes par paramètre, leurs deltas ne s'additionnent pas et les neutralités sont légitimes. Les 128 tirages de la V3.1 sont une méthode interne de calcul d'un IC, **pas** des scénarios ou paramètres additionnels. La structure est conçue pour transférer la méthode à MATRICE pré-match, jamais les constantes du riz.
+
+### Travail effectivement exécuté pendant cette séance
+
+- 1000 scénarios d'origine, 44 000 valeurs T0 et **1000 IC globaux préservés**. Aucun scénario réinitialisé ni remplacé.
+- **44 000 effets nominals de Q* calculés** pour ces 1000 scénarios (1 paramètre modifié à la fois) : **26 331 deltas Q* non nuls** et **17 669 deltas Q* nuls**. Cette analyse est **sur Q* nominal**, et ne doit PAS être présentée comme 44 000 IC conditionnels exécutés. R007 (fiabilité énergie) est un exemple nécessaire d'influence sur IC par risque de panne même quand Q* nominal conditionnel est inchangé.
+- **17 scénarios (S0001–S0017), 748 IC contrefactuels EXÉCUTÉS**, avec 128 tirages par IC et graine d'origine, dont **202 écarts IC non nuls** et **546 neutralités locales**. Les 44 entrées originales des dossiers restent identiques.
+- **983 scénarios et 43 252 IC contrefactuels restent à recalculer**. La vérification fail-closed refuse de déclarer la campagne complète, et les blocs interrompus ont été exclus des résultats complets. **Statut 1000×44 IC conditionnels : NON TERMINÉ.**
+- 5/5 tests unitaires locaux du nouveau contrat et de la validation des lots **PASS**. Code de reprise par plages et contrôles : `diagnostic_44_contributions.py`, `executer_tous_les_impacts_IC.py`, `valider_batches_IC.py`, `test_contract_A.py` dans le package reproductible utilisateur.
+- Livraison reproductible : `RIZ112_CONTRAT_A_1000_SCENARIOS_44_PARAMETRES_20261023.zip` ; **SHA256 a52844bb828ca471d065305b7d52d73b08c084733a8c2b8d517cf4cb6fcfc47b**, **829 243 octets**, 29 fichiers, manifeste et CRC vérifiés. Contient moteur V3.1 original, toutes ses entrées/sorties archivées, 44 000 impacts nominaux, les lots de 748 IC testés, reçus et scripts.
+- Rapport GitHub stable : `pret0_focus/V3_1/D050_CONTRAT_A_RECU_1000x44_20261023.md`, plus prototype GitHub `pret0_focus/V3_1/diagnostic_44_impact_IC.py` du tour précédent. Aucune prétention de GitHub CI sur ces nouveaux scripts : les 5 tests de ce lot ont été effectués dans le conteneur local.
+
+### Conditions de clôture et continuité
+
+**Une campagne complète A n'est validée que si chaque situation parmi les 1000 possède ses 44 contrefactuels IC recalculés**, sans valeurs arbitraires, avec cohérence des 44 entrées et comparabilité des graines. La valeur IC scientifique reste `null` (aucune calibration réelle). La prochaine étape conserve les archives et poursuit les lots S0018–S1000. Au déclenchement `Moteur/continue`, lire `CHECKPOINT.json`, cette entrée D050, le rapport D050 et l'archive utilisateur ; ne jamais annoncer que 44 000 IC conditionnels ont déjà été calculés.
