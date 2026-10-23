@@ -1,0 +1,88 @@
+name: MOTEUR Logic R8 Exhaustive Verification
+on:
+  push:
+    paths:
+      - 'MOTEUR-BLESSING/labs/MATRICE_LOGIC_FIRST_V03/*.py'
+      - 'MOTEUR-BLESSING/labs/MATRICE_LOGIC_FIRST_V02/*.py'
+      - '.github/workflows/moteur-logic-r8-exhaustive-oneoff.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  verify-r8-355:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout MOTEUR canonical
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+          fetch-depth: 1
+      - name: Checkout real MATRICE R8 contracts
+        uses: actions/checkout@v4
+        with:
+          repository: Terminator364/ChatGPT-PC
+          ref: research/matrice-r8-g3-depth-audit-2026-10-14
+          path: matrice-r8-source
+          persist-credentials: false
+          fetch-depth: 1
+      - name: Use Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Verify V0.2 on real V0.1 and build R8 registry
+        shell: bash
+        run: |
+          set -euo pipefail
+          cd MOTEUR-BLESSING/labs/MATRICE_LOGIC_FIRST_V02
+          python -m unittest -v test_v02.py test_registry.py
+          python registry_builder.py --r8-repo-root "$GITHUB_WORKSPACE/matrice-r8-source" --output "../MATRICE_LOGIC_FIRST_V03/REGISTRE_R8_355.json"
+      - name: Verify V0.3 exhaustive source-referenced execution
+        shell: bash
+        run: |
+          set -euo pipefail
+          cd MOTEUR-BLESSING/labs/MATRICE_LOGIC_FIRST_V03
+          PYTHONPATH="../MATRICE_LOGIC_FIRST_V02" python -m unittest -v test_logic_engine_v03.py
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          from logic_engine_v03 import validate_registry,engine,role_for
+          path=Path("REGISTRE_R8_355.json")
+          reg=json.loads(path.read_text(encoding="utf-8"))
+          idx=validate_registry(reg)
+          modes={}
+          for cid,e in idx.items():
+              role,_=role_for(cid,e)
+              modes[role]=modes.get(role,0)+1
+          receipt={"status":"R8_SOURCE_REGISTRY_355_VERIFIED_WITH_PYTHON",
+                   "canonical_worlds":62,"source_ids":len(idx),
+                   "traceable_ids":len(idx),"semantically_held_inputs":modes.get("SEMANTIC_HOLD",0),
+                   "conditional_lab_hypothesis_inputs":modes.get("SIGNED_HYPOTHESIS",0),
+                   "other_unsigned_inputs":len(idx)-modes.get("SEMANTIC_HOLD",0)-modes.get("SIGNED_HYPOTHESIS",0),
+                   "role_counts":modes,
+                   "numeric_ic_theoretical":None,"numeric_ic_calibrated":None,
+                   "verified_real_match_probability":False,"real_r8_compiler_used":True}
+          Path("RECU_INTEGRATION_V03.json").write_text(json.dumps(receipt,indent=2,ensure_ascii=False,sort_keys=True)+"\n",encoding="utf-8")
+          print(json.dumps(receipt,sort_keys=True))
+          PY
+      - name: Keep canonical source registry and receipt in GitHub
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add MOTEUR-BLESSING/labs/MATRICE_LOGIC_FIRST_V03/REGISTRE_R8_355.json MOTEUR-BLESSING/labs/MATRICE_LOGIC_FIRST_V03/RECU_INTEGRATION_V03.json
+          if git diff --cached --quiet; then
+            echo "Registry already current; no commit necessary"
+          else
+            git commit -m "MOTEUR CI: verify real R8 355 registry and V0.3 tests"
+            git push origin "HEAD:${GITHUB_REF_NAME}"
+          fi
+      - name: Upload diagnostics
+        uses: actions/upload-artifact@v4
+        with:
+          name: MOTEUR-R8-355-verification
+          path: |
+            MOTEUR-BLESSING/labs/MATRICE_LOGIC_FIRST_V03/REGISTRE_R8_355.json
+            MOTEUR-BLESSING/labs/MATRICE_LOGIC_FIRST_V03/RECU_INTEGRATION_V03.json
+          retention-days: 7
