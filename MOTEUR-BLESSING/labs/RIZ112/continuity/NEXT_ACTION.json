@@ -2,25 +2,27 @@
   "canonical_trigger": "Moteur/continue",
   "current_verified_lab_stage": 27,
   "first_files_to_open": [
-    "MOTEUR-BLESSING/labs/MATRICE_LOGIC_FIRST_V03/README.md",
+    "MOTEUR-BLESSING/labs/MATRICE_LOGIC_FIRST_V03/CHECKPOINT_D068_20261023.json",
+    "MOTEUR-BLESSING/labs/MATRICE_LOGIC_FIRST_V03/D068_LIVRAISON_ET_LACUNES_20261023.md",
+    "MOTEUR-BLESSING/labs/MATRICE_LOGIC_FIRST_V03/D067_ARCHIVED_V12_COUNTERAUDIT.md",
     "MOTEUR-BLESSING/labs/MATRICE_LOGIC_FIRST_V03/moteur_unique_v1.py",
-    "MOTEUR-BLESSING/labs/MATRICE_LOGIC_FIRST_V03/source_mechanism_dossiers_v11.py",
-    "MOTEUR-BLESSING/labs/MATRICE_LOGIC_FIRST_V03/test_moteur_unique_v1.py",
+    "MOTEUR-BLESSING/labs/MATRICE_LOGIC_FIRST_V03/historical_baseline_v12.py",
+    "MOTEUR-BLESSING/labs/MATRICE_LOGIC_FIRST_V03/audit_legacy_v12_v13.py",
     "MOTEUR-BLESSING/labs/RIZ112/CAHIER_MERE.md",
     "MOTEUR-BLESSING/labs/RIZ112/journal/JOURNAL_EVENEMENTS.jsonl"
   ],
-  "first_technical_action": "Lire la preuve privée CI_READBACK_D065B.json et, si absente, l'échec CI_READBACK_D065.json. Tester moteur_unique_v1.py avec la base R8 originale V22 et les 355 dossiers. Vérifier le correctif des variantes anticipation_by_horizon/anticipations_by_horizon et le signalement explicite des horizons vraiment manquants, sans inventer de preuve. Ne marquer D065 PASS que lorsque full one-command et manifest réussissent; poursuivre revue causale de 324 enfants et calibration hors échantillon. Ne pas recommencer RIZ112 ni les 1000 simulations historiques.",
+  "first_technical_action": "Verifier sans supposer succès les reçus GitHub D065B d'intégration vraie R8 et D066 historique (aucun PASS accessible au checkpoint D068). Corriger si possible. Ne PAS entraîner l'estimateur D066 sur les 313 fiches V12 archivées sans timestamps éditeur antérieurs T0 ni vérification du score 90min; leur fichier privé est FORENSIC_ONLY. Documenter source et période, produire un vrai backtest temporel sur matchs certifiés; comparer au C1 simple et au prédicteur constant entraînement. Distinguer Brier d'une précision en pourcentage. Contrôler les 324 paramètres non signés. Préserver D062 55 PASS et D063 67 PASS.",
   "how_to_continue": "One code Moteur/continue; read verified D058 checkpoint, journal E167 and CTX-0081, run next semantic batches. Do not misrepresent 355 documentary integration as 355 causal influences.",
-  "lab_next_stage": "MATRICE_LOGIC_FIRST_D065_SINGLE_ENTRY_SOURCE_INTEGRATION_RETEST",
+  "lab_next_stage": "MATRICE_LOGIC_FIRST_D069_REAL_PIT_AND_END_TO_END_VERIFY",
   "never_do": [
     "Inventer 22 coefficients pour forcer un effet IC",
     "Utiliser des résultats après T0 comme prédicteurs",
     "Déclarer calibré un IC fictif",
     "Écraser un GitHub plus avancé par un ZIP ancien"
   ],
-  "next_execution_id": "MOTEUR_D065_VERIFY_SOURCE_V22_AND_FINISH_INTEGRATION",
-  "next_execution_title": "D065 validation du moteur unique avec vrais contrats R8",
-  "progress_checkpoint": "D062 integrated 55/55 PASS, 355 conceptual stage routes and 1000 SYNTHETIC sensitivity scenarios; D063 integrated 67/67 PASS with Poisson-binomial shot-based theoretical IC. D065 76 initial unit tests PASS but true one-command original R8 integration FAILED from V22 horizon naming mismatch. Code corrected; new CI receipt not yet verified. Calibrated sporting IC = null; 324 causal goal effects unsigned.",
+  "next_execution_id": "MOTEUR_D069_VERIFY_E2E_AND_REAL_DATA",
+  "next_execution_title": "D069 : vérifier moteur unique et preuves match historiquement admissibles",
+  "progress_checkpoint": "D068 : 62 mondes/355 enfants, 1088 relations documentaires, D062 55/55 et D063 67/67 CI PASS, calculateurs Poisson et Poisson-binomiale conditionnels, 1000 simulations synthétiques. D065 initial tests unitaires 76 PASS mais E2E FAIL; correctifs et Windows launcher codés, nouvelle CI E2E non vérifiée. D066 baseline historique strict code+tests mais CI non vérifiée. D067 313 fiches V12 retrouvées Drive et archivées PRIVEES FORENSIC; 55 test, 49 Over1.5, Brier C1 0.1146655 identique référence; aucune preuve PIT/90m complète, 324 effets non signés et IC réel calibré NULL.",
   "project": "RIZ112→MATRICE",
   "schema": "moteur-blessing/next-action/v1",
   "scientific_status": "UNVALIDATED_REAL_Q_IC_NULL__SYNTHETIC_RICE_METHOD_LAB_FOR_MATRICE",
@@ -42,8 +44,8 @@
   "critical_directive_D035": "Cahier mère as durable authority, all accessible context, no blanket assertion of 112 IC causal effects; each counterfactual evidence or explicit abstention",
   "canonical_source": "GitHub main MOTEUR-BLESSING/labs/RIZ112/CAHIER_MERE.md plus journal, exact context register and checkpoint; not ChatGPT memory.",
   "context_capture_limits": "The tool captures only messages actively submitted in-session and available for logging, not autonomous background conversations.",
-  "latest_journal_event_id": "E170",
-  "latest_context_id": "CTX-0086",
+  "latest_journal_event_id": "E171",
+  "latest_context_id": "CTX-0088",
   "journal_chain_verified": false,
   "step18_checkpoint": "MOTEUR-BLESSING/labs/RIZ112/step18/CHECKPOINT_STEP18_20261017.json",
   "step18_windows_status": "PARTIAL_RESOURCE_TESTS_PASS; CONDITIONAL_SUITE_NOT_VALIDATED_TIMEOUT",
@@ -264,18 +266,18 @@
   "logic_first_v02_D055_checkpoint": "MOTEUR-BLESSING/labs/MATRICE_LOGIC_FIRST_V02/CHECKPOINT_D055_20261023.json",
   "logic_first_v02_D055_integration_status": "PENDING_REAL_BASELINE_RUN",
   "logic_first_v02_D055_drive_status": "CAHIER_DOC_MIRROR_READBACK_TRUE_FULL_ZIP_NOT_BACKED_UP",
-  "latest_technical_checkpoint": "MOTEUR-BLESSING/labs/MATRICE_LOGIC_FIRST_V03/CHECKPOINT_D061_20261023.json",
-  "journal_head": "b79ea88bf746d5689a5143d441db73a264d85220c7a5f8cbb465cbf46ff831e2",
+  "latest_technical_checkpoint": "MOTEUR-BLESSING/labs/MATRICE_LOGIC_FIRST_V03/CHECKPOINT_D068_20261023.json",
+  "journal_head": "d2d3ad8f5913ee99a81d34e79eda51d1cd76aec6c6e071000075b87faf669639",
   "mirror_status_D056": "GOOGLE_DOC_READBACK_VERIFIED; FULL_ZIP_NOT_SYNCED",
   "next_tests_count": 76,
-  "latest_audit": "MOTEUR-BLESSING/labs/MATRICE_LOGIC_FIRST_V03/README.md",
+  "latest_audit": "MOTEUR-BLESSING/labs/MATRICE_LOGIC_FIRST_V03/D068_LIVRAISON_ET_LACUNES_20261023.md",
   "latest_unverified_changes": [
     "source_mechanism_dossiers_v11.py dual-schema horizon and missing-value normalization",
     "test_source_mechanism_dossiers_v11.py additional schema guard",
     "moteur_unique_v1.py source complete one-command",
     "CI_READBACK_D065B.json (new run pending)"
   ],
-  "continuity_gap": "One-command original R8 D065 integrated verification pending; no empirical goal-rate mapping from all 355, no calibrated IC, no completed real-match backtest; PC and full Drive ZIP not revalidated.",
+  "continuity_gap": "D065b R8 full E2E and D066 public CI receipts missing; historic 313 Drive V12 sources not PIT attested and 90min unverified; no real calibration or independent match benchmark; 324 causal effects not signed; PC offline, no full Drive ZIP.",
   "latest_verified_D058": {
     "private_CI_receipt": "Terminator364/ChatGPT-PC:MATRICE/R8_G3_DEEP_20261014/MOTEUR_LOGIC_FIRST_D057/CI_READBACK_D057.json",
     "pass_tests": 31,
@@ -294,5 +296,20 @@
     ],
     "repair_event": "E168",
     "journal_validation": "PASS_168_HASH_CHAIN_AND_RESUME_PRIVATE_CI"
+  },
+  "latest_verified_D068": {
+    "legacy_scorecards_private": 313,
+    "legacy_test_matches": 55,
+    "legacy_brier": 0.11466550415245978,
+    "legacy_reference_brier": 0.11466550415245978,
+    "source_archive_private_only": true,
+    "calculators_integrated_verified": {
+      "D062": 55,
+      "D063": 67
+    },
+    "D065_last_full_success": false,
+    "D066_CI_last_success": "NOT_VERIFIED",
+    "calibrated_IC": null,
+    "Drive_mother_doc_mirrored": true
   }
 }
