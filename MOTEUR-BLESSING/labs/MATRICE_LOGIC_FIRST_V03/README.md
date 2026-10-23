@@ -27,3 +27,12 @@ Reçu D057 : `unit_tests_pass=true`, `compilation_pass=true`, `v03_contract_repl
 Les **324 nouveaux cas ne disposent toujours pas de relations logiques individuelles justifiées vers les buts**, et les 21 autres ne sont pas validés empiriquement. La catégorisation des 355 est explicitement **provisoire** (surtout 310 candidats de processus, 35 contrôles de source/définition et 10 contextes conditionnels, tri par IDs et non expertise causale). Terminer scientifiquement le moteur nécessitera examiner individuellement les contrats et interactions, définir les mesures admissibles, construire des mécanismes propres aux mondes et réviser les signes par contre-exemples, avant toute loi de buts probabiliste puis une calibration hors échantillon.
 
 **MATRICE 2.0 demeure gelée. La branche originale R8 n'a pas été modifiée. Aucun résultat de match réel n'est prédit par V0.3.**
+
+
+## D058 — Enrichissement réel des sources et troisième cycle CI (23 octobre 2026)
+
+Le composant `enrich_registry_v03.py` reconstruit uniquement dans la **branche d'audit privée** la lignée entre les **355 identifiants** et leurs sources : **343 définitions JSON de 24 fichiers de contrats R8** plus **12 enfants hérités d'archives validées par le compilateur d'origine**. Il préserve pour les 343 les définitions, propriétaires, recouvrements `anti_overlap`, exigences de données et liens aux autres mondes quand le contrat les contient. Les 12 ne reçoivent **aucune définition moderne inventée**. Aucun texte privé complet n'est publié dans ce dépôt public.
+
+Test intégré GitHub Actions D058 : **31 tests / 31 réussis**, compilation V22 vraie `PASS`, enrichissement des 343 et reconnaissance des 12 `PASS`, replay V0.3 `PASS`. Reçu privé `ChatGPT-PC/MATRICE/R8_G3_DEEP_20261014/MOTEUR_LOGIC_FIRST_D057/CI_READBACK_D057.json`, `schema=MOTEUR_D058_PRIVATE_R8_CI_RECEIPT`, `all_pass=true`. Registre privé de 355 et enrichissement privé vérifiés avec SHA-256 dans `CHECKPOINT_D058_20261023.json`.
+
+**Rectification du niveau de couverture :** 355/355 contrats de provenance sont disponibles, mais **seuls 31 IDs** sont raccordés aux hypothèses explicatives V0.2 (dont 10 sous retenue D056), et **324 ne sont pas encore reliés à une loi mécanistique de buts signée et défendable**. Ni les 355 contrats ni 31 tests logiciels ne constituent une validation prédictive. La prochaine étape est une vraie revue sémantique et causale par sous-paramètre, avant lois quantitatives et calibration. IC théorique numérique et IC scientifique : `null`.
