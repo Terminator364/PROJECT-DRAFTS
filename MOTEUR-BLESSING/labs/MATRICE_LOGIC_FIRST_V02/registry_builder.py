@@ -16,6 +16,11 @@ N_WORLDS=62
 N_CHILDREN=355
 ACTIVE_IDS=set(EXTRA.values()) | set(core.FIELD_TO_ALIAS)
 assert len(ACTIVE_IDS)==31
+HELD_ONLY_ALIASES = ("CROSS", "AERIAL", "AERIALDEF", "MARKING",
+                     "CLEARANCE", "REBOUND", "SHIFT", "MISTAKE",
+                     "SCOREMAP", "BENCH")
+HELD_ONLY_IDS = {EXTRA[alias] for alias in HELD_ONLY_ALIASES}
+assert len(HELD_ONLY_IDS) == 10 and HELD_ONLY_IDS.issubset(ACTIVE_IDS)
 
 # Categorization assists review, not proof of actual causal mechanisms.
 PROVENANCE_MARKERS=("COVERAGE","DENOMINATOR","SCHEMA","RIGHTS","PROVENANCE",
@@ -60,7 +65,7 @@ def assemble(compiled:dict[str,Any])->dict[str,Any]:
                             "horizons_in_source":raw.get("horizons",[]),
                             "inventory_role_candidate":initial_role(cid),
                             "role_review_status":"MACHINE_PROVISIONAL_NOT_SEMANTICALLY_SIGNED",
-                            "code_wiring":"EXECUTABLE_SYNTHETIC_LOGIC_LOT01" if active else "NOT_CONNECTED_TO_LOGIC",
+                            "code_wiring":("TRACEABLE_SEMANTIC_HOLD_ONLY" if cid in HELD_ONLY_IDS else "EXECUTABLE_SYNTHETIC_LOGIC_LOT01" if active else "NOT_CONNECTED_TO_LOGIC"),
                             "numeric_effect_calibrated":False,"editorial_PIT_independently_proven":False})
     if len(IDs)!=N_CHILDREN or IDs.issuperset(ACTIVE_IDS) is False or len(parents)!=N_WORLDS:
         raise ValueError("EXHAUSTIVENESS_OR_ACTIVE_REFERENCE_FAILURE")
@@ -68,7 +73,8 @@ def assemble(compiled:dict[str,Any])->dict[str,Any]:
     return {"schema":"MATRICE_R8_L3_LOGIC_FIRST_V02_REGISTRY",
             "worlds":N_WORLDS,"source_documentary_subparameters":N_CHILDREN,
             "real_semantic_roles_individually_human_validated":0,
-            "software_wired_to_explanatory_rules":31,"not_wired":324,
+            "software_wired_to_explanatory_rules":31,"held_semantic_only":10,
+            "conditionally_activatable_under_lab_hypotheses":21,"not_wired":324,
             "numeric_IC_calibrated":None,"source_compiler":"L3_RUN_B_8_WORLDS_20261018/compile_v22.py",
             "source_sha256_by_contract":compiled.get("source_sha256",{}),
             "classification_contract":"Automatic screening is NOT a completed review of 355 true causal roles",
