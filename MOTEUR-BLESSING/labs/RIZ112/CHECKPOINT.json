@@ -23,7 +23,7 @@
     "context_master": "CONTEXTE_CONVERSATIONS.md",
     "context_protocol": "PROTOCOLE_CONTINUITE_CONTEXTUELLE.md",
     "context_registry": "CONTEXTE_INTEGRAL/REGISTRE_MESSAGES.jsonl",
-    "context_rows": 77,
+    "context_rows": 78,
     "context_update_rule": "ACTIVE_SESSION_EVERY_RELEVANT_EXCHANGE_AND_CHECKPOINT__NO_BACKGROUND",
     "coverage": "SOME_VERBATIM_EXCERPTS_AND_FLAGGED_RECONSTRUCTIONS_NOT_FULL_RAW_ARCHIVE",
     "drive_current_doc": "https://docs.google.com/document/d/13gOTBq7AXnT-f9Lotlw4czwa4i75C4UGdP0i1i0qwZE/edit",
@@ -36,10 +36,10 @@
     "journal_head": "b1c54c145e6d88f5956a37b9bdf97d45164d7090e5dd2d59ce2d0486b233d0a5",
     "lab_code": "Moteur/continue",
     "latest_context_ids": [
-      "CTX-0074",
       "CTX-0075",
       "CTX-0076",
-      "CTX-0077"
+      "CTX-0077",
+      "CTX-0078"
     ],
     "legacy_codes_active": false,
     "library_status": "SOURCE_ARCHIVE_CONFIRMED",
@@ -61,7 +61,9 @@
     "drive_mirror_last_verified": "2026-10-23; previous H3 stale; front status refreshed; not autonomous",
     "github_master_last_updated": "2026-10-23",
     "github_master_commit": "4c28384e0f40789ed7c2ad7ae3a5f70b34ea0a5a",
-    "current_preT0_audit": "pret0_focus/README_44_CONNECTE_20261023.md"
+    "current_preT0_audit": "pret0_focus/README_44_CONNECTE_20261023.md",
+    "current_unique_user_directive": "CTX-0077",
+    "ctx0078_is_duplicate_of": "CTX-0077"
   },
   "continuity_code": "Moteur/continue",
   "date": "2026-10-17",
@@ -966,7 +968,8 @@
     "product_model_MATRICE_2_0_unchanged": true,
     "recovery_priority": "MOTEUR-BLESSING/labs/RIZ112/continuity/NEXT_ACTION.json",
     "canonical_handoff": "MOTEUR-BLESSING/labs/RIZ112/continuity/REPRISE_PRIORITE_LOGIQUE_D054_20261023.md",
-    "current_journal_event": "E162"
+    "current_journal_event": "E162",
+    "duplicate_capture_ref": "CTX-0078 (same text, not second user message)"
   },
   "legacy_pre_D054_state": {
     "previous_next": "SIM_PRET0_44_V1 via pret0_focus/pipeline44.py; do not erase 1000x112 historical; no scientific IC",
