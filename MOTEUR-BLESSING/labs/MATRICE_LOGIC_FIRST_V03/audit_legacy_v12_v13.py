@@ -76,7 +76,7 @@ def scorecard_from_rows(rows:list[dict])->dict:
             if identity in dedup:raise ValueError("DUPLICATE_MATCH_KEY")
             dedup.add(identity)
             home,away=str(r["Score"]).strip().split("-")
-            if int(home)+int(away)>=2 != bool(y):
+            if (int(home)+int(away)>=2) != bool(y):
                 raise ValueError("SCORE_AND_OVER15_CONFLICT")
             cohorts[c].append((p,ref,y,r))
         except (KeyError,ValueError,TypeError) as exc:
