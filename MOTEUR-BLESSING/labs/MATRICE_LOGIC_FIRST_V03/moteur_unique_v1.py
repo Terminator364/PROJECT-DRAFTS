@@ -101,6 +101,12 @@ def build(root:Path,fixture:dict[str,Any]|None=None,
             "historical_baseline":historical,"historical_backtest":backtest}
 
 def persist(result:dict[str,Any],outdir:Path)->dict[str,str]:
+    # The enriched R8 dossiers contain private source-contract text. Fail
+    # closed if asked to write them under PROJECT-DRAFTS public checkout.
+    public_repo=Path(__file__).resolve().parents[3]
+    target=outdir.resolve()
+    if target==public_repo or public_repo in target.parents:
+        raise ValueError("PRIVATE_R8_CONTRACT_EXPORT_IN_PUBLIC_REPO_FORBIDDEN")
     outdir.mkdir(parents=True,exist_ok=True)
     names={"summary":"MOTEUR_V1_SUMMARY.json",
            "registry":"R8_ORIGINAL_355_REGISTRY.json",
