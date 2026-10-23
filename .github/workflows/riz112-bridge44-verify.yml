@@ -7,8 +7,10 @@ on:
     paths:
       - 'MOTEUR-BLESSING/labs/RIZ112/pret0_focus/bridge44.py'
       - 'MOTEUR-BLESSING/labs/RIZ112/pret0_focus/test_bridge44.py'
-      - 'MOTEUR-BLESSING/labs/RIZ112/pret0_focus/pipeline44.py'
+      - 'MOTEUR-BLESSING/labs/RIZ112/pret0_focus/pipeline44.py MOTEUR-BLESSING/labs/RIZ112/pret0_focus/ic44_v2.py'
       - 'MOTEUR-BLESSING/labs/RIZ112/pret0_focus/test_pipeline44.py'
+      - 'MOTEUR-BLESSING/labs/RIZ112/pret0_focus/ic44_v2.py'
+      - 'MOTEUR-BLESSING/labs/RIZ112/pret0_focus/test_ic44_v2.py'
       - '.github/workflows/riz112-bridge44-verify.yml'
 
 permissions:
@@ -36,6 +38,8 @@ jobs:
           sys.path.insert(0,str(root/'pret0_focus'))
           from bridge44 import evaluate44
           from pipeline44 import run44
+          from ic44_v2 import simulate,audit_44
+          from test_ic44_v2 import ALT
           p=json.loads((root/'step6/examples/A_couvercle_ajuste_112.json').read_text(encoding='utf-8'))
           r=evaluate44(p)
           assert r['routed_count']==44
@@ -49,4 +53,13 @@ jobs:
           assert combined['scientific_ic_percent'] is None
           print('STEP9_GATED_STATUS',combined['status'])
           print('STEP9_QSTAR_DEMO',combined['ic_demo_percent'])
+          synthetic=json.loads((root/'pret0_focus'/ 'nonexistent_file_placeholder.json').read_text()) if False else None
+          # Historical fixture has 20 UNKNOWN input states: real engine abstains.
+          demo=simulate(p)
+          assert demo['IC_DEMO_PCT'] is None
+          print('RIZ44_HISTORICAL_UNKNOWN_ABSTAINS',len(demo['missing']))
+          from test_bridge44 import packet as filled_test
+          r=audit_44(filled_test(),ALT)
+          assert r['IC_demo_changed_count']==44
+          print('RIZ44_ICE_CHANGED',r['IC_demo_changed_count'])
           PY
