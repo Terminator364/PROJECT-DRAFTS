@@ -1,0 +1,51 @@
+name: RIZ112 V3 continuity and evidence integrity gate
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/riz112-v3-integrity-gate.yml'
+      - 'MOTEUR-BLESSING/labs/RIZ112/pret0_focus/V3_1/PREUVE_REJEU_EXACT_1000x44_20261023.json'
+      - 'MOTEUR-BLESSING/labs/RIZ112/journal/JOURNAL_EVENEMENTS.jsonl'
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Verify complete append-only hash journal
+        run: |
+          python3 MOTEUR-BLESSING/labs/RIZ112/journal/journal_tool.py MOTEUR-BLESSING/labs/RIZ112/journal/JOURNAL_EVENEMENTS.jsonl
+      - name: Check canonical D047 handoff and documentary proof contract
+        run: |
+          python3 - <<'PY'
+          import json, pathlib
+          root=pathlib.Path('MOTEUR-BLESSING/labs/RIZ112')
+          proof=json.loads((root/'pret0_focus/V3_1/PREUVE_REJEU_EXACT_1000x44_20261023.json').read_text(encoding='utf-8'))
+          check=json.loads((root/'CHECKPOINT.json').read_text(encoding='utf-8'))
+          target=check['ic44_v3_1_full_replay_20261023']
+          assert proof['status']=='VERIFIED_EXACT'
+          assert proof['scenario_count']==1000 and proof['parameters_per_scenario']==44
+          assert proof['all_parameter_values_present']==44000
+          assert proof['all_parameter_combinations_unique']==1000
+          assert proof['monte_carlo_draws_replayed']==128000
+          assert proof['generator_value_mismatches']==0
+          assert proof['nominal_Qstar_mismatches']==proof['IC_model_mismatches']==0
+          assert proof['manifest_entries_checked']==proof['manifest_entries_valid']==29
+          assert proof['scientific_IC'] is None
+          assert target['status']=='EXACT_FULL_REPLAY_VERIFIED'
+          assert target['journal_end']=='E152'
+          ctx=(root/'CONTEXTE_INTEGRAL/REGISTRE_MESSAGES.jsonl').read_text(encoding='utf-8').splitlines()
+          assert any(json.loads(l).get('event_ref')=='CTX-0069' for l in ctx)
+          assert '| D047 |' in (root/'DECISIONS.md').read_text(encoding='utf-8')
+          assert 'D047' in (root/'CAHIER_MERE.md').read_text(encoding='utf-8')
+          print('INTEGRITY_D047_CHECKS_PASS')
+          print('IMPORTANT: documentary integrity only; local 1000x44 numerical replay was separate.')
+          PY
+      - name: Compile standalone verifier source
+        run: |
+          python3 -m py_compile MOTEUR-BLESSING/labs/RIZ112/pret0_focus/V3_1/VERIFICATEUR_1000x44_INTEGRAL.py MOTEUR-BLESSING/labs/RIZ112/pret0_focus/V3_1/ic44_v3.py
