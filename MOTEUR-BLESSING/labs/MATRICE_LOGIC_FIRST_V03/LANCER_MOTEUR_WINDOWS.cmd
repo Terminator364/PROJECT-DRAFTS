@@ -31,7 +31,7 @@ if %errorlevel% equ 0 (
   set "RUNNER=py -3"
 ) else (
   where python >nul 2>&1
-  if not %errorlevel% equ 0 (
+  if errorlevel 1 (
     echo ERREUR: Python 3 non installe ou absent du PATH. >> "%LOG%"
     goto FAILED
   )
