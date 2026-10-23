@@ -59,8 +59,14 @@ def dossiers(semantics:dict[str,Any], original:dict[str,dict[str,Any]])->dict[st
         if c.get("scoring_active") is not False or c.get("numeric_effect") is not None:
             raise SourceGraphError("SOURCE_PROMOTED_SCORING_UNAUTHORIZED:"+cid)
         owner=c.get("anti_double_count_owner")
-        if not isinstance(owner,str) or not owner:
-            raise SourceGraphError("SOURCE_ANTI_DOUBLE_COUNT_OWNER_MISSING:"+cid)
+        source_owner_attested=isinstance(owner,str) and bool(owner.strip())
+        if owner is not None and not source_owner_attested:
+            raise SourceGraphError("MALFORMED_ANTI_DOUBLE_COUNT_OWNER:"+cid)
+        # Legacy signed-byte archive may predate a named anti-overlap owner.
+        # A missing source value is UNKNOWN, not a made-up ownership claim.
+        if not source_owner_attested:
+            ctr["source_owner_not_declared"]+=1
+            owner=None
         req=c.get("required_inputs")
         if not isinstance(req,list) or not req or any(not isinstance(k,str) or not k for k in req):
             raise SourceGraphError("SOURCE_REQUIRED_INPUTS_MISSING:"+cid)
@@ -115,6 +121,10 @@ def dossiers(semantics:dict[str,Any], original:dict[str,dict[str,Any]])->dict[st
              "applicability_condition_as_written":c.get("applicability_condition"),
              "not_owned_or_excluded_effects":c.get("not_owned",c.get("excluded_effects")),
              "anti_double_count_owner":owner,
+             "source_owner_originally_attested":source_owner_attested,
+             "candidate_owner_from_compiler_not_signed":(
+                 None if source_owner_attested else row.get("declared_evidence_owner")),
+             "anti_double_count_assignment_ready":source_owner_attested,
              "required_inputs_as_written":req,
              "evidence_source_search_count":len(evidence),
              "evidence_sources_original":evidence,
@@ -135,6 +145,7 @@ def dossiers(semantics:dict[str,Any], original:dict[str,dict[str,Any]])->dict[st
             "prematch_slots_two_teams":710,
             "source_six_horizons_each":ctr["source_horizon_incomplete"]==0,
             "source_horizon_incomplete_child_count":ctr["source_horizon_incomplete"],
+            "source_owner_not_declared_child_count":ctr["source_owner_not_declared"],
             "manual_signed_causal_effects":0,
             "empirical_calibration":None,
             "theoretical_goal_IC_from_r8_provenance_alone":None,
