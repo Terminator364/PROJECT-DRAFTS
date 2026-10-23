@@ -83,7 +83,7 @@
     "events": 144,
     "head": "272dd9517a850fe17091a01ff288b8b0a7922368ad4e277596514e8ce9bccebd"
   },
-  "last_user_directive": "CTX-0069: demonstrate that all 1000 different 44-parameter scenarios were genuinely run through MOTEUR and architecture is correct, not merely populated rows.",
+  "last_user_directive": "CTX-0071: user insists scenario = 44 randomly generated preT0 parameters and says each parameter should have an IC; confusion over 128 Monte Carlo internals; re-read original mother notebook before changing architecture",
   "latest_case_audit": "step12/COUNTERFACTUAL_112_V12.json",
   "latest_code": "pret0_focus/pipeline44.py",
   "latest_contract": "step9/DEMONSTRATION_CONTRACT.json",
@@ -802,5 +802,31 @@
     "user_message_ref": "CTX-0069",
     "decision": "D047",
     "journal_end": "E152"
+  },
+  "ic44_pour_chacun_des_parametres_20261023": {
+    "status": "PILOT_TESTED_TWO_SCENARIOS_NOT_1000",
+    "historic_mandate": "one scenario of 44 preT0 inputs -> ONE global IC",
+    "user_ambiguous_literal_request": "one IC per parameter",
+    "interpretation_under_test": "44 conditional counterfactual scenario ICs per scenario, alongside its global IC",
+    "old_monte_carlo_draws_each": 128,
+    "monte_carlo_draws_are_not_scenarios": true,
+    "original_campaign_global_ICs": 1000,
+    "scenario_parameter_values": 44000,
+    "new_pilot_scenarios": 2,
+    "global_ICs_verified": 2,
+    "conditional_IC_probes_run": 88,
+    "original_scenario_S0001_IC": 64.844,
+    "original_scenario_S0001_nonzero_deltas": 40,
+    "original_scenario_S0001_zero_deltas": 4,
+    "good_reference_IC": 88.281,
+    "good_reference_nonzero_deltas": 40,
+    "good_reference_zero_deltas": 4,
+    "conditional_IC_probes_for_all_1000_complete": false,
+    "portable_local_zip": "RIZ112_CONTRAT_IC_GLOBAL_ET_44_IMPACTS_PILOTE_20261023.zip",
+    "portable_zip_sha256": "e4ffb0cdd3271d8e132cb8426656e575697c51c06257bb44db393f93a2fddfe1",
+    "git_code": "pret0_focus/V3_1/diagnostic_44_impact_IC.py",
+    "git_report": "pret0_focus/V3_1/CONTRAT_1_IC_GLOBAL_44_IMPACTS_CONDITIONNELS_20261023.md",
+    "scientific_IC": null,
+    "next": "Confirm interpretation of individual parameter IC, then run audited per-scenario diagnostics at scale without redoing the 1000 global ICs"
   }
 }

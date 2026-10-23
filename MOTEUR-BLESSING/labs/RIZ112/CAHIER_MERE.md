@@ -1165,3 +1165,41 @@ La demande canonique n'est pas de créer une succession de registres décoratifs
 - Message : docs(riz112): restore preT0 44-input scenario contract and clarify per-factor conditional IC versus global IC
 - Fichiers concernés : MOTEUR-BLESSING/labs/RIZ112/pret0_focus/V3_1/CONTRAT_1_IC_GLOBAL_44_IMPACTS_CONDITIONNELS_20261023.md
 - Provenance : événement GitHub push. Ceci ne contient PAS les messages privés ChatGPT non consignés explicitement.
+
+
+## 23 octobre 2026 — D048/D049 : rectification « scénario, 44 paramètres et IC », et rejeu des impacts
+
+### Verbatim utilisateur accessible (deux interventions, captures de la première non incorporées en binaire au dépôt)
+
+> **CTX-0070, question relative à trois captures :** Explique moi ces tris photos et surtout comment ça 1000 simulation et pas 1000 ics? ?😡 Je pensais que notre système était Claire 🤦🏽‍♂️
+
+> **CTX-0071, demande de relecture du Cahier mère et correction architecturale :** Attends une seconde je pense que l'on est entrain de se perdre avec le moteur, quand tu lis d'abord le cahier mère, est ce que tu comprends le type de moteurs que je veux ? Tu me parles de 128 trucs 😡 je te demande 1000 scénario normalement un scénario egale 44 paramètres généré aléatoirement et pour xhaque paramètres il devrait avoir un ic donné par le moteur !
+
+### Relecture des règles historiques (sans reconstruction du mandat)
+
+Le §0, §1 et D001–D005 du Cahier mère fixent : laboratoire RIZ→MATRICE pré-match, données initiales avant T0, mécanismes et interactions calculables, puis **IC prévisionnel du cas entier** (probabilité de Q≥85, calibration réelle restant requise pour un IC scientifique). Le projet n'est ni un simple score de recettes ni la somme de 44 coefficients. La correction D041 puis D043 est le choix de **44 paramètres PRESTART**, conservant les 112 rubriques historiques comme inventaire intégral.
+
+La V3.1 a réellement produit **1000×44 entrées et 1000 IC globaux**, mais la communication a dévié en insistant sur **128 répétitions Monte Carlo internes** et sur les **95 niveaux numériques distincts**. La confusion « 1000 IC != 1000 IC différents » avait sa réponse mais a masqué la demande utilisateur **de tracer chaque paramètre jusqu'à l'IC**. Les 128 répétitions sont **une méthode numérique remplaçable d'estimation par fréquence**, pas l'architecture « scénario = 44 paramètres ». Aucun 0/128 ne prouve un scénario non calculé ; sa valeur peut néanmoins être peu discriminante.
+
+### Contrat de sortie à retenir — clarification conditionnelle (à valider par utilisateur si « un IC propre par paramètre » est littéral)
+
+- `scénario_id`, `44_valeurs_T0` (source/date/état), `calculs_physiques_et_interactions`, `IC_global_situation`, `Qstar_nominal`, `44_diagnostics_conditionnels`.
+- Pour chaque paramètre `j`, le diagnostic `{valeur_initiale, valeur_alternative, IC_global_original, IC_global_si_j_change, delta_IC_j}` est obtenu **avec les 43 autres paramètres inchangés et la même graine**. C'est un IC **contrefactuel conditionnel de la situation**, **pas** une probabilité indépendante attribuée au paramètre. Les 44 diagnostics ne sont pas additifs en présence d'interactions.
+- Si l'utilisateur souhaite **44 probabilités autonomes** (une par paramètre, sans les 43 autres), cela nécessite un nouvel événement/cible/statistique à définir ; la doctrine historique **n'a pas établi ce sens**. Ne jamais le déclarer implémenté sans confirmation.
+- La V3.1 avait 44 témoins de sensibilité **sur la campagne**; elle **n'a pas encore calculé 44 impacts pour chacun des 1000 scénarios**. Ne pas confondre 1000 IC globaux existants et 44000 diagnostics conditionnels supplémentaires qui restent à exécuter si ce contrat est retenu.
+
+### Exécution réellement réalisée dans ce tour
+
+Prototype portable sur V3.1 : `pret0_focus/V3_1/diagnostic_44_impact_IC.py` (source GitHub) et paquet local téléchargeable `RIZ112_CONTRAT_IC_GLOBAL_ET_44_IMPACTS_PILOTE_20261023.zip` (SHA256 `e4ffb0cdd3271d8e132cb8426656e575697c51c06257bb44db393f93a2fddfe1`, 247173 octets) avec données, scripts et manifest.
+
+- **S0001 original** de la campagne, 44 entrées reprises du CSV officiel, **IC global 64,844 %** ; 44 perturbations monovariées, 40 variations d'IC et 4 neutralités.
+- **FAVORABLE_REFERENCE** : **IC global 88,281 %**, également 44 perturbations, 40 variations et 4 neutralités.
+- **88 lignes de diagnostic calculées et 2 IC globaux** ; 44×1000 diagnostics **NON EXÉCUTÉS** dans cette intervention. Les 1000 IC globaux historiques et les données brutes n'ont pas été modifiés.
+- Exemples S0001 : R001 masse 180,35→190, IC 64,844→65,625 ; R002 eau disponible 546,27→250, IC 64,844→33,594 ; R003 sel 1,766→0,6, IC 64,844→54,688 ; R005 eau de rinçage 901,45→90, IC inchangé 64,844. La neutralité locale ne justifie aucun bonus artificiel.
+- Le contenu du prototype **n'est pas une calibration scientifique**; le barème physique et les hypothèses aléatoires demeurent hypothétiques, `IC scientifique = null`.
+
+### Prochain jalon sans refaire le moteur
+
+Rendre systématique la sortie `1 IC global + 44 diagnostics conditionnels` si elle est confirmée comme sens voulu ; faire vérifier le nombre d'exécutions, les interventions et l'égalité des graines avant une campagne exhaustive; conserver la séparation temporelle et l'intégrité des précédents 1000 IC. Pour MATRICE, conserver le calcul d'un indicateur par match et la traçabilité de chaque paramètre/sous-paramètre, jamais leurs équations culinaires.
+
+Rapport canonique : [CONTRAT_1_IC_GLOBAL_44_IMPACTS_CONDITIONNELS_20261023.md](pret0_focus/V3_1/CONTRAT_1_IC_GLOBAL_44_IMPACTS_CONDITIONNELS_20261023.md).
