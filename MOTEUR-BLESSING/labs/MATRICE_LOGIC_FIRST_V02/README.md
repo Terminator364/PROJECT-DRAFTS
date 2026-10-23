@@ -42,3 +42,10 @@ Le dernier script exige la branche R8 source `research/matrice-r8-g3-depth-audit
 4. Garder le code de reprise unique `Moteur/continue` (Cahier mère, D054/D055 et NEXT_ACTION), sans collecte massive sportive avant le moteur logique.
 
 Statut MATRICE : G3 ouvert, G4/G5 non approuvées, MATRICE 2.0 gelée, aucune prédiction réelle promue.
+
+
+## D056 — correction sémantique de la même séance (23 octobre 2026)
+
+**L'audit source a décelé quatre raccourcis causaux :** duel aérien observé ≠ supériorité aérienne; erreur non forcée ≠ erreur causée par pressing; second contact sans lignée ≠ occasion indépendante; carte de scénario/banc éligible ≠ note de compétence HIGH. Les quatre nouvelles règles correspondantes sont bloquées par `SEMANTIC_HOLD_REVIEW_REQUIRED` et leurs entrées restent tracées. Voir `D056_SEMANTIC_AUDIT_20261023.md`.
+
+Les **31 IDs restent raccordés pour lecture et traçabilité**, mais 4/6 nouvelles règles sont suspendues ; seule la cohérence documentaire de certains sens a été contre-auditée. Deux nouveaux tests ont été ajoutés et une attente modifiée. **Ils n'ont pas encore été exécutés avec la nouvelle version exacte**. Les 19/19 antérieurs décrivent exclusivement la version D055 à double V0.1. Aucun IC sportif numérique n'est revendiqué.
