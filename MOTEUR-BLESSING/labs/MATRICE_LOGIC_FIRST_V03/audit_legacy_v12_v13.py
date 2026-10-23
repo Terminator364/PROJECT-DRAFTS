@@ -9,6 +9,7 @@ from __future__ import annotations
 from collections import defaultdict
 from pathlib import Path
 from statistics import mean
+from random import Random
 from xml.etree import ElementTree as ET
 from zipfile import ZipFile
 import argparse, json, math, re
@@ -63,6 +64,33 @@ def xlsx_tables(path:Path)->list[list[dict]]:
             tables.append(table)
         return tables
 
+def paired_exploratory_bootstrap(sample:list[tuple[float,float,int,dict]],
+                                 train_prior:float,iterations:int=10000,
+                                 seed:int=1459276)->dict:
+    """Paired, fixed-seed archive sensitivity analysis, NOT generalization proof.
+
+    Scores are retrospective and PIT is NOT certified. No multiple-testing
+    correction, competition-clustering or representative population guarantee.
+    """
+    if not sample:raise ValueError("BOOTSTRAP_NEEDS_TEST_GAMES")
+    delta=[(train_prior-y)**2-(p-y)**2 for p,_reference,y,_metadata in sample]
+    rng=Random(seed)
+    n=len(delta)
+    results=[]
+    for _ in range(iterations):
+        results.append(sum(delta[rng.randrange(n)] for _i in range(n))/n)
+    results.sort()
+    def at(q:float)->float:return results[int((len(results)-1)*q)]
+    return {"comparison":"V12_MODEL_BRIER_VS_TRAIN_ONLY_CONSTANT_FORECAST",
+            "paired_brier_gain":mean(delta),
+            "resampling_iterations":iterations,"seed":seed,
+            "exploratory_paired_bootstrap_interval_95":[at(0.025),at(0.975)],
+            "uncertainty_crosses_zero":at(0.025)<=0<=at(0.975),
+            "strict_before_match_source_evidence_proven":False,
+            "independent_external_validation":False,
+            "significant_model_improvement_certified":False,
+            "limitations":"Convenience historical sample; no source-PIT attestation; resampling not competition-clustered; original model selection effects not controlled."}
+
 def scorecard_from_rows(rows:list[dict])->dict:
     if not isinstance(rows,list) or not rows:raise ValueError("NONEMPTY_RECORDS_REQUIRED")
     cohorts=defaultdict(list);dedup=set();fail=[]
@@ -94,6 +122,7 @@ def scorecard_from_rows(rows:list[dict])->dict:
     trainprior=m["TRAIN"]["observed_rate"]
     test=cohorts["TEST_LOCKED_OCT"]
     p0=mean((trainprior-g[2])**2 for g in test)
+    bootstrap=paired_exploratory_bootstrap(test,trainprior)
     results={
       "schema":"MOTEUR_D067_REPRODUCED_LEGACY_V12_RETROSPECTIVE_SCORECARD",
       "source_matches":len(rows),
@@ -101,6 +130,7 @@ def scorecard_from_rows(rows:list[dict])->dict:
       "test_55_reference_identical_to_model":all(abs(g[0]-g[1])<1e-11 for g in test),
       "test_55_brier_gain_over_reference":m["TEST_LOCKED_OCT"]["brier_reference"]-m["TEST_LOCKED_OCT"]["brier_model"],
       "test_55_brier_naive_train_rate":p0,
+      "paired_uncertainty_vs_train_prior_exploratory":bootstrap,
       "test_55_brier_gain_over_naive_train_rate":p0-m["TEST_LOCKED_OCT"]["brier_model"],
       "test_55_mean_probability_minus_observed_rate":
         m["TEST_LOCKED_OCT"]["predicted_mean"]-m["TEST_LOCKED_OCT"]["observed_rate"],
