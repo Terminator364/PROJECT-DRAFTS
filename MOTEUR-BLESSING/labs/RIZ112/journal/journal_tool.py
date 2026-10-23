@@ -10,7 +10,8 @@ from pathlib import Path
 
 REQUIRED=('id','date','origin','type','summary','evidence','confidence','supersedes')
 VALID={'USER_DIRECTIVE','USER_FEEDBACK','ASSISTANT_ACTION','DESIGN_DECISION','HYPOTHESIS',
-       'TESTED','FAILED','CORRECTION','SYNC','OPEN_QUESTION','CHECKPOINT'}
+       'TESTED','FAILED','CORRECTION','SYNC','OPEN_QUESTION','CHECKPOINT',
+       'USER_QUESTION','AUDIT'}
 
 class JournalError(ValueError): pass
 
