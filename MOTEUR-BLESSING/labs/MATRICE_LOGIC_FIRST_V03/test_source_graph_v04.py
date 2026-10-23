@@ -60,4 +60,27 @@ class TestSourceGraph(unittest.TestCase):
             self.assertEqual(g["nodes"][0]["semantic_gap"],"MISSING_ORIGINAL_DEFINITION")
             self.assertEqual(g["counts"]["defined_text_by_source"],354)
         finally:temp.cleanup()
+    def test_real_child_reference_is_not_reclassified_as_world(self):
+        temp,doc=data()
+        try:
+            a=doc["subparameters"][0]
+            b=next(r for r in doc["subparameters"] if r["world"]==a["world"] and r["id"]!=a["id"])
+            a["private_semantic_contract"]["related_worlds"]=[b["id"]]
+            g=m.graph(doc)
+            found=[z for z in g["edges"] if z["from"]==a["id"]]
+            self.assertTrue(any(z.get("to_child")==b["id"] and "RELATED_CHILD" in z["kind"] for z in found))
+        finally:temp.cleanup()
+    def test_noncanonical_reference_is_quarantined_not_inferred(self):
+        temp,doc=data()
+        try:
+            a=doc["subparameters"][0]
+            a["private_semantic_contract"]["related_worlds"]=["HISTORICAL_CHILD_NOT_IN_355"]
+            g=m.graph(doc)
+            self.assertTrue(any(z["from"]==a["id"] and z["reference"]=="HISTORICAL_CHILD_NOT_IN_355"
+                                for z in g["unresolved_source_references"]))
+            self.assertEqual(g["counts"]["unresolved_source_references"],1)
+            self.assertEqual(len(g["nodes"]),355)
+            self.assertIsNone(g["numeric_ic_calibrated"])
+        finally:temp.cleanup()
+
 if __name__=="__main__":unittest.main()
