@@ -77,7 +77,7 @@ def graph(enriched:dict[str,Any])->dict[str,Any]:
     worlds={r["world"] for r in rows}
     children={r["id"] for r in rows}
     if len(worlds)!=62:raise SourceGraphError("NOT_62_PARENTS")
-    edges=[];nodes=[];diagnostics=Counter()
+    edges=[];nodes=[];diagnostics=Counter();unresolved=[]
     for row in rows:
         cid=row["id"];parent=row["world"]
         if not cid.startswith(parent+"."):raise SourceGraphError("CHILD_PARENT_MISMATCH:"+cid)
@@ -94,8 +94,8 @@ def graph(enriched:dict[str,Any])->dict[str,Any]:
         else:diagnostics["modern_original_contracts"]+=1
         relation=s.get("related_worlds") or []
         if not isinstance(relation,list):raise SourceGraphError("RELATED_WORLDS_NOT_LIST:"+cid)
-        if any(not isinstance(x,str) or (x not in worlds and x not in children) for x in relation):
-            raise SourceGraphError("UNKNOWN_RELATED_WORLD_OR_CHILD:"+cid)
+        if any(not isinstance(x,str) or not x.strip() for x in relation):
+            raise SourceGraphError("MALFORMED_RELATED_REFERENCE:"+cid)
         owner=s.get("anti_double_count_owner") or row.get("declared_evidence_owner")
         anti=s.get("anti_overlap")
         if anti is not None and not isinstance(anti,dict):
@@ -107,12 +107,20 @@ def graph(enriched:dict[str,Any])->dict[str,Any]:
             partner=anti.get("other_world")
             if partner:
                 if partner not in worlds and partner not in children:
-                    raise SourceGraphError("UNKNOWN_OVERLAP_WORLD_OR_CHILD:"+cid)
-                destination={"to_world":partner} if partner in worlds else {"to_child":partner}
-                edges.append({"from":cid,**destination,"kind":"DOCUMENTED_SHARED_EVENT_OVERLAP_NOT_CAUSAL","incident_identity_template":anti.get("common_incident_key"),"owner":owner})
-                diagnostics["anti_overlap_edges"]+=1
+                    unresolved.append({"from":cid,"reference":partner,"field":"anti_overlap.other_world",
+                                       "status":"NONCANONICAL_SOURCE_REFERENCE_NO_INFERENCE"})
+                    diagnostics["unresolved_source_references"]+=1
+                else:
+                    destination={"to_world":partner} if partner in worlds else {"to_child":partner}
+                    edges.append({"from":cid,**destination,"kind":"DOCUMENTED_SHARED_EVENT_OVERLAP_NOT_CAUSAL","incident_identity_template":anti.get("common_incident_key"),"owner":owner})
+                    diagnostics["anti_overlap_edges"]+=1
         for other in sorted(set(relation)):
             if other!=parent and other!=cid:
+                if other not in worlds and other not in children:
+                    unresolved.append({"from":cid,"reference":other,"field":"related_worlds",
+                                       "status":"NONCANONICAL_SOURCE_REFERENCE_NO_INFERENCE"})
+                    diagnostics["unresolved_source_references"]+=1
+                    continue
                 destination={"to_world":other} if other in worlds else {"to_child":other}
                 kind=("SOURCE_DECLARED_RELATED_WORLD_UNDIRECTED_NOT_CAUSAL" if other in worlds
                       else "SOURCE_DECLARED_RELATED_CHILD_UNDIRECTED_NOT_CAUSAL")
@@ -129,7 +137,8 @@ def graph(enriched:dict[str,Any])->dict[str,Any]:
         nodes.append(node)
     if len(nodes)!=355:raise SourceGraphError("NODE_LOSS")
     return {"schema":SCHEMA,"worlds":62,"documentary_subparameters":355,
-       "nodes":nodes,"edges":edges,"counts":dict(diagnostics),
+       "nodes":nodes,"edges":edges,"unresolved_source_references":unresolved,
+       "counts":dict(diagnostics),
        "cross_world_edges_are_causal":False,
        "each_goals_effect_human_signed":0,
        "numeric_ic_under_hypotheses":None,"numeric_ic_calibrated":None,
