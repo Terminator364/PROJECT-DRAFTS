@@ -655,5 +655,28 @@
     "previous_RIZ": "PRESERVED_SECONDARY",
     "user_context": "CTX-0077",
     "journal_head": "E162"
+  },
+  "current_logic_first_reprise": {
+    "date": "2026-10-23",
+    "code": "Moteur/continue",
+    "authority": "MOTEUR-BLESSING/labs/RIZ112/CAHIER_MERE.md",
+    "next_action": "MOTEUR-BLESSING/labs/RIZ112/continuity/NEXT_ACTION.json",
+    "latest_checkpoint": "MOTEUR-BLESSING/labs/MATRICE_LOGIC_FIRST_V02/CHECKPOINT_D056_20261023.json",
+    "latest_decision": "D056",
+    "last_journal_event": "E166",
+    "last_journal_digest": "531ce8bcab5d60e3098086321617f84bedd176731a1d9b3582ab4a9483d9ac7a",
+    "worlds": 62,
+    "documentary_children": 355,
+    "traced_children": 31,
+    "held_semantic_only": 10,
+    "lab_potentially_activatable": 21,
+    "unwired_children": 324,
+    "IC_numeric": null,
+    "scientific_validation": false,
+    "github_semantic_readback": true,
+    "google_doc_mirror_D056_readback": true,
+    "full_zip_drive_updated": false,
+    "integrated_Python_tests_D056": "NOT_EXECUTED",
+    "original_V112_manifest_preserved": true
   }
 }
