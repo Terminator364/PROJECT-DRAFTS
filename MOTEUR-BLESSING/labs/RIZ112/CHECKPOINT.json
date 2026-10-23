@@ -83,7 +83,7 @@
     "events": 144,
     "head": "272dd9517a850fe17091a01ff288b8b0a7922368ad4e277596514e8ce9bccebd"
   },
-  "last_user_directive": "CTX-0067: explain 0–2.5% scores vs 80–85 objective; diagnose and identify next stage; actual IC engine not ready despite 44 routes",
+  "last_user_directive": "CTX-0068: make 44 preT0 interacting parameters produce scenario-dependent IC ranging from low through high; demonstrate 1000x44 and preserve full MOTEUR continuity",
   "latest_case_audit": "step12/COUNTERFACTUAL_112_V12.json",
   "latest_code": "pret0_focus/pipeline44.py",
   "latest_contract": "step9/DEMONSTRATION_CONTRACT.json",
@@ -726,5 +726,43 @@
     "old1000_preserved": true,
     "next": "Define Qstar /100, simulate P_model(Qstar>=85) by Monte Carlo; audit ten cases and favourable reference worlds; no V2 1000-run",
     "scientific_IC": null
+  },
+  "ic44_v3_1": {
+    "status": "LAB_FUNCTIONAL_44_OF_44_IC_WITNESSES_AND_1000x44_SIMULATIONS",
+    "date": "2026-10-23",
+    "schema": "riz112/pret0/IC44_v3/v1",
+    "model": "pret0_focus/V3_1/ic44_v3.py",
+    "model_exact_git_blob": "5cd774f2ede8c43569e2ce32437ba760381a0e1f",
+    "report": "pret0_focus/V3_1/ETAT_EXECUTION_20261023.md",
+    "distribution": "STRATIFIED_EQUAL_FIVE_REGIMES_NOT_REAL_WORLD_FREQUENCY",
+    "scenarios": 1000,
+    "parameters_each": 44,
+    "initial_assignments": 44000,
+    "MC_per_scenario": 128,
+    "virtual_trials": 128000,
+    "IC_model_range_pct": [
+      0,
+      95.312
+    ],
+    "IC_model_bands": {
+      "0_to_lt10": 843,
+      "10_to_lt40": 42,
+      "40_to_lt70": 53,
+      "70_to_lt85": 41,
+      "85_to_100": 21
+    },
+    "sensitivity_witness_IC": 44,
+    "unit_tests_passed_local": 15,
+    "original_pilot_10_unmodified": true,
+    "original_1000x112_untouched": true,
+    "scientific_IC": null,
+    "empirical_calibration": false,
+    "drive_package_id": "1RnLc0cQNfRtwSznlyq77vNyI0LE5cbHY",
+    "drive_package_sha256": "f28dcf6067695a77e19417727d41241b7650d2b67792edf37160549fed665047",
+    "drive_sources_id": "1QLM19XjweJVq8xA9Apv0qoxCmY8C1Po9",
+    "user_context_record": "CTX-0068",
+    "decision": "D046",
+    "journal_end": "E150",
+    "next": "Audit V3.1 assumptions and sensitivity, then MATRICE-specific pre-match model; never copy rice weights, no real calibration"
   }
 }
