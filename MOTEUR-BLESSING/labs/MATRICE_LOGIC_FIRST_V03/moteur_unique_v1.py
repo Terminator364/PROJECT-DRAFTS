@@ -19,6 +19,7 @@ import source_mechanism_dossiers_v11
 import causal_stages_v07
 import theoretical_ic_v08
 import shot_process_v10
+import historical_baseline_v12
 
 SCHEMA="MOTEUR_D065_SINGLE_ENTRY_LOGIC_FIRST_AND_THEORETICAL_IC"
 
@@ -31,7 +32,9 @@ def _read(path:Path|None)->dict[str,Any]|None:
 def build(root:Path,fixture:dict[str,Any]|None=None,
           rate_hypothesis:dict[str,Any]|None=None,
           shot_hypothesis:dict[str,Any]|None=None,
-          generate_grid:bool=False)->dict[str,Any]:
+          generate_grid:bool=False,
+          historical_games:list[dict[str,Any]]|None=None,
+          historical_walkforward:bool=False)->dict[str,Any]:
     if not root.is_dir():raise FileNotFoundError("ORIGINAL_R8_REPOSITORY_REQUIRED")
     if (rate_hypothesis is not None or shot_hypothesis is not None) and fixture is None:
         raise ValueError("FIXTURE_WITH_ASOF_AND_KICKOFF_REQUIRED_FOR_THEORETICAL_IC")
@@ -49,6 +52,10 @@ def build(root:Path,fixture:dict[str,Any]|None=None,
     rates=theoretical_ic_v08.evaluate(fixture,rate_hypothesis,evidence) if fixture is not None else None
     shots=shot_process_v10.calculate(fixture,shot_hypothesis,graph) if shot_hypothesis is not None else None
     grid=theoretical_ic_v08.synthetic_grid_1000() if generate_grid else None
+    historical=(historical_baseline_v12.predict(fixture,historical_games)
+                if historical_games is not None and fixture is not None else None)
+    backtest=(historical_baseline_v12.walkforward(historical_games)
+              if historical_games is not None and historical_walkforward else None)
     assert len(graph["nodes"])==len(dossiers["dossiers"])==355
     assert len(stages["all_children"])==355 and stages["signed_per_child_goal_effects"]==0
     summary={"schema":SCHEMA,
@@ -74,12 +81,16 @@ def build(root:Path,fixture:dict[str,Any]|None=None,
              "theoretical_poisson_ic_pct":rates["IC_over15_theoretical_percent"] if rates else None,
              "theoretical_shot_process_ic_pct":shots["IC_over15_theoretical_percent"] if shots else None,
              "hypothetical_sensitivity_cases":grid["scenario_count"] if grid else 0,
+             "historical_baseline_status":historical["status"] if historical else None,
+             "historical_baseline_IC_over15_percent":historical["IC_over15_percent"] if historical else None,
+             "walkforward_brier":backtest["brier"] if backtest else None,
              "hypotheses_not_empirical_validation":True}
     return {"summary":summary,"registry":reg,"semantics":full,
             "source_graph":graph,"conceptual_stages":stages,
             "schema_audit":schema_audit,"dossiers":dossiers,
             "prematch_evidence":evidence,"poisson_IC":rates,
-            "shot_IC":shots,"synthetic_grid":grid}
+            "shot_IC":shots,"synthetic_grid":grid,
+            "historical_baseline":historical,"historical_backtest":backtest}
 
 def persist(result:dict[str,Any],outdir:Path)->dict[str,str]:
     outdir.mkdir(parents=True,exist_ok=True)
@@ -93,7 +104,9 @@ def persist(result:dict[str,Any],outdir:Path)->dict[str,str]:
            "prematch_evidence":"PRET0_EVIDENCE.json",
            "poisson_IC":"IC_THEORETICAL_POISSON.json",
            "shot_IC":"IC_THEORETICAL_SHOT_PROCESS.json",
-           "synthetic_grid":"IC_THEORETICAL_GRID_1000.json"}
+           "synthetic_grid":"IC_THEORETICAL_GRID_1000.json",
+           "historical_baseline":"IC_HISTORICAL_BASELINE_UNCALIBRATED.json",
+           "historical_backtest":"HISTORICAL_WALKFORWARD_BRIER.json"}
     digests={}
     for key,filename in names.items():
         item=result.get(key)
@@ -116,9 +129,13 @@ def main():
     p.add_argument("--rates",type=Path)
     p.add_argument("--projected-shots",type=Path)
     p.add_argument("--grid-1000",action="store_true")
+    p.add_argument("--history",type=Path)
+    p.add_argument("--walkforward-history",action="store_true")
     a=p.parse_args()
+    if a.walkforward_history and not a.history:p.error("--walkforward-history requires --history")
+    historical=json.loads(a.history.read_text(encoding="utf8")) if a.history else None
     product=build(a.r8_repo_root,_read(a.fixture),_read(a.rates),
-                  _read(a.projected_shots),a.grid_1000)
+                  _read(a.projected_shots),a.grid_1000,historical,a.walkforward_history)
     sha=persist(product,a.outdir)
     print(json.dumps({"summary":product["summary"],"files":len(sha)},sort_keys=True,ensure_ascii=False))
 if __name__=="__main__":main()
