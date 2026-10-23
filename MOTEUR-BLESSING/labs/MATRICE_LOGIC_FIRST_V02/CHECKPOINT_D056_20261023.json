@@ -1,0 +1,54 @@
+{
+  "schema": "MATRICE_LOGIC_FIRST_V02_D056_CHECKPOINT",
+  "date": "2026-10-23",
+  "canonical_trigger": "Moteur/continue",
+  "previous_decision": "D055",
+  "decision": "D056",
+  "status": "GITHUB_READBACK_STATIC_SEMANTIC_CORRECTION_NO_INTEGRATED_PYTHON_RUN",
+  "worlds_R8": 62,
+  "children_documentary_R8": 355,
+  "children_wired_and_traced": 31,
+  "children_on_semantic_hold_only": 10,
+  "children_with_potential_rule_activation_under_lab_assumptions": 21,
+  "children_not_wired": 324,
+  "new_rules_per_side": 6,
+  "new_rules_semantically_held_per_side": 4,
+  "held_rule_ids": [
+    "R-WIDE-02",
+    "R-SECOND-02",
+    "R-PRESS-ERROR-02",
+    "R-TRAIL-BENCH-02"
+  ],
+  "still_potentially_active_new_rules": [
+    "R-CENTRAL-02",
+    "R-COUNTER-CHECK-02"
+  ],
+  "theoretical_IC": null,
+  "calibrated_IC": null,
+  "source_R8": [
+    "MATRICE/R8_G3_DEEP_20261014/L3_RUN_A_7_WORLDS_20261018/CONTRACTS_RUN_A.json",
+    "MATRICE/R8_G3_DEEP_20261014/L3_BATCH23_PASSING_WIDE_AERIAL_20261017/L3_BATCH23_CONTRACTS.json",
+    "MATRICE/R8_G3_DEEP_20261014/L3_RUN_B_8_WORLDS_20261018/compile_v22.py"
+  ],
+  "git_readback_exact": [
+    "logic_engine_v02.py",
+    "test_v02.py",
+    "registry_builder.py",
+    "test_registry.py",
+    "D056_SEMANTIC_AUDIT_20261023.md"
+  ],
+  "revision_test_status": "NOT_EXECUTED_NEW_D056",
+  "previous_test_status": "D055 19/19 PASS WITH A V0.1 COMPATIBILITY STUB_ONLY",
+  "integrated_real_base_status": "NOT_EXECUTED",
+  "real_R8_355_registry_status": "NOT_EXECUTED",
+  "science": "NOT_VALIDATED",
+  "MATRICE_2_0_modified": false,
+  "R8_source_modified": false,
+  "drive_full_bundle": "NOT_SYNCED",
+  "journal": {
+    "latest_id": "E165",
+    "latest_digest": "d97fd206f8d1f043bc052ddca3d06a6eeb7ca573d83dc65f8c9a2811e4ddeb2a"
+  },
+  "next": "Run D056 revised unit tests using real exact base_v01.py, compile original R8 355 registry, review semantic holds, then LOT02 of remaining 324 without invented scoring",
+  "report": "D056_SEMANTIC_AUDIT_20261023.md"
+}
