@@ -30,12 +30,14 @@ def _raw_scenario_branches(original:dict[str,Any])->list[dict[str,Any]]:
         if not isinstance(b,dict):raise SourceGraphError("SCENARIO_BRANCH_NOT_OBJECT")
         if b.get("weight") is not None or b.get("probability") is not None:
             raise SourceGraphError("FORBIDDEN_SOURCE_BRANCH_WEIGHTS")
-        guard=_string_or_none(b.get("guard_predicate")) or _string_or_none(b.get("guard"))
+        guard=(_string_or_none(b.get("guard_predicate")) or _string_or_none(b.get("guard")) or
+               _string_or_none(b.get("condition")))
         if not guard:raise SourceGraphError("UNSPECIFIED_SOURCE_BRANCH_GUARD")
         result.append({"branch_id":b.get("id"),
                        "original_guard_predicate":guard,
                        "original_qualitative_consequence":(
-                           b.get("qualitative_consequence") or b.get("hypothesis")),
+                           b.get("qualitative_consequence") or b.get("hypothesis") or
+                           b.get("counterhypothesis")),
                        "original_branch_status":b.get("status","UNWEIGHTED_SOURCE_DESIGN"),
                        "branch_weight":None,
                        "causal_direction_signed":False})
@@ -65,7 +67,7 @@ def dossiers(semantics:dict[str,Any], original:dict[str,dict[str,Any]])->dict[st
         evidence=c.get("evidence_search_plan",c.get("source_search_plan"))
         if not isinstance(evidence,list) or not evidence:
             raise SourceGraphError("SOURCE_EVIDENCE_PLAN_MISSING:"+cid)
-        anticipations=c.get("anticipations_by_horizon")
+        anticipations=c.get("anticipations_by_horizon",c.get("anticipation_by_horizon"))
         if not isinstance(anticipations,list) or len(anticipations)!=6:
             raise SourceGraphError("SOURCE_SIX_HORIZONS_MISSING:"+cid)
         plan=[]
