@@ -1555,3 +1555,11 @@ Après lecture de la directive D054 et de la version canonique V0.1, constructio
 **Preuve et limites séparées** : 19/19 tests locaux réussis avec un double de compatibilité V0.1, code et tests à blobs identiques relus sur GitHub. Le PC MBMPC est hors ligne et les tests intégrés contre la vraie base V0.1 et le vrai corpus 355 n'ont pas été rejoués ici. La direction HIGH/LOW de plusieurs champs reste une hypothèse de travail à contre-auditer. Plusieurs chemins peuvent décrire la même occasion ; leur regroupement ne constitue ni un décompte de buts, ni un taux Over1.5. **IC théorique probabiliste = null ; IC calibré = null ; précision 85 % non démontrée.** Aucun jeu de vrais matchs ajouté, aucune calibration, aucun déploiement MATRICE.
 
 **Continuité :** journal E163, décision D055, reçu `MATRICE_LOGIC_FIRST_V02/CHECKPOINT_D055_20261023.json`. Prochaine action `continuity/NEXT_ACTION.json` : vérification intégrée du code et du registre, puis poursuite des 324 candidats par lots ; maintenir la logique avant acquisition statistique. Drive n'est pas déclaré synchronisé sans lecture réciproque.
+
+
+### Synchronisation automatique GitHub — 2026-10-23T19:14:21.929707+00:00
+
+- Commit source : 7fe9f90f91860e001ca4c3c861c8121e21145cec
+- Message : MOTEUR D055: record logic-first V0.2 scope, provenance and limitations
+- Fichiers concernés : MOTEUR-BLESSING/labs/RIZ112/CAHIER_MERE.md
+- Provenance : événement GitHub push. Ceci ne contient PAS les messages privés ChatGPT non consignés explicitement.
