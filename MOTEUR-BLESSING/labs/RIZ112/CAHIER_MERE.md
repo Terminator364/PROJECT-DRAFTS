@@ -1306,3 +1306,11 @@ Rapport canonique : [CONTRAT_1_IC_GLOBAL_44_IMPACTS_CONDITIONNELS_20261023.md](p
 5. **Contrat A inchangé :** les 44 analyses d'impact d'un scénario sont des recalculs `what-if` séparés; elles ne sont PAS nécessaires pour obtenir l'IC global principal. Les données 1000×44 existantes restent intactes ; suivi D050 `748/44000` IC conditionnels en date du dernier checkpoint connu.
 
 **Décision de méthode :** distinguer pour chaque IC la *cause physique approximative*, la *transformation en qualité Q**, les *lois d'incertitude*, le *calcul de fréquence simulée*, et la *validation scientifique future*. Le laboratoire existe pour enseigner cette traçabilité à MATRICE, non pour fabriquer des valeurs de confiance.
+
+
+### Synchronisation automatique GitHub — 2026-10-23T16:46:07.949128+00:00
+
+- Commit source : 7120c37496dc58f5011766648aca0f9ea8db4379
+- Message : docs(moteur): D051 preserve user's IC formula question and verified 83/128 derivation in mother notebook
+- Fichiers concernés : MOTEUR-BLESSING/labs/RIZ112/CAHIER_MERE.md
+- Provenance : événement GitHub push. Ceci ne contient PAS les messages privés ChatGPT non consignés explicitement.
