@@ -62,5 +62,13 @@ assert n==1
 s,n=re.subn(r"versionName\s+'[^']+'","versionName '0.4.0-adb-usb-preview'",s,count=1)
 assert n==1
 build.write_text(s,encoding="utf-8")
+# Update version-specific test expectations to V4's monotonic versionCode 6.
+for filename in ("test_pc_port_isolation.py","test_usb_readiness.py","test_user_experience.py"):
+    p=root/"tests"/filename
+    before=p.read_text(encoding="utf-8")
+    after=before.replace("versionCode 5","versionCode 6")
+    after=after.replace(r"versionCode\s+5\b",r"versionCode\s+6\b")
+    assert after!=before, ("Version-specific test was not found",filename)
+    p.write_text(after,encoding="utf-8")
 assert "awaitAdb" in activity.read_text() and "isLoopbackAddress" in link.read_text()
 print("BCP_V4_PATCH_OK, vCode=6, ADB loopback only, legacy R3.3 USB preserved")
