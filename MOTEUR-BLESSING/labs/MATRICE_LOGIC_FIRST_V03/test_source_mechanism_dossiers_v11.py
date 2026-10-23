@@ -83,4 +83,17 @@ class TestAll355Dossiers(unittest.TestCase):
             self.assertEqual(doc["dossiers"][0]["conditional_source_scenarios"][0]["original_guard_predicate"],"archived before cutoff")
         finally:t.cleanup()
 
+    def test_missing_source_horizon_is_reported_not_invented(self):
+        t,sem,orig=source()
+        try:
+            first=next(iter(orig.values()))
+            first["anticipations_by_horizon"]=first["anticipations_by_horizon"][:4]
+            result=md.dossiers(sem,orig)
+            self.assertEqual(result["operational_dossiers"],355)
+            self.assertFalse(result["source_six_horizons_each"])
+            self.assertEqual(result["source_horizon_incomplete_child_count"],1)
+            self.assertEqual(result["dossiers"][0]["source_horizons_missing"],["H-9","H-1"])
+            self.assertIsNone(result["dossiers"][0]["numeric_goals_coefficient"])
+        finally:t.cleanup()
+
 if __name__=="__main__":unittest.main()
