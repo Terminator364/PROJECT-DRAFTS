@@ -88,3 +88,12 @@ L'utilisateur déclenche explicitement `Moteur/continue` (verbatim dans CTX-0028
 ## 17 octobre 2026 — Simulation méthodologique 1000 configurations
 
 Directive utilisateur CTX-0049/E126 : conserver le contexte, utiliser riz comme banc d'essai pour MATRICE, faire des hypothèses contrôlées plutôt que cuisiner réellement. Résultat CTX-0050/E127 : 1000 scénarios simulés (9 variables physiques), 200 tirages Q* par scénario, 690 H3 calculés, 310 abstentions, 20 IC_DEMO>=85%, 664 bilans idéalisés favorables; 18 perturbations additionnelles. `scientific_ic_percent=null`. Source : simulations/EXPERIENCE_1000/.
+
+
+## Session D057–D058 — 23 octobre 2026 (CTX-0079 à CTX-0082)
+
+**Messages utilisateur verbatim accessibles** : CTX-0079 `Moteur/continue` ; CTX-0080 `👀` ; CTX-0081 `D'accord continue et fini le travail`. Le registre CTX-0082 est **une synthèse de l'exécution de l'assistant**, pas un message utilisateur inventé.
+
+**Travaux vérifiés** : vraie intégration V0.1/V0.2/V0.3 sur branche de laboratoire privée R8 non canonique; compilation `compile_v22.current()` 62 mondes/355 enfants; 710 emplacements pré-T0 pour deux équipes; premier run CI 27/28 puis seconde exécution 28/28 PASS; approfondissement D058 343 contrats JSON source originaux + 12 archives vérifiées par compilateur; troisième exécution CI **31/31 PASS**. Fichiers sources enrichis demeurent **privés**. Le code générique est dans PROJECT-DRAFTS public. Les règles causales non justifiées D056 restent bloquées et les 324 sans liaison ne sont pas déguisées en prédicteurs.
+
+**Limitations** : IC Over1.5 numérique théorique/calibré **`null`** ; 0 validation sportive hors échantillon; moteur MATRICE 2.0 inchangé; pas de test Windows MBMPC dans cette séance; archivage ZIP complet sur Drive non confirmé. Miroir Google Docs du Cahier mère **actualisé et relu** après D058 (revision `AHj4eMSuJr92S2IoR0DJ9j5yZyMoWqtBYiUv-11dUSA-J9PJzcptLvO3VMoDD6f9jqPA3BtNJuqfks0n6fht6RfitEQecT5IH9XRvBNCA2oX`). Prochaine étape contractuelle : revue sémantique individuelle et graphe de mécanismes des 324 avec preuve, puis lois statistiques et calibration, sans promettre de précision de 85 %.
