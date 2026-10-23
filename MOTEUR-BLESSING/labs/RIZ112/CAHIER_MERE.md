@@ -1089,3 +1089,11 @@ La demande canonique n'est pas de créer une succession de registres décoratifs
 - Message : docs(moteur): D046 IC44 V3.1 1000x44 scenario evidence, verbatim and release pointers
 - Fichiers concernés : MOTEUR-BLESSING/labs/RIZ112/CAHIER_MERE.md, MOTEUR-BLESSING/labs/RIZ112/CHECKPOINT.json, MOTEUR-BLESSING/labs/RIZ112/CONTEXTE_INTEGRAL/REGISTRE_MESSAGES.jsonl, MOTEUR-BLESSING/labs/RIZ112/DECISIONS.md, MOTEUR-BLESSING/labs/RIZ112/journal/JOURNAL_EVENEMENTS.jsonl
 - Provenance : événement GitHub push. Ceci ne contient PAS les messages privés ChatGPT non consignés explicitement.
+
+
+### Synchronisation automatique GitHub — 2026-10-23T13:54:51.450586+00:00
+
+- Commit source : 97bab2aad45a37a087264affab7a64891ed068eb
+- Message : docs(riz112): specify scenario-to-IC reproducibility contract and caveats
+- Fichiers concernés : MOTEUR-BLESSING/labs/RIZ112/pret0_focus/V3_1/AUDIT_REJEU_EXACT_1000x44_20261023.md
+- Provenance : événement GitHub push. Ceci ne contient PAS les messages privés ChatGPT non consignés explicitement.
