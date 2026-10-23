@@ -42,11 +42,22 @@ class TestAll355Dossiers(unittest.TestCase):
             with self.assertRaisesRegex(SourceGraphError,"REQUIRED_R8_355"):
                 md.dossiers(sem,orig)
         finally:t.cleanup()
-    def test_missing_owner_fails_closed(self):
+    def test_legacy_missing_owner_is_flagged_and_not_fabricated(self):
         t,sem,orig=source()
         try:
             next(iter(orig.values())).pop("anti_double_count_owner")
-            with self.assertRaisesRegex(SourceGraphError,"ANTI_DOUBLE_COUNT_OWNER"):
+            d=md.dossiers(sem,orig)
+            self.assertEqual(d["operational_dossiers"],355)
+            self.assertEqual(d["source_owner_not_declared_child_count"],1)
+            self.assertIsNone(d["dossiers"][0]["anti_double_count_owner"])
+            self.assertFalse(d["dossiers"][0]["source_owner_originally_attested"])
+            self.assertFalse(d["dossiers"][0]["anti_double_count_assignment_ready"])
+        finally:t.cleanup()
+    def test_malformed_explicit_source_owner_fails_closed(self):
+        t,sem,orig=source()
+        try:
+            next(iter(orig.values()))["anti_double_count_owner"]=[]
+            with self.assertRaisesRegex(SourceGraphError,"MALFORMED_ANTI_DOUBLE_COUNT_OWNER"):
                 md.dossiers(sem,orig)
         finally:t.cleanup()
     def test_unweighted_scenarios_only(self):
