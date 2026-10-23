@@ -58,7 +58,7 @@
     "historic_regression_tests_passed": 309,
     "readback": "D060_PRIVATE_CI_JOURNAL_VALID_168; NEXT_ACTION_RESUME_PASS; DRIVE_DOC_D058_READBACK; ZIP_NOT_SYNCED",
     "initial_drive_url": "https://drive.google.com/file/d/1D7ZSwNtnsqW6CAm19rmTb2-yzYglAfau/view?usp=drivesdk",
-    "drive_mirror_last_verified": "D068 Google Doc readback verified; D069 mirror pending",
+    "drive_mirror_last_verified": "2026-10-23 D069 native Google Docs Cahier mere revised and reread, 204 paragraphs",
     "github_master_last_updated": "2026-10-23",
     "github_master_commit": "4c28384e0f40789ed7c2ad7ae3a5f70b34ea0a5a",
     "current_preT0_audit": "pret0_focus/README_44_CONNECTE_20261023.md",
@@ -1119,6 +1119,7 @@
     "D069_private_original_R8_E2E": "RECEIPT_ABSENT_UNVERIFIED",
     "calibrated_sporting_IC": null,
     "real_world_predictive_accuracy": null,
-    "remaining_individual_goal_effects_unsigned": 324
+    "remaining_individual_goal_effects_unsigned": 324,
+    "D069_Google_Doc_synced": true
   }
 }
