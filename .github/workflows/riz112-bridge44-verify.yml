@@ -1,0 +1,44 @@
+name: RIZ112 pre-T0 44/44 smoke verification
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'MOTEUR-BLESSING/labs/RIZ112/pret0_focus/bridge44.py'
+      - 'MOTEUR-BLESSING/labs/RIZ112/pret0_focus/test_bridge44.py'
+      - '.github/workflows/riz112-bridge44-verify.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  smoke:
+    name: Offline Python pre-T0 44-route checks
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Python compile
+        run: python3 -m py_compile MOTEUR-BLESSING/labs/RIZ112/pret0_focus/bridge44.py
+      - name: All counterfactual and temporal tests
+        run: python3 -m unittest discover -s MOTEUR-BLESSING/labs/RIZ112/pret0_focus -p test_bridge44.py -v
+      - name: Verify actual canonical Step6 fixture
+        run: |
+          python3 - <<'PY'
+          import json, sys
+          from pathlib import Path
+          root=Path('MOTEUR-BLESSING/labs/RIZ112')
+          sys.path.insert(0,str(root/'pret0_focus'))
+          from bridge44 import evaluate44
+          p=json.loads((root/'step6/examples/A_couvercle_ajuste_112.json').read_text(encoding='utf-8'))
+          r=evaluate44(p)
+          assert r['routed_count']==44
+          assert len(r['routes'])==44
+          assert r['scientific_ic_percent'] is None
+          assert r['routes']['035']['output'] is not None
+          print('ACTUAL_STEP6_FIXTURE_ROUTES',r['routed_count'])
+          print('ACTUAL_STEP6_FIXTURE_EVALUATED',r['evaluated_count'])
+          PY
