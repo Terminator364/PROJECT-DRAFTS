@@ -1724,3 +1724,8 @@ Après lecture de la directive D054 et de la version canonique V0.1, constructio
 - Message : MOTEUR D060: point continuity at forensically repaired E168 hash chain
 - Fichiers concernés : MOTEUR-BLESSING/labs/RIZ112/CHECKPOINT.json
 - Provenance : événement GitHub push. Ceci ne contient PAS les messages privés ChatGPT non consignés explicitement.
+
+
+### D060 — Audit et réparation forensique du journal — 23 octobre 2026
+
+La CI indépendante D059 a détecté un **défaut de continuité antérieur** : le validateur ne reconnaissait pas les types `USER_QUESTION` et `AUDIT` effectivement présents dans les événements d'origine, puis le maillon E165 présentait une rupture de hash. Ce défaut est indépendant des **31/31 tests** de moteur validés en D058. Pour préserver la redevabilité, le fichier d'origine à 167 lignes a été **copié intégralement et conservé** sous `journal/forensics/ORIGINAL_CHAIN_WITH_UNVERIFIED_E165_E167_20261023.jsonl` avant correction. Les anciens messages, dates, objets et décisions n'ont pas été changés ; seuls les champs `previous_digest`/`digest` des E165–E167 ont été recomputés conformément à `journal_tool.py`. E168 contient l'opération et la provenance. Nouveau hash terminal `82cfd0c57108fd2d76c0e1b88ccb329788656969d4436fe24b0524d1b6b34552`, en attente de ré-exécution indépendante de `journal_tool.py` et `continuity/resume.py` sur le contenu corrigé. Les anciens hash d'E165–E167 ne sont plus des preuves canoniques, mais subsistent dans la copie forensique.
