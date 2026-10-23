@@ -48,5 +48,10 @@
   "drive_synced": false,
   "matrice_2_0_modified": false,
   "source_branch_modified": false,
-  "next_goal": "V0.2 integrated execution and semantic audit, then next batch from remaining 324"
+  "next_goal": "V0.2 integrated execution and semantic audit, then next batch from remaining 324",
+  "drive_cahier_mirror_updated_and_readback": true,
+  "drive_cahier_doc_id": "13gOTBq7AXnT-f9Lotlw4czwa4i75C4UGdP0i1i0qwZE",
+  "drive_full_code_archive_verified": false,
+  "last_journal_event_id": "E164",
+  "last_journal_hash": "29bc26e4741c2d854638e9fde3b2d68d847ad763c01aa43a4fbc4426b603cb42"
 }
