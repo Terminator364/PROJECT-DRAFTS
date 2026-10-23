@@ -1,0 +1,17 @@
+{
+  "schema": "MOTEUR_D061_CHECKPOINT",
+  "date": "2026-10-23",
+  "worlds": 62,
+  "children": 355,
+  "documentary_edges": 1088,
+  "unresolved_source_references": 1,
+  "definitions_standard": 306,
+  "definitions_missing_standard": 49,
+  "alternative_fields": 12,
+  "name_only": 37,
+  "unit_tests_passed": 40,
+  "unit_tests_total": 40,
+  "scientific_IC": null,
+  "continuation": "Moteur/continue",
+  "next": "D062 semantic review; no calibration claimed"
+}
