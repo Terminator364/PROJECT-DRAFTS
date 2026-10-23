@@ -1314,3 +1314,23 @@ Rapport canonique : [CONTRAT_1_IC_GLOBAL_44_IMPACTS_CONDITIONNELS_20261023.md](p
 - Message : docs(moteur): D051 preserve user's IC formula question and verified 83/128 derivation in mother notebook
 - Fichiers concernés : MOTEUR-BLESSING/labs/RIZ112/CAHIER_MERE.md
 - Provenance : événement GitHub push. Ceci ne contient PAS les messages privés ChatGPT non consignés explicitement.
+
+
+## 2026-10-23 — Revue du transfert RIZ112 → MATRICE : architecture éprouvée, précision non certifiée
+
+### Demande utilisateur — verbatim
+
+> Donc du coup, pour ce qui concerne vraiment le moteur, donc c'est vraiment comme je veux. Et quand tu l'analyses par rapport à la matrice et tout, c'est vraiment, c'est que ça va donner. Tu penses que ça aura atteinti ou comment ?
+
+### Évaluation documentée, à ne pas confondre avec une homologation du moteur sportif
+
+- **Le laboratoire RIZ112 V3.1 concrétise l'architecture souhaitée** : entrées pré-T0, 44 variables avec interactions et contraintes, score nominal, un IC global par scénario et analyse contrefactuelle conditionnelle de 44 facteurs (contrat A D050). Sur 1000 situations archivées : 1000 IC globaux exécutés et rejoués; seulement **748/44000** IC conditionnels recalculés dans la campagne A au dernier checkpoint D050. Le laboratoire n'est donc pas intégralement clos.
+- **La valeur scientifique de l'IC RIZ n'est pas prouvée** : Q* est constitué de sept poids choisis pour démonstration, lois des incertitudes hypothétiques, aucune cuisson réelle ni calibration. Le même scénario S0001 passe de 64,844% avec 128 tirages à 67,871% avec 1024. Ce fonctionnement reproductible ne certifie ni la physique ni une précision supérieure à 85%.
+- **MATRICE R8** : ses 62 familles canoniques comportent des sous-paramètres, sous-sous-paramètres et anticipations; toutes ne sont pas des facteurs additifs indépendants. Le checkpoint `MATRICE/R8_G3_DEEP_20261014/CONTINUITY_HEAD_R8.json` sur `Terminator364/ChatGPT-PC`, branche `research/matrice-r8-g3-depth-audit-2026-10-14`, pointe vers le lot L3 06 vérifié : **13/62 familles L3 développées et 49 restantes**, G3 OPEN_NOT_ACCEPTED, G4/G5 non débutées dans ce checkpoint. Le sous-checkpoint G3 wave31 du 15 octobre précise un seul des six critères scientifiques G3 pleinement accepté. Ces indicateurs sont **historisés** et ne prétendent pas décrire tout travail éventuel réalisé hors de cette branche.
+- Le produit MATRICE (`MATRICE/PRODUCT_HEAD.json` sur la branche canonique de recherche) marque `scientific_goal_achieved=false`, `precision_certified=false`. Des scores rétrospectifs observés (par exemple 145 succès sur 192 sélections H1 lors d'une recherche R25, environ 75,5%) ne suffisent pas à prouver la précision d'un moteur prospectif certifié ni son application à toute compétition.
+- **Conclusion d'ingénierie :** le **contrat structurel RIZ → MATRICE est prometteur et transférable comme méthode**, mais il ne constitue ni un modèle sportif fini ni un raccourci démontré vers 85–100% de prédictions justes. Football : forte interdépendance, évolution temporelle et comportement stratégique, lacunes de sources; il faut des modèles de buts/historiques, apprendre les coefficients, préserver le gel pré-match et comparer aux baselines, faire calibration et tests prospectifs hors échantillon, ablations contrefactuelles et audit des nouveaux domaines.
+- **Important** : une prédiction « Over1.5 = 85% » sur un match signifie un niveau de probabilité estimé pour **ce match**, pas automatiquement « 85% de pronostics gagnants » sur tous les matchs. On peut viser ≥85% de précision sur des sélections avec abstention/coverage clairement documentée, mais **aucun résultat ni échéance n'est garanti**. Ne pas gonfler artificiellement les probabilités.
+
+### Prochaines portes recommandées
+
+**RIZ** : achever seulement les impacts IC conditionnels manquants, audit de résolution Monte Carlo et interactions non additives, sans regénérer les scénarios ni recopier ses coefficients. **MATRICE** : G3 preuves et données PIT, G4 apprentissage et calibration de l'IC de l'événement Over1.5 (90 minutes), G5 intégration/test et revues prospectives. Conserver `IC scientifique RIZ = null` et `précision scientifique MATRICE = non certifiée` jusqu'aux preuves.
