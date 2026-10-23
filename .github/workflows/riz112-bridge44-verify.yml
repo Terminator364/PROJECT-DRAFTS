@@ -7,6 +7,8 @@ on:
     paths:
       - 'MOTEUR-BLESSING/labs/RIZ112/pret0_focus/bridge44.py'
       - 'MOTEUR-BLESSING/labs/RIZ112/pret0_focus/test_bridge44.py'
+      - 'MOTEUR-BLESSING/labs/RIZ112/pret0_focus/pipeline44.py'
+      - 'MOTEUR-BLESSING/labs/RIZ112/pret0_focus/test_pipeline44.py'
       - '.github/workflows/riz112-bridge44-verify.yml'
 
 permissions:
@@ -22,9 +24,9 @@ jobs:
         with:
           persist-credentials: false
       - name: Python compile
-        run: python3 -m py_compile MOTEUR-BLESSING/labs/RIZ112/pret0_focus/bridge44.py
+        run: python3 -m py_compile MOTEUR-BLESSING/labs/RIZ112/pret0_focus/bridge44.py MOTEUR-BLESSING/labs/RIZ112/pret0_focus/pipeline44.py
       - name: All counterfactual and temporal tests
-        run: python3 -m unittest discover -s MOTEUR-BLESSING/labs/RIZ112/pret0_focus -p test_bridge44.py -v
+        run: python3 -m unittest discover -s MOTEUR-BLESSING/labs/RIZ112/pret0_focus -p 'test_*.py' -v
       - name: Verify actual canonical Step6 fixture
         run: |
           python3 - <<'PY'
@@ -33,6 +35,7 @@ jobs:
           root=Path('MOTEUR-BLESSING/labs/RIZ112')
           sys.path.insert(0,str(root/'pret0_focus'))
           from bridge44 import evaluate44
+          from pipeline44 import run44
           p=json.loads((root/'step6/examples/A_couvercle_ajuste_112.json').read_text(encoding='utf-8'))
           r=evaluate44(p)
           assert r['routed_count']==44
@@ -41,4 +44,9 @@ jobs:
           assert r['routes']['035']['output'] is not None
           print('ACTUAL_STEP6_FIXTURE_ROUTES',r['routed_count'])
           print('ACTUAL_STEP6_FIXTURE_EVALUATED',r['evaluated_count'])
+          combined=run44(p,n_draws=100,seed=20261023)
+          assert combined['prestart_routed']==44
+          assert combined['scientific_ic_percent'] is None
+          print('STEP9_GATED_STATUS',combined['status'])
+          print('STEP9_QSTAR_DEMO',combined['ic_demo_percent'])
           PY
