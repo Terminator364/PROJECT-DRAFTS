@@ -61,3 +61,10 @@ Les 112 rubriques RIZ sont hiérarchiques, mais leurs sous-paramètres ne sont p
 
 ## D030 — Réutilisation du contexte par MOTEUR|CONTINUE
 Le registre conversationnel RIZ-112 et les décisions D001–D030 sont une **source méthodologique** pour la feuille de route sportive; ils ne changent pas le moteur de production, n'autorisent aucune promotion scientifique et ne remplacent ni les 62 mondes ni les données PIT. À la reprise parent, lire `MOTEUR-BLESSING/labs/RIZ112/CONTEXTE_CONVERSATIONS.md` et `CHECKPOINT.json`.
+
+
+## D052 — Logique des chemins vers 2 buts AVANT les données (23 octobre 2026)
+
+Ce point **ne crée pas de nouvelle doctrine** : il est déjà dans l'addendum ADN R8 « logique d'abord, mesures ensuite » du 15 octobre 2026, que la Direction vient de réaffirmer (CTX-0073). Le transfert du riz à MATRICE commence par l'**inventaire raisonné des mécanismes** : accès et progression, pressing et pertes, transitions, occasion/tir, qualité, gardien et conversion, phases arrêtées, penalties, état du score et réaction tactique. Les deux côtés peuvent marquer (1–1), ou un seul deux fois (2–0). Les futurs résultats d'une rencontre ciblée sont des scénarios à anticiper, pas des données pré-match.
+
+La nouvelle synthèse est `logical_first/LOGIQUE_DES_BUTS_OVER15_20261023.md` et `logical_first/MECANISMES_CONDITIONNELS_OVER15_20261023.json`, tous deux rattachés aux mondes du catalogue R8 existant. Les **11 chemins** ne sont ni 11 paramètres nouveaux, ni 11 lois quantitatives vérifiées. Maintenir les **62 mondes historiques canoniques**, leur hiérarchie, le gel avant le match, la gestion des inconnus, l'interdiction des coefficients imaginaires et le contrôle des régressions contre la baseline. Les sources historiques et le modèle G4 doivent valider les relations numériques **après la conception logique**, non les déterminer prématurément. Aucune feuille de route R8 modifiée ici ; aucune G3/G4/G5 promue ; **nouvel IC sportif = 0**. À `Moteur/continue` ou `MATRICE|CONTINUE`, lire D052 avant de discuter entraînement et pourcentages.

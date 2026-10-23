@@ -1350,3 +1350,24 @@ Rapport canonique : [CONTRAT_1_IC_GLOBAL_44_IMPACTS_CONDITIONNELS_20261023.md](p
 - Message : docs(moteur): D052 logic-first existing R8 football-goal mechanisms and scenario contract
 - Fichiers concernés : MOTEUR-BLESSING/labs/RIZ112/logical_first/LOGIQUE_DES_BUTS_OVER15_20261023.md
 - Provenance : événement GitHub push. Ceci ne contient PAS les messages privés ChatGPT non consignés explicitement.
+
+
+## 2026-10-23 — D052 : retour explicite de la Direction à la logique des buts AVANT les données
+
+### Verbatim utilisateur, CTX-0073
+
+> Mais déjà, même au-delà même du moteur comme ça. Par exemple, déjà, dans un premier temps, faudrait bien enregistrer et tout dans le KMR. Mais aussi moi, j'étais un peu sur ce qui était logique avant d'entrer dans vraiment l'analyse des données et tout ça, tout ça. Déjà de base, ce qui est logique, et c'est ça, c'est le fait de, si je te pose par exemple la question qu'est-ce qu'il peut faire que dans un match il y ait autant de buts. Tu vois, un peu comme on a fait avec le... on a fait avec le quoi ? Avec le riz. Tu vois, si on base de ça, quand on prend ça, ces éléments-là, pour les mettre dans les moteurs, ça va nous faire sortir une idée, non ?
+
+### Réponse du Cahier mère : OUI — et la doctrine est DÉJÀ CANONIQUE DANS MATRICE R8
+
+Relecture réelle du projet `Terminator364/ChatGPT-PC`, branche `research/matrice-r8-g3-depth-audit-2026-10-14` : l'addendum **« logique d'abord, mesures ensuite » du 15 octobre 2026**, `MATRICE/R8_G3_DEEP_20261014/logical_research_20261015/ADDENDUM_DIRECTIF_ADN_R8_LOGIQUE_DABORD_20261015.md`, demande expressément la question : **« qu'est-ce qui pourrait mener à au moins deux buts dans un match ? »**. Il fournit un premier catalogue **45 mondes candidats, 360 sous-paramètres logiques candidats, 180 situations** (nombres historiques provisoires, jamais quotas). Le travail L3 ultérieur a figé **62 mondes/paramètres canoniques**, 13 approfondis et 49 restant selon le dernier checkpoint de cette branche — préserver 62, ne pas substituer les 44 entrées du RIZ à la structure de MATRICE.
+
+**D052 est une RÉAFFIRMATION, pas une nouvelle théorie.** La logique du mécanisme de buts doit précéder l'analyse des données et le calcul probabiliste. Construire les chemins `pré-match → tactique/force/effectif → possessions/progression → occasions → qualité de tirs → conversion/gardiens → buts`, avec **branches parallèles** coups de pied arrêtés, penalties, transitions, erreurs et **rétroactions temporelles** après un premier but, sous forme de scénarios hypothétiques futurs seulement. Deux buts peuvent provenir de la même équipe (2–0) ou des deux (1–1). Chaque interaction peut être favorable, défavorable, nulle ou ambiguë selon le contexte ; aucune « prime d'IC » automatique, ni double comptage.
+
+**Livrables créés dans MOTEUR** : `logical_first/LOGIQUE_DES_BUTS_OVER15_20261023.md` (analyse détaillée et étapes) et `logical_first/MECANISMES_CONDITIONNELS_OVER15_20261023.json` (**11 chemins fonctionnels documentaires**, rattachés à 38 utilisations d'identifiants de mondes **déjà présents** dans le catalogue historique R8 ; pas 11 nouveaux paramètres). Ces chemins sont des hypothèses à tester, **pas** des effets causaux ou coefficients scientifiques prouvés. Sources explicites : Hudl StatsBomb xG, Scientific Reports 2026 transitions, recherche SAGE 2026 sur le contexte score/cartons. L'exemple du pressing haut A face à la relance courte B expose les chemins de création d'occasions pour A (récupération haute) **et** B (espaces derrière A), illustrant interactions non univoques.
+
+**Séquence imposée** : inventaire raisonné des mécanismes → hiérarchie existante monde/sous-paramètre/variable/anticipation/scénario → interactions, contradiction et disponibilité avant T0 → sélection/recherche de données → vérification des relations historiques et apprentissage des poids → modèle probabiliste de buts + IC global Over1.5 calibré ou abstention → contretests par paramètre et vérification sur matchs indépendants. La conception logique est possible **avant** les données ; un IC chiffré **ne l'est pas de manière scientifiquement crédible** sans apprentissage/calibration.
+
+**Statut réellement produit** : aucun nouveau monde R8 créé, aucune modification de la feuille de route directrice, aucune loi de buts chiffrée, aucun IC calculé ou calibration G4, aucun gate G3/G4/G5 promu. Les dernières preuves citées pour R8 affichent `G3 OPEN_NOT_ACCEPTED, G4/G5 NOT_STARTED` sur leur checkpoint de portée. Pas de transfert physique de coefficients du riz : transférer uniquement l'architecture de mécanismes et de contretests conditionnels.
+
+**Continuity:** Référence conservée D052, journal E157–E158, message CTX-0073. Reprise `Moteur/continue` puis `MATRICE|CONTINUE` avec lecture de la doctrine R8 historique et des nouveaux fichiers de synthèse. **Le Cahier mère concerne tout MOTEUR, pas seulement les risques du riz.**

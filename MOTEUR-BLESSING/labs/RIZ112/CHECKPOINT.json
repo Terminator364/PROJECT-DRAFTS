@@ -83,7 +83,7 @@
     "events": 144,
     "head": "272dd9517a850fe17091a01ff288b8b0a7922368ad4e277596514e8ce9bccebd"
   },
-  "last_user_directive": "CTX-0072 confirms A definitively: 1 global IC per 44-factor scenario + 44 conditional individual effects. Record mother notebook and continue implementation.",
+  "last_user_directive": "CTX-0073: start from logic of mechanisms that can create two or more goals before research/data, as with RIZ; register in Cahier mère and support MATRICE R8 without restarting or fabricating IC.",
   "latest_case_audit": "step12/COUNTERFACTUAL_112_V12.json",
   "latest_code": "pret0_focus/pipeline44.py",
   "latest_contract": "step9/DEMONSTRATION_CONTRACT.json",
@@ -860,5 +860,33 @@
     "continuation_command": "Moteur/continue",
     "journal_end": "E156",
     "next": "Resume 44 IC conditional counterfactuals for remaining 983 existing scenarios; reject incomplete shards; audit non-additive interactions; never claim 44000 IC until verified."
+  },
+  "logical_first_goals_D052": {
+    "date": "2026-10-23",
+    "status": "LOGIC_FIRST_R8_DOCTRINE_REAFFIRMED_AND_MECHANISMS_MAPPED_NOT_SCORED",
+    "user_question_ref": "CTX-0073",
+    "decision": "D052",
+    "prior_doctrine_ref": "MATRICE/R8_G3_DEEP_20261014/logical_research_20261015/ADDENDUM_DIRECTIF_ADN_R8_LOGIQUE_DABORD_20261015.md",
+    "prior_date": "2026-10-15",
+    "prior_repo": "Terminator364/ChatGPT-PC",
+    "prior_branch": "research/matrice-r8-g3-depth-audit-2026-10-14",
+    "original_logical_candidate_worlds_at_20261015": 45,
+    "original_candidate_subparameters_at_20261015": 360,
+    "original_candidate_situations_at_20261015": 180,
+    "canonical_R8_frozen_worlds_at_l3_checkpoint": 62,
+    "new_mechanism_path_modules": 11,
+    "new_worlds_created": 0,
+    "new_ICs_calculated": 0,
+    "new_model_weights_fitted": 0,
+    "new_gate_promotions": 0,
+    "report": "logical_first/LOGIQUE_DES_BUTS_OVER15_20261023.md",
+    "mechanisms": "logical_first/MECANISMES_CONDITIONNELS_OVER15_20261023.json",
+    "event": "Over 1.5 goals 90min regulation plus stoppage; 2-0 or 1-1 qualify",
+    "prematch_only": true,
+    "postkickoff_target_events_as_features": false,
+    "scientific_IC": null,
+    "stage": "LOGICAL_MECHANISM_DESIGN_NO_NUMERIC_RELIABILITY_CLAIM",
+    "next": "Reuse R8 62-world taxonomy to deepen and counter-audit mechanisms and assumptions; only after mechanism graph and PIT inputs move to numerical scoring/calibration G4 when gates permit.",
+    "journal_end": "E158"
   }
 }
