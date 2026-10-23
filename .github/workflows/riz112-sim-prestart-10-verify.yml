@@ -24,31 +24,26 @@ jobs:
           set -euo pipefail
           python3 -m py_compile MOTEUR-BLESSING/labs/RIZ112/pret0_focus/ic44_v2.py
           python3 MOTEUR-BLESSING/labs/RIZ112/pret0_focus/SIM_PRET0_10_V2_20261023/rejouer_sur_moteur_canonique.py
+      - name: Check canonical replay against committed received values
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json, subprocess
+          from pathlib import Path
+          rel='MOTEUR-BLESSING/labs/RIZ112/pret0_focus/SIM_PRET0_10_V2_20261023/RECU_CANONIQUE_10x44.json'
+          expected=json.loads(subprocess.check_output(['git','show','HEAD:'+rel],text=True))
+          observed=json.loads(Path(rel).read_text(encoding='utf-8'))
+          assert expected['inputs_total']==observed['total_inputs']==440
+          assert len(expected['results'])==len(observed['results'])==10
+          for a,b in zip(expected['results'],observed['results']):
+              assert a['scenario']==b['scenario']
+              assert abs(a['IC_DEMO_PCT']-b['IC_DEMO_PCT'])<1e-9
+          assert expected['scientific_IC'] is None and observed['scientific_ic'] is None
+          print('CANONICAL_REPLAY_MATCH',10,'inputs',440)
+          PY
       - uses: actions/upload-artifact@v4
         with:
           name: RIZ112-CANONICAL-10x44-RECEIPT
           path: MOTEUR-BLESSING/labs/RIZ112/pret0_focus/SIM_PRET0_10_V2_20261023/RECU_CANONIQUE_10x44.json
           retention-days: 30
-      - name: Persist immutable report to Github
-        shell: bash
-        run: |
-          set -euo pipefail
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add MOTEUR-BLESSING/labs/RIZ112/pret0_focus/SIM_PRET0_10_V2_20261023/RECU_CANONIQUE_10x44.json
-          if git diff --cached --quiet; then
-            echo "UNCHANGED_CANONICAL_RESULT"
-            exit 0
-          fi
-          git commit -m "data(riz112): canonical 10x44 simulation readback [skip ci]"
-          # Runner has pre-existing tracked build dirt; its private workspace may be reset.
-          # The generated canonical receipt is ALREADY in HEAD, so it is safe here.
-          git reset --hard HEAD
-          for i in 1 2 3; do
-            git fetch origin main
-            git rebase origin/main
-            if git push origin HEAD:main; then exit 0; fi
-            sleep 1
-          done
-          echo "PUSH_NOT_CONFIRMED" >&2
-          exit 1
