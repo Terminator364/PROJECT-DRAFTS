@@ -44,7 +44,7 @@
   "critical_directive_D035": "Cahier mère as durable authority, all accessible context, no blanket assertion of 112 IC causal effects; each counterfactual evidence or explicit abstention",
   "canonical_source": "GitHub main MOTEUR-BLESSING/labs/RIZ112/CAHIER_MERE.md plus journal, exact context register and checkpoint; not ChatGPT memory.",
   "context_capture_limits": "The tool captures only messages actively submitted in-session and available for logging, not autonomous background conversations.",
-  "latest_journal_event_id": "E163",
+  "latest_journal_event_id": "E164",
   "latest_context_id": "CTX-0078",
   "journal_chain_verified": false,
   "step18_checkpoint": "MOTEUR-BLESSING/labs/RIZ112/step18/CHECKPOINT_STEP18_20261017.json",
@@ -163,9 +163,9 @@
     "archive_url": "https://drive.google.com/file/d/18AHj1Mwr0fz4YuekE-cGIDCJRd8gLX8n/view?usp=drivesdk",
     "independent_cloud_sha256_verified": true
   },
-  "last_synced_journal_id": "E163",
+  "last_synced_journal_id": "E164",
   "last_synced_context_id": "CTX-0078",
-  "last_synced_journal_head": "af910f9d75a1c5b9ec6e9b06c8f94b2162569f87c12e668d084d24b634e3f7d6",
+  "last_synced_journal_head": "29bc26e4741c2d854638e9fde3b2d68d847ad763c01aa43a4fbc4426b603cb42",
   "r8_read_only_compatibility_audit": "MOTEUR-BLESSING/labs/RIZ112/simulations/EXPERIENCE_1000/TRANSFERT_PREMATCH/AUDIT_COMPATIBILITE_R8_20261017.md",
   "last_r8_readback": {
     "source_branch": "research/matrice-r4-universal-2026-10-10",
@@ -220,8 +220,8 @@
     "next_execution_id": "AUDIT_REUSE_MATRICE_R8_TEMPORAL_GATES_ON_WORK_BRANCH",
     "next_execution_title": "Examiner les validateurs temporels existants sur la branche R8 avant adaptation du prototype riz"
   },
-  "latest_journal_head": "af910f9d75a1c5b9ec6e9b06c8f94b2162569f87c12e668d084d24b634e3f7d6",
-  "latest_status_20261023": "D055 Logic-first V0.2 Lot01 31/355 source children wired, 324 pending, 19 stub tests PASS, integrated test open.",
+  "latest_journal_head": "29bc26e4741c2d854638e9fde3b2d68d847ad763c01aa43a4fbc4426b603cb42",
+  "latest_status_20261023": "D055: 31/355 wired, 324 pending, 19 tests stub, integrated test pending; Drive Cahier mirror D055 verified; complete ZIP backup still pending.",
   "history_before_D054": {
     "old_execution_id": "RIZ112_REPRISE_NUMERIQUE_44_PRET0_20261023",
     "old_title": "Rejeu du moteur historique et raccordements causaux pre-T0 avec tests d'ablation",
@@ -265,5 +265,5 @@
   "last_sync_date": "2026-10-23",
   "logic_first_v02_D055_checkpoint": "MOTEUR-BLESSING/labs/MATRICE_LOGIC_FIRST_V02/CHECKPOINT_D055_20261023.json",
   "logic_first_v02_D055_integration_status": "PENDING_REAL_BASELINE_RUN",
-  "logic_first_v02_D055_drive_status": "NOT_VERIFIED"
+  "logic_first_v02_D055_drive_status": "CAHIER_DOC_MIRROR_READBACK_TRUE_FULL_ZIP_NOT_BACKED_UP"
 }
