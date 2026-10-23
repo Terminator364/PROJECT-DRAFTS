@@ -791,3 +791,34 @@ Le mandat exact utilisateur (CTX-0060) et la relance « 👀 » (CTX-0061) sont 
 ### Décision de continuité
 
 **D041-PROPOSÉE (directive de recentrage confirmée, quantification finale encore ouverte)** : la priorité de la prochaine expérience est l'audit nominatif des 44 candidats PRESTART et des 50 plans/politiques, puis un moteur de prédiction strictement T0 et ses tests de mutation. Ne pas déclarer « 44 facteurs définitifs » avant cet audit. La finalité MATRICE Over 1,5 pré-match ne change pas.
+
+
+## 23 octobre 2026 — Vérification de préparation des simulations et réparation du miroir Google Docs
+
+### Verbatim utilisateur de la présente séquence (conservés comme messages distincts)
+
+- **Message précédent** : « Ah, c'est parti encore pour des longues séances et tout. Quelque chose qui pouvait être logique. Longue corrélation, chaque 44 données établir comment elles peuvent influencer. Ah, ça, ça avait déjà été fait, non ? Vraiment. Je sais pas. Ça avait déjà été fait. Est-ce que ce serait une longue séance ? Même dans la logique, je ne sais pas toi, ChatGPT-6, tu dois être capable de le faire. Qu'est-ce qui est bon pour faire du riz. Je fonctionne dans une longue session, parce que je voulais un procédé déjà fiable. Comme ça, voilà, on va pas traîner avec la matrice. Je sais pas si tu me comprends, sinon lance le processus. »
+- **Message actuel** : « Attends donc, on est où maintenant ? Tu as fini les moteurs, c'est bon ? On peut lancer les simulations. Et d'ailleurs le cahier mère ne s'actualise pas. Oui. »
+
+### Vérifications factuelles effectuées par assistant le 23/10/2026
+
+- Le registre nouveau `pret0_focus/AUDIT_44_REEMPLOI_20261023.json` existe sur `main` (commit antérieur `dc08cb8653b2378cf73440b3e5588719755df201`). Il comporte 44 candidats PRESTART, avec pour chacun un mécanisme conceptuel et un classement du niveau de preuve. Ces descriptions **ne sont pas** une exécution de 44 effets quantitatifs.
+- Rapprochement du registre historique `step26/REGISTRE_TRANSVERSAL_112.json`, du dictionnaire Step6 et du rapport `simulations/EXPERIENCE_1000_112/RAPPORT_1000x112.json`. **13 des 44 entrées sont signalées comme lues directement** par l'ancien IC proxy dans le rapport, les 31 autres non directement. La classification ne dénombre pas les effets indirects des contraintes ni ne démontre des causes physiques.
+- **10 contrôles structurels documentaires passés** en JS dans le contexte des connecteurs. Aucun test numérique du noyau corrigé 44 n'a été effectué dans cette séance ; aucun second lot de 1000 dossiers corrigés n'a été créé. Les 1000 × 112 historiques demeurent inchangés (12 IC exploratoires >=85 pour Q* avec 200 tirages/scénario, H3 : 690 valeurs et 310 abstentions, 14 cibles post-T0 `NOT_OBSERVED`).
+- **Google Docs miroir de continuité** (https://docs.google.com/document/d/13gOTBq7AXnT-f9Lotlw4czwa4i75C4UGdP0i1i0qwZE/edit) contenait un état figé au 17/10/2026, H3/309 tests, sans les avancées. Cause constatée : GitHub et Google Docs étaient deux copies non couplées, le document n'était pas automatiquement actualisé. Une nouvelle section de synchronisation du 23/10 a été insérée **au début du Google Doc**, son titre a été corrigé et le contenu lu à nouveau, confirmant la présence du nouvel état, sans détruire l'ancien texte.
+- **MBMPC Desktop Commander : OFFLINE** (dernier contact 107h avant la vérification). Les tests sur PC ne peuvent pas être revendiqués ni reproduits par cette connexion aujourd'hui.
+- L'archive locale `MOTEUR_BLESSING_V1_1_2_MOTEUR_ACTUEL_2026-10-16.zip` est un autre laboratoire moteur (catalogue statistique) et ne contient pas `RIZ112` : **ne pas l'utiliser comme remplacement trompeur des sources du simulateur riz**.
+
+### Décisions / corrigendum pour reprise
+
+1. Le moteur historique de simulation est **EXÉCUTABLE** si ses sources et CSV référencés sont présents; **le moteur 44 pré-T0 final n'est PAS FINI**. Il faut d'abord formaliser le contrat d'entrée T0 et relier correctement les mécanismes pertinents; l'indicateur proxy actuel reste exploratoire.
+2. **Ne pas recommencer** le paquet historique 1000x112. Les futurs runs seront nouveaux et versionnés; il faut comparer à la référence, exécuter tests de mutation/ablation/anti-fuite, fournir reçus et laisser IC scientifique `null` sans validation réelle.
+3. L'utilisateur exige un Cahier mère à jour à chaque reprise; ajouter journal et verbatim accessibles, décisions, actions exécutées et non exécutées. Le miroir Docs doit être actualisé explicitement lors de la séance : **aucune tâche autonome de synchronisation continue n'est en place**.
+4. **Prochaine porte concrète** : vérifier disponibilité de l'environnement d'exécution source complet (ou PC reconnecté), exécuter les tests et un rejeu témoin de la version historique, puis appliquer le contrat d'entrée 44 avec comparaison contrefactuelle avant nouvelle campagne.
+
+### Reçus et limites
+
+- Audit 44 : https://github.com/Terminator364/PROJECT-DRAFTS/blob/main/MOTEUR-BLESSING/labs/RIZ112/pret0_focus/AUDIT_44_REEMPLOI_20261023.json
+- Document miroir synchronisé : https://docs.google.com/document/d/13gOTBq7AXnT-f9Lotlw4czwa4i75C4UGdP0i1i0qwZE/edit
+- Ancien registre de résultats : `simulations/EXPERIENCE_1000_112/RAPPORT_1000x112.json`
+- Aucun run numérique nouveau validé dans cette séance; aucune certification « 44/44 influences » ni IC scientifique.
