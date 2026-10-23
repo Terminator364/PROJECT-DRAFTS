@@ -75,6 +75,7 @@ def graph(enriched:dict[str,Any])->dict[str,Any]:
     if enriched.get("worlds")!=62 or len(rows)!=355 or len({r["id"] for r in rows})!=355:
         raise SourceGraphError("NOT_EXACT_CANONICAL_355")
     worlds={r["world"] for r in rows}
+    children={r["id"] for r in rows}
     if len(worlds)!=62:raise SourceGraphError("NOT_62_PARENTS")
     edges=[];nodes=[];diagnostics=Counter()
     for row in rows:
@@ -93,8 +94,8 @@ def graph(enriched:dict[str,Any])->dict[str,Any]:
         else:diagnostics["modern_original_contracts"]+=1
         relation=s.get("related_worlds") or []
         if not isinstance(relation,list):raise SourceGraphError("RELATED_WORLDS_NOT_LIST:"+cid)
-        if any(not isinstance(x,str) or x not in worlds for x in relation):
-            raise SourceGraphError("UNKNOWN_RELATED_WORLD:"+cid)
+        if any(not isinstance(x,str) or (x not in worlds and x not in children) for x in relation):
+            raise SourceGraphError("UNKNOWN_RELATED_WORLD_OR_CHILD:"+cid)
         owner=s.get("anti_double_count_owner") or row.get("declared_evidence_owner")
         anti=s.get("anti_overlap")
         if anti is not None and not isinstance(anti,dict):
@@ -105,13 +106,18 @@ def graph(enriched:dict[str,Any])->dict[str,Any]:
         if anti:
             partner=anti.get("other_world")
             if partner:
-                if partner not in worlds:raise SourceGraphError("UNKNOWN_OVERLAP_WORLD:"+cid)
-                edges.append({"from":cid,"to_world":partner,"kind":"DOCUMENTED_SHARED_EVENT_OVERLAP_NOT_CAUSAL","incident_identity_template":anti.get("common_incident_key"),"owner":owner})
+                if partner not in worlds and partner not in children:
+                    raise SourceGraphError("UNKNOWN_OVERLAP_WORLD_OR_CHILD:"+cid)
+                destination={"to_world":partner} if partner in worlds else {"to_child":partner}
+                edges.append({"from":cid,**destination,"kind":"DOCUMENTED_SHARED_EVENT_OVERLAP_NOT_CAUSAL","incident_identity_template":anti.get("common_incident_key"),"owner":owner})
                 diagnostics["anti_overlap_edges"]+=1
         for other in sorted(set(relation)):
-            if other!=parent:
-                edges.append({"from":cid,"to_world":other,"kind":"SOURCE_DECLARED_RELATED_WORLD_UNDIRECTED_NOT_CAUSAL","owner":owner})
-                diagnostics["related_world_edges"]+=1
+            if other!=parent and other!=cid:
+                destination={"to_world":other} if other in worlds else {"to_child":other}
+                kind=("SOURCE_DECLARED_RELATED_WORLD_UNDIRECTED_NOT_CAUSAL" if other in worlds
+                      else "SOURCE_DECLARED_RELATED_CHILD_UNDIRECTED_NOT_CAUSAL")
+                edges.append({"from":cid,**destination,"kind":kind,"owner":owner})
+                diagnostics["related_world_edges" if other in worlds else "related_child_edges"]+=1
         node={"id":cid,"parent":parent,"source_origin":row.get("source_contract") or "VERIFIED_ARCHIVAL_MEMBER",
               "owned_mechanism_source":mechanism,"owner_documentary":owner,
               "name_source":raw_name,"definition_source":raw_definition,
