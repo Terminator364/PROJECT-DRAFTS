@@ -1,0 +1,29 @@
+# MOTEUR / MATRICE R8 — Logic-First V0.3, D057, 23 octobre 2026
+
+## Résultat éprouvé
+
+- **62 mondes source R8, 355 enfants authentiques**, produits par le vrai compilateur `compile_v22.current()` sur une branche d'audit privée.
+- **710 emplacements de preuve pré-match** (355 pour A et 355 pour B) : un emplacement vide est `UNKNOWN`, jamais 0.
+- **28 tests intégrés PASS** : véritable `base_v01.py`, moteur V0.2/D056, V0.3, contrôles temporels, registre et provenance. Reçu privé `Terminator364/ChatGPT-PC` branche `research/moteur-logic-first-d057-2026-10-23`, chemin `MATRICE/R8_G3_DEEP_20261014/MOTEUR_LOGIC_FIRST_D057/CI_READBACK_D057.json`.
+- Exécution du compilateur V22 sur l'original vérifiée. Registre complet conservé **dans le dépôt privé** de la source, et jamais copié en bloc dans `PROJECT-DRAFTS` public.
+- **31 enfants** initialement reliés à des règles expérimentales V0.2, dont **10 sous quarantaine sémantique** et **21 candidats pouvant déclencher des hypothèses logiques selon contexte.**
+- **324 autres enfants** routés dans le contrat de preuve V0.3 pour lecture, provenance, garde, contexte ou processus candidat; **aucun d'entre eux n'est présenté comme loi causale signée** ni comme influence chiffrée prouvée sur l'Over1.5.
+- **IC théorique numérique et IC calibré : `null`**. L'absence de loi quantitative et de validation scientifique n'est pas masquée.
+
+## À quoi sert V0.3
+Le composant `logic_registry_v03.py` prend une analyse figée avant T0, valide une clé exacte par enfant L3, vérifie source/date/qualité et rejette fuite des résultats ou paramètres inexistants. Il rattachera chaque donnée fournie à son contrat, son monde, son propriétaire documentaire et sa **catégorie de rôle à examiner**. Les incidents historiques partagés ne peuvent pas être présentés comme contributions indépendantes.
+
+Seules les 31 entrées déjà branchées peuvent transiter au moteur V0.2. Les quatre règles sémantiquement fragiles restent neutralisées D056. Toutes les autres valeurs sont **utilisées pour le reçu de connaissance / inconnus et l'audit** mais **ne sont pas utilisées comme effets probabilistes**. V0.3 refuse la fiction d'un moteur finalisé causalement parce que 355 noms ont été traités.
+
+## Tests intégrés réels
+Le workflow privé du dépôt source compile R8 V22 et exécute :
+```sh
+python -m unittest -v test_v02 test_registry test_logic_registry_v03
+python registry_builder.py --r8-repo-root <repo_R8> --output <fichier_registry_prive>
+```
+Reçu D057 : `unit_tests_pass=true`, `compilation_pass=true`, `v03_contract_replay_pass=true`, `all_pass=true`, **28 tests**. Les deux premiers essais ne doivent pas être confondus : le premier avait **27/28**, le second **28/28** après correction d'une assertion de test.
+
+## Ce qui reste réellement ouvert
+Les **324 nouveaux cas ne disposent toujours pas de relations logiques individuelles justifiées vers les buts**, et les 21 autres ne sont pas validés empiriquement. La catégorisation des 355 est explicitement **provisoire** (surtout 310 candidats de processus, 35 contrôles de source/définition et 10 contextes conditionnels, tri par IDs et non expertise causale). Terminer scientifiquement le moteur nécessitera examiner individuellement les contrats et interactions, définir les mesures admissibles, construire des mécanismes propres aux mondes et réviser les signes par contre-exemples, avant toute loi de buts probabiliste puis une calibration hors échantillon.
+
+**MATRICE 2.0 demeure gelée. La branche originale R8 n'a pas été modifiée. Aucun résultat de match réel n'est prédit par V0.3.**
