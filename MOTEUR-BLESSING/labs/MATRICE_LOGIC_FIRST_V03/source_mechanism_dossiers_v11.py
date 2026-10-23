@@ -74,8 +74,19 @@ def dossiers(semantics:dict[str,Any], original:dict[str,dict[str,Any]])->dict[st
         anticipations=(older if isinstance(older,list) and len(older)==6
                        else newer if isinstance(newer,list) and len(newer)==6
                        else None)
+        # A verified historical source can use a different schema or omit a
+        # horizon. Preserve its ORIGINAL rows and mark missing horizons instead
+        # of fabricating editorial instructions or abandoning all 355 dossiers.
+        intended=("J-6","J-5","J-3","J-1","H-9","H-1")
         if anticipations is None:
-            raise SourceGraphError("SOURCE_SIX_HORIZONS_MISSING:"+cid)
+            anticipations=(older if isinstance(older,list)
+                           else newer if isinstance(newer,list) else [])
+        existing={h.get("horizon") for h in anticipations if isinstance(h,dict)}
+        if len(existing)!=len(anticipations) or any(x not in intended for x in existing):
+            raise SourceGraphError("INVALID_OR_DUPLICATE_SOURCE_HORIZON:"+cid)
+        missing_horizons=[h for h in intended if h not in existing]
+        if missing_horizons:
+            ctr["source_horizon_incomplete"]+=1
         plan=[]
         for h in anticipations:
             if not isinstance(h,dict) or not isinstance(h.get("horizon"),str):
@@ -108,6 +119,8 @@ def dossiers(semantics:dict[str,Any], original:dict[str,dict[str,Any]])->dict[st
              "evidence_source_search_count":len(evidence),
              "evidence_sources_original":evidence,
              "prematch_six_horizons":plan,
+             "source_horizons_missing":missing_horizons,
+             "source_all_six_horizons_attested":not missing_horizons,
              "conditional_source_scenarios":scenario,
              "unresolved_source_related_identifiers":[],
              "inference_goals_effect_sign":None,
@@ -120,7 +133,8 @@ def dossiers(semantics:dict[str,Any], original:dict[str,dict[str,Any]])->dict[st
     return {"schema":SCHEMA,"worlds":62,"operational_dossiers":355,
             "dossiers":docs,"counts":dict(ctr),
             "prematch_slots_two_teams":710,
-            "source_six_horizons_each":True,
+            "source_six_horizons_each":ctr["source_horizon_incomplete"]==0,
+            "source_horizon_incomplete_child_count":ctr["source_horizon_incomplete"],
             "manual_signed_causal_effects":0,
             "empirical_calibration":None,
             "theoretical_goal_IC_from_r8_provenance_alone":None,
