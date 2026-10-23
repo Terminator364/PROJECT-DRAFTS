@@ -1595,3 +1595,11 @@ Après lecture de la directive D054 et de la version canonique V0.1, constructio
 - Message : MOTEUR E165: chained journal receipt for D056 semantic counter-audit
 - Fichiers concernés : MOTEUR-BLESSING/labs/RIZ112/journal/JOURNAL_EVENEMENTS.jsonl
 - Provenance : événement GitHub push. Ceci ne contient PAS les messages privés ChatGPT non consignés explicitement.
+
+
+### Synchronisation automatique GitHub — 2026-10-23T19:43:51.311255+00:00
+
+- Commit source : 18a585858d4b45d24fc59c9c22efdc711bd59ba7
+- Message : MOTEUR D056: persist source semantic counter-audit in decisions
+- Fichiers concernés : MOTEUR-BLESSING/labs/RIZ112/DECISIONS.md
+- Provenance : événement GitHub push. Ceci ne contient PAS les messages privés ChatGPT non consignés explicitement.
