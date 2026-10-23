@@ -28,6 +28,17 @@ class TestArchiveBenchmark(unittest.TestCase):
         self.assertAlmostEqual(d["test_55_brier_gain_over_reference"],0.0)
         self.assertFalse(d["calibrated_deployment_ready"])
         self.assertFalse(d["source_published_preT0_proven"])
+    def test_bootstrap_is_reproducible_and_not_claimed_predictive(self):
+        data=m.scorecard_from_rows(rows())
+        a=data["paired_uncertainty_vs_train_prior_exploratory"]
+        b=m.scorecard_from_rows(rows())["paired_uncertainty_vs_train_prior_exploratory"]
+        self.assertEqual(a,b)
+        self.assertEqual(a["resampling_iterations"],10000)
+        self.assertFalse(a["independent_external_validation"])
+        self.assertFalse(a["strict_before_match_source_evidence_proven"])
+        self.assertFalse(a["significant_model_improvement_certified"])
+        self.assertAlmostEqual(a["paired_brier_gain"],data["test_55_brier_gain_over_naive_train_rate"])
+        self.assertEqual(len(a["exploratory_paired_bootstrap_interval_95"]),2)
     def test_mislabelled_outcome_fails_closed(self):
         r=rows();r[0]["Réel ≥2"]=1
         with self.assertRaisesRegex(ValueError,"SCORE_AND_OVER15"):
