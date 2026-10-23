@@ -53,7 +53,7 @@ class TestEveryDocumentaryChild(unittest.TestCase):
 class TestTheoreticalIC(unittest.TestCase):
     def test_two_goal_probability_exact_math(self):
         out=calc.poisson_over15(1.1,0.9)
-        self.assertAlmostEqual(out["IC_over15_theoretical_percent"],59.399415025901755,places=9)
+        self.assertAlmostEqual(out["IC_over15_theoretical_percent"],59.39941502901619,places=9)
         self.assertAlmostEqual(out["P_0_total_goals"]+out["P_exactly_1_goal"]+out["P_over_1_5_goals"],1.0,places=12)
         self.assertIsNone(out["reliability_or_accuracy_percent"])
     def test_monotonic_in_goal_intensity(self):
@@ -74,7 +74,7 @@ class TestTheoreticalIC(unittest.TestCase):
         self.assertIsNone(out["IC_over15_calibrated_percent"])
     def test_hypothetical_ic_is_never_claimed_calibrated(self):
         out=calc.evaluate(fixture(),assumptions())
-        self.assertAlmostEqual(out["IC_over15_theoretical_percent"],59.399415025901755,places=9)
+        self.assertAlmostEqual(out["IC_over15_theoretical_percent"],59.39941502901619,places=9)
         self.assertIsNone(out["IC_over15_calibrated_percent"])
         self.assertEqual(out["status"],"CONDITIONAL_LAB_IC_NOT_REAL_MATCH_RECOMMENDATION")
         self.assertFalse(out["goal_rates_inferred_from_R8_children"])
