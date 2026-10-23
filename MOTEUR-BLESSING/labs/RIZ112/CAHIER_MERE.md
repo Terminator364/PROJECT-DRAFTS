@@ -1942,3 +1942,18 @@ Directive utilisateur exacte : « Continue et fini le moteur ! !! » (CTX-0087) 
 - Message : MOTEUR D070 resume: 58 public + 169 local tests PASS, private 355 E2E and real PIT calibration unverified
 - Fichiers concernés : MOTEUR-BLESSING/labs/RIZ112/continuity/NEXT_ACTION.json
 - Provenance : événement GitHub push. Ceci ne contient PAS les messages privés ChatGPT non consignés explicitement.
+
+
+## D069 — 23 octobre 2026 — preuves locales, CI, contre-audit et blocage d'intégration
+
+Directive exacte utilisateur CTX-0089 : « Continue ». Bilan CTX-0090, événement E172 ; suite de continuité D070.
+
+D069 A : **58/58 tests GitHub Actions public PASS**, via `MATRICE_LOGIC_FIRST_V03/CI_READBACK_D066.json` : estimateur historique borné par source et temps, tests des dossiers et doublons, analyse XLSX V12, comparaison rétrospective avec incertitude exploratoire. Les nouvelles métadonnées d'anti-double-compte réellement absentes du contrat archivé restent `UNKNOWN`, pas un propriétaire fabriqué.
+
+D069 B : archive originalement fournie `MOTEUR_BLESSING_V1_1_2_MOTEUR_ACTUEL_2026-10-16.zip` **décompressée et exécutée localement**. Tests Python : 46+45+30+48 = **169/169 PASS** ; trois IC du laboratoire entièrement fictifs (49,736825 %, 57,251863 %, 87,751713 %). Retest du calibrage synthétique avec 230 train / 20 test : Brier candidat **0,385073164**, référence **0,376083642** : candidat moins bon, donc **aucune promotion**. Il ne s'agit pas de 169 validations de pronostics sportifs.
+
+D069 C : prévision de référence C1 issue de l'ancien classeur V12 de 313 matchs. Test 55, 49 Over1.5 réels selon l'archive, Brier modèle **0,114665504**, identique à la comparaison V12; comparaison à la fréquence de l'entraînement 135/181 donne gain seulement 0,003565. Bootstrap exploratoire de 15 000 réplications : intervalle 95 % du gain **[-0,004858,+0,010683]**, couvrant zéro, sans preuve PIT ni généralisation. Ces 313 fiches restent conservées sur branche privée, `FORENSIC_ONLY`.
+
+D069 D : ajout d'un **contrôle de bout en bout** utilisant les vrais 355 contrats R8 sur workflow privé existant `.github/workflows/moteur-logic-d060-sourcegraph.yml` ; réception attendue dans `CI_READBACK_D069.json`. **Ce reçu était absent au dernier contrôle** : ne jamais transformer son absence en PASS. Le moteur unifié et son constructeur de dossiers ne sont donc pas certifiés intégrés, malgré les tests des modules. D062 55/55 et D063 67/67 restent acquis ; les 324 effets individuels non signés ne sont pas inventés et l'IC réel calibré = NULL.
+
+Document de travail : `MOTEUR-BLESSING/labs/MATRICE_LOGIC_FIRST_V03/D069_AUDIT_SYNCHRO_20261023.md`. Rapport vérifié en local fourni également dans le canal de conversation. `Moteur/continue` reprend D070 en vérifiant en premier le CI privé et la traçabilité avant match.
