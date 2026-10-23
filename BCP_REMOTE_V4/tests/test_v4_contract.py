@@ -16,6 +16,7 @@ assert "versionCode 6" in gradle
 assert "tcp:18768" in agent and "tcp:8768" in agent
 assert '"127.0.0.1","127.0.0.1"' in agent
 assert "subprocess.run([str(ADB),*args]" in agent
+assert "subprocess.CREATE_NO_WINDOW" in agent
 assert "shell=True" not in agent and "0.0.0.0" not in agent
 assert "arbitrary_shell" not in agent
 print("V4_STATIC_SECURITY_CONTRACT=PASS (12 assertions)")
