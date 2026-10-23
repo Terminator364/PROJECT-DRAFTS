@@ -13,7 +13,9 @@
     "MOTEUR-BLESSING/labs/RIZ112/journal/JOURNAL_EVENEMENTS.jsonl",
     "MOTEUR-BLESSING/labs/MATRICE_LOGIC_FIRST_V01/README.md",
     "MOTEUR-BLESSING/labs/MATRICE_LOGIC_FIRST_V01/logic_engine.py",
-    "MOTEUR-BLESSING/labs/MATRICE_LOGIC_FIRST_V01/test_logic_engine.py"
+    "MOTEUR-BLESSING/labs/MATRICE_LOGIC_FIRST_V01/test_logic_engine.py",
+    "MOTEUR-BLESSING/labs/RIZ112/continuity/REPRISE_IMMEDIATE_D054.md",
+    "MOTEUR-BLESSING/labs/MATRICE_LOGIC_FIRST_V01/D054_PRIORITE_MOTEUR_LOGIQUE_ET_IC_THEORIQUE.md"
   ],
   "first_technical_action": "A la reception de Moteur/continue, lire le document D054 et le Cahier mere avec le checkpoint, reprendre exactement le prototype MATRICE_LOGIC_FIRST_V01 (14 sous-parametres actifs, 22/22 tests), auditer les 341 enfants R8 L3 restants parmi 355 sous-parametres sur 62 mondes. Attribuer a chaque ID son vrai role et sa propagation conditionnelle, coupler mecanismes des deux equipes, scenarios et contraintes pour deduire des issues logiques. Conserver unknown et valeurs avant T0, effectuer tests antagonistes et cinq audits. Aucun bonus IC arbitraire, aucune probabilite Over1.5 certifiee; collecte massive/entrainement seulement APRES moteur logique. Ne pas commencer par simulations riz 44x1000/43252 calculs restant. Mettre a jour preuves GitHub/Drive avec readback.",
   "how_to_continue": "One trigger Moteur/continue; read canonical GitHub files with connected tools, start actual V0.2 tasks immediately and do not ask user to restate goal. No background autonomous execution.",
@@ -48,8 +50,8 @@
   "critical_directive_D035": "Cahier mère as durable authority, all accessible context, no blanket assertion of 112 IC causal effects; each counterfactual evidence or explicit abstention",
   "canonical_source": "GitHub main MOTEUR-BLESSING/labs/RIZ112/CAHIER_MERE.md plus journal, exact context register and checkpoint; not ChatGPT memory.",
   "context_capture_limits": "The tool captures only messages actively submitted in-session and available for logging, not autonomous background conversations.",
-  "latest_journal_event_id": "E160_PENDING_E161_E162",
-  "latest_context_id": "CTX-0077",
+  "latest_journal_event_id": "E162",
+  "latest_context_id": "CTX-0078",
   "journal_chain_verified": true,
   "step18_checkpoint": "MOTEUR-BLESSING/labs/RIZ112/step18/CHECKPOINT_STEP18_20261017.json",
   "step18_windows_status": "PARTIAL_RESOURCE_TESTS_PASS; CONDITIONAL_SUITE_NOT_VALIDATED_TIMEOUT",
@@ -167,9 +169,9 @@
     "archive_url": "https://drive.google.com/file/d/18AHj1Mwr0fz4YuekE-cGIDCJRd8gLX8n/view?usp=drivesdk",
     "independent_cloud_sha256_verified": true
   },
-  "last_synced_journal_id": "E137",
-  "last_synced_context_id": "CTX-0059",
-  "last_synced_journal_head": "3b5a8c2746ec00cb9113167d1243537ea6dda529cc634528af6d2e0da3cca8b8",
+  "last_synced_journal_id": "E162",
+  "last_synced_context_id": "CTX-0078",
+  "last_synced_journal_head": "b1c54c145e6d88f5956a37b9bdf97d45164d7090e5dd2d59ce2d0486b233d0a5",
   "r8_read_only_compatibility_audit": "MOTEUR-BLESSING/labs/RIZ112/simulations/EXPERIENCE_1000/TRANSFERT_PREMATCH/AUDIT_COMPATIBILITE_R8_20261017.md",
   "last_r8_readback": {
     "source_branch": "research/matrice-r4-universal-2026-10-10",
@@ -224,7 +226,7 @@
     "next_execution_id": "AUDIT_REUSE_MATRICE_R8_TEMPORAL_GATES_ON_WORK_BRANCH",
     "next_execution_title": "Examiner les validateurs temporels existants sur la branche R8 avant adaptation du prototype riz"
   },
-  "latest_journal_head": "824498ac0897056c7f294e6053a42fc83a7846dd225e2e234e3d6b2401b86fb2",
+  "latest_journal_head": "b1c54c145e6d88f5956a37b9bdf97d45164d7090e5dd2d59ce2d0486b233d0a5",
   "latest_status_20261023": "D054 overrides historical RIZ next task: logic-first V0.2 current priority, 14/355 wired, 22/22 tests, no numerical predictive IC.",
   "history_before_D054": {
     "old_execution_id": "RIZ112_REPRISE_NUMERIQUE_44_PRET0_20261023",
@@ -249,7 +251,13 @@
     "optional_numeric": "NONPROBABILISTIC_LOGIC_COHERENCE_INDEX_IF_DEFINED",
     "calibrated_IC_over15_percent": null,
     "accuracy_85_percent_proven": false,
-    "no_forced_nonzero_effect": true
+    "no_forced_nonzero_effect": true,
+    "theoretical_probability_policy": "IC_THEORIQUE_SOUS_HYPOTHESES may be numeric ONLY after explicit declared quantitative mechanism laws and joint coherent scenario distribution; labelled MODEL_DEMO_UNCALIBRATED; otherwise null.",
+    "qualitative_possible_without_probabilities": true,
+    "no_arbitrary_plus_minus_bonus": true,
+    "real_sporting_IC_calibrated_percent": null,
+    "logical_coherence_percentage_is_not_probability": true,
+    "predictive_accuracy_85_percent_proven": false
   },
   "source_R8": {
     "repo": "Terminator364/ChatGPT-PC",
