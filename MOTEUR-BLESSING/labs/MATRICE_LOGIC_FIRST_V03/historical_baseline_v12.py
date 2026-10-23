@@ -22,7 +22,7 @@ from logic_engine_v02 import core
 
 class HistoricalEvidenceError(ValueError): pass
 
-REQUIRED=("fixture_id","home_team","away_team","kickoff_utc",
+REQUIRED=("fixture_id","home_team","away_team","competition_id","source_id","kickoff_utc",
           "final_whistle_utc","source_issued_utc","source_first_seen_utc",
           "home_goals","away_goals")
 MAX_GOALS=20
@@ -40,6 +40,9 @@ def _check_games(games:list[dict[str,Any]])->list[dict[str,Any]]:
         fid=game["fixture_id"]
         if not isinstance(fid,str) or not fid or fid in ids:raise HistoricalEvidenceError("DUPLICATE_OR_EMPTY_FIXTURE_ID")
         ids.add(fid)
+        if (not isinstance(game["competition_id"],str) or not game["competition_id"] or
+            not isinstance(game["source_id"],str) or not game["source_id"]):
+            raise HistoricalEvidenceError("COMPETITION_AND_SOURCE_IDS_REQUIRED")
         if (not isinstance(game["home_team"],str) or not game["home_team"] or
             not isinstance(game["away_team"],str) or not game["away_team"] or
             game["home_team"]==game["away_team"]):
@@ -59,10 +62,12 @@ def _check_games(games:list[dict[str,Any]])->list[dict[str,Any]]:
     return verified
 
 def _fixture(case:dict[str,Any])->tuple[datetime,datetime]:
-    if not isinstance(case,dict) or any(k not in case for k in ("fixture_id","home_team","away_team","analysis_asof_utc","kickoff_utc")):
+    if not isinstance(case,dict) or any(k not in case for k in ("fixture_id","home_team","away_team","competition_id","analysis_asof_utc","kickoff_utc")):
         raise HistoricalEvidenceError("PREMATCH_FIXTURE_REQUIRED")
     if not all(isinstance(case[k],str) and case[k] for k in ("fixture_id","home_team","away_team")):
         raise HistoricalEvidenceError("BAD_FIXTURE_ID")
+    if not isinstance(case["competition_id"],str) or not case["competition_id"]:
+        raise HistoricalEvidenceError("COMPETITION_ID_REQUIRED")
     if case["home_team"]==case["away_team"]:raise HistoricalEvidenceError("SAME_TEAM_NOT_A_FIXTURE")
     try:
         asof=core.iso(case["analysis_asof_utc"]);kick=core.iso(case["kickoff_utc"])
@@ -79,6 +84,7 @@ def predict(case:dict[str,Any],all_history:list[dict[str,Any]],
         raise HistoricalEvidenceError("INVALID_PRIOR_STRENGTH")
     recorded=_check_games(all_history)
     eligible=[g for g in recorded if
+              g["competition_id"]==case["competition_id"] and
               g["fixture_id"]!=case["fixture_id"] and
               g["_kick"]<kick and
               g["_first"]<=cutoff and
@@ -88,6 +94,7 @@ def predict(case:dict[str,Any],all_history:list[dict[str,Any]],
     home=case["home_team"];away=case["away_team"]
     template={"schema":"MOTEUR_D066_CHRONOLOGICAL_TEAM_GOALS_BASELINE",
               "fixture_id":case["fixture_id"],"home_team":home,"away_team":away,
+              "competition_id":case["competition_id"],
               "analysis_asof_utc":case["analysis_asof_utc"],
               "source_games_total":len(recorded),"eligible_games":len(eligible),
               "excluded_late_or_target_games":excluded,
@@ -142,6 +149,7 @@ def walkforward(matches:list[dict[str,Any]],*,minimum_games:int=30,
     out=[]
     for g in sorted(games,key=lambda x:(x["_kick"],x["fixture_id"])):
         case={"fixture_id":g["fixture_id"],"home_team":g["home_team"],"away_team":g["away_team"],
+              "competition_id":g["competition_id"],
               "kickoff_utc":g["kickoff_utc"],
               "analysis_asof_utc":g["kickoff_utc"]}
         # Predictor requires strict cutoff BEFORE kickoff: evaluate as of one
