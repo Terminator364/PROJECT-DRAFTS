@@ -1,0 +1,203 @@
+{
+  "fixture_id": "DEMO_OPEN_PRESSING_COUNTER",
+  "analysis_asof_utc": "2026-10-23T16:00:00+00:00",
+  "kickoff_utc": "2026-10-24T18:00:00+00:00",
+  "facts": {
+    "A.PRESSING_TURNOVERS.PRESS_TRIGGER_SCOPE": {
+      "state": "HIGH",
+      "source_id": "SYNTHETIC_LOGIC_DEMO_NOT_REAL_SOURCE",
+      "source_issued_utc": "2026-10-22T17:00:00+00:00",
+      "source_first_seen_utc": "2026-10-22T17:15:00+00:00",
+      "assessment_status": "DOCUMENTED_SYNTHETIC"
+    },
+    "B.ATTACK_BUILDUP.BALL_SECURITY_PRESSURE": {
+      "state": "LOW",
+      "source_id": "SYNTHETIC_LOGIC_DEMO_NOT_REAL_SOURCE",
+      "source_issued_utc": "2026-10-22T17:00:00+00:00",
+      "source_first_seen_utc": "2026-10-22T17:15:00+00:00",
+      "assessment_status": "DOCUMENTED_SYNTHETIC"
+    },
+    "A.TACTIC_STYLE.BLOCK_STRUCTURE": {
+      "state": "HIGH",
+      "source_id": "SYNTHETIC_LOGIC_DEMO_NOT_REAL_SOURCE",
+      "source_issued_utc": "2026-10-22T17:00:00+00:00",
+      "source_first_seen_utc": "2026-10-22T17:15:00+00:00",
+      "assessment_status": "DOCUMENTED_SYNTHETIC"
+    },
+    "A.TRANSITION_DEFENSE.REST_DEFENSE_AT_LOSS": {
+      "state": "LOW",
+      "source_id": "SYNTHETIC_LOGIC_DEMO_NOT_REAL_SOURCE",
+      "source_issued_utc": "2026-10-22T17:00:00+00:00",
+      "source_first_seen_utc": "2026-10-22T17:15:00+00:00",
+      "assessment_status": "DOCUMENTED_SYNTHETIC"
+    },
+    "B.TRANSITION_ATTACK.PROGRESSION_SPEED_SCOPE": {
+      "state": "HIGH",
+      "source_id": "SYNTHETIC_LOGIC_DEMO_NOT_REAL_SOURCE",
+      "source_issued_utc": "2026-10-22T17:00:00+00:00",
+      "source_first_seen_utc": "2026-10-22T17:15:00+00:00",
+      "assessment_status": "DOCUMENTED_SYNTHETIC"
+    },
+    "A.SHOT_CREATION.SHOT_VOLUME_EXPOSURE": {
+      "state": "HIGH",
+      "source_id": "SYNTHETIC_LOGIC_DEMO_NOT_REAL_SOURCE",
+      "source_issued_utc": "2026-10-22T17:00:00+00:00",
+      "source_first_seen_utc": "2026-10-22T17:15:00+00:00",
+      "assessment_status": "DOCUMENTED_SYNTHETIC"
+    },
+    "A.SHOT_QUALITY.LOCATION_ANGLE_DISTANCE": {
+      "state": "HIGH",
+      "source_id": "SYNTHETIC_LOGIC_DEMO_NOT_REAL_SOURCE",
+      "source_issued_utc": "2026-10-22T17:00:00+00:00",
+      "source_first_seen_utc": "2026-10-22T17:15:00+00:00",
+      "assessment_status": "DOCUMENTED_SYNTHETIC"
+    },
+    "B.SHOT_SUPPRESSION.PRE_SHOT_ACCESS_DENIAL": {
+      "state": "LOW",
+      "source_id": "SYNTHETIC_LOGIC_DEMO_NOT_REAL_SOURCE",
+      "source_issued_utc": "2026-10-22T17:00:00+00:00",
+      "source_first_seen_utc": "2026-10-22T17:15:00+00:00",
+      "assessment_status": "DOCUMENTED_SYNTHETIC"
+    },
+    "B.GK_DEFENSE.POSTSHOT_SAVE_CONDITIONAL": {
+      "state": "LOW",
+      "source_id": "SYNTHETIC_LOGIC_DEMO_NOT_REAL_SOURCE",
+      "source_issued_utc": "2026-10-22T17:00:00+00:00",
+      "source_first_seen_utc": "2026-10-22T17:15:00+00:00",
+      "assessment_status": "DOCUMENTED_SYNTHETIC"
+    },
+    "A.SHOT_CONVERSION.ON_TARGET_EXECUTION": {
+      "state": "HIGH",
+      "source_id": "SYNTHETIC_LOGIC_DEMO_NOT_REAL_SOURCE",
+      "source_issued_utc": "2026-10-22T17:00:00+00:00",
+      "source_first_seen_utc": "2026-10-22T17:15:00+00:00",
+      "assessment_status": "DOCUMENTED_SYNTHETIC"
+    },
+    "A.TEAM_STRENGTH.ATTACK_OPPONENT_ADJUSTED": {
+      "state": "HIGH",
+      "source_id": "SYNTHETIC_LOGIC_DEMO_NOT_REAL_SOURCE",
+      "source_issued_utc": "2026-10-22T17:00:00+00:00",
+      "source_first_seen_utc": "2026-10-22T17:15:00+00:00",
+      "assessment_status": "DOCUMENTED_SYNTHETIC"
+    },
+    "A.SETPIECE_ATTACK.CORNER_DELIVERY_PROFILE": {
+      "state": "LOW",
+      "source_id": "SYNTHETIC_LOGIC_DEMO_NOT_REAL_SOURCE",
+      "source_issued_utc": "2026-10-22T17:00:00+00:00",
+      "source_first_seen_utc": "2026-10-22T17:15:00+00:00",
+      "assessment_status": "DOCUMENTED_SYNTHETIC"
+    },
+    "B.SETPIECE_DEFENSE.FIRST_CONTACT": {
+      "state": "HIGH",
+      "source_id": "SYNTHETIC_LOGIC_DEMO_NOT_REAL_SOURCE",
+      "source_issued_utc": "2026-10-22T17:00:00+00:00",
+      "source_first_seen_utc": "2026-10-22T17:15:00+00:00",
+      "assessment_status": "DOCUMENTED_SYNTHETIC"
+    },
+    "A.GAME_STATE_POLICY.TRAIL_RESPONSE_POLICY": {
+      "state": "MEDIUM",
+      "source_id": "SYNTHETIC_LOGIC_DEMO_NOT_REAL_SOURCE",
+      "source_issued_utc": "2026-10-22T17:00:00+00:00",
+      "source_first_seen_utc": "2026-10-22T17:15:00+00:00",
+      "assessment_status": "DOCUMENTED_SYNTHETIC"
+    },
+    "B.GAME_STATE_POLICY.TRAIL_RESPONSE_POLICY": {
+      "state": "HIGH",
+      "source_id": "SYNTHETIC_LOGIC_DEMO_NOT_REAL_SOURCE",
+      "source_issued_utc": "2026-10-22T17:00:00+00:00",
+      "source_first_seen_utc": "2026-10-22T17:15:00+00:00",
+      "assessment_status": "DOCUMENTED_SYNTHETIC"
+    },
+    "B.PRESSING_TURNOVERS.PRESS_TRIGGER_SCOPE": {
+      "state": "MEDIUM",
+      "source_id": "SYNTHETIC_LOGIC_DEMO_NOT_REAL_SOURCE",
+      "source_issued_utc": "2026-10-22T17:00:00+00:00",
+      "source_first_seen_utc": "2026-10-22T17:15:00+00:00",
+      "assessment_status": "DOCUMENTED_SYNTHETIC"
+    },
+    "A.ATTACK_BUILDUP.BALL_SECURITY_PRESSURE": {
+      "state": "HIGH",
+      "source_id": "SYNTHETIC_LOGIC_DEMO_NOT_REAL_SOURCE",
+      "source_issued_utc": "2026-10-22T17:00:00+00:00",
+      "source_first_seen_utc": "2026-10-22T17:15:00+00:00",
+      "assessment_status": "DOCUMENTED_SYNTHETIC"
+    },
+    "B.TACTIC_STYLE.BLOCK_STRUCTURE": {
+      "state": "MEDIUM",
+      "source_id": "SYNTHETIC_LOGIC_DEMO_NOT_REAL_SOURCE",
+      "source_issued_utc": "2026-10-22T17:00:00+00:00",
+      "source_first_seen_utc": "2026-10-22T17:15:00+00:00",
+      "assessment_status": "DOCUMENTED_SYNTHETIC"
+    },
+    "B.TRANSITION_DEFENSE.REST_DEFENSE_AT_LOSS": {
+      "state": "HIGH",
+      "source_id": "SYNTHETIC_LOGIC_DEMO_NOT_REAL_SOURCE",
+      "source_issued_utc": "2026-10-22T17:00:00+00:00",
+      "source_first_seen_utc": "2026-10-22T17:15:00+00:00",
+      "assessment_status": "DOCUMENTED_SYNTHETIC"
+    },
+    "A.TRANSITION_ATTACK.PROGRESSION_SPEED_SCOPE": {
+      "state": "LOW",
+      "source_id": "SYNTHETIC_LOGIC_DEMO_NOT_REAL_SOURCE",
+      "source_issued_utc": "2026-10-22T17:00:00+00:00",
+      "source_first_seen_utc": "2026-10-22T17:15:00+00:00",
+      "assessment_status": "DOCUMENTED_SYNTHETIC"
+    },
+    "B.SHOT_CREATION.SHOT_VOLUME_EXPOSURE": {
+      "state": "MEDIUM",
+      "source_id": "SYNTHETIC_LOGIC_DEMO_NOT_REAL_SOURCE",
+      "source_issued_utc": "2026-10-22T17:00:00+00:00",
+      "source_first_seen_utc": "2026-10-22T17:15:00+00:00",
+      "assessment_status": "DOCUMENTED_SYNTHETIC"
+    },
+    "B.SHOT_QUALITY.LOCATION_ANGLE_DISTANCE": {
+      "state": "MEDIUM",
+      "source_id": "SYNTHETIC_LOGIC_DEMO_NOT_REAL_SOURCE",
+      "source_issued_utc": "2026-10-22T17:00:00+00:00",
+      "source_first_seen_utc": "2026-10-22T17:15:00+00:00",
+      "assessment_status": "DOCUMENTED_SYNTHETIC"
+    },
+    "A.SHOT_SUPPRESSION.PRE_SHOT_ACCESS_DENIAL": {
+      "state": "HIGH",
+      "source_id": "SYNTHETIC_LOGIC_DEMO_NOT_REAL_SOURCE",
+      "source_issued_utc": "2026-10-22T17:00:00+00:00",
+      "source_first_seen_utc": "2026-10-22T17:15:00+00:00",
+      "assessment_status": "DOCUMENTED_SYNTHETIC"
+    },
+    "A.GK_DEFENSE.POSTSHOT_SAVE_CONDITIONAL": {
+      "state": "HIGH",
+      "source_id": "SYNTHETIC_LOGIC_DEMO_NOT_REAL_SOURCE",
+      "source_issued_utc": "2026-10-22T17:00:00+00:00",
+      "source_first_seen_utc": "2026-10-22T17:15:00+00:00",
+      "assessment_status": "DOCUMENTED_SYNTHETIC"
+    },
+    "B.SHOT_CONVERSION.ON_TARGET_EXECUTION": {
+      "state": "MEDIUM",
+      "source_id": "SYNTHETIC_LOGIC_DEMO_NOT_REAL_SOURCE",
+      "source_issued_utc": "2026-10-22T17:00:00+00:00",
+      "source_first_seen_utc": "2026-10-22T17:15:00+00:00",
+      "assessment_status": "DOCUMENTED_SYNTHETIC"
+    },
+    "B.TEAM_STRENGTH.ATTACK_OPPONENT_ADJUSTED": {
+      "state": "MEDIUM",
+      "source_id": "SYNTHETIC_LOGIC_DEMO_NOT_REAL_SOURCE",
+      "source_issued_utc": "2026-10-22T17:00:00+00:00",
+      "source_first_seen_utc": "2026-10-22T17:15:00+00:00",
+      "assessment_status": "DOCUMENTED_SYNTHETIC"
+    },
+    "B.SETPIECE_ATTACK.CORNER_DELIVERY_PROFILE": {
+      "state": "MEDIUM",
+      "source_id": "SYNTHETIC_LOGIC_DEMO_NOT_REAL_SOURCE",
+      "source_issued_utc": "2026-10-22T17:00:00+00:00",
+      "source_first_seen_utc": "2026-10-22T17:15:00+00:00",
+      "assessment_status": "DOCUMENTED_SYNTHETIC"
+    },
+    "A.SETPIECE_DEFENSE.FIRST_CONTACT": {
+      "state": "HIGH",
+      "source_id": "SYNTHETIC_LOGIC_DEMO_NOT_REAL_SOURCE",
+      "source_issued_utc": "2026-10-22T17:00:00+00:00",
+      "source_first_seen_utc": "2026-10-22T17:15:00+00:00",
+      "assessment_status": "DOCUMENTED_SYNTHETIC"
+    }
+  }
+}
