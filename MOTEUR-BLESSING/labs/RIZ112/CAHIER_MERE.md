@@ -1865,3 +1865,11 @@ D064 : traitement des fiches opérationnelles sources R8, horizons historiques e
 - Message : MOTEUR E171: hash-chain D068 archive benchmark and honest standalone integration status
 - Fichiers concernés : MOTEUR-BLESSING/labs/RIZ112/journal/JOURNAL_EVENEMENTS.jsonl
 - Provenance : événement GitHub push. Ceci ne contient PAS les messages privés ChatGPT non consignés explicitement.
+
+
+### Synchronisation automatique GitHub — 2026-10-23T21:28:34.094709+00:00
+
+- Commit source : f78be356f8e2db74ca017d93b7e0cbd8cbb9e8fb
+- Message : MOTEUR D068: append exact user directive and actual 313-match archival audit to durable context
+- Fichiers concernés : MOTEUR-BLESSING/labs/RIZ112/CONTEXTE_INTEGRAL/REGISTRE_MESSAGES.jsonl
+- Provenance : événement GitHub push. Ceci ne contient PAS les messages privés ChatGPT non consignés explicitement.
