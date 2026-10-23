@@ -23,7 +23,7 @@
     "context_master": "CONTEXTE_CONVERSATIONS.md",
     "context_protocol": "PROTOCOLE_CONTINUITE_CONTEXTUELLE.md",
     "context_registry": "CONTEXTE_INTEGRAL/REGISTRE_MESSAGES.jsonl",
-    "context_rows": 88,
+    "context_rows": 90,
     "context_update_rule": "ACTIVE_SESSION_EVERY_RELEVANT_EXCHANGE_AND_CHECKPOINT__NO_BACKGROUND",
     "coverage": "SOME_VERBATIM_EXCERPTS_AND_FLAGGED_RECONSTRUCTIONS_NOT_FULL_RAW_ARCHIVE",
     "drive_current_doc": "https://docs.google.com/document/d/13gOTBq7AXnT-f9Lotlw4czwa4i75C4UGdP0i1i0qwZE/edit",
@@ -32,14 +32,14 @@
     "github_status": "D058_REAL_R8_31_TESTS_PASS; D060_JOURNAL_168_CHAIN_AND_RESUME_PASS",
     "initial_source_archive_drive": "https://drive.google.com/file/d/1rFq9GiwbRvb-Hk33JayacttjBOUdAabf/view?usp=drivesdk",
     "initial_source_archive_sha256": "15182d217e42c2985cb4652ac5c2ee9f6afe6afca55ec148b3c803e52b14ede8",
-    "journal_events": 171,
-    "journal_head": "d2d3ad8f5913ee99a81d34e79eda51d1cd76aec6c6e071000075b87faf669639",
+    "journal_events": 172,
+    "journal_head": "fb7fc17a2df4c6d8fe8ef7c3e2290d43a31a127d8d940f023499f45e25c14747",
     "lab_code": "Moteur/continue",
     "latest_context_ids": [
-      "CTX-0085",
-      "CTX-0086",
       "CTX-0087",
-      "CTX-0088"
+      "CTX-0088",
+      "CTX-0089",
+      "CTX-0090"
     ],
     "legacy_codes_active": false,
     "library_status": "SOURCE_ARCHIVE_CONFIRMED",
@@ -53,18 +53,18 @@
     "parent_manifest_status": "GITHUB_UPDATED_AND_READBACK",
     "single_code_contract": "continuity/CONTRAT_CODE_UNIQUE.md",
     "windows_status": "MBMPC_OFFLINE_LAST_CHECK",
-    "context_registry_sha256": "8084b85f0f0834b44983449f0d9fb1cb1da72901e4a9526fba4e71a5c800b7c6",
+    "context_registry_sha256": "fee9a4610bc4ce43af528ea3f3c82ca277056e28db1fb4549291d463bbf773e7",
     "one_code_tests_passed": 6,
     "historic_regression_tests_passed": 309,
     "readback": "D060_PRIVATE_CI_JOURNAL_VALID_168; NEXT_ACTION_RESUME_PASS; DRIVE_DOC_D058_READBACK; ZIP_NOT_SYNCED",
     "initial_drive_url": "https://drive.google.com/file/d/1D7ZSwNtnsqW6CAm19rmTb2-yzYglAfau/view?usp=drivesdk",
-    "drive_mirror_last_verified": "2026-10-23 D068 Cahier mere Google Docs updated and read back, full ZIP not attested",
+    "drive_mirror_last_verified": "D068 Google Doc readback verified; D069 mirror pending",
     "github_master_last_updated": "2026-10-23",
     "github_master_commit": "4c28384e0f40789ed7c2ad7ae3a5f70b34ea0a5a",
     "current_preT0_audit": "pret0_focus/README_44_CONNECTE_20261023.md",
     "current_unique_user_directive": "CTX-0081",
     "ctx0078_is_duplicate_of": "CTX-0077",
-    "latest_active_checkpoint": "MOTEUR-BLESSING/labs/MATRICE_LOGIC_FIRST_V03/CHECKPOINT_D068_20261023.json",
+    "latest_active_checkpoint": "MOTEUR-BLESSING/labs/MATRICE_LOGIC_FIRST_V03/D069_AUDIT_SYNCHRO_20261023.md",
     "google_doc_refreshed_D056": true
   },
   "continuity_code": "Moteur/continue",
@@ -84,10 +84,10 @@
   },
   "full_packet_replay": "step12/POPULATION_100_COMPLETE_PACKET.jsonl",
   "journal": {
-    "events": 171,
-    "head": "d2d3ad8f5913ee99a81d34e79eda51d1cd76aec6c6e071000075b87faf669639",
-    "latest_id": "E171",
-    "latest_digest": "d2d3ad8f5913ee99a81d34e79eda51d1cd76aec6c6e071000075b87faf669639"
+    "events": 172,
+    "head": "fb7fc17a2df4c6d8fe8ef7c3e2290d43a31a127d8d940f023499f45e25c14747",
+    "latest_id": "E172",
+    "latest_digest": "fb7fc17a2df4c6d8fe8ef7c3e2290d43a31a127d8d940f023499f45e25c14747"
   },
   "last_user_directive": "CTX-0077 exact: code Moteur/continue reads Cahier mere and next action, logic-first R8 62/355 (14 connected, 341 to integrate), seek mechanistic and conditional issues then optionally explicit theoretical IC, historic data fitting/calibration later; no accuracy guarantee.",
   "latest_case_audit": "step12/COUNTERFACTUAL_112_V12.json",
@@ -126,7 +126,7 @@
       "054"
     ]
   },
-  "next": "continuity/NEXT_ACTION.json: MOTEUR_D069_VERIFY_E2E_AND_REAL_DATA",
+  "next": "continuity/NEXT_ACTION.json: MOTEUR_D070_VERIFY_D069_PRIVATE_E2E_AND_REAL_PIT",
   "probabilities_demo_percent": {
     "A": 62.4,
     "B": 36.83,
@@ -223,7 +223,7 @@
     "tests_total": 309,
     "validated_effects": 0
   },
-  "status": "MATRICE_LOGIC_FIRST_D068_355_SOURCE_AND_HISTORIC_V12_AUDIT_NONCERTIFIED",
+  "status": "MATRICE_LOGIC_FIRST_D069_PUBLIC_CI_58_LEGACY_LOCAL_169_PRIVATE_E2E_PENDING",
   "step10": {
     "abstentions_original": 5,
     "derived_not_directly_mutable": 4,
@@ -1100,5 +1100,25 @@
     "manual_324_goal_effects_completed": false,
     "calibrated_sporting_IC": null,
     "independent_sporting_accuracy": null
+  },
+  "matrice_logic_first_D069": {
+    "source_worlds": 62,
+    "source_child_ids": 355,
+    "documentary_edges": 1088,
+    "verified_D062_private_tests": 55,
+    "verified_D063_private_tests": 67,
+    "verified_D069_public_tests": 58,
+    "verified_V112_legacy_local_tests": 169,
+    "verified_V112_synthetic_20_test_model_brier": 0.385073164,
+    "verified_V112_synthetic_20_test_reference_brier": 0.376083642,
+    "verified_C1_archive_55_brier": 0.11466550415245978,
+    "bootstrap_pair_95_vs_train_prior": [
+      -0.004857565073759191,
+      0.010682907421101152
+    ],
+    "D069_private_original_R8_E2E": "RECEIPT_ABSENT_UNVERIFIED",
+    "calibrated_sporting_IC": null,
+    "real_world_predictive_accuracy": null,
+    "remaining_individual_goal_effects_unsigned": 324
   }
 }
