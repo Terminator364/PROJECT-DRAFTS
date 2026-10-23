@@ -1081,3 +1081,11 @@ La demande canonique n'est pas de créer une succession de registres décoratifs
 **Prochaine porte** : contre-audit conceptuel des pondérations/lois d'incertitude, diagnostics de robustesse, validation empirique si des données réelles apparaissent, puis transfert du PIPELINE (gel J-6/J-3/H-x, causalité, contrefactuels, MC, Q/IC, abstentions) à la MATRICE, en réapprenant des coefficients propres au football plutôt qu'en copiant ceux du riz. Le code de reprise Moteur/continue doit lire D046 puis CHECKPOINT.json et le rapport GitHub/Drive, pas repartir à D045.
 
 **Portée de l'automatisation :** l'auto-log GitHub capture les commits poussés ; l'historique privé ChatGPT ne peut être automatiquement intercepté par le dépôt. Le verbatim accessible de cette séance est consigné ici et dans le registre. La tâche ChatGPT programmée de contrôle du miroir demeure désactivée conformément à la directive antérieure.
+
+
+### Synchronisation automatique GitHub — 2026-10-23T12:30:34.460602+00:00
+
+- Commit source : 359023f106dd1a513d5d715ae838ccd5d71d54aa
+- Message : docs(moteur): D046 IC44 V3.1 1000x44 scenario evidence, verbatim and release pointers
+- Fichiers concernés : MOTEUR-BLESSING/labs/RIZ112/CAHIER_MERE.md, MOTEUR-BLESSING/labs/RIZ112/CHECKPOINT.json, MOTEUR-BLESSING/labs/RIZ112/CONTEXTE_INTEGRAL/REGISTRE_MESSAGES.jsonl, MOTEUR-BLESSING/labs/RIZ112/DECISIONS.md, MOTEUR-BLESSING/labs/RIZ112/journal/JOURNAL_EVENEMENTS.jsonl
+- Provenance : événement GitHub push. Ceci ne contient PAS les messages privés ChatGPT non consignés explicitement.
