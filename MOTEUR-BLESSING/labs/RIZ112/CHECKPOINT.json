@@ -29,7 +29,7 @@
     "drive_current_doc": "https://docs.google.com/document/d/13gOTBq7AXnT-f9Lotlw4czwa4i75C4UGdP0i1i0qwZE/edit",
     "drive_status": "SOURCE_ARCHIVE_CONFIRMED_568443_BYTES_PRIVATE_SHA_NOT_INDEPENDENTLY_READ",
     "future_work_recorded": true,
-    "github_status": "D058_PUBLIC_PRIVATE_READBACK; D060_FORENSIC_CHAIN_REPAIR_RETEST_PENDING",
+    "github_status": "D058_REAL_R8_31_TESTS_PASS; D060_JOURNAL_168_CHAIN_AND_RESUME_PASS",
     "initial_source_archive_drive": "https://drive.google.com/file/d/1rFq9GiwbRvb-Hk33JayacttjBOUdAabf/view?usp=drivesdk",
     "initial_source_archive_sha256": "15182d217e42c2985cb4652ac5c2ee9f6afe6afca55ec148b3c803e52b14ede8",
     "journal_events": 168,
@@ -56,7 +56,7 @@
     "context_registry_sha256": "f2f099a0805bc54fa9492baec2cc3444b334b2f1d319ea5b7235ebb2d4e9c4d0",
     "one_code_tests_passed": 6,
     "historic_regression_tests_passed": 309,
-    "readback": "GITHUB_7_OF_7;DRIVE_PRIVATE_BYTES_VERIFIED;LIBRARY_CONFIRMED;WINDOWS_OFFLINE",
+    "readback": "D060_PRIVATE_CI_JOURNAL_VALID_168; NEXT_ACTION_RESUME_PASS; DRIVE_DOC_D058_READBACK; ZIP_NOT_SYNCED",
     "initial_drive_url": "https://drive.google.com/file/d/1D7ZSwNtnsqW6CAm19rmTb2-yzYglAfau/view?usp=drivesdk",
     "drive_mirror_last_verified": "2026-10-23 D058 Cahier mere native Google Docs readback; full ZIP NOT synchronized",
     "github_master_last_updated": "2026-10-23",
@@ -1050,6 +1050,6 @@
     "new_journal_event": "E168",
     "new_journal_digest": "82cfd0c57108fd2d76c0e1b88ccb329788656969d4436fe24b0524d1b6b34552",
     "repair_scope": "HASH_FIELDS_ONLY_E165_E167_ORIGINAL_EVENTS_PRESERVED",
-    "independent_CI": "PENDING"
+    "independent_CI": "PASS_JOURNAL_168_CHAIN_AND_RESUME"
   }
 }
