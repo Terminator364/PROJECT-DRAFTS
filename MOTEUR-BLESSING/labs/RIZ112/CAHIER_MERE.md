@@ -1481,3 +1481,11 @@ Relecture réelle du projet `Terminator364/ChatGPT-PC`, branche `research/matric
 - Message : docs(moteur): D054 directive and epistemic status for experimental IC
 - Fichiers concernés : MOTEUR-BLESSING/labs/RIZ112/DECISIONS.md
 - Provenance : événement GitHub push. Ceci ne contient PAS les messages privés ChatGPT non consignés explicitement.
+
+
+### Synchronisation automatique GitHub — 2026-10-23T18:25:08.821465+00:00
+
+- Commit source : 4eeb7a255f101ebe0a27f971eb28095689bb8c8b
+- Message : docs(moteur): preserve CTX-0077 exact user directive for logic-first continuity D054
+- Fichiers concernés : MOTEUR-BLESSING/labs/RIZ112/CONTEXTE_INTEGRAL/REGISTRE_MESSAGES.jsonl
+- Provenance : événement GitHub push. Ceci ne contient PAS les messages privés ChatGPT non consignés explicitement.
