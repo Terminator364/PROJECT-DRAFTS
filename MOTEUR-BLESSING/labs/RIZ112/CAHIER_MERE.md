@@ -1873,3 +1873,16 @@ D064 : traitement des fiches opérationnelles sources R8, horizons historiques e
 - Message : MOTEUR D068: append exact user directive and actual 313-match archival audit to durable context
 - Fichiers concernés : MOTEUR-BLESSING/labs/RIZ112/CONTEXTE_INTEGRAL/REGISTRE_MESSAGES.jsonl
 - Provenance : événement GitHub push. Ceci ne contient PAS les messages privés ChatGPT non consignés explicitement.
+
+
+## D066–D068 — 23 octobre 2026 — ligne empirique et contre-audit des 313 matchs originaux
+
+Directive utilisateur exacte : « Continue et fini le moteur ! !! » (CTX-0087) ; bilan CTX-0088 ; événement E171.
+
+**Nouveaux travaux logiciels** : `historical_baseline_v12.py` construit des intensités de buts via statistiques historiques de ligue et d'équipes régularisées, avec dates de publication/prise de connaissance, compétition identifiée, refus des données postérieures à T0, abstention sans historique, validation chronologique et calcul Brier/logloss. `moteur_unique_v1.py` accepte désormais l'historique en plus des voies théoriques Poisson et Poisson-binomiale. `audit_legacy_v12_v13.py` contre-audite les classeurs d'archives avec la bibliothèque Python standard. `LANCER_MOTEUR_WINDOWS.cmd` est préparé pour lancement avec Python et une copie locale du R8, résultats confidentiels dans AppData et journal. **Ces nouveaux composants n'ont pas obtenu un nouveau reçu CI vérifié ; le PC Windows MBMPC est resté hors ligne.** Le précédent D065 E2E a échoué et ne saurait devenir un PASS rétroactif.
+
+**Corpus historique réellement retrouvé sur Google Drive** : `MATRICE_R8_V12_MOTEUR_62_CYCLES_313_MATCHS_2026-10-15.xlsx`, 313 fiches : 181 apprentissage, 72 validation, 55 test verrouillé octobre, 5 replays postérieurs. Les 313 fiches sont archivées **uniquement dans la branche privée GitHub de recherche** sous `LEGACY_V12_313_FORENSIC_ARCHIVE_D067.json`, et retenues **hors apprentissage PIT** faute de dates de publication/observations avant match et d'attestation complète des scores à 90 minutes.
+
+**Résultat du contre-audit** : sur le test 55, 49 matchs ont deux buts ou plus (89,09 %), IC moyen 76,733 %, Brier C1_LEAGUE_POISSON 0,114665504, exactement identique à la référence déjà inscrite. Fréquence train 135/181 (74,5856 %), donnant Brier de prévision constante sur le test 0,118230379 (gain apparent seulement 0,003565 ; signification scientifique inconnue). Écart de calibration moyenne −12,36 points. Sur 19 406 cases famille×match, 16 555 (85,31 %) sont UNOBSERVED. Le classeur ne prouve pas une amélioration du moteur enrichi ni une précision de 85 %.
+
+**Frontière de livraison D068** : les 355 sous-paramètres ont leurs contrats et le graphe documentaire de 1088 liens ; D062 55/55 et D063 67/67 tests CI réellement validés ; calcul d'IC conditionnel disponible. Néanmoins **le E2E récent D065, la nouvelle CI D066, le calibrage de l'IC sur données externes temporellement prouvées et les 324 mécanismes signés ne sont pas terminés**. Référence : `MATRICE_LOGIC_FIRST_V03/D068_LIVRAISON_ET_LACUNES_20261023.md` et `CHECKPOINT_D068_20261023.json`. À la reprise, vérifier en premier la nouvelle CI D065b/D066 puis les preuves des sources V12; ne pas redémarrer RIZ112 ou les 1000 scénarios historiques.
