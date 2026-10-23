@@ -1840,3 +1840,12 @@ Directive utilisateur : « Continue » (CTX-0083). D059 : chaîne du journal et 
 - Message : MOTEUR D065: canonical 170 journal, 86 context and verified D062/D063 calculators with integration pending
 - Fichiers concernés : MOTEUR-BLESSING/labs/RIZ112/CHECKPOINT.json
 - Provenance : événement GitHub push. Ceci ne contient PAS les messages privés ChatGPT non consignés explicitement.
+
+
+## D062–D065 — 23 octobre 2026 — 355 paramètres, deux calculateurs IC théoriques et moteur unique
+
+Le mandat « Continue » est enregistré sous CTX-0085 ; résumé de session sous CTX-0086. D062 : 62 mondes, 355 sous-paramètres distribués exhaustivement en sept étapes conceptuelles, 1000 cas synthétiques d'intensité de buts ; 55/55 tests GitHub Actions PASS. La formule conditionnelle Poisson pour Over1.5 est `1-exp[-(λA+λB)]*(1+λA+λB)`, exemple λA=1.1, λB=0.9 donc 59.399415 %, mais intensités fournies comme hypothèses seulement. D063 : Poisson-binomiale sur tirs projetés avant T0, anti-double-compte, 67/67 tests CI PASS, exemple purement fictif 4 probabilités de conversion (0.2,0.3,0.1,0.25), IC conditionnel 19.75 %. Aucune de ces valeurs ne mesure une précision de prévision sportive.
+
+D064 : traitement des fiches opérationnelles sources R8, horizons historiques et scénarios, sans inventer de causalité; les versions de source utilisent des noms de clés différents. D065 : `MOTEUR-BLESSING/labs/MATRICE_LOGIC_FIRST_V03/moteur_unique_v1.py` fournit un point d'entrée pour R8 355, graphe des preuves, sept étapes, contrôle PIT, deux calculateurs et manifeste SHA-256. 76 tests initiaux PASS, mais le premier E2E sur la véritable source V22 a ÉCHOUÉ sur un horizon R8 nommé différemment; correctif en place, confirmation E2E D065B non obtenue au journal E170. Ne pas déclarer ce test réussi sans vrai reçu.
+
+**Frontière scientifique** : 324 enfants toujours sans effet causal individuel signé; aucun modèle d'intensité appris et validé hors échantillon, IC sportif calibré = NULL, précision prédictive inconnue. Le code universel `Moteur/continue` revient au checkpoint D065 puis à la vérification intégrée et à l'analyse causale, sans recommencer RIZ112 ni simuler des scores comme s'ils étaient des observations. Journal E170, contexte CTX-0085/0086 ; miroir Google Docs D065 rédigé et relu. ZIP complet Drive et PC Windows non attestés.
