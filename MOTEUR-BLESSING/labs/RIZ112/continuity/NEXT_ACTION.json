@@ -2,33 +2,27 @@
   "canonical_trigger": "Moteur/continue",
   "current_verified_lab_stage": 27,
   "first_files_to_open": [
-    "MOTEUR-BLESSING/MANIFEST.json",
-    "MOTEUR-BLESSING/CONTINUITE.md",
-    "MOTEUR-BLESSING/labs/RIZ112/continuity/NEXT_ACTION.json",
-    "MOTEUR-BLESSING/labs/RIZ112/continuity/REPRISE_PRIORITE_LOGIQUE_D054_20261023.md",
-    "MOTEUR-BLESSING/labs/RIZ112/CHECKPOINT.json",
+    "MOTEUR-BLESSING/labs/MATRICE_LOGIC_FIRST_V02/CHECKPOINT_D055_20261023.json",
+    "MOTEUR-BLESSING/labs/MATRICE_LOGIC_FIRST_V02/README.md",
+    "MOTEUR-BLESSING/labs/MATRICE_LOGIC_FIRST_V02/logic_engine_v02.py",
+    "MOTEUR-BLESSING/labs/MATRICE_LOGIC_FIRST_V02/registry_builder.py",
     "MOTEUR-BLESSING/labs/RIZ112/CAHIER_MERE.md",
     "MOTEUR-BLESSING/labs/RIZ112/DECISIONS.md",
-    "MOTEUR-BLESSING/labs/RIZ112/CONTEXTE_INTEGRAL/REGISTRE_MESSAGES.jsonl",
     "MOTEUR-BLESSING/labs/RIZ112/journal/JOURNAL_EVENEMENTS.jsonl",
-    "MOTEUR-BLESSING/labs/MATRICE_LOGIC_FIRST_V01/README.md",
-    "MOTEUR-BLESSING/labs/MATRICE_LOGIC_FIRST_V01/logic_engine.py",
-    "MOTEUR-BLESSING/labs/MATRICE_LOGIC_FIRST_V01/test_logic_engine.py",
-    "MOTEUR-BLESSING/labs/RIZ112/continuity/REPRISE_IMMEDIATE_D054.md",
     "MOTEUR-BLESSING/labs/MATRICE_LOGIC_FIRST_V01/D054_PRIORITE_MOTEUR_LOGIQUE_ET_IC_THEORIQUE.md"
   ],
-  "first_technical_action": "A la reception de Moteur/continue, lire le document D054 et le Cahier mere avec le checkpoint, reprendre exactement le prototype MATRICE_LOGIC_FIRST_V01 (14 sous-parametres actifs, 22/22 tests), auditer les 341 enfants R8 L3 restants parmi 355 sous-parametres sur 62 mondes. Attribuer a chaque ID son vrai role et sa propagation conditionnelle, coupler mecanismes des deux equipes, scenarios et contraintes pour deduire des issues logiques. Conserver unknown et valeurs avant T0, effectuer tests antagonistes et cinq audits. Aucun bonus IC arbitraire, aucune probabilite Over1.5 certifiee; collecte massive/entrainement seulement APRES moteur logique. Ne pas commencer par simulations riz 44x1000/43252 calculs restant. Mettre a jour preuves GitHub/Drive avec readback.",
+  "first_technical_action": "Lire CHECKPOINT_D055_20261023.json et README V0.2, exécuter 19 tests V0.2 AVEC le vrai base_v01.py (copie GitHub identique), construire les 355 IDs avec registry_builder.py et compilateur R8 compile_v22.current, audit/contre-audit des signes et redondances des 17 enfants supplémentaires. Puis raccorder les 324 candidats restants par lots selon rôle réel, garde et interactions du moteur logique deux équipes. Ne pas relancer simulations riz et scans historiques. IC théorique et IC calibré restent NULL en absence de lois quantitatives justifiées. À chaque lot, audit/contre-audit/ré-audit, journal, Cahier mère, checkpoint, readback GitHub et Drive si disponible.",
   "how_to_continue": "One trigger Moteur/continue; read canonical GitHub files with connected tools, start actual V0.2 tasks immediately and do not ask user to restate goal. No background autonomous execution.",
-  "lab_next_stage": "MATRICE_LOGIC_FIRST_V02",
+  "lab_next_stage": "MATRICE_LOGIC_FIRST_V02_LOT02",
   "never_do": [
     "Inventer 22 coefficients pour forcer un effet IC",
     "Utiliser des résultats après T0 comme prédicteurs",
     "Déclarer calibré un IC fictif",
     "Écraser un GitHub plus avancé par un ZIP ancien"
   ],
-  "next_execution_id": "MATRICE_R8_LOGIC_FIRST_V02_REUSE_355_CONTRACTS_20261023",
-  "next_execution_title": "MATRICE LOGIC FIRST V0.2 : classer et raccorder 341 enfants L3 restants, graphe de buts interpretable",
-  "progress_checkpoint": "V0.1 14/355 wired, 341 pending; 62 parents documental; local zip reverified SHA256 and 22/22 Python tests. No sport IC calibrated.",
+  "next_execution_id": "MATRICE_R8_LOGIC_V02_INTEGRATION_THEN_LOT02",
+  "next_execution_title": "MOTEUR V0.2 : intégrer sur vraie base V0.1, vérifier 355 IDs R8, continuer les 324",
+  "progress_checkpoint": "D055: V0.2 Lot01 31/355 IDs wired (17 additional), 324 pending; 19/19 unit tests locally with compatibility stub, GitHub readback exact; full original-baseline integration and 355 corpus replay NOT YET VERIFIED; no numeric sports IC.",
   "project": "RIZ112→MATRICE",
   "schema": "moteur-blessing/next-action/v1",
   "scientific_status": "UNVALIDATED_REAL_Q_IC_NULL__SYNTHETIC_RICE_METHOD_LAB_FOR_MATRICE",
@@ -50,9 +44,9 @@
   "critical_directive_D035": "Cahier mère as durable authority, all accessible context, no blanket assertion of 112 IC causal effects; each counterfactual evidence or explicit abstention",
   "canonical_source": "GitHub main MOTEUR-BLESSING/labs/RIZ112/CAHIER_MERE.md plus journal, exact context register and checkpoint; not ChatGPT memory.",
   "context_capture_limits": "The tool captures only messages actively submitted in-session and available for logging, not autonomous background conversations.",
-  "latest_journal_event_id": "E162",
+  "latest_journal_event_id": "E163",
   "latest_context_id": "CTX-0078",
-  "journal_chain_verified": true,
+  "journal_chain_verified": false,
   "step18_checkpoint": "MOTEUR-BLESSING/labs/RIZ112/step18/CHECKPOINT_STEP18_20261017.json",
   "step18_windows_status": "PARTIAL_RESOURCE_TESTS_PASS; CONDITIONAL_SUITE_NOT_VALIDATED_TIMEOUT",
   "step19_checkpoint": "MOTEUR-BLESSING/labs/RIZ112/step19/CHECKPOINT_STEP19_20261017.json",
@@ -169,9 +163,9 @@
     "archive_url": "https://drive.google.com/file/d/18AHj1Mwr0fz4YuekE-cGIDCJRd8gLX8n/view?usp=drivesdk",
     "independent_cloud_sha256_verified": true
   },
-  "last_synced_journal_id": "E162",
+  "last_synced_journal_id": "E163",
   "last_synced_context_id": "CTX-0078",
-  "last_synced_journal_head": "b1c54c145e6d88f5956a37b9bdf97d45164d7090e5dd2d59ce2d0486b233d0a5",
+  "last_synced_journal_head": "af910f9d75a1c5b9ec6e9b06c8f94b2162569f87c12e668d084d24b634e3f7d6",
   "r8_read_only_compatibility_audit": "MOTEUR-BLESSING/labs/RIZ112/simulations/EXPERIENCE_1000/TRANSFERT_PREMATCH/AUDIT_COMPATIBILITE_R8_20261017.md",
   "last_r8_readback": {
     "source_branch": "research/matrice-r4-universal-2026-10-10",
@@ -226,8 +220,8 @@
     "next_execution_id": "AUDIT_REUSE_MATRICE_R8_TEMPORAL_GATES_ON_WORK_BRANCH",
     "next_execution_title": "Examiner les validateurs temporels existants sur la branche R8 avant adaptation du prototype riz"
   },
-  "latest_journal_head": "b1c54c145e6d88f5956a37b9bdf97d45164d7090e5dd2d59ce2d0486b233d0a5",
-  "latest_status_20261023": "D054 overrides historical RIZ next task: logic-first V0.2 current priority, 14/355 wired, 22/22 tests, no numerical predictive IC.",
+  "latest_journal_head": "af910f9d75a1c5b9ec6e9b06c8f94b2162569f87c12e668d084d24b634e3f7d6",
+  "latest_status_20261023": "D055 Logic-first V0.2 Lot01 31/355 source children wired, 324 pending, 19 stub tests PASS, integrated test open.",
   "history_before_D054": {
     "old_execution_id": "RIZ112_REPRISE_NUMERIQUE_44_PRET0_20261023",
     "old_title": "Rejeu du moteur historique et raccordements causaux pre-T0 avec tests d'ablation",
@@ -244,7 +238,7 @@
     "historical_work_preserved": true
   },
   "active_workstream": "MATRICE_R8_LOGIC_FIRST_V02_BEFORE_DATA",
-  "active_decision": "D054",
+  "active_decision": "D055",
   "logic_first_IC_contract": {
     "goal": "logical scenario graph from prematch known values before data learning; future numerical IC ambition preserved",
     "current_output": "EXPLAINABLE_QUALITATIVE_GOAL_PATHWAYS",
@@ -267,5 +261,9 @@
     "children": 355,
     "already_wired": 14,
     "remaining": 341
-  }
+  },
+  "last_sync_date": "2026-10-23",
+  "logic_first_v02_D055_checkpoint": "MOTEUR-BLESSING/labs/MATRICE_LOGIC_FIRST_V02/CHECKPOINT_D055_20261023.json",
+  "logic_first_v02_D055_integration_status": "PENDING_REAL_BASELINE_RUN",
+  "logic_first_v02_D055_drive_status": "NOT_VERIFIED"
 }
