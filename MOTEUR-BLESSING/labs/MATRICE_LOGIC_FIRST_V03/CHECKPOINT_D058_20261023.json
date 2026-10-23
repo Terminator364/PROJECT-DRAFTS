@@ -1,0 +1,51 @@
+{
+  "schema": "MATRICE_LOGIC_FIRST_V03_D058_VERIFIED",
+  "date": "2026-10-23",
+  "trigger": "Moteur/continue",
+  "latest_user_directive": "CTX-0081",
+  "provenance": {
+    "source_repository": "Terminator364/ChatGPT-PC",
+    "canonical_source_branch_unmodified": "research/matrice-r8-g3-depth-audit-2026-10-14",
+    "isolated_source_audit_branch": "research/moteur-logic-first-d057-2026-10-23",
+    "private_audit_receipt": "MATRICE/R8_G3_DEEP_20261014/MOTEUR_LOGIC_FIRST_D057/CI_READBACK_D057.json",
+    "source_compiler": "L3_RUN_B_8_WORLDS_20261018/compile_v22.py",
+    "private_registry_sha256": "d2b660906e4dd8d50086053b06f2c78ecd55be74a08e520ca65aa7543fa267ff",
+    "private_semantic_sha256": "d8ac48cb9952260e5bf4f832f0b444b9ebf48128709aed21a0a359bd631810a1"
+  },
+  "coverage": {
+    "worlds": 62,
+    "subparameters_registered": 355,
+    "two_team_prematch_slots": 710,
+    "source_json_definitions_linked": 343,
+    "legacy_archived_contracts": 12,
+    "source_json_files": 24,
+    "experimentally_mapped_to_rules": 31,
+    "semantic_hold_only": 10,
+    "conditionally_activatable_synthetic_only": 21,
+    "other_child_contract_routed_but_not_causally_signed": 324,
+    "manual_causal_validation_for_all_355": false
+  },
+  "tests": {
+    "private_original_R8_compilation": "PASS",
+    "integrated_31_tests": "PASS",
+    "total_tests": 31,
+    "failed": 0,
+    "real_baseline_V01": true,
+    "semantics_private_enrichment": "PASS",
+    "source_integrity_and_pit_tests": "PASS"
+  },
+  "output": {
+    "numeric_over15_IC_theoretical_under_assumptions": null,
+    "numeric_over15_IC_calibrated": null,
+    "real_match_prediction": null
+  },
+  "mirrors": {
+    "public_GitHub": "READBACK",
+    "private_GitHub": "D058_RECEIPT_READBACK",
+    "Google_Docs_mother_notebook": "D058_EDITED_AND_READBACK",
+    "Drive_full_ZIP": "NOT_SYNCED",
+    "Windows_MBPC": "OFFLINE_NOT_TESTED"
+  },
+  "not_full_scientific_completion": "355 documentary evidence contracts do not constitute 355 signed goal mechanisms or calibrated probabilities",
+  "next_action": "Review and link 324 contract-defined mechanisms individually, then build justified two-team goal-intensity laws; keep abstention and uncertainty; only then calibrate real preT0 PIT data."
+}
