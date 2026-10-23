@@ -41,6 +41,9 @@ jobs:
             exit 0
           fi
           git commit -m "data(riz112): canonical 10x44 simulation readback [skip ci]"
+          # Runner has pre-existing tracked build dirt; its private workspace may be reset.
+          # The generated canonical receipt is ALREADY in HEAD, so it is safe here.
+          git reset --hard HEAD
           for i in 1 2 3; do
             git fetch origin main
             git rebase origin/main
