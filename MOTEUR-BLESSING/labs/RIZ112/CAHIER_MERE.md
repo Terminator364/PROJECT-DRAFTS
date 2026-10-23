@@ -1957,3 +1957,11 @@ D069 C : prévision de référence C1 issue de l'ancien classeur V12 de 313 matc
 D069 D : ajout d'un **contrôle de bout en bout** utilisant les vrais 355 contrats R8 sur workflow privé existant `.github/workflows/moteur-logic-d060-sourcegraph.yml` ; réception attendue dans `CI_READBACK_D069.json`. **Ce reçu était absent au dernier contrôle** : ne jamais transformer son absence en PASS. Le moteur unifié et son constructeur de dossiers ne sont donc pas certifiés intégrés, malgré les tests des modules. D062 55/55 et D063 67/67 restent acquis ; les 324 effets individuels non signés ne sont pas inventés et l'IC réel calibré = NULL.
 
 Document de travail : `MOTEUR-BLESSING/labs/MATRICE_LOGIC_FIRST_V03/D069_AUDIT_SYNCHRO_20261023.md`. Rapport vérifié en local fourni également dans le canal de conversation. `Moteur/continue` reprend D070 en vérifiant en premier le CI privé et la traçabilité avant match.
+
+
+### Synchronisation automatique GitHub — 2026-10-23T21:46:14.977400+00:00
+
+- Commit source : 898872df25e9a5d0017289103e9df77de182ddeb
+- Message : MOTEUR D069: mother register and decisions for 58 CI, 169 local tests and pending original 355 E2E
+- Fichiers concernés : MOTEUR-BLESSING/labs/RIZ112/DECISIONS.md
+- Provenance : événement GitHub push. Ceci ne contient PAS les messages privés ChatGPT non consignés explicitement.
