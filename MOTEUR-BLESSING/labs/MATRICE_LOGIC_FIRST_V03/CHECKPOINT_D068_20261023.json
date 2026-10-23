@@ -1,0 +1,49 @@
+{
+  "schema": "MOTEUR_D068_CHECKPOINT",
+  "date": "2026-10-23",
+  "continuity_code": "Moteur/continue",
+  "task": "Continue et fini le moteur ! !!",
+  "authentic_R8_worlds": 62,
+  "authentic_R8_source_children": 355,
+  "documentary_links": 1088,
+  "conditional_math": {
+    "independent_poisson_over15": "VERIFIED_D062_55_TESTS",
+    "hypothetical_shot_poisson_binomial": "VERIFIED_D063_67_TESTS",
+    "synthetic_sensitivity_scenarios": 1000
+  },
+  "integration": {
+    "entrypoint": "moteur_unique_v1.py",
+    "historical_baseline": "historical_baseline_v12.py",
+    "legacy_xlsx_audit": "audit_legacy_v12_v13.py",
+    "windows_launcher": "LANCER_MOTEUR_WINDOWS.cmd",
+    "one_command_original_R8_CI": "NOT_YET_PROVEN_AFTER_FIX",
+    "D065_original_first_run": "FAILED",
+    "D066_public_test_CI": "NOT_YET_PROVEN",
+    "windows_MBPC": "OFFLINE_NOT_TESTED"
+  },
+  "archive_V12": {
+    "rows": 313,
+    "history_train": 181,
+    "history_validation": 72,
+    "history_test": 55,
+    "post_match_replay": 5,
+    "test_over15_observed": 49,
+    "test_model_brier": 0.11466550415245978,
+    "test_reference_brier": 0.11466550415245978,
+    "test_train_rate_prior_brier": 0.11823037924805276,
+    "model_train_prior_brier_improvement": 0.003564875095592973,
+    "unobserved_parameter_cells": 16555,
+    "total_parameter_cells": 19406,
+    "source_pit_verified": false,
+    "exact_90min_scores_verified": false,
+    "private_archive_path": "Terminator364/ChatGPT-PC@research/moteur-logic-first-d057-2026-10-23/MATRICE/R8_G3_DEEP_20261014/MOTEUR_LOGIC_FIRST_D057/LEGACY_V12_313_FORENSIC_ARCHIVE_D067.json"
+  },
+  "predictions": {
+    "real_match_IC_calibrated": null,
+    "real_world_predictive_accuracy": null,
+    "individual_causal_signatures_for_324_others": false,
+    "independent_real_match_PIT_validation": false
+  },
+  "status": "SOFTWARE_RESEARCH_DELIVERABLE_NOT_SPORTING_PREDICTOR_CERTIFIED",
+  "next": "D069 verify original source V22 single-entry + D066 offline CI, acquire 90min/PIT originals for match history, compare walkforward benchmark and calibration; keep R8 source private"
+}
