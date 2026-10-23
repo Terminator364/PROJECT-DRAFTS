@@ -1,0 +1,48 @@
+name: RIZ112 automatic GitHub continuity log
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'MOTEUR-BLESSING/labs/RIZ112/**'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: riz112-continuity-main
+  cancel-in-progress: false
+jobs:
+  append-only-audit:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - name: Checkout full history
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+          persist-credentials: true
+      - name: Record changed code, not private chat messages
+        run: python3 MOTEUR-BLESSING/labs/RIZ112/continuity/auto_record_commits.py
+      - name: Check append-only record and commit receipt
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json, pathlib
+          base=pathlib.Path('MOTEUR-BLESSING/labs/RIZ112')
+          p=base/'continuity'/'AUTO_GIT_EVENTS.jsonl'
+          if p.exists():
+              rows=[json.loads(x) for x in p.read_text(encoding='utf-8').splitlines()]
+              assert len(rows)==len(set(r['revision'] for r in rows))
+              assert all(r['provenance']=='GITHUB_PUSH_ONLY__NOT_CHAT_TRANSCRIPT' for r in rows)
+              print('AUTO_LOG_VALIDATED',len(rows))
+          PY
+          if git diff --quiet -- MOTEUR-BLESSING/labs/RIZ112; then
+            echo "NO_CHANGE"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add MOTEUR-BLESSING/labs/RIZ112/CAHIER_MERE.md MOTEUR-BLESSING/labs/RIZ112/CHECKPOINT.json MOTEUR-BLESSING/labs/RIZ112/continuity/AUTO_GIT_EVENTS.jsonl
+          git commit -m "docs(riz112): automated durable continuity receipt [skip ci]"
+          git push origin HEAD:main
