@@ -649,8 +649,8 @@
   },
   "automatic_git_sync": {
     "enabled": true,
-    "last_source_revision": "7ce586b69297178bf943428dc4234594d890b851",
-    "last_verified_time_utc": "2026-10-23T18:08:59.555665+00:00",
+    "last_source_revision": "192ba837894b2cb62dc69f024f122c595f81287c",
+    "last_verified_time_utc": "2026-10-23T18:10:30.397530+00:00",
     "log": "continuity/AUTO_GIT_EVENTS.jsonl",
     "captures_private_chat_automatically": false,
     "automatically_updates_google_docs": false,
