@@ -23,23 +23,23 @@
     "context_master": "CONTEXTE_CONVERSATIONS.md",
     "context_protocol": "PROTOCOLE_CONTINUITE_CONTEXTUELLE.md",
     "context_registry": "CONTEXTE_INTEGRAL/REGISTRE_MESSAGES.jsonl",
-    "context_rows": 78,
+    "context_rows": 82,
     "context_update_rule": "ACTIVE_SESSION_EVERY_RELEVANT_EXCHANGE_AND_CHECKPOINT__NO_BACKGROUND",
     "coverage": "SOME_VERBATIM_EXCERPTS_AND_FLAGGED_RECONSTRUCTIONS_NOT_FULL_RAW_ARCHIVE",
     "drive_current_doc": "https://docs.google.com/document/d/13gOTBq7AXnT-f9Lotlw4czwa4i75C4UGdP0i1i0qwZE/edit",
     "drive_status": "SOURCE_ARCHIVE_CONFIRMED_568443_BYTES_PRIVATE_SHA_NOT_INDEPENDENTLY_READ",
     "future_work_recorded": true,
-    "github_status": "D056_CANONICAL_FILES_AND_JOURNAL_READBACK; GOOGLE_DOC_D056_VERIFIED",
+    "github_status": "D058_PRIVATE_GITHUB_ACTIONS_31_PASS; PUBLIC_GITHUB_FILE_READBACK",
     "initial_source_archive_drive": "https://drive.google.com/file/d/1rFq9GiwbRvb-Hk33JayacttjBOUdAabf/view?usp=drivesdk",
     "initial_source_archive_sha256": "15182d217e42c2985cb4652ac5c2ee9f6afe6afca55ec148b3c803e52b14ede8",
-    "journal_events": 164,
-    "journal_head": "531ce8bcab5d60e3098086321617f84bedd176731a1d9b3582ab4a9483d9ac7a",
+    "journal_events": 167,
+    "journal_head": "63045a4086a9f8ade8c779845d751452d797fd540e7c0ed73ad0d15c23e77146",
     "lab_code": "Moteur/continue",
     "latest_context_ids": [
-      "CTX-0075",
-      "CTX-0076",
-      "CTX-0077",
-      "CTX-0078"
+      "CTX-0079",
+      "CTX-0080",
+      "CTX-0081",
+      "CTX-0082"
     ],
     "legacy_codes_active": false,
     "library_status": "SOURCE_ARCHIVE_CONFIRMED",
@@ -52,19 +52,19 @@
     ],
     "parent_manifest_status": "GITHUB_UPDATED_AND_READBACK",
     "single_code_contract": "continuity/CONTRAT_CODE_UNIQUE.md",
-    "windows_status": "MBMPC_OFFLINE_2026-10-23",
-    "context_registry_sha256": "920a4d903cb16c69769b20794f068be92cc6f15f723dc49316c1d4e00e26a43f",
+    "windows_status": "MBMPC_OFFLINE_2026-10-23_LAST_CHECK",
+    "context_registry_sha256": "f2f099a0805bc54fa9492baec2cc3444b334b2f1d319ea5b7235ebb2d4e9c4d0",
     "one_code_tests_passed": 6,
     "historic_regression_tests_passed": 309,
     "readback": "GITHUB_7_OF_7;DRIVE_PRIVATE_BYTES_VERIFIED;LIBRARY_CONFIRMED;WINDOWS_OFFLINE",
     "initial_drive_url": "https://drive.google.com/file/d/1D7ZSwNtnsqW6CAm19rmTb2-yzYglAfau/view?usp=drivesdk",
-    "drive_mirror_last_verified": "2026-10-23 D056 Google Doc readback exact; full ZIP still not synced",
+    "drive_mirror_last_verified": "2026-10-23 D058 Cahier mere native Google Docs readback; full ZIP NOT synchronized",
     "github_master_last_updated": "2026-10-23",
     "github_master_commit": "4c28384e0f40789ed7c2ad7ae3a5f70b34ea0a5a",
     "current_preT0_audit": "pret0_focus/README_44_CONNECTE_20261023.md",
-    "current_unique_user_directive": "CTX-0077",
+    "current_unique_user_directive": "CTX-0081",
     "ctx0078_is_duplicate_of": "CTX-0077",
-    "latest_active_checkpoint": "MOTEUR-BLESSING/labs/MATRICE_LOGIC_FIRST_V02/CHECKPOINT_D056_20261023.json",
+    "latest_active_checkpoint": "MOTEUR-BLESSING/labs/MATRICE_LOGIC_FIRST_V03/CHECKPOINT_D058_20261023.json",
     "google_doc_refreshed_D056": true
   },
   "continuity_code": "Moteur/continue",
@@ -84,19 +84,19 @@
   },
   "full_packet_replay": "step12/POPULATION_100_COMPLETE_PACKET.jsonl",
   "journal": {
-    "events": 164,
-    "head": "531ce8bcab5d60e3098086321617f84bedd176731a1d9b3582ab4a9483d9ac7a",
-    "latest_id": "E166",
-    "latest_digest": "531ce8bcab5d60e3098086321617f84bedd176731a1d9b3582ab4a9483d9ac7a"
+    "events": 167,
+    "head": "63045a4086a9f8ade8c779845d751452d797fd540e7c0ed73ad0d15c23e77146",
+    "latest_id": "E167",
+    "latest_digest": "63045a4086a9f8ade8c779845d751452d797fd540e7c0ed73ad0d15c23e77146"
   },
   "last_user_directive": "CTX-0077 exact: code Moteur/continue reads Cahier mere and next action, logic-first R8 62/355 (14 connected, 341 to integrate), seek mechanistic and conditional issues then optionally explicit theoretical IC, historic data fitting/calibration later; no accuracy guarantee.",
   "latest_case_audit": "step12/COUNTERFACTUAL_112_V12.json",
-  "latest_code": "MOTEUR-BLESSING/labs/MATRICE_LOGIC_FIRST_V02/logic_engine_v02.py",
+  "latest_code": "MOTEUR-BLESSING/labs/MATRICE_LOGIC_FIRST_V03/logic_registry_v03.py",
   "latest_contract": "step9/DEMONSTRATION_CONTRACT.json",
   "latest_h3_ablations": "step14/H3_ABLATIONS.json",
   "latest_h3_population": "step14/H3_100_RESULTS.jsonl",
   "latest_lab": "step13/H2_POPULATION_REPORT.json",
-  "latest_user_directive": "CTX-0063_COMPLETE_44_PRESTART_ROUTES_BEFORE_NEXT_SIMULATIONS",
+  "latest_user_directive": "CTX-0081: D'accord continue et fini le travail; finish all realistically demonstrable work, keep no fabricated IC.",
   "mandate": "MANDAT_FINITION_112.md",
   "mandate_active": true,
   "master": "CAHIER_MERE.md",
@@ -106,10 +106,10 @@
     "transfer_only_methods": true
   },
   "mirrors": {
-    "drive": "D056_GOOGLE_DOC_VERIFIED_21_TESTS_NOT_RUN; NEW_FULL_ZIP_NOT_SYNCED",
-    "github": "READBACK_CONFIRMED_CANONICAL_CONTEXT_7_OF_7_FILES_BEFORE_LAST_FINAL_APPEND",
-    "library": "CURRENT_FULL_H3_CONTEXT_REPRISE_ZIP_CONFIRMED; FINAL_PATCH_UPDATED_COPY_BELOW",
-    "windows": "OFFLINE_OR_UNVERIFIED_NO_H3_SYNC"
+    "drive": "GOOGLE_DOC_CAHIER_D058_UPDATED_READBACK; FULL_ZIP_NOT_SYNCED",
+    "github": "D058_PUBLIC_PRIVATE_READBACK",
+    "library": "NO_D058_FULL_BUNDLE_UPLOAD_VERIFIED",
+    "windows": "OFFLINE_NOT_TESTED"
   },
   "new_H2": {
     "100_scenarios": true,
@@ -126,7 +126,7 @@
       "054"
     ]
   },
-  "next": "continuity/NEXT_ACTION.json: MATRICE_R8_LOGIC_FIRST_V02_D056_EXECUTION_AND_LOT02",
+  "next": "continuity/NEXT_ACTION.json: MATRICE_R8_LOGIC_D059_324_SEMANTIC_CAUSAL_BATCHES",
   "probabilities_demo_percent": {
     "A": 62.4,
     "B": 36.83,
@@ -223,7 +223,7 @@
     "tests_total": 309,
     "validated_effects": 0
   },
-  "status": "MATRICE_LOGIC_FIRST_V02_D056_SEMANTIC_HOLDS_GITHUB_READBACK_NOT_RERUN",
+  "status": "MATRICE_LOGIC_FIRST_V03_D058_SOURCE_355_PRIVATE_SEMANTICS_AND_31_TESTS_VERIFIED",
   "step10": {
     "abstentions_original": 5,
     "derived_not_directly_mutable": 4,
@@ -285,7 +285,8 @@
     "h4_new_tests_passed": 86,
     "h4_new_tests_locally_executed": true,
     "step16_new_tests_passed": 106,
-    "total_windows_passed_309_plus_106": 415
+    "total_windows_passed_309_plus_106": 415,
+    "d058_integrated_31_on_real_R8": "PASS"
   },
   "stage15_H4A": {
     "checkpoint": "step15/CHECKPOINT_H4A_20261017.json",
@@ -1019,5 +1020,29 @@
     "IC_calibrated": null,
     "IC_theoretical": null,
     "archive_Drive": "NOT_SYNCED"
+  },
+  "matrice_logic_first_D058": {
+    "path": "MOTEUR-BLESSING/labs/MATRICE_LOGIC_FIRST_V03/CHECKPOINT_D058_20261023.json",
+    "source_private_branch": "research/moteur-logic-first-d057-2026-10-23",
+    "original_source_R8_unchanged": true,
+    "documentary_children": 355,
+    "worlds": 62,
+    "teams_evidence_slots": 710,
+    "source_json_contracts": 343,
+    "source_archived_contracts": 12,
+    "source_file_contracts": 24,
+    "evidence_routes_exhaustive": true,
+    "mechanism_signed_children": 31,
+    "semantic_hold_only": 10,
+    "other_children_not_causally_signed": 324,
+    "private_CI_real_R8_original": "PASS",
+    "integrated_tests_passed": 31,
+    "integrated_tests_total": 31,
+    "calibrated_sporting_IC": null,
+    "theoretical_sporting_IC": null,
+    "github_readback": true,
+    "drive_cahier_doc_readback": true,
+    "full_drive_zip_synced": false,
+    "MBMPC_tested": false
   }
 }
