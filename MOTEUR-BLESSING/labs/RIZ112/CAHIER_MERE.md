@@ -1513,3 +1513,11 @@ Relecture réelle du projet `Terminator364/ChatGPT-PC`, branche `research/matric
 - Message : docs(moteur): D054 RIZ-to-MATRICE logic-first transfer and explicit theoretical IC status
 - Fichiers concernés : MOTEUR-BLESSING/labs/RIZ112/TRANSFERT_MATRICE.md
 - Provenance : événement GitHub push. Ceci ne contient PAS les messages privés ChatGPT non consignés explicitement.
+
+
+### Synchronisation automatique GitHub — 2026-10-23T18:28:36.490269+00:00
+
+- Commit source : d3c85db1ef9c5d794461eb14e6ae293c8d16f125
+- Message : fix(moteur): label CTX-0078 exact duplicate of CTX-0077 to preserve truthful user-message provenance
+- Fichiers concernés : MOTEUR-BLESSING/labs/RIZ112/CONTEXTE_INTEGRAL/REGISTRE_MESSAGES.jsonl
+- Provenance : événement GitHub push. Ceci ne contient PAS les messages privés ChatGPT non consignés explicitement.
