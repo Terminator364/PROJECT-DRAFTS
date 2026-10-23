@@ -172,8 +172,7 @@ def evaluate44(packet):
         if rid=='010':return None if val('010') is None else A['thermal_conductivity_W_per_mK'].get(str(val('010')))
         if rid=='011':
             x=allnum('011','009');k=derive('010')
-            return None if x is None or k is None or x[1]<=0 or k<=0 else
-             (x[0]*0.001)/(k*(math.pi*(x[1]*0.01/2)**2))
+            return (None if x is None or k is None or x[1]<=0 or k<=0 else (x[0]*0.001)/(k*(math.pi*(x[1]*0.01/2)**2)))
         if rid=='012':return val('012')
         if rid=='013':return gate('013','064')
         if rid=='014':return num('014')
@@ -196,8 +195,7 @@ def evaluate44(packet):
         if rid=='029':return None if num('029') is None else 1-num('029')
         if rid=='030':
             s=num('030');p=primitives.get('rinse_removal_fraction',{}).get('value')
-            return None if s is None or type(p) not in (float,int) else
-             s*(1-p if planned('054') else 1)
+            return (None if s is None or type(p) not in (float,int) else s*(1-p if planned('054') else 1))
         if rid=='031':return None if num('031') is None else 1-num('031')
         if rid=='032':
             x=allnum('001','032');return None if x is None else x[0]*(1-x[1])
