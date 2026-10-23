@@ -1,0 +1,217 @@
+{
+  "schema": "moteur/riz112-to-matrice/logic-first-goal-pathways/v1",
+  "created_on": "2026-10-23",
+  "status": "DESIGN_ONLY_NOT_SCORED_NOT_EMPIRICALLY_CALIBRATED",
+  "event_definition": {
+    "label": "Over 1.5 buts",
+    "condition": "G_HOME_90+G_AWAY_90 >= 2",
+    "within": "90 minutes réglementaires + temps additionnel",
+    "excluded": [
+      "prolongations",
+      "tirs au but"
+    ],
+    "examples_success": [
+      "2-0",
+      "0-2",
+      "1-1",
+      "2-1"
+    ],
+    "examples_failure": [
+      "0-0",
+      "1-0",
+      "0-1"
+    ]
+  },
+  "origin": {
+    "historical_user_direction": "2026-10-15 logic first then measurements",
+    "legacy_r8_path": "MATRICE/R8_G3_DEEP_20261014/logical_research_20261015/ADDENDUM_DIRECTIF_ADN_R8_LOGIQUE_DABORD_20261015.md",
+    "legacy_catalogue": "MATRICE/R8_G3_DEEP_20261014/logical_research_20261015/CATALOGUE_LOGIQUE_MATRICE_R8_CANDIDATS_20261015.json",
+    "current_R8_parameter_hierarchy": "paramètre=monde > sous-paramètres > variables/anticipations/scénarios",
+    "frozen_parent_worlds_at_L3_checkpoint": 62,
+    "new_worlds_created": 0,
+    "new_model_weights_fitted": 0,
+    "new_sporting_ICs_calculated": 0,
+    "new_validation_claims": 0
+  },
+  "mechanisms": [
+    {
+      "id": "M01",
+      "name": "Accès au ballon et tempo",
+      "input_world_ids": [
+        "TACTIC_STYLE",
+        "TEAM_STRENGTH",
+        "LEAGUE_BASE",
+        "REST_CONGESTION"
+      ],
+      "logical_chain": "Possessions et rythme → possibilités de progression et attaques",
+      "caveat": "Possession élevée sans pénétration ne garantit ni tirs ni buts"
+    },
+    {
+      "id": "M02",
+      "name": "Construction et pénétration",
+      "input_world_ids": [
+        "ATTACK_BUILDUP",
+        "ATTACK_DEF_MATCHUP",
+        "DEFENCE_STRUCTURE"
+      ],
+      "logical_chain": "Construction → franchissement du bloc adverse → dernière passe potentielle",
+      "caveat": "Une équipe défensive peut neutraliser le chemin"
+    },
+    {
+      "id": "M03",
+      "name": "Pressing et pertes dangereuses",
+      "input_world_ids": [
+        "PRESSING_TURNOVERS",
+        "TACTIC_STYLE",
+        "SHOT_CREATION"
+      ],
+      "logical_chain": "Pressing réussi → perte adversaire proche du but → occasion",
+      "caveat": "Pressing inefficace peut aussi exposer la défense, signe non universel"
+    },
+    {
+      "id": "M04",
+      "name": "Contre-attaque et exposition",
+      "input_world_ids": [
+        "TRANSITION_ATTACK",
+        "TRANSITION_DEFENSE",
+        "TACTIC_STYLE"
+      ],
+      "logical_chain": "Espace derrière le bloc → progression rapide → tir possible",
+      "caveat": "La transition peut échouer sans tir ou être ralentie"
+    },
+    {
+      "id": "M05",
+      "name": "Volume de tirs et qualité des occasions",
+      "input_world_ids": [
+        "SHOT_CREATION",
+        "SHOT_QUALITY",
+        "SHOT_SUPPRESSION"
+      ],
+      "logical_chain": "Accès à la zone dangereuse → tirs tentés → qualité des tirs",
+      "caveat": "Tirs lointains fréquents ne valent pas plusieurs occasions nettes"
+    },
+    {
+      "id": "M06",
+      "name": "Conversion, défense et gardien",
+      "input_world_ids": [
+        "SHOT_CONVERSION",
+        "GK_DEFENSE",
+        "SQUAD_AVAIL",
+        "LINEUP_ROTATION"
+      ],
+      "logical_chain": "Tirs → frappes réussies ou interventions défensives et gardien → buts ou non",
+      "caveat": "La finition et les arrêts sont aléatoires et ne peuvent être supposés parfaits"
+    },
+    {
+      "id": "M07",
+      "name": "Phases arrêtées",
+      "input_world_ids": [
+        "SETPIECE_ATTACK",
+        "SETPIECE_DEFENSE",
+        "REFEREE"
+      ],
+      "logical_chain": "Corners / coups francs → tirs ou déviations → buts possibles",
+      "caveat": "Attention à ne pas compter deux fois la création offensive totale"
+    },
+    {
+      "id": "M08",
+      "name": "Penalties et discipline",
+      "input_world_ids": [
+        "PENALTY_PATHWAYS",
+        "DISCIPLINE",
+        "REFEREE"
+      ],
+      "logical_chain": "Faute dans la surface → penalty potentiel → but possible",
+      "caveat": "Ni l'octroi d'un penalty ni un carton rouge ne sont prévus avec certitude"
+    },
+    {
+      "id": "M09",
+      "name": "État du score et décisions futures",
+      "input_world_ids": [
+        "GAME_STATE_POLICY",
+        "SUBSTITUTION_IMPACT",
+        "GOAL_TIMING"
+      ],
+      "logical_chain": "Premier but ou période sans but → adaptation tactique → nouvelles occasions ou contrôle",
+      "caveat": "Futur après coup d'envoi = branche hypothétique, jamais caractéristique observée pré-match"
+    },
+    {
+      "id": "M10",
+      "name": "Contexte, fatigue et surfaces",
+      "input_world_ids": [
+        "WEATHER",
+        "PITCH_STADIUM",
+        "REST_CONGESTION",
+        "TRAVEL",
+        "PLAY_TIME_RULES"
+      ],
+      "logical_chain": "Conditions et disponibilité physique → modification du rythme, de l'exécution et de l'incertitude",
+      "caveat": "Effet peut être positif, négatif, nul ou non identifiable"
+    },
+    {
+      "id": "M11",
+      "name": "Niveau relatif et historique contextualisé",
+      "input_world_ids": [
+        "TEAM_STRENGTH",
+        "SCORING_HISTORY",
+        "FORM_TRENDS",
+        "LEAGUE_BASE"
+      ],
+      "logical_chain": "Observations passées contextualisées → hypothèses sur états initiaux d'attaque/défense",
+      "caveat": "Historique est un indicateur, non un événement causal futur; double comptage interdit"
+    }
+  ],
+  "global_model_contract": {
+    "prematch_inputs_only": true,
+    "future_match_events": "LATENT_SCENARIO_NOT_OBSERVED_PREMATCH",
+    "order": "define goal pathways -> world/subparameter ontology -> dependencies and contradictions -> prematch scenarios -> evidence collection -> learn and calibrate interactions -> evaluate independent future predictions",
+    "no_double_counting": true,
+    "interaction_examples": [
+      "high_press × opponent_buildout",
+      "high_line × counterattack_speed",
+      "shot_volume × shot_quality",
+      "offensive_strength × opponent_suppression",
+      "absence_attacker × alternative_lineups",
+      "first_goal_scenario × reactive_game_state"
+    ],
+    "conditional_scenario_examples": [
+      {
+        "id": "S_A",
+        "known_pre_match": [
+          "team_A_high_press_probable",
+          "team_B_short_buildout_probable"
+        ],
+        "hypothetical_future": [
+          "dangerous_turnovers",
+          "team_B_breaks_press"
+        ],
+        "numerical_probability": null
+      },
+      {
+        "id": "S_B",
+        "known_pre_match": [
+          "team_B_possible_low_block"
+        ],
+        "hypothetical_future": [
+          "few_transitions",
+          "set_piece_score_path"
+        ],
+        "numerical_probability": null
+      }
+    ],
+    "numeric_probability_or_weight_assigned": false,
+    "requirements_before_IC": [
+      "PIT-verified inputs for target match",
+      "documented mechanism mapping",
+      "numeric laws trained or justified",
+      "joint distribution for compatible branches",
+      "out-of-sample calibration and test",
+      "abstain on missing critical evidence"
+    ]
+  },
+  "references": [
+    "https://statsbomb.com/soccer-metrics/expected-goals-xg-explained/",
+    "https://www.nature.com/articles/s41598-026-49831-2",
+    "https://journals.sagepub.com/doi/full/10.1177/22150218261454824"
+  ]
+}
