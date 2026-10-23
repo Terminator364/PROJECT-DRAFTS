@@ -23,7 +23,7 @@
     "context_master": "CONTEXTE_CONVERSATIONS.md",
     "context_protocol": "PROTOCOLE_CONTINUITE_CONTEXTUELLE.md",
     "context_registry": "CONTEXTE_INTEGRAL/REGISTRE_MESSAGES.jsonl",
-    "context_rows": 62,
+    "context_rows": 63,
     "context_update_rule": "ACTIVE_SESSION_EVERY_RELEVANT_EXCHANGE_AND_CHECKPOINT__NO_BACKGROUND",
     "coverage": "SOME_VERBATIM_EXCERPTS_AND_FLAGGED_RECONSTRUCTIONS_NOT_FULL_RAW_ARCHIVE",
     "drive_current_doc": "https://docs.google.com/document/d/13gOTBq7AXnT-f9Lotlw4czwa4i75C4UGdP0i1i0qwZE/edit",
@@ -32,14 +32,14 @@
     "github_status": "VERIFIED_CRITICAL_9_OF_9_BEFORE_FINAL_RECEIPT",
     "initial_source_archive_drive": "https://drive.google.com/file/d/1rFq9GiwbRvb-Hk33JayacttjBOUdAabf/view?usp=drivesdk",
     "initial_source_archive_sha256": "15182d217e42c2985cb4652ac5c2ee9f6afe6afca55ec148b3c803e52b14ede8",
-    "journal_events": 141,
-    "journal_head": "824498ac0897056c7f294e6053a42fc83a7846dd225e2e234e3d6b2401b86fb2",
+    "journal_events": 143,
+    "journal_head": "5a219eac9a0190545eb052115b311efb112e43f67864816575256771b8de2cec",
     "lab_code": "Moteur/continue",
     "latest_context_ids": [
-      "CTX-0051",
-      "CTX-0052",
-      "CTX-0053",
-      "CTX-0054"
+      "CTX-0060",
+      "CTX-0061",
+      "CTX-0062",
+      "CTX-0063"
     ],
     "legacy_codes_active": false,
     "library_status": "SOURCE_ARCHIVE_CONFIRMED",
@@ -61,7 +61,7 @@
     "drive_mirror_last_verified": "2026-10-23; previous H3 stale; front status refreshed; not autonomous",
     "github_master_last_updated": "2026-10-23",
     "github_master_commit": "4c28384e0f40789ed7c2ad7ae3a5f70b34ea0a5a",
-    "current_preT0_audit": "pret0_focus/AUDIT_44_REEMPLOI_20261023.json"
+    "current_preT0_audit": "pret0_focus/README_44_CONNECTE_20261023.md"
   },
   "continuity_code": "Moteur/continue",
   "date": "2026-10-17",
@@ -80,17 +80,17 @@
   },
   "full_packet_replay": "step12/POPULATION_100_COMPLETE_PACKET.jsonl",
   "journal": {
-    "events": 137,
-    "head": "3b5a8c2746ec00cb9113167d1243537ea6dda529cc634528af6d2e0da3cca8b8"
+    "events": 143,
+    "head": "5a219eac9a0190545eb052115b311efb112e43f67864816575256771b8de2cec"
   },
   "last_user_directive": "D034_CANONICAL_SINGLE_CODE_AUTO_RESUME_AND_CONTINUOUS_CONTEXT",
   "latest_case_audit": "step12/COUNTERFACTUAL_112_V12.json",
-  "latest_code": "step18/riz112_with_resources.py",
+  "latest_code": "pret0_focus/pipeline44.py",
   "latest_contract": "step9/DEMONSTRATION_CONTRACT.json",
   "latest_h3_ablations": "step14/H3_ABLATIONS.json",
   "latest_h3_population": "step14/H3_100_RESULTS.jsonl",
   "latest_lab": "step13/H2_POPULATION_REPORT.json",
-  "latest_user_directive": "CONTINUE_D025_HIERARCHICAL_SUBPARAMETERS_AND_ANTICIPATIONS",
+  "latest_user_directive": "CTX-0063_COMPLETE_44_PRESTART_ROUTES_BEFORE_NEXT_SIMULATIONS",
   "mandate": "MANDAT_FINITION_112.md",
   "mandate_active": true,
   "master": "CAHIER_MERE.md",
@@ -120,7 +120,7 @@
       "054"
     ]
   },
-  "next": "REVIEW_MATRICE_R8_ADN_AND_REUSE_EXISTING_PREMATCH_GATES",
+  "next": "SIM_PRET0_44_V1 via pret0_focus/pipeline44.py; do not erase 1000x112 historical; no scientific IC",
   "probabilities_demo_percent": {
     "A": 62.4,
     "B": 36.83,
@@ -217,7 +217,7 @@
     "tests_total": 309,
     "validated_effects": 0
   },
-  "status": "ENGINEERING_V1_CLOSED__SIM1000_VALIDATED__PREMATCH_TRANSFER_WINDOWS_GATE_24_TESTS_PASS",
+  "status": "ENGINEERING_V1_CLOSED__PRET0_44_BRIDGE_VERIFIED__NEXT_SIMULATION_READY",
   "step10": {
     "abstentions_original": 5,
     "derived_not_directly_mutable": 4,
@@ -613,7 +613,7 @@
     "journal_head": "e276b9536b508f9374501cd24c070d8345e7cd3264a95cddfc68a80199772a58"
   },
   "pret0_focus_20261023": {
-    "status": "AUDIT_DOCUMENTAIRE_TERMINE__MOTEUR_44_NON_FINI",
+    "status": "RACCORDEMENT_LOGICIEL_44_SUR_44_VERIFIE__PAS_44_CAUSES_Q",
     "total_historical_rubrics": 112,
     "preT0_candidate_fields": 44,
     "exploratory_proxy_direct_input_fields": 13,
@@ -621,12 +621,30 @@
     "older_synthetic_scenarios_preserved": 1000,
     "historical_synthetic_proxy_ge85": 12,
     "scientific_probability": null,
-    "new_numerical_rerun_count_this_session": 0,
+    "new_numerical_rerun_count_this_session": 1,
     "desktop_commander": "OFFLINE",
     "structural_documentary_checks_passed": 10,
     "audit": "pret0_focus/AUDIT_44_REEMPLOI_20261023.json",
     "master": "CAHIER_MERE.md",
     "google_docs_mirror": "https://docs.google.com/document/d/13gOTBq7AXnT-f9Lotlw4czwa4i75C4UGdP0i1i0qwZE/edit",
-    "next_action": "Run existing engine with complete sources, then run mutation/ablation/temporal-leak tests for 44 candidate input fields; do not promote scientific IC."
+    "next_action": "Launch new versioned pre-T0 scenarios through pipeline44; report feasible/abstained/UNKNOWN, physical feature shifts, old Q* delta, no empirical calibration claim.",
+    "bridge": "pret0_focus/bridge44.py",
+    "pipeline": "pret0_focus/pipeline44.py",
+    "tests": [
+      "pret0_focus/test_bridge44.py",
+      "pret0_focus/test_pipeline44.py"
+    ],
+    "dossier": "pret0_focus/README_44_CONNECTE_20261023.md",
+    "preT0_routed_fields": 44,
+    "individual_mutations_verified_on_complete_synthetic_case": 44,
+    "independent_CI_python_tests_passed": 16,
+    "independent_CI_run_url": "https://github.com/Terminator364/PROJECT-DRAFTS/actions/runs/39938601745",
+    "actual_step6_fixture_routes": 44,
+    "actual_step6_fixture_evaluated": 19,
+    "actual_step6_fixture_not_evaluated": 25,
+    "integration_pilot_draws": 100,
+    "integration_pilot_ic_demo_percent": 58,
+    "new_full_1000_scenario_campaigns_this_session": 0,
+    "not_direct_quality_ic_fields": 31
   }
 }
