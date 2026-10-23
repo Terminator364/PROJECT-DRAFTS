@@ -1371,3 +1371,11 @@ Relecture réelle du projet `Terminator364/ChatGPT-PC`, branche `research/matric
 **Statut réellement produit** : aucun nouveau monde R8 créé, aucune modification de la feuille de route directrice, aucune loi de buts chiffrée, aucun IC calculé ou calibration G4, aucun gate G3/G4/G5 promu. Les dernières preuves citées pour R8 affichent `G3 OPEN_NOT_ACCEPTED, G4/G5 NOT_STARTED` sur leur checkpoint de portée. Pas de transfert physique de coefficients du riz : transférer uniquement l'architecture de mécanismes et de contretests conditionnels.
 
 **Continuity:** Référence conservée D052, journal E157–E158, message CTX-0073. Reprise `Moteur/continue` puis `MATRICE|CONTINUE` avec lecture de la doctrine R8 historique et des nouveaux fichiers de synthèse. **Le Cahier mère concerne tout MOTEUR, pas seulement les risques du riz.**
+
+
+### Synchronisation automatique GitHub — 2026-10-23T17:17:35.998792+00:00
+
+- Commit source : 8cd11cc07348b7b1834b7e52245f15ee6299b3c9
+- Message : docs(moteur): D052 reaffirm logic-first R8 goal mechanisms, context and chain journal
+- Fichiers concernés : MOTEUR-BLESSING/labs/RIZ112/CAHIER_MERE.md, MOTEUR-BLESSING/labs/RIZ112/CHECKPOINT.json, MOTEUR-BLESSING/labs/RIZ112/CONTEXTE_INTEGRAL/REGISTRE_MESSAGES.jsonl, MOTEUR-BLESSING/labs/RIZ112/DECISIONS.md, MOTEUR-BLESSING/labs/RIZ112/TRANSFERT_MATRICE.md, MOTEUR-BLESSING/labs/RIZ112/journal/JOURNAL_EVENEMENTS.jsonl
+- Provenance : événement GitHub push. Ceci ne contient PAS les messages privés ChatGPT non consignés explicitement.
