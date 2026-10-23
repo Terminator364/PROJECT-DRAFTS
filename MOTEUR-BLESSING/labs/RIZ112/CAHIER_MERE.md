@@ -1473,3 +1473,11 @@ Relecture réelle du projet `Terminator364/ChatGPT-PC`, branche `research/matric
 - Message : docs(moteur): D054 priority logic-first across R8 L3 and conditional meaning of theoretical IC
 - Fichiers concernés : MOTEUR-BLESSING/labs/RIZ112/CAHIER_MERE.md
 - Provenance : événement GitHub push. Ceci ne contient PAS les messages privés ChatGPT non consignés explicitement.
+
+
+### Synchronisation automatique GitHub — 2026-10-23T18:24:12.341190+00:00
+
+- Commit source : 98871f3e5d6ac26fd30d4c1b9aa1ce56ed5a9d86
+- Message : docs(moteur): D054 directive and epistemic status for experimental IC
+- Fichiers concernés : MOTEUR-BLESSING/labs/RIZ112/DECISIONS.md
+- Provenance : événement GitHub push. Ceci ne contient PAS les messages privés ChatGPT non consignés explicitement.
