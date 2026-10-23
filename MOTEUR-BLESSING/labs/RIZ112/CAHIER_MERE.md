@@ -861,3 +861,41 @@ La **porte RACCORDEMENT_LOGICIEL_44_SUR_44** est clôturée avec preuves Python 
 - Message : docs(riz112): evidence for 44 synthetic parameter-to-ICE effects and limits
 - Fichiers concernés : MOTEUR-BLESSING/labs/RIZ112/pret0_focus/RAPPORT_ICE_44X44_20261023.md
 - Provenance : événement GitHub push. Ceci ne contient PAS les messages privés ChatGPT non consignés explicitement.
+
+
+## 23 octobre 2026 — D043 : 44 paramètres influencent l'IC démonstratif (44/44)
+
+### Directive utilisateur CTX-0064, conservée au verbatim
+
+> Attends, je comprends pas. Peut-être bien, c'est toi qui n'as pas obéi à ce que j'ai dit. On s'est mis d'accord pour qu'il y a 44 rubriques. Bon, dans la matrice, on appelle ça des paramètres. Disons 44 paramètres. Qui, lorsque nous travaillons, il va générer, je sais pas des simulations, on génère par exemple 44 trucs aléatoires, situation A, B, C, D, I, jusqu'à N. Mais si ces 44 sont des pré-préparations, chacune d'elles doit influencer notre moteur, donc influencer l'ICE. C'est de ça dont moi je t'ai dit. Parce que toi tu m'avais dit quoi ? Il y avait 16, c'est pas 19. Ça doit être tous les 44 qui... C'est ça. C'est ça que tu dois faire et c'est ça que je dois faire. Pour le cahier mère, j'insiste, ça doit être automatique. Ça doit pas que quand j'ouvre une nouvelle conversation avec notre code de continuité, que la synchronisation se perd. Non. Les messages donc tout doit être bien fait, bien fait, collé au code de continuité, collé au projet, cahier mère doit être rempli. Tout ce que j'ai dit, c'est qu'on fait, comment on a fait, c'est quoi, tout cahier mère. Et j'insiste, si on est d'accord pour qu'il y a 44 rubriques, chacune des 44 doit entrer dans le moteur et modifier ce. C'est ça même. Je sais pas si tu comprends la logique, en fait, que je suis en train de t'expliquer. Si c'est le cas, alors travaille en fonction de ça. En un seul round, c'est ça que je fais. Bon.
+
+### Décision D043 (précision sur la précédente D042)
+
+La validation 44/44 de R001–R042, R045 et R047 **signifie désormais** : chacun participe à un mécanisme ou une condition de planification aboutissant à **l'IC_DEMO calculé**, et une contre-épreuve individuelle le fait effectivement varier dans un cas applicable. Un inventaire lu sans effet sur l'IC n'est plus réputé satisfaisant. La dernière directive corrige l'interprétation insuffisante de D042 (44 routes documentaires seulement).
+
+### Travail réel exécuté dans cette séance
+
+- Nouveau modèle **pret0_focus/ic44_v2.py**, source canonique sur GitHub, avec bilans et mécanismes synthétiques : hydratation, chauffe, évaporation, géométrie, transfert, profils de lots fictifs pré-caractérisés, amidon, intégrité, risques de débordement, faisabilité, dosage, goûter/servir et salubrité. Les 44 facteurs entrent dans les calculs, avec interactions; pas de somme de 44 bonus indépendants.
+- **44/44 contrefactuels individuels** produisent une différence d'IC_DEMO (tolérance stricte > 1e-8 point) sur un scénario synthétique complet. Référence **test_ic44_v2.py**.
+- **26/26 tests logiciels Python** PASS sur GitHub Actions Ubuntu : https://github.com/Terminator364/PROJECT-DRAFTS/actions/runs/39942017372 . Compilation PASS. Le dossier canonique historique avec 20 entrées UNKNOWN aboutit à **ABSTAIN**, non une prédiction fabriquée; le test ne présume pas que le dossier historique est complet.
+- R003 sel prévu peut être neutre si le salage n'est pas planifié : le moteur autorise une **neutralité conditionnelle**, pas un coefficient toujours actif.
+- Les profils de lot R027 et variété sont **synthétiques pré-déclarés et non calibrés**. Changer une étiquette sans preuve de caractéristiques de lot réelles ne prouve rien de physique; dans un vrai dossier inconnu, abstention.
+- IC scientifique **null** : ni données réelles appariées, ni Q approuvé et calibré. L'IC_DEMO n'est pas comparable en valeur absolue aux anciens Q*/H3; les 1000 scénarios historiques restent intacts. **Aucune nouvelle campagne complète 1000 cas V2 n'est déclarée ici.**
+
+### Continuité et automaticité testées
+
+- Nouveau script **continuity/auto_record_commits.py** et workflow GitHub **.github/workflows/riz112-auto-continuity.yml**. À un push GitHub touchant le dossier RIZ112, append d'un événement Git dans **continuity/AUTO_GIT_EVENTS.jsonl**, de son résumé dans **CAHIER_MERE.md** et d'un pointeur dans **CHECKPOINT.json**. Vérifié par run **39942610499** (PASS), qui a effectivement généré un fichier de journal et un nouveau commit automatique.
+- **Limite structurelle explicite** : GitHub peut observer les commits, mais ne reçoit pas automatiquement les messages privés de ChatGPT. Capturer fidèlement chaque message dans le journal exige que la séance active transmette ce verbatim au dépôt. Le mécanisme n'est pas un enregistreur autonome de toutes les conversations. Le miroir Google Docs ne reçoit pas les commits de GitHub automatiquement sans connecteur d'édition ou tâche dédiée; les mises à jour de cette séance sont des écritures directes vérifiables.
+- Code unique **Moteur/continue** doit reprendre les preuves canon depuis **CHECKPOINT.json → CAHIER_MERE.md → JOURNAL_EVENEMENTS.jsonl → DECISIONS.md**, sans reprendre à zéro.
+
+### Prochaine phase demandée
+
+Générer de nouveaux mondes synthétiques **44 paramètres pré-T0** et produire pour chaque cas les données gelées, les mécanismes réellement sollicités, l'IC_DEMO_V2, les neutralités conditionnelles, les refus, les contrefactuels et les écarts au référentiel historique; ne pas masquer la non-calibration. **Recaler scientifiquement seulement après données réelles indépendantes.**
+
+### Liens de preuve
+
+- Implémentation : https://github.com/Terminator364/PROJECT-DRAFTS/blob/main/MOTEUR-BLESSING/labs/RIZ112/pret0_focus/ic44_v2.py
+- Tests : https://github.com/Terminator364/PROJECT-DRAFTS/blob/main/MOTEUR-BLESSING/labs/RIZ112/pret0_focus/test_ic44_v2.py
+- Rapport : https://github.com/Terminator364/PROJECT-DRAFTS/blob/main/MOTEUR-BLESSING/labs/RIZ112/pret0_focus/RAPPORT_ICE_44X44_20261023.md
+- CI 44/44 : https://github.com/Terminator364/PROJECT-DRAFTS/actions/runs/39942017372
+- Automatisation GitHub vérifiée : https://github.com/Terminator364/PROJECT-DRAFTS/actions/runs/39942610499

@@ -83,7 +83,7 @@
     "events": 144,
     "head": "272dd9517a850fe17091a01ff288b8b0a7922368ad4e277596514e8ce9bccebd"
   },
-  "last_user_directive": "D034_CANONICAL_SINGLE_CODE_AUTO_RESUME_AND_CONTINUOUS_CONTEXT",
+  "last_user_directive": "CTX-0064: 44 PRESTART must affect IC_DEMO in applicable conditions, not only be routed; one round; permanent continuity.",
   "latest_case_audit": "step12/COUNTERFACTUAL_112_V12.json",
   "latest_code": "pret0_focus/pipeline44.py",
   "latest_contract": "step9/DEMONSTRATION_CONTRACT.json",
@@ -655,5 +655,26 @@
     "captures_private_chat_automatically": false,
     "automatically_updates_google_docs": false,
     "source_scope": "GitHub pushes in RIZ112 only"
+  },
+  "pret0_ic44_v2": {
+    "date": "2026-10-23",
+    "scope": "R001-R042,R045,R047",
+    "connects_to": "IC_DEMO_PCT_SYNTHETIC",
+    "counterfactual_mutations": 44,
+    "changed_demo_ic": 44,
+    "passed_python_tests": 26,
+    "verified_ci": "https://github.com/Terminator364/PROJECT-DRAFTS/actions/runs/39942017372",
+    "source": "pret0_focus/ic44_v2.py",
+    "tests": "pret0_focus/test_ic44_v2.py",
+    "evidence": "pret0_focus/RAPPORT_ICE_44X44_20261023.md",
+    "reference_scenario": "fully specified SYNTHETIC test packet",
+    "missing_in_historical_step6_packet": 20,
+    "missing_policy": "ABSTAIN",
+    "scientific_IC": null,
+    "experiment_1000_v2_complete": false,
+    "next": "Versioned new synthetic scenarios using 44 preT0 inputs with conditional model sensitivity; preserve 1000x112 history",
+    "github_auto_changelog_workflow": ".github/workflows/riz112-auto-continuity.yml",
+    "github_auto_changelog_verified_run": "https://github.com/Terminator364/PROJECT-DRAFTS/actions/runs/39942610499",
+    "private_chat_messages_auto_ingested": false
   }
 }
