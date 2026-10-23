@@ -1203,3 +1203,11 @@ Prototype portable sur V3.1 : `pret0_focus/V3_1/diagnostic_44_impact_IC.py` (sou
 Rendre systématique la sortie `1 IC global + 44 diagnostics conditionnels` si elle est confirmée comme sens voulu ; faire vérifier le nombre d'exécutions, les interventions et l'égalité des graines avant une campagne exhaustive; conserver la séparation temporelle et l'intégrité des précédents 1000 IC. Pour MATRICE, conserver le calcul d'un indicateur par match et la traçabilité de chaque paramètre/sous-paramètre, jamais leurs équations culinaires.
 
 Rapport canonique : [CONTRAT_1_IC_GLOBAL_44_IMPACTS_CONDITIONNELS_20261023.md](pret0_focus/V3_1/CONTRAT_1_IC_GLOBAL_44_IMPACTS_CONDITIONNELS_20261023.md).
+
+
+### Synchronisation automatique GitHub — 2026-10-23T14:39:42.488948+00:00
+
+- Commit source : 7a0c931ce40edd7b39fe7b7c5ec4a20d90096f83
+- Message : docs(moteur): D048/D049 distinguish IC global from 44 conditional IC impacts and 128 MC internal draws
+- Fichiers concernés : MOTEUR-BLESSING/labs/RIZ112/CAHIER_MERE.md, MOTEUR-BLESSING/labs/RIZ112/CHECKPOINT.json, MOTEUR-BLESSING/labs/RIZ112/CONTEXTE_INTEGRAL/REGISTRE_MESSAGES.jsonl, MOTEUR-BLESSING/labs/RIZ112/DECISIONS.md, MOTEUR-BLESSING/labs/RIZ112/journal/JOURNAL_EVENEMENTS.jsonl
+- Provenance : événement GitHub push. Ceci ne contient PAS les messages privés ChatGPT non consignés explicitement.
