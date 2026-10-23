@@ -32,8 +32,8 @@
     "github_status": "VERIFIED_CRITICAL_9_OF_9_BEFORE_FINAL_RECEIPT",
     "initial_source_archive_drive": "https://drive.google.com/file/d/1rFq9GiwbRvb-Hk33JayacttjBOUdAabf/view?usp=drivesdk",
     "initial_source_archive_sha256": "15182d217e42c2985cb4652ac5c2ee9f6afe6afca55ec148b3c803e52b14ede8",
-    "journal_events": 143,
-    "journal_head": "5a219eac9a0190545eb052115b311efb112e43f67864816575256771b8de2cec",
+    "journal_events": 144,
+    "journal_head": "272dd9517a850fe17091a01ff288b8b0a7922368ad4e277596514e8ce9bccebd",
     "lab_code": "Moteur/continue",
     "latest_context_ids": [
       "CTX-0060",
@@ -80,8 +80,8 @@
   },
   "full_packet_replay": "step12/POPULATION_100_COMPLETE_PACKET.jsonl",
   "journal": {
-    "events": 143,
-    "head": "5a219eac9a0190545eb052115b311efb112e43f67864816575256771b8de2cec"
+    "events": 144,
+    "head": "272dd9517a850fe17091a01ff288b8b0a7922368ad4e277596514e8ce9bccebd"
   },
   "last_user_directive": "D034_CANONICAL_SINGLE_CODE_AUTO_RESUME_AND_CONTINUOUS_CONTEXT",
   "latest_case_audit": "step12/COUNTERFACTUAL_112_V12.json",
