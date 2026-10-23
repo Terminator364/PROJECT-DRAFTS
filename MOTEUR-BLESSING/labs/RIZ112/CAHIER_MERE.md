@@ -1603,3 +1603,13 @@ Après lecture de la directive D054 et de la version canonique V0.1, constructio
 - Message : MOTEUR D056: persist source semantic counter-audit in decisions
 - Fichiers concernés : MOTEUR-BLESSING/labs/RIZ112/DECISIONS.md
 - Provenance : événement GitHub push. Ceci ne contient PAS les messages privés ChatGPT non consignés explicitement.
+
+## D056 — 23 octobre 2026 : contre-audit source et correction logique V0.2
+
+**[REPRISE ACTIVE]** `Moteur/continue` a relu le Cahier mère, le checkpoint, D054/D055, le code V0.2 et des contrats R8 originaux sur GitHub. Aucun retour au ZIP ancien. Les 355 sous-paramètres restent documentaires, 31 reliés au code, 324 non reliés.
+
+**[AUDIT CONTRADICTOIRE]** Quatre nouvelles règles ont été retenues : `R-WIDE-02` (duel attesté n'est pas aptitude aérienne), `R-SECOND-02` (incidents de récupération/rebond peuvent se recouvrir), `R-PRESS-ERROR-02` (erreur `UNFORCED` n'est pas erreur induite par pressing) et `R-TRAIL-BENCH-02` (carte de score / banc éligible ≠ compétence ordinale). Elles sont maintenant `SEMANTIC_HOLD_REVIEW_REQUIRED`, gardent leurs preuves en trace et ne déclenchent pas de sortie favorable. Les deux autres nouvelles règles restent hypothèses conditionnelles non validées.
+
+**[CLASSEMENT CORRIGÉ]** Sur les 31 IDs raccordés, 10 sont uniquement tracés et mis en retenue; 21 peuvent activer une hypothèse logique dans le laboratoire (14 V0.1 + 7 V0.2), jamais un IC numérique calibré. Les tests de régression ont été mis à jour : **nouvelle exécution intégrée non faite** ; les anciens 19/19 D055 portaient sur un double de compatibilité V0.1 et ne valident pas le code D056.
+
+**[PREUVES / CONTINUITÉ]** Rapport `MOTEUR-BLESSING/labs/MATRICE_LOGIC_FIRST_V02/D056_SEMANTIC_AUDIT_20261023.md`, checkpoint `CHECKPOINT_D056_20261023.json`, journal E165 chaîné, décision D056, `continuity/NEXT_ACTION.json` actualisé. Lecture GitHub des cinq fichiers techniques D056 effectuée ; ZIP complet Google Drive non synchronisé lors de ce contrôle, PC non utilisé. Prochaine porte : exécuter tests exacts et compilateur réel 355, puis continuer le lot 02. **IC théorique numérique et IC calibré : null.**
