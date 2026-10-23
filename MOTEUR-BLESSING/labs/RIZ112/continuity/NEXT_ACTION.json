@@ -12,18 +12,18 @@
     "MOTEUR-BLESSING/labs/RIZ112/journal/JOURNAL_EVENEMENTS.jsonl",
     "MOTEUR-BLESSING/labs/MATRICE_LOGIC_FIRST_V01/D054_PRIORITE_MOTEUR_LOGIQUE_ET_IC_THEORIQUE.md"
   ],
-  "first_technical_action": "D056: exécuter les 21 tests V0.2 révisés (test_v02 + test_registry) avec copie V0.1 réelle, exécuter compile_v22.current(root R8) et registre 355; lever ou maintenir les quatre SEMANTIC_HOLDS seulement après revue sémantique et audit de collision d'événements, puis lot 02 sur 324 enfants. Conserver 31 raccordés (10 uniquement tracés/tenus, 21 potentiellement activables). Pas d'IC numérique inventé, pas de relance RIZ historique.",
+  "first_technical_action": "D056: execute updated V0.2 test_v02.py and test_registry.py with exact base_v01.py; materialize 355 R8 source IDs using compile_v22.current; audit the 10 semantic-held IDs and resolve source meaning before enabling them; then Lot02 of remaining 324. No numerical IC, no claims of test pass without execution.",
   "how_to_continue": "One trigger Moteur/continue; read canonical GitHub files with connected tools, start actual V0.2 tasks immediately and do not ask user to restate goal. No background autonomous execution.",
-  "lab_next_stage": "MATRICE_LOGIC_FIRST_V02_D056_INTEGRATION_THEN_LOT02",
+  "lab_next_stage": "MATRICE_LOGIC_FIRST_V02_D056_INTEGRATED_TEST_AND_LOT02",
   "never_do": [
     "Inventer 22 coefficients pour forcer un effet IC",
     "Utiliser des résultats après T0 comme prédicteurs",
     "Déclarer calibré un IC fictif",
     "Écraser un GitHub plus avancé par un ZIP ancien"
   ],
-  "next_execution_id": "MATRICE_R8_D056_EXACT_INTEGRATION_AND_LOT02",
+  "next_execution_id": "MATRICE_R8_D056_RUN_TESTS_AND_LOT02",
   "next_execution_title": "MOTEUR D056 : tester 21 cas exacts, valider les 355 contrats puis étendre Lot02",
-  "progress_checkpoint": "D056: 31/355 wired (10 held semantic-only, 21 may activate under unvalidated lab assumptions); 324 unwired, 4 of 6 new rules held due to R8 contract contradictions. GitHub readback succeeded. D056 tests not yet executed; previous D055 19/19 stub, no numeric IC.",
+  "progress_checkpoint": "D056: GitHub readback successful on 4 patched source/test files plus audit; 31/355 wired, including 10 held-only and 21 conditionally activatable in synthetic logic; 324 unwired. 4 new rules on semantic hold for source-contract contradictions. Modified tests NOT EXECUTED; 19/19 remains historical D055 stub-only. IC theoretical and calibrated NULL.",
   "project": "RIZ112→MATRICE",
   "schema": "moteur-blessing/next-action/v1",
   "scientific_status": "UNVALIDATED_REAL_Q_IC_NULL__SYNTHETIC_RICE_METHOD_LAB_FOR_MATRICE",
@@ -45,7 +45,7 @@
   "critical_directive_D035": "Cahier mère as durable authority, all accessible context, no blanket assertion of 112 IC causal effects; each counterfactual evidence or explicit abstention",
   "canonical_source": "GitHub main MOTEUR-BLESSING/labs/RIZ112/CAHIER_MERE.md plus journal, exact context register and checkpoint; not ChatGPT memory.",
   "context_capture_limits": "The tool captures only messages actively submitted in-session and available for logging, not autonomous background conversations.",
-  "latest_journal_event_id": "E166",
+  "latest_journal_event_id": "E164",
   "latest_context_id": "CTX-0078",
   "journal_chain_verified": false,
   "step18_checkpoint": "MOTEUR-BLESSING/labs/RIZ112/step18/CHECKPOINT_STEP18_20261017.json",
@@ -270,5 +270,13 @@
   "latest_technical_checkpoint": "MOTEUR-BLESSING/labs/MATRICE_LOGIC_FIRST_V02/CHECKPOINT_D056_20261023.json",
   "journal_head": "531ce8bcab5d60e3098086321617f84bedd176731a1d9b3582ab4a9483d9ac7a",
   "mirror_status_D056": "GOOGLE_DOC_READBACK_VERIFIED; FULL_ZIP_NOT_SYNCED",
-  "next_tests_count": 21
+  "next_tests_count": 21,
+  "latest_audit": "MOTEUR-BLESSING/labs/MATRICE_LOGIC_FIRST_V02/D056_SEMANTIC_AUDIT_20261023.md",
+  "latest_unverified_changes": [
+    "logic_engine_v02.py semantic holds",
+    "test_v02.py modified",
+    "registry_builder.py held-only status",
+    "test_registry.py modified"
+  ],
+  "continuity_gap": "D056 code and README readback on GitHub; journal/Cahier/context append remains pending. Do not claim full synchronization."
 }
