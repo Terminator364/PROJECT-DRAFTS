@@ -272,7 +272,7 @@
   "next_tests_count": 31,
   "latest_audit": "MOTEUR-BLESSING/labs/MATRICE_LOGIC_FIRST_V03/README.md",
   "latest_unverified_changes": [],
-  "continuity_gap": "D060 integrity repair awaiting independent CI rerun; semantic causal mechanism mapping of 324 remains; full ZIP Drive and PC testing not verified.",
+  "continuity_gap": "Only scientific causal mapping of 324 and Drive full ZIP / MBMPC remain unresolved. Canonical hash-chain and resume D060 PASS.",
   "latest_verified_D058": {
     "private_CI_receipt": "Terminator364/ChatGPT-PC:MATRICE/R8_G3_DEEP_20261014/MOTEUR_LOGIC_FIRST_D057/CI_READBACK_D057.json",
     "pass_tests": 31,
@@ -290,6 +290,6 @@
       "E167"
     ],
     "repair_event": "E168",
-    "journal_validation": "CI_RERUN_PENDING"
+    "journal_validation": "PASS_168_HASH_CHAIN_AND_RESUME_PRIVATE_CI"
   }
 }
