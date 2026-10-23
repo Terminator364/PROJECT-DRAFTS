@@ -1,0 +1,43 @@
+{
+  "schema": "MATRICE_LOGIC_FIRST_V03_D057_CHECKPOINT",
+  "date": "2026-10-23",
+  "trigger": "Moteur/continue",
+  "worlds": 62,
+  "documentary_subparameters": 355,
+  "source_registry_private": true,
+  "prestart_slots_two_teams": 710,
+  "contract_slots_integrated": 355,
+  "contract_roles_from_heuristic": {
+    "process_candidate": 310,
+    "source_guard": 35,
+    "conditional_context": 10
+  },
+  "experimental_rule_inputs": 31,
+  "semantic_hold_only": 10,
+  "experimentally_activatable_candidates": 21,
+  "without_signed_causal_model": 324,
+  "mechanistic_355_approved": false,
+  "engine": "logic_registry_v03.py",
+  "source_R8_branch_immutable": "research/matrice-r8-g3-depth-audit-2026-10-14",
+  "isolated_private_audit_branch": "research/moteur-logic-first-d057-2026-10-23",
+  "source_compiler": "compile_v22.current",
+  "CI_receipt": "MATRICE/R8_G3_DEEP_20261014/MOTEUR_LOGIC_FIRST_D057/CI_READBACK_D057.json",
+  "CI_status": {
+    "actual_source_compile": true,
+    "full_registry_355": true,
+    "unit_tests": 28,
+    "tests_pass": 28,
+    "tests_failed": 0,
+    "integrated_real_v01": true
+  },
+  "scientific": {
+    "over15_ic_calibrated": null,
+    "over15_ic_theoretical_numeric": null,
+    "validated_causal_effects": 0,
+    "objective": "LOGIC_FIRST_THEN_DATA"
+  },
+  "PC": "OFFLINE_LAST_CHECK",
+  "drive_full_archive_verified": false,
+  "reminder": "Full evidence-contract coverage is not full causal-mechanism coverage",
+  "next": "Individual source-semantic review of 324, valid mechanism paths, no scoring, then calibration"
+}
