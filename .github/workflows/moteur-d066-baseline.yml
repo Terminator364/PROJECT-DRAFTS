@@ -1,0 +1,44 @@
+name: MOTEUR D066 offline historical model regression
+on:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/moteur-d066-baseline.yml
+      - MOTEUR-BLESSING/labs/MATRICE_LOGIC_FIRST_V03/historical_baseline_v12.py
+      - MOTEUR-BLESSING/labs/MATRICE_LOGIC_FIRST_V03/test_historical_baseline_v12.py
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  baseline:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - name: Python regression without network datasets
+        shell: bash
+        run: |
+          set +e
+          export PYTHONPATH="$GITHUB_WORKSPACE/MOTEUR-BLESSING/labs/MATRICE_LOGIC_FIRST_V02:$GITHUB_WORKSPACE/MOTEUR-BLESSING/labs/MATRICE_LOGIC_FIRST_V03"
+          cd MOTEUR-BLESSING/labs/MATRICE_LOGIC_FIRST_V03
+          python -m unittest -v test_historical_baseline_v12 test_shot_process_v10 test_causal_and_ic_v09 test_source_mechanism_dossiers_v11 test_moteur_unique_v1 > D066_TESTS.log 2>&1
+          RC=$?
+          export RC
+          python - <<'PY'
+          import json,os,pathlib
+          p=pathlib.Path("D066_TESTS.log")
+          t=p.read_text(errors="replace")
+          d={"schema":"MOTEUR_D066_PUBLIC_OFFLINE_BASELINE_CI",
+             "unit_tests_pass":int(os.environ["RC"])==0,
+             "log_tail":t[-4500:],
+             "no_real_match_data_used":True,
+             "no_calibration_claimed":True}
+          pathlib.Path("CI_READBACK_D066.json").write_text(json.dumps(d,indent=2,ensure_ascii=False,sort_keys=True)+"\n")
+          print(json.dumps({"pass":d["unit_tests_pass"],"last_lines":t[-500:]}))
+          PY
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add CI_READBACK_D066.json
+          git commit -m "MOTEUR D066: verified offline historical baseline regression receipt" || true
+          git push origin HEAD:main || true
+          exit "$RC"
