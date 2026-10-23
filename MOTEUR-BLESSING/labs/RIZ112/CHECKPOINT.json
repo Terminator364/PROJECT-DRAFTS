@@ -83,7 +83,7 @@
     "events": 144,
     "head": "272dd9517a850fe17091a01ff288b8b0a7922368ad4e277596514e8ce9bccebd"
   },
-  "last_user_directive": "CTX-0073: start from logic of mechanisms that can create two or more goals before research/data, as with RIZ; register in Cahier mère and support MATRICE R8 without restarting or fabricating IC.",
+  "last_user_directive": "CTX-0074/0075: use R8 62 families and 355 L3 children with prematch X/Y/Z values to implement a logic-first engine; CTX-0076 requests current status.",
   "latest_case_audit": "step12/COUNTERFACTUAL_112_V12.json",
   "latest_code": "pret0_focus/pipeline44.py",
   "latest_contract": "step9/DEMONSTRATION_CONTRACT.json",
@@ -888,5 +888,52 @@
     "stage": "LOGICAL_MECHANISM_DESIGN_NO_NUMERIC_RELIABILITY_CLAIM",
     "next": "Reuse R8 62-world taxonomy to deepen and counter-audit mechanisms and assumptions; only after mechanism graph and PIT inputs move to numerical scoring/calibration G4 when gates permit.",
     "journal_end": "E158"
+  },
+  "logic_first_matrice_v0_1_D053": {
+    "date": "2026-10-23",
+    "status": "PROTOTYPE_EXECUTED_22_22_TESTS_PASS_AND_GITHUB_READBACK",
+    "source_repo": "Terminator364/ChatGPT-PC",
+    "source_branch": "research/matrice-r8-g3-depth-audit-2026-10-14",
+    "documentary_R8_worlds": 62,
+    "documentary_R8_L3_children": 355,
+    "active_worlds": 14,
+    "active_children": 14,
+    "unconnected_children": 341,
+    "executable_rules_per_team": 7,
+    "executable_rules_total": 14,
+    "test_suite_local_replay": {
+      "passed": 22,
+      "total": 22
+    },
+    "synthetic_cases": [
+      {
+        "name": "open_pressing_counter",
+        "facts": 28,
+        "conditional_alternatives": 84,
+        "result": "MULTIPLE_PLAUSIBLE_GOAL_PATHWAYS"
+      },
+      {
+        "name": "compact_defense",
+        "facts": 28,
+        "conditional_alternatives": 84,
+        "result": "NO_ACTIVE_PATHWAY_IDENTIFIED_NOT_UNDER15_PREDICTION"
+      },
+      {
+        "name": "insufficient_data",
+        "facts": 5,
+        "conditional_alternatives": 15,
+        "result": "INDETERMINATE_MISSING_CRITICAL_VALUES"
+      }
+    ],
+    "total_conditional_alternatives_audited": 183,
+    "numeric_IC_over15": null,
+    "real_match_training_or_calibration": false,
+    "canonical_MATRICE2_model_changed": false,
+    "github_source": "MOTEUR-BLESSING/labs/MATRICE_LOGIC_FIRST_V01/logic_engine.py",
+    "github_receipt": "MOTEUR-BLESSING/labs/MATRICE_LOGIC_FIRST_V01/AUDIT_RECETTE.json",
+    "github_README": "MOTEUR-BLESSING/labs/MATRICE_LOGIC_FIRST_V01/README.md",
+    "ZIP": "MATRICE_R8_MOTEUR_LOGIQUE_V0_1_20261023.zip",
+    "ZIP_SHA256": "f392715cf3996aa23130ac43b3593ee1e73b7ad4f24052c342f189e189cd4c2c",
+    "next": "Connect other L3 children by mechanism/context/guard roles with research and tests, then introduce real prematch values and calibrated goal model; do not assign synthetic IC percentages."
   }
 }
