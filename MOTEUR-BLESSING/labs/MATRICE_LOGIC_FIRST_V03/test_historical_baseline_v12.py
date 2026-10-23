@@ -14,7 +14,7 @@ def records(n=64):
         issued=end+timedelta(hours=1)
         h=teams[i%4];a=teams[(i%4+1+i//4%3)%4]
         if h==a:a=teams[(i%4+2)%4]
-        rows.append({"fixture_id":"HIST-%03d"%i,"home_team":h,"away_team":a,
+        rows.append({"fixture_id":"HIST-%03d"%i,"home_team":h,"away_team":a,"competition_id":"TEST-COMP-1","source_id":"SIMULATED-UNIT-TEST-SOURCE",
                      "kickoff_utc":kickoff.isoformat(),"final_whistle_utc":end.isoformat(),
                      "source_issued_utc":issued.isoformat(),
                      "source_first_seen_utc":(issued+timedelta(minutes=5)).isoformat(),
@@ -22,7 +22,7 @@ def records(n=64):
     return rows
 
 def fixture():
-    return {"fixture_id":"TARGET","home_team":"A","away_team":"B",
+    return {"fixture_id":"TARGET","home_team":"A","away_team":"B","competition_id":"TEST-COMP-1",
             "analysis_asof_utc":"2025-03-15T12:00:00+00:00",
             "kickoff_utc":"2025-03-16T14:00:00+00:00"}
 
@@ -57,6 +57,12 @@ class TestEmpiricalPrematchBaseline(unittest.TestCase):
     def test_team_new_to_league_is_abstention(self):
         f={**fixture(),"home_team":"UNSEEN"}
         self.assertEqual(m.predict(f,records())["status"],"ABSTAIN_NO_BOTH_TEAM_HISTORIES")
+    def test_wrong_competition_not_silently_mixed(self):
+        baseline=m.predict(fixture(),records())
+        other={**records()[0],"fixture_id":"OTHER-LEAGUE","competition_id":"ELSEWHERE"}
+        check=m.predict(fixture(),records()+[other])
+        self.assertEqual(baseline["P_over15"],check["P_over15"])
+        self.assertEqual(baseline["eligible_games"],check["eligible_games"])
     def test_future_kickoff_rejected(self):
         f={**fixture(),"analysis_asof_utc":"2025-03-16T15:00:00+00:00"}
         with self.assertRaisesRegex(m.HistoricalEvidenceError,"TARGET_CUTOFF"):
