@@ -1105,3 +1105,39 @@ La demande canonique n'est pas de créer une succession de registres décoratifs
 - Message : audit(riz112): add exact replay verifier for every one of 1000 random 44-factor scenarios
 - Fichiers concernés : MOTEUR-BLESSING/labs/RIZ112/pret0_focus/V3_1/VERIFICATEUR_1000x44_INTEGRAL.py
 - Provenance : événement GitHub push. Ceci ne contient PAS les messages privés ChatGPT non consignés explicitement.
+
+
+## 2026-10-23 — D047 : audit exhaustif indépendant des 1000×44 (rejeu de tous les calculs)
+
+### Message utilisateur intégral CTX-0069 — source de l'exécution
+
+> Mais du coup tu me rassures d'avoir généré 1000 situation ou dnas chacune des 1000 aléatoirement il y'a eu 44 combinaisons et a chaque fois le moteur a fonctionné ? Si c'est pas le cas, ce que tu ne m'as pas compris car c'est ce que je veux travaille déçu, travail sur ce moteu6, travaille sur cette architecture !
+
+### Mandat confirmé et sens exact des « 44 combinaisons »
+
+**La situation est la combinaison ; ses 44 paramètres sont 44 valeurs**, et non 44 situations indépendantes au sein du même scénario. 1000 scénarios signifient 1000 vecteurs de 44 entrées, soit **44 000 cellules pré-préparation**. Les valeurs sont pseudo-aléatoires conditionnelles et parfois corrélées (p. ex. capacité en eau ↔ masse; foyer ↔ source d'énergie) afin de ne pas créer systématiquement des états contradictoires. Aucune sortie post-préparation n'entre comme caractéristique initiale.
+
+### Vérification réellement exécutée pendant cette reprise (ne pas confondre avec l'ancien audit déclaratif)
+
+- **Le package V3.1 original a été extrait et vérifié : 29/29 fichiers du MANIFEST_SHA256.json vérifiés par empreinte et taille.** La source `generate_v3.py`, `ic44_v3.py`, `ic44.py`, `bridge44.py` et les deux CSV scellés sont présents.
+- Relecture de `INPUTS_1000x44.csv` : **1000 identifiants** alignés sur les 1000 résultats, **44 colonnes R001–R042,R045,R047**, **44 000/44 000 cellules renseignées**, **1000 combinaisons entières uniques**, **44/44 paramètres prennent au moins deux valeurs dans la campagne**. Les cinq familles définies a priori comportent chacune 200 scénarios.
+- **Test 15/15 Python PASS**, provenance : paquet V3.1 local.
+- **NOUVEAU test exhaustif de rejeu**, script `pret0_focus/V3_1/VERIFICATEUR_1000x44_INTEGRAL.py` : chaque ligne de 44 valeurs a été confrontée à sa **régénération par la graine 20261023**, puis le paquet a été recalculé via `ic44_v3.simulate(packet, draws=128, seed=20261023*100000+i)`. Soit **1000×128 = 128 000 réalisations synthétiques effectivement relancées**, non seulement lues dans les CSV.
+- **1000/1000 lignes re-simulées, 0 erreur de génération des 44 000 entrées, 0 différence IC, 0 différence Q*, 0 différence sur les comptes de réussites MC.** Vérification locale complète environ 103,04 s ; cela ne mesure pas le temps du PC personnel de l'utilisateur.
+- **Sensibilité conditionnelle** : l'audit antérieur `AUDIT_44_SUR_44_IC_V3.json` contient 44 rubriques distinctes avec au moins un témoin non nul sur IC modèle. Ceci ne prouve pas une influence non nulle de chaque paramètre dans **chacun des 1000 scénarios**, car les conditions peuvent saturer ou bloquer des effets.
+- **La nuance honnête est essentielle :** chaque scénario a bien son calcul propre d'IC, mais 1000 calculs ne signifient pas 1000 valeurs numériques distinctes. Il n'existe que **95 valeurs distinctes** compte tenu des 128 tirages/IC; **798 scenarios affichent 0 % (0 succès/128), 202 positifs, 33 ≥80 %, 21 ≥85 %**, maximum 95,312 %. Un 0/128 n'est pas une preuve de risque vrai nul : IC scientifiques non calibrés.
+
+### Reçus et sources à relire impérativement sous Moteur/continue
+
+- Preuve structurée : [pret0_focus/V3_1/PREUVE_REJEU_EXACT_1000x44_20261023.json](pret0_focus/V3_1/PREUVE_REJEU_EXACT_1000x44_20261023.json)
+- Rapport d'architecture/contrat : [pret0_focus/V3_1/AUDIT_REJEU_EXACT_1000x44_20261023.md](pret0_focus/V3_1/AUDIT_REJEU_EXACT_1000x44_20261023.md)
+- Script de contrôle exhaustif : [pret0_focus/V3_1/VERIFICATEUR_1000x44_INTEGRAL.py](pret0_focus/V3_1/VERIFICATEUR_1000x44_INTEGRAL.py)
+- Sources et fichiers CSV archivés dans le package V3.1 publié précédemment sur Drive (référence `CHECKPOINT.json → ic44_v3_1.drive_package_id`). Le package local complémentaire `RIZ112_PREUVE_1000x44_REJEU_INTEGRAL_20261023.zip` contient aussi script, logs/réception et contrat.
+- Empreintes enregistrées : inputs `bd5a95986540d275b0c6684740dd401ad40fbbdff0be91124d41396527963fd0`, résultats `cbeabc9d3fe1cb758992f0e026a09caeb5cf3fd78724e84469a8f9bc2eb7b710`.
+- Les premières 10 simulations V2, les 1000 historiques à 112 rubriques et les 1000 V3.1 sont toutes préservées, **aucune écriture destructrice dans les données brutes**.
+
+### Portes franchies, portes restantes
+
+**PORTE LOGICIELLE 1000×44 : PASS et auditée par rejeu intégral.** Il est confirmé que la chaîne source aléatoire cohérente → 44 paramètres pré-T0 → mécanismes → qualité Q* → 128 MC → IC par situation a réellement fonctionné 1000 fois. **PORTE SCIENTIFIQUE / fiabilité empirique : PAS encore franchie.** Le barème Q* ainsi que les constantes hydriques/thermiques et distributions d'incertitude sont encore hypothétiques; pas de cuisson réelle, IC scientifique null. De nombreuses configurations sont volontairement difficiles dans la campagne de test, d'où 798 zéros numériques.
+
+**Étape suivante sans redémarrer le projet :** durcir le contrat de reprise et d'audit (vérifier input complet, source/seed/gel T0, variation des 44, couverture contextuelle, contrôle de rejouabilité), tester la robustesse au nombre de tirages Monte Carlo et aux hypothèses, puis transfert de **méthodologie** aux nombreuses familles/sous-paramètres pré-match de MATRICE, jamais transfert des constantes culinaires. Le Cahier mère couvre **tout le projet MOTEUR**. Aucun automate de capture périodique des chats privés n'est réactivé : la continuité est documentée et mise à jour pendant les séances actives.
