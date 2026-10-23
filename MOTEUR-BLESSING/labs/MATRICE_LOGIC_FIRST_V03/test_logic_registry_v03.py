@@ -65,7 +65,7 @@ class Contract355(unittest.TestCase):
     def test_registry_source_integrity_fails_closed(self):
         bad=copy.deepcopy(self.registry)
         bad["subparameters"][0]["world"]="WRONG"
-        with self.assertRaisesRegex(ValueError,"WRONG_CHILD_PARENT"):v03.analyze(self.case,bad)
+        with self.assertRaisesRegex(ValueError,"WRONG_OR_MISSING_WORLD|WRONG_CHILD_PARENT"):v03.analyze(self.case,bad)
 
     def test_deterministic_unknown_is_not_zero(self):
         one=v03.analyze(self.case,self.registry)
