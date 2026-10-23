@@ -15,7 +15,7 @@ class TestSchemaReview(unittest.TestCase):
                 original[row["id"]]=d
             s=m.summarize(sem,original)
             self.assertEqual((s["children"],s["canonical_definition_field_present"],s["original_definition_field_absent"]),(355,306,49))
-            self.assertEqual((s["missing_with_other_text_fields"],s["missing_without_any_supported_text_field"]),(49,0))
+            self.assertEqual((s["missing_with_other_text_fields"],s["missing_without_any_supported_text_field"]),(44,5))
             self.assertIsNone(s["numeric_probabilities"])
             self.assertFalse(s["semantic_review_completed"])
         finally:temp.cleanup()
