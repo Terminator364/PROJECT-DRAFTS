@@ -999,3 +999,31 @@ Moyenne descriptive `0.82763630119 %`. Toute la chaîne précédente de 1 000 sc
 - Message : audit(riz112): prove IC V2 cannot reach 80 and freeze V3 scoring gate
 - Fichiers concernés : MOTEUR-BLESSING/labs/RIZ112/pret0_focus/DIAGNOSTIC_PLAFOND_IC44_V2_20261023.md
 - Provenance : événement GitHub push. Ceci ne contient PAS les messages privés ChatGPT non consignés explicitement.
+
+
+## 23 octobre 2026 — D045 : contre-audit V2, plafond mathématique IC < 80
+
+### Message utilisateur CTX-0067 — verbatim, enregistré pour continuité
+
+> Oui, je ne comprends pas, en fait. J'ai vu en faisant des calculs, tu as... il y a des places où c'est des 1%, 0,% 1, je ne sais pas. Or nous, nous visons des trucs qui partent jusqu'à 80 et tout. Ça, c'est d'une part. Deuxièmement, deuxièmement aussi, ensuite la suite, c'est quoi ? Là le moteur est prêt. Bon d'abord pour le premier truc, qu'est-ce qui se passe ?
+
+### Analyse quantitative vérifiée
+
+- Un nouvel examen des 10 scénarios et du code original V2 prouve **mathématiquement** que l'IC_DEMO affiché est limité à **au plus 60,7698149958 %**. Preuve : `hydration_progress<=1.2`, donc `hydration_ratio<=1.2`, donc `sigmoid((hydration_ratio-1)/0.4)<=sigmoid(0.5)=0.6224593312`; de plus `dose_sigma>=0.03` et `F<=1`, d'où `IC_DEMO_PCT<=100*0.6224593312*exp(-0.024)=60.7698149958`. Les six autres canaux bornés à 1 ne peuvent dépasser la borne; 80 ou 85 sont **inaccessibles en V2**, quels que soient les 44 paramètres.
+- Ce n'est pas qu'un problème de multiplication. Une valeur égale à la **cible** d'hydratation ou de progrès thermique produit `sigmoid(0)=50%` : les sigmoïdes représentent des marges de confort hypothétiques, **pas des notes culinaires de 0 à 100**.
+- En A, 7 canaux moyens ~59,5/100, hydratation 18,2%, intégrité 29,1%, hygiène 47,0%, faisabilité 0,7926 et pénalité incertitude ~0,9343, d'où un produit ~0,726853%. La qualité moyenne des canaux n'est **pas** un nouvel IC officiel.
+- La simulation A est hydriquement déficiente **dans le modèle lui-même** : eau dosée ~223,56 g, évaporée ~125,84 g, restante ~114,29 g pour cible théorique ~287,36 g, rapport d'hydratation 0,398. Le scénario H, intitulé « favorable », ne possède lui-même qu'un rapport théorique 0,767; ce ne sont pas des recettes optimisées.
+- Les **10/10 résultats** ont été recalculés à partir des sept canaux et multiplicateurs dans l'archive locale, sans écart significatif (<5e-7 point). Les 440 valeurs synthétiques restent intactes. Une multiplication de sigmoïdes non calibrées est faussement interprétée comme IC de réussite ; il n'existe pas de calibration empirique, `IC scientifique = null`.
+- **Source de preuve canonique** : `pret0_focus/DIAGNOSTIC_PLAFOND_IC44_V2_20261023.md`. Rapport détaillé local téléchargeable : `RIZ112_DIAGNOSTIC_IC_V2_20261023.md` + JSON.
+
+### D045 — correction de portée et prochain travail
+
+**RACCORDEMENT 44/44 = ACQUIS (technique).** **MOTEUR PRÉDICTIF IC 80–85 = NON PRÊT.** La porte d'extension vers les 1 000 scénarios V2 est suspendue, sans supprimer ni falsifier les scénarios existants. La refonte **IC44 V3** devra :
+
+1. Définir une qualité synthétique explicite **Q*/100** avec contrôles physiques, critères critiques non compensatoires et mesure auditable, plutôt que prendre sept sigmoïdes pour des notes.
+2. Calculer `IC_DEMO = 100×P_modèle(Q*>=85)` **par simulation Monte Carlo** des variables pré-T0 sous lois d'incertitude explicites, avec abstentions possibles, sans forcer des valeurs 80–85.
+3. Vérifier que l'échelle 0–100 est atteignable *par construction cohérente*, que les mondes réellement favorables peuvent passer 80 sous hypothèses affichées, que les 44 facteurs restent reliés au calcul et que les interactions/saturations sont interprétables.
+4. Auditer et contre-auditer V3 d'abord sur A–J puis sur des scénarios favorables contrôlés, distinguer variation de Q*, IC synthétique et incertitude MC; **ensuite** seulement lancer 1 000 nouvelles simulations.
+5. Sans vraies observations indépendantes, aucune proclamation de fiabilité réelle ni transfert de valeurs numériques vers MATRICE.
+
+Les notes dans le Cahier mère concernent **tout MOTEUR** et doivent être rattachées à la continuité, non seulement aux risques. La copie Google Docs miroir doit recevoir cet événement lors de la séance active, sans automatisation ChatGPT planifiée.

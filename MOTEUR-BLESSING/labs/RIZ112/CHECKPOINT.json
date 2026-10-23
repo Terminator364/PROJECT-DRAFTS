@@ -83,7 +83,7 @@
     "events": 144,
     "head": "272dd9517a850fe17091a01ff288b8b0a7922368ad4e277596514e8ce9bccebd"
   },
-  "last_user_directive": "CTX-0065 + CTX-0066: Mother notebook captures all of MOTEUR; produce ten 44-input scenarios now; no ChatGPT scheduled reminder.",
+  "last_user_directive": "CTX-0067: explain 0–2.5% scores vs 80–85 objective; diagnose and identify next stage; actual IC engine not ready despite 44 routes",
   "latest_case_audit": "step12/COUNTERFACTUAL_112_V12.json",
   "latest_code": "pret0_focus/pipeline44.py",
   "latest_contract": "step9/DEMONSTRATION_CONTRACT.json",
@@ -713,5 +713,18 @@
     "schedule_based_google_doc_watcher_enabled": false,
     "original_1000_simulations_preserved": true,
     "next": "Critically inspect ten simulated cases and IC aggregation before 1000-run expansion"
+  },
+  "ic44_v2_diagnostic_20261023": {
+    "status": "MATHEMATICAL_SCALE_BLOCKER_CONFIRMED",
+    "proof_file": "pret0_focus/DIAGNOSTIC_PLAFOND_IC44_V2_20261023.md",
+    "loose_upper_bound_IC_demo_PCT": 60.76981499578361,
+    "requested_IC_80_possible_in_V2": false,
+    "requested_IC_85_possible_in_V2": false,
+    "reason": "sigmoid((hydration_ratio-1)/.4) <= sigmoid(.5) because hydration_ratio<=1.2; uncertainty_factor<=exp(-0.024); multiplicative 7 channels.",
+    "local_recomputations": 10,
+    "scenario_history_preserved": 10,
+    "old1000_preserved": true,
+    "next": "Define Qstar /100, simulate P_model(Qstar>=85) by Monte Carlo; audit ten cases and favourable reference worlds; no V2 1000-run",
+    "scientific_IC": null
   }
 }

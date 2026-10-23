@@ -72,3 +72,8 @@ La commande unique reste **`Moteur/continue`**. Le pointeur courant est `MANIFES
 ### 2026-10-23 : SIM_PRET0_10_V2 — dix situations, 440 entrées
 
 Dans le projet général **MOTEUR**, le Cahier mère du laboratoire RIZ112 est un registre de la conception et de l'exécution **complète**, pas un registre de risques seulement. Premier lot : 10 simulations A..J × 44 entrées pré-préparation (440), IC_DEMO_V2 non calibré, audité et rejoué sur code canonique GitHub CI 39945875371 (PASS). Détail complet : `labs/RIZ112/CAHIER_MERE.md`, checkpoint : `labs/RIZ112/CHECKPOINT.json`, matrice : `labs/RIZ112/pret0_focus/SIM_PRET0_10_V2_20261023/MATRICE_44x10.csv`. Tâche planifiée ChatGPT de vérification du miroir désactivée ; le journal Git push ne capte pas les messages ChatGPT hors séances actives. Code de reprise : **Moteur/continue**.
+
+
+### 2026-10-23 : contre-audit IC V2, plafond bloquant 60,77%
+
+**Correction de continuité pour l'ensemble MOTEUR :** le laboratoire RIZ112 reste un banc d'essai pour MATRICE pré-match; 44 paramètres sont raccordés à un IC synthétique, mais son agrégateur actuel rend 80–85 **mathématiquement impossible** (borne supérieure ≤60,769815%). Les dix scénarios A–J et leurs 440 valeurs restent les références de test; **pas de nouvelle campagne 1000 en V2**. D045 documentée dans `labs/RIZ112/CAHIER_MERE.md`, preuve `labs/RIZ112/pret0_focus/DIAGNOSTIC_PLAFOND_IC44_V2_20261023.md`. **Porte suivante : Q*/100 distinct d'IC_DEMO=P_modèle(Q*>=85), simulations Monte Carlo et audit avant 1000.** IC scientifique demeure null. Code de reprise : **Moteur/continue**.
