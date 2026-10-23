@@ -70,4 +70,17 @@ class TestAll355Dossiers(unittest.TestCase):
             self.assertIsNone(d["dossiers"][0]["native_source_question_or_definition"])
             self.assertEqual(d["counts"]["no_original_descriptive_sentence"],355)
         finally:t.cleanup()
+    def test_newer_v22_source_keys_are_preserved(self):
+        t,sem,orig=source()
+        try:
+            raw=next(iter(orig.values()))
+            raw["anticipation_by_horizon"]=raw.pop("anticipations_by_horizon")
+            b=raw["scenario_tree"]["branches"][0]
+            b["condition"]=b.pop("guard")
+            b["counterhypothesis"]=b.pop("qualitative_consequence")
+            doc=md.dossiers(sem,orig)
+            self.assertEqual(doc["operational_dossiers"],355)
+            self.assertEqual(doc["dossiers"][0]["conditional_source_scenarios"][0]["original_guard_predicate"],"archived before cutoff")
+        finally:t.cleanup()
+
 if __name__=="__main__":unittest.main()
