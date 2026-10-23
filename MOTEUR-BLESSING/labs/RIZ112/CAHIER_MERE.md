@@ -1149,3 +1149,11 @@ La demande canonique n'est pas de créer une succession de registres décoratifs
 - Message : docs(moteur): D047 exact full replay 1000x44, user verbatim, receipts and continuation
 - Fichiers concernés : MOTEUR-BLESSING/labs/RIZ112/CAHIER_MERE.md, MOTEUR-BLESSING/labs/RIZ112/CHECKPOINT.json, MOTEUR-BLESSING/labs/RIZ112/CONTEXTE_INTEGRAL/REGISTRE_MESSAGES.jsonl, MOTEUR-BLESSING/labs/RIZ112/DECISIONS.md, MOTEUR-BLESSING/labs/RIZ112/journal/JOURNAL_EVENEMENTS.jsonl
 - Provenance : événement GitHub push. Ceci ne contient PAS les messages privés ChatGPT non consignés explicitement.
+
+
+### Synchronisation automatique GitHub — 2026-10-23T14:33:04.119173+00:00
+
+- Commit source : 39e74d375a1d0db1eb1703f8b284fb8062e8dd59
+- Message : feat(riz112): expose one scenario IC plus 44 conditional per-parameter IC counterfactuals
+- Fichiers concernés : MOTEUR-BLESSING/labs/RIZ112/pret0_focus/V3_1/diagnostic_44_impact_IC.py
+- Provenance : événement GitHub push. Ceci ne contient PAS les messages privés ChatGPT non consignés explicitement.
