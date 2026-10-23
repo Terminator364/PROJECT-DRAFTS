@@ -1,3 +1,11 @@
+
+## PRIORITÉ ACTIVE D054 — MOTEUR LOGIQUE AVANT DONNÉES (23 octobre 2026)
+
+La commande de reprise est **`Moteur/continue`**. Ne pas recommencer le RIZ ni les familles MATRICE. L'utilisateur demande d'abord un **moteur logique explicable**, alimenté par les valeurs X/Y/Z pré-match et les **62 mondes / 355 enfants L3 déjà documentés** dans MATRICE R8. Prototype V0.1 fonctionnel : **14 enfants connectés**, 7 règles par équipe, 22 tests réussis ; **341 enfants à classifier/raccorder aux mécanismes, conditions et gardes en V0.2**, sans addition arbitraire de points. Un IC théorique numérique est possible **seulement avec une loi quantitative de scénarios joints explicite, déclarée et non calibrée** ; sinon issues qualitatives et IC théorique null. **Un bon pourcentage de réussite n'est pas garanti par la logique** ; IC sportif réel calibré null. Les données historiques et calibration arriveront APRÈS la construction logique.
+
+**Ordre de lecture obligatoire pour la prochaine conversation :** `labs/RIZ112/continuity/REPRISE_IMMEDIATE_D054.md` → `labs/RIZ112/CAHIER_MERE.md` (D054) → `labs/RIZ112/DECISIONS.md` → `labs/RIZ112/CHECKPOINT.json` → `labs/MATRICE_LOGIC_FIRST_V01/D054_PRIORITE_MOTEUR_LOGIQUE_ET_IC_THEORIQUE.md` → code V0.1 et contrat L3 des 355 candidats R8. **Directive exacte CTX-0077 / CTX-0078.** Aucune V0.2 achevée à ce jour.
+
+
 # Moteur/continue — contrat de reprise unique (D034, 17/10/2026)
 
 ## PRIORITÉ ACTUELLE — D054, 23 OCTOBRE 2026 — MATRICE LOGIQUE AVANT LES DONNÉES
