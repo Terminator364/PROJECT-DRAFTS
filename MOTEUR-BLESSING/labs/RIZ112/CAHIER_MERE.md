@@ -763,3 +763,31 @@ Le mandat exact utilisateur (CTX-0060) et la relance « 👀 » (CTX-0061) sont 
 - Une rubrique manquante reste explicitement UNKNOWN (jamais transformée en ZERO), avec provenance, valeur, unité, date de disponibilité et statut mesurée/prévue/hypothèse/calculée.
 
 **Conclusion :** seuls les faits disponibles à T0 et les paramètres de politique/protocole décidés avant T0 alimentent l'anticipation; les résultats synthétiques futurs sont des sorties pour vérification et apprentissage. Le rapprochement avec les 1 000 scénarios historiques reste à auditer; cette note ne certifie pas 44/44 valeurs physiquement renseignées ni 112/112 mécanismes calibrés.
+
+
+## Directive 2026-10-23 — Recentrage des prédicteurs pré-préparation et journalisation
+
+**Source :** directive utilisateur verbatim ci-dessous (conversation active du 23 octobre 2026). **État :** correction du mandat et plan de modélisation; aucune simulation ou calibration nouvelle revendiquée par cet enregistrement.
+
+### Message utilisateur conservé intégralement
+
+> Non, mais il y a un certain nombre de choses que moi je ne comprends pas. Et d'ailleurs, justement, c'est pour ça qu'il y a le cahier mère. Et j'espère qu'à chaque relance, comme ça, réflexion, tout ce que tu écris, tu fais, c'est noté dans les cahiers mère. Tout ce que j'ai dit, donc, vraiment. Donc on peut retracer nos échanges grâce au cahier mère. Si c'est pas le cas, il faudrait instaurer un système comme ça. Mais pour en revenir au projet, déjà, il faut savoir que ce projet, en fait, ça a été créé comme un laboratoire test pour la matrice. Ça, je crois que c'est dans les cahiers mère, c'est clairement écrit. Tu sais de quoi je parle. Ensuite, la problématique que l'on avait, je crois, avec les 112, il y avait d'abord 112 rubriques, non, je crois. C'était le fait que dans ces 112-là, en fait, c'est moi qui t'avais mal posé la question. C'était 112 facteurs qui entrent en compte pour la préparation du boni. Mais après, au vu des tests avec les simulations qu'on avait fait, notamment, tu parles des 1 000 simulations, tout ça, tout ça, on s'était rendu compte que non. La matrice, parce qu'on fait tout ça pour la matrice, la matrice, elle, elle fonctionne en pre-match. Elle ne fonctionne pas en live. C'est de la même façon, c'est que pour notre laboratoire, on doit faire les choses en pré-préparation, c'est-à-dire à partir des données. D'où ma question : quelles sont les données ou les rubriques qui entrent en compte avant de commencer la préparation, qui peuvent influencer, tu vois un peu cette logique-là, qui peuvent influencer sur un bon essai pour notre riz, qui dans la matrice pourraient influencer pour un bon essai pour notre over 1.5, tu vois. Donc c'est ça maintenant la question. Quelles sont les données ? Toi tu m'as parlé des 44. Si c'est réellement 44. On registre les 44, on les vend les 112, tu vois, et simulons en fonction, calibrons notre moteur en fonction des 44. En fait, je sais pas si tu me comprends.
+
+### Reformulation opérationnelle vérifiable (interprétation assistant, distincte du verbatim)
+
+- Le laboratoire RIZ-112 existe exclusivement pour éprouver une architecture prédictive pré-match de MATRICE. Il n'a pas vocation à prédire grâce à des données connues après le début de la cuisson.
+- Les 112 rubriques historiques ne sont **pas** 112 facteurs pré-T0 indépendants. Le registre Step6 comporte 44 rôles PRESTART, 3 FORECAST, 1 DERIVED, 37 plans d'action, 13 politiques conditionnelles et 14 contrats de résultats post-T0.
+- Conserver **sans suppression ni réécriture destructrice** l'inventaire 112, ses sous-paramètres, les 1000 simulations déjà livrées et les reçus. Pour la prédiction, inventorier les **44 candidats historiques pré-T0** puis les auditer individuellement : disponibilité réelle à T0, mesure/estimation, valeur planifiée, dérivation redondante, mécanisme causal plausible, liens à Q, incertitude et risque de fuite.
+- Certaines des 44 doivent être RECLASSÉES en prévisions/valeurs prévues (notamment 036, 042, 045), et les plans/politiques pré-déclarés 049–098 peuvent aussi modifier les conditions de simulation : **ne pas réduire aveuglément le moteur à 44 colonnes**, distinguer variables observées, consignes et stratégies pré-T0. Les 14 résultats 099–112 restent hors prédicteurs mais nécessaires comme cibles.
+- Une fois le contrat T0 audité et gelé, réexécuter les scénarios synthétiques via les moteurs existants, avec tests d'ablation/perturbations, cohérence physique, comparaison aux 1000 historiques et contre-audits. Les IC Q* restent exploratoires, IC scientifique null sans observations réelles + calibration.
+- Toute séance active doit laisser une trace durable : texte utilisateur accessible au verbatim, interprétation explicite, objections/erreurs et corrections, actions et preuves, liens de fichiers/commits, non-réalisé et prochaine action; relecture au déclenchement Moteur/continue. L'historique passé n'est pas automatiquement exhaustif : ne jamais prétendre à une capture de conversations non accessibles ou à une journalisation permanente hors exécution. Conserver en append-only des sections d'événements, registre dédié pour verbatim et décisions. **Cet ajout satisfait la directive pour la présente séance dans le Cahier mère, mais n'installe pas un service de fond.**
+
+### Audit immédiat de l'affirmation 44
+
+- Nombre **44** = classification PRESTART du catalogue Step6 (preuve documentaire), **pas** démonstration de 44 facteurs causalement distincts ni mesurables ni disponibles dans chaque scénario.
+- Exemples : R035 eau ajoutée = consigne de dosage, R036 eau retenue après rinçage = résultat futur à estimer, R045 évaporation estimée = fonction dérivée, R047 durée envisagée = plan; R033/R034 propriétés pré-caractérisées seulement si données antérieures disponibles.
+- Cibles R099–R112 utilisées uniquement dans le monde simulé en sortie ou pour la validation après coup.
+
+### Décision de continuité
+
+**D041-PROPOSÉE (directive de recentrage confirmée, quantification finale encore ouverte)** : la priorité de la prochaine expérience est l'audit nominatif des 44 candidats PRESTART et des 50 plans/politiques, puis un moteur de prédiction strictement T0 et ses tests de mutation. Ne pas déclarer « 44 facteurs définitifs » avant cet audit. La finalité MATRICE Over 1,5 pré-match ne change pas.
