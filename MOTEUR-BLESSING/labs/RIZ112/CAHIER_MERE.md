@@ -1465,3 +1465,11 @@ Relecture réelle du projet `Terminator364/ChatGPT-PC`, branche `research/matric
 **Prochaine action UNIQUE :** V0.2, cartographier les 355 identifiants L3, puis intégrer progressivement les 341 non raccordés selon rôle utile et traçable. Construire graphe de mécanismes bilatéraux, contraintes, sous-paramètres, compatibilités et états du score futurs hypothétiques ; traces, contrôles de double compte, tests de sensibilité simple et jointe ; résultats explicables. Apprentissage statistique et optimisation des coefficients **après la passe logique**, pas comme prétexte pour différer ce travail. Aucun changement du produit public MATRICE 2.0 ni promotion de G3/G4/G5 à ce stade.
 
 **Références directes :** `MOTEUR-BLESSING/labs/MATRICE_LOGIC_FIRST_V01/D054_PRIORITE_MOTEUR_LOGIQUE_ET_IC_THEORIQUE.md` ; `MOTEUR-BLESSING/labs/RIZ112/continuity/REPRISE_IMMEDIATE_D054.md`. Il s'agit d'une **décision de priorité**, pas d'une affirmation que les 341 ont été implémentés.
+
+
+### Synchronisation automatique GitHub — 2026-10-23T18:23:27.263366+00:00
+
+- Commit source : 785f953a08f39b353500262e3ad56285118695e1
+- Message : docs(moteur): D054 priority logic-first across R8 L3 and conditional meaning of theoretical IC
+- Fichiers concernés : MOTEUR-BLESSING/labs/RIZ112/CAHIER_MERE.md
+- Provenance : événement GitHub push. Ceci ne contient PAS les messages privés ChatGPT non consignés explicitement.
