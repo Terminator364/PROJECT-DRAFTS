@@ -75,6 +75,15 @@ assert {key for r in NEW_RULES for _,key,_ in r.criteria if key in EXTRA} == set
 LEGACY_GROUPS = {"HIGH_REGAIN":"HIGH_REGAIN", "COUNTER":"TRANSITION",
                  "POSITIONAL":"SETTLED_OPEN_PLAY", "SET_PIECE":"SET_PIECE_CHAIN"}
 
+# D056: source-contract semantic holds; do not turn documentary event
+# definitions into directional sporting advantages without a valid scale.
+SEMANTIC_HOLDS = {
+    "R-WIDE-02": "AERIAL_CONTEST_CONTEXT and AERIAL_PRIMARY attest event/opposition; HIGH/LOW do not establish aerial superiority",
+    "R-SECOND-02": "CLEARANCE_SECOND and SETPIECE_REBOUND need common incident lineage and team ownership before forming an independent second-phase path",
+    "R-PRESS-ERROR-02": "PASS_MISCONTROL is specifically unforced; it must not be relabeled as an error caused by opponent pressing",
+    "R-TRAIL-BENCH-02": "CONDITIONAL_SCORE_STATE_MAP and ELIGIBLE_BENCH_ASOF are structural/eligibility contracts, not ordinal HIGH skill measures",
+}
+
 
 def _validate_all(case: dict[str,Any]) -> dict[str,Any]:
     if not isinstance(case,dict) or not case.get("fixture_id"):
@@ -144,6 +153,13 @@ def analyze(case:dict[str,Any])->dict[str,Any]:
         r["dependency_group"]=LEGACY_GROUPS.get(r["route"],"NONPRIMARY_LEGACY_CONTEXT")
         r["logical_role"]="POTENTIAL_CHANCE_PATH" if r["route"] in LEGACY_GROUPS else "NONINDEPENDENT_MODIFIER"
     new=[_evaluate(rule,side,facts) for side in core.SIDES for rule in NEW_RULES]
+    # Fail closed on semantically unsigned mechanisms while preserving full trace.
+    for r in new:
+        if r["rule_id"] in SEMANTIC_HOLDS:
+            r["pre_semantic_hold_status"]=r["status"]
+            r["status"]="SEMANTIC_HOLD_REVIEW_REQUIRED"
+            r["semantic_hold_reason"]=SEMANTIC_HOLDS[r["rule_id"]]
+            r["logical_role"]="SOURCE_CONTRACT_GUARD_UNTIL_DIRECTION_VALIDATED"
     # Strong recover/delay evidence contests a counter; it cannot prove it impossible.
     for side in core.SIDES:
         counter=next(r for r in legacy if r["team"]==side and r["route"]=="COUNTER")
