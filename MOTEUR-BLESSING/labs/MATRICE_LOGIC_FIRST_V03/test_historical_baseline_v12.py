@@ -18,7 +18,7 @@ def records(n=64):
                      "kickoff_utc":kickoff.isoformat(),"final_whistle_utc":end.isoformat(),
                      "source_issued_utc":issued.isoformat(),
                      "source_first_seen_utc":(issued+timedelta(minutes=5)).isoformat(),
-                     "home_goals":i%4,"away_goals":(i*3)%3})
+                     "home_goals":i%4,"away_goals":(i*2+1)%3})
     return rows
 
 def fixture():
