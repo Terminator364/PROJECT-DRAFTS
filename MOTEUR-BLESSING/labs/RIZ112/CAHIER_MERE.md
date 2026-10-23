@@ -1442,3 +1442,11 @@ Relecture réelle du projet `Terminator364/ChatGPT-PC`, branche `research/matric
 - Message : fix(moteur): redirect continuity NEXT_ACTION to current MATRICE logic-first V0.2 D054
 - Fichiers concernés : MOTEUR-BLESSING/labs/RIZ112/continuity/NEXT_ACTION.json
 - Provenance : événement GitHub push. Ceci ne contient PAS les messages privés ChatGPT non consignés explicitement.
+
+
+### Synchronisation automatique GitHub — 2026-10-23T18:23:03.264061+00:00
+
+- Commit source : 8e462e68f63f47d7fcbbd0e60a80277f2b6b039c
+- Message : docs(moteur): ensure sole resume code routes to active D054 logic-first V0.2
+- Fichiers concernés : MOTEUR-BLESSING/labs/RIZ112/continuity/CONTRAT_CODE_UNIQUE.md
+- Provenance : événement GitHub push. Ceci ne contient PAS les messages privés ChatGPT non consignés explicitement.
