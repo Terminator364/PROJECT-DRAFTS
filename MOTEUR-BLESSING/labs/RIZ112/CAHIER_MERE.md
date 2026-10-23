@@ -692,3 +692,74 @@ RIZ112 final 1000x112: 1000 unique scenario rows, 112 rubric columns; 98 distinc
 ## 17 octobre 2026 — Livraison expérimentale 1000×112 / E138–E140
 
 Le mandat exact utilisateur (CTX-0060) et la relance « 👀 » (CTX-0061) sont archivés ci-dessus. Le paquet complet est téléchargeable via Google Drive `14S4idgIhMjcmqarKFz4ZbfRpGV2kOesC` et Library `/MOTEUR_BLESSING/RIZ112_1000x112_2026-10-17`, ZIP 1 779 216 octets, SHA256 `225efd46dbfbdd32df5dcafb4134c6a8e7d6c48e08ec144e9837a44106275f40` (téléchargement cloud indépendant et CRC validés). Source reproductible et rapport dans `simulations/EXPERIENCE_1000_112/`. 1000 dossiers × 112 rubriques, **98 rubriques pré-T0/forecast varient**, les 14 étiquettes postT0 sont `NOT_OBSERVED_POST_T0`. **1000/1000 IC exploratoires Q*** issus du module Step9, maximum 94%, 12 cas >=85%. **Les 310 abstentions du H3 original restent des abstentions dans une colonne distincte** : un IC Q* alternatif sur ces dossiers n'efface pas le refus H3. 200 tirages/dossier, 7 nouveaux tests Linux/Windows et recomputation intégrale Windows du CSV SHA256 `db046c7bfad437ee4b8bc78dfa78af3acb60848cd2829185756e6329981b1a63`. Le crible indépendant de faisabilité préT0 simplifiée accepte 303/1000 dossiers, sans prétendre connaître la qualité. Il s'agit de **simulation et de méthode pour MATRICE pré-match**, non de 1000 probabilités réelles ni de 112 effets causaux prouvés. Aucun jeu de données réel ni Q approuvé. Ne pas réinitialiser le laboratoire, ne pas écraser les audits R8 concurrents.
+
+
+## AJOUT 2026-10-23 — Frontière des entrées pré-préparation (clarification demandée par utilisateur)
+
+**Directive utilisateur (23 octobre 2026):** identifier *exactement* les rubriques du moteur disponibles avant le début de la préparation et inscrire la décision dans le Cahier mère; ne pas inventer de nouvelles données ni confondre 112 rubriques documentées avec 112 observations disponibles à T0. Cette clarification vise le transfert temporel pré-match de MATRICE.
+
+**Inventaire historique vérifié** d'après `step6/ROADMAP_112_CASES.json` : **44 PRESTART, 3 FORECAST, 1 DERIVED, 37 PRESTART_ACTION_PLAN, 13 PRESTART_BRANCH_POLICY, 14 POSTSTART_TARGET_NOT_FEATURE = 112**.
+
+### Inventaire canonique des 44 PRESTART (intitulés originaux conservés)
+
+- R001 — Masse de riz disponible
+- R002 — Eau potable disponible
+- R003 — Sel disponible
+- R004 — Matière grasse éventuelle
+- R005 — Eau de rinçage disponible
+- R006 — Source d’énergie
+- R007 — Fiabilité de la source d’énergie
+- R008 — Capacité de la casserole
+- R009 — Diamètre de la casserole
+- R010 — Matériau de la casserole
+- R011 — Épaisseur du fond
+- R012 — État du fond
+- R013 — Présence du couvercle
+- R014 — Ajustement du couvercle
+- R015 — Évacuation de la vapeur
+- R016 — Type de foyer
+- R017 — Réglage de puissance
+- R018 — Répartition de la chaleur
+- R019 — Balance
+- R020 — Instrument de mesure de l’eau
+- R021 — Passoire
+- R022 — Ustensile pour remuer
+- R023 — Récipient de service
+- R024 — Variété
+- R025 — Longueur des grains
+- R026 — Traitement du riz
+- R027 — Lot et provenance
+- R028 — Ancienneté et conservation
+- R029 — Grains cassés
+- R030 — Amidon de surface
+- R031 — Impuretés
+- R032 — Humidité initiale
+- R033 — Capacité et vitesse d’absorption
+- R034 — Comportement à la gélatinisation
+- R035 — Eau ajoutée
+- R036 — Eau résiduelle après rinçage
+- R037 — Température initiale de l’eau
+- R038 — Température initiale du riz
+- R039 — Température ambiante
+- R040 — Altitude et pression
+- R041 — Puissance choisie
+- R042 — Transfert thermique
+- R045 — Évaporation estimée
+- R047 — Durée de cuisson envisagée
+
+### Clarification de la disponibilité à T0 (révision conceptuelle, sans modification silencieuse du schéma)
+
+- **T0 = avant la première opération de préparation**, donc avant rinçage, dosage effectif, mise en casserole et chauffe.
+- R035 `Eau ajoutée` = **quantité d'eau prévue à ajouter**, non mesure après ajout.
+- R036 `Eau résiduelle après rinçage` = **valeur estimée avant rinçage** ou UNKNOWN; sa mesure effective est post-T0.
+- R042 `Transfert thermique` = **coefficient ou hypothèse préétabli(e)**, pas énergie réelle transférée pendant la cuisson.
+- R045 `Évaporation estimée` = **prévision calculée à partir d'entrées T0**, et non observation indépendante; son étiquette PRESTART dans le contrat historique doit être interprétée comme prédiction calculée ou hypothèse prédéfinie.
+- R033, R034 (absorption, gélatinisation) et R018 (répartition chaleur) peuvent être données **pré-caractérisées**, sinon estimation avec incertitude/UNKNOWN, jamais valeurs futures injectées.
+- R041 `Puissance choisie`, R047 `Durée envisagée` relèvent des **consignes prévues**; elles ne garantissent pas leur réalisation.
+- R043, R044, R046 sont **FORECAST**, R048 est **DERIVED** et ne sont pas des observations T0; elles peuvent être prédites/calculées sans fuite.
+- R049–R085 = **37 actions prévues à T0** (protocoles/scénarios), pas 37 événements déjà exécutés.
+- R086–R098 = **13 politiques conditionnelles prédéclarées**, pas incidents effectivement observés.
+- R099–R112 = **14 cibles post-début**, exclues des features d'entrée même si le monde synthétique peut simuler leurs valeurs futures.
+- Une rubrique manquante reste explicitement UNKNOWN (jamais transformée en ZERO), avec provenance, valeur, unité, date de disponibilité et statut mesurée/prévue/hypothèse/calculée.
+
+**Conclusion :** seuls les faits disponibles à T0 et les paramètres de politique/protocole décidés avant T0 alimentent l'anticipation; les résultats synthétiques futurs sont des sorties pour vérification et apprentissage. Le rapprochement avec les 1 000 scénarios historiques reste à auditer; cette note ne certifie pas 44/44 valeurs physiquement renseignées ni 112/112 mécanismes calibrés.
