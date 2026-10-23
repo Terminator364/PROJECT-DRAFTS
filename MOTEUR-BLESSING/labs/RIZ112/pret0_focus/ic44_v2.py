@@ -137,7 +137,7 @@ def simulate(packet):
     # and independently disclosed channel tolerances, NOT measured rice success.
     ice=100.*math.prod(sigmoid(m) for m in margins.values())*feasibility*math.exp(-dose_sigma*.8)
     return {'schema':'riz112/IC44-v2','status':'SYNTHETIC_NOT_CALIBRATED',
-        'routes':44,'evaluated_routes':trace['numeric_or_logic_calculations'],
+        'routes':44,'evaluated_routes':trace.get('evaluated_count',trace.get('numeric_or_logic_calculations')),
         'IC_DEMO_PCT':round(ice,10),'IC_SCIENTIFIQUE_PCT':None,
         'quality_channels':{k:round(sigmoid(m),8) for k,m in margins.items()},
         'physical_proxies':{
