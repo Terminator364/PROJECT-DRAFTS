@@ -822,3 +822,34 @@ Le mandat exact utilisateur (CTX-0060) et la relance « 👀 » (CTX-0061) sont 
 - Document miroir synchronisé : https://docs.google.com/document/d/13gOTBq7AXnT-f9Lotlw4czwa4i75C4UGdP0i1i0qwZE/edit
 - Ancien registre de résultats : `simulations/EXPERIENCE_1000_112/RAPPORT_1000x112.json`
 - Aucun run numérique nouveau validé dans cette séance; aucune certification « 44/44 influences » ni IC scientifique.
+
+
+## 23 octobre 2026 — Porte 44/44 raccordée au pipeline pré-T0 (E142–E143)
+
+### Mandat utilisateur exact (CTX-0063)
+> "Raccordement des 44 entrées au calcul
+> Partiel : 13 directement exploitées dans l'ancien IC exploratoire" cad dire quoi ca ??, termine je veux un racordement de 44 sur 44 go! puis on pasera aux simulations
+
+**Interprétation distincte du verbatim** : l'utilisateur veut clôturer l'étape de raccordement avant d'entamer une nouvelle campagne, sans multiplier les phases de cadrage ni répéter les expériences déjà achevées. Les 112 rôles historiques et les 1000 simulations originales sont maintenus, avec un contrat strict de gel temporel.
+
+### Travail exécuté / source versionnée
+
+- `pret0_focus/bridge44.py` : module Python standard-lib contenant **44 routes exécutables typées**, couvrant R001–R042, R045 et R047. Pour chaque rubrique disponible, la sortie est calculée à partir d'une hypothèse physique explicitée, d'un contrôle de faisabilité, d'une mesure possible, d'un plan ou d'une information de provenance. Interdiction de transformer `UNKNOWN` en zéro, d'injecter un post-T0 ou d'avoir des jumeaux numériques contradictoires.
+- `pret0_focus/pipeline44.py` : **point d'entrée avant simulations** : vérifie les 44 routes, applique les contrôles pré-T0 (approvisionnement en eau, capacité prévisionnelle, source/foyer, outils nécessaires au plan), puis appelle `step9/ic_simulation_v1.py` sans réécrire les coefficients Q* ni les scores historiques. Une condition inviable entraîne `ABSTAIN_PRET0_CONSTRAINT`, pas une pénalité arbitraire.
+- `pret0_focus/test_bridge44.py` + `pret0_focus/test_pipeline44.py` : contre-tests sur 44 mutations unitaires, horodatages, observation future, doublon de grandeur, `UNKNOWN`, faisabilité, identité de lot sans effet factice sur Q* et priorité du garde-fou.
+- `pret0_focus/README_44_CONNECTE_20261023.md` : mode d'emploi, conditions, limitations et porte suivante.
+- **GitHub Actions indépendant : run 39938601745** (https://github.com/Terminator364/PROJECT-DRAFTS/actions/runs/39938601745), 16/16 tests Python PASS, compilation, exemple réel de packet Step6 passé. **44 routes visitées, 19 sorties évaluables** avec ses données; essai bout-en-bout historique (100 tirages) : **IC Q* démo 58 %**, aucun IC scientifique.
+- Test local distinct : 44/44 sorties de route réagissent au changement individuel cohérent de la donnée sur une base totalement synthétique, et 16/16 tests locaux de l'implémentation fonctionnellement équivalente. Ce n'est pas une preuve d'influence sur la vraie qualité du riz.
+- Types (44 au total) : **25 PHYSICAL, 10 PLAN, 2 FEASIBILITY, 2 MEASUREMENT, 3 PROVENANCE, 1 SAFETY, 1 UNCERTAINTY**.
+
+### Audit contradictoire et limites (à préserver)
+
+**44/44 raccordées au pipeline ≠ 44/44 influences sur la probabilité réelle de réussir le riz.** L'ancien IC exploratoire était directement lié à 13 champs ; les nouveaux calculs et contrôles apportent des chemins réels de traitement informatique pour les 31 autres, pas des coefficients Q empiriquement mesurés. Des identifiants de provenance (ex. R027) ne doivent pas influencer la qualité physiquement par décret; les outils/ressources peuvent bloquer le scénario ou modifier l'incertitude. Aucune nouvelle formule Q étalonnée, aucune cuisson mesurée, `scientific_ic_percent = null`.
+
+Les 1000 scénarios historiques ×112 et l'exploratoire Q* (12/1000 >=85) sont **inchangés**; les 14 labels post-T0 demeurent non observés. Aucune nouvelle campagne de 1000 cas n'a été lancée lors de cette porte — instruction utilisateur : **d'abord raccorder, ensuite simuler**.
+
+### Décision D042 / porte suivante
+
+La **porte RACCORDEMENT_LOGICIEL_44_SUR_44** est clôturée avec preuves Python locales et CI Linux GitHub. La prochaine session peut démarrer directement une campagne neuve `SIM_PRET0_44_V1` construite sur `pipeline44.run44` : produire des dossiers strictement pré-préparation, varier les familles avec contrefactuels, compter refus/UNKNOWN, comparer ancien Q* aux sorties du pipeline, conserver les anciens 1000 et consigner tout dans le registre/Cahier mère. **Ne pas promouvoir un IC synthétique au rang d'une probabilité réelle.**
+
+**Références** : CTX-0063, E142–E143, commit de workflow `80bfdbde5bb9968b69c23082274afe8ec0732d25`, https://github.com/Terminator364/PROJECT-DRAFTS/tree/main/MOTEUR-BLESSING/labs/RIZ112/pret0_focus/.
