@@ -2,16 +2,15 @@
   "canonical_trigger": "Moteur/continue",
   "current_verified_lab_stage": 27,
   "first_files_to_open": [
-    "MOTEUR-BLESSING/labs/RIZ112/simulations/EXPERIENCE_1000/TRANSFERT_PREMATCH/AUDIT_COMPATIBILITE_R8_20261017.md",
-    "MOTEUR-BLESSING/labs/RIZ112/simulations/EXPERIENCE_1000_112/CHECKPOINT_1000X112_20261017.json",
+    "MOTEUR-BLESSING/labs/RIZ112/CHECKPOINT.json",
     "MOTEUR-BLESSING/labs/RIZ112/CAHIER_MERE.md",
-    "MOTEUR-BLESSING/labs/RIZ112/simulations/EXPERIENCE_1000/TRANSFERT_PREMATCH/CHECKPOINT_TRANSFERT_TEMPOREL_20261017.json",
-    "MOTEUR-BLESSING/labs/RIZ112/simulations/EXPERIENCE_1000/TRANSFERT_PREMATCH/README.md",
-    "MOTEUR-BLESSING/labs/RIZ112/simulations/EXPERIENCE_1000/TRANSFERT_PREMATCH/prematch_timeline_gate.py",
-    "MOTEUR-BLESSING/labs/RIZ112/simulations/EXPERIENCE_1000/TRANSFERT_METHODE_MATRICE_PREMATCH.md",
+    "MOTEUR-BLESSING/labs/RIZ112/pret0_focus/AUDIT_44_REEMPLOI_20261023.json",
+    "MOTEUR-BLESSING/labs/RIZ112/step6/ROADMAP_112_CASES.json",
+    "MOTEUR-BLESSING/labs/RIZ112/step26/REGISTRE_TRANSVERSAL_112.json",
+    "MOTEUR-BLESSING/labs/RIZ112/simulations/EXPERIENCE_1000_112/README_LIVRAISON_1000x112.md",
     "MOTEUR-BLESSING/labs/RIZ112/continuity/NEXT_ACTION.json"
   ],
-  "first_technical_action": "Lire l'audit comparatif en lecture seule, ADN R8 et le pointeur ACTIVE_WORK_HEAD, puis localiser les vrais validateurs de snapshots sur la branche research/matrice-r8-g3-depth-audit-2026-10-14. Décider REUSE/ADAPT/BUILD ONLY IF GAP, sans injecter Q* riz, sans modifier les 62 familles ni inventer des matches. Les étiquettes J-6/J-4/J-3/H-9/H-0 doivent recevoir une politique de coupure réelle; distinguer observed_at, published_at, available_at et ingested_at. Avant tout patch MATRICE, vérifier l'état du travail concurrent et la feuille de route.",
+  "first_technical_action": "Reprendre le banc RIZ112 déjà existant (sans regenerer de donnees), restaurer environnement de simulation complet, verifier la version historique des 1000 cas; auditer puis instrumenter les 44 champs pre-T0 candidats, dont 13 alimentent deja le proxy et 31 non directement; garder differencies plans, policies et 14 cibles, executer ablations, anti-fuites et comparatif avant toute nouvelle campagne; pas d'IC scientifique invente. Mettre a jour Cahier mere + miroir Google Doc + journal + checkpoint dans la meme session.",
   "how_to_continue": "At trigger, verify checkpoint/journal/context and start this task in the same turn. Do not stop after reporting status or request permission again. Commit work and context with proven readback.",
   "lab_next_stage": null,
   "never_do": [
@@ -20,9 +19,9 @@
     "Déclarer calibré un IC fictif",
     "Écraser un GitHub plus avancé par un ZIP ancien"
   ],
-  "next_execution_id": "AUDIT_REUSE_MATRICE_R8_TEMPORAL_GATES_ON_WORK_BRANCH",
-  "next_execution_title": "Examiner les validateurs temporels existants sur la branche R8 avant adaptation du prototype riz",
-  "progress_checkpoint": "If task interrupts, append evidence to Cahier mère, context and journal, then update this JSON.",
+  "next_execution_id": "RIZ112_REPRISE_NUMERIQUE_44_PRET0_20261023",
+  "next_execution_title": "Rejeu du moteur historique et raccordements causaux pre-T0 avec tests d'ablation",
+  "progress_checkpoint": "Checkpoint d'audit preT0 documente. Refaire les tests logiciels et les simulations synthetiques avec code historique des que sources disponibles; preuves reelles requises seulement pour IC calibre.",
   "project": "RIZ112→MATRICE",
   "schema": "moteur-blessing/next-action/v1",
   "scientific_status": "UNVALIDATED_REAL_Q_IC_NULL__SYNTHETIC_RICE_METHOD_LAB_FOR_MATRICE",
@@ -38,13 +37,13 @@
     "Chronological out-of-sample calibration"
   ],
   "step16_checkpoint": "MOTEUR-BLESSING/labs/RIZ112/step16/CHECKPOINT_UNIFIED_20261017.json",
-  "next_action_requires_external_empirical_data": true,
+  "next_action_requires_external_empirical_data": false,
   "step17_checkpoint": "MOTEUR-BLESSING/labs/RIZ112/step17/CHECKPOINT_112_INFLUENCES_20261017.json",
   "step17_report": "MOTEUR-BLESSING/labs/RIZ112/step17/RAPPORT_112_INFLUENCES_DEMO_20261017.json",
   "critical_directive_D035": "Cahier mère as durable authority, all accessible context, no blanket assertion of 112 IC causal effects; each counterfactual evidence or explicit abstention",
   "canonical_source": "GitHub main MOTEUR-BLESSING/labs/RIZ112/CAHIER_MERE.md plus journal, exact context register and checkpoint; not ChatGPT memory.",
   "context_capture_limits": "The tool captures only messages actively submitted in-session and available for logging, not autonomous background conversations.",
-  "latest_journal_event_id": "E140",
+  "latest_journal_event_id": "E141",
   "latest_context_id": "CTX-0062",
   "journal_chain_verified": true,
   "step18_checkpoint": "MOTEUR-BLESSING/labs/RIZ112/step18/CHECKPOINT_STEP18_20261017.json",
@@ -75,7 +74,7 @@
   "step26_cloud_receipt_url": "https://drive.google.com/file/d/1A-rUjr570r1_wwbKstua_FAOpIOSlfpj/view?usp=drivesdk",
   "step27_release_checkpoint": "MOTEUR-BLESSING/labs/RIZ112/step27/CHECKPOINT_RELEASE_V1.json",
   "step27_release_status": "ENGINEERING_V1_CLOSED__Q_EMPIRICAL_PENDING",
-  "no_more_auto_steps_without_external_evidence": true,
+  "no_more_auto_steps_without_external_evidence": false,
   "final_engineering_V1_archive_receipt": "MOTEUR-BLESSING/labs/RIZ112/step27/RECU_ARCHIVE_FINAL_CANON_20261017.json",
   "final_engineering_V1_archive": {
     "url": "https://drive.google.com/file/d/12xXW-Q_3znv9_4enPqUJYAx9U9vUZ-GK/view?usp=drivesdk",
@@ -214,5 +213,12 @@
     "quality_data_real": false,
     "selection_bias": "first 1000 H3 computable from 1448 candidates",
     "reference": "No 112 independent causal predictors; 112-role comprehensive packet"
-  }
+  },
+  "history_before_20261023_reprioritization": {
+    "first_technical_action": "Lire l'audit comparatif en lecture seule, ADN R8 et le pointeur ACTIVE_WORK_HEAD, puis localiser les vrais validateurs de snapshots sur la branche research/matrice-r8-g3-depth-audit-2026-10-14. Décider REUSE/ADAPT/BUILD ONLY IF GAP, sans injecter Q* riz, sans modifier les 62 familles ni inventer des matches. Les étiquettes J-6/J-4/J-3/H-9/H-0 doivent recevoir une politique de coupure réelle; distinguer observed_at, published_at, available_at et ingested_at. Avant tout patch MATRICE, vérifier l'état du travail concurrent et la feuille de route.",
+    "next_execution_id": "AUDIT_REUSE_MATRICE_R8_TEMPORAL_GATES_ON_WORK_BRANCH",
+    "next_execution_title": "Examiner les validateurs temporels existants sur la branche R8 avant adaptation du prototype riz"
+  },
+  "latest_journal_head": "824498ac0897056c7f294e6053a42fc83a7846dd225e2e234e3d6b2401b86fb2",
+  "latest_status_20261023": "Moteur historique executable; pas de nouveau run 44; miroir Google Docs actualise; MBMPC hors ligne"
 }
