@@ -6,6 +6,11 @@ on:
       - "BCP_REMOTE_V4/**"
       - ".github/workflows/bcp-remote-v4-preview.yml"
   workflow_dispatch:
+  pull_request:
+    branches: [work/usb-phone-rescue-lab-2026-10-12]
+    paths:
+      - "BCP_REMOTE_V4/**"
+      - ".github/workflows/bcp-remote-v4-preview.yml"
 permissions:
   contents: read
 jobs:
@@ -35,6 +40,7 @@ jobs:
           python3 BCP_REMOTE_V4/patch_v4_android.py r33
           python3 -m unittest discover -s r33/tests -q
           python3 -m py_compile BCP_REMOTE_V4/windows/adb_guardian.py
+          python3 BCP_REMOTE_V4/tests/test_v4_contract.py r33
           grep -F 'versionCode 6' r33/android/app/build.gradle
           grep -F 'awaitAdb' r33/android/app/src/main/java/com/blessing/rescuebridge/MainActivity.java
       - name: Android SDK API 35
