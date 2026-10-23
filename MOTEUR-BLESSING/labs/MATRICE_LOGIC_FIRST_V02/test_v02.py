@@ -66,7 +66,8 @@ class TestV02(unittest.TestCase):
   x=v.analyze(c);states=x['compatible_future_score_states']
   self.assertEqual(len(states),3)
   self.assertTrue(all(s['observed_before_kickoff'] is False and s['joint_probability'] is None for s in states))
-  self.assertTrue(next(s for s in states if s['conditional_team']=='A')['bench_policy_enabled'])
+  self.assertFalse(next(s for s in states if s['conditional_team']=='A')['bench_policy_enabled'])
+  self.assertEqual(next(r['status'] for r in x['rules'] if r['team']=='A' and r['route']=='LATER_TRAILING_REACTION'),'SEMANTIC_HOLD_REVIEW_REQUIRED')
  def test_all_extras_role_trace(self):
   c=base()
   for i,alias in enumerate(v.EXTRA):put(c,'A' if i%2 else 'B',alias,'UNKNOWN')
@@ -77,4 +78,30 @@ class TestV02(unittest.TestCase):
  def test_deterministic(self):
   c=base();put(c,'A','SPACE','HIGH')
   self.assertEqual(json.dumps(v.analyze(c),sort_keys=True),json.dumps(v.analyze(copy.deepcopy(c)),sort_keys=True))
+
+ def test_semantic_holds_do_not_promote_documentary_events(self):
+  c=base()
+  pairs=[('A','CROSS','HIGH'),('A','AERIAL','HIGH'),('B','AERIALDEF','LOW'),
+         ('B','MARKING','LOW'),('A','CLEARANCE','HIGH'),('A','REBOUND','HIGH'),
+         ('B','SHIFT','LOW'),('A','PRESS','HIGH'),('B','MISTAKE','HIGH'),
+         ('A','SCOREMAP','HIGH'),('A','BENCH','HIGH'),('A','TRAIL_RESPONSE','HIGH')]
+  for side,alias,state in pairs:put(c,side,alias,state)
+  out=v.analyze(c)
+  for rid in v.SEMANTIC_HOLDS:
+   r=next(r for r in out['rules'] if r['team']=='A' and r['rule_id']==rid)
+   self.assertEqual(r['pre_semantic_hold_status'],'LOGICALLY_ENABLED_CONDITIONAL_PATH',rid)
+   self.assertEqual(r['status'],'SEMANTIC_HOLD_REVIEW_REQUIRED',rid)
+   self.assertTrue(r['semantic_hold_reason'])
+  self.assertNotIn('WIDE_AERIAL',out['teams']['A']['enabled_routes'])
+  self.assertNotIn('SECOND_PHASE',out['teams']['A']['enabled_routes'])
+  self.assertTrue(all(x['numeric_IC_calibrated'] is None for x in [out]))
+
+ def test_held_rules_remain_auditable_when_inputs_unknown(self):
+  c=base();put(c,'A','AERIAL','UNKNOWN')
+  out=v.analyze(c)
+  r=next(r for r in out['rules'] if r['team']=='A' and r['rule_id']=='R-WIDE-02')
+  self.assertEqual(r['status'],'SEMANTIC_HOLD_REVIEW_REQUIRED')
+  self.assertEqual(r['pre_semantic_hold_status'],'UNKNOWN_NEEDS_INPUTS')
+  self.assertEqual(out['audit_input_roles']['A.'+v.ALL_FIELDS['AERIAL']],['R-WIDE-02'])
+
 if __name__=='__main__':unittest.main()
