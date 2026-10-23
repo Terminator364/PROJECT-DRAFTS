@@ -1,0 +1,59 @@
+{
+  "date": "2026-10-23",
+  "schema": "matrice/r8/logic-engine-v0.1-audit-receipt",
+  "original_MATRICE_R8_worlds": 62,
+  "original_documentary_L3_children": 355,
+  "active_child_ids_wired": 14,
+  "logic_rules": 7,
+  "teams_evaluated": 2,
+  "logic_rule_evaluations_per_match": 14,
+  "independent_numeric_probabilities_or_scoring_coefficients_added": 0,
+  "unit_tests_passed": 22,
+  "unit_tests_total": 22,
+  "three_demo_cases_all_synthetic": true,
+  "no_live_or_future_target_fact_consumed": true,
+  "numeric_IC_over15": null,
+  "outputs": {
+    "open": {
+      "issue": "MULTIPLE_PLAUSIBLE_GOAL_PATHWAYS",
+      "facts": 28,
+      "alternative_state_tests": 84,
+      "same_match_IC": null
+    },
+    "compact": {
+      "issue": "NO_ACTIVE_PATHWAY_IDENTIFIED_NOT_UNDER15_PREDICTION",
+      "facts": 28,
+      "alternative_state_tests": 84,
+      "same_match_IC": null
+    },
+    "unknown": {
+      "issue": "INDETERMINATE_MISSING_CRITICAL_VALUES",
+      "facts": 5,
+      "alternative_state_tests": 15,
+      "same_match_IC": null
+    }
+  },
+  "sha256_by_file": {
+    "COUVERTURE_62_MONDES.json": "4b8cca2a3fd876daa93f9b9c8d0c7981af76f91f53487958415fe0c49de6608b",
+    "DEMO_WINDOWS_UN_CLIC.bat": "05ce9699bd79d0a3345da8d922134f6fb93d4a8d9efe51b8002f5005f58f83be",
+    "README.md": "14f35eb76c68885db7d1c7d9a07615a30fd72df9b254e20d651b9638472dda0c",
+    "audit_input_effects.py": "c2415de7fd21e8d306011366cca2c2fa99684cbd58648371d258232016862b88",
+    "build_examples.py": "ab00d28a3cdffc455df8679e9ad62b7989cf387e879bfdbd00a3e8a9ef955dd8",
+    "build_receipts.py": "a9b6035f395b8560e4383600cb3e8c6aae3d73defd258fc89141a1cf3882461b",
+    "demo.py": "8687164a062d223372e905e78decf6aa59b2fa86818abb544eb5e55537b757d4",
+    "examples/compact_defense.json": "84233269816d726e23cecd605094663e6f07ffb66579c4af1a9ca5a8c508d930",
+    "examples/insufficient_data.json": "10c599f34c1e1ecbc16b8a47ba6114352e128674254ea0a05666ee8e595d8550",
+    "examples/open_pressing_counter.json": "e44195001974171b346f611e45034ccd5e1b0366d67a85fb22425960e6beb044",
+    "logic_engine.py": "c84f31e2e6e199ad2c3aff94af819ed537b8cb461fc4c01311f1e01f67ee0a94",
+    "output/compact_contrafacts/conditional_effects.csv": "c583e93bbcb98c11a1f84c2d8933a5d08e29650b406831c501d6889f9ff2212f",
+    "output/compact_contrafacts/receipt.json": "70bd84ea632d3a386085a00da49c29eb12f816e5dfab80df118223d45181e0f1",
+    "output/compact_match_result.json": "519d54205b1ce6bf70f0210674c77822df541d40faba733b1fb7c33092f82bba",
+    "output/open_contrafacts/conditional_effects.csv": "4a8387dd3317d59ef107f068730fda2bf3299d5ff8304a13ff3228497002203d",
+    "output/open_contrafacts/receipt.json": "c378637c874b6866069366668606db0d0e72b556aab9c623c8a0704a04332423",
+    "output/open_match_result.json": "b3289ffec21af3b3ea65536e8ace40c9d4fec37d38e216382a9851c04473bb14",
+    "output/unknown_contrafacts/conditional_effects.csv": "d1d5b6ad148ba98008300d855ff46ab6415686416abcebb1519d31cda7c7530a",
+    "output/unknown_contrafacts/receipt.json": "d8865e3b1275d2d7518e1dd0f945c68b1312f90f38bc30d068ad8b704ec5b810",
+    "output/unknown_match_result.json": "422704aa7490094029ca562e82157df37c139ffce7496e0fa712d0495cf39bac",
+    "test_logic_engine.py": "609d6cc6fdcca6501fbc27bb05ecdec822897e8763a68e14cca9644cb733ca5d"
+  }
+}
