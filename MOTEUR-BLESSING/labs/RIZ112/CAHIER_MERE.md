@@ -1097,3 +1097,11 @@ La demande canonique n'est pas de créer une succession de registres décoratifs
 - Message : docs(riz112): specify scenario-to-IC reproducibility contract and caveats
 - Fichiers concernés : MOTEUR-BLESSING/labs/RIZ112/pret0_focus/V3_1/AUDIT_REJEU_EXACT_1000x44_20261023.md
 - Provenance : événement GitHub push. Ceci ne contient PAS les messages privés ChatGPT non consignés explicitement.
+
+
+### Synchronisation automatique GitHub — 2026-10-23T13:56:45.366268+00:00
+
+- Commit source : 6dc6a5f60d00b52a20afae5ef5d3c5d80b721120
+- Message : audit(riz112): add exact replay verifier for every one of 1000 random 44-factor scenarios
+- Fichiers concernés : MOTEUR-BLESSING/labs/RIZ112/pret0_focus/V3_1/VERIFICATEUR_1000x44_INTEGRAL.py
+- Provenance : événement GitHub push. Ceci ne contient PAS les messages privés ChatGPT non consignés explicitement.
