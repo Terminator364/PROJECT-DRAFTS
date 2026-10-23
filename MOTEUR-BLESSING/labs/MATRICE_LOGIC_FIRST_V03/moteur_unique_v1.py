@@ -10,6 +10,14 @@ from __future__ import annotations
 import argparse,hashlib,json
 from pathlib import Path
 from typing import Any
+import sys
+# Standalone on Windows/Linux: resolve sibling original V0.2 code without
+# requiring a manually-set PYTHONPATH or a Desktop Commander session.
+_V02_PATH = Path(__file__).resolve().parent.parent / "MATRICE_LOGIC_FIRST_V02"
+if not _V02_PATH.is_dir():
+    raise RuntimeError("MOTEUR_V02_SIBLING_REQUIRED_NO_SILENT_FALLBACK")
+if str(_V02_PATH) not in sys.path:
+    sys.path.insert(0, str(_V02_PATH))
 import registry_builder
 import logic_registry_v03
 import enrich_registry_v03
