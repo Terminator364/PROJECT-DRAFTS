@@ -84,8 +84,8 @@
   "journal": {
     "events": 162,
     "head": "b1c54c145e6d88f5956a37b9bdf97d45164d7090e5dd2d59ce2d0486b233d0a5",
-    "latest_id": "E163",
-    "latest_digest": "af910f9d75a1c5b9ec6e9b06c8f94b2162569f87c12e668d084d24b634e3f7d6"
+    "latest_id": "E164",
+    "latest_digest": "29bc26e4741c2d854638e9fde3b2d68d847ad763c01aa43a4fbc4426b603cb42"
   },
   "last_user_directive": "CTX-0077 exact: code Moteur/continue reads Cahier mere and next action, logic-first R8 62/355 (14 connected, 341 to integrate), seek mechanistic and conditional issues then optionally explicit theoretical IC, historic data fitting/calibration later; no accuracy guarantee.",
   "latest_case_audit": "step12/COUNTERFACTUAL_112_V12.json",
@@ -999,6 +999,9 @@
     "PC_online": false,
     "drive_readback_verified": false,
     "IC_theoretical": null,
-    "IC_calibrated": null
+    "IC_calibrated": null,
+    "drive_cahier_mirror_verified": true,
+    "drive_full_code_archive_verified": false,
+    "latest_journal_event_id": "E164"
   }
 }
