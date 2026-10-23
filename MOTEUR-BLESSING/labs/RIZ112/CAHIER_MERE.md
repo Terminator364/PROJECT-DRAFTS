@@ -2005,3 +2005,18 @@ Document de travail : `MOTEUR-BLESSING/labs/MATRICE_LOGIC_FIRST_V03/D069_AUDIT_S
 - Message : MOTEUR D070: route continuation to remaining private R8 355 E2E only; portable local 1000x112 delivered
 - Fichiers concernés : MOTEUR-BLESSING/labs/RIZ112/continuity/NEXT_ACTION.json
 - Provenance : événement GitHub push. Ceci ne contient PAS les messages privés ChatGPT non consignés explicitement.
+
+
+## D070 — 23 octobre 2026 — Exécution continue A → B → C et livraison du paquet local
+
+Nouvelle directive utilisateur enregistrée sous CTX-0091 : « Mais on y va, vas-y, finis, enchaîne les étapes. Enchaîne, tu finis, ah tu passes à B, tu passes à C, jusqu'à C que tu passes finis en tout cas. » Bilan exact d'exécution sous CTX-0092, journal E173.
+
+**A — Matrice préexistante préservée.** Réemploi sans recommencement de l'archive fournie `MOTEUR_BLESSING_V1_1_2_MOTEUR_ACTUEL_2026-10-16.zip`. SHA-256 source `5ef731d6ee4b5edb8a741c59a565d4f7363be84eb9225e814345cb0a04fe89e0`. Ses **100 fichiers** sont intégralement présents et leur contenu est identique octet par octet dans le paquet D070.
+
+**B — Expérience réellement calculée.** Un script reproduisible a modifié **112 entrées numériques** (parmi 240 du modèle ancien) dans **chacun de 1 000 profils synthétiques**, appartenant à **58 familles** distinctes. Les 1 000 IC Over1.5 synthétiques expérimentaux sont distincts, compris entre **55,702838 % et 58,988920 %**. L'analyse de perturbation isolée produit **105/112 entrées modifiant des formules de niveau 1**, **18/112 modifiant des interactions composites**, mais seulement **8/112 modifiant l'IC final expérimental**. Aucun de ces nombres ne prouve un effet sportif réel ni une fiabilité à 85 %.
+
+**C — Audit puis livraison.** Les **169/169 anciens tests** et **6/6 nouveaux tests** ont réussi dans le dossier construit, puis après extraction de l'archive dans un dossier vierge. Deux générations complètes de 1 000 profils ont été comparées octet par octet dans les tests et sont identiques. Une troisième régénération facultative après extraction a été interrompue par une limite d'exécution : elle n'est pas marquée PASS. ZIP de livraison **111 fichiers / 13 530 227 octets**, manifeste SHA de 110 fichiers, ZIP intégrité PASS. Disponible en pièce jointe de conversation `sandbox:/mnt/data/MOTEUR_D070_LIVRAISON_AUTONOME_1000_IC_112_VARIABLES_2026-10-23.zip` et sauvegardé dans la **Bibliothèque personnelle `/MOTEUR_D070/`** ; il contient un `LANCER_MOTEUR_D070.cmd` de double-clic Windows, qui nécessite Python 3 et conserve les résultats sous AppData. Le PC MBMPC était hors ligne : le lanceur n'y a pas été installé/testé.
+
+**Frontière intacte :** V1.1.2 a 62 familles et 240 variables numériques candidates, pas les 355 contrats source privés R8 fusionnés. Aucun nouveau reçu privé complet `CI_READBACK_D069.json` n'a été récupéré. Les 324 effets R8 individuels restent non signés ; l'IC réel calibré demeure `null`. Ne pas confondre laboratoire terminé et prédicteur de football scientifiquement achevé.
+
+Checkpoint durable public : `MOTEUR-BLESSING/labs/MATRICE_LOGIC_FIRST_V03/D070_LIVRAISON_1000_IC_112_VARIABLES_20261023.md`. Prochaine reprise `Moteur/continue` = D071, limité à l'intégration privée originale R8 E2E et aux preuves réelles pré-T0; ne pas réexécuter le lot D070 acquis sans modification.
