@@ -1661,3 +1661,18 @@ Après lecture de la directive D054 et de la version canonique V0.1, constructio
 - Message : MOTEUR E167: commit verified D058 31/31 original-R8 integrated results to hash-chain journal
 - Fichiers concernés : MOTEUR-BLESSING/labs/RIZ112/journal/JOURNAL_EVENEMENTS.jsonl
 - Provenance : événement GitHub push. Ceci ne contient PAS les messages privés ChatGPT non consignés explicitement.
+
+
+---
+
+## D057–D058 — 23 octobre 2026 — intégration du registre MATRICE R8 et audit des sources
+
+**Déclencheur et mandat exact disponible** : `Moteur/continue`, puis `👀`, puis « D'accord continue et fini le travail ». Transcription des trois messages dans les CTX-0079 à CTX-0081 ; résumé d'action CTX-0082. Aucun travail en arrière-plan n'est affirmé.
+
+**Construction** : nouvelle couche V0.3 (code public `MOTEUR-BLESSING/labs/MATRICE_LOGIC_FIRST_V03/`) ; la branche source MATRICE R8 d'origine reste inchangée ; branche de vérification privée `Terminator364/ChatGPT-PC:research/moteur-logic-first-d057-2026-10-23`. `compile_v22.current` réel a produit 62 familles et 355 enfants; chacun a une route de preuve et, par équipe, un emplacement pré-match (710 au total). Lecture strictement PIT, contrôle des éditeurs et sources, UNKNOWN ≠ zéro, événements historiques partagés signalés.
+
+**Audit et contre-audit** : le premier essai CI a obtenu 27/28 du fait d'une assertion erronée (message différent, rejet voulu correct). Après réparation de cette assertion, deuxième essai **28/28 PASS**, véritable base V0.1 incluse. Enrichissement D058 : 24 fichiers de source R8 originaux, **343 enfants documentaires JSON reliés à leurs définitions et anti-chevauchement** et **12 enfants d'archives d'origine** reconnus. Troisième run CI GitHub Actions **31/31 PASS**. Reçu privé `MATRICE/R8_G3_DEEP_20261014/MOTEUR_LOGIC_FIRST_D057/CI_READBACK_D057.json`, indicateurs `all_pass=true`, `semantic_source_enrichment_pass=true`, `source_definitions_linked=343`, `legacy_archives_linked=12`.
+
+**Ré-audit épistémique** : la couverture **technique/contractuelle 355/355 est complète** mais **la couverture des effets causaux signés ne l'est pas**. Les 31 premiers ont été raccordés aux règles logiques V0.2 ; 10 sont maintenus en garde sémantique D056 ; 21 sont activables uniquement dans l'hypothèse synthétique. Les 324 autres sont consultables, vérifiables et affectés à un rôle provisoire mais **pas aux mécanismes causaux de buts validés**. La typologie automatique (310 candidats processus, 35 gardes de source/définition, 10 contextes conditionnels) ne vaut pas expertise individuelle. Ni 355 lois de buts, ni calibration, ni performance prédictive ne sont démontrées. `numeric_IC_theoretical_under_hypotheses=null`, `numeric_IC_calibrated=null`, MATRICE 2.0 gelée.
+
+**Synchronisation** : journal chaîné E167, contexte CTX-0079..0082, décisions D057/D058, checkpoint D057 et Google Doc du Cahier mère actualisé et relu, sous revue dans `continuity/NEXT_ACTION.json`. **Aucun nouveau ZIP Drive complet ni test MBMPC** attesté. Suite fidèle au code unique : revue de la sémantique de chacun des 324 puis mécanismes conditionnels et oppositions valides, collecte PIT et estimation empirique seulement après la logique.
