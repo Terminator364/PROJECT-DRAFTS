@@ -1700,3 +1700,11 @@ Après lecture de la directive D054 et de la version canonique V0.1, constructio
 - Message : MOTEUR D058: synchronize canonical checkpoint journal E167 contexts 82 source 355 CI 31/31
 - Fichiers concernés : MOTEUR-BLESSING/labs/RIZ112/CHECKPOINT.json
 - Provenance : événement GitHub push. Ceci ne contient PAS les messages privés ChatGPT non consignés explicitement.
+
+
+### Synchronisation automatique GitHub — 2026-10-23T20:25:50.300700+00:00
+
+- Commit source : ca384c43ba95f76808f538a96f4c53a648912981
+- Message : MOTEUR D059: accept two established legacy journal event types without changing any hashes
+- Fichiers concernés : MOTEUR-BLESSING/labs/RIZ112/journal/journal_tool.py
+- Provenance : événement GitHub push. Ceci ne contient PAS les messages privés ChatGPT non consignés explicitement.
