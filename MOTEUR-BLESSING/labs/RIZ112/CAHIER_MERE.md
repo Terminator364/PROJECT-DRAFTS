@@ -1291,3 +1291,18 @@ Rapport canonique : [CONTRAT_1_IC_GLOBAL_44_IMPACTS_CONDITIONNELS_20261023.md](p
 - Message : audit(riz112): exact S0001 IC calculation 83 of 128, compare 256/1024 and disclose model assumptions
 - Fichiers concernés : MOTEUR-BLESSING/labs/RIZ112/pret0_focus/V3_1/D051_PREUVE_CALCUL_IC_S0001_83_SUR_128_20261023.md
 - Provenance : événement GitHub push. Ceci ne contient PAS les messages privés ChatGPT non consignés explicitement.
+
+
+## 2026-10-23 — D051 : preuve de l'origine numérique exacte de l'IC S0001 (83/128)
+
+**Question utilisateur verbatim dans la conversation active :** « Mais justement, dans ma question. Tu dis, il applique ses règles de calcul pour estimer le restant de la chaleur, des sudations, la puissance et les autres conséquences. Et puis après tu me dis, il est en train de paramétrer le scénario S 0001, interaction et calcul du moteur IC global calculé 63,24%. En clair et net justement, comment tu calcules cet IC pour avoir 63% ? »
+
+**Rectification : S0001 = 64,844 %, non 63,24.** Audit réellement exécuté à partir du code source du package D050 (graine historique `20261023*100000`, 44 entrées exactes du CSV), reçu mathématique : [D051_PREUVE_CALCUL_IC_S0001_83_SUR_128_20261023.md](pret0_focus/V3_1/D051_PREUVE_CALCUL_IC_S0001_83_SUR_128_20261023.md).
+
+1. `ic44.run` calcule à partir des 44 entrées et des dépendances : eau utilisée `306,9 g`, eau retenue `11,84484 g`, évaporation `31,415635 g`, eau restante `287,329205 g`, cible d'hydratation `283,946077 g`, chaleur `274206,280998 J`, progression thermique `1,464737`.
+2. `ic44_v3.grade_physics` calcule **Q* nominal = 93,841885/100** par sept dimensions : hydratation 100 (27%), thermique 77,47114 (21%), séparation 100 (15%), intégrité 100 (13%), hygiène 100 (11%), goût 93,54881 (8%), service 81,7808 (5%); aucun plafond critique nominal pour S0001.
+3. `ic44_v3.simulate` crée 128 mondes d'incertitude sur des hypothèses pré-déclarées (dosage d'eau CV 3,5% avec outils, puissance, rendement, évaporation, absorption, bruit supplémentaire `σ=2,5` points, panne aléatoire d'énergie liée à R007). **83 notes Q*≥85 / 128 tirages = 64,84375%, arrondi 64,844%** ; 45 échecs dont 2 pannes énergétiques simulées. `IC_scientifique = null`.
+4. Test de précision **sur le même S0001**, même code, mêmes 44 valeurs et même graine : `128→83→64,844%`, `256→174→67,969%`, `1024→695→67,871%`. La variation provient de l'échantillonnage numérique : **les 44 paramètres SEULS ne déterminent pas 64,844 % sans barème Q*, lois d'incertitude, graine et résolution.** Les poids Q* et les lois restent hypothétiques et non calibrés sur données réelles. L'augmentation des tirages ne rend pas l'IC scientifiquement fiable par magie.
+5. **Contrat A inchangé :** les 44 analyses d'impact d'un scénario sont des recalculs `what-if` séparés; elles ne sont PAS nécessaires pour obtenir l'IC global principal. Les données 1000×44 existantes restent intactes ; suivi D050 `748/44000` IC conditionnels en date du dernier checkpoint connu.
+
+**Décision de méthode :** distinguer pour chaque IC la *cause physique approximative*, la *transformation en qualité Q**, les *lois d'incertitude*, le *calcul de fréquence simulée*, et la *validation scientifique future*. Le laboratoire existe pour enseigner cette traçabilité à MATRICE, non pour fabriquer des valeurs de confiance.
