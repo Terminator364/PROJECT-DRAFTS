@@ -16,6 +16,8 @@ class RegistryTest(unittest.TestCase):
   r=b.assemble(sample())
   self.assertEqual((r['worlds'],len(r['subparameters']),r['software_wired_to_explanatory_rules']),(62,355,31))
   self.assertEqual(len({c['id'] for c in r['subparameters']}),355)
+  self.assertEqual((r['held_semantic_only'],r['conditionally_activatable_under_lab_hypotheses']),(10,21))
+  self.assertEqual(sum(x['code_wiring']=='TRACEABLE_SEMANTIC_HOLD_ONLY' for x in r['subparameters']),10)
   self.assertEqual(r['real_semantic_roles_individually_human_validated'],0)
  def test_wrong_count(self):
   bad=sample();bad['rich_contract_children']=354
