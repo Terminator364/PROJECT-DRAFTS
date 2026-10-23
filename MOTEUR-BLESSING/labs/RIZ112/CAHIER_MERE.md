@@ -853,3 +853,11 @@ Les 1000 scénarios historiques ×112 et l'exploratoire Q* (12/1000 >=85) sont *
 La **porte RACCORDEMENT_LOGICIEL_44_SUR_44** est clôturée avec preuves Python locales et CI Linux GitHub. La prochaine session peut démarrer directement une campagne neuve `SIM_PRET0_44_V1` construite sur `pipeline44.run44` : produire des dossiers strictement pré-préparation, varier les familles avec contrefactuels, compter refus/UNKNOWN, comparer ancien Q* aux sorties du pipeline, conserver les anciens 1000 et consigner tout dans le registre/Cahier mère. **Ne pas promouvoir un IC synthétique au rang d'une probabilité réelle.**
 
 **Références** : CTX-0063, E142–E143, commit de workflow `80bfdbde5bb9968b69c23082274afe8ec0732d25`, https://github.com/Terminator364/PROJECT-DRAFTS/tree/main/MOTEUR-BLESSING/labs/RIZ112/pret0_focus/.
+
+
+### Synchronisation automatique GitHub — 2026-10-23T10:56:36.025899+00:00
+
+- Commit source : f1838f48ddeb86b2c33008b236771e9d9dc6815e
+- Message : docs(riz112): evidence for 44 synthetic parameter-to-ICE effects and limits
+- Fichiers concernés : MOTEUR-BLESSING/labs/RIZ112/pret0_focus/RAPPORT_ICE_44X44_20261023.md
+- Provenance : événement GitHub push. Ceci ne contient PAS les messages privés ChatGPT non consignés explicitement.

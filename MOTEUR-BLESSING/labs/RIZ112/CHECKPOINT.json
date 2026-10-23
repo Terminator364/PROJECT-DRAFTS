@@ -646,5 +646,14 @@
     "integration_pilot_ic_demo_percent": 58,
     "new_full_1000_scenario_campaigns_this_session": 0,
     "not_direct_quality_ic_fields": 31
+  },
+  "automatic_git_sync": {
+    "enabled": true,
+    "last_source_revision": "f1838f48ddeb86b2c33008b236771e9d9dc6815e",
+    "last_verified_time_utc": "2026-10-23T10:56:36.025899+00:00",
+    "log": "continuity/AUTO_GIT_EVENTS.jsonl",
+    "captures_private_chat_automatically": false,
+    "automatically_updates_google_docs": false,
+    "source_scope": "GitHub pushes in RIZ112 only"
   }
 }
