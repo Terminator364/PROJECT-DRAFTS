@@ -2266,3 +2266,8 @@ Rapport : `MOTEUR-BLESSING/labs/MATRICE_LOGIC_FIRST_V03/D071C_LOGIQUE_AVANT_DONN
 - **Travaux RIZ112 distincts :** l'expérience D050 des 1000 scénarios ×44 IC conditionnels (17 déjà traités, 983 restant dans son propre cahier) n'est ni clôturée ni remplacée par D072L.
 
 **Statut exact :** code synchronisé; tests de logique sur graphe fictif PASS; E2E authentique R8 NON prouvé; validation sportive NON réalisée.
+
+
+## MOTEUR D076 — synchronisation 2026-10-24
+
+Version D076 livrée (ZIP+HTML) dans la bibliothèque `/MOTEUR_D076_UNIFIE_355/`. Le registre R8 conserve 62 familles/355 IDs/710 cases, les recettes d'acquisition antérieures, un modèle d'interactions conditionnelles et 1 000 scénarios non calibrés. Test Gamba–Kyoto pré-match : IC théorique 79,037 %, 7 sources, 135 cases individualisées, 575 sans preuve individuelle ; 40 tests Python et Chromium passent. **La recherche via Internet n'est pas automatique dans le HTML** : elle reste assurée par ChatGPT et ses sources, puis injectée par dossier JSON. La calibration empirique reste à faire. Checkpoint détaillé : `MOTEUR-BLESSING/labs/MATRICE_LOGIC_FIRST_V03/D076_CHECKPOINT_20261024.md`. RIZ112 demeure un laboratoire distinct. Mot-clé : `Moteur/continue`.
