@@ -2068,3 +2068,16 @@ Checkpoint durable public : `MOTEUR-BLESSING/labs/MATRICE_LOGIC_FIRST_V03/D070_L
 - Message : MOTEUR D071 continuity: 355 real-source audit & 71 public CI validated, private original source run receipt remains absent; targeted resume
 - Fichiers concernés : MOTEUR-BLESSING/labs/RIZ112/continuity/NEXT_ACTION.json
 - Provenance : événement GitHub push. Ceci ne contient PAS les messages privés ChatGPT non consignés explicitement.
+
+
+## D071 — 24 octobre 2026 : contrôle d'intégration des 355 sources et dernière porte E2E
+
+Directive « Go » puis « Continue le run!! on doit le finir » conservée dans CTX-0093/0095. Journal E174, 96 entrées de contexte. Le moteur V1.1.2 D070 n'est pas reconstruit.
+
+**A — Audits des originaux : FAIT.** Source privée R8 V22 ouverte et confrontée à ses contrats : 343/343 enfants documentaires dans 24 fichiers JSON originaux. Deux fichiers historiques extraits depuis le ZIP d'origine ajoutent 8+4 contrats ; **355/355 identités de source vérifiées**, 62 mondes, 1088 liens documentaires, 710 emplacements à deux équipes. Les 12 branches modernes nommées sans garde et les 12 états anciens sans garde demeurent non exécutables; 4 anciennes attributions de propriétaire demeurent UNKNOWN. Aucun coefficient inventé.
+
+**B — Code intégré et sécurité : FAIT SUR LES TESTS.** La porte `MATRICE_LOGIC_FIRST_V03/moteur_d071_private_full_gate.py` vérifie origine, nombre, horizons, interdiction des poids sportifs, 1000 IC de laboratoire, stockage privé et SHA-256. Suite publique GitHub Actions **71/71 tests Python PASS**, dont chemin complet sur 355 objets de test et garde contre la certification abusive de faux originaux. Reçu de provenance authentique de 355 contrats signé dans la branche privée.
+
+**C — Dernière exécution privée sur les véritables 355 : NON ATTESTÉE.** Workflow privé strict D071 créé, mais `CI_READBACK_D071.json` absent à la dernière lecture. PC MBMPC hors ligne. Aucune réussite privée de bout en bout, amélioration sportive, IC réel calibré ou exactitude 85 % proclamée. Les 324 effets individuels sans signe restent non pondérés.
+
+Rapport complet livré dans la Bibliothèque `/MOTEUR_D071/MOTEUR_D071_RAPPORT_INTEGRATION_2026-10-24.md` et le canal de conversation. Code `Moteur/continue` = contrôle ciblé `D071_VERIFY_PRIVATE_TRUE_ORIGINAL_PYTHON_E2E` : obtenir le reçu privé PASS, puis seulement amorcer D072 scientifique. Aucun restart D070 ni D071 nécessaire.
