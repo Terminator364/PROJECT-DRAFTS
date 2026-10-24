@@ -51,3 +51,18 @@ Test intégré GitHub Actions D058 : **31 tests / 31 réussis**, compilation V22
 ### Critère de fin scientifique
 
 Ces réalisations finissent un **laboratoire logique et deux calculatrices sous hypothèses**, pas le moteur prédictif empirique. Le vrai IC d'un match dépend de taux `lambda` ou de projections d'occasions mesurés avant T0 et statistiquement éprouvés; les 324 enfants non signés ne deviennent pas de faux bonus; une cible de précision de 85 % est **non démontrée**. Pour l'usage réel, il manque un corpus pré-match daté avec issues finales indépendantes, une estimation causale/statistique des intensités, et la validation hors échantillon avec calibration.
+
+
+## Synchronisation D072L — 2026-10-24, moteur logique prioritaire
+
+**Code de reprise universel :** `Moteur/continue`. Reprendre l'interpréteur logique D072L et les sources D071C, sans redémarrer le moteur D070 ni les pistes RIZ112/D050.
+
+- **R8 / MATRICE :** 62 mondes, 355 sous-paramètres originaux, 1088 liens documentaires (non causaux), 710 emplacements HOME/AWAY. Les sources R8 privées restent privées.
+- **Nouveaux fichiers publics :** `labs/MATRICE_LOGIC_FIRST_V03/moteur_logique_v2.py`, `test_moteur_logique_v2.py`, `D072L_NOTE_INTEGRATION_20261024.md`, `CHECKPOINT_D072L_20261024.json`. Les garde-fous du V1 sont conservés.
+- **Nouvelle logique :** 12 règles AND précises par monde et côté, 24 lectures de prémisses; états `SUPPORTED_COOCCURRENCE`, `PREMISE_FALSE`, `INDETERMINATE`, `CONTRADICTED`. FALSE/UNKNOWN ne sont pas comptés comme des conditions satisfaites; une défense HOME ne remplace pas une défense adverse AWAY.
+- **Laboratoire autonome :** 1000 scénarios de 710 emplacements synthétiques; chaque emplacement connaît TRUE/FALSE/UNKNOWN sur la grille; 8 tests V2 PASS sur simulateur V1 et graphe fictif. Cette validation locale n'est **pas** le Python E2E sur les sources privées originales.
+- **IC :** D070 1000 IC numériques 112 variables synthétiques conservés; D072L ne crée aucun IC numérique par magie à partir des 355 sources. Aucun IC sportif calibré ni 85 % de réussite prouvés.
+- **Épreuve encore ouverte :** reçu privé `CI_READBACK_D071.json` absent au dernier contrôle de cette reprise; reprendre l'exécution intégrée sur vrai graphe R8 puis individualiser/contre-auditer les interprétations des sous-paramètres sans signer des causalités inexistantes.
+- **Travaux RIZ112 distincts :** l'expérience D050 des 1000 scénarios ×44 IC conditionnels (17 déjà traités, 983 restant dans son propre cahier) n'est ni clôturée ni remplacée par D072L.
+
+**Statut exact :** code synchronisé; tests de logique sur graphe fictif PASS; E2E authentique R8 NON prouvé; validation sportive NON réalisée.
