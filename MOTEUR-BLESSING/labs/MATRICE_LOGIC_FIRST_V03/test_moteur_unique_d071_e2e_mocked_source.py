@@ -34,10 +34,10 @@ class TestD071SyntheticFullOrchestration(unittest.TestCase):
         try:
             # Inject ONLY unavailable canonical source I/O. Real graph, stage,
             # dossier, evidence, IC, 1000-grid, and manifest code is executed.
-            with patch.object(engine.registry_builder,"read_canonical",return_value=sample()), \\
-                 patch.object(engine.enrich_registry_v03,"enrich",return_value=semantic), \\
-                 patch.object(engine.source_graph_v04,"extract_original_archives",return_value={}), \\
-                 patch.object(engine.source_graph_v04,"complete_archives",return_value=semantic), \\
+            with patch.object(engine.registry_builder,"read_canonical",return_value=sample()), \
+                 patch.object(engine.enrich_registry_v03,"enrich",return_value=semantic), \
+                 patch.object(engine.source_graph_v04,"extract_original_archives",return_value={}), \
+                 patch.object(engine.source_graph_v04,"complete_archives",return_value=semantic), \
                  patch.object(engine.source_field_audit_v05,"original_lookup",return_value=original):
                 result=engine.build(root,CASE,RATES,None,True)
             hashes=engine.persist(result,root/"output_d071")
@@ -88,10 +88,10 @@ class TestD071SyntheticFullOrchestration(unittest.TestCase):
         root=Path(temp.name)
         try:
             original.pop(next(iter(original)))
-            with patch.object(engine.registry_builder,"read_canonical",return_value=sample()), \\
-                 patch.object(engine.enrich_registry_v03,"enrich",return_value=semantic), \\
-                 patch.object(engine.source_graph_v04,"extract_original_archives",return_value={}), \\
-                 patch.object(engine.source_graph_v04,"complete_archives",return_value=semantic), \\
+            with patch.object(engine.registry_builder,"read_canonical",return_value=sample()), \
+                 patch.object(engine.enrich_registry_v03,"enrich",return_value=semantic), \
+                 patch.object(engine.source_graph_v04,"extract_original_archives",return_value={}), \
+                 patch.object(engine.source_graph_v04,"complete_archives",return_value=semantic), \
                  patch.object(engine.source_field_audit_v05,"original_lookup",return_value=original):
                 with self.assertRaisesRegex(Exception,"REQUIRED_R8_355"):
                     engine.build(root,CASE,RATES,None,True)
