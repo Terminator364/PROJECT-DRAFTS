@@ -1,0 +1,28 @@
+{
+  "context": {
+    "R8_children_original": 355,
+    "R8_worlds": 62,
+    "documentary_edges": 1088,
+    "two_team_slots": 710
+  },
+  "continuity": "Moteur/continue",
+  "created_utc": "2026-10-24T11:02:23.589191+00:00",
+  "delivered": {
+    "fixture_world_states": 62,
+    "mock_local_tests_passed": 8,
+    "number_of_synthetic_scenarios": 1000,
+    "synthetic_slots_with_all_three_states": 710,
+    "two_sides": 2,
+    "typed_and_rules_per_side": 12
+  },
+  "next_step": "Integrer et verifier Python sur graphe prive original; revue semantique individuelle, pas de coefficients inventes.",
+  "schema": "D072L_CHECKPOINT_LOGIC_FIRST_2026_10_24",
+  "validation": {
+    "D071_private_e2e_receipt": "NOT_FOUND",
+    "legacy_D070_1000_synthetic_numeric_ics": "PRESERVED_NOT_REBUILT",
+    "local_tests_on_mock_graph": "PASS",
+    "numerical_IC_from_R8_alone": null,
+    "python_real_original_private_355": "NOT_TESTED",
+    "real_match_validation": false
+  }
+}
