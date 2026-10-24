@@ -23,7 +23,7 @@
     "context_master": "CONTEXTE_CONVERSATIONS.md",
     "context_protocol": "PROTOCOLE_CONTINUITE_CONTEXTUELLE.md",
     "context_registry": "CONTEXTE_INTEGRAL/REGISTRE_MESSAGES.jsonl",
-    "context_rows": 98,
+    "context_rows": 100,
     "context_update_rule": "ACTIVE_SESSION_EVERY_RELEVANT_EXCHANGE_AND_CHECKPOINT__NO_BACKGROUND",
     "coverage": "SOME_VERBATIM_EXCERPTS_AND_FLAGGED_RECONSTRUCTIONS_NOT_FULL_RAW_ARCHIVE",
     "drive_current_doc": "https://docs.google.com/document/d/13gOTBq7AXnT-f9Lotlw4czwa4i75C4UGdP0i1i0qwZE/edit",
@@ -32,14 +32,14 @@
     "github_status": "D058_REAL_R8_31_TESTS_PASS; D060_JOURNAL_168_CHAIN_AND_RESUME_PASS",
     "initial_source_archive_drive": "https://drive.google.com/file/d/1rFq9GiwbRvb-Hk33JayacttjBOUdAabf/view?usp=drivesdk",
     "initial_source_archive_sha256": "15182d217e42c2985cb4652ac5c2ee9f6afe6afca55ec148b3c803e52b14ede8",
-    "journal_events": 175,
-    "journal_head": "e3a977b42f6d5e7d1905b8aad980d5cf35006576667aae20702f6ebea229fd8c",
+    "journal_events": 176,
+    "journal_head": "798f615d9051272d520a42d922bfdf83f9557b176e0a8f10e45c8f7b6140ceee",
     "lab_code": "Moteur/continue",
     "latest_context_ids": [
-      "CTX-0095",
-      "CTX-0096",
       "CTX-0097",
-      "CTX-0098"
+      "CTX-0098",
+      "CTX-0099",
+      "CTX-0100"
     ],
     "legacy_codes_active": false,
     "library_status": "SOURCE_ARCHIVE_CONFIRMED",
@@ -53,7 +53,7 @@
     "parent_manifest_status": "GITHUB_UPDATED_AND_READBACK",
     "single_code_contract": "continuity/CONTRAT_CODE_UNIQUE.md",
     "windows_status": "MBMPC_OFFLINE_LAST_CHECK",
-    "context_registry_sha256": "16d903af1d0941beace1945660774a8161384b2e3056168fe6c0a48db4df1664",
+    "context_registry_sha256": "db1c6f10b123daf7e9fd784d5a44abd8a1d29c821b2200b78d31ce8c266eca77",
     "one_code_tests_passed": 6,
     "historic_regression_tests_passed": 309,
     "readback": "D060_PRIVATE_CI_JOURNAL_VALID_168; NEXT_ACTION_RESUME_PASS; DRIVE_DOC_D058_READBACK; ZIP_NOT_SYNCED",
@@ -64,9 +64,9 @@
     "current_preT0_audit": "pret0_focus/README_44_CONNECTE_20261023.md",
     "current_unique_user_directive": "CTX-0081",
     "ctx0078_is_duplicate_of": "CTX-0077",
-    "latest_active_checkpoint": "MOTEUR-BLESSING/labs/MATRICE_LOGIC_FIRST_V03/D071B_PORTE_E2E_20261024.md",
+    "latest_active_checkpoint": "MOTEUR-BLESSING/labs/MATRICE_LOGIC_FIRST_V03/D071C_LOGIQUE_AVANT_DONNEES_20261024.md",
     "google_doc_refreshed_D056": true,
-    "local_artifact_library_path": "/MOTEUR_D070/MOTEUR_D070_LIVRAISON_AUTONOME_1000_IC_112_VARIABLES_2026-10-23.zip",
+    "local_artifact_library_path": "/MOTEUR_LOGIQUE_V1/MOTEUR_R8_LOGIQUE_V1_CODE_ET_TESTS_2026-10-24.zip",
     "library_D071_report": "/MOTEUR_D071/MOTEUR_D071_RAPPORT_INTEGRATION_2026-10-24.md",
     "context_registry_sha256_verified_by_JS": true
   },
@@ -87,10 +87,10 @@
   },
   "full_packet_replay": "step12/POPULATION_100_COMPLETE_PACKET.jsonl",
   "journal": {
-    "events": 175,
-    "head": "e3a977b42f6d5e7d1905b8aad980d5cf35006576667aae20702f6ebea229fd8c",
-    "latest_id": "E175",
-    "latest_digest": "e3a977b42f6d5e7d1905b8aad980d5cf35006576667aae20702f6ebea229fd8c"
+    "events": 176,
+    "head": "798f615d9051272d520a42d922bfdf83f9557b176e0a8f10e45c8f7b6140ceee",
+    "latest_id": "E176",
+    "latest_digest": "798f615d9051272d520a42d922bfdf83f9557b176e0a8f10e45c8f7b6140ceee"
   },
   "last_user_directive": "CTX-0077 exact: code Moteur/continue reads Cahier mere and next action, logic-first R8 62/355 (14 connected, 341 to integrate), seek mechanistic and conditional issues then optionally explicit theoretical IC, historic data fitting/calibration later; no accuracy guarantee.",
   "latest_case_audit": "step12/COUNTERFACTUAL_112_V12.json",
@@ -129,7 +129,7 @@
       "054"
     ]
   },
-  "next": "D071-VERIFY-MAIN-WORKFLOW-E2E-RECEIPT-NOT-FOUND",
+  "next": "continuity/NEXT_ACTION.json: MOTEUR_D071C_LOGIC_FIRST_RULES_AND_PRIVATE_SOURCE_PROOF",
   "probabilities_demo_percent": {
     "A": 62.4,
     "B": 36.83,
@@ -226,7 +226,7 @@
     "tests_total": 309,
     "validated_effects": 0
   },
-  "status": "MOTEUR_D071B_SOURCE_AUDITED_PRIVATE_E2E_PENDING",
+  "status": "MOTEUR_D071C_LOGIC_FIRST_355_SOURCE_PORTABLE_12_TESTS_PRIVATE_PYTHON_E2E_NOT_ATTESTED",
   "step10": {
     "abstentions_original": 5,
     "derived_not_directly_mutable": 4,
@@ -1177,5 +1177,19 @@
     "private_full_gate_workflow_created": true,
     "Library_report_saved": true,
     "google_docs_mother_synced_and_verified": true
+  },
+  "latest_verified_D071C": {
+    "source_children_355": 355,
+    "source_worlds_62": 62,
+    "original_source_documentary_edges": 1088,
+    "home_away_prematch_slots": 710,
+    "rule_families": 5,
+    "local_python_tests_passed": 12,
+    "private_original_read_only_JS_demo_cooccurrences": 6,
+    "private_original_read_only_JS_demo_conditional_pathways": 9,
+    "private_original_read_only_JS_demo_total_pathways": 10,
+    "original_private_source_python_end_to_end_receipt": "NOT_VERIFIED",
+    "sporting_probability_validated": null,
+    "project_strategy": "LOGIC_BEFORE_DATA"
   }
 }
