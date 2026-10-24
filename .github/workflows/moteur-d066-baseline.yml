@@ -9,6 +9,8 @@ on:
       - MOTEUR-BLESSING/labs/MATRICE_LOGIC_FIRST_V03/test_source_mechanism_dossiers_v11.py
       - MOTEUR-BLESSING/labs/MATRICE_LOGIC_FIRST_V03/test_audit_legacy_v12_v13.py
       - MOTEUR-BLESSING/labs/MATRICE_LOGIC_FIRST_V03/test_moteur_unique_d071_e2e_mocked_source.py
+      - MOTEUR-BLESSING/labs/MATRICE_LOGIC_FIRST_V03/moteur_d071_private_full_gate.py
+      - MOTEUR-BLESSING/labs/MATRICE_LOGIC_FIRST_V03/test_moteur_d071_private_full_gate.py
       - MOTEUR-BLESSING/labs/MATRICE_LOGIC_FIRST_V03/source_mechanism_dossiers_v11.py
       - MOTEUR-BLESSING/labs/MATRICE_LOGIC_FIRST_V03/moteur_unique_v1.py
   workflow_dispatch:
@@ -26,7 +28,7 @@ jobs:
           set +e
           export PYTHONPATH="$GITHUB_WORKSPACE/MOTEUR-BLESSING/labs/MATRICE_LOGIC_FIRST_V02:$GITHUB_WORKSPACE/MOTEUR-BLESSING/labs/MATRICE_LOGIC_FIRST_V03"
           cd MOTEUR-BLESSING/labs/MATRICE_LOGIC_FIRST_V03
-          python -m unittest -v test_historical_baseline_v12 test_shot_process_v10 test_causal_and_ic_v09 test_source_mechanism_dossiers_v11 test_moteur_unique_v1 test_audit_legacy_v12_v13 test_moteur_unique_d071_e2e_mocked_source > D066_TESTS.log 2>&1
+          python -m unittest -v test_historical_baseline_v12 test_shot_process_v10 test_causal_and_ic_v09 test_source_mechanism_dossiers_v11 test_moteur_unique_v1 test_audit_legacy_v12_v13 test_moteur_unique_d071_e2e_mocked_source test_moteur_d071_private_full_gate > D066_TESTS.log 2>&1
           RC=$?
           export RC
           python - <<'PY'
