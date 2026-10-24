@@ -96,6 +96,43 @@ class TestAll355Dossiers(unittest.TestCase):
             self.assertFalse(b["causal_direction_signed"])
         finally:t.cleanup()
 
+    def test_byte_verified_archival_state_only_branch_is_not_fabricated(self):
+        t,sem,orig=source()
+        try:
+            first=next(iter(orig.values()))
+            first["scenario_tree"]["branches"]=[{
+                "state_id":"OFFICIAL_XI_ARCHIVED_BEFORE_T",
+                "label":"Onze réellement publié avant T",
+                "probability":None,
+                "weight_source":"UNESTIMATED",
+                "evidence_status":"HYPOTHETICAL_UNLESS_ATTESTED"
+            }]
+            d=md.dossiers(sem,orig)
+            self.assertEqual(d["operational_dossiers"],355)
+            self.assertEqual(d["source_archival_state_without_guard_child_count"],1)
+            b=d["dossiers"][0]["conditional_source_scenarios"][0]
+            self.assertEqual(b["original_source_state_id"],"OFFICIAL_XI_ARCHIVED_BEFORE_T")
+            self.assertIsNone(b["original_guard_predicate"])
+            self.assertFalse(b["guard_executable"])
+            self.assertTrue(b["source_archival_state_without_guard"])
+            self.assertTrue(b["guard_not_authored_abstain"])
+            self.assertIsNone(b["branch_weight"])
+            self.assertFalse(b["causal_direction_signed"])
+        finally:t.cleanup()
+
+    def test_legacy_unknown_weight_source_cannot_bypass_guard(self):
+        t,sem,orig=source()
+        try:
+            next(iter(orig.values()))["scenario_tree"]["branches"]=[{
+                "state_id":"STATE_WITHOUT_PROVENANCE",
+                "description":"example",
+                "probability":None,
+                "weight_source":"MYSTERY",
+            }]
+            with self.assertRaisesRegex(SourceGraphError,"UNSPECIFIED_SOURCE_BRANCH_GUARD"):
+                md.dossiers(sem,orig)
+        finally:t.cleanup()
+
     def test_unqualified_guardless_named_branch_is_rejected(self):
         t,sem,orig=source()
         try:
