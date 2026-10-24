@@ -2195,3 +2195,11 @@ Directive utilisateur CTX-0099 : ne pas attendre des millions de matchs, une ex�
 Rapport : `MOTEUR-BLESSING/labs/MATRICE_LOGIC_FIRST_V03/D071C_LOGIQUE_AVANT_DONNEES_20261024.md`.
 
 **Prochaine priorité du code `Moteur/continue` :** poursuivre le moteur logique des 355 sources en améliorant les règles conditionnelles *avec des prémisses explicitement signées et une structure sans double compte*, tester la version Python directement contre la source privée lorsque la connexion d'exécution est disponible, puis seulement aborder une calibration sportive ultérieure si souhaitée. Ne plus imposer l'étape Windows ou l'analyse historique comme préalable à la logique.
+
+
+### Synchronisation automatique GitHub — 2026-10-24T10:29:26.864800+00:00
+
+- Commit source : ba7efb59707cf7d9aae0291434df6dd24a4bb691
+- Message : MOTEUR E176: Cahier mere corrections D071C, executable logic-first source graph and honest IC scope
+- Fichiers concernés : MOTEUR-BLESSING/labs/RIZ112/CAHIER_MERE.md
+- Provenance : événement GitHub push. Ceci ne contient PAS les messages privés ChatGPT non consignés explicitement.
