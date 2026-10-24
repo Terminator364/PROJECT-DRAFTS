@@ -120,6 +120,60 @@ class TestAll355Dossiers(unittest.TestCase):
             self.assertFalse(b["causal_direction_signed"])
         finally:t.cleanup()
 
+    def test_original_lot01_nested_owner_method_policy_and_scope(self):
+        t,sem,orig=source()
+        try:
+            old=next(iter(orig.values()))
+            owner=old.pop("anti_double_count_owner")
+            old["anti_double_count"]={"owner":owner}
+            old["scenario_tree"]["branches"]=[{
+                "state_id":"SOURCE_ONLY_LEGACY_STATE",
+                "label":"Qualitative state, not a predicate",
+                "probability":None,"weight_source":"UNESTIMATED"
+            }]
+            old["anticipations_by_horizon"]=[
+                {"horizon":h,"method":"archived source method",
+                 "if_unavailable":"SOURCE_NOT_PUBLISHED"} for h in H]
+            old["question"]="Original Lot01 question"
+            old["applicability"]={"exact_fixture_required":True}
+            old["excluded_scope"]=["target live data prohibited"]
+            out=md.dossiers(sem,orig)
+            row=out["dossiers"][0]
+            self.assertEqual(out["operational_dossiers"],355)
+            self.assertEqual(row["anti_double_count_owner"],owner)
+            self.assertEqual(row["anti_double_count_owner_source_field"],"anti_double_count.owner")
+            self.assertTrue(row["source_owner_originally_attested"])
+            self.assertEqual(row["native_source_question_or_definition"],"Original Lot01 question")
+            self.assertEqual(row["source_archived_applicability_as_written"],{"exact_fixture_required":True})
+            self.assertEqual(row["not_owned_or_excluded_effects"],["target live data prohibited"])
+            self.assertEqual(row["prematch_six_horizons"][0]["guard_procedure"],"archived source method")
+            self.assertEqual(row["prematch_six_horizons"][0]["original_procedure_source_key"],"method")
+            self.assertEqual(row["prematch_six_horizons"][0]["missing_data_policy"],"SOURCE_NOT_PUBLISHED")
+            self.assertFalse(row["conditional_source_scenarios"][0]["guard_executable"])
+        finally:t.cleanup()
+
+    def test_original_pilot_purpose_with_no_owner_remains_unknown(self):
+        t,sem,orig=source()
+        try:
+            old=next(iter(orig.values()))
+            old.pop("anti_double_count_owner")
+            old["purpose"]="Original pilot research question"
+            old["owned_question"]="Pilot owner scope question"
+            old["excluded_topics"]=["post-kickoff"]
+            old["scenario_tree"]["branches"]=[{
+                "state_id":"ARCHIVED_PILOT_STATE",
+                "description":"A pre-T0 design state only",
+                "probability":None,"weight_source":"UNESTIMATED"}]
+            result=md.dossiers(sem,orig)
+            row=result["dossiers"][0]
+            self.assertEqual(result["source_owner_not_declared_child_count"],1)
+            self.assertIsNone(row["anti_double_count_owner"])
+            self.assertEqual(row["native_source_question_or_definition"],"Pilot owner scope question")
+            self.assertEqual(row["not_owned_or_excluded_effects"],["post-kickoff"])
+            self.assertFalse(row["conditional_source_scenarios"][0]["guard_executable"])
+            self.assertIsNone(row["numeric_goals_coefficient"])
+        finally:t.cleanup()
+
     def test_legacy_unknown_weight_source_cannot_bypass_guard(self):
         t,sem,orig=source()
         try:
