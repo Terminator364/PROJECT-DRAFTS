@@ -28,3 +28,21 @@ Nom: `MOTEUR_BLESSING_V1_PACKAGE_CONVERSATION_355_710_2026-10-24.zip` ; SHA256 `
 Package prêt à lire et exécuter dans une conversation équipée des outils Web et Python, mais le ZIP ne recherche pas Internet lui-même. **Pas encore vérifié sur un autre match totalement nouveau avec 710 traitements individuellement recherchés**, aucune calibration empirique, 37 signaux de rôle en suspens; hors-club/championnat bloqué. Seules les capacités déjà testées sont annoncées comme validées. À la prochaine reprise, demander un match seulement si nécessaire; autrement poursuivre audit des 37 conflits et essai inédit sans réutiliser Gamba.
 
 **Code de continuité : Moteur/continue**.
+---
+## RECTIFICATIF CANONIQUE FINAL — 24 octobre 2026
+
+**ATTENTION: les états 30/30 ou 37/37 tests, 82,023276 % et l'ancien ZIP mentionnés plus haut correspondent à un gel INTERMÉDIAIRE et sont désormais historiques, pas à la V1 finale.**
+
+État final : 429 fiches (62 familles + 355 sous-paramètres + 12 interactions); 471 fichiers dans l'archive; SHA256 `717be63bae34f4d2927461a79073aad7c22cec9669b743adfb8a56cfe6ff95d6`; **40/40 tests réexécutés sur extraction propre**; runner recalculé indépendamment depuis ZIP : **81,99329462994615 % théorique** pour Gamba–Kyoto, sans injection du résultat final du match.
+
+Références actuelles (PRIORITÉ SUR LES VERSIONS PLUS HAUT) :
+- Cahier mère intégral : `MOTEUR-BLESSING/V1_2026-10-24/CAHIER_MERE_MOTEUR_BLESSING_V1.md`.
+- Instructions de démarrage : `MOTEUR-BLESSING/V1_2026-10-24/PROMPT_DE_DEMARRAGE_CHATGPT.md`.
+- Contre-audit : `MOTEUR-BLESSING/V1_2026-10-24/AUDIT_CONTRADICTOIRE_V1.md`.
+- État et phases : `MOTEUR-BLESSING/V1_2026-10-24/CHECKPOINT_V1.md`.
+- Index de version + hash : `MOTEUR-BLESSING/V1_2026-10-24/ARCHIVE_V1_SHA256_ET_SOURCE.md`.
+- Archive exécutable et catalogue privés : Bibliothèque `/MOTEUR_BLESSING_V1_PACKAGE_CONVERSATION_2026-10-24/MOTEUR_BLESSING_V1_COMPLET.zip`.
+
+**Contraintes de vérité** : 710 cases traitées pour le match témoin = 686 inférences reliées mathématiquement à 62 ancrages et 24 N/A; ceci ne représente pas 686 observations individuelles indépendantes. Les 12 interactions sont auditées en mode scénario, avec atténuation si prémisses non documentées. Les 40 tests ne valident pas les signes causaux, la prédictibilité empirique ou la recherche autonome de nouveaux matchs. N'annoncer un nouvel IC qu'après nouvelle enquête et contrôle des 62 familles/355 sous-paramètres.
+
+**Mot-clé exact de reprise : `Moteur/continue`.** Ne pas confondre avec RIZ112.
