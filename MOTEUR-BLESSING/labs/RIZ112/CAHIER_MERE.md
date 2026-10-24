@@ -2355,3 +2355,11 @@ La V1 conversationnelle a été **auditée, contredite, corrigée, empaquetée e
 **Précédences entre versions** : D078 incomplet, D079 référence historique 82,609048 %, V1 intermédiaire 82,023276 %, **V1 finale active 81,993294630 %**. Ne pas revenir automatiquement aux chiffres ou fichiers antérieurs.
 
 **Limitations** : 686 cases applicables en déduction ancrée sur familles, 24 N/A, 0/686 mesure enfant indépendante dans l'exemple; les 40 tests démontrent la validité du flux logiciel, non 355 causalités prouvées. ChatGPT doit rechercher et déduire les informations d'un nouveau match avant l'IC; aucun essai de collecte universelle d'un nouveau match n'a encore été validé. RIZ112 demeure distinct.
+
+
+### Synchronisation automatique GitHub — 2026-10-24T17:26:19.524615+00:00
+
+- Commit source : 0bf5a995b71bd81c2d660dd047f7d0468227ea0e
+- Message : Moteur/continue: canonical V1 cold-replay verification and version precedence
+- Fichiers concernés : MOTEUR-BLESSING/labs/RIZ112/CAHIER_MERE.md
+- Provenance : événement GitHub push. Ceci ne contient PAS les messages privés ChatGPT non consignés explicitement.
