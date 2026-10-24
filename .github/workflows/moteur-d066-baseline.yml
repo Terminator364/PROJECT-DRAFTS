@@ -8,6 +8,9 @@ on:
       - MOTEUR-BLESSING/labs/MATRICE_LOGIC_FIRST_V03/test_historical_baseline_v12.py
       - MOTEUR-BLESSING/labs/MATRICE_LOGIC_FIRST_V03/test_source_mechanism_dossiers_v11.py
       - MOTEUR-BLESSING/labs/MATRICE_LOGIC_FIRST_V03/test_audit_legacy_v12_v13.py
+      - MOTEUR-BLESSING/labs/MATRICE_LOGIC_FIRST_V03/test_moteur_unique_d071_e2e_mocked_source.py
+      - MOTEUR-BLESSING/labs/MATRICE_LOGIC_FIRST_V03/source_mechanism_dossiers_v11.py
+      - MOTEUR-BLESSING/labs/MATRICE_LOGIC_FIRST_V03/moteur_unique_v1.py
   workflow_dispatch:
 permissions:
   contents: write
@@ -23,7 +26,7 @@ jobs:
           set +e
           export PYTHONPATH="$GITHUB_WORKSPACE/MOTEUR-BLESSING/labs/MATRICE_LOGIC_FIRST_V02:$GITHUB_WORKSPACE/MOTEUR-BLESSING/labs/MATRICE_LOGIC_FIRST_V03"
           cd MOTEUR-BLESSING/labs/MATRICE_LOGIC_FIRST_V03
-          python -m unittest -v test_historical_baseline_v12 test_shot_process_v10 test_causal_and_ic_v09 test_source_mechanism_dossiers_v11 test_moteur_unique_v1 test_audit_legacy_v12_v13 > D066_TESTS.log 2>&1
+          python -m unittest -v test_historical_baseline_v12 test_shot_process_v10 test_causal_and_ic_v09 test_source_mechanism_dossiers_v11 test_moteur_unique_v1 test_audit_legacy_v12_v13 test_moteur_unique_d071_e2e_mocked_source > D066_TESTS.log 2>&1
           RC=$?
           export RC
           python - <<'PY'
@@ -34,7 +37,10 @@ jobs:
              "unit_tests_pass":int(os.environ["RC"])==0,
              "log_tail":t[-4500:],
              "no_real_match_data_used":True,
-             "no_calibration_claimed":True}
+             "no_calibration_claimed":True,
+             "D071_full_Python_pipeline_with_355_synthetic_contracts_included":True,
+             "D071_real_private_R8_original_source_Python_E2E":False,
+             "D071_real_R8_archived_source_privacy_preserved":True}
           pathlib.Path("CI_READBACK_D066.json").write_text(json.dumps(d,indent=2,ensure_ascii=False,sort_keys=True)+"\n")
           print(json.dumps({"pass":d["unit_tests_pass"],"last_lines":t[-500:]}))
           PY
