@@ -58,7 +58,7 @@
     "historic_regression_tests_passed": 309,
     "readback": "D060_PRIVATE_CI_JOURNAL_VALID_168; NEXT_ACTION_RESUME_PASS; DRIVE_DOC_D058_READBACK; ZIP_NOT_SYNCED",
     "initial_drive_url": "https://drive.google.com/file/d/1D7ZSwNtnsqW6CAm19rmTb2-yzYglAfau/view?usp=drivesdk",
-    "drive_mirror_last_verified": "2026-10-23 D070 native Google Docs Cahier mère appended and re-read: A-B-C 175 tests, 1000x112, scope caveats",
+    "drive_mirror_last_verified": "2026-10-24 native Google Doc Cahier mere D071 appended and independently reread, 217 paragraphs, original source 355 and CI 71 with private receipt explicitly absent",
     "github_master_last_updated": "2026-10-23",
     "github_master_commit": "4c28384e0f40789ed7c2ad7ae3a5f70b34ea0a5a",
     "current_preT0_audit": "pret0_focus/README_44_CONNECTE_20261023.md",
@@ -1174,6 +1174,7 @@
     "goal_effect_children_remaining_unsigned": 324,
     "private_original_source_provenance_receipt_committed": true,
     "private_full_gate_workflow_created": true,
-    "Library_report_saved": true
+    "Library_report_saved": true,
+    "google_docs_mother_synced_and_verified": true
   }
 }
