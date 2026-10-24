@@ -2121,3 +2121,13 @@ Rapport complet livré dans la Bibliothèque `/MOTEUR_D071/MOTEUR_D071_RAPPORT_I
 - Message : MOTEUR E175: audit D071 last private source Actions gate registered on main; E2E receipt absent
 - Fichiers concernés : MOTEUR-BLESSING/labs/RIZ112/journal/JOURNAL_EVENEMENTS.jsonl
 - Provenance : événement GitHub push. Ceci ne contient PAS les messages privés ChatGPT non consignés explicitement.
+
+## D071B, 24-10-2026 — suivi final E175
+
+CTX-0097 : l'utilisateur demande de finir D071 en un run et de tout synchroniser. CTX-0098 : résultat enregistré.
+
+Le workflow GitHub Actions d'intégration D071 a été copié sur la branche principale `main` du dépôt ChatGPT-PC (commit `7399575e4066756881a467c84608bd0e49381a13`). Il teste la branche R8 de recherche et doit sauvegarder ses sorties dans cette branche, sans les publier. Un workflow absent de la branche principale était une cause plausible du blocage.
+
+Les 355 identités originales demeurent authentifiées (343 modernes et 12 archivées). 71 tests logiciels publics sont PASS. Le reçu CI_READBACK_D071.json du véritable test Python sur les originaux privés demeure ABSENT. Cette exécution n'est donc pas certifiée, et l'IC sportif calibré reste inconnu. Ni la fiabilité 85 %, ni la fin scientifique du moteur ne sont prouvées.
+
+Rapport : `MOTEUR-BLESSING/labs/MATRICE_LOGIC_FIRST_V03/D071B_PORTE_E2E_20261024.md`. Reprise `Moteur/continue` : chercher d'abord le reçu GitHub Actions D071 puis corriger l'erreur exacte si échec, sans recommencer D070.
