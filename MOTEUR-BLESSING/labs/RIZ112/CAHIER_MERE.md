@@ -2292,3 +2292,8 @@ Conception validée : le match est la seule saisie utilisateur. ChatGPT doit lir
 - Message : MOTEUR D077: synchronize ChatGPT-first package continuity
 - Fichiers concernés : MOTEUR-BLESSING/labs/RIZ112/CAHIER_MERE.md
 - Provenance : événement GitHub push. Ceci ne contient PAS les messages privés ChatGPT non consignés explicitement.
+
+
+## D078 — J.LEAGUE 11 MATCHS — 24 OCTOBRE 2026
+
+Test du mandat conversationnel `MOTEUR/ANALYSER toutes les rencontres du jour` sur 5 J1 + 2 J2 + 4 J3 avec datation T−1 avant coup d'envoi prévu, 11 IC théoriques calculés, 11×710 cases R8 auditées, 355 consignes spécifiques de repli J−3/T−1. 84/84 tests Python et interface JS mock passent, **recherche individuelle 62 familles par match toujours INCOMPLÈTE** (ne pas déclarer complet). Proxies et scénarios différenciés de faits sourcés; pas de fuite de score cible. Livraison ZIP + HTML + CSV + plan 355 dans Library `/MOTEUR_D078_JLEAGUE_11_MATCHS/`. Checkpoint détaillé `MOTEUR-BLESSING/labs/MATRICE_LOGIC_FIRST_V03/CHECKPOINT_D078_JLEAGUE_11_MATCHS_20261024.md`. RIZ112 est laboratoire distinct. Reprise `Moteur/continue`.
