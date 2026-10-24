@@ -74,6 +74,36 @@ class TestAll355Dossiers(unittest.TestCase):
             with self.assertRaisesRegex(SourceGraphError,"UNSPECIFIED_SOURCE_BRANCH_GUARD"):
                 md.dossiers(sem,orig)
         finally:t.cleanup()
+    def test_batch23_named_only_branch_preserved_without_guard_or_goal_weight(self):
+        t,sem,orig=source()
+        try:
+            x=next(iter(orig.values()))
+            x["scenario_tree"]["branches"]=[{
+                "name":"HISTORIC_PATTERN_STABLE",
+                "kind":"QUALITATIVE_UNWEIGHTED",
+                "if_missing":"ABSTAIN_OR_UNKNOWN",
+                "weight":None
+            }]
+            d=md.dossiers(sem,orig)
+            b=d["dossiers"][0]["conditional_source_scenarios"][0]
+            self.assertEqual(d["operational_dossiers"],355)
+            self.assertEqual(d["source_named_branch_without_guard_child_count"],1)
+            self.assertEqual(b["original_source_name"],"HISTORIC_PATTERN_STABLE")
+            self.assertIsNone(b["original_guard_predicate"])
+            self.assertFalse(b["guard_executable"])
+            self.assertTrue(b["guard_not_authored_abstain"])
+            self.assertIsNone(b["branch_weight"])
+            self.assertFalse(b["causal_direction_signed"])
+        finally:t.cleanup()
+
+    def test_unqualified_guardless_named_branch_is_rejected(self):
+        t,sem,orig=source()
+        try:
+            next(iter(orig.values()))["scenario_tree"]["branches"]=[{"name":"NOT_ATTESTED"}]
+            with self.assertRaisesRegex(SourceGraphError,"UNSPECIFIED_SOURCE_BRANCH_GUARD"):
+                md.dossiers(sem,orig)
+        finally:t.cleanup()
+
     def test_source_text_not_invented(self):
         t,sem,orig=source()
         try:
