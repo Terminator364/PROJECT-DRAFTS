@@ -2227,3 +2227,11 @@ Rapport : `MOTEUR-BLESSING/labs/MATRICE_LOGIC_FIRST_V03/D071C_LOGIQUE_AVANT_DONN
 - Message : MOTEUR D071C final readback: Google mother mirror and updated offline logic engine ZIP verified
 - Fichiers concernés : MOTEUR-BLESSING/labs/RIZ112/CHECKPOINT.json
 - Provenance : événement GitHub push. Ceci ne contient PAS les messages privés ChatGPT non consignés explicitement.
+
+
+### Synchronisation automatique GitHub — 2026-10-24T10:34:28.701914+00:00
+
+- Commit source : b2625f7a7ade2ded5a5c6c67f70f93935fad1fed
+- Message : MOTEUR D071C decision: logic engine first, no early dataset requirement, preserve calibrated IC uncertainty
+- Fichiers concernés : MOTEUR-BLESSING/labs/RIZ112/DECISIONS.md
+- Provenance : événement GitHub push. Ceci ne contient PAS les messages privés ChatGPT non consignés explicitement.
