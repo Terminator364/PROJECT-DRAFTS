@@ -117,3 +117,18 @@ Retour à l'intention d'origine de **MOTEUR → MATRICE** : chaque situation pr�
 ### 2026-10-23 — D050 Contrat A CONFIRMÉ : 1 IC global + 44 impacts conditionnels
 
 L'utilisateur a choisi définitivement **A**. Chaque cas RIZ-112 est une combinaison de 44 paramètres strictement pré-T0, passée dans le moteur pour obtenir **un IC global** ; chacun des 44 paramètres bénéficie d'un **IC de la situation entière recalculé sous hypothèse de modification de ce seul paramètre**, d'où `ΔIC` conditionnel. Ne pas sommer ces impacts, ne pas prétendre 44 probabilités indépendantes. La V3.1 conserve ses 1000 situations et 1000 IC originaux; ce jour, **44 000 Q* nominaux contrefactuels** ont été évalués, distincts de **748 IC conditionnels réellement recalculés sur 17 scénarios** ; 43 252 IC conditionnels restent à compléter par lots. Test local 5/5 PASS, interruptions rejetées; ZIP sha256 `a52844bb828ca471d065305b7d52d73b08c084733a8c2b8d517cf4cb6fcfc47b`. Rapport durable : `labs/RIZ112/pret0_focus/V3_1/D050_CONTRAT_A_RECU_1000x44_20261023.md`, Cahier mère et checkpoint actualisés; contexte `CTX-0072`, journal `E155–E156`. Suivant **terminer 983×44 IC conditionnels manquants**, sans modifier les 1000 scénarios d'origine. Aucun IC scientifique calibré. Code `Moteur/continue`.
+
+
+## Synchronisation D072L — 2026-10-24, moteur logique prioritaire
+
+**Code de reprise universel :** `Moteur/continue`. Reprendre l'interpréteur logique D072L et les sources D071C, sans redémarrer le moteur D070 ni les pistes RIZ112/D050.
+
+- **R8 / MATRICE :** 62 mondes, 355 sous-paramètres originaux, 1088 liens documentaires (non causaux), 710 emplacements HOME/AWAY. Les sources R8 privées restent privées.
+- **Nouveaux fichiers publics :** `labs/MATRICE_LOGIC_FIRST_V03/moteur_logique_v2.py`, `test_moteur_logique_v2.py`, `D072L_NOTE_INTEGRATION_20261024.md`, `CHECKPOINT_D072L_20261024.json`. Les garde-fous du V1 sont conservés.
+- **Nouvelle logique :** 12 règles AND précises par monde et côté, 24 lectures de prémisses; états `SUPPORTED_COOCCURRENCE`, `PREMISE_FALSE`, `INDETERMINATE`, `CONTRADICTED`. FALSE/UNKNOWN ne sont pas comptés comme des conditions satisfaites; une défense HOME ne remplace pas une défense adverse AWAY.
+- **Laboratoire autonome :** 1000 scénarios de 710 emplacements synthétiques; chaque emplacement connaît TRUE/FALSE/UNKNOWN sur la grille; 8 tests V2 PASS sur simulateur V1 et graphe fictif. Cette validation locale n'est **pas** le Python E2E sur les sources privées originales.
+- **IC :** D070 1000 IC numériques 112 variables synthétiques conservés; D072L ne crée aucun IC numérique par magie à partir des 355 sources. Aucun IC sportif calibré ni 85 % de réussite prouvés.
+- **Épreuve encore ouverte :** reçu privé `CI_READBACK_D071.json` absent au dernier contrôle de cette reprise; reprendre l'exécution intégrée sur vrai graphe R8 puis individualiser/contre-auditer les interprétations des sous-paramètres sans signer des causalités inexistantes.
+- **Travaux RIZ112 distincts :** l'expérience D050 des 1000 scénarios ×44 IC conditionnels (17 déjà traités, 983 restant dans son propre cahier) n'est ni clôturée ni remplacée par D072L.
+
+**Statut exact :** code synchronisé; tests de logique sur graphe fictif PASS; E2E authentique R8 NON prouvé; validation sportive NON réalisée.
