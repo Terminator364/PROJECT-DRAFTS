@@ -2081,3 +2081,11 @@ Directive « Go » puis « Continue le run!! on doit le finir » conservée dans
 **C — Dernière exécution privée sur les véritables 355 : NON ATTESTÉE.** Workflow privé strict D071 créé, mais `CI_READBACK_D071.json` absent à la dernière lecture. PC MBMPC hors ligne. Aucune réussite privée de bout en bout, amélioration sportive, IC réel calibré ou exactitude 85 % proclamée. Les 324 effets individuels sans signe restent non pondérés.
 
 Rapport complet livré dans la Bibliothèque `/MOTEUR_D071/MOTEUR_D071_RAPPORT_INTEGRATION_2026-10-24.md` et le canal de conversation. Code `Moteur/continue` = contrôle ciblé `D071_VERIFY_PRIVATE_TRUE_ORIGINAL_PYTHON_E2E` : obtenir le reçu privé PASS, puis seulement amorcer D072 scientifique. Aucun restart D070 ni D071 nécessaire.
+
+
+### Synchronisation automatique GitHub — 2026-10-24T08:18:44.263281+00:00
+
+- Commit source : e916bc31dcb35494108f53851462cad0a6d27f78
+- Message : MOTEUR D071 E174: mother book distinguishes 355 source audit and 71 tests from missing authentic private E2E
+- Fichiers concernés : MOTEUR-BLESSING/labs/RIZ112/CAHIER_MERE.md
+- Provenance : événement GitHub push. Ceci ne contient PAS les messages privés ChatGPT non consignés explicitement.
