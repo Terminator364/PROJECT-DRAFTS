@@ -23,7 +23,7 @@
     "context_master": "CONTEXTE_CONVERSATIONS.md",
     "context_protocol": "PROTOCOLE_CONTINUITE_CONTEXTUELLE.md",
     "context_registry": "CONTEXTE_INTEGRAL/REGISTRE_MESSAGES.jsonl",
-    "context_rows": 96,
+    "context_rows": 98,
     "context_update_rule": "ACTIVE_SESSION_EVERY_RELEVANT_EXCHANGE_AND_CHECKPOINT__NO_BACKGROUND",
     "coverage": "SOME_VERBATIM_EXCERPTS_AND_FLAGGED_RECONSTRUCTIONS_NOT_FULL_RAW_ARCHIVE",
     "drive_current_doc": "https://docs.google.com/document/d/13gOTBq7AXnT-f9Lotlw4czwa4i75C4UGdP0i1i0qwZE/edit",
@@ -32,14 +32,14 @@
     "github_status": "D058_REAL_R8_31_TESTS_PASS; D060_JOURNAL_168_CHAIN_AND_RESUME_PASS",
     "initial_source_archive_drive": "https://drive.google.com/file/d/1rFq9GiwbRvb-Hk33JayacttjBOUdAabf/view?usp=drivesdk",
     "initial_source_archive_sha256": "15182d217e42c2985cb4652ac5c2ee9f6afe6afca55ec148b3c803e52b14ede8",
-    "journal_events": 174,
-    "journal_head": "212b59d7c336f8814eabe13b572f82896358b34765664033c66b6349600e45b9",
+    "journal_events": 175,
+    "journal_head": "e3a977b42f6d5e7d1905b8aad980d5cf35006576667aae20702f6ebea229fd8c",
     "lab_code": "Moteur/continue",
     "latest_context_ids": [
-      "CTX-0093",
-      "CTX-0094",
       "CTX-0095",
-      "CTX-0096"
+      "CTX-0096",
+      "CTX-0097",
+      "CTX-0098"
     ],
     "legacy_codes_active": false,
     "library_status": "SOURCE_ARCHIVE_CONFIRMED",
@@ -58,13 +58,13 @@
     "historic_regression_tests_passed": 309,
     "readback": "D060_PRIVATE_CI_JOURNAL_VALID_168; NEXT_ACTION_RESUME_PASS; DRIVE_DOC_D058_READBACK; ZIP_NOT_SYNCED",
     "initial_drive_url": "https://drive.google.com/file/d/1D7ZSwNtnsqW6CAm19rmTb2-yzYglAfau/view?usp=drivesdk",
-    "drive_mirror_last_verified": "2026-10-24 native Google Doc Cahier mere D071 appended and independently reread, 217 paragraphs, original source 355 and CI 71 with private receipt explicitly absent",
+    "drive_mirror_last_verified": "2026-10-24 D071B Google Doc reread",
     "github_master_last_updated": "2026-10-23",
     "github_master_commit": "4c28384e0f40789ed7c2ad7ae3a5f70b34ea0a5a",
     "current_preT0_audit": "pret0_focus/README_44_CONNECTE_20261023.md",
     "current_unique_user_directive": "CTX-0081",
     "ctx0078_is_duplicate_of": "CTX-0077",
-    "latest_active_checkpoint": "/MOTEUR_D071/MOTEUR_D071_RAPPORT_INTEGRATION_2026-10-24.md",
+    "latest_active_checkpoint": "MOTEUR-BLESSING/labs/MATRICE_LOGIC_FIRST_V03/D071B_PORTE_E2E_20261024.md",
     "google_doc_refreshed_D056": true,
     "local_artifact_library_path": "/MOTEUR_D070/MOTEUR_D070_LIVRAISON_AUTONOME_1000_IC_112_VARIABLES_2026-10-23.zip",
     "library_D071_report": "/MOTEUR_D071/MOTEUR_D071_RAPPORT_INTEGRATION_2026-10-24.md"
@@ -86,10 +86,10 @@
   },
   "full_packet_replay": "step12/POPULATION_100_COMPLETE_PACKET.jsonl",
   "journal": {
-    "events": 174,
-    "head": "212b59d7c336f8814eabe13b572f82896358b34765664033c66b6349600e45b9",
-    "latest_id": "E174",
-    "latest_digest": "212b59d7c336f8814eabe13b572f82896358b34765664033c66b6349600e45b9"
+    "events": 175,
+    "head": "e3a977b42f6d5e7d1905b8aad980d5cf35006576667aae20702f6ebea229fd8c",
+    "latest_id": "E175",
+    "latest_digest": "e3a977b42f6d5e7d1905b8aad980d5cf35006576667aae20702f6ebea229fd8c"
   },
   "last_user_directive": "CTX-0077 exact: code Moteur/continue reads Cahier mere and next action, logic-first R8 62/355 (14 connected, 341 to integrate), seek mechanistic and conditional issues then optionally explicit theoretical IC, historic data fitting/calibration later; no accuracy guarantee.",
   "latest_case_audit": "step12/COUNTERFACTUAL_112_V12.json",
@@ -128,7 +128,7 @@
       "054"
     ]
   },
-  "next": "D071-VERIFY-PRIVATE-E2E; don't proceed to D072 as validated until private source run PASS",
+  "next": "D071-VERIFY-MAIN-WORKFLOW-E2E-RECEIPT-NOT-FOUND",
   "probabilities_demo_percent": {
     "A": 62.4,
     "B": 36.83,
@@ -225,7 +225,7 @@
     "tests_total": 309,
     "validated_effects": 0
   },
-  "status": "MOTEUR_D071_355_ORIGINAL_SOURCE_PROVENANCE_VERIFIED_71_PUBLIC_TESTS_PASS_PRIVATE_RUNTIME_PENDING",
+  "status": "MOTEUR_D071B_SOURCE_AUDITED_PRIVATE_E2E_PENDING",
   "step10": {
     "abstentions_original": 5,
     "derived_not_directly_mutable": 4,
