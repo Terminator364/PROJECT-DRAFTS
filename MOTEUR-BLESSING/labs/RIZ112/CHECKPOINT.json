@@ -58,7 +58,7 @@
     "historic_regression_tests_passed": 309,
     "readback": "D060_PRIVATE_CI_JOURNAL_VALID_168; NEXT_ACTION_RESUME_PASS; DRIVE_DOC_D058_READBACK; ZIP_NOT_SYNCED",
     "initial_drive_url": "https://drive.google.com/file/d/1D7ZSwNtnsqW6CAm19rmTb2-yzYglAfau/view?usp=drivesdk",
-    "drive_mirror_last_verified": "2026-10-24 D071B Google Doc reread",
+    "drive_mirror_last_verified": "2026-10-24: D071C Google Docs Cahier mère updated and reread, section MOTEUR LOGIQUE AVANT LES DONNEES, E176 CTX0100",
     "github_master_last_updated": "2026-10-23",
     "github_master_commit": "4c28384e0f40789ed7c2ad7ae3a5f70b34ea0a5a",
     "current_preT0_audit": "pret0_focus/README_44_CONNECTE_20261023.md",
@@ -1190,6 +1190,8 @@
     "private_original_read_only_JS_demo_total_pathways": 10,
     "original_private_source_python_end_to_end_receipt": "NOT_VERIFIED",
     "sporting_probability_validated": null,
-    "project_strategy": "LOGIC_BEFORE_DATA"
+    "project_strategy": "LOGIC_BEFORE_DATA",
+    "drive_mirror_readback_verified": true,
+    "library_release_zip_updated_with_example": true
   }
 }
