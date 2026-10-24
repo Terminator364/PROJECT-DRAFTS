@@ -32,13 +32,24 @@ def _raw_scenario_branches(original:dict[str,Any])->list[dict[str,Any]]:
             raise SourceGraphError("FORBIDDEN_SOURCE_BRANCH_WEIGHTS")
         guard=(_string_or_none(b.get("guard_predicate")) or _string_or_none(b.get("guard")) or
                _string_or_none(b.get("condition")))
-        if not guard:raise SourceGraphError("UNSPECIFIED_SOURCE_BRANCH_GUARD")
+        # R8 Batch23 contains 12 genuine *named* branches without a source
+        # predicate. Their name describes a scenario, NOT an executable guard.
+        # Preserve that epistemic gap and do not fabricate conditions.
+        named_only=(not guard and _string_or_none(b.get("name")) is not None
+                    and b.get("kind")=="QUALITATIVE_UNWEIGHTED"
+                    and b.get("if_missing")=="ABSTAIN_OR_UNKNOWN")
+        if not guard and not named_only:
+            raise SourceGraphError("UNSPECIFIED_SOURCE_BRANCH_GUARD")
         result.append({"branch_id":b.get("id"),
+                       "original_source_name":b.get("name"),
                        "original_guard_predicate":guard,
+                       "guard_executable":bool(guard),
+                       "source_named_branch_without_guard":bool(named_only),
+                       "guard_not_authored_abstain":bool(named_only),
                        "original_qualitative_consequence":(
                            b.get("qualitative_consequence") or b.get("hypothesis") or
                            b.get("counterhypothesis")),
-                       "original_branch_status":b.get("status","UNWEIGHTED_SOURCE_DESIGN"),
+                       "original_branch_status":b.get("status",b.get("kind","UNWEIGHTED_SOURCE_DESIGN")),
                        "branch_weight":None,
                        "causal_direction_signed":False})
     return result
@@ -101,6 +112,8 @@ def dossiers(semantics:dict[str,Any], original:dict[str,dict[str,Any]])->dict[st
                          "missing_data_policy":h.get("when_no_source",h.get("if_missing","UNKNOWN")),
                          "future_data_not_allowed":True})
         scenario=_raw_scenario_branches(c)
+        if any(b["source_named_branch_without_guard"] for b in scenario):
+            ctr["source_named_branches_without_guard_children"]+=1
         question=(_string_or_none(c.get("purpose_and_causal_question")) or
                   _string_or_none(c.get("definition_du_sous_parametre")) or
                   _string_or_none(c.get("question")))
@@ -146,6 +159,7 @@ def dossiers(semantics:dict[str,Any], original:dict[str,dict[str,Any]])->dict[st
             "source_six_horizons_each":ctr["source_horizon_incomplete"]==0,
             "source_horizon_incomplete_child_count":ctr["source_horizon_incomplete"],
             "source_owner_not_declared_child_count":ctr["source_owner_not_declared"],
+            "source_named_branch_without_guard_child_count":ctr["source_named_branches_without_guard_children"],
             "manual_signed_causal_effects":0,
             "empirical_calibration":None,
             "theoretical_goal_IC_from_r8_provenance_alone":None,
