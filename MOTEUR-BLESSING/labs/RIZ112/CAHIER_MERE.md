@@ -2131,3 +2131,11 @@ Le workflow GitHub Actions d'intégration D071 a été copié sur la branche pri
 Les 355 identités originales demeurent authentifiées (343 modernes et 12 archivées). 71 tests logiciels publics sont PASS. Le reçu CI_READBACK_D071.json du véritable test Python sur les originaux privés demeure ABSENT. Cette exécution n'est donc pas certifiée, et l'IC sportif calibré reste inconnu. Ni la fiabilité 85 %, ni la fin scientifique du moteur ne sont prouvées.
 
 Rapport : `MOTEUR-BLESSING/labs/MATRICE_LOGIC_FIRST_V03/D071B_PORTE_E2E_20261024.md`. Reprise `Moteur/continue` : chercher d'abord le reçu GitHub Actions D071 puis corriger l'erreur exacte si échec, sans recommencer D070.
+
+
+### Synchronisation automatique GitHub — 2026-10-24T08:35:30.629875+00:00
+
+- Commit source : 00e2ac53f32c70691581c0d8a9dd6a74f6994181
+- Message : MOTEUR E175: update Cahier mere D071B with GitHub workflow fix and absent source E2E proof
+- Fichiers concernés : MOTEUR-BLESSING/labs/RIZ112/CAHIER_MERE.md
+- Provenance : événement GitHub push. Ceci ne contient PAS les messages privés ChatGPT non consignés explicitement.
