@@ -2235,3 +2235,11 @@ Rapport : `MOTEUR-BLESSING/labs/MATRICE_LOGIC_FIRST_V03/D071C_LOGIQUE_AVANT_DONN
 - Message : MOTEUR D071C decision: logic engine first, no early dataset requirement, preserve calibrated IC uncertainty
 - Fichiers concernés : MOTEUR-BLESSING/labs/RIZ112/DECISIONS.md
 - Provenance : événement GitHub push. Ceci ne contient PAS les messages privés ChatGPT non consignés explicitement.
+
+
+### Synchronisation automatique GitHub — 2026-10-24T10:45:08.746023+00:00
+
+- Commit source : 60ba0fe71760c89c77d294a0f8a7e11a17ec3d44
+- Message : MOTEUR D071D HANDOFF: full exact user logic-first mandate, actual 355 source+12 test state, next steps and no-Windows/no-million-matches rule
+- Fichiers concernés : MOTEUR-BLESSING/labs/RIZ112/continuity/REPRISE_MOTEUR_LOGIQUE_PRIORITAIRE_20261024.md
+- Provenance : événement GitHub push. Ceci ne contient PAS les messages privés ChatGPT non consignés explicitement.
