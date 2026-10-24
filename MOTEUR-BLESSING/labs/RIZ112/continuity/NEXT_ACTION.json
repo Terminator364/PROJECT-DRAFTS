@@ -8,18 +8,18 @@
     "MOTEUR-BLESSING/labs/RIZ112/CAHIER_MERE.md",
     "MOTEUR-BLESSING/labs/RIZ112/journal/JOURNAL_EVENEMENTS.jsonl"
   ],
-  "first_technical_action": "Workflow D071 now exists on GitHub private ChatGPT-PC main commit 7399575e4066756881a467c84608bd0e49381a13, checkout of original R8 research branch; read CI_READBACK_D071.json on research branch. Still NOT_FOUND at last readback. If absent check GitHub Actions runs/quotas/security status using an authorized GitHub Actions UI/tool; do not invent a PASS. If failed repair exact log; if PASS verify 355 source IDs and SHA manifest then close D071. Sporting calibration belongs D072.",
+  "first_technical_action": "REPRISE SANS RESTART : ouvrir MOTEUR-BLESSING/labs/MATRICE_LOGIC_FIRST_V03/{D071C_LOGIQUE_AVANT_DONNEES_20261024.md,moteur_logique_v1.py,generer_entree_demo.py,test_moteur_logique_v1.py}; MOTEUR-BLESSING/labs/RIZ112/CAHIER_MERE.md. Objectif prioritaire: moteur de règles logiques qui réunit 62 familles, 355 sous-paramètres, liens documentaires anti-double compte, contradictions et scénarios d'interaction sous hypothèses; pas d'entraînement sur matchs, pas d'étape Windows obligatoire. Faire évoluer les règles selon preuves et hypothèses déclarées, exécuter Python contre SOURCE_GRAPH_355_D060.json privé avec SHA manifest lorsque le chemin d'exécution le permet, ne PAS simuler une validation privée. IC Over1.5 réel calibré demeure NULL.",
   "how_to_continue": "One code Moteur/continue; read verified D058 checkpoint, journal E167 and CTX-0081, run next semantic batches. Do not misrepresent 355 documentary integration as 355 causal influences.",
-  "lab_next_stage": "MOTEUR_D071_VERIFY_PRIVATE_TRUE_ORIGINAL_PYTHON_E2E",
+  "lab_next_stage": "MATRICE_R8_355_LOGIC_FIRST_CONDITIONAL_ENGINE",
   "never_do": [
     "Inventer 22 coefficients pour forcer un effet IC",
     "Utiliser des résultats après T0 comme prédicteurs",
     "Déclarer calibré un IC fictif",
     "Écraser un GitHub plus avancé par un ZIP ancien"
   ],
-  "next_execution_id": "MOTEUR_D071_VERIFY_MAIN_REGISTERED_PRIVATE_E2E",
-  "next_execution_title": "Vérification stricte D071 sur les 355 vrais fichiers R8 — sans refaire D070 ni le code D071 acquis",
-  "progress_checkpoint": "D071B 2026-10-24: 355 original R8 authenticated 343+12; 71 public CI tests PASS. Main-branch private GitHub Actions workflow registered and verified, original-source research checkout explicit. No authentic E2E Python receipt after fix, no runtime log accessible; MBMPC offline. Journal E175 and context CTX0097/0098 saved, mother GitHub and Google Doc synchronized. Do not restart D070.",
+  "next_execution_id": "MOTEUR_D071C_LOGIC_FIRST_RULES_AND_PRIVATE_SOURCE_PROOF",
+  "next_execution_title": "Améliorer le moteur LOGIQUE R8 355 enfants avant calibration des matchs",
+  "progress_checkpoint": "D071C 2026-10-24: objectif clarifié : LOGIQUE FIRST. Prototype Python autonome sans dépendances sur 355 noeuds/62 familles/1088 liens, 710 états HOME-AWAY, 5 familles de règles conditionnelles, vrais/faux/inconnus/contradictoires. 12 tests Python locaux PASS sur source mimée. Contrôle de lecture/calcul indépendant en JS dans la session sur graph original privé 355/62/1088 : 710 slots et simulation fictive 6 cooccurrences, 9/10 chemins de règles satisfaits. Cela ne certifie pas le Python E2E privé. Code publié GitHub, ZIP disponible Bibliothèque /MOTEUR_LOGIQUE_V1; Cahier mere synchronisé. Ancienne exécution privée Python CI_READBACK_D071.json reste manquante; IC sportif empirique NULL.",
   "project": "RIZ112→MATRICE",
   "schema": "moteur-blessing/next-action/v1",
   "scientific_status": "UNVALIDATED_REAL_Q_IC_NULL__SYNTHETIC_RICE_METHOD_LAB_FOR_MATRICE",
@@ -41,8 +41,8 @@
   "critical_directive_D035": "Cahier mère as durable authority, all accessible context, no blanket assertion of 112 IC causal effects; each counterfactual evidence or explicit abstention",
   "canonical_source": "GitHub main MOTEUR-BLESSING/labs/RIZ112/CAHIER_MERE.md plus journal, exact context register and checkpoint; not ChatGPT memory.",
   "context_capture_limits": "The tool captures only messages actively submitted in-session and available for logging, not autonomous background conversations.",
-  "latest_journal_event_id": "E175",
-  "latest_context_id": "CTX-0098",
+  "latest_journal_event_id": "E176",
+  "latest_context_id": "CTX-0100",
   "journal_chain_verified": false,
   "step18_checkpoint": "MOTEUR-BLESSING/labs/RIZ112/step18/CHECKPOINT_STEP18_20261017.json",
   "step18_windows_status": "PARTIAL_RESOURCE_TESTS_PASS; CONDITIONAL_SUITE_NOT_VALIDATED_TIMEOUT",
@@ -263,18 +263,18 @@
   "logic_first_v02_D055_checkpoint": "MOTEUR-BLESSING/labs/MATRICE_LOGIC_FIRST_V02/CHECKPOINT_D055_20261023.json",
   "logic_first_v02_D055_integration_status": "PENDING_REAL_BASELINE_RUN",
   "logic_first_v02_D055_drive_status": "CAHIER_DOC_MIRROR_READBACK_TRUE_FULL_ZIP_NOT_BACKED_UP",
-  "latest_technical_checkpoint": "MOTEUR-BLESSING/labs/MATRICE_LOGIC_FIRST_V03/D071B_PORTE_E2E_20261024.md",
-  "journal_head": "e3a977b42f6d5e7d1905b8aad980d5cf35006576667aae20702f6ebea229fd8c",
+  "latest_technical_checkpoint": "MOTEUR-BLESSING/labs/MATRICE_LOGIC_FIRST_V03/D071C_LOGIQUE_AVANT_DONNEES_20261024.md",
+  "journal_head": "798f615d9051272d520a42d922bfdf83f9557b176e0a8f10e45c8f7b6140ceee",
   "mirror_status_D056": "GOOGLE_DOC_READBACK_VERIFIED; FULL_ZIP_NOT_SYNCED",
   "next_tests_count": 76,
-  "latest_audit": "Library /MOTEUR_D071/MOTEUR_D071_RAPPORT_INTEGRATION_2026-10-24.md",
+  "latest_audit": "MOTEUR-BLESSING/labs/MATRICE_LOGIC_FIRST_V03/D071C_LOGIQUE_AVANT_DONNEES_20261024.md",
   "latest_unverified_changes": [
     "source_mechanism_dossiers_v11.py dual-schema horizon and missing-value normalization",
     "test_source_mechanism_dossiers_v11.py additional schema guard",
     "moteur_unique_v1.py source complete one-command",
     "CI_READBACK_D065B.json (new run pending)"
   ],
-  "continuity_gap": "CI_READBACK_D071.json is absent despite workflow main registration, GitHub Actions runtime permission/logs unavailable. E2E PASS not certified, 324 unsigned goal effects, no sport IC calibrated.",
+  "continuity_gap": "R8 original source graph successfully interpreted for logical demonstrations but new Python source engine not yet tested against original private graph. Individual 355 goal signs/coefficients still unproven, no evidence-backed numeric Over1.5 IC. Scientific calibration later, not a prerequisite for logic-first engine.",
   "latest_verified_D058": {
     "private_CI_receipt": "Terminator364/ChatGPT-PC:MATRICE/R8_G3_DEEP_20261014/MOTEUR_LOGIC_FIRST_D057/CI_READBACK_D057.json",
     "pass_tests": 31,
@@ -345,5 +345,19 @@
     "strict_original_private_ci_receipt_found": false,
     "Library_report": "/MOTEUR_D071",
     "scientific_sporting_ic": null
+  },
+  "latest_verified_D071C": {
+    "source_children_355": true,
+    "worlds_62": true,
+    "documentary_links_1088": true,
+    "two_team_slots": 710,
+    "logical_pathway_rule_families": 5,
+    "synthetic_independent_private_graph_JS_demo_cooccurrences": 6,
+    "synthetic_independent_private_graph_JS_demo_pathways_supported": 9,
+    "synthetic_independent_private_graph_JS_demo_pathways_total": 10,
+    "local_python_unit_tests_passed": 12,
+    "original_private_graph_Python_E2E": "NOT_ATTESTED",
+    "standalone_code_zip": "/MOTEUR_LOGIQUE_V1/MOTEUR_R8_LOGIQUE_V1_CODE_ET_TESTS_2026-10-24.zip",
+    "real_sporting_IC_calibrated": null
   }
 }
