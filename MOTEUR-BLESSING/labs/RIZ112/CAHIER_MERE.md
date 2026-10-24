@@ -2345,3 +2345,13 @@ La V1 conversationnelle a été **auditée, contredite, corrigée, empaquetée e
 - Message : MOTEUR/continue: lock V1 mother book, tested package, findings and SHA256
 - Fichiers concernés : MOTEUR-BLESSING/labs/RIZ112/CAHIER_MERE.md
 - Provenance : événement GitHub push. Ceci ne contient PAS les messages privés ChatGPT non consignés explicitement.
+
+## SYNCHRONISATION FINALE CERTIFIÉE — V1 GELÉE, 2026-10-24
+
+**Pointeur de priorité absolue pour `Moteur/continue`** : `MOTEUR-BLESSING/V1_2026-10-24/CAHIER_MERE_MOTEUR_BLESSING_V1.md` + `MOTEUR-BLESSING/V1_2026-10-24/CHECKPOINT_V1.md` + `MOTEUR-BLESSING/V1_2026-10-24/VERIFICATION_FINALE_V1_2026-10-24.md` + ZIP privé de Bibliothèque `/MOTEUR_BLESSING_V1_PACKAGE_CONVERSATION_2026-10-24/MOTEUR_BLESSING_V1_COMPLET.zip`.
+
+**Archive gelée** : SHA256 `717be63bae34f4d2927461a79073aad7c22cec9669b743adfb8a56cfe6ff95d6`; 471 fichiers ZIP, 470 empreintes internes toutes correctes; 429 fiches (62 familles / 355 enfants / 12 interactions) et 0 chemin d'index manquant; 40/40 tests Python PASS depuis ZIP; même extraction : IC démo Gamba–Kyoto 81,99329462994615 % (théorique, NON calibré). Cette vérification est ajoutée **hors archive** pour préserver le SHA256.
+
+**Précédences entre versions** : D078 incomplet, D079 référence historique 82,609048 %, V1 intermédiaire 82,023276 %, **V1 finale active 81,993294630 %**. Ne pas revenir automatiquement aux chiffres ou fichiers antérieurs.
+
+**Limitations** : 686 cases applicables en déduction ancrée sur familles, 24 N/A, 0/686 mesure enfant indépendante dans l'exemple; les 40 tests démontrent la validité du flux logiciel, non 355 causalités prouvées. ChatGPT doit rechercher et déduire les informations d'un nouveau match avant l'IC; aucun essai de collecte universelle d'un nouveau match n'a encore été validé. RIZ112 demeure distinct.
