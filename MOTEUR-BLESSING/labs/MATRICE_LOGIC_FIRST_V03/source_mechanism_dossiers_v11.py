@@ -38,18 +38,29 @@ def _raw_scenario_branches(original:dict[str,Any])->list[dict[str,Any]]:
         named_only=(not guard and _string_or_none(b.get("name")) is not None
                     and b.get("kind")=="QUALITATIVE_UNWEIGHTED"
                     and b.get("if_missing")=="ABSTAIN_OR_UNKNOWN")
-        if not guard and not named_only:
+        # 12 old R8 child contracts are byte-verified ZIP members. Each uses
+        # "state_id" + label/description, with UNESTIMATED weights and no
+        # authored predicate. State labels are never promoted to PIT evidence.
+        archival_state_only=(
+            not guard and _string_or_none(b.get("state_id")) is not None
+            and (_string_or_none(b.get("label")) is not None
+                 or _string_or_none(b.get("description")) is not None)
+            and b.get("weight_source")=="UNESTIMATED")
+        if not guard and not (named_only or archival_state_only):
             raise SourceGraphError("UNSPECIFIED_SOURCE_BRANCH_GUARD")
-        result.append({"branch_id":b.get("id"),
+        result.append({"branch_id":b.get("id",b.get("state_id")),
                        "original_source_name":b.get("name"),
+                       "original_source_state_id":b.get("state_id"),
+                       "original_source_state_label":b.get("label",b.get("description")),
                        "original_guard_predicate":guard,
                        "guard_executable":bool(guard),
                        "source_named_branch_without_guard":bool(named_only),
-                       "guard_not_authored_abstain":bool(named_only),
+                       "source_archival_state_without_guard":bool(archival_state_only),
+                       "guard_not_authored_abstain":bool(named_only or archival_state_only),
                        "original_qualitative_consequence":(
                            b.get("qualitative_consequence") or b.get("hypothesis") or
                            b.get("counterhypothesis")),
-                       "original_branch_status":b.get("status",b.get("kind","UNWEIGHTED_SOURCE_DESIGN")),
+                       "original_branch_status":b.get("status",b.get("kind","ARCHIVAL_UNWEIGHTED_STATE" if archival_state_only else "UNWEIGHTED_SOURCE_DESIGN")),
                        "branch_weight":None,
                        "causal_direction_signed":False})
     return result
@@ -114,6 +125,8 @@ def dossiers(semantics:dict[str,Any], original:dict[str,dict[str,Any]])->dict[st
         scenario=_raw_scenario_branches(c)
         if any(b["source_named_branch_without_guard"] for b in scenario):
             ctr["source_named_branches_without_guard_children"]+=1
+        if any(b["source_archival_state_without_guard"] for b in scenario):
+            ctr["source_archival_state_without_guard_children"]+=1
         question=(_string_or_none(c.get("purpose_and_causal_question")) or
                   _string_or_none(c.get("definition_du_sous_parametre")) or
                   _string_or_none(c.get("question")))
@@ -160,6 +173,7 @@ def dossiers(semantics:dict[str,Any], original:dict[str,dict[str,Any]])->dict[st
             "source_horizon_incomplete_child_count":ctr["source_horizon_incomplete"],
             "source_owner_not_declared_child_count":ctr["source_owner_not_declared"],
             "source_named_branch_without_guard_child_count":ctr["source_named_branches_without_guard_children"],
+            "source_archival_state_without_guard_child_count":ctr["source_archival_state_without_guard_children"],
             "manual_signed_causal_effects":0,
             "empirical_calibration":None,
             "theoretical_goal_IC_from_r8_provenance_alone":None,
