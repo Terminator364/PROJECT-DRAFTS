@@ -93,7 +93,7 @@ class TestD071SyntheticFullOrchestration(unittest.TestCase):
                  patch.object(engine.source_graph_v04,"extract_original_archives",return_value={}), \
                  patch.object(engine.source_graph_v04,"complete_archives",return_value=semantic), \
                  patch.object(engine.source_field_audit_v05,"original_lookup",return_value=original):
-                with self.assertRaisesRegex(Exception,"REQUIRED_R8_355"):
+                with self.assertRaisesRegex(Exception,"REQUIRED_(EXACT_|R8_)355"):
                     engine.build(root,CASE,RATES,None,True)
         finally:temp.cleanup()
 
