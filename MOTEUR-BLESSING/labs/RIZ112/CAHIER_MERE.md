@@ -2179,3 +2179,19 @@ Rapport : `MOTEUR-BLESSING/labs/MATRICE_LOGIC_FIRST_V03/D071B_PORTE_E2E_20261024
 - Message : MOTEUR E176: restore logic-first operational engine and preserve original 355 source audit boundaries
 - Fichiers concernés : MOTEUR-BLESSING/labs/RIZ112/journal/JOURNAL_EVENEMENTS.jsonl
 - Provenance : événement GitHub push. Ceci ne contient PAS les messages privés ChatGPT non consignés explicitement.
+
+## D071C — 24 octobre 2026 — MOTEUR LOGIQUE D'ABORD : RETOUR À L'OBJECTIF
+
+Directive utilisateur CTX-0099 : ne pas attendre des millions de matchs, une exécution Windows ou la calibration empirique ; **concevoir un moteur de logique qui fait entrer les paramètres et sous-paramètres, les confronte par des règles et rend un résultat d'essai**, puis préserver scrupuleusement la continuité. Réponse technique consignée dans CTX-0100 ; événement E176.
+
+**Livraison effective :** code Python autonome `MATRICE_LOGIC_FIRST_V03/moteur_logique_v1.py`, générateur `generer_entree_demo.py`, tests `test_moteur_logique_v1.py`, archive `MOTEUR_R8_LOGIQUE_V1_CODE_ET_TESTS_2026-10-24.zip` dans la Bibliothèque personnelle `/MOTEUR_LOGIQUE_V1/`. Aucune dépendance cloud, serveur, API payante, Windows ou apprentissage préalable. **12/12 tests Python locaux PASS** (structure d'origine simulée).
+
+**Algorithme D071C :** catalogue R8 de 62 familles/355 enfants, 1 088 relations documentaires (dont un lien natif `to_child`), **710 états domicile/extérieur**, états TRUE/FALSE/UNKNOWN/CONTRADICTED, contrôle de provenance éditoriale pré-T0 pour les preuves réelles. Les liens documentaires co-présents deviennent des *interactions d'examen*, jamais des effets causaux chiffrés non prouvés. Cinq **règles logiques d'interaction** conditionnent la capacité, le contexte, l'attaque, la défense adverse et la conversion, et produisent des cheminements accompagnés de leurs prémisses manquantes.
+
+**Vérification sur les vrais originaux :** lecture directe indépendante, en mémoire, de la source privée canonique `SOURCE_GRAPH_355_D060.json` : 355 identifiants, 62 mondes, 1 088 arêtes. Une démonstration volontairement fictive a associé 710 emplacements, **6 relations documentaires co-présentes et 9/10 cheminements conditionnels satisfaits**. Ce contrôle direct était réalisé en interprétation JavaScript, **pas** une preuve que le nouveau programme Python complet a été exécuté dans la branche privée. L'ancien reçu privé `CI_READBACK_D071.json` demeure absent. Ne pas confondre le test de source et l'intégration Python certifiée.
+
+**IC logique vs IC sportif :** la logique peut donner un rapport de scénarios et de contraintes sans nombre. Pour un taux Over1.5 numérique, il faut annoncer une loi quantitative et des hypothèses explicites ; les seuls taux hypothétiques donnent un IC théorique Poisson non calibré, et les 355 paramètres ne se transforment pas magiquement en probabilités. L'IC sportif réel calibré demeure `null` ; aucun 85 % réel certifié.
+
+Rapport : `MOTEUR-BLESSING/labs/MATRICE_LOGIC_FIRST_V03/D071C_LOGIQUE_AVANT_DONNEES_20261024.md`.
+
+**Prochaine priorité du code `Moteur/continue` :** poursuivre le moteur logique des 355 sources en améliorant les règles conditionnelles *avec des prémisses explicitement signées et une structure sans double compte*, tester la version Python directement contre la source privée lorsque la connexion d'exécution est disponible, puis seulement aborder une calibration sportive ultérieure si souhaitée. Ne plus imposer l'étape Windows ou l'analyse historique comme préalable à la logique.
