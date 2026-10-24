@@ -81,6 +81,11 @@ def dossiers(semantics:dict[str,Any], original:dict[str,dict[str,Any]])->dict[st
         if c.get("scoring_active") is not False or c.get("numeric_effect") is not None:
             raise SourceGraphError("SOURCE_PROMOTED_SCORING_UNAUTHORIZED:"+cid)
         owner=c.get("anti_double_count_owner")
+        source_owner_field="anti_double_count_owner"
+        if owner is None and isinstance(c.get("anti_double_count"),dict):
+            # Verified Lot01 archive stores ownership in a nested source field.
+            owner=c["anti_double_count"].get("owner")
+            source_owner_field="anti_double_count.owner"
         source_owner_attested=isinstance(owner,str) and bool(owner.strip())
         if owner is not None and not source_owner_attested:
             raise SourceGraphError("MALFORMED_ANTI_DOUBLE_COUNT_OWNER:"+cid)
@@ -119,8 +124,13 @@ def dossiers(semantics:dict[str,Any], original:dict[str,dict[str,Any]])->dict[st
         for h in anticipations:
             if not isinstance(h,dict) or not isinstance(h.get("horizon"),str):
                 raise SourceGraphError("SOURCE_HORIZON_CORRUPT:"+cid)
-            plan.append({"horizon":h["horizon"],"guard_procedure":h.get("procedure"),
-                         "missing_data_policy":h.get("when_no_source",h.get("if_missing","UNKNOWN")),
+            plan.append({"horizon":h["horizon"],
+                         "guard_procedure":h.get("procedure",h.get("method")),
+                         "original_procedure_source_key":(
+                             "procedure" if "procedure" in h else
+                             "method" if "method" in h else None),
+                         "missing_data_policy":h.get("when_no_source",
+                             h.get("if_missing",h.get("if_unavailable","UNKNOWN"))),
                          "future_data_not_allowed":True})
         scenario=_raw_scenario_branches(c)
         if any(b["source_named_branch_without_guard"] for b in scenario):
@@ -129,12 +139,16 @@ def dossiers(semantics:dict[str,Any], original:dict[str,dict[str,Any]])->dict[st
             ctr["source_archival_state_without_guard_children"]+=1
         question=(_string_or_none(c.get("purpose_and_causal_question")) or
                   _string_or_none(c.get("definition_du_sous_parametre")) or
-                  _string_or_none(c.get("question")))
+                  _string_or_none(c.get("question")) or
+                  _string_or_none(c.get("owned_question")) or
+                  _string_or_none(c.get("purpose")))
         original_name=_string_or_none(c.get("name_fr"))
         if not original_name:raise SourceGraphError("ORIGINAL_NAME_MISSING:"+cid)
         source_description=(_string_or_none(c.get("definition_du_sous_parametre")) or
                             _string_or_none(c.get("purpose_and_causal_question")) or
-                            _string_or_none(c.get("question")))
+                            _string_or_none(c.get("question")) or
+                            _string_or_none(c.get("owned_question")) or
+                            _string_or_none(c.get("purpose")))
         if source_description:ctr["source_description_present"]+=1
         else:ctr["no_original_descriptive_sentence"]+=1
         stage=STAGE_BY_WORLD[world]
@@ -144,9 +158,13 @@ def dossiers(semantics:dict[str,Any], original:dict[str,dict[str,Any]])->dict[st
              "conceptual_pipeline_stage":stage,
              "context_type":c.get("context_type"),
              "source_owned_mechanism_label":c.get("owned_mechanism"),
+             "source_archived_owned_scope_as_written":c.get("owned_scope",c.get("owned_question")),
              "applicability_condition_as_written":c.get("applicability_condition"),
-             "not_owned_or_excluded_effects":c.get("not_owned",c.get("excluded_effects")),
+             "source_archived_applicability_as_written":c.get("applicability"),
+             "not_owned_or_excluded_effects":c.get("not_owned",
+                     c.get("excluded_effects",c.get("excluded_scope",c.get("excluded_topics")))),
              "anti_double_count_owner":owner,
+             "anti_double_count_owner_source_field":source_owner_field if source_owner_attested else None,
              "source_owner_originally_attested":source_owner_attested,
              "candidate_owner_from_compiler_not_signed":(
                  None if source_owner_attested else row.get("declared_evidence_owner")),
