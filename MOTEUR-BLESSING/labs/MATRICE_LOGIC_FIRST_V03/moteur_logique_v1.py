@@ -52,7 +52,8 @@ def original_graph(graph):
     require(isinstance(edges, list) and len(edges) == 1088, "1088_SOURCE_LINKS_REQUIRED")
     require(graph.get("cross_world_edges_are_causal") is False,
             "DOCUMENTARY_GRAPH_CANNOT_BE_PROMOTED_TO_CAUSAL")
-    require(graph.get("each_goals_effect_human_signed") is False,
+    # Original R8 documents use integer 0 for the signed-effect counter.
+    require(graph.get("each_goals_effect_human_signed") in (False, 0),
             "UNSUPPORTED_CAUSAL_SOURCE_CLAIM")
     require(graph.get("numeric_ic_calibrated") is None,
             "ORIGINAL_GRAPH_FALSE_CALIBRATION")
@@ -75,8 +76,8 @@ def original_graph(graph):
         require(e.get("from") in ids, "DANGLING_EDGE_SOURCE")
         if "to_world" in e:
             require(e["to_world"] in WORLD_STAGE, "INVALID_RELATED_WORLD")
-        elif "to" in e:
-            require(e["to"] in ids, "INVALID_RELATED_CHILD")
+        elif "to" in e or "to_child" in e:
+            require(e.get("to", e.get("to_child")) in ids, "INVALID_RELATED_CHILD")
         else:
             require(False, "MISSING_EDGE_DESTINATION")
         types[e.get("kind")] += 1
