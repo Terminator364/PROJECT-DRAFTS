@@ -2305,3 +2305,8 @@ Test du mandat conversationnel `MOTEUR/ANALYSER toutes les rencontres du jour` s
 - Message : MOTEUR D078: synchronize eleven J-League fixture audit and continuity
 - Fichiers concernés : MOTEUR-BLESSING/labs/RIZ112/CAHIER_MERE.md
 - Provenance : événement GitHub push. Ceci ne contient PAS les messages privés ChatGPT non consignés explicitement.
+
+
+## D079 — Validation calculatoire d'UN match — 2026-10-24
+
+Gamba Osaka–Kyoto Sanga : **355 IDs R8 × 2 équipes = 710 cases** renseignées sans cellule vide, dont **46** rattachées à des faits pré-match mais quantitativement inférées, **640** inférences/proxies conditionnels fondés sur 62 hypothèses de famille et **24** N/A pour coupe/sélection nationale avec réactivation. Sensibilité numérique individuelle **686/686** non nulle, familles pertinentes **60/60** à influence non nulle par ablation. IC O1.5 **82,609 % théorique non calibré** contre base 79,179 % (aucun résultat postmatch dans les entrées), 1000 scénarios P5–P95 73,73–88,66 %. 24/24 tests Python passent, ZIP et JS vérifiés. **Ne PAS présenter les 640 déductions comme observations ni les chemins d'influence comme validation scientifique causale.** Livraison `/MOTEUR_D079_GAMBA_KYOTO_710_INTEGRAL/`, ZIP SHA256 `540ad10c2405c309c166e100cad6354eb0c00abf87222a0621dc7adfc528bd72`, checkpoint `MOTEUR-BLESSING/labs/MATRICE_LOGIC_FIRST_V03/CHECKPOINT_D079_MATCH_UNIQUE_710_20261024.md`. Reprise `Moteur/continue`; ne pas revenir à D078, ne pas recalculer 11 matchs avant d'avoir exploité ce rapport unique. RIZ112 reste un laboratoire distinct.
