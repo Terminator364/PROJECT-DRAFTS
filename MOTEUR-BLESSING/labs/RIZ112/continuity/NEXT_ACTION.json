@@ -8,7 +8,7 @@
     "MOTEUR-BLESSING/labs/RIZ112/CAHIER_MERE.md",
     "MOTEUR-BLESSING/labs/RIZ112/journal/JOURNAL_EVENEMENTS.jsonl"
   ],
-  "first_technical_action": "Lire d'abord le reçu CI_READBACK_D071.json dans la branche privée GitHub research/moteur-logic-first-d057-2026-10-23 ; il était ABSENT au dernier contrôle. Si toujours absent, inspecter la disponibilité réelle de GitHub Actions pour le workflow privé .github/workflows/moteur-d071-private-source-e2e.yml et l'état du PC MBMPC, sans inventer un RUN/PASS. Dès qu'un runner autorisé est opérationnel, exécuter moteur_d071_private_full_gate.py sur la vraie copie R8 et vérifier e2e_pass && unit_tests_pass && all_pass, 355 originaux, manifeste SHA, 1000 hypothèses. En cas d'échec, corriger le diagnostic du vrai reçu, pas un faux cas. Une fois D071 véritablement PASS, seulement ensuite passer à D072 validation sportive historique pré-T0.",
+  "first_technical_action": "Workflow D071 now exists on GitHub private ChatGPT-PC main commit 7399575e4066756881a467c84608bd0e49381a13, checkout of original R8 research branch; read CI_READBACK_D071.json on research branch. Still NOT_FOUND at last readback. If absent check GitHub Actions runs/quotas/security status using an authorized GitHub Actions UI/tool; do not invent a PASS. If failed repair exact log; if PASS verify 355 source IDs and SHA manifest then close D071. Sporting calibration belongs D072.",
   "how_to_continue": "One code Moteur/continue; read verified D058 checkpoint, journal E167 and CTX-0081, run next semantic batches. Do not misrepresent 355 documentary integration as 355 causal influences.",
   "lab_next_stage": "MOTEUR_D071_VERIFY_PRIVATE_TRUE_ORIGINAL_PYTHON_E2E",
   "never_do": [
@@ -17,9 +17,9 @@
     "Déclarer calibré un IC fictif",
     "Écraser un GitHub plus avancé par un ZIP ancien"
   ],
-  "next_execution_id": "MOTEUR_D071_VERIFY_PRIVATE_TRUE_ORIGINAL_PYTHON_E2E",
+  "next_execution_id": "MOTEUR_D071_VERIFY_MAIN_REGISTERED_PRIVATE_E2E",
   "next_execution_title": "Vérification stricte D071 sur les 355 vrais fichiers R8 — sans refaire D070 ni le code D071 acquis",
-  "progress_checkpoint": "D071 user go+continue run: original R8 source IDs reconciled 343/343 across 24 actual private JSON contracts plus 12 authentic ZIP source children extracted (8 Lot01+4 Pilot) => 355/355 source provenance, original 1088 edges (D061), 12 modern named-only unexecutable branches marked abstention, archival state-only uncertainty preserved and four pilot owners remain UNKNOWN. Strict original-source Python gate implemented and private workflow created. Public GitHub Actions latest 71/71 PASS incl mocked 355 Python end-to-end, 4 new safeguards, manifest tampering. Genuine private R8 E2E CI_READBACK_D071.json ABSENT and MBMPC offline. Cannot claim private original Python E2E success or sporting calibration. Report saved Library /MOTEUR_D071 and sandbox. Journal E174/context CTX-0096.",
+  "progress_checkpoint": "D071B 2026-10-24: 355 original R8 authenticated 343+12; 71 public CI tests PASS. Main-branch private GitHub Actions workflow registered and verified, original-source research checkout explicit. No authentic E2E Python receipt after fix, no runtime log accessible; MBMPC offline. Journal E175 and context CTX0097/0098 saved, mother GitHub and Google Doc synchronized. Do not restart D070.",
   "project": "RIZ112→MATRICE",
   "schema": "moteur-blessing/next-action/v1",
   "scientific_status": "UNVALIDATED_REAL_Q_IC_NULL__SYNTHETIC_RICE_METHOD_LAB_FOR_MATRICE",
@@ -41,8 +41,8 @@
   "critical_directive_D035": "Cahier mère as durable authority, all accessible context, no blanket assertion of 112 IC causal effects; each counterfactual evidence or explicit abstention",
   "canonical_source": "GitHub main MOTEUR-BLESSING/labs/RIZ112/CAHIER_MERE.md plus journal, exact context register and checkpoint; not ChatGPT memory.",
   "context_capture_limits": "The tool captures only messages actively submitted in-session and available for logging, not autonomous background conversations.",
-  "latest_journal_event_id": "E174",
-  "latest_context_id": "CTX-0096",
+  "latest_journal_event_id": "E175",
+  "latest_context_id": "CTX-0098",
   "journal_chain_verified": false,
   "step18_checkpoint": "MOTEUR-BLESSING/labs/RIZ112/step18/CHECKPOINT_STEP18_20261017.json",
   "step18_windows_status": "PARTIAL_RESOURCE_TESTS_PASS; CONDITIONAL_SUITE_NOT_VALIDATED_TIMEOUT",
@@ -263,8 +263,8 @@
   "logic_first_v02_D055_checkpoint": "MOTEUR-BLESSING/labs/MATRICE_LOGIC_FIRST_V02/CHECKPOINT_D055_20261023.json",
   "logic_first_v02_D055_integration_status": "PENDING_REAL_BASELINE_RUN",
   "logic_first_v02_D055_drive_status": "CAHIER_DOC_MIRROR_READBACK_TRUE_FULL_ZIP_NOT_BACKED_UP",
-  "latest_technical_checkpoint": "Library /MOTEUR_D071/MOTEUR_D071_RAPPORT_INTEGRATION_2026-10-24.md",
-  "journal_head": "212b59d7c336f8814eabe13b572f82896358b34765664033c66b6349600e45b9",
+  "latest_technical_checkpoint": "MOTEUR-BLESSING/labs/MATRICE_LOGIC_FIRST_V03/D071B_PORTE_E2E_20261024.md",
+  "journal_head": "e3a977b42f6d5e7d1905b8aad980d5cf35006576667aae20702f6ebea229fd8c",
   "mirror_status_D056": "GOOGLE_DOC_READBACK_VERIFIED; FULL_ZIP_NOT_SYNCED",
   "next_tests_count": 76,
   "latest_audit": "Library /MOTEUR_D071/MOTEUR_D071_RAPPORT_INTEGRATION_2026-10-24.md",
@@ -274,7 +274,7 @@
     "moteur_unique_v1.py source complete one-command",
     "CI_READBACK_D065B.json (new run pending)"
   ],
-  "continuity_gap": "D071 original source ledger complete and Python gate fully coded/tested 71/71 public; authentic original R8 Python 355 runner not attested because GitHub private CI receipt absent, MBMPC offline. Do not call finished until matching PASS receipt. Calibrated sporting IC absent and 324 goal effects unsigned.",
+  "continuity_gap": "CI_READBACK_D071.json is absent despite workflow main registration, GitHub Actions runtime permission/logs unavailable. E2E PASS not certified, 324 unsigned goal effects, no sport IC calibrated.",
   "latest_verified_D058": {
     "private_CI_receipt": "Terminator364/ChatGPT-PC:MATRICE/R8_G3_DEEP_20261014/MOTEUR_LOGIC_FIRST_D057/CI_READBACK_D057.json",
     "pass_tests": 31,
