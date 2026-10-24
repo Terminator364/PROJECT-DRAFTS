@@ -2271,3 +2271,11 @@ Rapport : `MOTEUR-BLESSING/labs/MATRICE_LOGIC_FIRST_V03/D071C_LOGIQUE_AVANT_DONN
 ## MOTEUR D076 — synchronisation 2026-10-24
 
 Version D076 livrée (ZIP+HTML) dans la bibliothèque `/MOTEUR_D076_UNIFIE_355/`. Le registre R8 conserve 62 familles/355 IDs/710 cases, les recettes d'acquisition antérieures, un modèle d'interactions conditionnelles et 1 000 scénarios non calibrés. Test Gamba–Kyoto pré-match : IC théorique 79,037 %, 7 sources, 135 cases individualisées, 575 sans preuve individuelle ; 40 tests Python et Chromium passent. **La recherche via Internet n'est pas automatique dans le HTML** : elle reste assurée par ChatGPT et ses sources, puis injectée par dossier JSON. La calibration empirique reste à faire. Checkpoint détaillé : `MOTEUR-BLESSING/labs/MATRICE_LOGIC_FIRST_V03/D076_CHECKPOINT_20261024.md`. RIZ112 demeure un laboratoire distinct. Mot-clé : `Moteur/continue`.
+
+
+### Synchronisation automatique GitHub — 2026-10-24T14:31:43.547122+00:00
+
+- Commit source : 29c15f65d78e63714702c9907efd22210aadd71c
+- Message : MOTEUR D076: sync continuity and mother notebook
+- Fichiers concernés : MOTEUR-BLESSING/labs/RIZ112/CAHIER_MERE.md
+- Provenance : événement GitHub push. Ceci ne contient PAS les messages privés ChatGPT non consignés explicitement.
