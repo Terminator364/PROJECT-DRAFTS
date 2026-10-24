@@ -53,7 +53,7 @@
     "parent_manifest_status": "GITHUB_UPDATED_AND_READBACK",
     "single_code_contract": "continuity/CONTRAT_CODE_UNIQUE.md",
     "windows_status": "MBMPC_OFFLINE_LAST_CHECK",
-    "context_registry_sha256": "b17faaad533a07a222e4d2b594ea1fc9dd8118b22e5c3b974a87c9846496e9e4",
+    "context_registry_sha256": "16d903af1d0941beace1945660774a8161384b2e3056168fe6c0a48db4df1664",
     "one_code_tests_passed": 6,
     "historic_regression_tests_passed": 309,
     "readback": "D060_PRIVATE_CI_JOURNAL_VALID_168; NEXT_ACTION_RESUME_PASS; DRIVE_DOC_D058_READBACK; ZIP_NOT_SYNCED",
@@ -67,7 +67,8 @@
     "latest_active_checkpoint": "MOTEUR-BLESSING/labs/MATRICE_LOGIC_FIRST_V03/D071B_PORTE_E2E_20261024.md",
     "google_doc_refreshed_D056": true,
     "local_artifact_library_path": "/MOTEUR_D070/MOTEUR_D070_LIVRAISON_AUTONOME_1000_IC_112_VARIABLES_2026-10-23.zip",
-    "library_D071_report": "/MOTEUR_D071/MOTEUR_D071_RAPPORT_INTEGRATION_2026-10-24.md"
+    "library_D071_report": "/MOTEUR_D071/MOTEUR_D071_RAPPORT_INTEGRATION_2026-10-24.md",
+    "context_registry_sha256_verified_by_JS": true
   },
   "continuity_code": "Moteur/continue",
   "date": "2026-10-17",
