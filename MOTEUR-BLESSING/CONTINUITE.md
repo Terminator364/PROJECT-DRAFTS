@@ -147,3 +147,8 @@ Mise au point essentielle : le D076 **n'est pas conforme au cahier des charges c
 ## D077 — paquet conversation ChatGPT — 2026-10-24
 
 Conception validée : le match est la seule saisie utilisateur. ChatGPT doit lire un package et rechercher les 62 familles/355 enfants, appliquer les recettes de repli/simulation, rédiger dossier 710 cas, puis exécuter IC logique théorique. Le package D077 a été livré dans la Bibliothèque `/MOTEUR_D077_PACKAGE_CONVERSATION/` et produit 62 plans/355 questions avec 60/60 tests OK. Le format n'est PAS une page HTML à remplir. ZIP statique ≠ collecteur Web autonome : orchestration par ChatGPT dans une conversation disposant de navigation/Python. Cas Gamba–Kyoto précédent demeure marqué INCOMPLET (pas de journal exhaustif des 62 familles). Voir `MOTEUR-BLESSING/labs/MATRICE_LOGIC_FIRST_V03/CHECKPOINT_D077_PACKAGE_CONVERSATION_20261024.md`. Ne pas qualifier la couverture des IDs de validation causale; calibration plus tard. Code : `Moteur/continue`.
+
+
+## D078 — J.LEAGUE 11 MATCHS — 24 OCTOBRE 2026
+
+Test du mandat conversationnel `MOTEUR/ANALYSER toutes les rencontres du jour` sur 5 J1 + 2 J2 + 4 J3 avec datation T−1 avant coup d'envoi prévu, 11 IC théoriques calculés, 11×710 cases R8 auditées, 355 consignes spécifiques de repli J−3/T−1. 84/84 tests Python et interface JS mock passent, **recherche individuelle 62 familles par match toujours INCOMPLÈTE** (ne pas déclarer complet). Proxies et scénarios différenciés de faits sourcés; pas de fuite de score cible. Livraison ZIP + HTML + CSV + plan 355 dans Library `/MOTEUR_D078_JLEAGUE_11_MATCHS/`. Checkpoint détaillé `MOTEUR-BLESSING/labs/MATRICE_LOGIC_FIRST_V03/CHECKPOINT_D078_JLEAGUE_11_MATCHS_20261024.md`. RIZ112 est laboratoire distinct. Reprise `Moteur/continue`.
