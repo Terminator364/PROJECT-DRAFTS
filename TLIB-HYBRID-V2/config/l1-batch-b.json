@@ -1,0 +1,197 @@
+[
+  {
+    "id": 40349109,
+    "node_id": "MDEwOlJlcG9zaXRvcnk0MDM0OTEwOQ==",
+    "full_name": "yenchenlin/awesome-watchos",
+    "description": "A curated list of awesome watchOS frameworks, libraries, sample apps.",
+    "archived": false,
+    "fork": false,
+    "stargazers_count": 503,
+    "language": "Ruby",
+    "license": null,
+    "topics": [],
+    "updated_at": "2026-08-26T12:20:56Z",
+    "pushed_at": "2018-07-05T22:52:02Z",
+    "default_branch": "master",
+    "size": 93,
+    "open_issues_count": 4
+  },
+  {
+    "id": 40659091,
+    "node_id": "MDEwOlJlcG9zaXRvcnk0MDY1OTA5MQ==",
+    "full_name": "deephacks/awesome-jvm",
+    "description": "A curated list of awesome loosely performance related JVM stuff. Inspired by awesome-python.",
+    "archived": false,
+    "fork": false,
+    "stargazers_count": 2176,
+    "language": "",
+    "license": {
+      "spdx_id": "CC0-1.0",
+      "name": "Creative Commons Zero v1.0 Universal"
+    },
+    "topics": [],
+    "updated_at": "2026-09-14T16:58:22Z",
+    "pushed_at": "2022-08-30T06:38:00Z",
+    "default_branch": "master",
+    "size": 444,
+    "open_issues_count": 17
+  },
+  {
+    "id": 39873325,
+    "node_id": "MDEwOlJlcG9zaXRvcnkzOTg3MzMyNQ==",
+    "full_name": "mailtoharshit/awesome-salesforce",
+    "description": "A curated list of delightful Salesforce Platform Resources",
+    "archived": false,
+    "fork": false,
+    "stargazers_count": 806,
+    "language": "",
+    "license": null,
+    "topics": [],
+    "updated_at": "2026-09-18T23:52:02Z",
+    "pushed_at": "2023-07-20T13:55:57Z",
+    "default_branch": "master",
+    "size": 1801,
+    "open_issues_count": 9
+  },
+  {
+    "id": 44104712,
+    "node_id": "MDEwOlJlcG9zaXRvcnk0NDEwNDcxMg==",
+    "full_name": "donnemartin/awesome-aws",
+    "description": "A curated list of awesome Amazon Web Services (AWS) libraries, open source repos, guides, blogs, and other resources.  Featuring the Fiery Meter of AWSome.",
+    "archived": false,
+    "fork": false,
+    "stargazers_count": 14158,
+    "language": "Python",
+    "license": {
+      "spdx_id": "NOASSERTION",
+      "name": "Other"
+    },
+    "topics": [
+      "aws",
+      "aws-cli",
+      "aws-sdk",
+      "cloud",
+      "cloud-management",
+      "cloudformation",
+      "cloudwatch",
+      "dynamodb",
+      "ec2",
+      "ecs",
+      "elasticsearch",
+      "iam",
+      "kinesis",
+      "lambda",
+      "machine-learning",
+      "rds",
+      "redshift",
+      "route53",
+      "s3",
+      "serverless"
+    ],
+    "updated_at": "2026-09-26T18:31:24Z",
+    "pushed_at": "2024-03-12T09:29:54Z",
+    "default_branch": "master",
+    "size": 803,
+    "open_issues_count": 103
+  },
+  {
+    "id": 849611230,
+    "node_id": "R_kgDOMqQJ3g",
+    "full_name": "0PandaDEV/awesome-windows",
+    "description": "An awesome & curated list of tools and apps for Windows 10/11.",
+    "archived": false,
+    "fork": false,
+    "stargazers_count": 2920,
+    "language": "",
+    "license": {
+      "spdx_id": "CC0-1.0",
+      "name": "Creative Commons Zero v1.0 Universal"
+    },
+    "topics": [
+      "awesome",
+      "awesome-list",
+      "microsoft",
+      "windows"
+    ],
+    "updated_at": "2026-09-27T13:13:13Z",
+    "pushed_at": "2026-09-10T07:40:45Z",
+    "default_branch": "main",
+    "size": 453,
+    "open_issues_count": 64
+  },
+  {
+    "id": 482754397,
+    "node_id": "R_kgDOHMY_XQ",
+    "full_name": "hlaueriksson/awesome-powertoys-run-plugins",
+    "description": "🗂️🔎 Delightful PowerToys Run community plugins 🔌",
+    "archived": false,
+    "fork": false,
+    "stargazers_count": 606,
+    "language": "",
+    "license": {
+      "spdx_id": "CC0-1.0",
+      "name": "Creative Commons Zero v1.0 Universal"
+    },
+    "topics": [
+      "awesome",
+      "awesome-list",
+      "list",
+      "microsoft-powertoys",
+      "plugins",
+      "powertoys",
+      "powertoys-run",
+      "powertoys-run-plugin"
+    ],
+    "updated_at": "2026-09-27T14:04:33Z",
+    "pushed_at": "2025-09-08T21:25:03Z",
+    "default_branch": "main",
+    "size": 387,
+    "open_issues_count": 7
+  },
+  {
+    "id": 44264666,
+    "node_id": "MDEwOlJlcG9zaXRvcnk0NDI2NDY2Ng==",
+    "full_name": "ipfs/awesome-ipfs",
+    "description": "Community list of awesome projects, apps, tools, pinning services and more related to IPFS.",
+    "archived": false,
+    "fork": false,
+    "stargazers_count": 4611,
+    "language": "JavaScript",
+    "license": {
+      "spdx_id": "CC0-1.0",
+      "name": "Creative Commons Zero v1.0 Universal"
+    },
+    "topics": [
+      "awesome",
+      "awesome-ipfs",
+      "awesome-list",
+      "ipfs"
+    ],
+    "updated_at": "2026-09-24T20:00:07Z",
+    "pushed_at": "2025-11-13T12:41:43Z",
+    "default_branch": "main",
+    "size": 16573,
+    "open_issues_count": 22
+  },
+  {
+    "id": 46132822,
+    "node_id": "MDEwOlJlcG9zaXRvcnk0NjEzMjgyMg==",
+    "full_name": "fuse-compound/awesome-fuse",
+    "description": "A curated list of awesome Fuse applications, articles, and plugins",
+    "archived": false,
+    "fork": false,
+    "stargazers_count": 363,
+    "language": "",
+    "license": null,
+    "topics": [
+      "awesome",
+      "fuse",
+      "norway"
+    ],
+    "updated_at": "2026-09-14T21:18:05Z",
+    "pushed_at": "2019-02-25T19:19:14Z",
+    "default_branch": "master",
+    "size": 173,
+    "open_issues_count": 0
+  }
+]
