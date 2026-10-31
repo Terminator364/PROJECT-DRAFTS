@@ -1,4 +1,4 @@
-# ORIGIN-3 / APOLLO CORE — PLAN DIRECTEUR R4.12
+# ORIGIN-3 / APOLLO CORE — PLAN DIRECTEUR R4.12b
 
 **31 octobre 2026 · Version de référence après 12 contre-audits structurés · Destination : Linux natif (niveau 3)**
 
@@ -433,3 +433,11 @@ Ces 12 cycles ne prouvent ni boot Linux, ni fiabilité énergétique. Ils produi
 
 ---
 **Révision R4.12 : finale pour la planification actuelle, non immuable.** Toute nouvelle preuve physique provoque une évolution contrôlée R4.13+, jamais la falsification d'une ancienne validation.
+
+## L. Additif de durcissement R4.12b — Système de vérité et conservation C0
+
+**Registre canonique actualisé :** [`registry/WBS_GATES_R4_12.json`](registry/WBS_GATES_R4_12.json), `plan_version = R4.12b`. Il définit **83 tests distincts** à fournir sur 26 lots, une preuve par fonction critique (charge, batterie, thermique, Wi-Fi, USB, stockage, RAM, watchdog), et des dépendances strictes G0 → G1 → G2 → G3 → G4. La présence d'une seule preuve fourre-tout ne suffit jamais. Le contrôle automatisé a passé **15/15 scénarios adversariaux de règles**, tous fictifs, sans transformer les résultats en preuves matérielles. Voir [`registry/GATE_ADVERSARIAL_TESTS_R4_12b.json`](registry/GATE_ADVERSARIAL_TESTS_R4_12b.json).
+
+**Continuité sans restart :** le démonstrateur **Apollo-C0 en C11** conservé dans le patrimoine de laboratoire a été recompilé et re-testé localement (32/32 tests, 120 SIGKILL simulés sans corruption constatée). Le banc Python reste un banc comparatif/recherche (56/56 tests locaux), **pas** le moteur obligatoire du niveau 3. La promotion du C0 exige un journal durable versionné, des identifiants idempotents, des modules isolés, des essais ARM64 et une qualification sur appareil. Les anciens lots A–Z ne sont pas perdus : correspondance complète dans [`registry/RECONCILIATION_C0_APOLLO_R4_12a.md`](registry/RECONCILIATION_C0_APOLLO_R4_12a.md).
+
+**Règle « pure finale » :** R4.12b est une version directrice de planification stable et auditable, mais non une confirmation du succès Linux natif. Les découvertes matérielles entraîneront des révisions contrôlées; les validations précédentes resteront conservées et n'auront jamais d'effet sur un statut sans preuve.
