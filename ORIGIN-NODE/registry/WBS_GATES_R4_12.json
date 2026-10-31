@@ -1,6 +1,6 @@
 {
   "project": "ORIGIN-3 APOLLO CORE",
-  "plan_version": "R4.12a",
+  "plan_version": "R4.12b",
   "date": "2026-10-31",
   "destination": "N3 Linux natif sans Android Framework",
   "states": [
@@ -35,7 +35,8 @@
         "E"
       ],
       "condition": "Identité+restauration+bootmap+énergie+sources documentées",
-      "status": "NON_VALIDE"
+      "status": "NON_VALIDE",
+      "depends_on": []
     },
     {
       "id": "G1",
@@ -51,7 +52,10 @@
         "N"
       ],
       "condition": "Cœur portable et épreuves Android sur téléphone mesurées",
-      "status": "NON_VALIDE"
+      "status": "NON_VALIDE",
+      "depends_on": [
+        "G0"
+      ]
     },
     {
       "id": "G2",
@@ -65,7 +69,10 @@
         "U"
       ],
       "condition": "Deux noyaux qualifiés sur papier; un chemin boot réel + récupération démontrés",
-      "status": "NON_VALIDE"
+      "status": "NON_VALIDE",
+      "depends_on": [
+        "G1"
+      ]
     },
     {
       "id": "G3",
@@ -75,7 +82,10 @@
         "X"
       ],
       "condition": "Linux natif sur A21s, sans Android Framework, tous périphériques P0 fonctionnent",
-      "status": "NON_VALIDE"
+      "status": "NON_VALIDE",
+      "depends_on": [
+        "G2"
+      ]
     },
     {
       "id": "G4",
@@ -84,7 +94,10 @@
         "Z"
       ],
       "condition": "Stabilité durée et livraison maintenable",
-      "status": "NON_VALIDE"
+      "status": "NON_VALIDE",
+      "depends_on": [
+        "G3"
+      ]
     }
   ],
   "tasks": [
@@ -884,7 +897,7 @@
     "les tests LAB ne sont pas des preuves matérielles",
     "pilotage Actions GitHub par budget zéro défaut"
   ],
-  "release_guard": "N3 ne peut etre validé sans V W X sur appareil; release exige Y Z et S",
+  "release_guard": "Z requires all gate predecessors qualified plus 83 distinct evidence tests overall; no G4 on incomplete G0..G3. Research parallelism allowed, qualification sequential.",
   "known_prior_work": "Prototype ORIGIN 0.2 Linux laboratoire rapporté antérieurement; pas de validation actuelle du téléphone.",
   "known_blockers": [
     "Téléphone non instrumenté dans cette session",
