@@ -1,0 +1,761 @@
+{
+  "project": "ORIGIN-3 APOLLO CORE",
+  "plan_version": "R4.12",
+  "date": "2026-10-31",
+  "destination": "N3 Linux natif sans Android Framework",
+  "states": [
+    "NON_COMMENCE",
+    "RECHERCHE",
+    "PROTOTYPE_LAB_NON_QUALIFIE",
+    "EN_COURS",
+    "BLOQUE",
+    "A_CORRIGER",
+    "A_CONTRE_AUDITER",
+    "VALIDE",
+    "SUSPENDU"
+  ],
+  "progress_policy": "Progression = tâches vérifiées avec preuves /26; Aucune avancée déclarée sur la seule base d'une recherche ou d'un fichier.",
+  "proof_levels": [
+    "HYPOTHESE",
+    "SOURCE",
+    "LAB_x86",
+    "EMULATION_ARM64",
+    "ANDROID_DEVICE",
+    "NATIVE_LINUX_DEVICE",
+    "ENDURANCE_30J"
+  ],
+  "gates": [
+    {
+      "id": "G0",
+      "tasks": [
+        "A",
+        "B",
+        "C",
+        "D",
+        "E"
+      ],
+      "condition": "Identité+restauration+bootmap+énergie+sources documentées",
+      "status": "NON_VALIDE"
+    },
+    {
+      "id": "G1",
+      "tasks": [
+        "F",
+        "G",
+        "H",
+        "I",
+        "J",
+        "K",
+        "L",
+        "M",
+        "N"
+      ],
+      "condition": "Cœur portable et épreuves Android sur téléphone mesurées",
+      "status": "NON_VALIDE"
+    },
+    {
+      "id": "G2",
+      "tasks": [
+        "O",
+        "P",
+        "Q",
+        "R",
+        "S",
+        "T",
+        "U"
+      ],
+      "condition": "Deux noyaux qualifiés sur papier; un chemin boot réel + récupération démontrés",
+      "status": "NON_VALIDE"
+    },
+    {
+      "id": "G3",
+      "tasks": [
+        "V",
+        "W",
+        "X"
+      ],
+      "condition": "Linux natif sur A21s, sans Android Framework, tous périphériques P0 fonctionnent",
+      "status": "NON_VALIDE"
+    },
+    {
+      "id": "G4",
+      "tasks": [
+        "Y",
+        "Z"
+      ],
+      "condition": "Stabilité durée et livraison maintenable",
+      "status": "NON_VALIDE"
+    }
+  ],
+  "tasks": [
+    {
+      "id": "A",
+      "phase": "P0",
+      "name": "Identité et patrimoine matériel",
+      "depends_on": [],
+      "owner": "Matériel",
+      "work": "Inventaire lecture seule : SM-A217F variante exacte, RAM effective, stockage, état du chargeur, santé batterie, version Android/bootloader; exclusions IMEI, MAC et secrets.",
+      "accept": "Rapport signé par hachage, valeurs relevées sur appareil; comparaison à 2 sources matérielles.",
+      "contingency": "Sans appareil: BLOQUE inventaire physique; aucune identité déduite d'une ancienne fiche.",
+      "status": "NON_COMMENCE",
+      "evidence": [],
+      "validated": false,
+      "revision": 2
+    },
+    {
+      "id": "B",
+      "phase": "P0",
+      "name": "Sauvegarde réellement restaurable",
+      "depends_on": [
+        "A"
+      ],
+      "owner": "Données",
+      "work": "Sauver données personnelles, état logiciel, fichiers de service; inventaire des partitions possibles sans affirmer un dump bootloader intégral.",
+      "accept": "Restaurer un échantillon sur support distinct, vérifier checksums et consigner les données non sauvegardables.",
+      "contingency": "Si backup impossible: STOP flash et modifier le périmètre de test.",
+      "status": "NON_COMMENCE",
+      "evidence": [],
+      "validated": false,
+      "revision": 2
+    },
+    {
+      "id": "C",
+      "phase": "P0",
+      "name": "Chaîne d'amorçage et partitions",
+      "depends_on": [
+        "A"
+      ],
+      "owner": "Boot",
+      "work": "Relever modes Samsung Download/recovery, partitions boot/vbmeta/vendor/system, déverrouillage; documenter image originale et procédure opérateur.",
+      "accept": "Carte bootloader, risque Knox, stratégie réelle de récupération vérifiée sans altérer le téléphone.",
+      "contingency": "Pas de supposition fastboot ou partitions A/B; plan conditionnel par matériel.",
+      "status": "NON_COMMENCE",
+      "evidence": [],
+      "validated": false,
+      "revision": 2
+    },
+    {
+      "id": "D",
+      "phase": "P0",
+      "name": "Risque énergétique et santé matérielle",
+      "depends_on": [
+        "A"
+      ],
+      "owner": "Énergie",
+      "work": "Mesurer chauffe, charge USB, batterie usée, comportement Wi-Fi, état alimentation et conséquences des coupures.",
+      "accept": "Décision batterie sûre/inconnue/dangereuse et limites d'essai signées.",
+      "contingency": "Batterie gonflée/abîmée ou charge non sûre : HALT essais autonomes non supervisés.",
+      "status": "NON_COMMENCE",
+      "evidence": [],
+      "validated": false,
+      "revision": 1
+    },
+    {
+      "id": "E",
+      "phase": "P0",
+      "name": "Registre des sources et licences",
+      "depends_on": [],
+      "owner": "Recherche",
+      "work": "Classer sources Samsung, LineageOS, Linux device tree, pilotes, Buildroot, postmarketOS, U-Boot, Knox; licences, dates, compatibilité.",
+      "accept": "Chaque affirmation critique porte source, statut vérifié/proposé/supposé et date; pas de mélange entre variantes.",
+      "contingency": "Si preuves contradictoires: ticket et arbitre, pas d'affirmation ferme.",
+      "status": "RECHERCHE",
+      "evidence": [],
+      "validated": false,
+      "revision": 0
+    },
+    {
+      "id": "F",
+      "phase": "N1",
+      "name": "Contrat du système portable",
+      "depends_on": [
+        "E"
+      ],
+      "owner": "Architecture",
+      "work": "API stable OS-agnostique jobs, observabilité, configuration, stockage, temps monotone, communication; interfaces HAL abstraites.",
+      "accept": "Maquette exécutable sans appels Android obligatoires dans le cœur; versionnement schéma et API.",
+      "contingency": "Adapter façade Android, ne pas bifurquer logique métier.",
+      "status": "NON_COMMENCE",
+      "evidence": [],
+      "validated": false,
+      "revision": 0
+    },
+    {
+      "id": "G",
+      "phase": "N1",
+      "name": "APOLLO Executive à priorités",
+      "depends_on": [
+        "F"
+      ],
+      "owner": "Exécution",
+      "work": "Ordonnancement S0 sécurité/énergie, S1 récupération, S2 contrôle, S3 interactif, S4 indexation/IA; files bornées.",
+      "accept": "Tests starvation, surcharge, famine priorités, deadlines, dégradation contrôlée, aucune tâche S4 bloquant S0.",
+      "contingency": "Quand capacité insuffisante: rejeter, décaler, reprendre; jamais ignorer silencieusement.",
+      "status": "RECHERCHE",
+      "evidence": [],
+      "validated": false,
+      "revision": 1
+    },
+    {
+      "id": "H",
+      "phase": "N1",
+      "name": "Mémoire froide et modules intermittents",
+      "depends_on": [
+        "F",
+        "G"
+      ],
+      "owner": "Mémoire",
+      "work": "Catalogue modules sur stockage; un module lourd actif; lecture streaming, cache plafonné, charge/travail/checkpoint/libération.",
+      "accept": "Mesure RSS/PSS par module, heap et fuite sur 1 000 cycles; tests seuils sur ARM64.",
+      "contingency": "Adapter langage et compilation native si Python devient trop coûteux.",
+      "status": "RECHERCHE",
+      "evidence": [],
+      "validated": false,
+      "revision": 1
+    },
+    {
+      "id": "I",
+      "phase": "N1",
+      "name": "Transactions et journal de reprise",
+      "depends_on": [
+        "F"
+      ],
+      "owner": "Données",
+      "work": "SQLite+outbox, idempotence, fencing, fsync, snapshots, sauvegarde hors téléphone, séparation état critique / cache.",
+      "accept": "Crash tests multiples, restauration contrôlée, preuve que les tâches validées survivent selon contrat de durabilité.",
+      "contingency": "Si stockage défectueux: lecture seule et récupération, jamais réécriture agressive.",
+      "status": "RECHERCHE",
+      "evidence": [],
+      "validated": false,
+      "revision": 1
+    },
+    {
+      "id": "J",
+      "phase": "N1",
+      "name": "Gouverneur RAM/CPU/énergie/réseau",
+      "depends_on": [
+        "G",
+        "H"
+      ],
+      "owner": "Ressources",
+      "work": "Budgets hypothétiques mesurés : RSS services, CPU duty-cycle, RAM libre, espace eMMC, température, data mobile.",
+      "accept": "Tests limites/dégradation, lecture capteurs, états UNKNOWN traités prudemment; pas de régulation matérielle imaginaire.",
+      "contingency": "Seuils ajustés après mesures et contre-audit énergétique.",
+      "status": "NON_COMMENCE",
+      "evidence": [],
+      "validated": false,
+      "revision": 2
+    },
+    {
+      "id": "K",
+      "phase": "N1",
+      "name": "Superviseur hiérarchique et boot temporaire",
+      "depends_on": [
+        "G",
+        "I"
+      ],
+      "owner": "Fiabilité",
+      "work": "Runit/Termux:Boot ou service natif de labo; supervision avec verrou crash-safe et détection de redémarrage.",
+      "accept": "Crash process, kill superviseur, reboot, Doze, standby: résultat réel journalisé sans promesse 24/7.",
+      "contingency": "Si OS supprime superviseur, l'événement nourrit N2; pas présenté comme service permanent.",
+      "status": "RECHERCHE",
+      "evidence": [],
+      "validated": false,
+      "revision": 0
+    },
+    {
+      "id": "L",
+      "phase": "N1",
+      "name": "API sécurisée et interface minimale",
+      "depends_on": [
+        "F",
+        "I"
+      ],
+      "owner": "Sécurité",
+      "work": "Console offline-first localhost, contrôle d'accès, token rotatif, absence de shell arbitraire, journaux redigés.",
+      "accept": "Tests auth, injection, frontières de permissions, refus explicite d'accès internet.",
+      "contingency": "Aucune écoute 0.0.0.0 ni secrets sur dépôt public.",
+      "status": "NON_COMMENCE",
+      "evidence": [],
+      "validated": false,
+      "revision": 0
+    },
+    {
+      "id": "M",
+      "phase": "N1",
+      "name": "Banc portable / tests adversariaux",
+      "depends_on": [
+        "G",
+        "H",
+        "I",
+        "J",
+        "K",
+        "L"
+      ],
+      "owner": "QA",
+      "work": "Tests unitaires, propriétés, fuzz ciblé, coupure à points de commit, saturation, thermique simulé, backpressure.",
+      "accept": "Matrice exigences↔tests; preuve indépendante et reproductible, chronométrage/RSS annotés par machine.",
+      "contingency": "Refus de convertir un test x86 en validation téléphone.",
+      "status": "RECHERCHE",
+      "evidence": [],
+      "validated": false,
+      "revision": 2
+    },
+    {
+      "id": "N",
+      "phase": "N1",
+      "name": "Qualification Android réelle",
+      "depends_on": [
+        "A",
+        "B",
+        "D",
+        "M"
+      ],
+      "owner": "Terrain",
+      "work": "Termux ou APK laboratoire réversible; épreuves Wi-Fi veille 1/4/12/24h, coupure, charge, stockage, collecte des métriques.",
+      "accept": "Rapport équipement signé, logs de boot/reboot, autonomie, défaillances et correction; G1 atteint.",
+      "contingency": "Si téléphone indisponible: statut BLOQUE et poursuite N2 hors appareil.",
+      "status": "NON_COMMENCE",
+      "evidence": [],
+      "validated": false,
+      "revision": 1
+    },
+    {
+      "id": "O",
+      "phase": "N2",
+      "name": "Atelier de compilation ARM64",
+      "depends_on": [
+        "E",
+        "F"
+      ],
+      "owner": "Build",
+      "work": "Cross-compile C/Rust/Python AArch64, Buildroot rootfs minimal, QEMU ARM64 pour services seulement; SBOM.",
+      "accept": "Compilations hors Android, tests ELF ABI, reproductibilité hashes et logs; limite PC 4 Go vérifiée.",
+      "contingency": "Construire par paquets/caches; ne pas déclencher GitHub Actions automatiques.",
+      "status": "NON_COMMENCE",
+      "evidence": [],
+      "validated": false,
+      "revision": 1
+    },
+    {
+      "id": "P",
+      "phase": "N2",
+      "name": "Voie V : noyau Samsung dérivé",
+      "depends_on": [
+        "C",
+        "E",
+        "O"
+      ],
+      "owner": "Kernel vendor",
+      "work": "Étudier kernel 4.19, drivers firmware, SELinux, dtbo, ramdisk, dépendances Android; patcher sans supposer compatibilité userspace non-Android.",
+      "accept": "Build artefact sur hôte, matrice des drivers essentiels et limites du noyau ancien.",
+      "contingency": "Si pilotes Android spécifiques à l'espace utilisateur: ports/shims isolés ou pause V.",
+      "status": "RECHERCHE",
+      "evidence": [],
+      "validated": false,
+      "revision": 1
+    },
+    {
+      "id": "Q",
+      "phase": "N2",
+      "name": "Voie M : Linux mainline",
+      "depends_on": [
+        "C",
+        "E",
+        "O"
+      ],
+      "owner": "Kernel mainline",
+      "work": "Suivre exynos850-a217f.dts 2026, 3 Go RAM déclaré, patchsets, PMIC/charge, wifi/firmware, USB, boot.",
+      "accept": "Compile dtbs/checks; divergences 3/4 Go consignées, statut chaque pilote prouvé.",
+      "contingency": "Jamais emprunter les images A13/A12 comme compatibles A21s.",
+      "status": "RECHERCHE",
+      "evidence": [],
+      "validated": false,
+      "revision": 2
+    },
+    {
+      "id": "R",
+      "phase": "N2",
+      "name": "Matrice des pilotes et firmware",
+      "depends_on": [
+        "P",
+        "Q",
+        "D"
+      ],
+      "owner": "Bring-up",
+      "work": "Comparer V/M: DRAM 4Go, MMC, regulators, PMIC/charge, thermiques, wifi, USB, framebuffer, veille, watchdog, RTC.",
+      "accept": "Chaque ligne = source, état code, état boot, état terrain, propriétaire, criticité, recours; essentiels tous TESTES avant G3.",
+      "contingency": "Réseau et énergie non validés = blocage G3; écran sophistiqué et caméra optionnels.",
+      "status": "NON_COMMENCE",
+      "evidence": [],
+      "validated": false,
+      "revision": 1
+    },
+    {
+      "id": "S",
+      "phase": "N2",
+      "name": "Plan d'essai boot et récupération",
+      "depends_on": [
+        "B",
+        "C",
+        "D",
+        "R"
+      ],
+      "owner": "Boot",
+      "work": "Périmètre des partitions préservées, image originale vérifiée, voie de récupération Download/recovery, avertissement Knox, action opérateur explicite.",
+      "accept": "Test de restauration réaliste; aucune opération irréversible sans décision explicite et risques acceptés.",
+      "contingency": "Pas de recette générique fastboot/Odin hors variante vérifiée; conserver la voie de secours.",
+      "status": "NON_COMMENCE",
+      "evidence": [],
+      "validated": false,
+      "revision": 2
+    },
+    {
+      "id": "T",
+      "phase": "N2",
+      "name": "Rootfs Linux et PID1",
+      "depends_on": [
+        "O",
+        "F",
+        "I"
+      ],
+      "owner": "Userspace",
+      "work": "Buildroot/BusyBox (ou équivalent motivé), initramfs minimal, init/PID1, configuration fichiers système, services ORIGIN natifs.",
+      "accept": "Démarrage VM/test initramfs sur hôte émulateur, shell debug, fsck, service start/stop, logs.",
+      "contingency": "Userspace sans Android Framework ni APK, tout en acceptant firmware propriétaire si indispensable.",
+      "status": "NON_COMMENCE",
+      "evidence": [],
+      "validated": false,
+      "revision": 0
+    },
+    {
+      "id": "U",
+      "phase": "N2",
+      "name": "Essais de démarrage prudents",
+      "depends_on": [
+        "N",
+        "P",
+        "Q",
+        "R",
+        "S",
+        "T"
+      ],
+      "owner": "Qualification HW",
+      "work": "Séquence host tests → boot à risque maîtrisé après autorisation → shell/console → eMMC → USB → radio/énergie; révisions réversibles.",
+      "accept": "Journal boot avec image précise et hachage; mode récupération opérationnel; aucune mise en production.",
+      "contingency": "Si boot ou restauration non prouvé: N2 BLOQUE, itérer patchsets, pas de flash à l'aveugle.",
+      "status": "NON_COMMENCE",
+      "evidence": [],
+      "validated": false,
+      "revision": 2
+    },
+    {
+      "id": "V",
+      "phase": "N3",
+      "name": "Premier boot Linux autonome",
+      "depends_on": [
+        "U"
+      ],
+      "owner": "Linux",
+      "work": "Lancement d'un Linux natif sur SM-A217F (noyau V ou M), PID1, rootfs, shell/console, sans Android Framework actif.",
+      "accept": "Boot attesté par logs uname/PID1/mounts et version image; reboot reproductible.",
+      "contingency": "Sans preuve sur appareil: N3 NON ATTEINT même si QEMU fonctionne.",
+      "status": "NON_COMMENCE",
+      "evidence": [],
+      "validated": false,
+      "revision": 0
+    },
+    {
+      "id": "W",
+      "phase": "N3",
+      "name": "Fonctions matérielles essentielles",
+      "depends_on": [
+        "V",
+        "R"
+      ],
+      "owner": "Matériel",
+      "work": "Pilotes fiables batterie/charge/thermique, wifi/USB, stockage et wear, watchdog, RAM 4Go, RTC et éveil.",
+      "accept": "Matrice PASS sur appareil pour énergie, wifi, stockage, recovery, RAM; absence de chauffe dangereuse.",
+      "contingency": "Si un P0 matériel manque: N3-BLOQUE, choisir V↔M/porter driver ou escalade.",
+      "status": "NON_COMMENCE",
+      "evidence": [],
+      "validated": false,
+      "revision": 3
+    },
+    {
+      "id": "X",
+      "phase": "N3",
+      "name": "Intégration APOLLO CORE native",
+      "depends_on": [
+        "V",
+        "W",
+        "M"
+      ],
+      "owner": "Intégration",
+      "work": "Services sans Android, modules intermittents, authentification LAN local, sécurisation OS, isolation UID, chiffrement si faisable.",
+      "accept": "Boot autonome des fonctions S0-S3, offline, console fonctionnelle et résilience à une panne de service.",
+      "contingency": "API WAN fermée; runtime complexe supprimé sauf justification RAM/CPU mesurée.",
+      "status": "NON_COMMENCE",
+      "evidence": [],
+      "validated": false,
+      "revision": 0
+    },
+    {
+      "id": "Y",
+      "phase": "N3",
+      "name": "Campagne d'endurance et incidents",
+      "depends_on": [
+        "X",
+        "D"
+      ],
+      "owner": "SRE",
+      "work": "Banc 24h puis 7j puis 30j avec mesure consommation, stockage, réseau, réveils, corrections et 3 retests des régressions.",
+      "accept": "SLO cible provisoire >=99% services S0-S2 pendant fenêtre de 30j (hors coupure physique), zéro perte de transactions reconnues dans tests; preuve journalisée.",
+      "contingency": "Chauffe / batterie dangereuse : STOP; incidents critiques réouvrent W/X et compteur test.",
+      "status": "NON_COMMENCE",
+      "evidence": [],
+      "validated": false,
+      "revision": 3
+    },
+    {
+      "id": "Z",
+      "phase": "N3",
+      "name": "Release ORIGIN-3 et gouvernance",
+      "depends_on": [
+        "Y",
+        "S",
+        "E"
+      ],
+      "owner": "Livraison",
+      "work": "Image native vérifiée, hash, sources/licences/SBOM, sauvegarde, procédure recovery, maintenance, docs, statut et traçabilité.",
+      "accept": "Validation contre-audit indépendant, checkliste chaque gate, preuve sur téléphone; pas de faux DONE.",
+      "contingency": "Absence de driver essentiel ou rollback = non terminé; Android restant est seulement plan de secours.",
+      "status": "NON_COMMENCE",
+      "evidence": [],
+      "validated": false,
+      "revision": 1
+    }
+  ],
+  "audits": [
+    {
+      "cycle": 1,
+      "id": "R01",
+      "threat": "Hypothèse modèle non vérifiée",
+      "critique": "La mémoire de conversation ne prouve pas l'état actuel du téléphone.",
+      "correction": "Exiger A signé, référence exacte, détails des partitions physiques avant toute décision.",
+      "workpackages": [
+        "A",
+        "C"
+      ],
+      "structural_validation": "PASS",
+      "tasks": 26,
+      "gates": 5,
+      "edges": 59,
+      "unvalidated": 26
+    },
+    {
+      "cycle": 2,
+      "id": "R02",
+      "threat": "Flash prématuré",
+      "critique": "Un bootloader déverrouillé/Knox et une sauvegarde imparfaite rendent le retour difficile.",
+      "correction": "Introduire B/S comme double porte indépendante; aucune action risquée si restauration non démontrée.",
+      "workpackages": [
+        "B",
+        "S"
+      ],
+      "structural_validation": "PASS",
+      "tasks": 26,
+      "gates": 5,
+      "edges": 59,
+      "unvalidated": 26
+    },
+    {
+      "cycle": 3,
+      "id": "R03",
+      "threat": "3 Go DT vs appareil 4 Go",
+      "critique": "Le device tree mainline a une mémoire 3 Go par défaut; risque de masquer les 4 Go.",
+      "correction": "Test RAM physique, noeuds mémoire, réservations et vrai /proc/meminfo sous Linux.",
+      "workpackages": [
+        "A",
+        "Q",
+        "W"
+      ],
+      "structural_validation": "PASS",
+      "tasks": 26,
+      "gates": 5,
+      "edges": 59,
+      "unvalidated": 26
+    },
+    {
+      "cycle": 4,
+      "id": "R04",
+      "threat": "Wi-Fi absent",
+      "critique": "Un Linux bootable sans radio réseau est inutilisable comme machine autonome locale.",
+      "correction": "Wi-Fi+USB comme P0; chaîne firmware/antenne/power-domain, aucun G3 sans test.",
+      "workpackages": [
+        "R",
+        "W"
+      ],
+      "structural_validation": "PASS",
+      "tasks": 26,
+      "gates": 5,
+      "edges": 59,
+      "unvalidated": 26
+    },
+    {
+      "cycle": 5,
+      "id": "R05",
+      "threat": "Batterie et charge",
+      "critique": "Serveur permanent peut devenir dangereux sans charge sûre, thermiques et capacité réelle.",
+      "correction": "Contrôle D et W; STOP automatique d'essai si batterie douteuse; aucun travail lourd sur charge douteuse.",
+      "workpackages": [
+        "D",
+        "W",
+        "Y"
+      ],
+      "structural_validation": "PASS",
+      "tasks": 26,
+      "gates": 5,
+      "edges": 59,
+      "unvalidated": 26
+    },
+    {
+      "cycle": 6,
+      "id": "R06",
+      "threat": "Noyau vendor piégé",
+      "critique": "Le noyau 4.19 peut reposer sur des composants Android non portables.",
+      "correction": "Documenter dépendances HAL/firmware, deux voies V/M et critère mesuré de sélection.",
+      "workpackages": [
+        "P",
+        "Q",
+        "U"
+      ],
+      "structural_validation": "PASS",
+      "tasks": 26,
+      "gates": 5,
+      "edges": 59,
+      "unvalidated": 26
+    },
+    {
+      "cycle": 7,
+      "id": "R07",
+      "threat": "Modèle Apollo mal transposé",
+      "critique": "Quelques ko ne suffisent pas à Linux; RAM 4 Go n'autorise pas une exécution anarchique.",
+      "correction": "Budget RSS/PSS mesuré, modules S4 froids, ordre de priorités S0-S4.",
+      "workpackages": [
+        "G",
+        "H",
+        "J"
+      ],
+      "structural_validation": "PASS",
+      "tasks": 26,
+      "gates": 5,
+      "edges": 59,
+      "unvalidated": 26
+    },
+    {
+      "cycle": 8,
+      "id": "R08",
+      "threat": "Fausse exactement-une-fois",
+      "critique": "SQLite ne garantit pas l'absence de double effet externe en cas de crash.",
+      "correction": "Outbox et idempotence; tests de stale completion et crash-points; aucun effet externe non compensable.",
+      "workpackages": [
+        "I",
+        "M"
+      ],
+      "structural_validation": "PASS",
+      "tasks": 26,
+      "gates": 5,
+      "edges": 59,
+      "unvalidated": 26
+    },
+    {
+      "cycle": 9,
+      "id": "R09",
+      "threat": "Test labo confondu avec test appareil",
+      "critique": "Une réussite x86 ne prouve ni Android Doze ni thermiques.",
+      "correction": "Étiquetage obligatoire LAB/ANDROID/MAINLINE_HW; gates réels exigent preuve DEVICE.",
+      "workpackages": [
+        "M",
+        "N",
+        "U"
+      ],
+      "structural_validation": "PASS",
+      "tasks": 26,
+      "gates": 5,
+      "edges": 59,
+      "unvalidated": 26
+    },
+    {
+      "cycle": 10,
+      "id": "R10",
+      "threat": "Récupération insuffisante",
+      "critique": "Réinitialisation peut détruire données et laisser le matériel inaccessible.",
+      "correction": "Cartographier partitionnement réel, secours, sauvegarde externe et consignes opérateur.",
+      "workpackages": [
+        "B",
+        "C",
+        "S"
+      ],
+      "structural_validation": "PASS",
+      "tasks": 26,
+      "gates": 5,
+      "edges": 59,
+      "unvalidated": 26
+    },
+    {
+      "cycle": 11,
+      "id": "R11",
+      "threat": "Budget/Réseau RDC",
+      "critique": "PC 4Go, data limitée et coupures rendent builds et CI répétitifs non viables.",
+      "correction": "Build incrémental, caches, quota Actions 0/min par défaut, binaire petit, connexion optionnelle.",
+      "workpackages": [
+        "O",
+        "J",
+        "Y"
+      ],
+      "structural_validation": "PASS",
+      "tasks": 26,
+      "gates": 5,
+      "edges": 59,
+      "unvalidated": 26
+    },
+    {
+      "cycle": 12,
+      "id": "R12",
+      "threat": "Fin fictive / dérive de périmètre",
+      "critique": "Un prototype ou un boot incomplet serait annoncé comme niveau 3.",
+      "correction": "Gates stricts, statuts et preuves, replanification après chaque échec, audit indépendant de Z.",
+      "workpackages": [
+        "Z",
+        "Y"
+      ],
+      "structural_validation": "PASS",
+      "tasks": 26,
+      "gates": 5,
+      "edges": 59,
+      "unvalidated": 26
+    }
+  ],
+  "invariants": [
+    "identités uniques A-Z et ordre sans cycle",
+    "chaque tâche a propriétaire, acceptation, contingence et dépendances existantes",
+    "chaque porte possède des tâches et une condition d'acceptation",
+    "aucune tâche initialement validée sans preuve terrain",
+    "N3 dépend de N2 via U→V et du noyau/énergie via R→W",
+    "release Z exige endurance Y et récupération S",
+    "condition G3 exige Linux natif sans Android Framework",
+    "aucune action flash automatisée incluse dans les tâches",
+    "les tests LAB ne sont pas des preuves matérielles",
+    "pilotage Actions GitHub par budget zéro défaut"
+  ],
+  "release_guard": "N3 ne peut etre validé sans V W X sur appareil; release exige Y Z et S",
+  "known_prior_work": "Prototype ORIGIN 0.2 Linux laboratoire rapporté antérieurement; pas de validation actuelle du téléphone.",
+  "known_blockers": [
+    "Téléphone non instrumenté dans cette session",
+    "Charge et WiFi mainline non prouvés",
+    "Plan secours partitionnement Samsung non testé",
+    "DT 3 Go vs appareil 4 Go non résolu"
+  ],
+  "decision": "CIBLE N3 FERMEMENT CONSERVEE; aucune garantie de faisabilité matérielle totale avant bring-up."
+}
