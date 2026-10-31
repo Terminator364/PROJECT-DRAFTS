@@ -1,0 +1,117 @@
+{
+  "date": "2026-10-31",
+  "plan_version": "R4.12b",
+  "scope": "in-memory rule simulation only; fake receipts do not represent phone evidence",
+  "cases": [
+    {
+      "name": "S01 full mock receipts only as test fixture",
+      "gate": "G4",
+      "expected": true,
+      "actual": true,
+      "passed": true
+    },
+    {
+      "name": "S02 G0 cannot be skipped",
+      "gate": "G4",
+      "expected": false,
+      "actual": false,
+      "passed": true
+    },
+    {
+      "name": "S03 no backup restore",
+      "gate": "G0",
+      "expected": false,
+      "actual": false,
+      "passed": true
+    },
+    {
+      "name": "S04 unknown bootloader",
+      "gate": "G2",
+      "expected": false,
+      "actual": false,
+      "passed": true
+    },
+    {
+      "name": "S05 no battery inspection",
+      "gate": "G3",
+      "expected": false,
+      "actual": false,
+      "passed": true
+    },
+    {
+      "name": "S06 missing Doze proof",
+      "gate": "G2",
+      "expected": false,
+      "actual": false,
+      "passed": true
+    },
+    {
+      "name": "S07 Android evidence mislabeled as LAB",
+      "gate": "G1",
+      "expected": false,
+      "actual": false,
+      "passed": true
+    },
+    {
+      "name": "S08 no first native boot",
+      "gate": "G3",
+      "expected": false,
+      "actual": false,
+      "passed": true
+    },
+    {
+      "name": "S09 no native WiFi",
+      "gate": "G3",
+      "expected": false,
+      "actual": false,
+      "passed": true
+    },
+    {
+      "name": "S10 no safe charge measurements",
+      "gate": "G3",
+      "expected": false,
+      "actual": false,
+      "passed": true
+    },
+    {
+      "name": "S11 no proof Android Framework absent",
+      "gate": "G4",
+      "expected": false,
+      "actual": false,
+      "passed": true
+    },
+    {
+      "name": "S12 no 30-day endurance",
+      "gate": "G4",
+      "expected": false,
+      "actual": false,
+      "passed": true
+    },
+    {
+      "name": "S13 synthetic receipts always refused",
+      "gate": "G3",
+      "expected": false,
+      "actual": false,
+      "passed": true
+    },
+    {
+      "name": "S14 release artifact hash missing",
+      "gate": "G4",
+      "expected": false,
+      "actual": false,
+      "passed": true
+    },
+    {
+      "name": "S15 false validated task without receipts",
+      "gate": "G3",
+      "expected": false,
+      "actual": false,
+      "passed": true
+    }
+  ],
+  "checksPassed": 15,
+  "checksTotal": 15,
+  "allPass": true,
+  "currentBlocked": true,
+  "proofRequirements": 83
+}
