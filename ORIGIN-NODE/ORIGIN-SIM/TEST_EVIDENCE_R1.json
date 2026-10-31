@@ -1,0 +1,89 @@
+{
+  "name": "ORIGIN-SIM",
+  "version": "0.1.1",
+  "date": "2026-10-31",
+  "artifact_kind": "unvalidated digital twin / planning simulation",
+  "device_reference": "Samsung Galaxy A21s SM-A217F, 2020 released; reference age 6 years",
+  "simulation": {
+    "components": 35,
+    "aging_years": [
+      5,
+      6,
+      8
+    ],
+    "conditions": 15,
+    "trials_per_condition": 64,
+    "total_campaign_trajectories": 960,
+    "simulated_days_per_trajectory": 7,
+    "stress_conditions": 8,
+    "virtual_workpackages": 26,
+    "canonical_evidence_requirements": 83,
+    "levels": [
+      "N1_ANDROID_LAB",
+      "N2_KERNEL_LAB",
+      "N3_NATIVE_LINUX"
+    ]
+  },
+  "lab_evidence": {
+    "python_unit_tests": {
+      "passed": 107,
+      "total": 107
+    },
+    "simulator_self_audit": {
+      "passed": 44,
+      "total": 44
+    },
+    "apollo_c0_host_tests": {
+      "passed": 32,
+      "total": 32
+    },
+    "apollo_c0_host_chaos": {
+      "trials": 120,
+      "killed": 37,
+      "natural_completions": 83,
+      "observed_state_corruptions": 0
+    },
+    "apollo_c0_state_bytes": 796,
+    "javascript_dashboard": {
+      "headless_browser_smoke": "pass",
+      "page_errors": 0
+    },
+    "real_android_avd_executed": false,
+    "real_qemu_executed": false,
+    "real_phones_tested": 0,
+    "firmware_flashes": 0
+  },
+  "rehearsal": {
+    "drivers_unknown": {
+      "virtual_pass": 18,
+      "virtual_blocked": 8
+    },
+    "drivers_optimistic": {
+      "virtual_pass": 26,
+      "virtual_blocked": 0,
+      "conceptual_faults_retested": 12
+    },
+    "physical_gates_validated": 0
+  },
+  "native_optimistic_result": {
+    "5_years_model_pass_pct": 96.9,
+    "6_years_model_pass_pct": 70.3,
+    "8_years_model_pass_pct": 3.1,
+    "interpretation": "model rule satisfaction only. NOT probabilities of hardware success."
+  },
+  "major_unknowns": [
+    "bootloader recovery",
+    "battery health and safety",
+    "charging PMIC",
+    "native Wi-Fi driver",
+    "RTC/watchdog/suspend",
+    "storage endurance",
+    "real thermals",
+    "4 GiB Linux memory map"
+  ],
+  "source_caution": "The archive source is delivered as a ChatGPT artifact; this file does NOT attest that all its files are uploaded to this GitHub branch.",
+  "ci": {
+    "github_actions_used": 0,
+    "automatic_workflows_added": 0
+  }
+}
