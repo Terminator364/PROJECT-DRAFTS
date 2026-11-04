@@ -1,6 +1,7 @@
 import {clamp,lerp,wrapAngle,hypot,dist,heading,angleOf,nearestRoad,keepOverStreet,STREET_SAFE_HALF_WIDTH,rand} from './math.js';
 import {advanceBike,createBikeTelemetry} from './bike_physics.js';
-export const VERSION='A2-LAB-0.5.1-LOCAL';
+import {inspectBikeCar,closingSpeed} from './collision.js';
+export const VERSION='A2-LAB-0.5.2-CLOUD';
 export const PLACES=[
  {id:'victoire',name:'PLACE VICTOIRE',x:13,z:12,kind:'place'},
  {id:'matonge',name:'MATONGE',x:13,z:-73,kind:'place'},
@@ -96,8 +97,28 @@ export function step(g,dt){const p=g.player,c=g.controls;if(!g.playing||g.paused
  car.braking=v<car.speed-.15;car.speed=lerp(car.speed,v,dt*(v<car.speed?3.5:1.2));car.u=(car.u+car.speed*dt)%path.length;
  const pos=sampleRoute(path,car.u);car.x=pos.x;car.z=pos.z;car.yaw=pos.yaw;
  }
- for(const car of g.cars){let dd=signedDistance(p,car);if(dd<3.1){let overlap=3.1-dd,ux=(p.x-car.x)/(dd||1),uz=(p.z-car.z)/(dd||1);p.x=clamp(p.x+ux*overlap,-175,175);p.z=clamp(p.z+uz*overlap,-175,175);if(p.damageCooldown<=0&&p.speed>1.0){car.stun=Math.max(car.stun||0,1.55);let severity=Math.min(18,4+p.speed*.85);g.save.health=clamp(g.save.health-severity,0,100);p.speed*=.23;p.bike.vx*=.23;p.bike.vz*=.23;p.bike.lastSpeed=p.speed;p.damageCooldown=1.3;g.collisions++;g.mission.penalty=(g.mission.penalty||0)+Math.round(severity*16);emit(g,'impact',`Accrochage ! -${Math.round(severity)} % d'état.`);}}
- else if(dd<4.6&&p.speed>5&&g.clock-(g.lastNearMiss||0)>4){g.nearMisses++;g.lastNearMiss=g.clock;}}
+ // Oriented box/car vs disc/bike contact: a parallel overtake must not
+ // trigger a collision simply because the two vehicle centers are <3.1m.
+ const contact=g._contactScratch||(g._contactScratch={});
+ for(const car of g.cars){
+   inspectBikeCar(p,car,contact);
+   if(contact.hit){
+     const approach=closingSpeed(p,car,contact);
+     p.x=clamp(p.x+contact.normalX*contact.overlap,-175,175);
+     p.z=clamp(p.z+contact.normalZ*contact.overlap,-175,175);
+     if(p.damageCooldown<=0&&approach>1.2){
+       car.stun=Math.max(car.stun||0,1.55);
+       const severity=Math.min(18,3.5+approach*.88);
+       g.save.health=clamp(g.save.health-severity,0,100);
+       p.speed*=.23;p.bike.vx*=.23;p.bike.vz*=.23;p.bike.lastSpeed=p.speed;
+       p.damageCooldown=1.3;g.collisions++;
+       g.mission.penalty=(g.mission.penalty||0)+Math.round(severity*16);
+       emit(g,'impact',`Accrochage ! -${Math.round(severity)} % d'état.`);
+     }
+   }else if(contact.nearMiss&&p.speed>5&&g.clock-(g.lastNearMiss||0)>4){
+     g.nearMisses++;g.lastNearMiss=g.clock;
+   }
+ }
  // An impact can push the motorcycle outside the curb. Never leave it
  // inside a building at the end of the simulation step.
  if(keepOverStreet(p)){
