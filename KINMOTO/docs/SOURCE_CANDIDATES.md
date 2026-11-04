@@ -34,3 +34,13 @@
 - [Road motorcycle — Innerscene](https://www.innerscene.com/tools/library/3d-parts/road-motorcycle-f2519759) : la page de la bibliothèque présente un modèle GLB original, non marqué, sous **CC0**, taille annoncée **627 Ko**, longueur environ 2,1 m, largeur 0,8 m, hauteur 1,4 m, rayon des roues de taille réaliste. **CANDIDATE_SOURCE_PAGE_VERIFIED**, PAS téléchargé ni intégré ; vérifier fichier exact, hash, nombre de triangles, textures, articulations roue/guidon et vraies performances sur A21s avant adoption. La licence CC0 de la page ne valide pas automatiquement chaque texture d'un fichier non téléchargé.
 - Ce candidat est mieux dimensionné pour l'appareil Android économique que des modèles CC0 de 7 à 20 Mo, mais sa qualité réelle et sa topologie ne sont pas encore contrôlées.
 - Aucune ressource GLB nouvelle n'a été importée durant la version A2-0.5.2. Interdiction de remplacer un modèle procédural par un asset sans tests et conservation de provenance.
+
+## Candidat art A2 avancé — moto réellement animée (4 novembre 2026)
+
+La page officielle [Road sportbike / Motorcycle Racing and Street Bikes](https://3dassets.dev/assets/motorcycle-racing-and-street-bikes-road-sportbike-e1418015) annonce un GLB original sans marque, licence **CC0 1.0**, **254,7 Ko**, **5 156 triangles**, 8 matériaux, 3 animations (`wheel-roll`, `steer`, `side-stand-up`) et des pivots nommés pour les roues et le guidon ; taille déclarée 0,76 × 1,20 × 2,135 m. URL du fichier : `https://cdn.3dassets.dev/assets/15424/v1/model.glb`.
+
+- Statut **CANDIDATE_SOURCE_PAGE_VERIFIED** : ni fichier GLB récupéré ni triangles/animations inspectés dans un fichier réel ; provenance et hash à établir avant inclusion.
+- Intérêt : mieux adapté à la demande de sensations et aux appareils modestes que les motos procédurales précédentes.
+- Risque technique : notre rendu WebGL artisanal n'a **aucun chargeur glTF** ; il faut comparer la conversion **offline vers nos buffers** (avec conservation des pièces mobiles) à l'intégration ciblée d'un chargeur/renderer Three.js. Interdiction de changer tout le moteur pour charger un seul asset sans benchmark mémoire.
+- Toute dépendance CDN doit être **embarquée localement** avant une vraie V1 offline-first ; pas d'appel obligatoire au site du fournisseur dans le gameplay final.
+- Licence et modèle annoncés CC0 par le fournisseur. Une licence déclarée sur une page ne remplace pas la vérification de l'archive réellement téléchargée.
