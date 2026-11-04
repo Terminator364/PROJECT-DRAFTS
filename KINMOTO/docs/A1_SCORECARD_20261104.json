@@ -1,0 +1,83 @@
+{
+  "schema_version": "1.0",
+  "project": "KINMOTO",
+  "task": "A1-SOURCES-BENCHMARK",
+  "date": "2026-11-04",
+  "decision": "NO_FINAL_ENGINE_SELECTED",
+  "phase": "STATIC_AUDIT_COMPLETE_RUNTIME_PENDING",
+  "weights": {
+    "bike_feel_and_ground_contact": 30,
+    "visual_and_animations": 20,
+    "mobile_performance_and_ram": 20,
+    "modularity_and_reuse": 15,
+    "license_zero_cost": 10,
+    "missions_and_saves": 5
+  },
+  "candidate_scores": {
+    "neon_mayhem": {
+      "commit": "cd19f934d9088392d1f10374c3b64a1b7eb683cf",
+      "source_license": "Apache-2.0",
+      "three_license": "MIT",
+      "repo_size_kib": 18287,
+      "language": "JavaScript",
+      "build": "static-scripts",
+      "recorded_pc_browser": "OPAERA_MENU_AND_HUD_BOOT_OBSERVED_NO_FPS_NO_SCREENSHOT",
+      "bike_feel_and_ground_contact": null,
+      "visual_and_animations": null,
+      "mobile_performance_and_ram": null,
+      "modularity_and_reuse": null,
+      "license_zero_cost": null,
+      "missions_and_saves": null,
+      "blocking_evidence": [
+        "HP moto handling not tested",
+        "Android hardware not tested",
+        "PWA offline service-worker not established"
+      ]
+    },
+    "costa_vista": {
+      "commit": "23e87108a281ac827e2ea23691aa7bf4b544146e",
+      "source_license": "MIT_CODE_ONLY",
+      "repo_size_kib": 254654,
+      "language": "TypeScript",
+      "build": "Vite + Rapier + Three.js",
+      "recorded_pc_browser": "NOT_TESTED",
+      "bike_feel_and_ground_contact": null,
+      "visual_and_animations": null,
+      "mobile_performance_and_ram": null,
+      "modularity_and_reuse": null,
+      "license_zero_cost": null,
+      "missions_and_saves": null,
+      "blocking_evidence": [
+        "Bike asset project-created with paid generation tooling: reuse rights unverified",
+        "Full game heavyweight",
+        "Android hardware not tested",
+        "Build/runtime not tested"
+      ]
+    }
+  },
+  "measurements": {
+    "source_code_examined": true,
+    "pc_neon_title_menu_loaded": true,
+    "pc_neon_game_hud_loaded": true,
+    "pc_bike_maneuver_test": false,
+    "pc_costa_runtime": false,
+    "android_real": false,
+    "iphone_real": false,
+    "headless_suite_ran": false,
+    "gpu_screenshot_saved": false,
+    "ram_fps_measured": false,
+    "network_calls_tested": false
+  },
+  "legal_prohibitions": [
+    "Do not import entire Costa Vista public/assets/ without per-file license proof",
+    "Do not include GoatCounter telemetry or external service API",
+    "Preserve MIT/Apache2 notices on extracted code",
+    "No hosted Actions without owner gate"
+  ],
+  "next": [
+    "A1-D bench actual bike handling on HP",
+    "A1-D compare loaded sizes/FPS/RAM of compact candidates",
+    "Android Galaxy A21s on real hardware",
+    "Then candidate decision and A2 scope"
+  ]
+}
