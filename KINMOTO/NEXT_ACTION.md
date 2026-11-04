@@ -1,3 +1,20 @@
+# CHECKPOINT CUMULATIF A2 v0.5.5 — 4 novembre 2026
+
+PR [#28](https://github.com/Terminator364/PROJECT-DRAFTS/pull/28) (GPS routes et confort) et [#29](https://github.com/Terminator364/PROJECT-DRAFTS/pull/29) (rendu adaptatif, intégrité des deux builders, WebGL visual QA et audit GLB) **fusionnées**. Commit principal d'intégration : `0ebb6cf219689c0d8c989e860affaa3b49f2d7d4`.
+
+**Livrable** : `KINMOTO_A2_V055_CUMULATIF_ANDROID_PC_SOURCES_QA_20261104.zip`, SHA-256 `c329f5a92658b1f78b7a0a2d4acc7a827106ae47bcbf42ff19e86b2e3a985076`, archivé sur Drive id `1kzvupTC0y3ubV20JSLseBv0H4BKYCRDC` (à ne pas recopier dans GitHub public).
+**QA** : Node 85/85 ; Python asset tests 7/7 ; HTML autonome de 12 modules (91 629 octets) ; vrai WebGL2 dans Chromium logiciel + format mobile simulé 393×852, client ramassé et GPS + confort affichés ; 20 min CPU simulées / 72 000 pas sans état invalide. **PAS de test matériel Galaxy A21s ni HP sur cette version**, et pas d'essai du vrai GLB moto.
+
+**Anomalie majeure corrigée** : l'HTML autonome cumulait plusieurs `const clamp` et ne démarrait pas ; le constructeur PowerShell avait une liste de modules divergente et sans `collision.js`. Contrôles Node VM + parité des sources ajoutés.
+
+**Limite graphique** : la 3D reste stylisée ; la moto CC0 3DAssets.dev est annoncée 254,7 Ko, 5 156 triangles et clips d'animation, mais le binaire n'est PAS obtenu. Le script `tools/audit_glb.py` fournit un contrôle offline strict sans prétendre approuver la licence du fichier absent.
+
+**Opération suivante — sans arrêt entre checkpoints** : recherche/acquisition d'un modèle moto CC0 réel libre (avec hash), audit technique, chargement glTF texturé léger, optimisation 3D et sensations sur piste étalon. Ensuite regroupement de la validation matérielle HP+Android, sans dépenser le quota Remote avant ce jalon.
+
+**Interdits toujours actifs :** 0 appel Remote Desktop Commander, 0 déploiement Vercel/Cloudflare/Pages, 0 action GitHub hébergée, pas de nouvelle V1 publique. `KINMOTO|SYNC` reprend depuis ce fichier et `PROJECT_STATE.json`.
+
+---
+
 # CHECKPOINT A2 v0.5.2 CLOUD-FIRST — 4 novembre 2026
 
 **PR #27 fusionnée** : https://github.com/Terminator364/PROJECT-DRAFTS/pull/27 ; commit `756843efd4eec5f86829eef76c1b4fc25ae75bb8`. Laboratoire expérimental A2, pas une nouvelle V1.
