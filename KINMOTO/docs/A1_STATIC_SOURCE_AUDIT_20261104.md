@@ -32,9 +32,9 @@ Taille dépôt GitHub `size` : métrique de métadonnées, pas un benchmark de t
 
 ## 3. Contrôle visuel et appareil
 
-- **HP / Opera :** `https://pranshuparmar.github.io/neon-mayhem/` chargé, titre et menu "PRESS ENTER" présents via l'arbre d'accessibilité. Cela vérifie la navigation initiale, **pas le rendu 3D jouable ni les contrôles**.
+- **HP / Opera :** `https://pranshuparmar.github.io/neon-mayhem/` chargé, titre et menu "PRESS ENTER" présents via l'arbre d'accessibilité ; après envoi réel de la touche **Enter** depuis le HP, le menu disparaît et un **HUD de jeu** apparaît (heure, argent, district, prompt de véhicule) sur le même onglet. Ceci vérifie le **démarrage fonctionnel en navigateur**, mais PAS la maniabilité moto, le rendu 3D capturé, ni les FPS/RAM.
 - **Screenshot Opera :** demande bloquée/timeout ; aucune capture de gameplay enregistrée.
-- **HP, jeu effectif, FPS/RAM, collision, temps de chargement :** `NOT_TESTED`.
+- **HP, jeu initialisé via Enter :** `PASS_BOOT`. **Moto, FPS/RAM, collision, temps de chargement :** `NOT_TESTED`.
 - **Android physique Galaxy A21s :** `NOT_TESTED`.
 - **iPhone physique :** `NOT_TESTED`.
 - **Costa Vista :** non installé ni exécuté ; pas de téléchargement massif sur le PC (respect réseau, RAM, quota).
@@ -69,7 +69,11 @@ Taille dépôt GitHub `size` : métrique de métadonnées, pas un benchmark de t
 
 **Hébergement/test** : utiliser PREVIEW distinct ; aucune URL STABLE modifiée ; pas de GitHub Actions automatiques, aucune dépense, pas de collecte de données.
 
-## 7. Ressources CC0 directement vérifiées
+## 7. Autre bibliothèque observée (non sélectionnée)
+
+- [GG Web Engine](https://github.com/AndyGura/gg-web-engine) : source Apache 2.0 et modules Three.js/Rapier/contrôles mobiles documentés. **Ce n'est pas un jeu de moto** ; à étudier pour composants éventuels après tests, pas une raison pour ajouter un moteur supplémentaire à V1.
+
+## 8. Ressources CC0 directement vérifiées
 
 - https://kenney.nl/assets/car-kit — modèles de voitures, CC0.
 - https://kenney.nl/assets/city-kit-roads — routes/intersections, CC0.
