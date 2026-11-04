@@ -3,8 +3,8 @@
   "project": "KINMOTO",
   "factory_version": "3.0",
   "state_date_utc": "2026-11-04",
-  "phase": "A0_INFRASTRUCTURE",
-  "status": "A0_READY_FOR_REVIEW",
+  "phase": "A1_READY_NOT_STARTED",
+  "status": "A0_COMPLETE",
   "incubator_repo": "Terminator364/PROJECT-DRAFTS",
   "incubator_subdir": "KINMOTO",
   "canonical_repo_url": "https://github.com/Terminator364/PROJECT-DRAFTS",
@@ -25,7 +25,7 @@
     "validation": "local_standard_library"
   },
   "completed_tickets": [
-    "A0_FACTORY_SETUP_LOCAL_PASS"
+    "A0_FACTORY_SETUP"
   ],
   "pending_tickets": [
     "A1-SOURCES-BENCHMARK",
@@ -40,12 +40,11 @@
     "legal_cost": "NOT_TESTED"
   },
   "known_blockers": [
-    "GitHub PR not yet merged; A1 benchmark awaits separate start",
-    "Android/PC source benchmark A1 NOT_TESTED"
+    "A1 physical Android/PC benchmark NOT_TESTED; base selection pending"
   ],
   "release_candidate": null,
   "public_urls_modified": false,
-  "next_action": "Après fusion de A0 : ouvrir issue #19, exécuter benchmark A1 sur branche dédiée, sans publication ni Actions hébergées",
+  "next_action": "A1: issue #19; audit comparatif des bases libres, sources/licences, benchmarks HP/Android réels ; aucune nouvelle V1 publiée.",
   "source_of_truth": "Git commit and matching PROJECT_STATE.json; ChatGPT Project PDFs and Drive are copies",
   "public_release_status": "NO_NEW_RELEASE",
   "a0_qa": {
@@ -61,7 +60,10 @@
     "github_actions_hosted_runs_started": 0,
     "workflow_added": false,
     "release_modified": false,
-    "repo_merge_status": "PENDING",
-    "resume_test": "PENDING"
+    "repo_merge_status": "MERGED",
+    "resume_test": "PASS",
+    "merge_commit": "e9446b1ab5d5381e8e8c1961d9110363b51a229a",
+    "report_path": "docs/A0_QA_REPORT.md",
+    "archives_receipt_path": "docs/DRIVE_ARCHIVE_RECEIPTS.md"
   }
 }
