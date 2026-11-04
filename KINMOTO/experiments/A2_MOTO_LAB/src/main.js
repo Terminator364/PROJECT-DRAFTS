@@ -1,0 +1,81 @@
+import {clamp,dist,heading} from './math.js';
+import {Renderer} from './render.js';
+import {findRoute} from './navigation.js';
+import {VERSION,PLACES,byId,missionTarget,makeGame,step,interactionState,interact,buy,validate,readSave,writeSave,snapshot,SAVE_KEY} from './sim.js';
+const $=id=>document.getElementById(id),FC=n=>Math.round(n).toLocaleString('fr-FR')+' FC';
+const STORAGE_SNAPSHOT='kinmoto_a2_lab_snapshot';
+const QA_MODE=new URLSearchParams(location.search);const QA_AUTODRIVE=QA_MODE.get('autodrive');let qaDriveClock=0;
+let saved=null;try{saved=JSON.parse(localStorage.getItem(STORAGE_SNAPSHOT)||'null')}catch{}
+let game=QA_AUTODRIVE?makeGame():makeGame(saved&&saved.schema===1?saved:{save:readSave()});
+let renderer=null,prev=performance.now(),acc=0,uiClock=0,autoSaveClock=0,garageOrigin='menu',muted=false,audioCtx=null,engineOsc=null,engineGain=null,lastNotified=0;
+let quality='eco';try{quality=localStorage.getItem('kinmoto_a2_lab_quality')||'eco'}catch{}$('quality').value=['eco','balanced','high'].includes(quality)?quality:'eco';
+const show=id=>$(id).classList.remove('hidden'),hide=id=>$(id).classList.add('hidden');
+function toast(text,type='info'){const e=document.createElement('div');e.textContent=text;e.className=type;$('toast').prepend(e);setTimeout(()=>e.remove(),3000);if($('toast').children.length>3)$('toast').lastElementChild.remove();}
+function safeSave(){try{writeSave(game.save);localStorage.setItem(STORAGE_SNAPSHOT,JSON.stringify(snapshot(game)));return true}catch{return false}}
+function initAudio(){if(muted||audioCtx)return;try{audioCtx=new(window.AudioContext||window.webkitAudioContext)();engineOsc=audioCtx.createOscillator();engineGain=audioCtx.createGain();engineOsc.type='sawtooth';engineOsc.frequency.value=52;engineGain.gain.value=0;engineOsc.connect(engineGain);engineGain.connect(audioCtx.destination);engineOsc.start()}catch{audioCtx=null;}}
+function ping(freq=660,duration=.17){if(muted)return;try{initAudio();const o=audioCtx.createOscillator(),g=audioCtx.createGain(),t=audioCtx.currentTime;o.type='triangle';o.frequency.setValueAtTime(freq,t);o.frequency.exponentialRampToValueAtTime(freq*.75,t+duration);g.gain.setValueAtTime(.068,t);g.gain.exponentialRampToValueAtTime(.001,t+duration);o.connect(g);g.connect(audioCtx.destination);o.start(t);o.stop(t+duration)}catch{}}
+function updateSound(){if(!audioCtx||!engineOsc)return;let vol=!muted&&game.playing&&!game.paused?.009+game.player.speed*.0015:0;let t=audioCtx.currentTime;engineGain.gain.setTargetAtTime(clamp(vol,0,.045),t,.06);engineOsc.frequency.setTargetAtTime(52+game.player.speed*5.3,t,.11)}
+function start(){if(!renderer){show('errorScreen');return;}initAudio();hide('menu');hide('helpScreen');hide('pauseScreen');hide('garageScreen');show('hud');game.playing=true;game.paused=false;game.controls={left:false,right:false,gas:false,brake:false};prev=performance.now();acc=0;toast('Bienvenue à Kinshasa ! Suis le repère jaune.','success');updateUI();}
+function pause(){if(!game.playing||game.paused)return;game.paused=true;releaseInputs();hide('hud');show('pauseScreen');safeSave();}
+function resume(){if(!game.playing)return;hide('pauseScreen');hide('garageScreen');show('hud');game.paused=false;prev=performance.now();acc=0;}
+function menu(){game.playing=false;game.paused=false;releaseInputs();safeSave();hide('hud');hide('pauseScreen');hide('garageScreen');show('menu');}
+function openGarage(origin){garageOrigin=origin;if(origin==='road'){game.paused=true;hide('hud');}else if(origin==='pause'){hide('pauseScreen');}else{hide('menu');}releaseInputs();refreshGarage();show('garageScreen');safeSave();}
+function closeGarage(){hide('garageScreen');if(garageOrigin==='road'){game.paused=false;show('hud');prev=performance.now();}else if(garageOrigin==='pause'){show('pauseScreen');}else{show('menu');}}
+function action(){const result=interact(game);if(result.ok){if(result.type==='garage'){openGarage('road');return;}ping(result.type==='completed'?880:660,result.type==='completed'?.35:.18);safeSave();}updateUI();}
+function purchase(item){const r=buy(game,item);toast(r.ok?'Achat effectué !':r.reason,r.ok?'success':'warning');if(r.ok){ping(690);safeSave();}refreshGarage();updateUI();}
+function refreshGarage(){const s=game.save;let repair=Math.max(0,Math.ceil((100-s.health)*12/50)*50);$('garageCash').textContent=FC(s.cash);$('repairInfo').textContent=`État ${Math.round(s.health)} % · ${FC(repair)}`;$('engineInfo').textContent=`Niveau ${s.engine}/4 · ${FC(s.engine*2400)}`;$('brakeInfo').textContent=`Niveau ${s.brakes}/4 · ${FC(s.brakes*1800)}`;
+ for(const [id,cost,disabled] of [['buyRepair',repair,repair===0],['buyEngine',s.engine*2400,s.engine>=4],['buyBrakes',s.brakes*1800,s.brakes>=4]]){$(id).disabled=disabled||cost>s.cash;$(id).textContent=disabled?'TERMINÉ':cost>s.cash?'MANQUE FC':'ACHETER';}}
+function drawMap(){const cv=$('map'),ctx=cv.getContext('2d'),w=cv.width,h=cv.height;ctx.clearRect(0,0,w,h);ctx.fillStyle='#214c50';ctx.fillRect(0,0,w,h);
+ const tx=x=>(x+190)*w/380,ty=z=>(z+190)*h/380;
+ ctx.fillStyle='#9c9c84';for(const v of [-120,0,120]){ctx.fillRect(tx(v-9),0,18*w/380,h);ctx.fillRect(0,ty(v-9),w,18*h/380);}
+ ctx.strokeStyle='#f0e3bc';ctx.lineWidth=1;ctx.setLineDash([3,6]);for(const v of [-120,0,120]){ctx.beginPath();ctx.moveTo(tx(v),0);ctx.lineTo(tx(v),h);ctx.stroke();ctx.beginPath();ctx.moveTo(0,ty(v));ctx.lineTo(w,ty(v));ctx.stroke()}ctx.setLineDash([]);
+ for(const p of PLACES){ctx.fillStyle=p.id==='garage'?'#67ddcb':'#e9da9e';ctx.beginPath();ctx.arc(tx(p.x),ty(p.z),p.id==='garage'?4:2.8,0,Math.PI*2);ctx.fill();}
+ const target=missionTarget(game.mission),px=tx(game.player.x),py=ty(game.player.z);ctx.strokeStyle='#ffd340';ctx.lineWidth=2.6;ctx.setLineDash([5,4]);ctx.beginPath();const route=findRoute(game.player,target).nodes;route.forEach((pt,i)=>{if(i===0)ctx.moveTo(tx(pt.x),ty(pt.z));else ctx.lineTo(tx(pt.x),ty(pt.z));});ctx.stroke();ctx.setLineDash([]);
+ ctx.fillStyle='#ffd23c';ctx.beginPath();ctx.arc(tx(target.x),ty(target.z),7,0,Math.PI*2);ctx.fill();ctx.strokeStyle='#172637';ctx.lineWidth=2;ctx.stroke();
+ ctx.save();ctx.translate(px,py);ctx.rotate(game.player.yaw);ctx.fillStyle='#fff';ctx.strokeStyle='#233445';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(0,-9);ctx.lineTo(6,7);ctx.lineTo(0,4);ctx.lineTo(-6,7);ctx.closePath();ctx.fill();ctx.stroke();ctx.restore();}
+function updateUI(){const p=game.player,s=game.save,m=game.mission,target=missionTarget(m),state=interactionState(game);
+ $('cash').textContent=FC(s.cash);$('speed').textContent=String(Math.round(p.speed*3.6)).padStart(2,'0');$('healthBar').style.width=clamp(s.health,0,100)+'%';$('healthNum').textContent=Math.round(s.health)+'%';$('rides').textContent=s.rides;$('stars').textContent=s.stars.toFixed(1);$('district').textContent='VICTOIRE / MATONGE';$('fpsMark').textContent=(renderer?.fps||'—')+' FPS · 3D';
+ $('kindLabel').textContent=m.title;const pick=byId(m.from),drop=byId(m.to);$('missionFrom').textContent=pick.name;$('missionTo').textContent=drop.name;$('missionReward').textContent='+ '+FC(m.reward);
+ $('missionTitle').textContent=m.stage==='pickup'?(m.kind==='colis'?'Récupérer le colis':`Récupérer ${m.client}`):m.stage==='via'?'Arrêt touristique':m.kind==='colis'?'Livrer le colis':`Déposer ${m.client}`;
+ $('missionDescription').textContent=m.stage==='pickup'?`Rejoins ${target.name} pour la prise en charge.`:m.stage==='via'?`Fais l'arrêt à ${target.name} puis poursuis.`:`Direction ${target.name} : conduis prudemment.`;
+ $('missionDistance').textContent=state.missionDistance+' m';
+ let label=state.nearMission?(m.stage==='pickup'?'✓ RÉCUPÉRER':m.stage==='via'?'✓ FAIRE L’ARRÊT':'✓ DÉPOSER'):state.nearGarage?'⚙ GARAGE':'';
+ if(label){show('action');$('action').textContent=state.stopped?label:'FREINE POUR T’ARRÊTER';hide('tip');}else{hide('action');show('tip');$('tip').textContent=`Mission : ${target.name} · ${state.missionDistance} m · E pour interagir`;}
+ drawMap();const projected=renderer?.project(target.x,5.5,target.z),tag=$('targetLabel');if(projected&&projected.visible){show('targetLabel');tag.style.left=projected.x+'px';tag.style.top=projected.y+'px';tag.textContent=target.name+' · '+state.missionDistance+' m';}else hide('targetLabel');
+}
+function releaseInputs(){for(const k of Object.keys(game.controls))game.controls[k]=false;document.querySelectorAll('.controls button.pressed').forEach(el=>el.classList.remove('pressed'));}
+function onInteract(){action();}
+function exportSave(){safeSave();const blob=new Blob([JSON.stringify(snapshot(game),null,2)],{type:'application/json'}),a=document.createElement('a'),url=URL.createObjectURL(blob);a.href=url;a.download='KIN_MOTO_V1_SAUVEGARDE.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),5000);toast('Sauvegarde exportée','success');}
+async function importSave(file){if(!file)return;try{if(file.size>250000)throw Error('Fichier trop volumineux');let obj=JSON.parse(await file.text());if(obj.schema!==1||!obj.save||!obj.player||!obj.mission||!byId(obj.mission.from)||!byId(obj.mission.to)||!Number.isFinite(obj.save.cash)||obj.save.cash<0)throw Error('Format de sauvegarde invalide');let restored=makeGame(obj);if(validate(restored).length)throw Error('Sauvegarde incohérente');game=restored;game.playing=true;game.paused=true;safeSave();refreshGarage();toast('Sauvegarde restaurée !','success');updateUI();}catch(e){toast('Import impossible : '+e.message,'impact');}finally{$('importSave').value='';}}
+function installInputs(){const keys={ArrowUp:'gas',KeyW:'gas',ArrowDown:'brake',KeyS:'brake',Space:'brake',ArrowLeft:'left',KeyA:'left',ArrowRight:'right',KeyD:'right'};
+ document.addEventListener('keydown',e=>{if(keys[e.code]){if(game.playing&&!game.paused)game.controls[keys[e.code]]=true;e.preventDefault();}if(!e.repeat&&e.code==='KeyE'){if(game.playing&&!game.paused)onInteract();e.preventDefault();}if(!e.repeat&&(['Escape','KeyP'].includes(e.code))){if(game.playing){game.paused?resume():pause();}e.preventDefault();}if(!e.repeat&&e.code==='KeyC'){if(renderer){renderer.mode=(renderer.mode+1)%3;toast(['Caméra arrière','Caméra haute','Vue guidon'][renderer.mode]);}}});
+ document.addEventListener('keyup',e=>{if(keys[e.code]){game.controls[keys[e.code]]=false;e.preventDefault();}});
+ for(const b of document.querySelectorAll('.controls [data-key]')){const k=b.dataset.key;b.addEventListener('pointerdown',e=>{e.preventDefault();if(!game.paused){game.controls[k]=true;b.classList.add('pressed');}try{b.setPointerCapture(e.pointerId)}catch{}});for(const event of ['pointerup','pointercancel','lostpointercapture'])b.addEventListener(event,e=>{game.controls[k]=false;b.classList.remove('pressed')});}
+ window.addEventListener('blur',()=>{releaseInputs();if(game.playing&&!game.paused)pause()});document.addEventListener('visibilitychange',()=>{if(document.hidden){releaseInputs();safeSave();if(game.playing&&!game.paused)pause();prev=performance.now()}});window.addEventListener('pagehide',safeSave);window.addEventListener('beforeunload',safeSave);window.addEventListener('resize',()=>renderer?.resize());
+ $('play').onclick=start;$('pause').onclick=pause;$('resume').onclick=resume;$('returnMenu').onclick=menu;$('action').onclick=action;
+ $('openGarageMenu').onclick=()=>openGarage('menu');$('openGaragePause').onclick=()=>openGarage('pause');$('garageBack').onclick=closeGarage;
+ $('buyRepair').onclick=()=>purchase('repair');$('buyEngine').onclick=()=>purchase('engine');$('buyBrakes').onclick=()=>purchase('brakes');
+ $('helpButton').onclick=()=>{hide('menu');show('helpScreen')};$('helpBack').onclick=()=>{hide('helpScreen');show('menu')};$('saveButton').onclick=exportSave;$('importSave').onchange=e=>importSave(e.target.files?.[0]);
+ $('cameraToggle').onclick=()=>{if(renderer){renderer.mode=(renderer.mode+1)%3;toast(['Caméra arrière','Caméra haute','Vue guidon'][renderer.mode])}};
+ $('quality').onchange=e=>{renderer?.setQuality(e.target.value);quality=e.target.value;try{localStorage.setItem('kinmoto_a2_lab_quality',quality)}catch{}};
+ $('soundToggle').onclick=()=>{muted=!muted;$('soundToggle').textContent=muted?'♪ Son coupé':'♪ Son activé';updateSound()};
+ $('world').addEventListener('webglcontextlost',e=>{e.preventDefault();renderer.lost=true;releaseInputs();if(game.playing&&!game.paused)pause();toast('Contexte graphique interrompu : relance nécessaire.','impact')});
+ $('world').addEventListener('webglcontextrestored',()=>location.reload());
+}
+function frame(now){const delta=Math.min(.1,Math.max(0,(now-prev)/1000));prev=now;
+ if(QA_AUTODRIVE && game.playing && !game.paused){
+   qaDriveClock+=delta;
+   game.controls.gas=qaDriveClock<6.5;
+   game.controls.brake=qaDriveClock>=6.5&&qaDriveClock<8;
+   game.controls.left=QA_AUTODRIVE==='left'&&qaDriveClock>=1.5&&qaDriveClock<2.5;
+   game.controls.right=QA_AUTODRIVE==='right'&&qaDriveClock>=1.5&&qaDriveClock<2.5;
+ }
+ acc+=delta;const fixed=1/60;let ticks=0;while(acc>=fixed&&ticks<6){step(game,fixed);acc-=fixed;ticks++;}if(ticks>=6)acc=0;
+ try{renderer?.render(game,delta)}catch(e){console.error(e);show('errorScreen');$('errorDetail').textContent=e.message;game.paused=true;renderer=null;}
+ uiClock+=delta;autoSaveClock+=delta;if(uiClock>.13){uiClock=0;if(game.playing&&!game.paused)updateUI();if(QA_AUTODRIVE){let t=game.player.bike||{};$('qaLive').hidden=false;$('qaLive').textContent=`QA:${QA_AUTODRIVE} t=${qaDriveClock.toFixed(1)} x=${game.player.x.toFixed(2)} z=${game.player.z.toFixed(2)} yaw=${game.player.yaw.toFixed(3)} kmh=${(game.player.speed*3.6).toFixed(1)} slip=${(t.lateralSlip||0).toFixed(2)}`;}let events=game.events.filter(event=>event.seq>lastNotified);for(const event of events){toast(event.message,event.type);if(event.type==='impact')ping(190,.26);else if(event.type==='success')ping(840,.2)}lastNotified=game.events.at(-1)?.seq||lastNotified;}
+ if(autoSaveClock>9){autoSaveClock=0;if(game.playing)safeSave();}updateSound();requestAnimationFrame(frame);}
+function boot(){installInputs();try{renderer=new Renderer($('world'),{quality});}catch(e){console.warn(e);$('errorDetail').textContent=e.message;show('errorScreen');}
+ window.KINMOTO_DIAGNOSTIC=()=>({version:VERSION,mode:renderer?'webgl'+renderer.glVersion:'unavailable',render:renderer?.stats()??null,player:{...game.player},mission:{...game.mission},cars:game.cars.map(c=>({x:c.x,z:c.z,yaw:c.yaw,speed:c.speed})),playing:game.playing,paused:game.paused,errors:validate(game),rides:game.save.rides,cash:game.save.cash,steps:game.stats.steps,collisionCount:game.collisions});
+ if(location.search.includes('qa=1'))window.KINMOTO_QA={get:()=>game,step:(dt=.016)=>step(game,dt),interact:()=>interact(game),forcePosition:(x,z,yaw=0)=>{game.player.x=x;game.player.z=z;game.player.yaw=yaw;game.player.speed=0;},save:safeSave};
+ requestAnimationFrame(frame);if(location.search.includes('qa=1')&&location.search.includes('autoplay=1'))setTimeout(start,350);if('serviceWorker' in navigator&&(location.protocol==='https:'||location.hostname==='localhost'||location.hostname==='127.0.0.1'))navigator.serviceWorker.register('./sw.js').catch(e=>console.warn('Cache hors ligne indisponible',e));}
+boot();
