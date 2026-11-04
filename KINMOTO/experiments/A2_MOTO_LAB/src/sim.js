@@ -1,6 +1,6 @@
 import {clamp,lerp,wrapAngle,hypot,dist,heading,angleOf,nearestRoad,rand} from './math.js';
 import {advanceBike,createBikeTelemetry} from './bike_physics.js';
-export const VERSION='A2-LAB-0.1';
+export const VERSION='A2-LAB-0.5';
 export const PLACES=[
  {id:'victoire',name:'PLACE VICTOIRE',x:13,z:12,kind:'place'},
  {id:'matonge',name:'MATONGE',x:13,z:-73,kind:'place'},
@@ -38,6 +38,23 @@ export function makeGame(snapshot=null){let previous=snapshot||{};let save={...D
 export function snapshot(g){return {schema:1,version:VERSION,save:{...g.save},player:{x:g.player.x,z:g.player.z,yaw:g.player.yaw,speed:0,lean:0,damageCooldown:0,meters:g.player.meters},mission:{...g.mission}}}
 export const emit=(g,type,message)=>{g.eventSeq=(g.eventSeq||0)+1;g.events.push({type,message,at:g.clock,seq:g.eventSeq});if(g.events.length>35)g.events.shift();};
 const signedDistance=(a,b)=>dist(a,b);
+/** Target speed under car-following and intersection yielding, no allocations. */
+export function trafficTargetSpeed(car,cars){
+ let v=car.stun>0?Math.min(1.7,car.preferred*.2):car.preferred;
+ const path=LOOPS[car.loop];
+ let ahead=Infinity;
+ const fx=Math.sin(car.yaw),fz=-Math.cos(car.yaw),rx0=Math.cos(car.yaw),rz0=Math.sin(car.yaw);
+ for(const other of cars){if(other===car)continue;
+  if(other.loop===car.loop){const gap=(other.u-car.u+path.length)%path.length;if(gap>0&&gap<ahead)ahead=gap;}
+  const rx=other.x-car.x,rz=other.z-car.z;
+  const along=rx*fx+rz*fz,side=Math.abs(rx*rx0+rz*rz0);
+  if(along>0&&along<15&&side<3.3)v=Math.min(v,Math.max(0,(along-3.6)*1.03));
+  else if(other.loop!==car.loop&&other.id<car.id&&along>0&&along<12&&side<7.5&&Math.abs(Math.sin(other.yaw-car.yaw))>.65)
+    v=Math.min(v,Math.max(0,(along-6)*1.20));
+ }
+ if(ahead<16)v=Math.min(v,clamp((ahead-5)*.9,0,car.preferred));
+ return Math.max(0,v);
+}
 export function step(g,dt){const p=g.player,c=g.controls;if(!g.playing||g.paused)return;dt=clamp(dt,0,.04);g.clock+=dt;g.stats.steps++;p.damageCooldown=Math.max(0,p.damageCooldown-dt);
  const grip=clamp(g.save.health/100,.40,1);let onRoad=nearestRoad(p).distance<9.7;
  const ox=p.x,oz=p.z;
@@ -52,14 +69,15 @@ export function step(g,dt){const p=g.player,c=g.controls;if(!g.playing||g.paused
    if(p.damageCooldown<=0){p.damageCooldown=1.3;emit(g,'warning','Trottoir ! Reste sur la chaussée.');}}
  else if(road.distance>9.4){p.speed=Math.min(p.speed,7.6);}
  p.meters+=hypot(p.x-ox,p.z-oz);g.travel+=hypot(p.x-ox,p.z-oz);
- // Traffic: 4 closed real-road loops, car following and elementary braking.
- for(const car of g.cars){car.stun=Math.max(0,(car.stun||0)-dt);let v=car.stun>0?Math.min(1.7,car.preferred*.20):car.preferred;const path=LOOPS[car.loop];const ahead=g.cars.filter(other=>other!==car&&other.loop===car.loop).reduce((nearest,other)=>{
-    const gap=(other.u-car.u+path.length)%path.length;return gap>0&&gap<nearest?gap:nearest;
- },Infinity);if(ahead<14)v=clamp((ahead-5)*.9,0,car.preferred);
+ // Four real-road loops, spatial sensing, deterministic intersection priority.
+ for(const car of g.cars){
+  car.stun=Math.max(0,(car.stun||0)-dt);
+  let v=trafficTargetSpeed(car,g.cars);
+  const path=LOOPS[car.loop];
  // defensive braking around stopped player, never reverse
  const relative={x:p.x-car.x,z:p.z-car.z};const along=relative.x*Math.sin(car.yaw)-relative.z*Math.cos(car.yaw);
  if(along>0&&along<12&&Math.hypot(relative.x,relative.z)<8&&p.speed<car.speed+3)v=Math.min(v,Math.max(0,(along-3)*1.0));
- car.speed=lerp(car.speed,v,dt*(v<car.speed?3.5:1.2));car.u=(car.u+car.speed*dt)%path.length;
+ car.braking=v<car.speed-.15;car.speed=lerp(car.speed,v,dt*(v<car.speed?3.5:1.2));car.u=(car.u+car.speed*dt)%path.length;
  const pos=sampleRoute(path,car.u);car.x=pos.x;car.z=pos.z;car.yaw=pos.yaw;
  }
  for(const car of g.cars){let dd=signedDistance(p,car);if(dd<3.1){let overlap=3.1-dd,ux=(p.x-car.x)/(dd||1),uz=(p.z-car.z)/(dd||1);p.x=clamp(p.x+ux*overlap,-175,175);p.z=clamp(p.z+uz*overlap,-175,175);if(p.damageCooldown<=0&&p.speed>1.0){car.stun=Math.max(car.stun||0,1.55);let severity=Math.min(18,4+p.speed*.85);g.save.health=clamp(g.save.health-severity,0,100);p.speed*=.23;p.bike.vx*=.23;p.bike.vz*=.23;p.bike.lastSpeed=p.speed;p.damageCooldown=1.3;g.collisions++;g.mission.penalty=(g.mission.penalty||0)+Math.round(severity*16);emit(g,'impact',`Accrochage ! -${Math.round(severity)} % d'état.`);}}
