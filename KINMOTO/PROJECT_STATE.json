@@ -52,7 +52,7 @@
   ],
   "release_candidate": null,
   "public_urls_modified": false,
-  "next_action": "A2 Cloud: rechercher/examiner modèles moto CC0 légers et système de rendu/animation, benchmark isolé sans Remote; préparer une candidate pour validation groupée Android + HP à la fin du jalon; Vercel interdit.",
+  "next_action": "A2 Cloud: examine 255KB CC0 animated motorcycle model and offline glTF conversion/loader benchmark without HP access; preserve quotas, prioritize real graphics, consolidate A1-D at hardware QA checkpoint.",
   "source_of_truth": "public GitHub files, no secrets; private binary backups in Drive",
   "public_release_status": "NO_NEW_RELEASE",
   "a0_qa": {
@@ -147,7 +147,27 @@
     "remote_desktop_calls_in_v052": 0,
     "vercel_deploy_calls_in_v052": 0,
     "github_actions_calls_in_v052": 0,
-    "release_status": "LAB_NOT_V1"
+    "release_status": "LAB_NOT_V1",
+    "cloud_v052_zip_sha256": "a8b2cf4f90d8883b7addfece923ad9f3f4d625fb4557ed44d49e4bd71461e5ad",
+    "cloud_v052_zip_drive_id": "1CIMGsWKwFXhqIIW1o_t2CH-VZBkWjoIq",
+    "cloud_v052_zip_name": "KINMOTO_A2_V052_CLOUD_SOURCE_QA_20261104.zip",
+    "asset_candidates": [
+      {
+        "source": "3dassets.dev",
+        "model": "Road sportbike",
+        "file_bytes_published": 254700,
+        "triangles_published": 5156,
+        "animations": [
+          "wheel-roll",
+          "steer",
+          "side-stand-up"
+        ],
+        "declared_license": "CC0-1.0",
+        "file_downloaded": false,
+        "legal_status": "PAGE_VERIFIED_ASSET_UNTESTED",
+        "url": "https://3dassets.dev/assets/motorcycle-racing-and-street-bikes-road-sportbike-e1418015"
+      }
+    ]
   },
   "hosting_policy": {
     "vercel_deploy_allowed": false,
