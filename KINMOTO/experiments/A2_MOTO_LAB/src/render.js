@@ -6,6 +6,12 @@ function perspective(fovy,aspect,near,far){const f=1/Math.tan(fovy/2),m=new Floa
 function lookAt(e,t){const norm=a=>{const n=Math.hypot(...a)||1;return a.map(v=>v/n)};const cross=(a,b)=>[a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0]];const z=norm([e[0]-t[0],e[1]-t[1],e[2]-t[2]]),x=norm(cross([0,1,0],z)),y=cross(z,x);return new Float32Array([x[0],y[0],z[0],0,x[1],y[1],z[1],0,x[2],y[2],z[2],0,-(x[0]*e[0]+x[1]*e[1]+x[2]*e[2]),-(y[0]*e[0]+y[1]*e[1]+y[2]*e[2]),-(z[0]*e[0]+z[1]*e[1]+z[2]*e[2]),1]);}
 function mul(a,b){const m=new Float32Array(16);for(let c=0;c<4;c++)for(let r=0;r<4;r++){m[c*4+r]=a[r]*b[c*4]+a[r+4]*b[c*4+1]+a[r+8]*b[c*4+2]+a[r+12]*b[c*4+3];}return m;}
 function model(x=0,y=0,z=0,rot=0,roll=0){let m=ID(),co=Math.cos(rot),si=Math.sin(rot),cr=Math.cos(roll),sr=Math.sin(roll);m[0]=co*cr;m[1]=sr;m[2]=-si*cr;m[4]=-co*sr;m[5]=cr;m[6]=si*sr;m[8]=si;m[10]=co;m[12]=x;m[13]=y;m[14]=z;return m;}
+function bikeBodyModel(p){
+ const base=model(p.x,-.045+(p.bike?.suspension||0),p.z,Math.PI-p.yaw,p.lean);
+ const pitch=p.bike?.pitch||0,cp=Math.cos(pitch),sp=Math.sin(pitch);
+ const rot=ID();rot[5]=cp;rot[6]=sp;rot[9]=-sp;rot[10]=cp;
+ return mul(base,rot);
+}
 function localWheel(x,y,z,spin=0,steer=0){
  const m=ID(),ca=Math.cos(spin),sa=Math.sin(spin),cb=Math.cos(steer),sb=Math.sin(steer);
  // Local steering rotation about Y, then wheel spin around the axle (X).
@@ -47,11 +53,11 @@ export class Renderer{
       this.draw(this.mesh.cars[car.kind%this.mesh.cars.length],model(car.x,0,car.z,Math.PI-car.yaw));
    }
   if(this.mode!==2){
-   const base=model(p.x,.04+(p.bike?.suspension||0),p.z,Math.PI-p.yaw,p.lean);
+   const base=bikeBodyModel(p);
    this.draw(g.mission.stage==='pickup'?this.mesh.bike:this.mesh.bikePassenger,base);
    const spin=p.bike?.wheelSpin||0,steer=p.bike?.steerAngle||0;
-   this.draw(this.mesh.bikeWheel,mul(base,localWheel(0,.56,-1.10,spin,0)));
-   this.draw(this.mesh.bikeWheel,mul(base,localWheel(0,.56,1.08,spin,steer)));
+   this.draw(this.mesh.bikeWheel,mul(base,localWheel(0,p.bike?.rearWheelY??.56,-1.10,spin,0)));
+   this.draw(this.mesh.bikeWheel,mul(base,localWheel(0,p.bike?.frontWheelY??.56,1.08,spin,steer)));
   }
   this.frames++;this.seconds+=dt||0;if(this.seconds>.65){this.fps=Math.round(this.frames/this.seconds);this.frames=0;this.seconds=0;}
  }

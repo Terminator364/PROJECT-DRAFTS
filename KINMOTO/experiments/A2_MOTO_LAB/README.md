@@ -45,3 +45,12 @@ Le dossier `dist/` comprend l'HTML autonome, les icônes, le manifest PWA et le 
 Ce laboratoire contient du code créé pour KIN MOTO et l'ancien prototype détenu par l'utilisateur. Aucun code, modèle ou texture de Neon Mayhem, Costa Vista ou Poly Pizza n'a été copié dans le jeu. Leurs projets ont été **étudiés** séparément. Pas de dépendance réseau nécessaire au gameplay après installation ; aucune télémétrie incluse.
 
 Code de continuité : `KINMOTO|SYNC`. La source canonique est GitHub `Terminator364/PROJECT-DRAFTS/KINMOTO/experiments/A2_MOTO_LAB/` une fois enregistrée.
+
+
+## A2 LAB 0.5 — contact de route et trafic réactif
+- Source déterministe de profil de chaussée commune à la géométrie et à la physique (`src/road_surface.js`).
+- Échantillons de contact avant et arrière, amortissement ressort, différence de pente et compensation des roues pour l'inclinaison et l'assiette. Petite bosse visible sur trois axes (ce n'est PAS une vraie suspension rigide Rapier).
+- Freinage du trafic pour obstacles proches et priorité déterministe à l'intersection, sans créer d'objets temporaires pour calculer le créneau.
+- Tests dédiés (`tests/road_contact.test.mjs`, `tests/traffic_reactivity.test.mjs`).
+- Situation de test `?qa=1&autoplay=1&autodrive=straight`: affiche les hauteurs des pneus, la réaction maximale du châssis et le FPS instantané en 3D ; les commandes réelles demeurent nécessaires pour la recette utilisateur.
+- Toujours en LABORATOIRE : pas de V1 certifiée, Android physique non encore testé et direction artistique encore insuffisante.
