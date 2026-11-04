@@ -1,0 +1,49 @@
+{
+  "schema_version": "1.0",
+  "project": "KINMOTO",
+  "factory_version": "3.0",
+  "state_date_utc": "2026-11-04",
+  "phase": "A0_INFRASTRUCTURE",
+  "status": "IN_PROGRESS",
+  "incubator_repo": "Terminator364/PROJECT-DRAFTS",
+  "incubator_subdir": "KINMOTO",
+  "canonical_repo_url": "https://github.com/Terminator364/PROJECT-DRAFTS",
+  "canonical_repo_status": "INCUBATOR_PRIVATE_NOT_DEDICATED",
+  "stable_commit": null,
+  "develop_commit": null,
+  "active_ticket": "A0",
+  "work_session_id": null,
+  "quota_snapshot": {
+    "known": false,
+    "source": "Settings > Usage",
+    "recorded_at": null
+  },
+  "ci": {
+    "github_hosted_actions_enabled_for_kinmoto": false,
+    "automatic_workflows_added": false,
+    "monthly_target_minutes": 0,
+    "validation": "local_standard_library"
+  },
+  "completed_tickets": [],
+  "pending_tickets": [
+    "A1-SOURCES-BENCHMARK",
+    "A2-MOTO-FEEL",
+    "A3-VERTICAL-SLICE"
+  ],
+  "qa_latest": {
+    "logic": "NOT_TESTED",
+    "visual": "NOT_TESTED",
+    "performance": "NOT_TESTED",
+    "physical": "NOT_TESTED",
+    "legal_cost": "NOT_TESTED"
+  },
+  "known_blockers": [
+    "A1 requires physical Android/PC benchmark before source selection",
+    "A0 final GitHub commit and readback not yet recorded"
+  ],
+  "release_candidate": null,
+  "public_urls_modified": false,
+  "next_action": "A0: terminer commit/lecture retour, ouvrir issues A1/A2/A3, puis lancer A1 après approbation de la portée",
+  "source_of_truth": "Git commit and matching PROJECT_STATE.json; ChatGPT Project PDFs and Drive are copies",
+  "public_release_status": "NO_NEW_RELEASE"
+}
