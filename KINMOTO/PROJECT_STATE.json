@@ -3,8 +3,8 @@
   "project": "KINMOTO",
   "factory_version": "3.0",
   "state_date_utc": "2026-11-04",
-  "phase": "A1_D_BENCHMARK_REAL_DEVICES",
-  "status": "A1_D_PENDING_WITH_A2_EXPERIMENTAL_LAB",
+  "phase": "A1_D_AND_A2_LAB_LOCAL_QA",
+  "status": "LOCAL_ONLY_DEV_ACTIVE",
   "incubator_repo": "Terminator364/PROJECT-DRAFTS",
   "incubator_subdir": "KINMOTO",
   "canonical_repo_url": "https://github.com/Terminator364/PROJECT-DRAFTS",
@@ -44,11 +44,12 @@
     "Android physique A2-LAB et Neon/Costa non testé",
     "Qualité artistique et conduite jugées par le joueur non validées",
     "Moto A2-LAB utilise sol plat ; suspension à raycasts et contact pneus réels non implémentés",
-    "Aucune source extérieure CC0 ou code tiers intégrée dans A2-LAB ; réemploi professionnel encore à planifier après A1"
+    "Aucune source extérieure CC0 ou code tiers intégrée dans A2-LAB ; réemploi professionnel encore à planifier après A1",
+    "QUOTA_POLICY: tout nouveau déploiement Vercel interdit avant GO explicite utilisateur."
   ],
   "release_candidate": null,
   "public_urls_modified": false,
-  "next_action": "Comparer A2-LAB vs Neon/Costa sur vrai Android et HP, puis valider subjectivement la conduite; aucun passage en version V1 STABLE sans accord utilisateur.",
+  "next_action": "Ne faire AUCUN déploiement Vercel ni site public. Continuer tests/unit build local, fournir preview localhost; A1-D et validation Android restent ouvertes.",
   "source_of_truth": "public GitHub files, no secrets; private binary backups in Drive",
   "public_release_status": "NO_NEW_RELEASE",
   "a0_qa": {
@@ -119,5 +120,16 @@
     "drive_zip_id": "1euNCtOxZqXcLNr0PLAw781pWp5ARuvL0",
     "cost_extra_fc": 0,
     "old_public_url_modified": false
+  },
+  "hosting_policy": {
+    "vercel_deploy_allowed": false,
+    "other_public_deploy_allowed": false,
+    "github_hosted_ci_allowed": false,
+    "execution_mode": "LOCAL_ONLY_UNTIL_OWNER_APPROVAL",
+    "effective_date": "2026-11-04",
+    "reason": "Hobby 100 deployments/day; owner requests preserve quota",
+    "vercel_account_remaining_quota": "UNKNOWN",
+    "existing_public_urls": "PRESERVE",
+    "local_preview": "localhost-only by default"
   }
 }
