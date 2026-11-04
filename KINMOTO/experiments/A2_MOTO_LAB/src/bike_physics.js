@@ -1,3 +1,4 @@
+import {sampleRoadSurface, ROAD_TOP_Y} from './road_surface.js';
 // KIN MOTO A2 — deterministic semi-physical motorcycle controller.
 // No external library, no runtime download, no network, no model assets.
 // Deliberately independent of camera and rendering.
@@ -7,7 +8,9 @@ const BIKE_GRAVITY = 9.81;
 export function createBikeTelemetry() {
   return { steer:0, steerAngle:0, yawRate:0, lean:0, lateralSlip:0,
     vx:0, vz:0, wheelSpin:0, suspension:0, pitch:0, acceleration:0,
-    frontGrounded:true, rearGrounded:true, lastSpeed:0, traction:1 };
+    frontGrounded:true, rearGrounded:true, lastSpeed:0, traction:1,
+    frontHeight:ROAD_TOP_Y, rearHeight:ROAD_TOP_Y, suspensionVelocity:0,
+    frontWheelY:.56, rearWheelY:.56, roadGrade:0 };
 }
 export function advanceBike(p, control, dt, config={}) {
   const clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
@@ -62,10 +65,28 @@ export function advanceBike(p, control, dt, config={}) {
   p.lean=t.lean;
   // Wheel rotation is tied to distance travelled, not to a HUD counter.
   t.wheelSpin+=Math.hypot(dx,dz)/BIKE_WHEEL_RADIUS;
-  const pitchTarget=clamp(-t.acceleration*.022,-.11,.18);
-  t.pitch+=(pitchTarget-t.pitch)*(1-Math.exp(-5.5*dt));
-  t.suspension+=(0-t.suspension)*(1-Math.exp(-8*dt));
-  t.frontGrounded=true;t.rearGrounded=true; // Flat A2 test track; real raycasts come later.
+  // Two contact samples under the two independently placed tires. Both physics
+  // and road geometry use the same deterministic speed-bump height function.
+  // A spring-damper moves the chassis while the tire centers stay on the road.
+  const frontX=p.x+Math.sin(p.yaw)*1.08,frontZ=p.z-Math.cos(p.yaw)*1.08;
+  const rearX=p.x-Math.sin(p.yaw)*1.10,rearZ=p.z+Math.cos(p.yaw)*1.10;
+  t.frontHeight=sampleRoadSurface(frontX,frontZ);
+  t.rearHeight=sampleRoadSurface(rearX,rearZ);
+  const heightTarget=(t.frontHeight+t.rearHeight)*.5-ROAD_TOP_Y;
+  const springAcc=(heightTarget-t.suspension)*84-17*t.suspensionVelocity;
+  t.suspensionVelocity=clamp(t.suspensionVelocity+springAcc*dt,-2,2);
+  t.suspension+=t.suspensionVelocity*dt;
+  t.suspension=clamp(t.suspension,-.16,.22);
+  t.roadGrade=Math.atan2(t.frontHeight-t.rearHeight,BIKE_WHEELBASE);
+  const pitchTarget=clamp(t.roadGrade-t.acceleration*.006,-.14,.14);
+  t.pitch+=(pitchTarget-t.pitch)*(1-Math.exp(-6.5*dt));
+  const cp=Math.max(.95,Math.cos(t.pitch)),sp=Math.sin(t.pitch);
+  // Roll, pitch and suspension all transform tire centers. Compensate for
+  // those rotations so each visible wheel remains on its sampled surface.
+  const rollScale=Math.max(.86,Math.cos(t.lean));
+  t.frontWheelY=((.56+t.frontHeight-ROAD_TOP_Y-t.suspension)/rollScale+1.08*sp)/cp;
+  t.rearWheelY=((.56+t.rearHeight-ROAD_TOP_Y-t.suspension)/rollScale-1.10*sp)/cp;
+  t.frontGrounded=true;t.rearGrounded=true; // Known height field, both tire centers placed on it.
   t.traction=roadGrip*condition;
   t.lastSpeed=p.speed;
   return {dx,dz,travel:Math.hypot(dx,dz),accel:t.acceleration,yawRate:t.yawRate,lateralSlip:lateral};
