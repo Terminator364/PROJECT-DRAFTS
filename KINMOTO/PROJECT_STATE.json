@@ -1,0 +1,67 @@
+{
+  "schema_version": "1.0",
+  "project": "KINMOTO",
+  "factory_version": "3.0",
+  "state_date_utc": "2026-11-04",
+  "phase": "A0_INFRASTRUCTURE",
+  "status": "A0_READY_FOR_REVIEW",
+  "incubator_repo": "Terminator364/PROJECT-DRAFTS",
+  "incubator_subdir": "KINMOTO",
+  "canonical_repo_url": "https://github.com/Terminator364/PROJECT-DRAFTS",
+  "canonical_repo_status": "INCUBATOR_PRIVATE_NOT_DEDICATED",
+  "stable_commit": null,
+  "develop_commit": null,
+  "active_ticket": null,
+  "work_session_id": null,
+  "quota_snapshot": {
+    "known": false,
+    "source": "Settings > Usage",
+    "recorded_at": null
+  },
+  "ci": {
+    "github_hosted_actions_enabled_for_kinmoto": false,
+    "automatic_workflows_added": false,
+    "monthly_target_minutes": 0,
+    "validation": "local_standard_library"
+  },
+  "completed_tickets": [
+    "A0_FACTORY_SETUP_LOCAL_PASS"
+  ],
+  "pending_tickets": [
+    "A1-SOURCES-BENCHMARK",
+    "A2-MOTO-FEEL",
+    "A3-VERTICAL-SLICE"
+  ],
+  "qa_latest": {
+    "logic": "NOT_TESTED",
+    "visual": "NOT_TESTED",
+    "performance": "NOT_TESTED",
+    "physical": "NOT_TESTED",
+    "legal_cost": "NOT_TESTED"
+  },
+  "known_blockers": [
+    "GitHub PR not yet merged; A1 benchmark awaits separate start",
+    "Android/PC source benchmark A1 NOT_TESTED"
+  ],
+  "release_candidate": null,
+  "public_urls_modified": false,
+  "next_action": "Après fusion de A0 : ouvrir issue #19, exécuter benchmark A1 sur branche dédiée, sans publication ni Actions hébergées",
+  "source_of_truth": "Git commit and matching PROJECT_STATE.json; ChatGPT Project PDFs and Drive are copies",
+  "public_release_status": "NO_NEW_RELEASE",
+  "a0_qa": {
+    "local_verification": "PASS",
+    "github_files_on_branch": 29,
+    "modified_outside_kinmoto": 0,
+    "drive_archives_verified": 7,
+    "github_issues": [
+      19,
+      20,
+      21
+    ],
+    "github_actions_hosted_runs_started": 0,
+    "workflow_added": false,
+    "release_modified": false,
+    "repo_merge_status": "PENDING",
+    "resume_test": "PENDING"
+  }
+}
