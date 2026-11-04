@@ -1,6 +1,8 @@
 import {clamp,dist,heading} from './math.js';
 import {Renderer} from './render.js';
 import {findRoute} from './navigation.js';
+import {guideTo} from './route_guidance.js';
+import {rideComfortGrade} from './ride_quality.js';
 import {VERSION,PLACES,byId,missionTarget,makeGame,step,interactionState,interact,buy,validate,readSave,writeSave,snapshot,SAVE_KEY} from './sim.js';
 const $=id=>document.getElementById(id),FC=n=>Math.round(n).toLocaleString('fr-FR')+' FC';
 const STORAGE_SNAPSHOT='kinmoto_a2_lab_snapshot';
@@ -36,9 +38,10 @@ function drawMap(){const cv=$('map'),ctx=cv.getContext('2d'),w=cv.width,h=cv.hei
 function updateUI(){const p=game.player,s=game.save,m=game.mission,target=missionTarget(m),state=interactionState(game);
  $('cash').textContent=FC(s.cash);$('speed').textContent=String(Math.round(p.speed*3.6)).padStart(2,'0');$('healthBar').style.width=clamp(s.health,0,100)+'%';$('healthNum').textContent=Math.round(s.health)+'%';$('rides').textContent=s.rides;$('stars').textContent=s.stars.toFixed(1);$('district').textContent='VICTOIRE / MATONGE';$('fpsMark').textContent=(renderer?.fps||'—')+' FPS · 3D';
  $('kindLabel').textContent=m.title;const pick=byId(m.from),drop=byId(m.to);$('missionFrom').textContent=pick.name;$('missionTo').textContent=drop.name;$('missionReward').textContent='+ '+FC(m.reward);
+ $('comfortInfo').hidden=m.stage==='pickup';$('comfortValue').textContent=Math.round(m.comfort??100)+'% · '+rideComfortGrade(m);
  $('missionTitle').textContent=m.stage==='pickup'?(m.kind==='colis'?'Récupérer le colis':`Récupérer ${m.client}`):m.stage==='via'?'Arrêt touristique':m.kind==='colis'?'Livrer le colis':`Déposer ${m.client}`;
  $('missionDescription').textContent=m.stage==='pickup'?`Rejoins ${target.name} pour la prise en charge.`:m.stage==='via'?`Fais l'arrêt à ${target.name} puis poursuis.`:`Direction ${target.name} : conduis prudemment.`;
- $('missionDistance').textContent=state.missionDistance+' m';
+ const nav=guideTo(p,target,p.yaw);$('missionDistance').textContent=nav.distance+' m';$('navText').textContent=nav.label;$('navMeters').textContent=nav.turnDistance+' m';$('navArrow').textContent=nav.kind==='right'?'↱':nav.kind==='left'?'↰':nav.kind==='arrive'?'◎':'↑';
  let label=state.nearMission?(m.stage==='pickup'?'✓ RÉCUPÉRER':m.stage==='via'?'✓ FAIRE L’ARRÊT':'✓ DÉPOSER'):state.nearGarage?'⚙ GARAGE':'';
  if(label){show('action');$('action').textContent=state.stopped?label:'FREINE POUR T’ARRÊTER';hide('tip');}else{hide('action');show('tip');$('tip').textContent=`Mission : ${target.name} · ${state.missionDistance} m · E pour interagir`;}
  drawMap();const projected=renderer?.project(target.x,5.5,target.z),tag=$('targetLabel');if(projected&&projected.visible){show('targetLabel');tag.style.left=projected.x+'px';tag.style.top=projected.y+'px';tag.textContent=target.name+' · '+state.missionDistance+' m';}else hide('targetLabel');
