@@ -1,3 +1,4 @@
+import {SPEED_BUMPS, smoothBump, ROAD_TOP_Y} from './road_surface.js';
 import {rand} from './math.js';
 export function C(s){let x=parseInt(s.replace('#',''),16);return [(x>>>16&255)/255,(x>>>8&255)/255,(x&255)/255];}
 export const P={asphalt:C('#353e4b'),road2:C('#303944'),line:C('#f5eed9'),yellow:C('#efb93e'),shoulder:C('#909f8a'),pavement:C('#b3aa93'),tree:C('#368475'),dark:C('#233444'),sand:C('#c5ba9b'),glass:C('#6a92a0'),metal:C('#c5d6d9'),tire:C('#242b35'),bike:C('#f6c634'),red:C('#d45444'),skin:C('#9d633d')};
@@ -62,6 +63,17 @@ export function makeWorld(){const g=new Geo();g.box(0,-.24,0,390,.34,390,C('#879
  for(const v of streets){g.box(v,-.025,0,18,.10,365,P.asphalt);g.box(0,-.017,v,365,.11,18,P.asphalt);
   for(const o of [-9.4,9.4]){g.box(v+o,.055,0,.20,.028,365,P.line);g.box(0,.064,v+o,365,.028,.20,P.line);}
   for(let t=-177;t<178;t+=13){let cross=streets.some(v2=>Math.abs(t-v2)<15);if(cross)continue;g.box(v,.060,t,.19,.022,5,P.yellow);g.box(t,.067,v,5,.022,.19,P.yellow);}
+ }
+ // Shallow raised road features are meshed from the same profile sampled by the tires.
+ for(const b of SPEED_BUMPS){
+   const steps=16,side=8.70;
+   for(let k=0;k<steps;k++){
+     const u0=-b.halfLength+2*b.halfLength*k/steps,u1=-b.halfLength+2*b.halfLength*(k+1)/steps;
+     const h0=ROAD_TOP_Y+b.height*smoothBump(u0,b.halfLength),h1=ROAD_TOP_Y+b.height*smoothBump(u1,b.halfLength);
+     const color=C(k%2?'#bdb4a1':'#c6bc9f');
+     if(b.axis==='z')g.quad([b.road-side,h0,b.along+u0],[b.road+side,h0,b.along+u0],[b.road+side,h1,b.along+u1],[b.road-side,h1,b.along+u1],color,[0,1,0]);
+     else g.quad([b.along+u0,h0,b.road-side],[b.along+u1,h1,b.road-side],[b.along+u1,h1,b.road+side],[b.along+u0,h0,b.road+side],color,[0,1,0]);
+   }
  }
  // paved blocks between/at edges
  const bounds=[-184,-130,-110,-10,10,110,130,184];
