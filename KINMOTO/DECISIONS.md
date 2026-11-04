@@ -22,3 +22,6 @@ Les lignes sont typées : `E` exigence utilisateur, `C` constat vérifié, `P` p
 
 ## D-A1-001 — Visibilité GitHub volontairement publique (2026-11-04)
 Le propriétaire confirme explicitement le statut public de `PROJECT-DRAFTS`, notamment pour l'utilisation gratuite de GitHub Actions. Le blocage de confidentialité posé par erreur est levé. Interdiction de placer des secrets ou des données personnelles dans ce dépôt ; le budget GitHub Actions hébergées reste 0 min par défaut, sans workflows automatiques. Le chantier A1 est autorisé.
+
+## D-A1-002 — Réutilisation critique, phase statique (2026-11-04)
+Neon Mayhem n'est pas approuvé comme base complète malgré la démo HP chargée. Son contrôleur moto est cinématique et ses dépendances sont globales. Costa Vista contient une suspension Rapier et un graphe de routes utiles, mais sa moto créée avec outillage commercial et ses autres assets ne sont pas couverts par la licence MIT du code. **Décision : extraction ciblée sous licences vérifiées et essais physiques avant tout choix.** Modules tactiles Neon, code de physique/route Costa et assets directs Kenney sont des hypothèses, pas des imports effectués. A2 n'est pas lancé.

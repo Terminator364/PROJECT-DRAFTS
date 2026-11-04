@@ -1,25 +1,16 @@
-# VISIBILITÉ RÉSOLUE
+# Prochaine action — KINMOTO A1-D (benchmark dynamique)
 
-Décision explicite du propriétaire (2026-11-04) : `PROJECT-DRAFTS` reste PUBLIC intentionnellement, notamment pour les GitHub Actions gratuits. Le README racine a été corrigé. Les archives privées restent dans Google Drive ; les dépôts publics ne doivent jamais contenir de secrets.
+**État :** A0 achevé, statut public de GitHub confirmé, A1 sources et licences statiques achevés. **Aucune base 3D sélectionnée**.
 
----
+Lire successivement :
+1. `PROJECT_STATE.json`
+2. `docs/A1_STATIC_SOURCE_AUDIT_20261104.md`
+3. `docs/A1_SCORECARD_20261104.json`
+4. `tasks/A1-D-BENCHMARK-RUNTIME.md`
+5. `docs/CI_POLICY.md`
 
-# Prochaine action — KINMOTO FACTORY
+**Action unique :** comparer les **sensations réelles de la moto**, le rendu et les performances sur HP Windows et Galaxy A21s, sans télécharger de gros assets non nécessaires ni facturer GitHub Actions. Le HP a déjà démarré le HUD de Neon Mayhem dans Opera ; la moto n'a pas été évaluée.
 
-**Ticket actif A1 après clôture A0 :** `A1-SOURCES-BENCHMARK` (voir `tasks/A1-SOURCES-BENCHMARK.md`).
+**Choix d'architecture :** à décider seulement après essais. Hypothèse technique : conduite Rapier issue d'un sous-ensemble Costa Vista, interface tactile de Neon Mayhem, 3D CC0 Kenney. Ne jamais importer toute une archive externe ni les assets de Costa Vista non vérifiés.
 
-## Objectif unique
-Mesurer et comparer, sans modifier les jeux publiés, les candidats libres `neon-mayhem` et `experiments-costa-vista` et les anciens prototypes ; justifier le choix de l'architecture de V1.
-
-## Préconditions
-- Dépôt et SHA A0 vérifiés ; charte et registre accessibles.
-- Licence du **code ET des assets** relevée et pièces originales conservées.
-- Projet V1 non publié ; aucun paiement ni CI hébergée.
-
-## Essais
-- Build et premier lancement PC ; piste de conduite, contact roue/sol, direction, caméra, freinage, collision.
-- Essai Android physique lorsque possible ; FPS, RAM système, taille téléchargement.
-- Grille 100 points (moto 30, graphismes 20, ressources 20, architecture 15, licences 10, missions 5), statut NOT_TESTED explicite si absence de test.
-
-## Arrêt / livrable
-Rapport reproductible avec commits source, licences, captures, résultats, décision recommandée et ticket A2 prêt. Ne pas choisir un vainqueur à partir d'un README.
+**Arrêt sûr :** déposer preuves/mesures, créer `docs/A1_RUNTIME_REPORT.md` et revoir le tableau /100. A2 et A3 attendent le verdict, aucune URL STABLE modifiée.

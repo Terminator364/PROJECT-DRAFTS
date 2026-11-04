@@ -3,8 +3,8 @@
   "project": "KINMOTO",
   "factory_version": "3.0",
   "state_date_utc": "2026-11-04",
-  "phase": "A1_SOURCES_BENCHMARK",
-  "status": "A1_IN_PROGRESS",
+  "phase": "A1_D_BENCHMARK_REAL_DEVICES",
+  "status": "A1_STATIC_COMPLETE_RUNTIME_PENDING",
   "incubator_repo": "Terminator364/PROJECT-DRAFTS",
   "incubator_subdir": "KINMOTO",
   "canonical_repo_url": "https://github.com/Terminator364/PROJECT-DRAFTS",
@@ -28,24 +28,25 @@
     "A0_FACTORY_SETUP"
   ],
   "pending_tickets": [
-    "A1-SOURCES-BENCHMARK",
+    "A1-DYNAMIC-BENCHMARK",
     "A2-MOTO-FEEL",
     "A3-VERTICAL-SLICE"
   ],
   "qa_latest": {
-    "logic": "NOT_TESTED",
+    "logic": "PARTIAL_STATIC",
     "visual": "NOT_TESTED",
     "performance": "NOT_TESTED",
-    "physical": "NOT_TESTED",
-    "legal_cost": "NOT_TESTED"
+    "physical": "PARTIAL_HP_BOOT_ONLY",
+    "legal_cost": "PARTIAL_LICENSE_PRECHECK"
   },
   "known_blockers": [
-    "Tests de conduite et benchmark FPS/RAM sur Android physique non encore mesurés",
-    "Les licences des ressources 3D de chaque candidat doivent être vérifiées indépendamment de celles du code"
+    "A1-D benchmark de conduite moto réelle, graphisme WebGL, FPS/RAM sur HP et Android manquant",
+    "Costa Vista code MIT mais licences des assets internes non clarifiées : ne pas importer ses modèles non CC0",
+    "Sélection du moteur suspendue aux essais ; aucune base retenue"
   ],
   "release_candidate": null,
   "public_urls_modified": false,
-  "next_action": "A1: audit comparatif source+licences Neon Mayhem / Costa Vista, tests reproductibles sur HP et vérification Android physique avant choix définitif",
+  "next_action": "A1-D: lire tasks/A1-D-BENCHMARK-RUNTIME.md, exécuter vraie moto sur HP/Android, mesurer FPS/RAM, vérifier licences des assets, choisir ou rejeter ; ne pas lancer A2 avant validation",
   "source_of_truth": "public GitHub files, no secrets; private binary backups in Drive",
   "public_release_status": "NO_NEW_RELEASE",
   "a0_qa": {
@@ -69,5 +70,24 @@
     "privacy": "OWNER_APPROVED_PUBLIC",
     "security_gate": "PASS_FOR_PUBLIC_NON_SECRET_FILES"
   },
-  "owner_public_repository_approval": "2026-11-04: repository public volontaire, notamment pour GitHub Actions"
+  "owner_public_repository_approval": "2026-11-04: repository public volontaire, notamment pour GitHub Actions",
+  "completed_subtasks": [
+    "A1-SOURCE-COMPARISON",
+    "A1-CODE_LICENSES_PRECHECK",
+    "A1-HP_OPERA_BOOT_NEON"
+  ],
+  "a1": {
+    "sources_pinned": {
+      "neon_mayhem": "cd19f934d9088392d1f10374c3b64a1b7eb683cf",
+      "costa_vista": "23e87108a281ac827e2ea23691aa7bf4b544146e"
+    },
+    "report": "docs/A1_STATIC_SOURCE_AUDIT_20261104.md",
+    "scorecard": "docs/A1_SCORECARD_20261104.json",
+    "next_ticket": "tasks/A1-D-BENCHMARK-RUNTIME.md",
+    "pc_opera_neon_boot": "PASS_BOOT_HUD",
+    "pc_handling": "NOT_TESTED",
+    "android": "NOT_TESTED",
+    "engine_choice": "UNDECIDED",
+    "actions_hosted_runs": 0
+  }
 }
