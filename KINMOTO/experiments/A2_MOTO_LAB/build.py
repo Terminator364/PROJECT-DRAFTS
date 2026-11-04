@@ -1,7 +1,7 @@
 from pathlib import Path
 import re,shutil,zipfile,hashlib,json,base64
 ROOT=Path(__file__).parent
-SOURCES=['src/math.js','src/navigation.js','src/geom.js','src/bike_physics.js','src/sim.js','src/render.js','src/main.js']
+SOURCES=['src/road_surface.js','src/math.js','src/navigation.js','src/geom.js','src/bike_physics.js','src/sim.js','src/render.js','src/main.js']
 # Binary icons are also committed as base64 text to allow entirely text-only GitHub
 # syncing through the connector. The generated PNGs are identical to the originals.
 for icon_size in (192,512):
