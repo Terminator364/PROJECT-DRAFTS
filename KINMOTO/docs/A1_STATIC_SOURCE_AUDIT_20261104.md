@@ -81,3 +81,9 @@ Taille dépôt GitHub `size` : métrique de métadonnées, pas un benchmark de t
 
 **A1 statut final de cette étape : PARTIAL_PASS / STATIC_COMPLETE / DYNAMIC_PENDING.**  
 **Pas de choix définitif ; A2 et A3 restent non lancés.**
+
+## 9. Observation réelle de ressources système HP (après fermeture du jeu de test)
+
+Relevé Windows via Remote Desktop Commander sur `HP-840G6-MBM` le 2026-11-04 : `Win32_OperatingSystem.TotalVisibleMemorySize=8190240 KiB`, `FreePhysicalMemory=1157568 KiB` (environ **7,81 GiB installés, 1,10 GiB libres au moment du relevé**). Carte graphique `Intel(R) UHD Graphics 620`, `AdapterRAM` déclaré 1 GiB par Windows. **Attention :** c'est une capture ponctuelle du système, PAS la RAM utilisée par Neon Mayhem ou Costa Vista, ni nécessairement la VRAM dédiée réelle (GPU intégré à mémoire partagée).
+
+Conséquence : ne pas charger sans nécessité les ~270 Mo d'assets Costa Vista sur cet HP sous forte pression mémoire. Comparer d'abord des modules isolés, sous-ensembles d'assets et scènes courtes, puis exécuter le vrai benchmark après vérification de la mémoire disponible et de l'absence de logiciels critiques à fermer.
