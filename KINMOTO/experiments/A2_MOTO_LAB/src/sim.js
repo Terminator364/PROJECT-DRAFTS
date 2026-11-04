@@ -1,6 +1,6 @@
 import {clamp,lerp,wrapAngle,hypot,dist,heading,angleOf,nearestRoad,keepOverStreet,STREET_SAFE_HALF_WIDTH,rand} from './math.js';
 import {advanceBike,createBikeTelemetry} from './bike_physics.js';
-export const VERSION='A2-LAB-0.5';
+export const VERSION='A2-LAB-0.5.1-LOCAL';
 export const PLACES=[
  {id:'victoire',name:'PLACE VICTOIRE',x:13,z:12,kind:'place'},
  {id:'matonge',name:'MATONGE',x:13,z:-73,kind:'place'},
