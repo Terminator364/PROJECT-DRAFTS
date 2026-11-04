@@ -15,7 +15,7 @@ function ReadText([string]$relative) {
 function WriteText([string]$name,[string]$data) {
   [IO.File]::WriteAllText((Join-Path $dist $name), $data, $utf8)
 }
-$modules = @('src/road_surface.js','src/math.js','src/navigation.js','src/geom.js','src/bike_physics.js','src/sim.js','src/render.js','src/main.js')
+$modules = @('src/road_surface.js','src/math.js','src/navigation.js','src/route_guidance.js','src/ride_quality.js','src/adaptive_resolution.js','src/geom.js','src/bike_physics.js','src/collision.js','src/sim.js','src/render.js','src/main.js')
 $bundle = New-Object System.Collections.Generic.List[string]
 foreach($module in $modules) {
   $source = ReadText $module

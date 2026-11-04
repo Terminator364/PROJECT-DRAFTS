@@ -1,0 +1,221 @@
+{
+  "test": "20 minutes simulated CPU loop",
+  "fps_claim": false,
+  "android_hardware": false,
+  "webgl": false,
+  "steps": 72000,
+  "elapsed_real_ms": 1092,
+  "avg_step_ms": 0.0152,
+  "max_step_ms": 4.13,
+  "heap_init_bytes": 4287024,
+  "heap_final_bytes": 4510712,
+  "heap_delta_bytes": 223688,
+  "collision_count": 6,
+  "mission_started": "pickup",
+  "events_buffer_length": 13,
+  "events_buffer_cap": 35,
+  "samples": [
+    {
+      "minute": 1,
+      "heapUsed": 4463112,
+      "position": [
+        -8.1,
+        51.64
+      ],
+      "collisions": 6,
+      "errors": []
+    },
+    {
+      "minute": 2,
+      "heapUsed": 4438552,
+      "position": [
+        -8.1,
+        52.28
+      ],
+      "collisions": 6,
+      "errors": []
+    },
+    {
+      "minute": 3,
+      "heapUsed": 4484424,
+      "position": [
+        -8.1,
+        30.28
+      ],
+      "collisions": 6,
+      "errors": []
+    },
+    {
+      "minute": 4,
+      "heapUsed": 4456496,
+      "position": [
+        -55.94,
+        0.94
+      ],
+      "collisions": 6,
+      "errors": []
+    },
+    {
+      "minute": 5,
+      "heapUsed": 4507616,
+      "position": [
+        -128.1,
+        -23.91
+      ],
+      "collisions": 6,
+      "errors": []
+    },
+    {
+      "minute": 6,
+      "heapUsed": 4508352,
+      "position": [
+        -111.9,
+        -143.65
+      ],
+      "collisions": 6,
+      "errors": []
+    },
+    {
+      "minute": 7,
+      "heapUsed": 4523616,
+      "position": [
+        -128.1,
+        -173.69
+      ],
+      "collisions": 6,
+      "errors": []
+    },
+    {
+      "minute": 8,
+      "heapUsed": 4523848,
+      "position": [
+        -128.1,
+        -168.07
+      ],
+      "collisions": 6,
+      "errors": []
+    },
+    {
+      "minute": 9,
+      "heapUsed": 4524264,
+      "position": [
+        -128.1,
+        -175
+      ],
+      "collisions": 6,
+      "errors": []
+    },
+    {
+      "minute": 10,
+      "heapUsed": 4524680,
+      "position": [
+        -128.1,
+        -174.81
+      ],
+      "collisions": 6,
+      "errors": []
+    },
+    {
+      "minute": 11,
+      "heapUsed": 4525080,
+      "position": [
+        -128.1,
+        -175
+      ],
+      "collisions": 6,
+      "errors": []
+    },
+    {
+      "minute": 12,
+      "heapUsed": 4525256,
+      "position": [
+        -128.1,
+        -175
+      ],
+      "collisions": 6,
+      "errors": []
+    },
+    {
+      "minute": 13,
+      "heapUsed": 4525432,
+      "position": [
+        -128.1,
+        -175
+      ],
+      "collisions": 6,
+      "errors": []
+    },
+    {
+      "minute": 14,
+      "heapUsed": 4525608,
+      "position": [
+        -128.1,
+        -175
+      ],
+      "collisions": 6,
+      "errors": []
+    },
+    {
+      "minute": 15,
+      "heapUsed": 4525784,
+      "position": [
+        -128.1,
+        -175
+      ],
+      "collisions": 6,
+      "errors": []
+    },
+    {
+      "minute": 16,
+      "heapUsed": 4525960,
+      "position": [
+        -128.1,
+        -175
+      ],
+      "collisions": 6,
+      "errors": []
+    },
+    {
+      "minute": 17,
+      "heapUsed": 4526208,
+      "position": [
+        -128.1,
+        -158.38
+      ],
+      "collisions": 6,
+      "errors": []
+    },
+    {
+      "minute": 18,
+      "heapUsed": 4526384,
+      "position": [
+        -128.1,
+        -175
+      ],
+      "collisions": 6,
+      "errors": []
+    },
+    {
+      "minute": 19,
+      "heapUsed": 4526768,
+      "position": [
+        -128.1,
+        -173.72
+      ],
+      "collisions": 6,
+      "errors": []
+    },
+    {
+      "minute": 20,
+      "heapUsed": 4526944,
+      "position": [
+        -128.1,
+        -162.25
+      ],
+      "collisions": 6,
+      "errors": []
+    }
+  ],
+  "errors": [],
+  "passed": true
+}

@@ -1,10 +1,10 @@
 // Deterministic passenger/cargo comfort: mechanical events affect reward and reputation.
 // Works without online services, sensors or allocations in the physics loop.
-const clamp=(v,a,b)=>Math.min(b,Math.max(a,v));
+const clampComfort=(v,a,b)=>Math.min(b,Math.max(a,v));
 export function addRideDiscomfort(m,amount,reason='driving') {
   if(!m || m.stage==='pickup' || !Number.isFinite(amount) || amount<=0)return 0;
-  const before=clamp(m.comfort??100,0,100);
-  m.comfort=clamp(before-amount,0,100);
+  const before=clampComfort(m.comfort??100,0,100);
+  m.comfort=clampComfort(before-amount,0,100);
   if(reason==='impact')m.impacts=(m.impacts||0)+1;
   return before-m.comfort;
 }
@@ -20,10 +20,10 @@ export function observeRide(m,bike,speed,dt) {
   return addRideDiscomfort(m,(harshBrake+sharpCorner+suspensionShock)*dt);
 }
 export function rideComfortPaymentMultiplier(m) {
-  const comfort=clamp(m?.comfort??100,0,100);
+  const comfort=clampComfort(m?.comfort??100,0,100);
   return 1 - .22*Math.pow(1-comfort/100,1.3);
 }
 export function rideComfortGrade(m) {
-  const c=clamp(m?.comfort??100,0,100);
+  const c=clampComfort(m?.comfort??100,0,100);
   if(c>=85)return 'EXCELLENT';if(c>=65)return 'CORRECT';if(c>=40)return 'SECOUSSES';return 'INCONFORTABLE';
 }
