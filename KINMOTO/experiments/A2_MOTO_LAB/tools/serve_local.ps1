@@ -5,7 +5,8 @@
 param(
  [string]$Root = '',
  [ValidateRange(1024,65535)][int]$Port = 8789,
- [switch]$Lan
+ [switch]$Lan,
+ [switch]$OpenBrowser
 )
 $ErrorActionPreference='Stop'
 if (-not $Root) { $Root = Join-Path $PSScriptRoot '..\dist' }
@@ -18,6 +19,7 @@ $types=@{'.html'='text/html; charset=utf-8';'.js'='application/javascript; chars
 $server.Start()
 Write-Output "KINMOTO LOCAL SERVER: http://localhost:$Port/ (Ctrl+C to stop)"
 Write-Output 'No Vercel calls, no upload, no third-party telemetry.'
+if($OpenBrowser){Start-Process "http://localhost:$Port/"}
 if($Lan){Write-Warning 'LAN mode: HTTP accessible on local Wi-Fi only; no PWA/service worker on insecure mobile HTTP. Stop with Ctrl+C.'}
 try {
  while($true) {
