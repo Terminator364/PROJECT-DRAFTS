@@ -66,7 +66,15 @@
     "headless_suite_ran": false,
     "gpu_screenshot_saved": false,
     "ram_fps_measured": false,
-    "network_calls_tested": false
+    "network_calls_tested": false,
+    "hp_system_ram_snapshot": {
+      "total_visible_memory_kib": 8190240,
+      "free_physical_memory_kib": 1157568,
+      "gpu": "Intel UHD Graphics 620",
+      "observed_after_neon_tab_closed": true,
+      "game_ram_consumption_estimated": false,
+      "benchmark_context": "Windows OS snapshot; not a game memory measurement"
+    }
   },
   "legal_prohibitions": [
     "Do not import entire Costa Vista public/assets/ without per-file license proof",
@@ -85,5 +93,14 @@
     "status": "LIBRARY_ONLY_NOT_TESTED",
     "license_code": "Apache-2.0",
     "needs": "review integration cost and mobile controls"
+  },
+  "additional_asset_candidate": {
+    "name": "Cartoony Purple Motorcycle",
+    "url": "https://poly.pizza/m/j20srJUjpB",
+    "creator": "AliceCassie",
+    "page_license": "CC0",
+    "asset_downloaded": false,
+    "rights_verified_on_file": false,
+    "status": "CANDIDATE_SOURCE_PAGE_VERIFIED"
   }
 }
