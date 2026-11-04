@@ -19,3 +19,6 @@ Les lignes sont typées : `E` exigence utilisateur, `C` constat vérifié, `P` p
 | D-013 | N | Pas de workflow automatique Actions, pas de publicité/analytics tierce, pas de secrets, pas de publication STABLE non approuvée | Interdit |
 
 **Conflits :** la proposition passée de CI automatique est écartée : la politique existante `AGENTS.md` de `PROJECT-DRAFTS` prévaut et impose le calcul hébergé nul par défaut. Les validations programmées localement restent possibles.
+
+## D-A1-001 — Visibilité GitHub volontairement publique (2026-11-04)
+Le propriétaire confirme explicitement le statut public de `PROJECT-DRAFTS`, notamment pour l'utilisation gratuite de GitHub Actions. Le blocage de confidentialité posé par erreur est levé. Interdiction de placer des secrets ou des données personnelles dans ce dépôt ; le budget GitHub Actions hébergées reste 0 min par défaut, sans workflows automatiques. Le chantier A1 est autorisé.
