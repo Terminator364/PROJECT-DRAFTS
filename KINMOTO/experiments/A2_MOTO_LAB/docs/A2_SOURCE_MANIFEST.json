@@ -1,0 +1,154 @@
+{
+  "README.md": {
+    "sha256": "0fd1d73d16ed4c59b0750da118f27590b775728b1a098b0fa050ab9188def53c",
+    "bytes": 3851
+  },
+  "build.py": {
+    "sha256": "7e1761e877760bd47a9252589222344036303528a2a071dca0553bb6339cf8e1",
+    "bytes": 2875
+  },
+  "dist/KIN_MOTO_A2_LAB_JOUER.html": {
+    "sha256": "d879d2c41999599e27aefb91a5811ff11a3dcc8078b4887926cf23ebefc51bb3",
+    "bytes": 74881
+  },
+  "dist/KIN_MOTO_V1_JOUER.html": {
+    "sha256": "1fc28cd4a3c9720bdb10be9981e7b59cf10595347809b8c3f29b125a8a00e88e",
+    "bytes": 73041
+  },
+  "dist/assets/icon-192.b64.txt": {
+    "sha256": "762617f4675c95f19b0342dd5fb26efaec82e62cf5a14df33573d6a9d8b750c9",
+    "bytes": 4300
+  },
+  "dist/assets/icon-192.png": {
+    "sha256": "9356b04bf0b26519a49da0ac3c414eed4076c783c8ac35330248d441c32cf95e",
+    "bytes": 3224
+  },
+  "dist/assets/icon-512.b64.txt": {
+    "sha256": "f66e2f05677e2c9e9ecb75eb43796e23dd3cd01039e3cd0211bdc30247e2d73d",
+    "bytes": 12580
+  },
+  "dist/assets/icon-512.png": {
+    "sha256": "beb0216280bc5f54158320a4719a9279b16d629cb390074fc114474b85cf16e1",
+    "bytes": 9435
+  },
+  "dist/assets/icon.svg": {
+    "sha256": "3343bf402292114b037a088b46eeab7487f0043d07f210a5e3c59cdc5701dbd2",
+    "bytes": 826
+  },
+  "dist/index.html": {
+    "sha256": "d879d2c41999599e27aefb91a5811ff11a3dcc8078b4887926cf23ebefc51bb3",
+    "bytes": 74881
+  },
+  "dist/manifest.webmanifest": {
+    "sha256": "ae592b35b4681ee6572fd433f3b5f1e5564c4d8beeca0c82a915766cd48c9d58",
+    "bytes": 550
+  },
+  "dist/sw.js": {
+    "sha256": "2d90eaa80651dc9d9788940a7531033dc8aa38fe3d2e1c13e4eccc78496f955e",
+    "bytes": 1058
+  },
+  "docs/DECISIONS.md": {
+    "sha256": "26fd2ef50f3a3287b20b8179d0889f98985e8ad37407415649122f47c70f0391",
+    "bytes": 3417
+  },
+  "docs/LICENCES.md": {
+    "sha256": "590331c1d163eb383b1c8a342dff23186fddaf264413a3fa86a7d56d40d26d46",
+    "bytes": 762
+  },
+  "docs/MANIFEST_SHA256.json": {
+    "sha256": "adc14f9ab7e82a362f7434625de15ef3a849755a88f0bdfd2309802ddd5b0d02",
+    "bytes": 693
+  },
+  "docs/QA_A2_LAB_20261104.md": {
+    "sha256": "d638aaea8ca485bf3be64fced4e9c3108066be9f984d343e4c5903d570a0c5fe",
+    "bytes": 2704
+  },
+  "docs/QA_REPORT.json": {
+    "sha256": "bd78570c9140eb3c574824d5cd4b99cd2b362d605e286c2f489a9c310dec047c",
+    "bytes": 1735
+  },
+  "docs/RAPPORT_RECETTE_FINAL_20261104.md": {
+    "sha256": "27a0fa77f4e5abb3de3ca895b5a651ab64dfb78a9e3fc8c4d98fd2bf3eb36356",
+    "bytes": 3960
+  },
+  "docs/REPRISE.md": {
+    "sha256": "249fb9f12537c354bd837cc0ffb64bfb8d84a5f77bc352f2d5380f98126ec109",
+    "bytes": 1291
+  },
+  "docs/ROADMAP_V2_V3.md": {
+    "sha256": "d065e860a1a3d45a1dc23c20a6aa89b5b24c1ed8788dd3b5077a4e2119f3fcce",
+    "bytes": 1423
+  },
+  "index.html": {
+    "sha256": "13ffe40ed7af6ee5be02ecc5448f9412688b04660ec0977bb5b7597b5f84a469",
+    "bytes": 7105
+  },
+  "manifest.webmanifest": {
+    "sha256": "ae592b35b4681ee6572fd433f3b5f1e5564c4d8beeca0c82a915766cd48c9d58",
+    "bytes": 550
+  },
+  "package.json": {
+    "sha256": "6e3d4ea5b9a91d08d6d9c2d534119c0fe57e4143ff0a00267d7696f781e27b50",
+    "bytes": 434
+  },
+  "src/bike_physics.js": {
+    "sha256": "9eaa60c40e6c4b8d2cf6156166291db403ce6a4928b52df6a0c95544a312599e",
+    "bytes": 3886
+  },
+  "src/geom.js": {
+    "sha256": "bee1407a5ffdb14679c068fa2110a876f9b42c0c058a828d3cc4b944700451ce",
+    "bytes": 13676
+  },
+  "src/main.js": {
+    "sha256": "c9ad21a931a1c1618f83b7da29fd100a58a774a040bebb2085a80e6f0247c681",
+    "bytes": 15145
+  },
+  "src/math.js": {
+    "sha256": "9edb34bebbc4f85ca19884c741cb500c84093b4e545517bb52bee2416edf5121",
+    "bytes": 914
+  },
+  "src/navigation.js": {
+    "sha256": "eb78d7876fd70bbecf0a5e2398bbf99811980d07429e21326e8e6879c60a67b5",
+    "bytes": 1700
+  },
+  "src/render.js": {
+    "sha256": "ace4282aaad6e830454a66399c43720e61dccf08fb7532c43f6f7ca2f9d242c5",
+    "bytes": 8870
+  },
+  "src/sim.js": {
+    "sha256": "d5af282722c76cc284f5b87201f3b042fa9637ba324b90604a3bc754b3165695",
+    "bytes": 10640
+  },
+  "style.css": {
+    "sha256": "5cc3ec13a953bc4abaf9f91fb3653235c70c5278b4fa46bbd11607e13d2410e5",
+    "bytes": 13782
+  },
+  "sw.js": {
+    "sha256": "920950bed573fb9a88fe9d33614a755e6803f2e710e063786a0c8d30bd8a1ec9",
+    "bytes": 941
+  },
+  "tests/bike_physics.test.mjs": {
+    "sha256": "4d063f2e0fcf9a0e101d830b9b10a2aa3ca51af7c4a60abc8bea242647606929",
+    "bytes": 4716
+  },
+  "tests/final_ui_qa.py": {
+    "sha256": "9d9bc970b39eacdac2db900e4f13478f4e9d329ae4b6c1b841337f74bb4cd27f",
+    "bytes": 6782
+  },
+  "tests/node_results_final.txt": {
+    "sha256": "41af4b6a19a6506b94f94fbf3e46ac9f2d0792559555de81d0d325e1ab6878e3",
+    "bytes": 2813
+  },
+  "tests/sim.test.mjs": {
+    "sha256": "907da04aabe177f52bd9e21db0d22e70368523155332c25b2c363ed2cc02efc7",
+    "bytes": 5695
+  },
+  "tests/sw_cache.test.mjs": {
+    "sha256": "6c75c982ddef9b4518815a87effabb764140afcd9a2402edbbfeff16d65c2da1",
+    "bytes": 3181
+  },
+  "tests/ui_browser.py": {
+    "sha256": "765c443e0ff4c9ed12d66a256508462d2bca1490b01dec39b02763ff9857f098",
+    "bytes": 2267
+  }
+}
