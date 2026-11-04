@@ -4,7 +4,7 @@
 
 **Statut :** atelier documentaire A0, **pas** une nouvelle version jouable ni une V1 acceptée.
 
-**Dépôt d'incubation** : `Terminator364/PROJECT-DRAFTS`, sous-dossier `KINMOTO/` (privé). Le dépôt dédié sera envisagé après validation de l'architecture, conformément à `../NEW_PROJECT_BOOTSTRAP.md`. Aucun autre projet du dépôt ne doit être modifié.
+**Dépôt d'incubation** : `Terminator364/PROJECT-DRAFTS`, sous-dossier `KINMOTO/`. ⚠️ **État vérifié : le dépôt est PUBLIC malgré son README racine qui le décrit comme privé. A1 SUSPENDU jusqu'à décision de confidentialité.** Le dépôt dédié sera envisagé après validation de l'architecture, conformément à `../NEW_PROJECT_BOOTSTRAP.md`. Aucun autre projet du dépôt ne doit être modifié.
 
 **Règles de priorité** : lire `../AGENTS.md` et `../CI_BUDGET_POLICY.json` avant toute opération. Actions hébergées = **0 min par défaut**, aucun workflow automatique. Les scripts `scripts/` s'exécutent localement.
 
