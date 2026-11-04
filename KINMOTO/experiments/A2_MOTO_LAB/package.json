@@ -1,12 +1,12 @@
 {
   "name": "kin-moto-les-premieres-courses",
   "private": true,
-  "version": "0.5.2-cloud",
+  "version": "0.5.4-cloud-care",
   "type": "module",
   "description": "Jeu de moto-taxi 3D autonome - sans dépendances runtime ni backend",
   "scripts": {
     "test": "node --test tests/*.test.mjs",
-    "check": "node --check src/main.js && node --check src/sim.js && node --check src/road_surface.js && node --check src/math.js && node --check src/bike_physics.js && node --check src/collision.js && node --check src/render.js && node --check src/geom.js",
+    "check": "node --check src/route_guidance.js && node --check src/ride_quality.js && node --check src/main.js && node --check src/sim.js && node --check src/road_surface.js && node --check src/math.js && node --check src/bike_physics.js && node --check src/collision.js && node --check src/render.js && node --check src/geom.js",
     "build": "python build.py",
     "test:local": "python tools/test_local_delivery.py"
   },
