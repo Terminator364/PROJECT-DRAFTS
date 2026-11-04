@@ -28,3 +28,9 @@
 | [GG Web Engine](https://github.com/AndyGura/gg-web-engine) | Apache-2.0 (fichier LICENSE du dépôt) | Référence de sous-modules de simulation/contrôles mobiles | Bibliothèque, **pas** preuve de physique de moto ; ne pas ajouter sans nécessité |
 
 **Précision :** aucune ressource ci-dessus n'est encore intégrée au jeu. Toutes entrent comme `CANDIDATE_LICENSE_PAGE_VERIFIED`, non `APPROVED_ASSET` ; l'approbation exige le téléchargement du fichier exact, son hash, taille, format, licence et essai dans la scène de benchmark. Aucune version payante Quaternius Source/Pro n'est autorisée.
+
+## Nouveau candidat léger pour le modèle 3D (audit web, 4 novembre 2026)
+
+- [Road motorcycle — Innerscene](https://www.innerscene.com/tools/library/3d-parts/road-motorcycle-f2519759) : la page de la bibliothèque présente un modèle GLB original, non marqué, sous **CC0**, taille annoncée **627 Ko**, longueur environ 2,1 m, largeur 0,8 m, hauteur 1,4 m, rayon des roues de taille réaliste. **CANDIDATE_SOURCE_PAGE_VERIFIED**, PAS téléchargé ni intégré ; vérifier fichier exact, hash, nombre de triangles, textures, articulations roue/guidon et vraies performances sur A21s avant adoption. La licence CC0 de la page ne valide pas automatiquement chaque texture d'un fichier non téléchargé.
+- Ce candidat est mieux dimensionné pour l'appareil Android économique que des modèles CC0 de 7 à 20 Mo, mais sa qualité réelle et sa topologie ne sont pas encore contrôlées.
+- Aucune ressource GLB nouvelle n'a été importée durant la version A2-0.5.2. Interdiction de remplacer un modèle procédural par un asset sans tests et conservation de provenance.
