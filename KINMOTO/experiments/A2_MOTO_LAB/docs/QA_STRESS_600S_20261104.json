@@ -1,0 +1,20 @@
+{
+  "project": "KINMOTO",
+  "artifact": "A2_MOTO_LAB",
+  "date": "2026-11-04",
+  "test": "Node.js deterministic simulation, repeated 60Hz steps, no rendering",
+  "simulated_seconds": 600,
+  "steps": 36000,
+  "car_count": 16,
+  "cpu_wallclock_seconds_observed": 0.5,
+  "heap_before_gc_mib": 4.116,
+  "heap_after_gc_mib": 4.241,
+  "delta_mib": 0.125,
+  "validation_errors": 0,
+  "limitations": [
+    "Player reached road boundary, so this is primarily a deterministic stability/traffic-loop stress test, not representative of free driving or missions",
+    "The heap figures are Node.js JavaScript heap in this container, NOT Windows or Android device RAM and exclude WebGL/GPU",
+    "No physical Android/iOS test, no long-term battery or heat test, no subjective motorcycle feel rating"
+  ],
+  "status": "PASS_WITH_SCOPE_LIMITATIONS"
+}
