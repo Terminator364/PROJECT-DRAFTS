@@ -1,14 +1,12 @@
-# BLOCAGE DE SÉCURITÉ — résolution prioritaire
+# VISIBILITÉ RÉSOLUE
 
-GitHub `get_repo` et `list_repositories` signalent `PROJECT-DRAFTS` en visibilité **public**, contrairement à son README qui l'annonce privé. **Ne pas exécuter A1 ni publier d'autres sources** avant vérification et décision du propriétaire : mettre ce dépôt en privé OU autoriser expressément un autre dépôt privé et y migrer les sources après audit.
-
-Ce blocage ne touche ni le jeu public ni les archives privées sur Google Drive. Aucun secret détecté par le balayage local simple des 27 fichiers du paquet A0, mais cela ne constitue pas un audit de confidentialité exhaustif.
+Décision explicite du propriétaire (2026-11-04) : `PROJECT-DRAFTS` reste PUBLIC intentionnellement, notamment pour les GitHub Actions gratuits. Le README racine a été corrigé. Les archives privées restent dans Google Drive ; les dépôts publics ne doivent jamais contenir de secrets.
 
 ---
 
 # Prochaine action — KINMOTO FACTORY
 
-**Ticket suivant après clôture A0 :** `A1-SOURCES-BENCHMARK` (voir `tasks/A1-SOURCES-BENCHMARK.md`).
+**Ticket actif A1 après clôture A0 :** `A1-SOURCES-BENCHMARK` (voir `tasks/A1-SOURCES-BENCHMARK.md`).
 
 ## Objectif unique
 Mesurer et comparer, sans modifier les jeux publiés, les candidats libres `neon-mayhem` et `experiments-costa-vista` et les anciens prototypes ; justifier le choix de l'architecture de V1.
