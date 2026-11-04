@@ -3,8 +3,8 @@
   "project": "KINMOTO",
   "factory_version": "3.0",
   "state_date_utc": "2026-11-04",
-  "phase": "A2_LOCAL_BIKE_LAB_WITH_A1_D_PENDING",
-  "status": "LOCAL_ONLY_V051_QA_CHECKPOINT",
+  "phase": "A1_D_PENDING_A2_CLOUD_COLLISION_VERIFIED",
+  "status": "A2_LAB_V052_CLOUD_QA_PASS_NOT_RELEASED",
   "incubator_repo": "Terminator364/PROJECT-DRAFTS",
   "incubator_subdir": "KINMOTO",
   "canonical_repo_url": "https://github.com/Terminator364/PROJECT-DRAFTS",
@@ -33,26 +33,26 @@
     "A3-VERTICAL-SLICE"
   ],
   "qa_latest": {
-    "logic": "PASS_54_OF_54_LOCAL",
-    "build": "PASS_PYTHON_AND_POWERSHELL",
-    "local_http": "PASS_PYTHON_AND_WINDOWS",
-    "visual": "PASS_BOOT_WEBGL_BUT_15_MIN_SCENE_NOT_TESTED",
-    "performance": "15_MIN_FPS_RAM_NOT_TESTED",
-    "physical": "HP_BOOT_ONLY_ANDROID_NOT_TESTED",
+    "logic": "PASS_64_OF_64_ISOLATED",
+    "build": "PASS_NODE_PYTHON",
+    "local_http": "PASS_ISOLATED_HTTP",
+    "graphics": "BLOCKED_HEADLESS_WEBGL_UNAVAILABLE",
+    "performance": "BROWSER_FPS_RAM_NOT_TESTED",
+    "physical": "HP_PREVIOUS_BUILD_ONLY_ANDROID_NOT_TESTED",
     "legal_cost": "NO_NEW_EXTERNAL_ASSETS_IMPORTED",
-    "hosting_policy": "NO_NEW_HOSTED_DEPLOYMENT"
+    "hosting_policy": "NO_NEW_HOSTED_DEPLOYMENT",
+    "remote_calls_this_lot": 0
   },
   "known_blockers": [
-    "A1-D vrai benchmark moto Costa/Neon non terminé",
-    "Android physique Galaxy A21s : non testé pour A2 v0.5.1",
-    "Qualité graphique/ressenti approuvés par joueur : non validés",
-    "Suspension par heightfield, pas de modèle Rapier complet",
-    "Mesures FPS/RAM à 15 minutes au premier plan : non réalisées",
-    "Aucune publication sans nouvel accord utilisateur"
+    "A1-D réel comparatif Neon/Costa non terminé",
+    "Android physique et sensation moto à valider ultérieurement en lot matériel regroupé",
+    "Aucun nouveau rendu 3D validé pour A2 0.5.2 : WebGL headless indisponible",
+    "Modèles 3D CC0 candidats non encore acquis ou intégrés",
+    "Aucun déploiement hébergé avant accord explicite"
   ],
   "release_candidate": null,
   "public_urls_modified": false,
-  "next_action": "Pas de déploiement. Continuer A1-D comparatif qualité, améliorer conduite/visuel A2; tester 15 min HP au premier plan puis Galaxy A21s; seule une release candidate validée pourra être déployée sur ordre utilisateur.",
+  "next_action": "A2 Cloud: rechercher/examiner modèles moto CC0 légers et système de rendu/animation, benchmark isolé sans Remote; préparer une candidate pour validation groupée Android + HP à la fin du jalon; Vercel interdit.",
   "source_of_truth": "public GitHub files, no secrets; private binary backups in Drive",
   "public_release_status": "NO_NEW_RELEASE",
   "a0_qa": {
@@ -103,8 +103,8 @@
     "preview_url": "https://kin-moto-a2-moto-lab.vercel.app/",
     "deployment_id": "dpl_FFEwo2HGTZVx12HYnScJx3HxHy6X",
     "github_pr": 24,
-    "qa_unit_passed": 54,
-    "qa_unit_total": 54,
+    "qa_unit_passed": 64,
+    "qa_unit_total": 64,
     "qa_pc_webgl": "PASS_RENDER_OBSERVED",
     "pc_fps_observed_instantaneous": "50-60",
     "real_pc_autodrive_left": {
@@ -123,9 +123,9 @@
     "drive_zip_id": "1euNCtOxZqXcLNr0PLAw781pWp5ARuvL0",
     "cost_extra_fc": 0,
     "old_public_url_modified": false,
-    "version": "A2-LAB-0.5.1-LOCAL",
-    "latest_source_commit": "ee2902e625136f0af97352e56e0ae65844012bfd",
-    "latest_pr": 26,
+    "version": "A2-LAB-0.5.2-CLOUD",
+    "latest_source_commit": "756843efd4eec5f86829eef76c1b4fc25ae75bb8",
+    "latest_pr": 27,
     "local_server_python": "PASS",
     "local_server_windows_powershell": "PASS_HTTP_200",
     "local_pc_offline_builder": "PASS_81006_BYTES_LATEST",
@@ -135,7 +135,19 @@
     "download_zip_sha256": "00899a4406bda755d9f393fdf11acb713fe568491acb27ccbdb9ef1d56b388f5",
     "package_local_path": "KINMOTO_A2_LOCAL_QA_V051_ANDROID_PC_SOURCES_20261104.zip",
     "runtime_network_dependency": 0,
-    "vercel_deploy_calls_since_owner_freeze": 0
+    "vercel_deploy_calls_since_owner_freeze": 0,
+    "html_bytes": 83895,
+    "html_sha256": "fd3ae3031ff167624143eae3bbb8a9fae957760c7241eda2cf6de4a0313fb78d",
+    "module_count": 9,
+    "collision_model": "MOTORCYCLE_DISC_VS_ORIENTED_CAR_BUS_RECTANGLE",
+    "collision_scratch_reused": true,
+    "virtual_six_minute_traffic_stress": "PASS",
+    "cloud_build": "PASS_NODE_PYTHON_LOCAL_HTTP",
+    "headless_webgl": "UNAVAILABLE",
+    "remote_desktop_calls_in_v052": 0,
+    "vercel_deploy_calls_in_v052": 0,
+    "github_actions_calls_in_v052": 0,
+    "release_status": "LAB_NOT_V1"
   },
   "hosting_policy": {
     "vercel_deploy_allowed": false,
@@ -147,5 +159,16 @@
     "vercel_account_remaining_quota": "UNKNOWN",
     "existing_public_urls": "PRESERVE",
     "local_preview": "localhost-only by default"
+  },
+  "remote_control_budget": {
+    "source": "OWNER_SCREENSHOT_2026_11_04",
+    "used_snapshot": 6049,
+    "monthly_total": 10000,
+    "remaining_at_snapshot": 3951,
+    "reset_shown": "2026-12-01",
+    "live_status": "UNKNOWN",
+    "policy": "CLOUD_FIRST_REMOTE_ONLY_AS_LAST_RESORT",
+    "default_remote_calls_per_development_lot": 0,
+    "policy_document": "docs/REMOTE_QUOTA_POLICY_20261104.md"
   }
 }
