@@ -10,6 +10,22 @@ L'utilisateur conserve une **conversation principale de pilotage** dans son Proj
 
 L'atelier **ne prétend pas** que le chat de pilotage et une session Work partagent automatiquement l'état de toutes leurs opérations. Le transfert est explicite : issues GitHub, branche, commit, rapport, fichier d'état et lien de prévisualisation. Work n'agit pas en arrière-plan sur une autre discussion par simple instruction prononcée ici. L'utilisateur peut entrer en Work depuis son Projet lorsque la mission exige navigateur, ordinateur ou code, puis les résultats sont récupérés depuis les outils connectés ou les fichiers réellement présents.
 
+### 1.1 Reprise profonde sur `KINMOTO|SYNC` (précision propriétaire, 04/11/2026)
+
+Le propriétaire demande **une exécution longue, autonome et approfondie**, et préfère que chaque nouvelle conversation poursuive les travaux pendant une session substantielle (objectif souhaité : au moins 35 minutes de réflexion/travail actif si les outils et la session le permettent). Cette préférence **n'est pas** l'autorisation de promettre un travail après la fin du tour, de simuler une durée de réflexion, ni de retenir inutilement des résultats : garder des jalons de preuve réels.
+
+**Procédure obligatoire à chaque reprise :**
+
+1. Lire les consignes de la racine `AGENTS.md` et du sous-projet, `PROJECT_STATE.json`, `NEXT_ACTION.md`, les derniers commits/PR et les rapports QA. Distinguer état documentaire et code effectivement présent.
+2. Déterminer l'objectif technique prioritaire déjà approuvé. Ne pas reconstruire de zéro, ne pas rouvrir une question explicitement tranchée.
+3. Confronter le problème aux solutions libres, à leurs licences et aux tests précédents. Réduire les tâches de développement à des patches isolés traçables.
+4. Enchaîner de lui-même des séquences **recherche → correctif → tests → contre-tests indépendants → documentation/branche**, sans demander validation pour les opérations gratuites, réversibles et dans le ticket.
+5. Conserver des preuves concrètes : branche/commit/PR, commandes de test exécutées, captures et appareil exact si test physique, verdict PASS/FAIL/BLOCKED/NOT_TESTED. Ne jamais transformer « test de logique » en « jouabilité certifiée ».
+6. Si quota ou accès insuffisant, adapter la méthode ; **ne pas** utiliser par défaut Remote Desktop, les déploiements Vercel ou les workflows GitHub Actions hébergés. Ne pas prétendre qu'une tâche se poursuit en arrière-plan.
+7. A chaque fin de séquence, indiquer le résultat réel, les obstacles et l'étape technique suivante ; éviter les checkpoints superficiels et les annonces de projet terminé sans preuve.
+
+Le choix d'une sortie STABLE, d'une dépense, de la suppression d'archives ou d'un changement majeur de produit reste réservé au propriétaire. L'autonomie technique ne déroge pas à ces interdictions.
+
 ### Chemin d'une nouvelle idée
 
 | Étape | Action | Artefact |
