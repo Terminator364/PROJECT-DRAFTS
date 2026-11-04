@@ -21,7 +21,7 @@
       "repo_size_kib": 18287,
       "language": "JavaScript",
       "build": "static-scripts",
-      "recorded_pc_browser": "OPAERA_MENU_AND_HUD_BOOT_OBSERVED_NO_FPS_NO_SCREENSHOT",
+      "recorded_pc_browser": "OPERA_MENU_AND_GAME_HUD_BOOT_OBSERVED_NO_FPS_NO_3D_SCREENSHOT",
       "bike_feel_and_ground_contact": null,
       "visual_and_animations": null,
       "mobile_performance_and_ram": null,
@@ -79,5 +79,11 @@
     "A1-D compare loaded sizes/FPS/RAM of compact candidates",
     "Android Galaxy A21s on real hardware",
     "Then candidate decision and A2 scope"
-  ]
+  ],
+  "additional_engine_candidate": {
+    "repo": "AndyGura/gg-web-engine",
+    "status": "LIBRARY_ONLY_NOT_TESTED",
+    "license_code": "Apache-2.0",
+    "needs": "review integration cost and mobile controls"
+  }
 }
