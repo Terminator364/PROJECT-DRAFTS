@@ -3,9 +3,29 @@
     "sha256": "0fd1d73d16ed4c59b0750da118f27590b775728b1a098b0fa050ab9188def53c",
     "bytes": 3851
   },
+  "assets/icon-192.png": {
+    "sha256": "9356b04bf0b26519a49da0ac3c414eed4076c783c8ac35330248d441c32cf95e",
+    "bytes": 3224
+  },
+  "assets/icon-192.png.base64": {
+    "sha256": "762617f4675c95f19b0342dd5fb26efaec82e62cf5a14df33573d6a9d8b750c9",
+    "bytes": 4300
+  },
+  "assets/icon-512.png": {
+    "sha256": "beb0216280bc5f54158320a4719a9279b16d629cb390074fc114474b85cf16e1",
+    "bytes": 9435
+  },
+  "assets/icon-512.png.base64": {
+    "sha256": "f66e2f05677e2c9e9ecb75eb43796e23dd3cd01039e3cd0211bdc30247e2d73d",
+    "bytes": 12580
+  },
+  "assets/icon.svg": {
+    "sha256": "3343bf402292114b037a088b46eeab7487f0043d07f210a5e3c59cdc5701dbd2",
+    "bytes": 826
+  },
   "build.py": {
-    "sha256": "7e1761e877760bd47a9252589222344036303528a2a071dca0553bb6339cf8e1",
-    "bytes": 2875
+    "sha256": "e49b2d0551f6bb2a5cbdcf8536cf2fb974ab2d1089b93b2aea317554fc133575",
+    "bytes": 3296
   },
   "dist/KIN_MOTO_A2_LAB_JOUER.html": {
     "sha256": "d879d2c41999599e27aefb91a5811ff11a3dcc8078b4887926cf23ebefc51bb3",
