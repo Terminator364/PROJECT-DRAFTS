@@ -1,0 +1,412 @@
+{
+  "meta": {
+    "project": "KIN MOTO",
+    "date": "2026-11-04",
+    "status": "AUDIT PLAN ONLY - NO CODE OR PUBLIC DEPLOYMENT MODIFIED",
+    "releases": [
+      "V1",
+      "V2",
+      "V3"
+    ],
+    "complexity_scale": "Relative effort: 1 small to 13 high; NOT hours or costs",
+    "dependency_validation": "acyclic and release-order valid",
+    "current_source": "V2 prototype for qualitative baseline, V0.4 code for architecture audit",
+    "points_by_release": {
+      "V1": 104,
+      "V2": 74,
+      "V3": 80
+    },
+    "task_count_by_release": {
+      "V1": 19,
+      "V2": 9,
+      "V3": 7
+    },
+    "source_audit": "42 tests of V0.4 all using 2d render; did not establish real 3D compatibility"
+  },
+  "tasks": [
+    {
+      "release": "V1",
+      "id": "V1-01",
+      "feature": "Archive et comparaison des prototypes",
+      "relative_complexity": 2,
+      "depends_on": [],
+      "acceptance": "Captures de reference V2 + relevé exact du code et des regressions"
+    },
+    {
+      "release": "V1",
+      "id": "V1-02",
+      "feature": "Dépôt, TypeScript, Vite et tests automatiques",
+      "relative_complexity": 4,
+      "depends_on": [
+        "V1-01"
+      ],
+      "acceptance": "Projet construit en statique, versions de dependances verrouillees, tests reproductibles"
+    },
+    {
+      "release": "V1",
+      "id": "V1-03",
+      "feature": "Probe WebGL2 et benchmark des appareils",
+      "relative_complexity": 5,
+      "depends_on": [
+        "V1-02"
+      ],
+      "acceptance": "Scene 3D mesuree sur Android/PC et iPhone reel ou statut NON CERTIFIE"
+    },
+    {
+      "release": "V1",
+      "id": "V1-04",
+      "feature": "Boucle moteur a pas fixe et tests deterministes",
+      "relative_complexity": 5,
+      "depends_on": [
+        "V1-02"
+      ],
+      "acceptance": "Mouvements independants des FPS, pause/reprise sans saut temporel"
+    },
+    {
+      "release": "V1",
+      "id": "V1-05",
+      "feature": "Commandes clavier/tactile/multitouch",
+      "relative_complexity": 5,
+      "depends_on": [
+        "V1-04"
+      ],
+      "acceptance": "Gauche/droite coherent dans chaque camera; gaz + direction simultanes"
+    },
+    {
+      "release": "V1",
+      "id": "V1-06",
+      "feature": "Physique arcade semi-realiste de moto",
+      "relative_complexity": 8,
+      "depends_on": [
+        "V1-04",
+        "V1-05"
+      ],
+      "acceptance": "Acceleration, freinage, virage, vitesse, appui variable et limitations controlees"
+    },
+    {
+      "release": "V1",
+      "id": "V1-07",
+      "feature": "Camera 3D derriere la moto et HUD lisible",
+      "relative_complexity": 5,
+      "depends_on": [
+        "V1-03",
+        "V1-06"
+      ],
+      "acceptance": "Moto visible, pas de renversement de commandes, HUD adaptable iPhone"
+    },
+    {
+      "release": "V1",
+      "id": "V1-08",
+      "feature": "Carte compacte avec graphe routier et 6-8 carrefours",
+      "relative_complexity": 8,
+      "depends_on": [
+        "V1-03",
+        "V1-04"
+      ],
+      "acceptance": "Boucles et embranchements; pas de ligne unique de 3 km"
+    },
+    {
+      "release": "V1",
+      "id": "V1-09",
+      "feature": "Rendu stylise 3D et atlas d assets partage",
+      "relative_complexity": 8,
+      "depends_on": [
+        "V1-07",
+        "V1-08"
+      ],
+      "acceptance": "Meme scene 3D en mode eco; rendu compare a reference V2"
+    },
+    {
+      "release": "V1",
+      "id": "V1-10",
+      "feature": "Trafic simple sur routes a sens",
+      "relative_complexity": 8,
+      "depends_on": [
+        "V1-08",
+        "V1-06"
+      ],
+      "acceptance": "Voitures suivent voies, freinent et respectent obstacles; pas de teleportation visible"
+    },
+    {
+      "release": "V1",
+      "id": "V1-11",
+      "feature": "Collisions moto-vehicules decouplees du rendu",
+      "relative_complexity": 8,
+      "depends_on": [
+        "V1-06",
+        "V1-10"
+      ],
+      "acceptance": "Collision repetable, pas de choc fantome, reduction vitesse/dommages"
+    },
+    {
+      "release": "V1",
+      "id": "V1-12",
+      "feature": "Quatre familles de missions et 6-8 lieux",
+      "relative_complexity": 5,
+      "depends_on": [
+        "V1-08",
+        "V1-11"
+      ],
+      "acceptance": "Trajets vrais A-B, quetes finissables, recompenses coherentes"
+    },
+    {
+      "release": "V1",
+      "id": "V1-13",
+      "feature": "Passagers et petites animations",
+      "relative_complexity": 4,
+      "depends_on": [
+        "V1-12",
+        "V1-09"
+      ],
+      "acceptance": "Prise en charge/depot perceptibles, sans foule pathfinding"
+    },
+    {
+      "release": "V1",
+      "id": "V1-14",
+      "feature": "Economies simples, garage et progression",
+      "relative_complexity": 5,
+      "depends_on": [
+        "V1-12"
+      ],
+      "acceptance": "Argent, remise en etat et 2 ameliorations legibles, pas de flotte"
+    },
+    {
+      "release": "V1",
+      "id": "V1-15",
+      "feature": "Sauvegarde locale, exports et migrations",
+      "relative_complexity": 5,
+      "depends_on": [
+        "V1-14",
+        "V1-02"
+      ],
+      "acceptance": "Recuperation apres fermeture, import/export verifie"
+    },
+    {
+      "release": "V1",
+      "id": "V1-16",
+      "feature": "PWA offline HTTPS et mises a jour sures",
+      "relative_complexity": 5,
+      "depends_on": [
+        "V1-15",
+        "V1-09"
+      ],
+      "acceptance": "Cache complete, indicateur de statut offline, activation hors mission"
+    },
+    {
+      "release": "V1",
+      "id": "V1-17",
+      "feature": "Audio minimal et accessibilite",
+      "relative_complexity": 3,
+      "depends_on": [
+        "V1-07",
+        "V1-12"
+      ],
+      "acceptance": "Son apres geste utilisateur, mode muet, contraste et taille boutons"
+    },
+    {
+      "release": "V1",
+      "id": "V1-18",
+      "feature": "Tests QA multi-plateformes et portes de sortie",
+      "relative_complexity": 8,
+      "depends_on": [
+        "V1-09",
+        "V1-10",
+        "V1-11",
+        "V1-12",
+        "V1-15",
+        "V1-16",
+        "V1-17"
+      ],
+      "acceptance": "Certifications separees; 20 min jeu, tests reels et rollback"
+    },
+    {
+      "release": "V1",
+      "id": "V1-19",
+      "feature": "Livraison stable, package et docs",
+      "relative_complexity": 3,
+      "depends_on": [
+        "V1-18"
+      ],
+      "acceptance": "Version publiable, ZIP sources, registre et instructions compréhensibles"
+    },
+    {
+      "release": "V2",
+      "id": "V2-01",
+      "feature": "Deux zones additionnelles et transition",
+      "relative_complexity": 10,
+      "depends_on": [
+        "V1-19"
+      ],
+      "acceptance": "Transition fluide, sauvegarde conservee, route differente"
+    },
+    {
+      "release": "V2",
+      "id": "V2-02",
+      "feature": "Trafic intelligent aux intersections",
+      "relative_complexity": 10,
+      "depends_on": [
+        "V1-19",
+        "V2-01"
+      ],
+      "acceptance": "Priorites, depassements limites, circulation heures de pointe"
+    },
+    {
+      "release": "V2",
+      "id": "V2-03",
+      "feature": "Meteo et surface routiere",
+      "relative_complexity": 8,
+      "depends_on": [
+        "V1-19",
+        "V2-01"
+      ],
+      "acceptance": "Pluie affecte freinage et visibility, changement reglable"
+    },
+    {
+      "release": "V2",
+      "id": "V2-04",
+      "feature": "Diversite des missions et multi-arrets",
+      "relative_complexity": 8,
+      "depends_on": [
+        "V2-01",
+        "V2-02"
+      ],
+      "acceptance": "Generateur valide, trajet etats sans impasse"
+    },
+    {
+      "release": "V2",
+      "id": "V2-05",
+      "feature": "Personnages recurrents et mini recits",
+      "relative_complexity": 8,
+      "depends_on": [
+        "V2-04"
+      ],
+      "acceptance": "Clients memorisent reputation locale et debloquent contrats"
+    },
+    {
+      "release": "V2",
+      "id": "V2-06",
+      "feature": "Garage et economie enrichis",
+      "relative_complexity": 6,
+      "depends_on": [
+        "V1-19",
+        "V2-04"
+      ],
+      "acceptance": "Pieces, cout entretien, progression equilibrée"
+    },
+    {
+      "release": "V2",
+      "id": "V2-07",
+      "feature": "Optimisation streaming des quartiers",
+      "relative_complexity": 10,
+      "depends_on": [
+        "V2-01"
+      ],
+      "acceptance": "Allocation limitee, pas de fuite sur transitions"
+    },
+    {
+      "release": "V2",
+      "id": "V2-08",
+      "feature": "Qualite audio et direction artistique",
+      "relative_complexity": 6,
+      "depends_on": [
+        "V2-01"
+      ],
+      "acceptance": "Quartiers reconnaissables, sons originaux ou licencies"
+    },
+    {
+      "release": "V2",
+      "id": "V2-09",
+      "feature": "Regressions cross-device et sortie V2",
+      "relative_complexity": 8,
+      "depends_on": [
+        "V2-02",
+        "V2-03",
+        "V2-04",
+        "V2-05",
+        "V2-06",
+        "V2-07",
+        "V2-08"
+      ],
+      "acceptance": "V1 restauree si gate ratee; save compatible"
+    },
+    {
+      "release": "V3",
+      "id": "V3-01",
+      "feature": "Ville large par secteurs iteratifs",
+      "relative_complexity": 13,
+      "depends_on": [
+        "V2-09"
+      ],
+      "acceptance": "Monde agrandi sans rendu global en 3D"
+    },
+    {
+      "release": "V3",
+      "id": "V3-02",
+      "feature": "Simulation multiechelle des transports",
+      "relative_complexity": 13,
+      "depends_on": [
+        "V2-09",
+        "V3-01"
+      ],
+      "acceptance": "Flux macro, agents proches, performance stable"
+    },
+    {
+      "release": "V3",
+      "id": "V3-03",
+      "feature": "Systeme d evenements emergents",
+      "relative_complexity": 13,
+      "depends_on": [
+        "V3-02"
+      ],
+      "acceptance": "Combinaisons coherent de meteo, trafic, mission, moto"
+    },
+    {
+      "release": "V3",
+      "id": "V3-04",
+      "feature": "Carriere, contrats et petite flotte locale",
+      "relative_complexity": 10,
+      "depends_on": [
+        "V2-09",
+        "V3-03"
+      ],
+      "acceptance": "Boucle economique profonde sans serveur ni comptes"
+    },
+    {
+      "release": "V3",
+      "id": "V3-05",
+      "feature": "Narration et diversite culturelle et sonore",
+      "relative_complexity": 10,
+      "depends_on": [
+        "V2-09",
+        "V3-01"
+      ],
+      "acceptance": "Dialogues relus, radios originales, identite locale"
+    },
+    {
+      "release": "V3",
+      "id": "V3-06",
+      "feature": "Scenario libre et defis techniques",
+      "relative_complexity": 8,
+      "depends_on": [
+        "V3-02",
+        "V3-03"
+      ],
+      "acceptance": "Parcours et activites evolutifs sans violence obligatoire"
+    },
+    {
+      "release": "V3",
+      "id": "V3-07",
+      "feature": "Optimisation finale et packaging distribution",
+      "relative_complexity": 13,
+      "depends_on": [
+        "V3-01",
+        "V3-02",
+        "V3-03",
+        "V3-04",
+        "V3-05",
+        "V3-06"
+      ],
+      "acceptance": "Cycle QA longue duree, assets licences, sauvegardes, offline"
+    }
+  ]
+}
