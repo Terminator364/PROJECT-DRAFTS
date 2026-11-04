@@ -1,0 +1,85 @@
+import {clamp,lerp,wrapAngle,hypot,dist,heading,angleOf,nearestRoad,rand} from './math.js';
+import {advanceBike,createBikeTelemetry} from './bike_physics.js';
+export const VERSION='A2-LAB-0.1';
+export const PLACES=[
+ {id:'victoire',name:'PLACE VICTOIRE',x:13,z:12,kind:'place'},
+ {id:'matonge',name:'MATONGE',x:13,z:-73,kind:'place'},
+ {id:'ecole',name:'ÉCOLE DES ARTS',x:-13,z:64,kind:'school'},
+ {id:'marche',name:'MARCHÉ CENTRAL',x:109,z:13,kind:'market'},
+ {id:'clinique',name:'CLINIQUE DU QUARTIER',x:-108,z:-13,kind:'medical'},
+ {id:'restaurant',name:'MAISON DE LA RUMBA',x:13,z:157,kind:'music'},
+ {id:'station',name:'STATION MOTO',x:109,z:-13,kind:'station'},
+ {id:'residence',name:'RÉSIDENCE BANDAL',x:-13,z:-78,kind:'home'},
+ {id:'garage',name:'GARAGE KIN MOTO',x:14,z:78,kind:'garage'}
+];
+const NAMES=['Maman Chantal','Papa Serge','Junior','Mado','Coach Patrick','Maman Carine','Sarah','Nadine','Christelle','Blaise','Madame Esther'];
+const KINDS=[{id:'taxi',name:'COURSE WEWA',mult:1,description:'Un passager attend sa course.'},{id:'express',name:'RENDEZ-VOUS',mult:1.22,description:'Un client souhaite arriver sans retard.'},{id:'colis',name:'LIVRAISON',mult:1.10,description:'Transport d’un colis, conduite souple.'},{id:'tour',name:'DÉCOUVERTE',mult:1.30,description:'Un trajet découverte avec un arrêt supplémentaire.'}];
+const DEFAULT_SAVE={schema:1,cash:3500,rides:0,engine:1,brakes:1,health:100,stars:4.5,finished:0,highScore:0};
+export const SAVE_KEY='kinmoto_a2_lab_career';
+export function readSave(storage){try{storage=storage||globalThis.localStorage;const o=JSON.parse(storage.getItem(SAVE_KEY)||'null');if(o&&o.schema===1&&Number.isFinite(o.cash)&&o.cash>=0){return {...DEFAULT_SAVE,...o,engine:clamp(o.engine||1,1,5),brakes:clamp(o.brakes||1,1,5),health:clamp(o.health??100,0,100),stars:clamp(o.stars??4.5,1,5)}}}catch{}return {...DEFAULT_SAVE};}
+export function writeSave(data,storage){try{storage=storage||globalThis.localStorage;storage.setItem(SAVE_KEY,JSON.stringify(data));return true}catch{return false}}
+export function makeRoute(left,top,right,bottom){const l=left+4.6,r=right-4.6,t=top+4.6,b=bottom-4.6;
+ const pts=[{x:l,z:b-15},{x:l,z:t+15},{x:l+3,z:t+7},{x:l+7,z:t+3},{x:l+15,z:t},{x:r-15,z:t},{x:r-7,z:t+3},{x:r-3,z:t+7},{x:r,z:t+15},{x:r,z:b-15},{x:r-3,z:b-7},{x:r-7,z:b-3},{x:r-15,z:b},{x:l+15,z:b},{x:l+7,z:b-3},{x:l+3,z:b-7}];let segments=[],length=0;for(let i=0;i<pts.length;i++){const a=pts[i],b=pts[(i+1)%pts.length],d=dist(a,b);segments.push({a,b,start:length,len:d});length+=d;}return {segments,length};}
+const LOOPS=[makeRoute(-120,-120,0,0),makeRoute(0,-120,120,0),makeRoute(-120,0,0,120),makeRoute(0,0,120,120)];
+export function sampleRoute(route,m){m=((m%route.length)+route.length)%route.length;for(const s of route.segments){if(m<=s.start+s.len){let t=(m-s.start)/Math.max(.00001,s.len);return {x:lerp(s.a.x,s.b.x,t),z:lerp(s.a.z,s.b.z,t),yaw:angleOf(s.b.x-s.a.x,s.b.z-s.a.z)};}}const s=route.segments[0];return {...s.a,yaw:angleOf(s.b.x-s.a.x,s.b.z-s.a.z)};}
+function newMission(ride=0){const r=rand(7946+ride*773),options=PLACES.filter(p=>p.kind!=='garage');const from=options[(ride*3+1)%options.length];let to=options[(ride*5+4)%options.length];if(from.id===to.id)to=options[(options.indexOf(to)+3)%options.length];const kind=KINDS[ride%KINDS.length],length=Math.abs(from.x-to.x)+Math.abs(from.z-to.z),reward=Math.round((750+length*10)*kind.mult/50)*50;
+ let via=kind.id==='tour'?options[(ride*2+5)%options.length]:null;if(via&&(via.id===from.id||via.id===to.id))via=options[(ride*2+6)%options.length];return {ride,kind:kind.id,title:kind.name,from:from.id,to:to.id,via:via?.id||null,stage:'pickup',client:NAMES[ride%NAMES.length],reward,penalty:0,startedAt:0,timer:0};}
+export const byId=id=>PLACES.find(p=>p.id===id);
+export const missionTarget=m=>byId(m.stage==='pickup'?m.from:m.stage==='via'?m.via:m.to);
+export function makeGame(snapshot=null){let previous=snapshot||{};let save={...DEFAULT_SAVE,...(previous.save||{})};let player={x:4.4,z:95,speed:0,yaw:0,lean:0,damageCooldown:0,meters:0,bike:createBikeTelemetry(),...(previous.player||{})};
+ let m=(previous.mission&&byId(previous.mission.from)&&byId(previous.mission.to))?{...previous.mission}:newMission(save.rides);
+ let cars=[];let count=0;for(let loop=0;loop<LOOPS.length;loop++)for(let j=0;j<4;j++){
+  const path=LOOPS[loop],u=(j/4)*path.length+(loop*19)%20,p=sampleRoute(path,u);
+  cars.push({id:count++,loop,u,speed:4+(j%3)*2,preferred:6.5+(count%4)*1.5,kind:count%6, stun:0, x:p.x,z:p.z,yaw:p.yaw});
+ }
+ const game={save,player,mission:m,cars,clock:0,events:[],playing:false,paused:false,controls:{left:false,right:false,gas:false,brake:false},travel:0,collisions:0,nearMisses:0,stats:{steps:0,lastSave:0}};
+ return game;
+}
+export function snapshot(g){return {schema:1,version:VERSION,save:{...g.save},player:{x:g.player.x,z:g.player.z,yaw:g.player.yaw,speed:0,lean:0,damageCooldown:0,meters:g.player.meters},mission:{...g.mission}}}
+export const emit=(g,type,message)=>{g.eventSeq=(g.eventSeq||0)+1;g.events.push({type,message,at:g.clock,seq:g.eventSeq});if(g.events.length>35)g.events.shift();};
+const signedDistance=(a,b)=>dist(a,b);
+export function step(g,dt){const p=g.player,c=g.controls;if(!g.playing||g.paused)return;dt=clamp(dt,0,.04);g.clock+=dt;g.stats.steps++;p.damageCooldown=Math.max(0,p.damageCooldown-dt);
+ const grip=clamp(g.save.health/100,.40,1);let onRoad=nearestRoad(p).distance<9.7;
+ const ox=p.x,oz=p.z;
+ const drive=advanceBike(p,{
+   steer:(c.right?1:0)-(c.left?1:0),gas:c.gas?1:0,brake:c.brake?1:0
+ },dt,{condition:grip,roadGrip:onRoad?1:.77,
+   engine:g.save.engine,brakes:g.save.brakes,maxSpeed:onRoad?22.6:8});
+ p.x=clamp(p.x,-175,175);p.z=clamp(p.z,-175,175);
+ const road=nearestRoad(p);
+ if(road.distance>14.5){p.x=ox;p.z=oz;p.speed=Math.min(p.speed,2.5);
+   p.bike.vx=0;p.bike.vz=0;p.bike.lastSpeed=p.speed;
+   if(p.damageCooldown<=0){p.damageCooldown=1.3;emit(g,'warning','Trottoir ! Reste sur la chaussée.');}}
+ else if(road.distance>9.4){p.speed=Math.min(p.speed,7.6);}
+ p.meters+=hypot(p.x-ox,p.z-oz);g.travel+=hypot(p.x-ox,p.z-oz);
+ // Traffic: 4 closed real-road loops, car following and elementary braking.
+ for(const car of g.cars){car.stun=Math.max(0,(car.stun||0)-dt);let v=car.stun>0?Math.min(1.7,car.preferred*.20):car.preferred;const path=LOOPS[car.loop];const ahead=g.cars.filter(other=>other!==car&&other.loop===car.loop).reduce((nearest,other)=>{
+    const gap=(other.u-car.u+path.length)%path.length;return gap>0&&gap<nearest?gap:nearest;
+ },Infinity);if(ahead<14)v=clamp((ahead-5)*.9,0,car.preferred);
+ // defensive braking around stopped player, never reverse
+ const relative={x:p.x-car.x,z:p.z-car.z};const along=relative.x*Math.sin(car.yaw)-relative.z*Math.cos(car.yaw);
+ if(along>0&&along<12&&Math.hypot(relative.x,relative.z)<8&&p.speed<car.speed+3)v=Math.min(v,Math.max(0,(along-3)*1.0));
+ car.speed=lerp(car.speed,v,dt*(v<car.speed?3.5:1.2));car.u=(car.u+car.speed*dt)%path.length;
+ const pos=sampleRoute(path,car.u);car.x=pos.x;car.z=pos.z;car.yaw=pos.yaw;
+ }
+ for(const car of g.cars){let dd=signedDistance(p,car);if(dd<3.1){let overlap=3.1-dd,ux=(p.x-car.x)/(dd||1),uz=(p.z-car.z)/(dd||1);p.x=clamp(p.x+ux*overlap,-175,175);p.z=clamp(p.z+uz*overlap,-175,175);if(p.damageCooldown<=0&&p.speed>1.0){car.stun=Math.max(car.stun||0,1.55);let severity=Math.min(18,4+p.speed*.85);g.save.health=clamp(g.save.health-severity,0,100);p.speed*=.23;p.bike.vx*=.23;p.bike.vz*=.23;p.bike.lastSpeed=p.speed;p.damageCooldown=1.3;g.collisions++;g.mission.penalty=(g.mission.penalty||0)+Math.round(severity*16);emit(g,'impact',`Accrochage ! -${Math.round(severity)} % d'état.`);}}
+ else if(dd<4.6&&p.speed>5&&g.clock-(g.lastNearMiss||0)>4){g.nearMisses++;g.lastNearMiss=g.clock;}}
+ if(g.mission.kind==='express'&&g.mission.stage!=='pickup'){g.mission.timer+=dt;}
+ g.stats.lastSave+=dt;
+}
+export function interactionState(g){const p=g.player,t=missionTarget(g.mission),nearMission=t&&dist(p,t)<16,garage=byId('garage'),nearGarage=dist(p,garage)<15;
+ const stopped=p.speed<3.1;return {nearMission:!!nearMission,nearGarage,stopped,missionDistance:t?Math.round(dist(p,t)):Infinity,target:t,garageDistance:Math.round(dist(p,garage))};}
+export function interact(g){if(!g.playing||g.paused)return {ok:false,reason:'partie inactive'};const i=interactionState(g);
+ if(i.nearMission){if(!i.stopped){emit(g,'warning','Ralentis sous 11 km/h pour t’arrêter.');return {ok:false,reason:'Ralentis'}}
+  const m=g.mission;if(m.stage==='pickup'){m.stage=m.via?'via':'drop';m.startedAt=g.clock;m.timer=0;emit(g,'pickup',m.kind==='colis'?'Colis chargé, destination indiquée.':`${m.client} est à bord. Bonne route !`);return {ok:true,type:'pickup'};}
+  if(m.stage==='via'){m.stage='drop';emit(g,'info','Arrêt effectué. Direction la destination finale !');return {ok:true,type:'via'};}
+  if(m.stage==='drop'){let base=m.reward,late=m.kind==='express'?Math.max(0,m.timer-85)*8:0,damages=m.penalty||0;
+   const payout=Math.max(250,Math.round((base-late-damages)/50)*50);g.save.cash+=payout;g.save.rides++;g.save.finished++;g.save.stars=clamp(g.save.stars+(damages>0?-.08:.03),1,5);g.mission=newMission(g.save.rides);emit(g,'success',`Course terminée : +${payout.toLocaleString('fr-FR')} FC`);return {ok:true,type:'completed',payout};}
+ }
+ if(i.nearGarage){if(!i.stopped){emit(g,'warning','Freine pour entrer au garage.');return {ok:false,reason:'Ralentis'}}return {ok:true,type:'garage'};}
+ emit(g,'info','Approche-toi du repère jaune pour interagir.');return {ok:false,reason:'Trop loin'};
+}
+export function buy(g,item){let costs={repair:Math.max(0,Math.ceil((100-g.save.health)*12/50)*50),engine:g.save.engine*2400,brakes:g.save.brakes*1800};let price=costs[item];if(price==null)return {ok:false,reason:'invalide'};
+ if(item==='repair'&&price===0)return {ok:false,reason:'Moto en parfait état'};if(item!=='repair'&&g.save[item]>=4)return {ok:false,reason:'Niveau maximal'};
+ if(g.save.cash<price)return {ok:false,reason:'Solde insuffisant'};g.save.cash-=price;if(item==='repair')g.save.health=100;else g.save[item]++;emit(g,'success',item==='repair'?'Moto réparée':`Amélioration ${item} installée`);return {ok:true,cost:price};}
+export function validate(g){const p=g.player;const issues=[];for(const x of [p.x,p.z,p.speed,p.yaw,g.save.cash,g.save.health])if(!Number.isFinite(x))issues.push('non-finite');if(g.save.cash<0)issues.push('negative-cash');if(p.speed<0)issues.push('reverse-speed');if(!missionTarget(g.mission))issues.push('invalid-mission-target');if(g.cars.some(x=>!Number.isFinite(x.x)||!Number.isFinite(x.z)))issues.push('invalid-traffic');return issues;}
