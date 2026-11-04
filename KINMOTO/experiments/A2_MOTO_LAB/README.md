@@ -54,3 +54,29 @@ Code de continuité : `KINMOTO|SYNC`. La source canonique est GitHub `Terminator
 - Tests dédiés (`tests/road_contact.test.mjs`, `tests/traffic_reactivity.test.mjs`).
 - Situation de test `?qa=1&autoplay=1&autodrive=straight`: affiche les hauteurs des pneus, la réaction maximale du châssis et le FPS instantané en 3D ; les commandes réelles demeurent nécessaires pour la recette utilisateur.
 - Toujours en LABORATOIRE : pas de V1 certifiée, Android physique non encore testé et direction artistique encore insuffisante.
+
+
+## 🔒 Mode zéro déploiement : décision du 4 novembre 2026
+
+**Vercel est gelé.** Ne plus créer de deployment ou modifier l'ancien site sans demande explicite. Les sources et la validation continuent sur GitHub et sur le PC, sans hébergeur ni Actions hébergées.
+
+### Jouer et tester localement sur Windows, sans Python ou Node obligatoires
+
+1. Conserver le dossier complet du projet.
+2. Double-cliquer sur `tools/START_LOCAL_PC.cmd` (Windows PowerShell intégré reconstruit le jeu et démarre le serveur).
+3. Le navigateur s'ouvre automatiquement sur `http://localhost:8789/` **après** le démarrage du serveur.
+4. Arrêter en fermant la fenêtre PowerShell ou avec `Ctrl+C`. Aucun service permanent, aucune tâche de démarrage Windows.
+
+Alternative si Python 3 est installé : `python build.py`, puis `python tools/serve_local.py`. Le serveur ne s'expose qu'à `127.0.0.1` par défaut, sans abonnement ni réseau.
+
+Le mode LAN pour le téléphone est **facultatif et non activé** : `python tools/serve_local.py --lan` ou PowerShell `tools/serve_local.ps1 -Lan` seulement sur Wi-Fi privé. Une PWA installable ne sera pas certifiée sur Android par cette adresse HTTP locale.
+
+### Contrôles locaux et défaut graphique corrigé
+
+- `node --test tests/*.test.mjs` : **54/54 PASS** sur le banc local (inclut cinq nouveaux tests de bordure/caméra + trois règles d'absence d'hébergement et d'API externes).
+- `python tools/test_local_delivery.py` : validation d'un serveur `localhost`, HTML/manifest/sw/icônes et absence d'hébergement.
+- Sur le HP, PowerShell a produit un HTML autonome de **80 998 octets** dans la version expérimentale, sans Python ni Node, et Opera a ouvert ce jeu à `localhost` : test d'ouverture confirmé.
+- **Correctif en cours de recette graphique** : limite moto désormais dans l'asphalte (8,1 m du centre au lieu de 14,5 m), et caméra contenue à 7,5 m, pour supprimer le passage à travers les bâtiments observé sur capture.
+- Les performances à 15 minutes et le ressenti humain restent `NOT_TESTED`. Aucun nouveau jeu public n'est publié.
+
+Référence d'atelier : `KINMOTO/docs/NO_DEPLOY_DEV_POLICY.md`.

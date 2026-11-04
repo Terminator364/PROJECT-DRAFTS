@@ -1,4 +1,4 @@
-import {clamp,lerp} from './math.js';
+import {clamp,lerp,keepOverStreet} from './math.js';
 import {makeWorld,makeBike,makeBikeWheel,makeCar,makeMarker,makeGarage} from './geom.js';
 import {missionTarget,byId} from './sim.js';
 const ID=()=>new Float32Array([1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1]);
@@ -38,7 +38,11 @@ export class Renderer{
  draw(mesh,m,tint=1){const gl=this.gl,at=this.attr;gl.bindBuffer(gl.ARRAY_BUFFER,mesh.buffer);for(const idx of Object.values(at))gl.enableVertexAttribArray(idx);gl.vertexAttribPointer(at.pos,3,gl.FLOAT,false,36,0);gl.vertexAttribPointer(at.normal,3,gl.FLOAT,false,36,12);gl.vertexAttribPointer(at.color,3,gl.FLOAT,false,36,24);gl.uniformMatrix4fv(this.uniform.model,false,m);gl.uniform1f(this.uniform.tint,tint);gl.drawArrays(gl.TRIANGLES,0,mesh.n);}
  render(g,dt){if(!this.gl||this.lost)return;this.resize();const gl=this.gl,p=g.player,h={x:Math.sin(p.yaw),z:-Math.cos(p.yaw)},distance=this.mode===0?12.8:this.mode===1?23.5:3.6,height=this.mode===0?7.9:this.mode===1?19.0:3.25;
   const desired={x:p.x-h.x*distance,y:height,z:p.z-h.z*distance},aim={x:p.x+h.x*(this.mode===1?9:13),y:this.mode===1?1.8:2.05,z:p.z+h.z*(this.mode===1?9:13)};
+  // Camera collision: keep the chase camera on drivable streets, avoiding
+  // the "building fills the screen" regression after hard steering near façades.
+  keepOverStreet(desired,7.5);
   const k=clamp((dt||.016)*5,0,1);for(const a of ['x','y','z']){this.camera[a]=lerp(this.camera[a],desired[a],k);this.target[a]=lerp(this.target[a],aim[a],k);}
+  keepOverStreet(this.camera,7.5);
   this.vp=mul(this.proj,lookAt([this.camera.x,this.camera.y,this.camera.z],[this.target.x,this.target.y,this.target.z]));gl.viewport(0,0,this.canvas.width,this.canvas.height);gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);gl.useProgram(this.program);gl.uniformMatrix4fv(this.uniform.vp,false,this.vp);gl.uniform3f(this.uniform.camera,this.camera.x,this.camera.y,this.camera.z);
   this.draw(this.mesh.world,ID());this.draw(this.mesh.garage,model(27,0,76,-Math.PI/2));
   // active markers are drawn at source/destination, physical position near road edge
