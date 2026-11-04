@@ -8,7 +8,9 @@ export class AdaptiveResolution {
   this.samples=0;this.elapsed=0;this.cooldown=0;this.updates=0;
  }
  observe(dt,{visible=true}={}){
-  if(!visible||!Number.isFinite(dt)||dt<.005||dt>.12)return false;
+  // Sustained 4–8 FPS in a visible tab is real GPU overload: do not ignore it.
+  // Frames longer than 250 ms remain excluded as possible tab wake/scheduler pauses.
+  if(!visible||!Number.isFinite(dt)||dt<.005||dt>.25)return false;
   // We wait for actual in-foreground frames and do not react to tab throttling.
   this.emaFrame=this.samples?this.emaFrame*.94+dt*.06:dt;
   this.samples++;this.elapsed+=dt;this.cooldown=Math.max(0,this.cooldown-dt);
