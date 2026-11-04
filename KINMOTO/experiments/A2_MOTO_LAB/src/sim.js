@@ -1,4 +1,4 @@
-import {clamp,lerp,wrapAngle,hypot,dist,heading,angleOf,nearestRoad,rand} from './math.js';
+import {clamp,lerp,wrapAngle,hypot,dist,heading,angleOf,nearestRoad,keepOverStreet,STREET_SAFE_HALF_WIDTH,rand} from './math.js';
 import {advanceBike,createBikeTelemetry} from './bike_physics.js';
 export const VERSION='A2-LAB-0.5';
 export const PLACES=[
@@ -64,10 +64,26 @@ export function step(g,dt){const p=g.player,c=g.controls;if(!g.playing||g.paused
    engine:g.save.engine,brakes:g.save.brakes,maxSpeed:onRoad?22.6:8});
  p.x=clamp(p.x,-175,175);p.z=clamp(p.z,-175,175);
  const road=nearestRoad(p);
- if(road.distance>14.5){p.x=ox;p.z=oz;p.speed=Math.min(p.speed,2.5);
-   p.bike.vx=0;p.bike.vz=0;p.bike.lastSpeed=p.speed;
-   if(p.damageCooldown<=0){p.damageCooldown=1.3;emit(g,'warning','Trottoir ! Reste sur la chaussée.');}}
- else if(road.distance>9.4){p.speed=Math.min(p.speed,7.6);}
+ // The motorcycle is not allowed to penetrate the buildings. Previous builds
+ // permitted 14.5 m lateral offset on an 18 m road (asphalt half-width = 9 m),
+ // which made the rider visibly enter building façades. Clamp the actual body
+ // to a safe road envelope, keeping the forward slide tangential to the curb.
+ if(keepOverStreet(p)){
+   const impactSpeed=p.speed;
+   p.speed=Math.min(p.speed,Math.max(2.2,p.speed*.55));
+   p.bike.vx=Math.sin(p.yaw)*p.speed;
+   p.bike.vz=-Math.cos(p.yaw)*p.speed;
+   p.bike.lastSpeed=p.speed;
+   if(p.damageCooldown<=0&&impactSpeed>5){
+     p.damageCooldown=1.2;
+     g.save.health=clamp(g.save.health-Math.min(4,impactSpeed*.16),0,100);
+     emit(g,'warning','Bordure : ralentis et reste sur la chaussée.');
+     g.curbContacts=(g.curbContacts||0)+1;
+   }
+ } else if(road.distance>STREET_SAFE_HALF_WIDTH-1.2){
+   // Near the edge tyres lose some grip; do not force a teleport or fake skid.
+   p.speed=Math.min(p.speed,12.5);
+ }
  p.meters+=hypot(p.x-ox,p.z-oz);g.travel+=hypot(p.x-ox,p.z-oz);
  // Four real-road loops, spatial sensing, deterministic intersection priority.
  for(const car of g.cars){
@@ -82,6 +98,14 @@ export function step(g,dt){const p=g.player,c=g.controls;if(!g.playing||g.paused
  }
  for(const car of g.cars){let dd=signedDistance(p,car);if(dd<3.1){let overlap=3.1-dd,ux=(p.x-car.x)/(dd||1),uz=(p.z-car.z)/(dd||1);p.x=clamp(p.x+ux*overlap,-175,175);p.z=clamp(p.z+uz*overlap,-175,175);if(p.damageCooldown<=0&&p.speed>1.0){car.stun=Math.max(car.stun||0,1.55);let severity=Math.min(18,4+p.speed*.85);g.save.health=clamp(g.save.health-severity,0,100);p.speed*=.23;p.bike.vx*=.23;p.bike.vz*=.23;p.bike.lastSpeed=p.speed;p.damageCooldown=1.3;g.collisions++;g.mission.penalty=(g.mission.penalty||0)+Math.round(severity*16);emit(g,'impact',`Accrochage ! -${Math.round(severity)} % d'état.`);}}
  else if(dd<4.6&&p.speed>5&&g.clock-(g.lastNearMiss||0)>4){g.nearMisses++;g.lastNearMiss=g.clock;}}
+ // An impact can push the motorcycle outside the curb. Never leave it
+ // inside a building at the end of the simulation step.
+ if(keepOverStreet(p)){
+   p.speed=Math.min(p.speed,5.0);
+   p.bike.vx=Math.sin(p.yaw)*p.speed;
+   p.bike.vz=-Math.cos(p.yaw)*p.speed;
+   p.bike.lastSpeed=p.speed;
+ }
  if(g.mission.kind==='express'&&g.mission.stage!=='pickup'){g.mission.timer+=dt;}
  g.stats.lastSave+=dt;
 }
