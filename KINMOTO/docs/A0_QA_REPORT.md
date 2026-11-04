@@ -12,13 +12,15 @@
 - Tickets : [A1](https://github.com/Terminator364/PROJECT-DRAFTS/issues/19), [A2](https://github.com/Terminator364/PROJECT-DRAFTS/issues/20), [A3](https://github.com/Terminator364/PROJECT-DRAFTS/issues/21).
 - Aucune modification du jeu, ni des déploiements publics, ni des autres sous-projets.
 
-## Critères restant à clôturer
-- Fusion de la branche A0 après relecture des changements.
-- Simulation de reprise par lecture indépendante du trio `PROJECT_STATE.json`, `NEXT_ACTION.md`, `docs/RUNBOOK_CHAT_WORK.md` sur la branche canonique.
-- Mise à jour du statut A0 après fusion.
+## Clôture vérifiée
+- **PASS :** PR #22 fusionnée par squash, commit `e9446b1ab5d5381e8e8c1961d9110363b51a229a`.
+- **PASS :** reprise simulée avec lecture indépendante de `PROJECT_STATE.json`, `NEXT_ACTION.md`, `docs/RUNBOOK_CHAT_WORK.md` depuis GitHub ; résultat A1 #19 identifié.
+- **PASS :** `PROJECT_STATE.json` mis à jour sur main avec `A0_COMPLETE`.
+- **PASS :** aucun workflow GitHub hébergé pour le commit de la branche A0 ; aucun workflow créé.
+- **PASS :** aucun changement hors `KINMOTO/` dans le diff de A0.
 
 ## Non testés par A0
 - Nouvel environnement WebGL 3D, conduite, Android et iPhone réels, FPS, RAM, offline : `NOT_TESTED`.
 - Quota Work/Plus : `UNKNOWN`; ne pas inventer de solde.
 
-**Conclusion** : l'atelier est documentaire et peut conduire à A1 après vérification de la fusion. Le contrat de qualité V1 reste intact et n'est pas certifié.
+**Conclusion** : A0 est clôturée sur main ; A1 reste **NOT_STARTED**. La certification qualité V1 demeure distincte. Le contrat de qualité V1 reste intact et n'est pas certifié.
