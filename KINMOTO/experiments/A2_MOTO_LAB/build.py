@@ -1,7 +1,14 @@
 from pathlib import Path
-import re,shutil,zipfile,hashlib,json
+import re,shutil,zipfile,hashlib,json,base64
 ROOT=Path(__file__).parent
 SOURCES=['src/math.js','src/navigation.js','src/geom.js','src/bike_physics.js','src/sim.js','src/render.js','src/main.js']
+# Binary icons are also committed as base64 text to allow entirely text-only GitHub
+# syncing through the connector. The generated PNGs are identical to the originals.
+for icon_size in (192,512):
+    png=ROOT/'assets'/f'icon-{icon_size}.png'
+    source=ROOT/'assets'/f'icon-{icon_size}.png.base64'
+    if not png.exists():
+        png.write_bytes(base64.b64decode(source.read_text()))
 css=(ROOT/'style.css').read_text()
 scripts=[]
 for name in SOURCES:
@@ -16,7 +23,8 @@ dist=ROOT/'dist';dist.mkdir(exist_ok=True)
 (dist/'index.html').write_text(html)
 (dist/'KIN_MOTO_A2_LAB_JOUER.html').write_text(html)
 assets=dist/'assets';assets.mkdir(exist_ok=True)
-for f in (ROOT/'assets').iterdir():shutil.copy2(f,assets/f.name)
+for f in (ROOT/'assets').iterdir():
+    if f.suffix!='.base64': shutil.copy2(f,assets/f.name)
 shutil.copy2(ROOT/'manifest.webmanifest',dist/'manifest.webmanifest')
 # For a self-contained HTML bundle the SW needs only the files actually loaded
 cache_hash=hashlib.sha256(html.encode('utf-8')).hexdigest()[:12]
