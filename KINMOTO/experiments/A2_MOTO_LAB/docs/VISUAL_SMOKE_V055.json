@@ -1,0 +1,50 @@
+{
+  "desktop": {
+    "webgl": "webgl2",
+    "screenshot": "docs/A2_v055_desktop_webgl.png",
+    "navigation": "TOURNER À GAUCHE",
+    "comfort": "100% · EXCELLENT",
+    "fps_sample": 11,
+    "errors": []
+  },
+  "mobile_ui_rects": {
+    "mission": {
+      "x": 9,
+      "y": 59,
+      "w": 212.21875,
+      "h": 142.296875
+    },
+    "mapcard": {
+      "x": 9,
+      "y": 246,
+      "w": 125.75,
+      "h": 155.75
+    },
+    "navCue": {
+      "x": 242.9375,
+      "y": 61,
+      "w": 142.0625,
+      "h": 29
+    },
+    "drive-panel": {
+      "x": 264,
+      "y": 629.609375,
+      "w": 120,
+      "h": 117.390625
+    },
+    "touchControls": {
+      "x": 0,
+      "y": 770,
+      "w": 393,
+      "h": 74
+    }
+  },
+  "mobile_emulated": {
+    "webgl": "webgl2",
+    "screenshot": "docs/A2_v055_mobile_emulated_webgl.png",
+    "navigation": "TOURNER À GAUCHE",
+    "comfort": "100% · EXCELLENT",
+    "fps_sample": 14,
+    "errors": []
+  }
+}

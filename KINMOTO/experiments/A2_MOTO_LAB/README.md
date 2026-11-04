@@ -90,3 +90,16 @@ Référence d'atelier : `KINMOTO/docs/NO_DEPLOY_DEV_POLICY.md`.
 - Test graphique automatisé headless : **non validé** (contexte WebGL indisponible dans le conteneur). Les tests Android physique, 15 minutes FPS/RAM, sensations de conduite et qualité artistique restent **NON TESTÉS / NON VALIDÉS**.
 - **Quotas :** travail à distance en premier (GitHub, conteneur isolé), aucun Remote Desktop Commander pour ce lot, aucune publication Vercel ou GitHub Actions hébergées.
 - Documents : `docs/QA_COLLISION_FOOTPRINT_V052.md` et dossier central `KINMOTO/docs/REMOTE_QUOTA_POLICY_20261104.md`.
+
+
+## A2 LAB 0.5.5 CLOUD — CHECKPOINTS CUMULÉS
+
+- Navigation sur les rues (pas de distance à vol d'oiseau) avec consignes GPS, fléchage et arrivée ; cinq tests.
+- Simulation du confort passager/colis : freinage, virage, bosses et collisions influencent la rémunération et la réputation ; sept tests.
+- Résolution WebGL adaptative : baisse prudente de la charge en pixels si FPS insuffisants sans passer en 2D ; six tests.
+- Correctif de compatibilité : les anciennes chaînes Python/PowerShell n'étaient pas synchronisées et déclaraient des noms `clamp` globaux en double ; vérification syntaxique du bundle et parité des 12 modules désormais obligatoires.
+- QA browser : Chromium + WebGL2 logiciel sur ordinateur de test isolé, captures desktop et émulation mobile ; corrections de superposition du HUD portrait.
+- Stress : 72 000 pas CPU sur 20 min, suivi de mémoire Node (aucune équivalence Android/GPU revendiquée).
+- Outil de préflight des GLB CC0 : `python tools/audit_glb.py fichier.glb` (analyse locale, pas de téléchargement ni licence juridique automatique).
+- **Attention :** V1 NON validée, modèle 3D CC0 pas encore acquis, Android réel et HP réel sur cette version NON testés. Vercel et Desktop Commander non utilisés pour ce lot.
+- Rapports et captures dans `docs/QA_CUMULATIVE_V055_20261104.md` et `docs/`.

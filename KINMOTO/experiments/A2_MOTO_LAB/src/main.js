@@ -43,8 +43,8 @@ function updateUI(){const p=game.player,s=game.save,m=game.mission,target=missio
  $('missionDescription').textContent=m.stage==='pickup'?`Rejoins ${target.name} pour la prise en charge.`:m.stage==='via'?`Fais l'arrêt à ${target.name} puis poursuis.`:`Direction ${target.name} : conduis prudemment.`;
  const nav=guideTo(p,target,p.yaw);$('missionDistance').textContent=nav.distance+' m';$('navText').textContent=nav.label;$('navMeters').textContent=nav.turnDistance+' m';$('navArrow').textContent=nav.kind==='right'?'↱':nav.kind==='left'?'↰':nav.kind==='arrive'?'◎':'↑';
  let label=state.nearMission?(m.stage==='pickup'?'✓ RÉCUPÉRER':m.stage==='via'?'✓ FAIRE L’ARRÊT':'✓ DÉPOSER'):state.nearGarage?'⚙ GARAGE':'';
- if(label){show('action');$('action').textContent=state.stopped?label:'FREINE POUR T’ARRÊTER';hide('tip');}else{hide('action');show('tip');$('tip').textContent=`Mission : ${target.name} · ${state.missionDistance} m · E pour interagir`;}
- drawMap();const projected=renderer?.project(target.x,5.5,target.z),tag=$('targetLabel');if(projected&&projected.visible){show('targetLabel');tag.style.left=projected.x+'px';tag.style.top=projected.y+'px';tag.textContent=target.name+' · '+state.missionDistance+' m';}else hide('targetLabel');
+ if(label){show('action');$('action').textContent=state.stopped?label:'FREINE POUR T’ARRÊTER';hide('tip');}else{hide('action');show('tip');$('tip').textContent=`Mission : ${target.name} · ${nav.distance} m · E pour interagir`;}
+ drawMap();const projected=renderer?.project(target.x,5.5,target.z),tag=$('targetLabel');if(projected&&projected.visible){show('targetLabel');tag.style.left=projected.x+'px';tag.style.top=projected.y+'px';tag.textContent=target.name+' · '+nav.distance+' m';}else hide('targetLabel');
 }
 function releaseInputs(){for(const k of Object.keys(game.controls))game.controls[k]=false;document.querySelectorAll('.controls button.pressed').forEach(el=>el.classList.remove('pressed'));}
 function onInteract(){action();}
