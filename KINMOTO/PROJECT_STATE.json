@@ -3,12 +3,12 @@
   "project": "KINMOTO",
   "factory_version": "3.0",
   "state_date_utc": "2026-11-04",
-  "phase": "A1_READY_NOT_STARTED",
-  "status": "A0_COMPLETE",
+  "phase": "A0_SECURITY_HOLD",
+  "status": "BLOCKED_PRIVACY_PUBLIC_REPO",
   "incubator_repo": "Terminator364/PROJECT-DRAFTS",
   "incubator_subdir": "KINMOTO",
   "canonical_repo_url": "https://github.com/Terminator364/PROJECT-DRAFTS",
-  "canonical_repo_status": "INCUBATOR_PRIVATE_NOT_DEDICATED",
+  "canonical_repo_status": "INCUBATOR_PUBLIC_VISIBILITY_CONFLICT",
   "stable_commit": null,
   "develop_commit": null,
   "active_ticket": null,
@@ -40,11 +40,12 @@
     "legal_cost": "NOT_TESTED"
   },
   "known_blockers": [
-    "A1 physical Android/PC benchmark NOT_TESTED; base selection pending"
+    "CRITICAL: GitHub get_repo reports PROJECT-DRAFTS visibility=public while root README calls it private. Resolve owner-controlled visibility before A1.",
+    "A1 physical benchmarks NOT_TESTED."
   ],
   "release_candidate": null,
   "public_urls_modified": false,
-  "next_action": "A1: issue #19; audit comparatif des bases libres, sources/licences, benchmarks HP/Android réels ; aucune nouvelle V1 publiée.",
+  "next_action": "GitHub owner: vérifier/changer la visibilité de PROJECT-DRAFTS ; après vérification privée ou choix explicite de source publique, autoriser A1 issue #19.",
   "source_of_truth": "Git commit and matching PROJECT_STATE.json; ChatGPT Project PDFs and Drive are copies",
   "public_release_status": "NO_NEW_RELEASE",
   "a0_qa": {
@@ -64,6 +65,8 @@
     "resume_test": "PASS",
     "merge_commit": "e9446b1ab5d5381e8e8c1961d9110363b51a229a",
     "report_path": "docs/A0_QA_REPORT.md",
-    "archives_receipt_path": "docs/DRIVE_ARCHIVE_RECEIPTS.md"
+    "archives_receipt_path": "docs/DRIVE_ARCHIVE_RECEIPTS.md",
+    "privacy": "FAIL_PUBLIC_REPO_VISIBILITY_UNEXPECTED",
+    "security_gate": "BLOCKED"
   }
 }
