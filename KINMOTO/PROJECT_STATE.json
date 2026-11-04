@@ -4,7 +4,7 @@
   "factory_version": "3.0",
   "state_date_utc": "2026-11-04",
   "phase": "A1_D_BENCHMARK_REAL_DEVICES",
-  "status": "A1_STATIC_COMPLETE_RUNTIME_PENDING",
+  "status": "A1_D_PENDING_WITH_A2_EXPERIMENTAL_LAB",
   "incubator_repo": "Terminator364/PROJECT-DRAFTS",
   "incubator_subdir": "KINMOTO",
   "canonical_repo_url": "https://github.com/Terminator364/PROJECT-DRAFTS",
@@ -40,13 +40,15 @@
     "legal_cost": "PARTIAL_LICENSE_PRECHECK"
   },
   "known_blockers": [
-    "A1-D benchmark de conduite moto réelle, graphisme WebGL, FPS/RAM sur HP et Android manquant",
-    "Costa Vista code MIT mais licences des assets internes non clarifiées : ne pas importer ses modèles non CC0",
-    "Sélection du moteur suspendue aux essais ; aucune base retenue"
+    "A1-D benchmark comparatif Costa Vista / Neon Mayhem incomplet en sensation moto",
+    "Android physique A2-LAB et Neon/Costa non testé",
+    "Qualité artistique et conduite jugées par le joueur non validées",
+    "Moto A2-LAB utilise sol plat ; suspension à raycasts et contact pneus réels non implémentés",
+    "Aucune source extérieure CC0 ou code tiers intégrée dans A2-LAB ; réemploi professionnel encore à planifier après A1"
   ],
   "release_candidate": null,
   "public_urls_modified": false,
-  "next_action": "A1-D: lire tasks/A1-D-BENCHMARK-RUNTIME.md, exécuter vraie moto sur HP/Android, mesurer FPS/RAM, vérifier licences des assets, choisir ou rejeter ; ne pas lancer A2 avant validation",
+  "next_action": "Comparer A2-LAB vs Neon/Costa sur vrai Android et HP, puis valider subjectivement la conduite; aucun passage en version V1 STABLE sans accord utilisateur.",
   "source_of_truth": "public GitHub files, no secrets; private binary backups in Drive",
   "public_release_status": "NO_NEW_RELEASE",
   "a0_qa": {
@@ -89,5 +91,33 @@
     "android": "NOT_TESTED",
     "engine_choice": "UNDECIDED",
     "actions_hosted_runs": 0
+  },
+  "a2_lab": {
+    "status": "EXPERIMENTAL_HP_PASS_ANDROID_NOT_TESTED",
+    "commit": "553b6ecd6e1678b2ebfd8832470ecb7b98526a74",
+    "source_path": "experiments/A2_MOTO_LAB/",
+    "preview_url": "https://kin-moto-a2-moto-lab.vercel.app/",
+    "deployment_id": "dpl_FFEwo2HGTZVx12HYnScJx3HxHy6X",
+    "github_pr": 24,
+    "qa_unit_passed": 38,
+    "qa_unit_total": 38,
+    "qa_pc_webgl": "PASS_RENDER_OBSERVED",
+    "pc_fps_observed_instantaneous": "50-60",
+    "real_pc_autodrive_left": {
+      "x": -14.5,
+      "yaw": -0.874
+    },
+    "real_pc_autodrive_right": {
+      "x": 14.5,
+      "yaw": 0.878
+    },
+    "android": "NOT_TESTED",
+    "iphone": "NOT_TESTED",
+    "subjective_ride_quality": "UNVALIDATED",
+    "wheel_ground_collision": "APPROXIMATED_FLAT_GROUND",
+    "zip_sha256": "129b6fbe8112b96195a8b6de4ff920866218d0b5750c41f59fe5212a4f108adb",
+    "drive_zip_id": "1euNCtOxZqXcLNr0PLAw781pWp5ARuvL0",
+    "cost_extra_fc": 0,
+    "old_public_url_modified": false
   }
 }
