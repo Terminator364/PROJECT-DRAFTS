@@ -1,10 +1,10 @@
-# KIN MOTO — FACTORY 3.0 (incubation A0)
+# KIN MOTO — FACTORY 3.0 (incubation A0 → A1)
 
 **Projet :** jeu moto-taxi 3D/PWA inspiré de Kinshasa. **Budget :** 0 FC supplémentaire obligatoire.
 
-**Statut :** atelier documentaire A0, **pas** une nouvelle version jouable ni une V1 acceptée.
+**Statut :** atelier documentaire A0 terminé ; A1 en cours, **pas** une nouvelle version jouable ni une V1 acceptée.
 
-**Dépôt d'incubation** : `Terminator364/PROJECT-DRAFTS`, sous-dossier `KINMOTO/`. ⚠️ **État vérifié : le dépôt est PUBLIC malgré son README racine qui le décrit comme privé. A1 SUSPENDU jusqu'à décision de confidentialité.** Le dépôt dédié sera envisagé après validation de l'architecture, conformément à `../NEW_PROJECT_BOOTSTRAP.md`. Aucun autre projet du dépôt ne doit être modifié.
+**Dépôt d'incubation** : `Terminator364/PROJECT-DRAFTS`, sous-dossier `KINMOTO/`. **Visibilité : PUBLIQUE, intentionnelle et confirmée par le propriétaire.** Aucune donnée confidentielle ne doit être ajoutée. Le dépôt dédié sera envisagé après validation de l'architecture, conformément à `../NEW_PROJECT_BOOTSTRAP.md`. Aucun autre projet du dépôt ne doit être modifié.
 
 **Règles de priorité** : lire `../AGENTS.md` et `../CI_BUDGET_POLICY.json` avant toute opération. Actions hébergées = **0 min par défaut**, aucun workflow automatique. Les scripts `scripts/` s'exécutent localement.
 
