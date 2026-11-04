@@ -1,7 +1,8 @@
 import {clamp,lerp,wrapAngle,hypot,dist,heading,angleOf,nearestRoad,keepOverStreet,STREET_SAFE_HALF_WIDTH,rand} from './math.js';
 import {advanceBike,createBikeTelemetry} from './bike_physics.js';
 import {inspectBikeCar,closingSpeed} from './collision.js';
-export const VERSION='A2-LAB-0.5.2-CLOUD';
+import {observeRide,addRideDiscomfort,rideComfortPaymentMultiplier} from './ride_quality.js';
+export const VERSION='A2-LAB-0.5.4-CLOUD-CARE';
 export const PLACES=[
  {id:'victoire',name:'PLACE VICTOIRE',x:13,z:12,kind:'place'},
  {id:'matonge',name:'MATONGE',x:13,z:-73,kind:'place'},
@@ -24,7 +25,7 @@ export function makeRoute(left,top,right,bottom){const l=left+4.6,r=right-4.6,t=
 const LOOPS=[makeRoute(-120,-120,0,0),makeRoute(0,-120,120,0),makeRoute(-120,0,0,120),makeRoute(0,0,120,120)];
 export function sampleRoute(route,m){m=((m%route.length)+route.length)%route.length;for(const s of route.segments){if(m<=s.start+s.len){let t=(m-s.start)/Math.max(.00001,s.len);return {x:lerp(s.a.x,s.b.x,t),z:lerp(s.a.z,s.b.z,t),yaw:angleOf(s.b.x-s.a.x,s.b.z-s.a.z)};}}const s=route.segments[0];return {...s.a,yaw:angleOf(s.b.x-s.a.x,s.b.z-s.a.z)};}
 function newMission(ride=0){const r=rand(7946+ride*773),options=PLACES.filter(p=>p.kind!=='garage');const from=options[(ride*3+1)%options.length];let to=options[(ride*5+4)%options.length];if(from.id===to.id)to=options[(options.indexOf(to)+3)%options.length];const kind=KINDS[ride%KINDS.length],length=Math.abs(from.x-to.x)+Math.abs(from.z-to.z),reward=Math.round((750+length*10)*kind.mult/50)*50;
- let via=kind.id==='tour'?options[(ride*2+5)%options.length]:null;if(via&&(via.id===from.id||via.id===to.id))via=options[(ride*2+6)%options.length];return {ride,kind:kind.id,title:kind.name,from:from.id,to:to.id,via:via?.id||null,stage:'pickup',client:NAMES[ride%NAMES.length],reward,penalty:0,startedAt:0,timer:0};}
+ let via=kind.id==='tour'?options[(ride*2+5)%options.length]:null;if(via&&(via.id===from.id||via.id===to.id))via=options[(ride*2+6)%options.length];return {ride,kind:kind.id,title:kind.name,from:from.id,to:to.id,via:via?.id||null,stage:'pickup',client:NAMES[ride%NAMES.length],reward,penalty:0,comfort:100,impacts:0,startedAt:0,timer:0};}
 export const byId=id=>PLACES.find(p=>p.id===id);
 export const missionTarget=m=>byId(m.stage==='pickup'?m.from:m.stage==='via'?m.via:m.to);
 export function makeGame(snapshot=null){let previous=snapshot||{};let save={...DEFAULT_SAVE,...(previous.save||{})};let player={x:4.4,z:95,speed:0,yaw:0,lean:0,damageCooldown:0,meters:0,bike:createBikeTelemetry(),...(previous.player||{})};
@@ -86,6 +87,7 @@ export function step(g,dt){const p=g.player,c=g.controls;if(!g.playing||g.paused
    p.speed=Math.min(p.speed,12.5);
  }
  p.meters+=hypot(p.x-ox,p.z-oz);g.travel+=hypot(p.x-ox,p.z-oz);
+ observeRide(g.mission,p.bike,p.speed,dt);
  // Four real-road loops, spatial sensing, deterministic intersection priority.
  for(const car of g.cars){
   car.stun=Math.max(0,(car.stun||0)-dt);
@@ -113,6 +115,7 @@ export function step(g,dt){const p=g.player,c=g.controls;if(!g.playing||g.paused
        p.speed*=.23;p.bike.vx*=.23;p.bike.vz*=.23;p.bike.lastSpeed=p.speed;
        p.damageCooldown=1.3;g.collisions++;
        g.mission.penalty=(g.mission.penalty||0)+Math.round(severity*16);
+       addRideDiscomfort(g.mission,Math.min(20,8+approach*1.35),'impact');
        emit(g,'impact',`Accrochage ! -${Math.round(severity)} % d'état.`);
      }
    }else if(contact.nearMiss&&p.speed>5&&g.clock-(g.lastNearMiss||0)>4){
@@ -137,7 +140,8 @@ export function interact(g){if(!g.playing||g.paused)return {ok:false,reason:'par
   const m=g.mission;if(m.stage==='pickup'){m.stage=m.via?'via':'drop';m.startedAt=g.clock;m.timer=0;emit(g,'pickup',m.kind==='colis'?'Colis chargé, destination indiquée.':`${m.client} est à bord. Bonne route !`);return {ok:true,type:'pickup'};}
   if(m.stage==='via'){m.stage='drop';emit(g,'info','Arrêt effectué. Direction la destination finale !');return {ok:true,type:'via'};}
   if(m.stage==='drop'){let base=m.reward,late=m.kind==='express'?Math.max(0,m.timer-85)*8:0,damages=m.penalty||0;
-   const payout=Math.max(250,Math.round((base-late-damages)/50)*50);g.save.cash+=payout;g.save.rides++;g.save.finished++;g.save.stars=clamp(g.save.stars+(damages>0?-.08:.03),1,5);g.mission=newMission(g.save.rides);emit(g,'success',`Course terminée : +${payout.toLocaleString('fr-FR')} FC`);return {ok:true,type:'completed',payout};}
+   const comfort=Math.max(0,Math.min(100,m.comfort??100));const multiplier=rideComfortPaymentMultiplier(m);
+   const payout=Math.max(250,Math.round((base*multiplier-late-damages)/50)*50);g.save.cash+=payout;g.save.rides++;g.save.finished++;g.save.stars=clamp(g.save.stars+(damages>0?-.08:comfort<60?-.05:comfort<85?0:.03),1,5);g.mission=newMission(g.save.rides);emit(g,'success',`Course terminée : +${payout.toLocaleString('fr-FR')} FC`);return {ok:true,type:'completed',payout};}
  }
  if(i.nearGarage){if(!i.stopped){emit(g,'warning','Freine pour entrer au garage.');return {ok:false,reason:'Ralentis'}}return {ok:true,type:'garage'};}
  emit(g,'info','Approche-toi du repère jaune pour interagir.');return {ok:false,reason:'Trop loin'};
