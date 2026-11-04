@@ -3,15 +3,15 @@
   "project": "KINMOTO",
   "factory_version": "3.0",
   "state_date_utc": "2026-11-04",
-  "phase": "A0_SECURITY_HOLD",
-  "status": "BLOCKED_PRIVACY_PUBLIC_REPO",
+  "phase": "A1_SOURCES_BENCHMARK",
+  "status": "A1_IN_PROGRESS",
   "incubator_repo": "Terminator364/PROJECT-DRAFTS",
   "incubator_subdir": "KINMOTO",
   "canonical_repo_url": "https://github.com/Terminator364/PROJECT-DRAFTS",
-  "canonical_repo_status": "INCUBATOR_PUBLIC_VISIBILITY_CONFLICT",
+  "canonical_repo_status": "PUBLIC_BY_OWNER_DESIGN",
   "stable_commit": null,
   "develop_commit": null,
-  "active_ticket": null,
+  "active_ticket": "A1-SOURCES-BENCHMARK",
   "work_session_id": null,
   "quota_snapshot": {
     "known": false,
@@ -40,13 +40,13 @@
     "legal_cost": "NOT_TESTED"
   },
   "known_blockers": [
-    "CRITICAL: GitHub get_repo reports PROJECT-DRAFTS visibility=public while root README calls it private. Resolve owner-controlled visibility before A1.",
-    "A1 physical benchmarks NOT_TESTED."
+    "Tests de conduite et benchmark FPS/RAM sur Android physique non encore mesurés",
+    "Les licences des ressources 3D de chaque candidat doivent être vérifiées indépendamment de celles du code"
   ],
   "release_candidate": null,
   "public_urls_modified": false,
-  "next_action": "GitHub owner: vérifier/changer la visibilité de PROJECT-DRAFTS ; après vérification privée ou choix explicite de source publique, autoriser A1 issue #19.",
-  "source_of_truth": "Git commit and matching PROJECT_STATE.json; ChatGPT Project PDFs and Drive are copies",
+  "next_action": "A1: audit comparatif source+licences Neon Mayhem / Costa Vista, tests reproductibles sur HP et vérification Android physique avant choix définitif",
+  "source_of_truth": "public GitHub files, no secrets; private binary backups in Drive",
   "public_release_status": "NO_NEW_RELEASE",
   "a0_qa": {
     "local_verification": "PASS",
@@ -66,7 +66,8 @@
     "merge_commit": "e9446b1ab5d5381e8e8c1961d9110363b51a229a",
     "report_path": "docs/A0_QA_REPORT.md",
     "archives_receipt_path": "docs/DRIVE_ARCHIVE_RECEIPTS.md",
-    "privacy": "FAIL_PUBLIC_REPO_VISIBILITY_UNEXPECTED",
-    "security_gate": "BLOCKED"
-  }
+    "privacy": "OWNER_APPROVED_PUBLIC",
+    "security_gate": "PASS_FOR_PUBLIC_NON_SECRET_FILES"
+  },
+  "owner_public_repository_approval": "2026-11-04: repository public volontaire, notamment pour GitHub Actions"
 }
