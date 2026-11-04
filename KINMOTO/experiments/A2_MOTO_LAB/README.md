@@ -80,3 +80,13 @@ Le mode LAN pour le téléphone est **facultatif et non activé** : `python tool
 - Les performances à 15 minutes et le ressenti humain restent `NOT_TESTED`. Aucun nouveau jeu public n'est publié.
 
 Référence d'atelier : `KINMOTO/docs/NO_DEPLOY_DEV_POLICY.md`.
+
+
+## A2 LAB 0.5.2 — collisions des véhicules et développement cloud-first
+- Les collisions de voiture utilisent désormais un **rectangle orienté par le cap** et un disque moto, avec des dimensions fidèles aux modèles simplifiés (taxi ou bus), plutôt qu'une distance fixe entre centres.
+- Les dépassements côte à côte sont moins sujets aux collisions fantômes. Les chocs provoquent une séparation selon la normale de contact et le choc prend en compte la vitesse de rapprochement relative, y compris lorsqu'une voiture heurte un motard arrêté.
+- Une seule structure de calcul est réutilisée pour les 16 véhicules du trafic afin de limiter les allocations répétées de mémoire.
+- **64/64 tests** automatisés réussis ; contrôle de compilation et serveur local réussis, 9 modules, 83 895 octets pour le HTML autonome.
+- Test graphique automatisé headless : **non validé** (contexte WebGL indisponible dans le conteneur). Les tests Android physique, 15 minutes FPS/RAM, sensations de conduite et qualité artistique restent **NON TESTÉS / NON VALIDÉS**.
+- **Quotas :** travail à distance en premier (GitHub, conteneur isolé), aucun Remote Desktop Commander pour ce lot, aucune publication Vercel ou GitHub Actions hébergées.
+- Documents : `docs/QA_COLLISION_FOOTPRINT_V052.md` et dossier central `KINMOTO/docs/REMOTE_QUOTA_POLICY_20261104.md`.
