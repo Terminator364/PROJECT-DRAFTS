@@ -25,3 +25,6 @@ Le propriétaire confirme explicitement le statut public de `PROJECT-DRAFTS`, no
 
 ## D-A1-002 — Réutilisation critique, phase statique (2026-11-04)
 Neon Mayhem n'est pas approuvé comme base complète malgré la démo HP chargée. Son contrôleur moto est cinématique et ses dépendances sont globales. Costa Vista contient une suspension Rapier et un graphe de routes utiles, mais sa moto créée avec outillage commercial et ses autres assets ne sont pas couverts par la licence MIT du code. **Décision : extraction ciblée sous licences vérifiées et essais physiques avant tout choix.** Modules tactiles Neon, code de physique/route Costa et assets directs Kenney sont des hypothèses, pas des imports effectués. A2 n'est pas lancé.
+
+## D-A2-003 — Gel des déploiements, mode local prioritaire (2026-11-04)
+Le propriétaire interdit les nouveaux déploiements Vercel pour préserver les quotas, demande la poursuite de la production et les tests en local. Aucune URL de jeu public ne doit être modifiée, ni nouvel hébergeur activé sans autorisation. Vercel Hobby est limité à 100 déploiements/24 h et 32 builds/heure selon sa documentation, mais la consommation du compte reste inconnue. GitHub Actions hébergées restent désactivées. Permettre un serveur localhost stdlib Python ou PowerShell, sans installation ni paiement.
