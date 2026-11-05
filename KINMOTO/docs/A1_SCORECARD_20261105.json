@@ -1,0 +1,77 @@
+{
+  "schema_version": "A1-D-COMPARATIVE-QA-2026-11-05",
+  "stage": "A1-D",
+  "engine_decision": "NO_FINAL_ENGINE_SELECTED",
+  "score_weights": {
+    "moto_feel": 30,
+    "visual": 20,
+    "mobile_performance_size": 20,
+    "modularity": 15,
+    "licenses_zero_cost": 10,
+    "missions_saves": 5
+  },
+  "scores": {
+    "kinmoto": {
+      "total": null,
+      "moto_feel": null,
+      "visual": null,
+      "mobile_performance_size": null,
+      "modularity": null,
+      "licenses_zero_cost": null,
+      "missions_saves": null
+    },
+    "neon_mayhem": {
+      "total": null,
+      "moto_feel": null,
+      "visual": null,
+      "mobile_performance_size": null,
+      "modularity": null,
+      "licenses_zero_cost": null,
+      "missions_saves": null
+    },
+    "costa_vista": {
+      "total": null,
+      "moto_feel": null,
+      "visual": null,
+      "mobile_performance_size": null,
+      "modularity": null,
+      "licenses_zero_cost": null,
+      "missions_saves": null
+    }
+  },
+  "evidence": {
+    "kinmoto_5_scripted_scenes": "PASS_5_OF_5_LOGICAL_ONLY",
+    "kinmoto_scripted_three_repeats": "PASS_IDENTICAL_METRICS",
+    "kinmoto_node": "PASS_165_165",
+    "kinmoto_python": "PASS_22_22",
+    "neon_pure_math": "PASS_8_8_NOT_REAL_GAME",
+    "costa_pure_math": "PASS_8_8_NOT_RAPIER_FULL_GAME",
+    "real_hp": "NOT_TESTED",
+    "real_a21s": "NOT_TESTED",
+    "real_iphone": "NOT_TESTED",
+    "full_neon_scenes": "NOT_TESTED",
+    "full_costa_scenes": "NOT_TESTED",
+    "real_swiftshader_repeat": "INCONCLUSIVE_TIMEOUT",
+    "source_sha256": "576eb0442ba50c672ea0f5e61335fa8838e8981a2796d94b431abeed3e14ba0b",
+    "qa_artifact_sha256": "706103f8761d71955431c4732a8223f41c2409927263f89002b3a116d7e01768",
+    "counter_audit": "FAIL_INITIAL_OVERLAP_1_56283m_vs_ODOMETER_0_19983m"
+  },
+  "legal_vetoes": [
+    "costa_bike_asset_not_covered_by_mit_code",
+    "neon_asset_file_license_not_audited",
+    "road_sportbike_page_cc0_binary_not_acquired",
+    "kenney_cc0_page_verified_binary_not_acquired"
+  ],
+  "stage_9_4": {
+    "archived": "PRIOR_DOCUMENTED",
+    "code_licensing": "PARTIAL",
+    "native_hp_android": "NOT_TESTED",
+    "all_three_five_scenes": "PARTIAL",
+    "critical_module_extraction": "PURE_MATH_ONLY_PASS",
+    "counter_audit": "PARTIAL",
+    "final_engine_selection": "BLOCKED",
+    "v1_start": "NOT_AUTHORIZED"
+  },
+  "publication_status": "NO_MAIN_MERGE_NO_STABLE_NO_HOSTING",
+  "next_required": "same S1-S5 on HP Windows Opera+2nd and real Galaxy A21s, runtime FPS RAM input visual; hash and license exact models; only then score and elect controller"
+}

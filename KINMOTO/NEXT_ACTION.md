@@ -1,3 +1,19 @@
+# KINMOTO — CHECKPOINT A1-D | REFERENCE_FIRST | 2026-11-05
+
+**Statut de cette branche : PREUVE PARTIELLE, PAS UN CHOIX DE MOTEUR.**
+
+- Rapport technique `docs/A1_RUNTIME_REPORT_20261105.md`, matrice `docs/A1_SCORECARD_20261105.json`, décisions `tasks/A1D_NEXT_PHASE_GATE_20261105.md`, droits `docs/A1D_LICENSE_VETOS_20261105.md`.
+- ZIP preuves indépendant `KINMOTO_A1D_BENCHMARK_CONTRADICTOIRE_20261105.zip` : SHA-256 `706103f8761d71955431c4732a8223f41c2409927263f89002b3a116d7e01768`, 330821 octets ; vérifié après extraction (98 manifest, Node 165/165, Python 22/22, extraits Neon 8/8, Costa 8/8).
+- KINMOTO S1–S5 réellement exécutés sur CPU en 60Hz (5/5 logiques), 3 répétitions identiques ; non équivalent aux tests 3D humains. Neon/Costa uniquement fonctions mathématiques isolées, pas leurs jeux entiers.
+- **Bug conservé comme preuve A1 :** chevauchement initial moto/voiture, séparation de 1,563m en 1/60s tandis que l'odomètre indique 0,200m. Reproduit, non patché durant sélection du moteur.
+- **WebGL réel logiciel :** une nouvelle tentative a atteint un timeout, donc résultat inconclusif ; HP Windows, Galaxy A21s et iPhone **NON TESTÉS physiquement**.
+- **A1-D non clos :** doit comparer S1–S5 dans Neon/Costa complets sur HP/Android, relever FPS/RAM/tactile/ressenti, auditer hashes/licences exactes des modèles et obtenir la décision de moteur. Scores 100 points **tous null**.
+- **Veto :** pas de A2 officiel ni A3/A4 avant décision A1 documentée ; aucune fusion main/STABLE, aucun site public, Actions hébergées, Remote ou dépense.
+
+**Code de reprise :** `KINMOTO|A1-D|REFERENCE_FIRST|SYNC`.
+
+---
+
 # CHECKPOINT CUMULATIF A2 v0.5.5 — 4 novembre 2026
 
 PR [#28](https://github.com/Terminator364/PROJECT-DRAFTS/pull/28) (GPS routes et confort) et [#29](https://github.com/Terminator364/PROJECT-DRAFTS/pull/29) (rendu adaptatif, intégrité des deux builders, WebGL visual QA et audit GLB) **fusionnées**. Commit principal d'intégration : `0ebb6cf219689c0d8c989e860affaa3b49f2d7d4`.
