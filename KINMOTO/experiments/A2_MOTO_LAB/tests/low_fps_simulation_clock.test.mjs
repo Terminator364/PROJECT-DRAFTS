@@ -62,3 +62,34 @@ test('browser routes untruncated elapsed time into the physics scheduler',()=>{
  assert.match(main,/const isSimulating=game\.playing&&!game\.paused&&!document\.hidden/);
  assert.match(main,/collisionCount:game\.collisions,physics:/);
 });
+
+test('actual traffic and motorcycle state remain deterministic across 2, 5 and 60 FPS',()=>{
+ const snapshots=[];
+ for(const fps of [2,5,60]){
+  const game=makeGame();game.playing=true;game.controls.gas=true;
+  const scheduler=new FixedStepScheduler();
+  for(let f=0;f<fps*5;f++)scheduler.advance(1/fps,dt=>step(game,dt));
+  assert.equal(game.stats.steps,300);
+  assert.deepEqual(validate(game),[]);
+  snapshots.push({player:{x:game.player.x,z:game.player.z,speed:game.player.speed,
+   yaw:game.player.yaw,meters:game.player.meters},
+   cars:game.cars.map(c=>({x:c.x,z:c.z,speed:c.speed,yaw:c.yaw})),
+   collisions:game.collisions,health:game.save.health,clock:game.clock});
+ }
+ assert.deepEqual(snapshots[0],snapshots[1]);
+ assert.deepEqual(snapshots[1],snapshots[2]);
+});
+
+test('irregular visible frames with 1–30 fixed steps do not drift the simulation clock',()=>{
+ const game=makeGame();game.playing=true;game.cars=[];
+ const scheduler=new FixedStepScheduler();
+ let remaining=300,i=0;
+ const pattern=[1,3,12,6,18,15,5,30,2,4];
+ while(remaining>0){const n=Math.min(remaining,pattern[i++%pattern.length]);
+  scheduler.advance(n/60,dt=>step(game,dt));remaining-=n;
+ }
+ assert.equal(game.stats.steps,300);
+ assert.equal(scheduler.ticks,300);
+ assert.ok(Math.abs(game.clock-5)<1e-7);
+ assert.ok(scheduler.droppedSeconds<1e-7);
+});
