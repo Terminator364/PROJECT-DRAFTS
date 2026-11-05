@@ -4,13 +4,15 @@
 
 ## Acquis vérifiés avec le paquet source réel
 - Source A2 v0.5.5 ZIP récupérée depuis Drive et vérifiée ; patchs GitHub A2 v0.5.6 appliqués dans une copie isolée.
-- `npm run check` PASS ; `npm test` **123/123 PASS** ; `python -m unittest discover -s tests -p 'test_*.py'` **20/20 PASS**.
+- `npm run check` PASS ; `npm test` **123/123 PASS** ; `python -m unittest discover -s tests -p 'test_*.py'` **22/22 PASS**.
 - `python build.py` PASS, HTML **94 499 octets**. `node --check` sur JS compilé PASS. `python tools/test_local_delivery.py` PASS (5 ressources).
 - Paquet ZIP privé de conversation `KINMOTO_A2_V056_POWER_REVIEW_20261105.zip` **268 968 octets**, SHA-256 `334439ee2a0c00f2cf93e8e92c608a667ee78d09133f29af1b4e0a15d07ea8bc` ; archive réextraite, tests réussis, HTML reconstruit à SHA identique.
 - HTML SHA-256 `ddc10f12239d00d28b8174821a2253311ffdae92cd46583f8264cc8fe4346ab4`.
 - Fake WebGL Chromium mobile/bureau : UI et logique PASS, **réduction d'appels de dessin pendant menu/pause** (pas une mesure GPU/power réelle).
 - Correctifs annexes : test adaptatif ancien mis à jour, appel de rendu gate testé, GLB validation BIN padding 0–3 octets, fixtures Python réparées.
 - Rapport détaillé `experiments/A2_MOTO_LAB/docs/QA_FULL_INTEGRATION_POWER_20261105.md`.
+- Tests GLB de résistance complémentaires : `tests/test_glb_fuzz.py` (**3 000 cas déterministes**, aucune exception non gérée). Paquet de recette actualisé `KINMOTO_A2_V056_POWER_QA22_20261105.zip`, SHA-256 `f21b85535ee682486dca9beeab991e2a42a81b0005b6066fb46e44f38600a2ad` (65 entrées, 270 288 octets). Re-test après extraction fraîche : 123 Node + 22 Python + HTTP PASS.
+
 
 ## Prochaine mission autonome — qualité perceptuelle et test matériel
 1. **G2** : obtenir une vraie capture WebGL, vérifier matériaux/roues/sol/camera/occlusion sans GPU factice. Ne pas étiqueter PASS si contexte WebGL bloqué.
