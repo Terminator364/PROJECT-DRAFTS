@@ -30,3 +30,11 @@ Aucune modification de `main`, `STABLE`, URL Vercel, GitHub Actions, quotas Remo
 ## Prochain contrôle précis
 
 Lancer le jeu localement depuis ce commit, relever via `KINMOTO_DIAGNOSTIC()` : FPS, qualité, `adaptiveScale`, `adaptiveSteps` après 10 minutes de parcours identique. Comparer à `d5d6796` en profils Eco/Balanced ; noter aussi chaleur, RAM, erreurs WebGL. **Ne pas déclarer PASS matériel sans appareil physique.**
+
+## Contre-audit supplémentaire du 05/11 : chute sévère sous 4 FPS
+
+Après le premier patch, nouveau défaut constaté par analyse adverse : les images visibles >250 ms étaient encore rejetées. Une chute soutenue à 2–3 FPS ne pouvait donc déclencher aucun ajustement de résolution.
+
+**Correctif incrémental :** filtrer une ou deux images longues isolées de 250 à 600 ms, mais accepter une séquence persistante (>=3) ; évaluer la dégradation après 6 échantillons au lieu d'attendre 45 dans ce régime critique. Les suspensions >600 ms restent ignorées. La simulation physique conserve son pas fixe séparé.
+
+**Contrôle Node dédié :** 11/11 tests PASS dans l'environnement isolé (18, 6, 3 et 2 FPS soutenus ; pause unique/double de 400 ms ; pauses sporadiques ; arrière-plan ; reset ; bornes de qualité). La PR inclut six nouveaux tests Node pour ces cas. **Aucun FPS matériel amélioré n'est revendiqué.** Ces tests complètent, mais ne remplacent pas l'exécution officielle de tout le dépôt et les essais physiques.
