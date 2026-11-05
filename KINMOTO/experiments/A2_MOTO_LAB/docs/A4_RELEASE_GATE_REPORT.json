@@ -1,0 +1,25 @@
+{
+  "schema": 1,
+  "project": "KINMOTO",
+  "pipeline": "DEV-PREVIEW-CANDIDATE-STABLE",
+  "candidate": "A2A3A4_V057_LAB_REVIEW",
+  "gates": {
+    "G1_FUNCTIONAL": "PASS",
+    "G2_VISUAL": "BLOCKED",
+    "G3_TARGET_PERFORMANCE": "BLOCKED",
+    "G4_REAL_PLAYABILITY": "BLOCKED",
+    "A1_ENGINE_DECISION": "BLOCKED",
+    "ASSETS_AND_LEGAL": "BLOCKED",
+    "OWNER_PUBLICATION_GO": "BLOCKED"
+  },
+  "release_decision": "NO_GO",
+  "blockers": [
+    "G2_VISUAL",
+    "G3_TARGET_PERFORMANCE",
+    "G4_REAL_PLAYABILITY",
+    "A1_ENGINE_DECISION",
+    "ASSETS_AND_LEGAL",
+    "OWNER_PUBLICATION_GO"
+  ],
+  "notes": "Do not convert source QA, software WebGL, simulated routes or emulated phones into device proof."
+}

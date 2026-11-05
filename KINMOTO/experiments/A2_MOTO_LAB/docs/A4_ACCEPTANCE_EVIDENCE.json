@@ -1,0 +1,21 @@
+{
+  "unit_tests": true,
+  "python_tests": true,
+  "two_complete_missions": true,
+  "save_roundtrip": true,
+  "collision_review": true,
+  "real_webgl_capture": false,
+  "user_visual_acceptance": false,
+  "visual_reference_comparison": false,
+  "hp_fps_memory": false,
+  "a21s_fps_memory": false,
+  "a21s_thermal_battery": false,
+  "hp_human_15min": false,
+  "a21s_human_15min": false,
+  "iphone_real_browser": false,
+  "three_engines_full_dynamic_comparison": false,
+  "engine_scorecard_real_data": false,
+  "engine_selection_authorized": false,
+  "all_embedded_asset_licenses_checked": false,
+  "owner_publication_go": false
+}
