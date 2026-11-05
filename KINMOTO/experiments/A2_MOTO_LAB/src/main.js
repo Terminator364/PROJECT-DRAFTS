@@ -1,5 +1,6 @@
 import {clamp,dist,heading} from './math.js';
 import {Renderer} from './render.js';
+import {IdleFrameGate} from './adaptive_resolution.js';
 import {findRoute} from './navigation.js';
 import {guideTo} from './route_guidance.js';
 import {rideComfortGrade} from './ride_quality.js';
@@ -9,7 +10,7 @@ const STORAGE_SNAPSHOT='kinmoto_a2_lab_snapshot';
 const QA_MODE=new URLSearchParams(location.search);const QA_AUTODRIVE=QA_MODE.get('autodrive');let qaDriveClock=0;
 let saved=null;try{saved=JSON.parse(localStorage.getItem(STORAGE_SNAPSHOT)||'null')}catch{}
 let game=QA_AUTODRIVE?makeGame():makeGame(saved&&saved.schema===1?saved:{save:readSave()});
-let qaPeakSusp=0,qaPeakGrade=0,renderer=null,prev=performance.now(),acc=0,uiClock=0,autoSaveClock=0,garageOrigin='menu',muted=false,audioCtx=null,engineOsc=null,engineGain=null,lastNotified=0;
+let qaPeakSusp=0,qaPeakGrade=0,renderer=null,prev=performance.now(),acc=0,uiClock=0,autoSaveClock=0,garageOrigin='menu',muted=false,audioCtx=null,engineOsc=null,engineGain=null,lastNotified=0,idleFrameGate=new IdleFrameGate(120);
 let quality='eco';try{quality=localStorage.getItem('kinmoto_a2_lab_quality')||'eco'}catch{}$('quality').value=['eco','balanced','high'].includes(quality)?quality:'eco';
 const show=id=>$(id).classList.remove('hidden'),hide=id=>$(id).classList.add('hidden');
 function toast(text,type='info'){const e=document.createElement('div');e.textContent=text;e.className=type;$('toast').prepend(e);setTimeout(()=>e.remove(),3000);if($('toast').children.length>3)$('toast').lastElementChild.remove();}
@@ -74,7 +75,10 @@ function frame(now){const frameSeconds=Math.max(0,(now-prev)/1000);const delta=M
    game.controls.right=QA_AUTODRIVE==='right'&&qaDriveClock>=1.5&&qaDriveClock<2.5;
  }
  acc+=delta;const fixed=1/60;let ticks=0;while(acc>=fixed&&ticks<6){step(game,fixed);acc-=fixed;ticks++;}if(ticks>=6)acc=0;
- try{renderer?.render(game,frameSeconds)}catch(e){console.error(e);show('errorScreen');$('errorDetail').textContent=e.message;game.paused=true;renderer=null;}
+ try{const active=game.playing&&!game.paused;
+  const shouldRender=idleFrameGate.shouldRender(now,{active,visible:!document.hidden});
+  if(shouldRender)renderer?.render(game,active?frameSeconds:1/60,active);
+ }catch(e){console.error(e);show('errorScreen');$('errorDetail').textContent=e.message;game.paused=true;renderer=null;}
  uiClock+=delta;autoSaveClock+=delta;if(uiClock>.13){uiClock=0;if(game.playing&&!game.paused)updateUI();if(QA_AUTODRIVE){let t=game.player.bike||{};qaPeakSusp=Math.max(qaPeakSusp,Math.abs(t.suspension||0));qaPeakGrade=Math.max(qaPeakGrade,Math.abs(t.roadGrade||0));$('qaLive').hidden=false;$('qaLive').textContent=`QA:${QA_AUTODRIVE} t=${qaDriveClock.toFixed(1)} x=${game.player.x.toFixed(2)} z=${game.player.z.toFixed(2)} yaw=${game.player.yaw.toFixed(3)} kmh=${(game.player.speed*3.6).toFixed(1)} slip=${(t.lateralSlip||0).toFixed(2)} bump=${(t.frontHeight||0).toFixed(3)}/${(t.rearHeight||0).toFixed(3)} shockPeak=${qaPeakSusp.toFixed(3)} gradePeak=${qaPeakGrade.toFixed(3)}`;}let events=game.events.filter(event=>event.seq>lastNotified);for(const event of events){toast(event.message,event.type);if(event.type==='impact')ping(190,.26);else if(event.type==='success')ping(840,.2)}lastNotified=game.events.at(-1)?.seq||lastNotified;}
  if(autoSaveClock>9){autoSaveClock=0;if(game.playing)safeSave();}updateSound();requestAnimationFrame(frame);}
 function boot(){installInputs();try{renderer=new Renderer($('world'),{quality});}catch(e){console.warn(e);$('errorDetail').textContent=e.message;show('errorScreen');}
