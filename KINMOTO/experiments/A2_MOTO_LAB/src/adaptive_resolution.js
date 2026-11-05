@@ -114,13 +114,13 @@ export class DevicePerformanceRecorder {
  report(meta={}){
   const fps=this.samples.map(s=>s.fps).filter(v=>v!==null&&v>0).sort((a,b)=>a-b);
   const avg=fps.length?Math.round(fps.reduce((a,b)=>a+b,0)*10/fps.length)/10:null;
-  const last=this.samples.at(-1),first=this.samples[0];
+  const last=this.samples[this.samples.length-1],first=this.samples[0];
   const minScale=this.samples.map(s=>s.renderScale).filter(x=>x!==null).reduce((a,b)=>Math.min(a,b),Infinity);
   return {schema:1,type:'KINMOTO_LOCAL_DEVICE_DIAGNOSTIC',
    privacy:'Local only; no GPS, account ID, wallet, passenger, location, or network transfer.',
    meta,summary:{samples:this.samples.length,validFpsSamples:fps.length,
     avgFps:avg,minFps:fps[0]??null,p10Fps:fps.length?fps[Math.floor((fps.length-1)*.1)]:null,
-    maxFps:fps.at(-1)??null,minRenderScale:Number.isFinite(minScale)?minScale:null,
+    maxFps:fps.length?fps[fps.length-1]:null,minRenderScale:Number.isFinite(minScale)?minScale:null,
     sampleWindowSeconds:last&&first?Math.round((last.elapsed_ms-first.elapsed_ms)/1000*10)/10:0,
     droppedSimSeconds:last?.droppedSeconds??null},samples:this.samples.map(s=>({...s}))};
  }
