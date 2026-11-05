@@ -42,3 +42,12 @@ Archive privée de conversation `KINMOTO_A2_V056_POWER_REVIEW_20261105.zip` :
 
 ## Succession
 Reprendre depuis PR #36, branche `kinmoto/a2-idle-render-gate-20261105`, qui dérive de PR #35. Effectuer un test de bureau WebGL avec GPU réel, puis Galaxy A21s sur réseau local avant tout arbitrage qualité. Toute future publication exige validation de l'utilisateur; aucune GitHub Actions hébergée, Vercel, Remote Desktop ni dépense effectuée.
+
+## Annexe QA22 — fuzzing déterministe et paquet republié dans le chat
+Après le bilan initial 123 Node / 20 Python, un test de robustesse reproductible et **sans connexion réseau** a été ajouté sous `tests/test_glb_fuzz.py` : 1 500 mutations binaires aléatoires et 1 500 mutations structurelles JSON, graines fixes `20261105`. Un premier balayage ad hoc de 7 000 cas n'avait trouvé aucune exception non gérée ; les **3 000 cas** de la suite officielle sont maintenant rejouables à chaque build.
+
+**Nouvelle suite officielle sur source locale : 123/123 Node + 22/22 Python PASS.** `npm run check`, `python build.py`, `python tools/test_local_delivery.py` PASS. Ce sont des tests de résistance du parseur, pas une preuve de conformité complète glTF ni la validation d'un modèle externe.
+
+**Archive de contrôle suivante** (plus complète que le ZIP précédent) : `KINMOTO_A2_V056_POWER_QA22_20261105.zip`, **270 288 octets**, 65 entrées, SHA-256 `f21b85535ee682486dca9beeab991e2a42a81b0005b6066fb46e44f38600a2ad`. L'archive a été extraite à neuf ; manifeste SHA vérifié sur 64 fichiers ; tests **123/123 Node**, **22/22 Python**, serveur HTTP local PASS après extraction ; reconstruction HTML **94 499 octets**, SHA-256 **inchangé** `ddc10f12239d00d28b8174821a2253311ffdae92cd46583f8264cc8fe4346ab4`.
+
+**Portes G2-G4 inchangées :** vrai GPU WebGL, Galaxy A21s, HP, iPhone et ressenti toujours NON TESTÉS. Aucun modèle CC0 binaire récupéré (DNS du serveur externe indisponible). Aucune mise en production ni déploiement public. L'archive demeure un artefact de conversation, non présumée présente sur Drive/GitHub.
