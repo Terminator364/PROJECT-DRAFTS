@@ -1,6 +1,6 @@
 import {clamp,dist,heading} from './math.js';
 import {Renderer} from './render.js';
-import {IdleFrameGate,FixedStepScheduler} from './adaptive_resolution.js';
+import {IdleFrameGate,FixedStepScheduler,DevicePerformanceRecorder} from './adaptive_resolution.js';
 import {findRoute} from './navigation.js';
 import {guideTo} from './route_guidance.js';
 import {rideComfortGrade} from './ride_quality.js';
@@ -15,7 +15,7 @@ if(QA_AUTODRIVE)game=makeGame();
 else if(saved&&saved.schema===1){
  try{const restored=makeGame(saved);if(validate(restored).length===0)game=restored;}catch{}
 }
-let qaPeakSusp=0,qaPeakGrade=0,renderer=null,prev=performance.now(),physicsClock=new FixedStepScheduler(),uiClock=0,autoSaveClock=0,garageOrigin='menu',muted=false,audioCtx=null,engineOsc=null,engineGain=null,lastNotified=0,idleFrameGate=new IdleFrameGate(120);
+let qaPeakSusp=0,qaPeakGrade=0,renderer=null,prev=performance.now(),physicsClock=new FixedStepScheduler(),uiClock=0,autoSaveClock=0,garageOrigin='menu',muted=false,audioCtx=null,engineOsc=null,engineGain=null,lastNotified=0,idleFrameGate=new IdleFrameGate(120),deviceRecorder=new DevicePerformanceRecorder();
 let quality='eco';try{quality=localStorage.getItem('kinmoto_a2_lab_quality')||'eco'}catch{}$('quality').value=['eco','balanced','high'].includes(quality)?quality:'eco';
 const show=id=>$(id).classList.remove('hidden'),hide=id=>$(id).classList.add('hidden');
 function toast(text,type='info'){const e=document.createElement('div');e.textContent=text;e.className=type;$('toast').prepend(e);setTimeout(()=>e.remove(),3000);if($('toast').children.length>3)$('toast').lastElementChild.remove();}
@@ -54,6 +54,17 @@ function updateUI(){const p=game.player,s=game.save,m=game.mission,target=missio
 }
 function releaseInputs(){for(const k of Object.keys(game.controls))game.controls[k]=false;document.querySelectorAll('.controls button.pressed').forEach(el=>el.classList.remove('pressed'));}
 function onInteract(){action();}
+function exportTechnicalReport(){
+ const report=deviceRecorder.report({version:VERSION,quality,
+  screen:{width:innerWidth,height:innerHeight,devicePixelRatio:devicePixelRatio||1},
+  webglVersion:renderer?.glVersion??null,
+  note:'Logiciels et mesures du navigateur seulement ; ne prouvent pas un GPU matériel.'});
+ const blob=new Blob([JSON.stringify(report,null,2)],{type:'application/json'});
+ const url=URL.createObjectURL(blob),a=document.createElement('a');
+ a.href=url;a.download='KINMOTO_RAPPORT_APPAREIL_'+Date.now()+'.json';a.click();
+ setTimeout(()=>URL.revokeObjectURL(url),5000);
+ toast(report.summary.samples<60?'Rapport exporté (session courte : vise 15 min).':'Rapport de performance exporté !','success');
+}
 function exportSave(){safeSave();const blob=new Blob([JSON.stringify(snapshot(game),null,2)],{type:'application/json'}),a=document.createElement('a'),url=URL.createObjectURL(blob);a.href=url;a.download='KIN_MOTO_V1_SAUVEGARDE.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),5000);toast('Sauvegarde exportée','success');}
 async function importSave(file){if(!file)return;try{if(file.size>250000)throw Error('Fichier trop volumineux');let obj=JSON.parse(await file.text());if(obj.schema!==1||!obj.save||!obj.player||!obj.mission||!byId(obj.mission.from)||!byId(obj.mission.to)||!Number.isFinite(obj.save.cash)||obj.save.cash<0)throw Error('Format de sauvegarde invalide');let restored=makeGame(obj);if(validate(restored).length)throw Error('Sauvegarde incohérente');game=restored;game.playing=true;game.paused=true;safeSave();refreshGarage();toast('Sauvegarde restaurée !','success');updateUI();}catch(e){toast('Import impossible : '+e.message,'impact');}finally{$('importSave').value='';}}
 function installInputs(){const keys={ArrowUp:'gas',KeyW:'gas',ArrowDown:'brake',KeyS:'brake',Space:'brake',ArrowLeft:'left',KeyA:'left',ArrowRight:'right',KeyD:'right'};
@@ -64,7 +75,7 @@ function installInputs(){const keys={ArrowUp:'gas',KeyW:'gas',ArrowDown:'brake',
  $('play').onclick=start;$('pause').onclick=pause;$('resume').onclick=resume;$('returnMenu').onclick=menu;$('action').onclick=action;
  $('openGarageMenu').onclick=()=>openGarage('menu');$('openGaragePause').onclick=()=>openGarage('pause');$('garageBack').onclick=closeGarage;
  $('buyRepair').onclick=()=>purchase('repair');$('buyEngine').onclick=()=>purchase('engine');$('buyBrakes').onclick=()=>purchase('brakes');
- $('helpButton').onclick=()=>{hide('menu');show('helpScreen')};$('helpBack').onclick=()=>{hide('helpScreen');show('menu')};$('saveButton').onclick=exportSave;$('importSave').onchange=e=>importSave(e.target.files?.[0]);
+ $('helpButton').onclick=()=>{hide('menu');show('helpScreen')};$('helpBack').onclick=()=>{hide('helpScreen');show('menu')};$('saveButton').onclick=exportSave;$('exportTechReport').onclick=exportTechnicalReport;$('importSave').onchange=e=>importSave(e.target.files?.[0]);
  $('cameraToggle').onclick=()=>{if(renderer){renderer.mode=(renderer.mode+1)%3;toast(['Caméra arrière','Caméra haute','Vue guidon'][renderer.mode])}};
  $('quality').onchange=e=>{renderer?.setQuality(e.target.value);quality=e.target.value;try{localStorage.setItem('kinmoto_a2_lab_quality',quality)}catch{}};
  $('soundToggle').onclick=()=>{muted=!muted;$('soundToggle').textContent=muted?'♪ Son coupé':'♪ Son activé';updateSound()};
@@ -85,6 +96,11 @@ function frame(now){const frameSeconds=Math.max(0,(now-prev)/1000);const delta=M
   const shouldRender=idleFrameGate.shouldRender(now,{active,visible:!document.hidden});
   if(shouldRender)renderer?.render(game,active?frameSeconds:1/60,active);
  }catch(e){console.error(e);show('errorScreen');$('errorDetail').textContent=e.message;game.paused=true;renderer=null;}
+ if(deviceRecorder.shouldSample(now,game.playing&&!game.paused&&!document.hidden&&!!renderer)){
+  deviceRecorder.record(now,{fps:renderer.fps,renderScale:renderer.dynamic.scale,
+   renderPixels:renderer.canvas.width*renderer.canvas.height,simSeconds:game.clock,
+   droppedSeconds:physicsClock.droppedSeconds,jsHeapBytes:performance.memory?.usedJSHeapSize??null});
+ }
  uiClock+=delta;autoSaveClock+=delta;if(uiClock>.13){uiClock=0;if(game.playing&&!game.paused)updateUI();if(QA_AUTODRIVE){let t=game.player.bike||{};qaPeakSusp=Math.max(qaPeakSusp,Math.abs(t.suspension||0));qaPeakGrade=Math.max(qaPeakGrade,Math.abs(t.roadGrade||0));$('qaLive').hidden=false;$('qaLive').textContent=`QA:${QA_AUTODRIVE} t=${qaDriveClock.toFixed(1)} x=${game.player.x.toFixed(2)} z=${game.player.z.toFixed(2)} yaw=${game.player.yaw.toFixed(3)} kmh=${(game.player.speed*3.6).toFixed(1)} slip=${(t.lateralSlip||0).toFixed(2)} bump=${(t.frontHeight||0).toFixed(3)}/${(t.rearHeight||0).toFixed(3)} shockPeak=${qaPeakSusp.toFixed(3)} gradePeak=${qaPeakGrade.toFixed(3)}`;}let events=game.events.filter(event=>event.seq>lastNotified);for(const event of events){toast(event.message,event.type);if(event.type==='impact')ping(190,.26);else if(event.type==='success')ping(840,.2)}lastNotified=game.events.at(-1)?.seq||lastNotified;}
  if(autoSaveClock>9){autoSaveClock=0;if(game.playing)safeSave();}updateSound();requestAnimationFrame(frame);}
 function boot(){installInputs();try{renderer=new Renderer($('world'),{quality});}catch(e){console.warn(e);$('errorDetail').textContent=e.message;show('errorScreen');}
