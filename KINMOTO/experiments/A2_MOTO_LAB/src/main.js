@@ -65,7 +65,7 @@ function installInputs(){const keys={ArrowUp:'gas',KeyW:'gas',ArrowDown:'brake',
  $('world').addEventListener('webglcontextlost',e=>{e.preventDefault();renderer.lost=true;releaseInputs();if(game.playing&&!game.paused)pause();toast('Contexte graphique interrompu : relance nécessaire.','impact')});
  $('world').addEventListener('webglcontextrestored',()=>location.reload());
 }
-function frame(now){const delta=Math.min(.1,Math.max(0,(now-prev)/1000));prev=now;
+function frame(now){const frameSeconds=Math.max(0,(now-prev)/1000);const delta=Math.min(.1,frameSeconds);prev=now;
  if(QA_AUTODRIVE && game.playing && !game.paused){
    qaDriveClock+=delta;
    game.controls.gas=qaDriveClock<6.5;
@@ -74,7 +74,7 @@ function frame(now){const delta=Math.min(.1,Math.max(0,(now-prev)/1000));prev=no
    game.controls.right=QA_AUTODRIVE==='right'&&qaDriveClock>=1.5&&qaDriveClock<2.5;
  }
  acc+=delta;const fixed=1/60;let ticks=0;while(acc>=fixed&&ticks<6){step(game,fixed);acc-=fixed;ticks++;}if(ticks>=6)acc=0;
- try{renderer?.render(game,delta)}catch(e){console.error(e);show('errorScreen');$('errorDetail').textContent=e.message;game.paused=true;renderer=null;}
+ try{renderer?.render(game,frameSeconds)}catch(e){console.error(e);show('errorScreen');$('errorDetail').textContent=e.message;game.paused=true;renderer=null;}
  uiClock+=delta;autoSaveClock+=delta;if(uiClock>.13){uiClock=0;if(game.playing&&!game.paused)updateUI();if(QA_AUTODRIVE){let t=game.player.bike||{};qaPeakSusp=Math.max(qaPeakSusp,Math.abs(t.suspension||0));qaPeakGrade=Math.max(qaPeakGrade,Math.abs(t.roadGrade||0));$('qaLive').hidden=false;$('qaLive').textContent=`QA:${QA_AUTODRIVE} t=${qaDriveClock.toFixed(1)} x=${game.player.x.toFixed(2)} z=${game.player.z.toFixed(2)} yaw=${game.player.yaw.toFixed(3)} kmh=${(game.player.speed*3.6).toFixed(1)} slip=${(t.lateralSlip||0).toFixed(2)} bump=${(t.frontHeight||0).toFixed(3)}/${(t.rearHeight||0).toFixed(3)} shockPeak=${qaPeakSusp.toFixed(3)} gradePeak=${qaPeakGrade.toFixed(3)}`;}let events=game.events.filter(event=>event.seq>lastNotified);for(const event of events){toast(event.message,event.type);if(event.type==='impact')ping(190,.26);else if(event.type==='success')ping(840,.2)}lastNotified=game.events.at(-1)?.seq||lastNotified;}
  if(autoSaveClock>9){autoSaveClock=0;if(game.playing)safeSave();}updateSound();requestAnimationFrame(frame);}
 function boot(){installInputs();try{renderer=new Renderer($('world'),{quality});}catch(e){console.warn(e);$('errorDetail').textContent=e.message;show('errorScreen');}
