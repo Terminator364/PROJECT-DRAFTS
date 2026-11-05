@@ -237,7 +237,7 @@
     "virtual_simulation": "PASS_72000_STEPS_600_ROUTE_CALLS_CPU_ONLY",
     "local_bundle_js_syntax": "PASS",
     "full_repo_node_tests": "PASS_123_OF_123_LOCAL_EXACT_SOURCE",
-    "full_repo_python_tests": "PASS_20_OF_20_LOCAL_EXACT_SOURCE",
+    "full_repo_python_tests": "PASS_22_OF_22_LOCAL_EXACT_SOURCE_AFTER_QA22",
     "binary_glb_real": "NOT_ACQUIRED",
     "browser_webgl_in_isolated_environment": "UNAVAILABLE_REAL_GPU",
     "physical_android": "NOT_TESTED",
@@ -269,6 +269,17 @@
       "driving_after": 1452.5,
       "unit": "mock_WebGL_draw_calls_per_1.2_seconds_two_repetitions",
       "real_gpu_claim": false
-    }
+    },
+    "python_fuzz_cases": 3000,
+    "qa22_package": {
+      "name": "KINMOTO_A2_V056_POWER_QA22_20261105.zip",
+      "bytes": 270288,
+      "entries": 65,
+      "sha256": "f21b85535ee682486dca9beeab991e2a42a81b0005b6066fb46e44f38600a2ad",
+      "fresh_extract_tests": "PASS_NODE_123_PYTHON_22_HTTP",
+      "html_sha256": "ddc10f12239d00d28b8174821a2253311ffdae92cd46583f8264cc8fe4346ab4",
+      "location": "conversation_artifact_not_drive_or_github"
+    },
+    "glb_fuzz": "PASS_3000_DETERMINISTIC_CASES_NO_UNHANDLED_EXCEPTIONS"
   }
 }
