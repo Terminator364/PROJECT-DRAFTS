@@ -1,3 +1,23 @@
+# KINMOTO|SYNC — NEXT-V1 « LES PREMIÈRES COURSES » — 05/11/2026
+
+**À reprendre désormais : la V1 jouable existe. Éviter de repartir d'A2/A3 et de refaire des prototypes séparés.**
+
+**Branche GitHub V1 :** `kinmoto/v1-les-premieres-courses-review-20261105`, fille du correctif de trafic A4. Consulter `experiments/A2_MOTO_LAB/docs/V1_NEXT_REVIEW_CHECKPOINT_20261105.md` et `PROJECT_STATE.json`.
+
+**Source de vérité exécutable livrée dans la conversation :**
+- `KIN_MOTO_V1_LES_PREMIERES_COURSES_JOUER.html`, **123154 octets**, SHA-256 `8306cd52d66868f36a0fc72a1e56404cbedaa9bdf4a672770d9fa01ae7781b83`.
+- `KIN_MOTO_V1_LES_PREMIERES_COURSES_SOURCES_QA_20261105.zip`, SHA-256 `f6832afd35998025ebe21224fbc6297d8d778699532c3d5c183dc2c1a5de30f7`, 133 entrées, **132/132 entrées de manifeste SHA vérifiées**.
+- Après extraction vierge : **200/200 Node, 26/26 Python**, 5 fichiers HTTP, build 13 modules, HTML identique, défi 7/7 en 19,63 s simulées par autopilote.
+- Chromium WebGL2 logiciel réel ordinateur/mobile émulé et WebGL1 logiciel forcé sur HTML autonome PASS, zéro erreur JS, zéro requête réseau externe dans ce dernier test. Cela n'est PAS une validation du GPU Android ou d'iOS.
+
+**Fonctions V1** : taxi, colis, VIP avec récompense de confort et ponctualité, défi maîtrise 7 portes/90s/rejeu, garage, upgrades, sauvegarde export/import, 16 voitures et conduite 3D.
+
+**Gate FACTORY V3** : G1 PASS LOGICIEL ; G2 VISUEL non accepté ; G3 HP/A21s réels non testés ; G4 jeu humain 15–20min non testé ; benchmark A1-D non clos ; audit droits des icônes historiques incomplet ; accord publication STABLE non donné. **NO_GO STABLE.**
+
+**Suite unique à exécuter :** tester cette V1 sur les vrais appareils, recueillir le rapport de performance local via Pause, évaluer la moto et l'ambiance, optimiser les problèmes démontrés, revoir le scorecard A1-D et demander GO avant changement de `main` ou ancienne URL. **Aucun nouveau clone de prototype.**
+
+---
+
 # KINMOTO|SYNC — 05 NOV 2026 — LABORATOIRE A1-D → A2 → A3 → A4
 
 **REPRISE CANONIQUE : PR #45 (A4 candidate privée NON STABLE).** Parents PR #44 (A3 deux missions), PR #43 (A2 collisions), branche originale A2 diagnostic. A1-D étude séparée PR #42. **Aucune PR fusionnée dans main.**
