@@ -1,7 +1,7 @@
 {
   "name": "kin-moto-les-premieres-courses",
   "private": true,
-  "version": "1.0.0-next-v1-review",
+  "version": "1.0.1-next-v1-optimized-review",
   "type": "module",
   "description": "KIN MOTO V1 - Les Premières Courses - candidate autonome 3D, hors ligne et zero cout",
   "scripts": {
