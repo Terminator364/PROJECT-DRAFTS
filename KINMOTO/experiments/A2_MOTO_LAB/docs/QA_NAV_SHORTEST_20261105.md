@@ -40,3 +40,13 @@ Récupérer la branche sur un environnement de tests complet, lancer `npm run ch
 ## Contre-audit supplémentaire : dernier mètre avant le client
 
 Une limite de la première implémentation a été repérée : si le client et la moto sont à 1 m l'un de l'autre sur le trottoir, le tracé vers le centre de route pouvait annoncer environ 27 m. L'ajout d'un trajet direct pour les destinations à moins de 16 m (rayon d'interaction du jeu) résout ce cas sans détour. Le point exactement identique renvoie 0 m. Deux tests supplémentaires : **17/17 PASS** au total sur le banc ciblé. Ce correctif ne change pas la physique ni la zone d'interaction.
+
+## Microbenchmark comparatif contradictoire (05/11)
+
+Le premier comparatif appelait l'ancien code dans une VM et le nouveau comme module Node natif : méthode **non comparable**, donc chiffres rejetés. Deuxième passe corrigée : les deux versions ont été appelées depuis `vm.runInNewContext` avec le même point d'entrée, sur les mêmes 15 000 paires synthétiques de rues/lieux, avec 500 appels de préchauffage par version.
+
+- Ancien GPS du fichier HTML v0.5.5 : **1 733,89 ms**, moyenne **115,59 µs** par requête.
+- GPS corrigé intégré dans le HTML expérimental : **396,95 ms**, moyenne **26,46 µs** par requête.
+- Rapport observé : 0,23× le temps de l'ancien GPS sur ce banc Node précis (environ 4,4× moins de temps). Les totaux de longueur diffèrent intentionnellement, puisque le mauvais détour des trajets directs a été corrigé.
+
+Cette mesure est **CPU Node dans le conteneur**, et NON FPS, RAM, batterie ou durée d'une session Android/iPhone. Les profils moteurs/OS diffèrent ; la mesure reste provisoire avant essai matériel.
