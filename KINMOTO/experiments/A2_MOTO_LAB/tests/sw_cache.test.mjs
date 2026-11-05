@@ -5,10 +5,10 @@ import fs from 'node:fs';
 
 const src = fs.readFileSync(new URL('../dist/sw.js',import.meta.url),'utf8');
 const html = fs.readFileSync(new URL('../dist/index.html',import.meta.url),'utf8');
-const findCache = src.match(/const CACHE='(kin-moto-a2-lab-[a-f0-9]{12})'/);
+const findCache = src.match(/const CACHE='(kin-moto-next-v1-[a-f0-9]{12})'/);
 assert(findCache,'cache version not tied to build');
 const calls = {};
-const store = new Map([['kin-moto-a2-lab-obsolete',new Map([['./index.html',{ok:true,body:'old'}]])],['other-app',new Map([['foo',true]])]]);
+const store = new Map([['kin-moto-next-v1-obsolete',new Map([['./index.html',{ok:true,body:'old'}]])],['other-app',new Map([['foo',true]])]]);
 const normalized = v=>typeof v==='string'?v:(v.url.includes('/assets/')?'./assets/'+v.url.split('/assets/')[1]:'./index.html');
 let online=true;let networkHits=0;
 const caches = {
@@ -32,7 +32,7 @@ test('SW precaches every required resource and removes only old KINMOTO caches',
   calls.install(event());await Promise.all(waitEvents.splice(0));
   const current=store.get(findCache[1]);assert(current);assert.equal(current.size,6);
   calls.activate(event());await Promise.all(waitEvents.splice(0));
-  assert(!store.has('kin-moto-a2-lab-obsolete'));
+  assert(!store.has('kin-moto-next-v1-obsolete'));
   assert(store.has('other-app'));
 });
 
