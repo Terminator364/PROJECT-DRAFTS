@@ -12,7 +12,7 @@ test('V1 single HTML requires zero external CSS, JS, manifest and icon resources
  assert.doesNotMatch(h,/<link[^>]+href="\.\//i);
  assert.match(h,/data:image\/svg\+xml;base64,/);
  assert.match(h,/CHALLENGE_GATES/);
- assert.match(h,/KIN-MOTO-NEXT-V1-1\.0\.0-REVIEW/);
+ assert.match(h,/KIN-MOTO-NEXT-V1-1\.0\.1-OPTIMIZED-REVIEW/);
 });
 
 test('V1 hosted PWA still offers manifest and content-hashed isolated cache',()=>{

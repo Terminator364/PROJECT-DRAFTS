@@ -1,3 +1,26 @@
+# REPRISE CANONIQUE — V1.0.1 OPTIMISÉE / 05-11-2026
+
+**La V1 existe, elle est livrée et testée. Ne pas revenir à A2/A3 ni créer une troisième démo.** Suite des travaux depuis la branche `kinmoto/v1-optimized-crossplatform-r1-20261105`, dérivée de la PR #46 V1.
+
+## Artefacts de conversation, vérifiés
+- Jeu à transmettre : `KIN_MOTO_V1_1_0_1_OPTIMISE_PC_ANDROID_IOS.html`, 126461 octets, SHA-256 `3c7cf6d1001d5a71c5b3955446a767e2233c57ccd25c3f9f0ce5c8af772324d8`.
+- Archive complète : `KINMOTO_V1_1_0_1_OPTIMISE_COMPLETE_QA_20261105.zip`, 2591726 octets, SHA-256 `b7653875f68ee29f87918cbaf32b38bb654e5f5547e270905b185254af186d04`; 144 fichiers, 143/143 hashes de manifeste vérifiés.
+- Après EXTRACTION VIERGE : `npm run check`, `npm test` 213/213, Python 26/26, `python build.py`, HTTP local 5 ressources PASS ; HTML reconstruit identique octet pour octet.
+- Tests Chromium vrais shaders WebGL2 logiciels bureau 1280x800 et mobile émulé 393x852 PASS, 0 exception JS. WebGL1 logiciel du HTML autonome PASS. Interface 4 résolutions et export natif/fallback testés avec renderer simulé.
+- Défauts réparés : défi de maîtrise qui contaminait l'odomètre/carrière/sauvegarde, projections WebGL et états répétés, mini-carte, export natif de sauvegarde sur navigateur compatible et message quand stockage indisponible, compat JS Safari `Array.at`, récupération WebGL Eco.
+
+**Ne pas annoncer des performances HP/A21s/iPhone :** SwiftShader est logiciel. L'ancienne URL V0.4 a été retrouvée dans Opera ; lecture de son onglet a expiré, donc V1 **pas exécutée sur Opera réel**.
+
+## Suivant : validation V1 physique
+1. Sur PC HP Windows : ouvrir HTML téléchargé via Opera et Edge, tester 15 min et exporter rapport FPS (Pause), vérifier toutes les missions et le défi.
+2. Galaxy A21s : ouvrir HTML depuis Téléchargements dans Chrome, tester ECO, tactile et autonomie, exporter rapport.
+3. iPhone : ouvrir via Fichiers dans Safari/Chrome, **éviter Quick Look/Telegram** ; si blocage de JS, envisager URL HTTPS de prévisualisation séparée seulement avec consentement ; ne pas déclarer iOS réel PASS sans session.
+4. Recueillir ressenti humain de conduite, graphismes, trafic, missions, envie de rejouer et vérifier droits des ressources héritées. Améliorer la V1, puis seulement valider STABLE.
+
+**Règles intactes :** aucune fusion `main`, aucun déploiement public ou remplacement ancienne URL, zéro Actions hébergées, aucun appel Remote Desktop, zéro dépense. G1 logiciel PASS / G2–G4 et acceptation finale PENDING. Code de reprise `KINMOTO|SYNC|V1_1_0_1_OPT`.
+
+---
+
 # KINMOTO|SYNC — NEXT-V1 « LES PREMIÈRES COURSES » — 05/11/2026
 
 **À reprendre désormais : la V1 jouable existe. Éviter de repartir d'A2/A3 et de refaire des prototypes séparés.**
