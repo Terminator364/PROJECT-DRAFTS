@@ -78,6 +78,17 @@ def inspect_glb(blob: bytes, filename: str = '<memory>') -> dict:
         if view is not None and (not isinstance(view,int) or view<0 or view>=len(views)):
             fail(f'Invalid accessor {i} bufferView reference')
     if result['errors']:return result
+    # glTF 2.0 GLB embeds at most the first buffer; BIN padding is 0–3 zero bytes.
+    # Reject excess payload, otherwise malformed fixtures can appear technically valid.
+    if buffers and not buffers[0].get('uri'):
+        declared_size=buffers[0]['byteLength']
+        excess=len(binary)-declared_size
+        if excess<0:fail('Embedded buffer length exceeds BIN chunk')
+        if excess>3:fail('Excessive GLB BIN padding (>3 bytes)')
+        if excess>=0 and any(binary[declared_size:]):fail('GLB BIN padding contains non-zero bytes')
+    for extra in buffers[1:]:
+        if not extra.get('uri'):fail('Only buffer[0] may use the GLB BIN chunk')
+    if result['errors']:return result
     external=[]
     for b in doc.get('buffers',[]):
         if b.get('uri'):external.append('buffer:'+str(b['uri'])[:60])
