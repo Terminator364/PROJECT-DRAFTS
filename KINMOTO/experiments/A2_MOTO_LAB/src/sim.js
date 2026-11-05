@@ -242,7 +242,7 @@ export function step(g,dt){const p=g.player,c=g.controls;if(!g.playing||g.paused
    p.bike.vz=-Math.cos(p.yaw)*p.speed;
    p.bike.lastSpeed=p.speed;
  }
- if(g.mission.kind==='express'&&g.mission.stage!=='pickup'&&!g.challenge?.active){g.mission.timer+=dt;}
+ if((g.mission.kind==='express'||g.mission.kind==='vip')&&g.mission.stage!=='pickup'&&!g.challenge?.active){g.mission.timer+=dt;}
  const challengeEvent=advanceChallenge(g,dt);
  if(challengeEvent?.type==='gate')emit(g,'success',`PORTE ${challengeEvent.gate}/${challengeEvent.total} · + POINTS`);
  if(challengeEvent?.type==='complete')emit(g,'success',`DÉFI GAGNÉ · ${challengeEvent.score} PTS · ${challengeEvent.stars} ★`);
