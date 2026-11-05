@@ -63,6 +63,9 @@ class GLBMalformationQA(unittest.TestCase):
     def test_negative_vertex_count_rejected(self):
         b=mutate_glb(lambda d:d['accessors'][0].update(count=-10))
         self.assertEqual(inspect_glb(b)['technical_status'],'REJECTED')
+    def test_null_meshes_array_rejected_without_parser_exception(self):
+        b=mutate_glb(lambda d:d.update(meshes=None))
+        self.assertEqual(inspect_glb(b)['technical_status'],'REJECTED')
     def test_invalid_mesh_primitive_structure_rejected(self):
         b=mutate_glb(lambda d:d['meshes'][0].update(primitives=None))
         self.assertEqual(inspect_glb(b)['technical_status'],'REJECTED')
