@@ -31,3 +31,10 @@ La page officielle du candidat Road Sportbike affiche CC0 1.0, environ 254,7 Ko,
 ## Contre-audit de la structure JSON interne
 
 Cinq cas adverses supplémentaires testent `meshes=None`, `primitives=None`, `attributes=None`, `images=[None]` et `animations` de type chaîne. La branche rejette ces structures sans faire confiance à `.get()` sur des éléments non-dictionnaires. Prototype local : **17/17 tests Python PASS** (7 scénarios hérités répliqués + 10 cas adverses). Une exécution dans l'environnement du dépôt GitHub demeure obligatoire avant fusion ; aucun fichier GLB externe réel n'a été importé.
+
+## Annexe QA22 / adversaire déterministe (05/11)
+Le contrôle du padding BIN a été confronté aux exigences glTF 2.0 (maximum trois octets de padding zéro) : trois tests supplémentaires ont confirmé le rejet des buffers trop longs/non nuls et l'acceptation de trois octets valides. Les fixtures d'origine ont été réparées pour utiliser **de vrais octets nuls**, pas les quatre octets ASCII `\\x00` répétés. La suite atteint alors **20/20 PASS**.
+
+Deux tests séparés `tests/test_glb_fuzz.py` appliquent 1 500 corruptions binaires et 1 500 mutations de structures JSON, avec seed déterministe `20261105`. Suite locale depuis le vrai code et fixtures actuels : **22/22 PASS** ; pas d'exception non gérée. Ce test cherche les plantages, il ne certifie pas chaque règle du format ni le modèle CC0 exact. Documentation Khronos : https://registry.khronos.org/glTF/specs/2.0/glTF-2.0.html.
+
+**Binaire Road Sportbike externe non acquis**, aucun hash, aucune licence de fichier confirmée après téléchargement, aucune intégration graphique ni validation Android/HP. PR reste brouillon.
