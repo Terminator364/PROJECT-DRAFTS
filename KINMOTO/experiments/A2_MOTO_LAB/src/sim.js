@@ -3,7 +3,7 @@ import {advanceBike,createBikeTelemetry,BIKE_WHEEL_RADIUS} from './bike_physics.
 import {inspectBikeCar,closingSpeed} from './collision.js';
 import {observeRide,addRideDiscomfort,rideComfortPaymentMultiplier} from './ride_quality.js';
 import {advanceChallenge} from './challenge.js';
-export const VERSION='KIN-MOTO-NEXT-V1-1.0.0-REVIEW';
+export const VERSION='KIN-MOTO-NEXT-V1-1.0.1-OPTIMIZED-REVIEW';
 export const PLACES=[
  {id:'victoire',name:'PLACE VICTOIRE',x:13,z:12,kind:'place'},
  {id:'matonge',name:'MATONGE',x:13,z:-73,kind:'place'},
@@ -91,7 +91,13 @@ export function makeGame(snapshot=null){let previous=snapshot||{};let save={...D
  const game={save,player,mission:m,cars,clock:0,events:[],playing:false,paused:false,controls:{left:false,right:false,gas:false,brake:false},travel:0,collisions:0,nearMisses:0,stats:{steps:0,lastSave:0}};
  return game;
 }
-export function snapshot(g){return {schema:1,version:VERSION,save:{...g.save},player:{x:g.player.x,z:g.player.z,yaw:g.player.yaw,speed:0,lean:0,damageCooldown:0,meters:g.player.meters},mission:{...g.mission}}}
+export function snapshot(g){
+ // Persist original career coordinates even when the player closes the app
+ // in the middle of a temporary skill trial. Both file:// and HTTPS obey this.
+ const c=g.challenge,checkpoint=c?.returnPlayer||g.player;
+ const savedMeters=c?.returnMetrics?.meters??g.player.meters;
+ return {schema:1,version:VERSION,save:{...g.save},player:{x:checkpoint.x,z:checkpoint.z,yaw:checkpoint.yaw,speed:0,lean:0,damageCooldown:0,meters:savedMeters},mission:{...g.mission}};
+}
 export const emit=(g,type,message)=>{g.eventSeq=(g.eventSeq||0)+1;g.events.push({type,message,at:g.clock,seq:g.eventSeq});if(g.events.length>35)g.events.shift();};
 const signedDistance=(a,b)=>dist(a,b);
 /** Target speed under car-following and intersection yielding, no allocations. */
