@@ -1,3 +1,29 @@
+# CHECKPOINT A2 0.5.6 POWER — RECETTE LOGICIELLE COMPLÈTE — 05/11/2026
+
+**Reprise canonique du lot expérimental :** [PR #36](https://github.com/Terminator364/PROJECT-DRAFTS/pull/36), branche `kinmoto/a2-idle-render-gate-20261105`. Cette branche repose sur [PR #35](https://github.com/Terminator364/PROJECT-DRAFTS/pull/35), non fusionnée, et **ne représente pas STABLE/V1**.
+
+## Acquis vérifiés avec le paquet source réel
+- Source A2 v0.5.5 ZIP récupérée depuis Drive et vérifiée ; patchs GitHub A2 v0.5.6 appliqués dans une copie isolée.
+- `npm run check` PASS ; `npm test` **123/123 PASS** ; `python -m unittest discover -s tests -p 'test_*.py'` **22/22 PASS**.
+- `python build.py` PASS, HTML **94 499 octets**. `node --check` sur JS compilé PASS. `python tools/test_local_delivery.py` PASS (5 ressources).
+- Paquet ZIP privé de conversation `KINMOTO_A2_V056_POWER_REVIEW_20261105.zip` **268 968 octets**, SHA-256 `334439ee2a0c00f2cf93e8e92c608a667ee78d09133f29af1b4e0a15d07ea8bc` ; archive réextraite, tests réussis, HTML reconstruit à SHA identique.
+- HTML SHA-256 `ddc10f12239d00d28b8174821a2253311ffdae92cd46583f8264cc8fe4346ab4`.
+- Fake WebGL Chromium mobile/bureau : UI et logique PASS, **réduction d'appels de dessin pendant menu/pause** (pas une mesure GPU/power réelle).
+- Correctifs annexes : test adaptatif ancien mis à jour, appel de rendu gate testé, GLB validation BIN padding 0–3 octets, fixtures Python réparées.
+- Rapport détaillé `experiments/A2_MOTO_LAB/docs/QA_FULL_INTEGRATION_POWER_20261105.md`.
+- Tests GLB de résistance complémentaires : `tests/test_glb_fuzz.py` (**3 000 cas déterministes**, aucune exception non gérée). Paquet de recette actualisé `KINMOTO_A2_V056_POWER_QA22_20261105.zip`, SHA-256 `f21b85535ee682486dca9beeab991e2a42a81b0005b6066fb46e44f38600a2ad` (65 entrées, 270 288 octets). Re-test après extraction fraîche : 123 Node + 22 Python + HTTP PASS.
+
+
+## Prochaine mission autonome — qualité perceptuelle et test matériel
+1. **G2** : obtenir une vraie capture WebGL, vérifier matériaux/roues/sol/camera/occlusion sans GPU factice. Ne pas étiqueter PASS si contexte WebGL bloqué.
+2. **G3/G4** : benchmark 15 min sur HP réel et Galaxy A21s (à réseau local, sans coût/Remote tant que possible). Répéter S1 ligne droite, S2 slalom, S3 freinage, S4 bosse/virage, S5 frôlement/choc. FPS, consommation RAM, surchauffe/batterie, input latency, interruption/reprise. iPhone ensuite.
+3. **A1-D / Assets** : comparer aux vrais contrôleurs de Neon/Costa, acquérir le **GLB moto exact** sous licence démontrée avec hash et capacités textures/animation ; aucun modèle non validé dans le jeu.
+4. Ne fusionner ni déployer vers `main`, V1, STABLE, Vercel ou autre sans accord explicite. Les PR demeurent des brouillons ; pas de runners hébergés ni quota Remote.
+
+**État : G1 logique PASS ; G2 vraie 3D NOT_TESTED ; G3 performance matérielle NOT_TESTED ; G4 Android/iOS NOT_TESTED ; G5 licence modèle externe PENDING.** Autonomie pour corrections réversibles, mais aucune promesse de travail en arrière-plan après la réponse.
+
+---
+
 # CHECKPOINT EXPÉRIMENTAL A2 v0.5.6 — 05 novembre 2026
 
 **Dépôt / branche de reprise pour la recette :** [kinmoto/integration-a2-v056-review-20261105](https://github.com/Terminator364/PROJECT-DRAFTS/tree/kinmoto/integration-a2-v056-review-20261105).

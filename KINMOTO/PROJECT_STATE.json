@@ -3,8 +3,8 @@
   "project": "KINMOTO",
   "factory_version": "3.0",
   "state_date_utc": "2026-11-05",
-  "phase": "A2_V056_INTEGRATION_REVIEW_A1_D_OPEN",
-  "status": "DRAFT_INTEGRATION_NOT_RELEASED",
+  "phase": "A2_V056_POWER_QA_COMPLETE_HARDWARE_PENDING",
+  "status": "A2_V056_POWER_REVIEW_NO_RELEASE",
   "incubator_repo": "Terminator364/PROJECT-DRAFTS",
   "incubator_subdir": "KINMOTO",
   "canonical_repo_url": "https://github.com/Terminator364/PROJECT-DRAFTS",
@@ -56,7 +56,7 @@
   ],
   "release_candidate": null,
   "public_urls_modified": false,
-  "next_action": "Sur branche d'intégration A2 v0.5.6: npm run check; npm test; python build.py; tests Python GLB; vérification de parité PowerShell; puis bench WebGL/physique HP+Galaxy A21s et benchmark A1-D. Ne pas fusionner ni publier STABLE avant tests et veto qualité.",
+  "next_action": "Depuis PR #36 branche A2 power review : contrôles réels WebGL/HP/Galaxy A21s, mesures 15min FPS/RAM/thermique/qualité et comparaison A1-D ; GLB externe réel avec SHA/licence/animation ; aucun GO de publication.",
   "source_of_truth": "public GitHub files, no secrets; private binary backups in Drive",
   "public_release_status": "NO_NEW_RELEASE",
   "a0_qa": {
@@ -219,7 +219,7 @@
     "policy_document": "docs/REMOTE_QUOTA_POLICY_20261104.md"
   },
   "integration_candidate": {
-    "branch": "kinmoto/integration-a2-v056-review-20261105",
+    "branch": "kinmoto/a2-idle-render-gate-20261105",
     "source_integration_commit": "c387ac64c657b302ba677019599ebb1bd579fa43",
     "source_tree_sha": "840cff6f7f1f211d38d6be2a3f29f0ac24f95e5d",
     "branch_is_public_release": false,
@@ -236,10 +236,10 @@
     "glb_synthetic_python_cases": "PASS_17_OF_17_PROTOTYPE",
     "virtual_simulation": "PASS_72000_STEPS_600_ROUTE_CALLS_CPU_ONLY",
     "local_bundle_js_syntax": "PASS",
-    "full_repo_node_tests": "NOT_TESTED_ON_INTEGRATION",
-    "full_repo_python_tests": "NOT_TESTED_ON_INTEGRATION",
+    "full_repo_node_tests": "PASS_123_OF_123_LOCAL_EXACT_SOURCE",
+    "full_repo_python_tests": "PASS_22_OF_22_LOCAL_EXACT_SOURCE_AFTER_QA22",
     "binary_glb_real": "NOT_ACQUIRED",
-    "browser_webgl_in_isolated_environment": "BLOCKED",
+    "browser_webgl_in_isolated_environment": "UNAVAILABLE_REAL_GPU",
     "physical_android": "NOT_TESTED",
     "physical_pc_v056": "NOT_TESTED",
     "physical_iphone": "NOT_TESTED",
@@ -248,6 +248,38 @@
     "github_hosted_actions": "NOT_TRIGGERED",
     "remote_desktop_calls": 0,
     "cost_extra_fc": 0,
-    "review_pr": 35
+    "review_pr": 35,
+    "parent_integration_pr": 35,
+    "power_review_pr": 36,
+    "build": "PASS_PYTHON_12_MODULES_94499_BYTES",
+    "local_http": "PASS_5_RESOURCES",
+    "reproducible_package": "PASS_ZIP_REEXTRACT_BUILD_SHA_MATCH",
+    "browser_fake_webgl": "PASS_DESKTOP_MOBILE_WITH_MOCK_GPU",
+    "package_zip_name": "KINMOTO_A2_V056_POWER_REVIEW_20261105.zip",
+    "package_zip_sha256": "334439ee2a0c00f2cf93e8e92c608a667ee78d09133f29af1b4e0a15d07ea8bc",
+    "package_zip_bytes": 268968,
+    "package_html_sha256": "ddc10f12239d00d28b8174821a2253311ffdae92cd46583f8264cc8fe4346ab4",
+    "qa_report": "experiments/A2_MOTO_LAB/docs/QA_FULL_INTEGRATION_POWER_20261105.md",
+    "idle_render_calls_mock": {
+      "menu_before": 1368,
+      "menu_after": 171,
+      "paused_before": 1470,
+      "paused_after": 210,
+      "driving_before": 1482.5,
+      "driving_after": 1452.5,
+      "unit": "mock_WebGL_draw_calls_per_1.2_seconds_two_repetitions",
+      "real_gpu_claim": false
+    },
+    "python_fuzz_cases": 3000,
+    "qa22_package": {
+      "name": "KINMOTO_A2_V056_POWER_QA22_20261105.zip",
+      "bytes": 270288,
+      "entries": 65,
+      "sha256": "f21b85535ee682486dca9beeab991e2a42a81b0005b6066fb46e44f38600a2ad",
+      "fresh_extract_tests": "PASS_NODE_123_PYTHON_22_HTTP",
+      "html_sha256": "ddc10f12239d00d28b8174821a2253311ffdae92cd46583f8264cc8fe4346ab4",
+      "location": "conversation_artifact_not_drive_or_github"
+    },
+    "glb_fuzz": "PASS_3000_DETERMINISTIC_CASES_NO_UNHANDLED_EXCEPTIONS"
   }
 }

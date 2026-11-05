@@ -25,3 +25,20 @@ export class AdaptiveResolution {
  }
  reset(initial=1){this.scale=clampAdaptive(initial,this.minScale,this.maxScale);this.emaFrame=1/this.targetFps;this.samples=0;this.elapsed=0;this.cooldown=0;this.slowVisibleFrames=0;}
 }
+
+// Explicit render scheduling outside gameplay. No GPU work is measured here.
+// The policy only reduces calls; the renderer owns the real graphics backend.
+export class IdleFrameGate {
+ constructor(idleIntervalMs=120){
+  if(!Number.isFinite(idleIntervalMs)||idleIntervalMs<=0)throw Error('Invalid idle rendering interval');
+  this.idleIntervalMs=idleIntervalMs;this.lastIdle=-Infinity;
+ }
+ shouldRender(now,{active=true,visible=true}={}){
+  if(!visible||!Number.isFinite(now))return false;
+  if(active)return true;
+  if(now<this.lastIdle)this.lastIdle=-Infinity;
+  if(now-this.lastIdle<this.idleIntervalMs)return false;
+  this.lastIdle=now;return true;
+ }
+ reset(){this.lastIdle=-Infinity;}
+}

@@ -37,7 +37,7 @@ export class Renderer{
  resize(){const vw=Math.max(1,innerWidth),vh=Math.max(1,innerHeight);const base=this.quality==='eco'?.78:this.quality==='high'?1.35:1.0;const dpr=Math.min(devicePixelRatio||1,base,Math.sqrt((this.quality==='eco'?780000:1350000)/(vw*vh)))*this.dynamic.scale;const w=Math.max(1,Math.floor(vw*dpr)),h=Math.max(1,Math.floor(vh*dpr));if(this.canvas.width!==w||this.canvas.height!==h){this.canvas.width=w;this.canvas.height=h;this.gl.viewport(0,0,w,h);}this.proj=perspective(innerWidth<700?1.04:.89,w/h,.13,390);}
  setQuality(level){this.quality=level;this.dynamic.minScale=level==='high'?.85:.68;this.dynamic.reset();this.resize();}
  draw(mesh,m,tint=1){const gl=this.gl,at=this.attr;gl.bindBuffer(gl.ARRAY_BUFFER,mesh.buffer);for(const idx of Object.values(at))gl.enableVertexAttribArray(idx);gl.vertexAttribPointer(at.pos,3,gl.FLOAT,false,36,0);gl.vertexAttribPointer(at.normal,3,gl.FLOAT,false,36,12);gl.vertexAttribPointer(at.color,3,gl.FLOAT,false,36,24);gl.uniformMatrix4fv(this.uniform.model,false,m);gl.uniform1f(this.uniform.tint,tint);gl.drawArrays(gl.TRIANGLES,0,mesh.n);}
- render(g,dt){if(!this.gl||this.lost)return;const foreground=typeof document==='undefined'||!document.hidden;this.dynamic.observe(dt,{visible:foreground});this.resize();const gl=this.gl,p=g.player,h={x:Math.sin(p.yaw),z:-Math.cos(p.yaw)},distance=this.mode===0?12.8:this.mode===1?23.5:3.6,height=this.mode===0?7.9:this.mode===1?19.0:3.25;
+ render(g,dt,active=true){if(!this.gl||this.lost)return;const foreground=typeof document==='undefined'||!document.hidden;this.dynamic.observe(dt,{visible:foreground&&active});this.resize();const gl=this.gl,p=g.player,h={x:Math.sin(p.yaw),z:-Math.cos(p.yaw)},distance=this.mode===0?12.8:this.mode===1?23.5:3.6,height=this.mode===0?7.9:this.mode===1?19.0:3.25;
   const desired={x:p.x-h.x*distance,y:height,z:p.z-h.z*distance},aim={x:p.x+h.x*(this.mode===1?9:13),y:this.mode===1?1.8:2.05,z:p.z+h.z*(this.mode===1?9:13)};
   // Camera collision: keep the chase camera on drivable streets, avoiding
   // the "building fills the screen" regression after hard steering near façades.
@@ -64,7 +64,8 @@ export class Renderer{
    this.draw(this.mesh.bikeWheel,mul(base,localWheel(0,p.bike?.rearWheelY??.56,-1.10,spin,0)));
    this.draw(this.mesh.bikeWheel,mul(base,localWheel(0,p.bike?.frontWheelY??.56,1.08,spin,steer)));
   }
-  this.frames++;this.seconds+=dt||0;if(this.seconds>.65){this.fps=Math.round(this.frames/this.seconds);this.frames=0;this.seconds=0;}
+  if(active){this.frames++;this.seconds+=dt||0;if(this.seconds>.65){this.fps=Math.round(this.frames/this.seconds);this.frames=0;this.seconds=0;}}
+  else {this.frames=0;this.seconds=0;}
  }
  project(x,y,z){const a=this.vp,v=[x,y,z,1],t=[0,0,0,0];for(let row=0;row<4;row++)for(let col=0;col<4;col++)t[row]+=a[col*4+row]*v[col];if(t[3]<=0)return null;let nx=t[0]/t[3],ny=t[1]/t[3];if(Math.abs(nx)>1.4||Math.abs(ny)>1.4)return null;return {x:(nx*.5+.5)*innerWidth,y:(1-(ny*.5+.5))*innerHeight,visible:Math.abs(nx)<1&&Math.abs(ny)<1};}
  stats(){return {glVersion:this.glVersion,quality:this.quality,fps:this.fps,adaptiveScale:this.dynamic.scale,adaptiveSteps:this.dynamic.updates,pixels:this.canvas.width*this.canvas.height,meshBytes:Object.values(this.mesh).flat().filter(x=>x?.bytes).reduce((s,x)=>s+x.bytes,0),worldVertices:this.mesh.world.n};}

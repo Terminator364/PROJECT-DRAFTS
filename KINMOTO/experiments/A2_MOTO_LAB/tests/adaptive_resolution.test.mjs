@@ -25,7 +25,7 @@ test('render loop forwards measured wall-clock frame duration, not physics cap',
  const fs=await import('node:fs');
  const main=fs.readFileSync(new URL('../src/main.js',import.meta.url),'utf8');
  assert.match(main,/function frame\(now\)\{const frameSeconds=Math\.max\(0,\(now-prev\)\/1000\);const delta=Math\.min\(\.1,frameSeconds\)/);
- assert.match(main,/renderer\?\.render\(game,frameSeconds\)/);
+ assert.match(main,/renderer\?\.render\(game,active\?frameSeconds:1\/60,active\)/);
  assert.match(main,/step\(game,fixed\)/);
 });
 
