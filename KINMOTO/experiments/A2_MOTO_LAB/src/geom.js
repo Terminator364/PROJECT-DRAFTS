@@ -96,6 +96,37 @@ export function makeWorld(){const g=new Geo();g.box(0,-.24,0,390,.34,390,C('#879
  g.box(-8.8,1.55,82.2,.16,3.1,.16,P.dark);
  g.box(-8.8,2.92,82.25,.20,.52,.6,P.yellow);
  for(const x of [-7.5,-3.0])g.box(x,.070,87.3,1.6,.024,.19,P.line);
+ // Street atmosphere concentrated on the playable Bandal–Victoire corridor.
+ // Each object becomes part of the one world mesh: no new GL draw call.
+ const urbanSeed=rand(26011);
+ for(let i=0;i<34;i++){
+  const road=-80+i*7.1;
+  // Worn, irregular asphalt patches stay flat above the roadway.
+  const x=(i%3-1)*4.2,depth=1.2+urbanSeed()*2.8;
+  g.box(x,.061,road,.65+urbanSeed()*1.1,.007,depth,C(i%2?'#39434d':'#41474b'));
+ }
+ // Bus-taxi stand near Victoire, concrete shelter, bright painted roof and benches.
+ g.box(-13.9,2.60,15.3,3.9,.22,6.2,C('#e4b23c'));
+ for(const z of [12.7,17.9])for(const x of [-15.7,-12.1])g.box(x,1.35,z,.18,2.55,.18,C('#cad2c7'));
+ g.box(-13.8,.56,15.3,2.9,.25,.8,C('#99735a'));
+ // Roadside storefront flags, perimeter walls and low decorative kiosks.
+ for(const z of [95,57,34,9,-38,-69]){
+  g.box(-13.7,1.58,z,3.3,2.9,2.5,C('#d1b79a'));
+  g.box(-13.7,3.13,z,3.9,.22,3.1,C('#e3b344'));
+  g.box(-12.0,1.62,z, .08,1.28,2.12,C('#4b8590'));
+  g.box(-11.9,2.78,z, .15,.27,2.65,C('#f3cf68'));
+ }
+ for(const x of [16,43,74]){
+  g.box(x,1.40,-12.9,3.8,2.7,3.1,C('#e7ccb2'));
+  g.box(x,2.93,-12.9,4.5,.21,3.6,C('#e9ab3d'));
+ }
+ // More varied pedestrian silhouettes at the two introductory mission stops.
+ for(let i=0;i<7;i++)person(g,-12.6-(i%2)*1.5,80+i*1.7,i%2?C('#e9bc5b'):C('#6bb9b1'));
+ // Wide reflective bollards delineate both sides of the starter street.
+ for(let z=20;z<104;z+=14)for(const x of [-9.6,9.6]){
+  g.cy(x,.08,z,.11,.52,6,C('#e8ebe7'));
+  g.box(x,.56,z,.24,.12,.25,C('#e5ad45'));
+ }
  // corner vegetation, street infrastructure and market activity
  let n=0;
  for(const x of streets)for(const z of streets){for(const sx of [-1,1])for(const sz of [-1,1]){
@@ -108,6 +139,12 @@ export function makeWorld(){const g=new Geo();g.box(0,-.24,0,390,.34,390,C('#879
  }}
  for(let i=0;i<29;i++){const rr=rand(i*1241+9),axis=i%2,road=streets[Math.floor(rr()*3)],side=(i%2?1:-1),along=-160+rr()*320;let x=axis?along:road+side*12.8,z=axis?road+side*12.8:along; person(g,x,z,[P.yellow,C('#54b0bc'),C('#c3535c'),C('#e7f0cc')][i%4]);}
  for(let i=0;i<9;i++){let s=streets[i%3],v=-150+(i*44)%300;stall(g,(i%2)?v:s+16,(i%2)?s+16:v,i);}
+ return g;
+}
+// Contact shadow is procedural geometry, not an external texture. It helps the
+// rider read the tires' contact point on a flat road without alpha blending.
+export function makeBikeShadow(){const g=new Geo();
+ g.ellipsoid(0,0,0,.72,.016,1.40,C('#242d34'),20,3);
  return g;
 }
 export function makeBikeWheel(){
