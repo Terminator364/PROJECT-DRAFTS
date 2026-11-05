@@ -1,5 +1,5 @@
 import {clamp,lerp,wrapAngle,hypot,dist,heading,angleOf,nearestRoad,keepOverStreet,STREET_SAFE_HALF_WIDTH,rand} from './math.js';
-import {advanceBike,createBikeTelemetry} from './bike_physics.js';
+import {advanceBike,createBikeTelemetry,BIKE_WHEEL_RADIUS} from './bike_physics.js';
 import {inspectBikeCar,closingSpeed} from './collision.js';
 import {observeRide,addRideDiscomfort,rideComfortPaymentMultiplier} from './ride_quality.js';
 export const VERSION='A2-LAB-0.5.6-POWER-DRAFT';
@@ -59,7 +59,7 @@ export function trafficTargetSpeed(car,cars){
 }
 export function step(g,dt){const p=g.player,c=g.controls;if(!g.playing||g.paused)return;dt=clamp(dt,0,.04);g.clock+=dt;g.stats.steps++;p.damageCooldown=Math.max(0,p.damageCooldown-dt);
  const grip=clamp(g.save.health/100,.40,1);let onRoad=nearestRoad(p).distance<9.7;
- const ox=p.x,oz=p.z;
+ const ox=p.x,oz=p.z,wheelSpinBefore=p.bike?.wheelSpin??0;
  const drive=advanceBike(p,{
    steer:(c.right?1:0)-(c.left?1:0),gas:c.gas?1:0,brake:c.brake?1:0
  },dt,{condition:grip,roadGrip:onRoad?1:.77,
@@ -86,7 +86,12 @@ export function step(g,dt){const p=g.player,c=g.controls;if(!g.playing||g.paused
    // Near the edge tyres lose some grip; do not force a teleport or fake skid.
    p.speed=Math.min(p.speed,12.5);
  }
- p.meters+=hypot(p.x-ox,p.z-oz);g.travel+=hypot(p.x-ox,p.z-oz);
+ // The tire cannot spin for motion canceled by the road envelope or world bounds.
+ // Keep the controller reusable; override its free-body travel with ground-resolved travel.
+ const roadTravel=hypot(p.x-ox,p.z-oz);
+ p.bike.groundSpeed=dt>0?roadTravel/dt:0;
+ p.bike.wheelSpin=wheelSpinBefore+roadTravel/BIKE_WHEEL_RADIUS;
+ p.meters+=roadTravel;g.travel+=roadTravel;
  observeRide(g.mission,p.bike,p.speed,dt);
  // Four real-road loops, spatial sensing, deterministic intersection priority.
  for(const car of g.cars){

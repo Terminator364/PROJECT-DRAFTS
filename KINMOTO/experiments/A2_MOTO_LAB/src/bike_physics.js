@@ -3,11 +3,11 @@ import {sampleRoadSurface, ROAD_TOP_Y} from './road_surface.js';
 // No external library, no runtime download, no network, no model assets.
 // Deliberately independent of camera and rendering.
 const BIKE_WHEELBASE = 2.18;
-const BIKE_WHEEL_RADIUS = 0.49;
+export const BIKE_WHEEL_RADIUS = 0.49;
 const BIKE_GRAVITY = 9.81;
 export function createBikeTelemetry() {
   return { steer:0, steerAngle:0, yawRate:0, lean:0, lateralSlip:0,
-    vx:0, vz:0, wheelSpin:0, suspension:0, pitch:0, acceleration:0,
+    vx:0, vz:0, wheelSpin:0, groundSpeed:0, suspension:0, pitch:0, acceleration:0,
     frontGrounded:true, rearGrounded:true, lastSpeed:0, traction:1,
     frontHeight:ROAD_TOP_Y, rearHeight:ROAD_TOP_Y, suspensionVelocity:0,
     frontWheelY:.56, rearWheelY:.56, roadGrade:0 };

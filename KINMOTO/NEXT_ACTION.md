@@ -1,3 +1,29 @@
+# CHECKPOINT A2 v0.5.6 RIDE + VRAI WEBGL2 LOGICIEL — 05/11/2026
+
+**Reprise prioritaire : [PR #37 — Real wheel travel + WebGL2 software QA](https://github.com/Terminator364/PROJECT-DRAFTS/pull/37)**, branche `kinmoto/a2-real-wheel-travel-20261105` dérivée de PR #36. **AUCUNE sortie V1/STABLE, pas de fusion dans main.**
+
+## Acquis du nouveau cycle
+1. Nouveau défaut physique authentique reproduit : moto immobilisée sur une bordure (0,01 m de trajet), mais pneus tournant comme pour 11,04 m ; HUD indiquait ~8 km/h. Corrigé après contre-audit (pas de baisse artificielle de la vitesse du moteur qui empêcherait le glissement longitudinal).
+2. `src/sim.js` synchronise maintenant les rotations des roues et la vitesse au sol sur le vrai trajet après contraintes; `src/main.js` affiche la vitesse mesurée ; `bike_physics.js` expose le rayon. **4 tests nouveaux**.
+3. `npm run check` et `npm test` : **127/127 PASS** ; `python -m unittest discover -s tests -p 'test_*.py'` : **22/22 PASS** ; `python build.py` : **94 880 octets** ; test HTTP localhost **PASS**.
+4. **WebGL 2.0 réel exécuté en logiciel** : Chromium + Xvfb + ANGLE/Vulkan SwiftShader, bureau 1280×800 et mobile émulé 393×852. Démarrage, moto en mouvement, pause/reprise, shaders et scène visibles, 0 exceptions JS ; captures en artefacts de conversation. Script facultatif `tools/qa_software_webgl.py` reproductible hors réseau. **Ne pas confondre SwiftShader avec GPU réel Android** : le FPS logiciel ~5–10 est non transposable.
+5. Simulation 72 000 pas (20min virtuelles) sous trafic : erreur de cohérence roue-odometre max 2,34×10⁻¹¹ m ; aucun état invalide. Collisions fréquentes sous commande artificiellement agressive : pas une preuve d'équilibrage du trafic. Ne pas annoncer une session humaine de 20min.
+6. Archive conversation `KINMOTO_A2_V056_RIDE_WEBGL2_QA_20261105.zip` **638 266 octets**, 71 fichiers ; SHA-256 `40838a24affb3efac681e259de3916e66db6166f9dd2991a6de9c7dbeb380d28`. Après extraction neuve, 127 Node/22 Python PASS, compilation HTML SHA-256 inchangé `513c39659c8c8144a71ff7f90af373d5338b649d0e426cc04169fd48cd3a6421`.
+7. Rapport complet : `experiments/A2_MOTO_LAB/docs/QA_GROUND_TRAVEL_SWIFT_WEBGL2_20261105.md`.
+
+## Portes encore fermées — action à faire, pas à présumer
+
+- **G2 matériel :** scène sur HP Windows réel, qualité de la moto, roues/sol/perspective, FPS, consommation mémoire, entrées clavier, états menu/pause. WebGL2 software PASS n'est PAS un test matériel.
+- **G3/G4 :** Galaxy A21s (15min, 5 exercices S1–S5), écran tactile réel, chauffe/RAM, batterie, Android offline ; iOS/Chrome puis Safari sur iPhone réel (les navigateurs iOS ne sont pas vérifiés par le Chrome desktop émulé).
+- **Qualité perçue :** captures SwiftShader montrent un style low-poly, véhicules/bâtiments peu détaillés ; qualité V1 **NON VALIDÉE**, ne pas qualifier de jeu fini.
+- **Asset moto :** source Road Sportbike CC0 candidate; GLB binaire exact non acquis, hash/animations/matériaux/licence exacte non auditables. Ne pas importer sans audit et benchmark A/B. 
+- **A1-D** comparaison dynamique avec références libres Neon/Costa : toujours PENDING.
+- **Règles intangibles :** aucune publication STABLE, aucune nouvelle URL publique, aucune GitHub Action hébergée, aucun quota Remote ni coût sans accord explicite.
+
+Reprise par `KINMOTO|SYNC`; poursuivre au niveau du source de PR #37, lire `PROJECT_STATE.json` et le rapport. Éviter de répéter les QA déjà passées hors changement de source.
+
+---
+
 # CHECKPOINT A2 0.5.6 POWER — RECETTE LOGICIELLE COMPLÈTE — 05/11/2026
 
 **Reprise canonique du lot expérimental :** [PR #36](https://github.com/Terminator364/PROJECT-DRAFTS/pull/36), branche `kinmoto/a2-idle-render-gate-20261105`. Cette branche repose sur [PR #35](https://github.com/Terminator364/PROJECT-DRAFTS/pull/35), non fusionnée, et **ne représente pas STABLE/V1**.

@@ -3,8 +3,8 @@
   "project": "KINMOTO",
   "factory_version": "3.0",
   "state_date_utc": "2026-11-05",
-  "phase": "A2_V056_POWER_QA_COMPLETE_HARDWARE_PENDING",
-  "status": "A2_V056_POWER_REVIEW_NO_RELEASE",
+  "phase": "A2_V056_GROUND_TRAVEL_REAL_SW_WEBGL2_REVIEW",
+  "status": "DRAFT_QUALITY_REVIEW_NOT_STABLE",
   "incubator_repo": "Terminator364/PROJECT-DRAFTS",
   "incubator_subdir": "KINMOTO",
   "canonical_repo_url": "https://github.com/Terminator364/PROJECT-DRAFTS",
@@ -56,7 +56,7 @@
   ],
   "release_candidate": null,
   "public_urls_modified": false,
-  "next_action": "Depuis PR #36 branche A2 power review : contrôles réels WebGL/HP/Galaxy A21s, mesures 15min FPS/RAM/thermique/qualité et comparaison A1-D ; GLB externe réel avec SHA/licence/animation ; aucun GO de publication.",
+  "next_action": "PR #37 laboratoire: exécuter vrai gameplay et FPS/RAM/thermique sur HP Windows et Galaxy A21s (15 min), vérifier la qualité visuelle puis iPhone; importer GLB seulement après binaire+hash+licence+évaluation moteur; garder PRs brouillon et main/STABLE inchangés.",
   "source_of_truth": "public GitHub files, no secrets; private binary backups in Drive",
   "public_release_status": "NO_NEW_RELEASE",
   "a0_qa": {
@@ -281,5 +281,52 @@
       "location": "conversation_artifact_not_drive_or_github"
     },
     "glb_fuzz": "PASS_3000_DETERMINISTIC_CASES_NO_UNHANDLED_EXCEPTIONS"
+  },
+  "ride_cycle": {
+    "source_pr": 36,
+    "review_pr": 37,
+    "branch": "kinmoto/a2-real-wheel-travel-20261105",
+    "real_gpu_hardware": "NOT_TESTED",
+    "software_webgl2": "PASS_CHROMIUM_ANGLE_VULKAN_SWIFTSHADER_DESKTOP_MOBILE_SIMULATED",
+    "software_webgl2_screens": [
+      "1280x800",
+      "393x852"
+    ],
+    "browser_script": "experiments/A2_MOTO_LAB/tools/qa_software_webgl.py",
+    "browser_test_results": {
+      "desktop_move_m": 1.307,
+      "mobile_simulated_move_m": 2.192,
+      "no_js_exceptions": true,
+      "pause_resume": "PASS",
+      "world_vertices": 139296,
+      "software_fps_range_observed": "5-10_NOT_TARGET_DEVICE_PERFORMANCE"
+    },
+    "curb_defect": {
+      "initial_true_travel_m": 0.01,
+      "initial_false_wheel_travel_m": 11.037170567285187,
+      "repro": "initial x=8.09 z=45 yaw=PI/2; gas 300*1/60",
+      "corrected": "wheelSpin and HUD groundSpeed computed after world clamp",
+      "fixed_physics_speed_override": false
+    },
+    "node_test_suite": "PASS_127_127",
+    "python_test_suite": "PASS_22_22",
+    "python_build": "PASS_HTML_94880_BYTES",
+    "local_http": "PASS_5_RESOURCES",
+    "cpu_stress_20min": "PASS_72000_STEPS_MAX_WHEEL_ODOMETER_DRIFT_LT_1E-9_M",
+    "archive": "KINMOTO_A2_V056_RIDE_WEBGL2_QA_20261105.zip",
+    "archive_bytes": 638266,
+    "archive_sha256": "40838a24affb3efac681e259de3916e66db6166f9dd2991a6de9c7dbeb380d28",
+    "html_sha256": "513c39659c8c8144a71ff7f90af373d5338b649d0e426cc04169fd48cd3a6421",
+    "package_reextract_build_and_tests": "PASS",
+    "physical_windows_pc": "NOT_TESTED",
+    "physical_galaxy_a21s": "NOT_TESTED",
+    "physical_ios": "NOT_TESTED",
+    "glb_candidate_binary": "NOT_ACQUIRED",
+    "full_quality_acceptance": "NOT_APPROVED",
+    "deploy_main_and_stable": "NOT_TRIGGERED",
+    "github_actions": "NOT_TRIGGERED",
+    "vercel": "NOT_TRIGGERED",
+    "remote_desktop": "NOT_TRIGGERED",
+    "cost_fc": 0
   }
 }
