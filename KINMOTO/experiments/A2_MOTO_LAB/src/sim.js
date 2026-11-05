@@ -12,10 +12,17 @@ export const PLACES=[
  {id:'restaurant',name:'MAISON DE LA RUMBA',x:13,z:157,kind:'music'},
  {id:'station',name:'STATION MOTO',x:109,z:-13,kind:'station'},
  {id:'residence',name:'RÉSIDENCE BANDAL',x:-13,z:-78,kind:'home'},
+ {id:'arret',name:'ARRÊT WEWA DE BANDAL',x:-7,z:85,kind:'slice'},
  {id:'garage',name:'GARAGE KIN MOTO',x:14,z:78,kind:'garage'}
 ];
 const NAMES=['Maman Chantal','Papa Serge','Junior','Mado','Coach Patrick','Maman Carine','Sarah','Nadine','Christelle','Blaise','Madame Esther'];
 const KINDS=[{id:'taxi',name:'COURSE WEWA',mult:1,description:'Un passager attend sa course.'},{id:'express',name:'RENDEZ-VOUS',mult:1.22,description:'Un client souhaite arriver sans retard.'},{id:'colis',name:'LIVRAISON',mult:1.10,description:'Transport d’un colis, conduite souple.'},{id:'tour',name:'DÉCOUVERTE',mult:1.30,description:'Un trajet découverte avec un arrêt supplémentaire.'}];
+// A3 vertical-slice missions: a hand-authored, navigable first neighborhood,
+// no external assets, no new economy schema, and a deterministic continuation.
+export const SLICE_STORY=Object.freeze([
+ Object.freeze({from:'arret',to:'ecole',kind:'taxi',title:'01 · COURSE DU QUARTIER',client:'Maman Chantal',reward:850,description:'Départ de Bandal, direction École des Arts.'}),
+ Object.freeze({from:'ecole',to:'victoire',kind:'colis',title:'02 · COLIS POUR VICTOIRE',client:'Junior',reward:1150,description:'Récupérer le colis à l’école et livrer près de la Place Victoire.'})
+]);
 const DEFAULT_SAVE={schema:1,cash:3500,rides:0,engine:1,brakes:1,health:100,stars:4.5,finished:0,highScore:0};
 export const SAVE_KEY='kinmoto_a2_lab_career';
 export function readSave(storage){
@@ -44,7 +51,9 @@ export function makeRoute(left,top,right,bottom){const l=left+4.6,r=right-4.6,t=
  const pts=[{x:l,z:b-15},{x:l,z:t+15},{x:l+3,z:t+7},{x:l+7,z:t+3},{x:l+15,z:t},{x:r-15,z:t},{x:r-7,z:t+3},{x:r-3,z:t+7},{x:r,z:t+15},{x:r,z:b-15},{x:r-3,z:b-7},{x:r-7,z:b-3},{x:r-15,z:b},{x:l+15,z:b},{x:l+7,z:b-3},{x:l+3,z:b-7}];let segments=[],length=0;for(let i=0;i<pts.length;i++){const a=pts[i],b=pts[(i+1)%pts.length],d=dist(a,b);segments.push({a,b,start:length,len:d});length+=d;}return {segments,length};}
 const LOOPS=[makeRoute(-120,-120,0,0),makeRoute(0,-120,120,0),makeRoute(-120,0,0,120),makeRoute(0,0,120,120)];
 export function sampleRoute(route,m){m=((m%route.length)+route.length)%route.length;for(const s of route.segments){if(m<=s.start+s.len){let t=(m-s.start)/Math.max(.00001,s.len);return {x:lerp(s.a.x,s.b.x,t),z:lerp(s.a.z,s.b.z,t),yaw:angleOf(s.b.x-s.a.x,s.b.z-s.a.z)};}}const s=route.segments[0];return {...s.a,yaw:angleOf(s.b.x-s.a.x,s.b.z-s.a.z)};}
-function newMission(ride=0){const r=rand(7946+ride*773),options=PLACES.filter(p=>p.kind!=='garage');const from=options[(ride*3+1)%options.length];let to=options[(ride*5+4)%options.length];if(from.id===to.id)to=options[(options.indexOf(to)+3)%options.length];const kind=KINDS[ride%KINDS.length],length=Math.abs(from.x-to.x)+Math.abs(from.z-to.z),reward=Math.round((750+length*10)*kind.mult/50)*50;
+function newMission(ride=0){
+ if(ride<SLICE_STORY.length){const a=SLICE_STORY[ride];return {ride,kind:a.kind,title:a.title,from:a.from,to:a.to,via:null,stage:'pickup',client:a.client,reward:a.reward,penalty:0,comfort:100,impacts:0,startedAt:0,timer:0};}
+ const r=rand(7946+ride*773),options=PLACES.filter(p=>p.kind!=='garage'&&p.kind!=='slice');const from=options[(ride*3+1)%options.length];let to=options[(ride*5+4)%options.length];if(from.id===to.id)to=options[(options.indexOf(to)+3)%options.length];const kind=KINDS[ride%KINDS.length],length=Math.abs(from.x-to.x)+Math.abs(from.z-to.z),reward=Math.round((750+length*10)*kind.mult/50)*50;
  let via=kind.id==='tour'?options[(ride*2+5)%options.length]:null;if(via&&(via.id===from.id||via.id===to.id))via=options[(ride*2+6)%options.length];return {ride,kind:kind.id,title:kind.name,from:from.id,to:to.id,via:via?.id||null,stage:'pickup',client:NAMES[ride%NAMES.length],reward,penalty:0,comfort:100,impacts:0,startedAt:0,timer:0};}
 export const byId=id=>PLACES.find(p=>p.id===id);
 export const missionTarget=m=>byId(m.stage==='pickup'?m.from:m.stage==='via'?m.via:m.to);
