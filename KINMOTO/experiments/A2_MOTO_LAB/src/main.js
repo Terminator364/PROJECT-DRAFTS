@@ -9,7 +9,12 @@ const $=id=>document.getElementById(id),FC=n=>Math.round(n).toLocaleString('fr-F
 const STORAGE_SNAPSHOT='kinmoto_a2_lab_snapshot';
 const QA_MODE=new URLSearchParams(location.search);const QA_AUTODRIVE=QA_MODE.get('autodrive');let qaDriveClock=0;
 let saved=null;try{saved=JSON.parse(localStorage.getItem(STORAGE_SNAPSHOT)||'null')}catch{}
-let game=QA_AUTODRIVE?makeGame():makeGame(saved&&saved.schema===1?saved:{save:readSave()});
+// A cached snapshot is untrusted: validate before allowing it to reach the HUD or controls.
+let game=makeGame({save:readSave()});
+if(QA_AUTODRIVE)game=makeGame();
+else if(saved&&saved.schema===1){
+ try{const restored=makeGame(saved);if(validate(restored).length===0)game=restored;}catch{}
+}
 let qaPeakSusp=0,qaPeakGrade=0,renderer=null,prev=performance.now(),physicsClock=new FixedStepScheduler(),uiClock=0,autoSaveClock=0,garageOrigin='menu',muted=false,audioCtx=null,engineOsc=null,engineGain=null,lastNotified=0,idleFrameGate=new IdleFrameGate(120);
 let quality='eco';try{quality=localStorage.getItem('kinmoto_a2_lab_quality')||'eco'}catch{}$('quality').value=['eco','balanced','high'].includes(quality)?quality:'eco';
 const show=id=>$(id).classList.remove('hidden'),hide=id=>$(id).classList.add('hidden');
