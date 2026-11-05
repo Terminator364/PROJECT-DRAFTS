@@ -28,3 +28,26 @@ test('render loop forwards measured wall-clock frame duration, not physics cap',
  assert.match(main,/renderer\?\.render\(game,frameSeconds\)/);
  assert.match(main,/step\(game,fixed\)/);
 });
+
+test('sustained 3 FPS can recover GPU pixel budget',()=>{
+ const r=new AdaptiveResolution();feed(r,100,1/3);assert.ok(r.scale<.9);
+});
+test('sustained 2 FPS can recover GPU pixel budget',()=>{
+ const r=new AdaptiveResolution();feed(r,100,1/2);assert.ok(r.scale<.9);
+});
+test('two isolated 400ms hitches do not degrade quality',()=>{
+ const r=new AdaptiveResolution();feed(r,300,1/30);r.observe(.4);r.observe(.4);feed(r,40,1/30);assert.equal(r.scale,1);
+});
+test('sporadic 400ms hitches never mimic sustained low FPS',()=>{
+ const r=new AdaptiveResolution();
+ for(let i=0;i<500;i++)r.observe(i%30===0?.4:1/30);
+ assert.equal(r.scale,1);
+});
+test('reset removes pending severe-frame streak',()=>{
+ const r=new AdaptiveResolution();r.observe(.4);r.observe(.4);r.reset();
+ assert.equal(r.slowVisibleFrames,0);
+ r.observe(.4);assert.equal(r.scale,1);
+});
+test('pauses longer than 600ms are not treated as GPU overload',()=>{
+ const r=new AdaptiveResolution();feed(r,100,.7);assert.equal(r.samples,0);assert.equal(r.scale,1);
+});
