@@ -2,9 +2,9 @@
   "schema_version": "1.0",
   "project": "KINMOTO",
   "factory_version": "3.0",
-  "state_date_utc": "2026-11-04",
-  "phase": "A2_LAB_V055_CLOUD_QA_A1_D_OPEN",
-  "status": "A2_V055_CUMULATIVE_QA_PASS_NO_RELEASE",
+  "state_date_utc": "2026-11-05",
+  "phase": "A2_V056_INTEGRATION_REVIEW_A1_D_OPEN",
+  "status": "DRAFT_INTEGRATION_NOT_RELEASED",
   "incubator_repo": "Terminator364/PROJECT-DRAFTS",
   "incubator_subdir": "KINMOTO",
   "canonical_repo_url": "https://github.com/Terminator364/PROJECT-DRAFTS",
@@ -56,7 +56,7 @@
   ],
   "release_candidate": null,
   "public_urls_modified": false,
-  "next_action": "Poursuivre en cloud: acquisition directe d'assets CC0 vérifiables/benchmark du vrai modèle animé puis refonte visuelle/physique sur une piste étalon; joindre test Android+HP réel en lot final pour préserver quotas; ne pas déployer.",
+  "next_action": "Sur branche d'intégration A2 v0.5.6: npm run check; npm test; python build.py; tests Python GLB; vérification de parité PowerShell; puis bench WebGL/physique HP+Galaxy A21s et benchmark A1-D. Ne pas fusionner ni publier STABLE avant tests et veto qualité.",
   "source_of_truth": "public GitHub files, no secrets; private binary backups in Drive",
   "public_release_status": "NO_NEW_RELEASE",
   "a0_qa": {
@@ -217,5 +217,35 @@
     "policy": "CLOUD_FIRST_REMOTE_ONLY_AS_LAST_RESORT",
     "default_remote_calls_per_development_lot": 0,
     "policy_document": "docs/REMOTE_QUOTA_POLICY_20261104.md"
+  },
+  "integration_candidate": {
+    "branch": "kinmoto/integration-a2-v056-review-20261105",
+    "source_integration_commit": "c387ac64c657b302ba677019599ebb1bd579fa43",
+    "source_tree_sha": "840cff6f7f1f211d38d6be2a3f29f0ac24f95e5d",
+    "branch_is_public_release": false,
+    "prs_open_draft": [
+      30,
+      31,
+      32,
+      33,
+      34
+    ],
+    "original_blob_sha_matches": "PASS_16_OF_16",
+    "local_targeted_node_cases": "PASS_32_OF_32_NAVIGATION_FPS_SOURCE_SW",
+    "glb_synthetic_python_cases": "PASS_17_OF_17_PROTOTYPE",
+    "virtual_simulation": "PASS_72000_STEPS_600_ROUTE_CALLS_CPU_ONLY",
+    "local_bundle_js_syntax": "PASS",
+    "full_repo_node_tests": "NOT_TESTED_ON_INTEGRATION",
+    "full_repo_python_tests": "NOT_TESTED_ON_INTEGRATION",
+    "binary_glb_real": "NOT_ACQUIRED",
+    "browser_webgl_in_isolated_environment": "BLOCKED",
+    "physical_android": "NOT_TESTED",
+    "physical_pc_v056": "NOT_TESTED",
+    "physical_iphone": "NOT_TESTED",
+    "main_branch_modified": false,
+    "all_public_deployments": "NOT_TRIGGERED",
+    "github_hosted_actions": "NOT_TRIGGERED",
+    "remote_desktop_calls": 0,
+    "cost_extra_fc": 0
   }
 }
