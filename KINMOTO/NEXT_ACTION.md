@@ -1,3 +1,25 @@
+# CHECKPOINT EXPÉRIMENTAL A2 v0.5.6 — 05 novembre 2026
+
+**Dépôt / branche de reprise pour la recette :** [kinmoto/integration-a2-v056-review-20261105](https://github.com/Terminator364/PROJECT-DRAFTS/tree/kinmoto/integration-a2-v056-review-20261105).
+
+**IMPORTANT :** ceci est une branche d'intégration non-STABLE, constituée depuis le code A2 v0.5.5 et les PR brouillon #30 à #34. Aucune modification de la branche main, aucune publication. Les 16 fichiers originaux intégrés ont été vérifiés par leurs SHA de blobs Git (16/16). L'archive HTML v0.5.6 de QA existe seulement comme artefact de conversation, pas comme déploiement public.
+
+**Résultats effectivement observés en laboratoire isolé :** 17 tests navigation, 11 tests de résolution adaptative, 4 tests SW simulé (=32/32 ciblés) ; prototype d'audit GLB 17/17 tests synthétiques ; `node --check` du HTML combiné PASS ; 72 000 pas CPU / 20 minutes simulées avec 600 routes valides ; simulation de paiement unique valide. Les microbenchmarks Node CPU ne sont pas FPS Android.
+
+**NON VALIDÉ :** suite intégrale officielle Node/Python après fusion des sources sur cette branche, import du vrai GLB, capture vraie 3D dans cet environnement, essais 15 min PC/Android et iPhone. **Ne pas appeler v0.5.6 une nouvelle V1.**
+
+## Mission suivante UNIQUE — QA d'intégration avant décision de fusion
+
+1. Dans un environnement qui peut récupérer cette branche, exécuter `npm run check && npm test && python build.py` depuis `KINMOTO/experiments/A2_MOTO_LAB/`.
+2. Exécuter `python -m unittest discover -s tests -p 'test_*.py'`, puis comparer les deux builders Python/PowerShell ; préserver le `sw.js` généré dans `dist/`.
+3. Si G1 passe, recueillir une capture WebGL réelle et le compteur GPU/FPS ; benchmark HP + Galaxy A21s, 15 min, qualité Eco, RAM et chauffe, tests hors ligne, sans utiliser de quota Remote tant que non nécessaire.
+4. Reprendre le benchmark A1-D des bases libres Neon/Costa et la vérification juridique du **binaire GLB exact** avant sélection de moteur/asset ; jamais importer en silence les modèles non audités.
+5. Si G2/G3/G4/G5 ne passent pas, garder toutes les PR brouillon. Aucun déploiement Vercel/Cloudflare/Pages, aucune GitHub Actions hébergée, aucun achat, aucune suppression historique.
+
+**Code de continuité :** KINMOTO|SYNC. L'utilisateur donne autonomie technique pour rechercher, décider des corrections réversibles et enchaîner tests/contre-tests ; les gates publics et financiers restent soumis à veto.
+
+---
+
 # CHECKPOINT CUMULATIF A2 v0.5.5 — 4 novembre 2026
 
 PR [#28](https://github.com/Terminator364/PROJECT-DRAFTS/pull/28) (GPS routes et confort) et [#29](https://github.com/Terminator364/PROJECT-DRAFTS/pull/29) (rendu adaptatif, intégrité des deux builders, WebGL visual QA et audit GLB) **fusionnées**. Commit principal d'intégration : `0ebb6cf219689c0d8c989e860affaa3b49f2d7d4`.
