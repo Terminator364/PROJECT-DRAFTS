@@ -1,6 +1,6 @@
 import {clamp,dist,heading} from './math.js';
 import {Renderer} from './render.js';
-import {IdleFrameGate} from './adaptive_resolution.js';
+import {IdleFrameGate,FixedStepScheduler} from './adaptive_resolution.js';
 import {findRoute} from './navigation.js';
 import {guideTo} from './route_guidance.js';
 import {rideComfortGrade} from './ride_quality.js';
@@ -10,7 +10,7 @@ const STORAGE_SNAPSHOT='kinmoto_a2_lab_snapshot';
 const QA_MODE=new URLSearchParams(location.search);const QA_AUTODRIVE=QA_MODE.get('autodrive');let qaDriveClock=0;
 let saved=null;try{saved=JSON.parse(localStorage.getItem(STORAGE_SNAPSHOT)||'null')}catch{}
 let game=QA_AUTODRIVE?makeGame():makeGame(saved&&saved.schema===1?saved:{save:readSave()});
-let qaPeakSusp=0,qaPeakGrade=0,renderer=null,prev=performance.now(),acc=0,uiClock=0,autoSaveClock=0,garageOrigin='menu',muted=false,audioCtx=null,engineOsc=null,engineGain=null,lastNotified=0,idleFrameGate=new IdleFrameGate(120);
+let qaPeakSusp=0,qaPeakGrade=0,renderer=null,prev=performance.now(),physicsClock=new FixedStepScheduler(),uiClock=0,autoSaveClock=0,garageOrigin='menu',muted=false,audioCtx=null,engineOsc=null,engineGain=null,lastNotified=0,idleFrameGate=new IdleFrameGate(120);
 let quality='eco';try{quality=localStorage.getItem('kinmoto_a2_lab_quality')||'eco'}catch{}$('quality').value=['eco','balanced','high'].includes(quality)?quality:'eco';
 const show=id=>$(id).classList.remove('hidden'),hide=id=>$(id).classList.add('hidden');
 function toast(text,type='info'){const e=document.createElement('div');e.textContent=text;e.className=type;$('toast').prepend(e);setTimeout(()=>e.remove(),3000);if($('toast').children.length>3)$('toast').lastElementChild.remove();}
@@ -18,9 +18,9 @@ function safeSave(){try{writeSave(game.save);localStorage.setItem(STORAGE_SNAPSH
 function initAudio(){if(muted||audioCtx)return;try{audioCtx=new(window.AudioContext||window.webkitAudioContext)();engineOsc=audioCtx.createOscillator();engineGain=audioCtx.createGain();engineOsc.type='sawtooth';engineOsc.frequency.value=52;engineGain.gain.value=0;engineOsc.connect(engineGain);engineGain.connect(audioCtx.destination);engineOsc.start()}catch{audioCtx=null;}}
 function ping(freq=660,duration=.17){if(muted)return;try{initAudio();const o=audioCtx.createOscillator(),g=audioCtx.createGain(),t=audioCtx.currentTime;o.type='triangle';o.frequency.setValueAtTime(freq,t);o.frequency.exponentialRampToValueAtTime(freq*.75,t+duration);g.gain.setValueAtTime(.068,t);g.gain.exponentialRampToValueAtTime(.001,t+duration);o.connect(g);g.connect(audioCtx.destination);o.start(t);o.stop(t+duration)}catch{}}
 function updateSound(){if(!audioCtx||!engineOsc)return;let vol=!muted&&game.playing&&!game.paused?.009+game.player.speed*.0015:0;let t=audioCtx.currentTime;engineGain.gain.setTargetAtTime(clamp(vol,0,.045),t,.06);engineOsc.frequency.setTargetAtTime(52+game.player.speed*5.3,t,.11)}
-function start(){if(!renderer){show('errorScreen');return;}initAudio();hide('menu');hide('helpScreen');hide('pauseScreen');hide('garageScreen');show('hud');game.playing=true;game.paused=false;game.controls={left:false,right:false,gas:false,brake:false};prev=performance.now();acc=0;toast('Bienvenue à Kinshasa ! Suis le repère jaune.','success');updateUI();}
+function start(){if(!renderer){show('errorScreen');return;}initAudio();hide('menu');hide('helpScreen');hide('pauseScreen');hide('garageScreen');show('hud');game.playing=true;game.paused=false;game.controls={left:false,right:false,gas:false,brake:false};prev=performance.now();physicsClock.reset();toast('Bienvenue à Kinshasa ! Suis le repère jaune.','success');updateUI();}
 function pause(){if(!game.playing||game.paused)return;game.paused=true;releaseInputs();hide('hud');show('pauseScreen');safeSave();}
-function resume(){if(!game.playing)return;hide('pauseScreen');hide('garageScreen');show('hud');game.paused=false;prev=performance.now();acc=0;}
+function resume(){if(!game.playing)return;hide('pauseScreen');hide('garageScreen');show('hud');game.paused=false;prev=performance.now();physicsClock.reset();}
 function menu(){game.playing=false;game.paused=false;releaseInputs();safeSave();hide('hud');hide('pauseScreen');hide('garageScreen');show('menu');}
 function openGarage(origin){garageOrigin=origin;if(origin==='road'){game.paused=true;hide('hud');}else if(origin==='pause'){hide('pauseScreen');}else{hide('menu');}releaseInputs();refreshGarage();show('garageScreen');safeSave();}
 function closeGarage(){hide('garageScreen');if(garageOrigin==='road'){game.paused=false;show('hud');prev=performance.now();}else if(garageOrigin==='pause'){show('pauseScreen');}else{show('menu');}}
@@ -66,7 +66,7 @@ function installInputs(){const keys={ArrowUp:'gas',KeyW:'gas',ArrowDown:'brake',
  $('world').addEventListener('webglcontextlost',e=>{e.preventDefault();renderer.lost=true;releaseInputs();if(game.playing&&!game.paused)pause();toast('Contexte graphique interrompu : relance nécessaire.','impact')});
  $('world').addEventListener('webglcontextrestored',()=>location.reload());
 }
-function frame(now){const frameSeconds=Math.max(0,(now-prev)/1000);const delta=Math.min(.1,frameSeconds);prev=now;
+function frame(now){const frameSeconds=Math.max(0,(now-prev)/1000);const delta=Math.min(.5,frameSeconds);prev=now;
  if(QA_AUTODRIVE && game.playing && !game.paused){
    qaDriveClock+=delta;
    game.controls.gas=qaDriveClock<6.5;
@@ -74,7 +74,8 @@ function frame(now){const frameSeconds=Math.max(0,(now-prev)/1000);const delta=M
    game.controls.left=QA_AUTODRIVE==='left'&&qaDriveClock>=1.5&&qaDriveClock<2.5;
    game.controls.right=QA_AUTODRIVE==='right'&&qaDriveClock>=1.5&&qaDriveClock<2.5;
  }
- acc+=delta;const fixed=1/60;let ticks=0;while(acc>=fixed&&ticks<6){step(game,fixed);acc-=fixed;ticks++;}if(ticks>=6)acc=0;
+ const isSimulating=game.playing&&!game.paused&&!document.hidden;
+ physicsClock.advance(frameSeconds,fixed=>step(game,fixed),{active:isSimulating});
  try{const active=game.playing&&!game.paused;
   const shouldRender=idleFrameGate.shouldRender(now,{active,visible:!document.hidden});
   if(shouldRender)renderer?.render(game,active?frameSeconds:1/60,active);
@@ -82,7 +83,7 @@ function frame(now){const frameSeconds=Math.max(0,(now-prev)/1000);const delta=M
  uiClock+=delta;autoSaveClock+=delta;if(uiClock>.13){uiClock=0;if(game.playing&&!game.paused)updateUI();if(QA_AUTODRIVE){let t=game.player.bike||{};qaPeakSusp=Math.max(qaPeakSusp,Math.abs(t.suspension||0));qaPeakGrade=Math.max(qaPeakGrade,Math.abs(t.roadGrade||0));$('qaLive').hidden=false;$('qaLive').textContent=`QA:${QA_AUTODRIVE} t=${qaDriveClock.toFixed(1)} x=${game.player.x.toFixed(2)} z=${game.player.z.toFixed(2)} yaw=${game.player.yaw.toFixed(3)} kmh=${(game.player.speed*3.6).toFixed(1)} slip=${(t.lateralSlip||0).toFixed(2)} bump=${(t.frontHeight||0).toFixed(3)}/${(t.rearHeight||0).toFixed(3)} shockPeak=${qaPeakSusp.toFixed(3)} gradePeak=${qaPeakGrade.toFixed(3)}`;}let events=game.events.filter(event=>event.seq>lastNotified);for(const event of events){toast(event.message,event.type);if(event.type==='impact')ping(190,.26);else if(event.type==='success')ping(840,.2)}lastNotified=game.events.at(-1)?.seq||lastNotified;}
  if(autoSaveClock>9){autoSaveClock=0;if(game.playing)safeSave();}updateSound();requestAnimationFrame(frame);}
 function boot(){installInputs();try{renderer=new Renderer($('world'),{quality});}catch(e){console.warn(e);$('errorDetail').textContent=e.message;show('errorScreen');}
- window.KINMOTO_DIAGNOSTIC=()=>({version:VERSION,mode:renderer?'webgl'+renderer.glVersion:'unavailable',render:renderer?.stats()??null,player:{...game.player},mission:{...game.mission},cars:game.cars.map(c=>({x:c.x,z:c.z,yaw:c.yaw,speed:c.speed})),playing:game.playing,paused:game.paused,errors:validate(game),rides:game.save.rides,cash:game.save.cash,steps:game.stats.steps,collisionCount:game.collisions});
+ window.KINMOTO_DIAGNOSTIC=()=>({version:VERSION,mode:renderer?'webgl'+renderer.glVersion:'unavailable',render:renderer?.stats()??null,player:{...game.player},mission:{...game.mission},cars:game.cars.map(c=>({x:c.x,z:c.z,yaw:c.yaw,speed:c.speed})),playing:game.playing,paused:game.paused,errors:validate(game),rides:game.save.rides,cash:game.save.cash,steps:game.stats.steps,collisionCount:game.collisions,physics:{ticks:physicsClock.ticks,droppedSeconds:physicsClock.droppedSeconds,maxCatchupSeconds:physicsClock.maxFrame}});
  if(location.search.includes('qa=1'))window.KINMOTO_QA={get:()=>game,step:(dt=.016)=>step(game,dt),interact:()=>interact(game),forcePosition:(x,z,yaw=0)=>{game.player.x=x;game.player.z=z;game.player.yaw=yaw;game.player.speed=0;},save:safeSave};
  requestAnimationFrame(frame);if(location.search.includes('qa=1')&&location.search.includes('autoplay=1'))setTimeout(start,350);if('serviceWorker' in navigator&&(location.protocol==='https:'||location.hostname==='localhost'||location.hostname==='127.0.0.1'))navigator.serviceWorker.register('./sw.js').catch(e=>console.warn('Cache hors ligne indisponible',e));}
 boot();

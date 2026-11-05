@@ -52,3 +52,34 @@ export class IdleFrameGate {
  }
  reset(){this.lastIdle=-Infinity;}
 }
+
+// Bounded fixed-step simulation pacing for low-frame-rate devices.
+// The 3D renderer may run at 2-5 FPS while the physical motorcycle still
+// advances at 60Hz in small deterministic steps. Avoid unbounded catch-up
+// after a suspended tab or a multi-second GPU stall.
+export class FixedStepScheduler {
+ constructor({fixed=1/60,maxFrame=.5,maxSteps=30}={}){
+  if(!Number.isFinite(fixed)||fixed<=0||!Number.isFinite(maxFrame)||maxFrame<fixed
+      ||!Number.isInteger(maxSteps)||maxSteps<1||maxSteps*fixed<maxFrame-1e-9)
+    throw Error('Invalid fixed-step scheduler budget');
+  this.fixed=fixed;this.maxFrame=maxFrame;this.maxSteps=maxSteps;
+  this.accumulator=0;this.droppedSeconds=0;this.ticks=0;
+ }
+ advance(elapsed,callback,{active=true}={}){
+  if(!active){this.reset();return 0;}
+  if(!Number.isFinite(elapsed)||elapsed<0)return 0;
+  const accepted=Math.min(this.maxFrame,elapsed);
+  this.droppedSeconds+=Math.max(0,elapsed-accepted);
+  this.accumulator=Math.min(this.maxFrame,this.accumulator+accepted);
+  let ticks=0;
+  while(this.accumulator+1e-10>=this.fixed&&ticks<this.maxSteps){
+   callback(this.fixed);this.accumulator=Math.max(0,this.accumulator-this.fixed);ticks++;
+  }
+  this.ticks+=ticks;
+  if(ticks===this.maxSteps&&this.accumulator>=this.fixed){
+   this.droppedSeconds+=this.accumulator;this.accumulator=0;
+  }
+  return ticks;
+ }
+ reset(){this.accumulator=0;}
+}
