@@ -1,3 +1,28 @@
+# KINMOTO|SYNC — 05 NOV 2026 — LABORATOIRE A1-D → A2 → A3 → A4
+
+**REPRISE CANONIQUE : PR #45 (A4 candidate privée NON STABLE).** Parents PR #44 (A3 deux missions), PR #43 (A2 collisions), branche originale A2 diagnostic. A1-D étude séparée PR #42. **Aucune PR fusionnée dans main.**
+
+## Réalisations contrôlées
+- A1-D recherche/extraction maths source Neon/Costa 16/16 tests passés, essais KINMOTO S1-S5 CPU, mais 3 jeux entiers HP+A21s non comparés, aucune note sur 100 ni élection moteur.
+- A2 : collision « chevauchement profond » résolue au maximum 0,32m par tick fixe au lieu de 1,56m saut initial. 3 nouveaux tests ; A2 branche 168/168 Node PASS.
+- A3 : zone d'introduction Bandal / École des Arts / Victoire, nouvel abri statique, deux courses écrites avec leurs paiements et sauvegardes, garage/16 voitures et carrière préservés. 5 nouveaux tests ; A3 branche 173/173 Node PASS.
+- A4 : build autonome **105315 octets**, HTML SHA256 `b761f5f0f70ffbd6f0c10408abbf89ccb251bc062a68cbb880f0257acd65ee55` ; **173/173 Node**, **26/26 Python**, HTTP PASS, rebuild HTML identique en extraction neuve.
+- Browser WebGL2 logiciel réel sous Chromium/Xvfb SwiftShader bureau et mobile émulé PASS démarrage/accélération/pause/reprise sans exception JS. **3–6 FPS logiciels NON comparables au GPU réel**.
+- Paquet conversation privé `KINMOTO_A2_A3_A4_CANDIDATE_PRIVEE_QA_20261105.zip` : 1038580 octets, SHA256 `da54a89b61b2c69cc42337e5e747421ee1227c872a1ff521bb20f9962dc6423f`, 87/87 manifest PASS, ZIP extrait à froid 173/26 + build + HTTP PASS.
+- Gate `tools/a4_release_gate.py` : **G1 PASS, G2/G3/G4 BLOCKED, A1 BLOCKED, LEGAL BLOCKED, OWNER BLOCKED ⇒ NO_GO STABLE** ; option `--strict` code de sortie 2.
+
+## Critères impératifs restants, dans l'ordre du cahier
+1. A1-D : faire tourner les trois jeux complets sur HP (Opera + autre navigateur), Galaxy A21s, 5 scènes identiques ; mesure FPS/RAM/ressenti + licence par asset, élire la base avec score 100 points/owner.
+2. A2 : tester 15–20min la direction, caméra, contact, freinage, collisions sur appareils réels ; valider pilotage subjectif.
+3. A3 : qualité visuelle d'une zone de Kinshasa, trafic réaliste, montée/descente de passagers et intérêt des missions ; corriger jusqu'à acceptation.
+4. A4 : G1–G4 et droit d'usage des ressources, note propriétaire et GO avant toute publication STABLE. iPhone physique requis pour affirmation multiplateforme.
+
+**INTERDIT :** convertir captures logicielles/mock en certification hardware, évaluer les trois moteurs uniquement sur des adaptations mathématiques, publier V1, écraser URL ancienne, lancer Actions hébergées, Vercel ou Remote et coûts sans accord.
+
+Code reprise : `KINMOTO|SYNC|A4_PRIVATE_NO_GO`.
+
+---
+
 # KINMOTO — 05/11/2026 — CLOCK + SAVE QA156 — REPRISE PRIORITAIRE
 
 **Branche active de laboratoire :** [PR #40 — sauvegardes corrigées](https://github.com/Terminator364/PROJECT-DRAFTS/pull/40), fille de [PR #39 — horloge physique](https://github.com/Terminator364/PROJECT-DRAFTS/pull/39), elle-même fille de PR #38. **Aucune version publique créée ou remplacée.**
