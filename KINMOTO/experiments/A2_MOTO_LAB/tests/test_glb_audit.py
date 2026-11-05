@@ -45,7 +45,7 @@ def mutate_glb(change):
     change(doc)
     js=json.dumps(doc,separators=(',',':')).encode('utf-8')
     js+=b' '*(-len(js)%4)
-    binary=b'\\x00'*36
+    binary=b'\x00'*36
     return (struct.pack('<4sII',b'glTF',2,12+8+len(js)+8+len(binary))
             +struct.pack('<II',len(js),0x4e4f534a)+js
             +struct.pack('<II',len(binary),0x004e4942)+binary)
@@ -79,9 +79,48 @@ class GLBMalformationQA(unittest.TestCase):
         b=mutate_glb(lambda d:d.update(animations='not-a-list'))
         self.assertEqual(inspect_glb(b)['technical_status'],'REJECTED')
     def test_oversized_binary_rejected_before_json_parse(self):
-        b=b'glTF'+b'\\x00'*2_000_100
+        b=b'glTF'+b'\x00'*2_000_100
         s=inspect_glb(b)
         self.assertEqual(s['technical_status'],'REJECTED')
         self.assertTrue(any('File budget exceeded' in e for e in s['errors']))
+
+
+class GLBBinPaddingQA(unittest.TestCase):
+    def test_surplus_binary_chunk_over_3_bytes_is_rejected(self):
+        blob=bytearray(make_glb())
+        json_length=struct.unpack_from('<I',blob,12)[0]
+        bin_header=20+json_length
+        bin_length=struct.unpack_from('<I',blob,bin_header)[0]
+        assert bin_length==36
+        struct.pack_into('<I',blob,bin_header,40)
+        blob.extend(b'\x00'*4)
+        struct.pack_into('<I',blob,8,len(blob))
+        self.assertEqual(inspect_glb(bytes(blob))['technical_status'],'REJECTED')
+
+    def test_3_bytes_zero_bin_padding_allowed(self):
+        blob=bytearray(make_glb())
+        json_length=struct.unpack_from('<I',blob,12)[0]
+        doc=json.loads(blob[20:20+json_length].decode('utf-8').rstrip(' '))
+        doc['buffers'][0]['byteLength']=37
+        js=json.dumps(doc,separators=(',',':')).encode('utf-8')
+        js+=b' '*(-len(js)%4)
+        binary=b'\x00'*40
+        packed=(struct.pack('<4sII',b'glTF',2,12+8+len(js)+8+len(binary))
+                +struct.pack('<II',len(js),0x4e4f534a)+js
+                +struct.pack('<II',len(binary),0x004e4942)+binary)
+        self.assertEqual(inspect_glb(packed)['technical_status'],'PASS_TECHNICAL')
+
+    def test_nonzero_padding_bytes_are_rejected(self):
+        blob=bytearray(make_glb())
+        json_length=struct.unpack_from('<I',blob,12)[0]
+        doc=json.loads(blob[20:20+json_length].decode('utf-8').rstrip(' '))
+        doc['buffers'][0]['byteLength']=37
+        js=json.dumps(doc,separators=(',',':')).encode('utf-8')
+        js+=b' '*(-len(js)%4)
+        binary=b'\x00'*37+b'abc'
+        packed=(struct.pack('<4sII',b'glTF',2,12+8+len(js)+8+len(binary))
+                +struct.pack('<II',len(js),0x4e4f534a)+js
+                +struct.pack('<II',len(binary),0x004e4942)+binary)
+        self.assertEqual(inspect_glb(packed)['technical_status'],'REJECTED')
 
 if __name__=='__main__':unittest.main()
