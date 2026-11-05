@@ -53,6 +53,11 @@ function graphRoute(from,to,a,b){
 }
 
 export function findRoute(from,to){
+ if(!from||!to||![from.x,from.z,to.x,to.z].every(Number.isFinite))throw Error('Invalid navigation endpoint');
+ // Within pickup/drop-off interaction radius, navigate directly to the marker.
+ // Otherwise near-identical sidewalk points can point backwards to road center.
+ const direct=dist(from,to);
+ if(direct<16)return {nodes:[{x:from.x,z:from.z},{x:to.x,z:to.z}],length:direct};
  let best=null;
  for(const a of possibleAnchors(from))for(const b of possibleAnchors(to)){
   const route=graphRoute(from,to,a,b);
