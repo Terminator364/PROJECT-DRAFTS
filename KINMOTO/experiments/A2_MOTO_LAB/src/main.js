@@ -51,14 +51,35 @@ function showChallengeResult(){
 }
 function refreshGarage(){const s=game.save;let repair=Math.max(0,Math.ceil((100-s.health)*12/50)*50);$('garageCash').textContent=FC(s.cash);$('repairInfo').textContent=`État ${Math.round(s.health)} % · ${FC(repair)}`;$('engineInfo').textContent=`Niveau ${s.engine}/4 · ${FC(s.engine*2400)}`;$('brakeInfo').textContent=`Niveau ${s.brakes}/4 · ${FC(s.brakes*1800)}`;
  for(const [id,cost,disabled] of [['buyRepair',repair,repair===0],['buyEngine',s.engine*2400,s.engine>=4],['buyBrakes',s.brakes*1800,s.brakes>=4]]){$(id).disabled=disabled||cost>s.cash;$(id).textContent=disabled?'TERMINÉ':cost>s.cash?'MANQUE FC':'ACHETER';}}
-function drawMap(){const cv=$('map'),ctx=cv.getContext('2d'),w=cv.width,h=cv.height;ctx.clearRect(0,0,w,h);ctx.fillStyle='#214c50';ctx.fillRect(0,0,w,h);
+// Reuse a 220 x 220 static background for the minimap, redraw only rider and
+// route. This works in Safari without OffscreenCanvas or worker privileges.
+let minimapBase=null,mapBackgroundBuilds=0;
+function minimapBackground(){
+ if(minimapBase)return minimapBase;
+ const cv=document.createElement('canvas');cv.width=220;cv.height=220;
+ const ctx=cv.getContext('2d'),w=cv.width,h=cv.height;
  const tx=x=>(x+190)*w/380,ty=z=>(z+190)*h/380;
+ ctx.fillStyle='#214c50';ctx.fillRect(0,0,w,h);
  ctx.fillStyle='#9c9c84';for(const v of [-120,0,120]){ctx.fillRect(tx(v-9),0,18*w/380,h);ctx.fillRect(0,ty(v-9),w,18*h/380);}
- ctx.strokeStyle='#f0e3bc';ctx.lineWidth=1;ctx.setLineDash([3,6]);for(const v of [-120,0,120]){ctx.beginPath();ctx.moveTo(tx(v),0);ctx.lineTo(tx(v),h);ctx.stroke();ctx.beginPath();ctx.moveTo(0,ty(v));ctx.lineTo(w,ty(v));ctx.stroke()}ctx.setLineDash([]);
+ ctx.strokeStyle='#f0e3bc';ctx.lineWidth=1;ctx.setLineDash([3,6]);
+ for(const v of [-120,0,120]){ctx.beginPath();ctx.moveTo(tx(v),0);ctx.lineTo(tx(v),h);ctx.stroke();ctx.beginPath();ctx.moveTo(0,ty(v));ctx.lineTo(w,ty(v));ctx.stroke()}
+ ctx.setLineDash([]);
  for(const p of PLACES){ctx.fillStyle=p.id==='garage'?'#67ddcb':'#e9da9e';ctx.beginPath();ctx.arc(tx(p.x),ty(p.z),p.id==='garage'?4:2.8,0,Math.PI*2);ctx.fill();}
- const target=challengeTarget(game)||missionTarget(game.mission),px=tx(game.player.x),py=ty(game.player.z);ctx.strokeStyle='#ffd340';ctx.lineWidth=2.6;ctx.setLineDash([5,4]);ctx.beginPath();const route=findRoute(game.player,target).nodes;route.forEach((pt,i)=>{if(i===0)ctx.moveTo(tx(pt.x),ty(pt.z));else ctx.lineTo(tx(pt.x),ty(pt.z));});ctx.stroke();ctx.setLineDash([]);
+ minimapBase=cv;mapBackgroundBuilds++;return cv;
+}
+function drawMap(){
+ const cv=$('map'),ctx=cv.getContext('2d'),w=cv.width,h=cv.height;
+ ctx.clearRect(0,0,w,h);ctx.drawImage(minimapBackground(),0,0,w,h);
+ const tx=x=>(x+190)*w/380,ty=z=>(z+190)*h/380;
+ const target=challengeTarget(game)||missionTarget(game.mission),px=tx(game.player.x),py=ty(game.player.z);
+ ctx.strokeStyle='#ffd340';ctx.lineWidth=2.6;ctx.setLineDash([5,4]);ctx.beginPath();
+ const route=findRoute(game.player,target).nodes;
+ route.forEach((pt,i)=>{if(i===0)ctx.moveTo(tx(pt.x),ty(pt.z));else ctx.lineTo(tx(pt.x),ty(pt.z));});
+ ctx.stroke();ctx.setLineDash([]);
  ctx.fillStyle='#ffd23c';ctx.beginPath();ctx.arc(tx(target.x),ty(target.z),7,0,Math.PI*2);ctx.fill();ctx.strokeStyle='#172637';ctx.lineWidth=2;ctx.stroke();
- ctx.save();ctx.translate(px,py);ctx.rotate(game.player.yaw);ctx.fillStyle='#fff';ctx.strokeStyle='#233445';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(0,-9);ctx.lineTo(6,7);ctx.lineTo(0,4);ctx.lineTo(-6,7);ctx.closePath();ctx.fill();ctx.stroke();ctx.restore();}
+ ctx.save();ctx.translate(px,py);ctx.rotate(game.player.yaw);ctx.fillStyle='#fff';ctx.strokeStyle='#233445';ctx.lineWidth=2;
+ ctx.beginPath();ctx.moveTo(0,-9);ctx.lineTo(6,7);ctx.lineTo(0,4);ctx.lineTo(-6,7);ctx.closePath();ctx.fill();ctx.stroke();ctx.restore();
+}
 function updateUI(){const p=game.player,s=game.save,m=game.mission,target=challengeTarget(game)||missionTarget(m),state=interactionState(game),challenge=game.challenge?.active?game.challenge:null;
  $('cash').textContent=FC(s.cash);$('speed').textContent=String(Math.round((p.bike?.groundSpeed??p.speed)*3.6)).padStart(2,'0');$('healthBar').style.width=clamp(s.health,0,100)+'%';$('healthNum').textContent=Math.round(s.health)+'%';$('rides').textContent=s.rides;$('stars').textContent=s.stars.toFixed(1);$('district').textContent=p.z>47?'BANDAL · ARRÊT WEWA':p.z>-35?'VICTOIRE · CENTRE':'MATONGE · QUARTIER';$('fpsMark').textContent=(renderer?.fps||'—')+' FPS · 3D';
  $('kindLabel').textContent=m.title;const pick=byId(m.from),drop=byId(m.to);$('missionFrom').textContent=pick.name;$('missionTo').textContent=drop.name;$('missionReward').textContent='+ '+FC(m.reward);
