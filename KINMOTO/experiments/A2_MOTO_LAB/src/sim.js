@@ -2,7 +2,8 @@ import {clamp,lerp,wrapAngle,hypot,dist,heading,angleOf,nearestRoad,keepOverStre
 import {advanceBike,createBikeTelemetry,BIKE_WHEEL_RADIUS} from './bike_physics.js';
 import {inspectBikeCar,closingSpeed} from './collision.js';
 import {observeRide,addRideDiscomfort,rideComfortPaymentMultiplier} from './ride_quality.js';
-export const VERSION='A2A3-A4-0.5.7-TRAFFIC-REVIEW';
+import {advanceChallenge} from './challenge.js';
+export const VERSION='KIN-MOTO-NEXT-V1-1.0.0-REVIEW';
 export const PLACES=[
  {id:'victoire',name:'PLACE VICTOIRE',x:13,z:12,kind:'place'},
  {id:'matonge',name:'MATONGE',x:13,z:-73,kind:'place'},
@@ -23,6 +24,8 @@ export const SLICE_STORY=Object.freeze([
  Object.freeze({from:'arret',to:'ecole',kind:'taxi',title:'01 · COURSE DU QUARTIER',client:'Maman Chantal',reward:850,description:'Départ de Bandal, direction École des Arts.'}),
  Object.freeze({from:'ecole',to:'victoire',kind:'colis',title:'02 · COLIS POUR VICTOIRE',client:'Junior',reward:1150,description:'Récupérer le colis à l’école et livrer près de la Place Victoire.'})
 ]);
+// A special customer has a real comfort and time premium distinct from taxi and delivery.
+export const VIP_STORY=Object.freeze({ride:2,from:'victoire',to:'matonge',kind:'vip',title:'03 · CLIENT SPÉCIAL',client:'Docteur Alain',reward:1450,description:'Conduite douce et ponctuelle : trajet VIP à Matonge.'});
 const DEFAULT_SAVE={schema:1,cash:3500,rides:0,engine:1,brakes:1,health:100,stars:4.5,finished:0,highScore:0};
 export const SAVE_KEY='kinmoto_a2_lab_career';
 export function readSave(storage){
@@ -74,7 +77,7 @@ function sampleTrafficRoute(route,u,car){
  return out;
 }
 function newMission(ride=0){
- if(ride<SLICE_STORY.length){const a=SLICE_STORY[ride];return {ride,kind:a.kind,title:a.title,from:a.from,to:a.to,via:null,stage:'pickup',client:a.client,reward:a.reward,penalty:0,comfort:100,impacts:0,startedAt:0,timer:0};}
+ if(ride<SLICE_STORY.length||ride===VIP_STORY.ride){const a=ride===VIP_STORY.ride?VIP_STORY:SLICE_STORY[ride];return {ride,kind:a.kind,title:a.title,from:a.from,to:a.to,via:null,stage:'pickup',client:a.client,reward:a.reward,penalty:0,comfort:100,impacts:0,startedAt:0,timer:0};}
  const r=rand(7946+ride*773),options=PLACES.filter(p=>p.kind!=='garage'&&p.kind!=='slice');const from=options[(ride*3+1)%options.length];let to=options[(ride*5+4)%options.length];if(from.id===to.id)to=options[(options.indexOf(to)+3)%options.length];const kind=KINDS[ride%KINDS.length],length=Math.abs(from.x-to.x)+Math.abs(from.z-to.z),reward=Math.round((750+length*10)*kind.mult/50)*50;
  let via=kind.id==='tour'?options[(ride*2+5)%options.length]:null;if(via&&(via.id===from.id||via.id===to.id))via=options[(ride*2+6)%options.length];return {ride,kind:kind.id,title:kind.name,from:from.id,to:to.id,via:via?.id||null,stage:'pickup',client:NAMES[ride%NAMES.length],reward,penalty:0,comfort:100,impacts:0,startedAt:0,timer:0};}
 export const byId=id=>PLACES.find(p=>p.id===id);
@@ -129,7 +132,7 @@ export function step(g,dt){const p=g.player,c=g.controls;if(!g.playing||g.paused
    p.bike.lastSpeed=p.speed;
    if(p.damageCooldown<=0&&impactSpeed>5){
      p.damageCooldown=1.2;
-     g.save.health=clamp(g.save.health-Math.min(4,impactSpeed*.16),0,100);
+     if(!g.challenge?.active)g.save.health=clamp(g.save.health-Math.min(4,impactSpeed*.16),0,100);
      emit(g,'warning','Bordure : ralentis et reste sur la chaussée.');
      g.curbContacts=(g.curbContacts||0)+1;
    }
@@ -143,7 +146,7 @@ export function step(g,dt){const p=g.player,c=g.controls;if(!g.playing||g.paused
  p.bike.groundSpeed=dt>0?roadTravel/dt:0;
  p.bike.wheelSpin=wheelSpinBefore+roadTravel/BIKE_WHEEL_RADIUS;
  p.meters+=roadTravel;g.travel+=roadTravel;
- observeRide(g.mission,p.bike,p.speed,dt);
+ if(!g.challenge?.active)observeRide(g.mission,p.bike,p.speed,dt);
  // Four real-road loops, spatial sensing, deterministic intersection priority.
  for(const car of g.cars){
   const oldCarX=car.x,oldCarZ=car.z;
@@ -220,11 +223,11 @@ export function step(g,dt){const p=g.player,c=g.controls;if(!g.playing||g.paused
      if(p.damageCooldown<=0&&approach>1.2){
        car.stun=Math.max(car.stun||0,1.55);
        const severity=Math.min(18,3.5+approach*.88);
-       g.save.health=clamp(g.save.health-severity,0,100);
+       if(!g.challenge?.active)g.save.health=clamp(g.save.health-severity,0,100);
        p.speed*=.23;p.bike.vx*=.23;p.bike.vz*=.23;p.bike.lastSpeed=p.speed;
        p.damageCooldown=1.3;g.collisions++;
-       g.mission.penalty=(g.mission.penalty||0)+Math.round(severity*16);
-       addRideDiscomfort(g.mission,Math.min(20,8+approach*1.35),'impact');
+       if(!g.challenge?.active){g.mission.penalty=(g.mission.penalty||0)+Math.round(severity*16);
+       addRideDiscomfort(g.mission,Math.min(20,8+approach*1.35),'impact');}
        emit(g,'impact',`Accrochage ! -${Math.round(severity)} % d'état.`);
      }
    }else if(contact.nearMiss&&p.speed>5&&g.clock-(g.lastNearMiss||0)>4){
@@ -239,7 +242,11 @@ export function step(g,dt){const p=g.player,c=g.controls;if(!g.playing||g.paused
    p.bike.vz=-Math.cos(p.yaw)*p.speed;
    p.bike.lastSpeed=p.speed;
  }
- if(g.mission.kind==='express'&&g.mission.stage!=='pickup'){g.mission.timer+=dt;}
+ if(g.mission.kind==='express'&&g.mission.stage!=='pickup'&&!g.challenge?.active){g.mission.timer+=dt;}
+ const challengeEvent=advanceChallenge(g,dt);
+ if(challengeEvent?.type==='gate')emit(g,'success',`PORTE ${challengeEvent.gate}/${challengeEvent.total} · + POINTS`);
+ if(challengeEvent?.type==='complete')emit(g,'success',`DÉFI GAGNÉ · ${challengeEvent.score} PTS · ${challengeEvent.stars} ★`);
+ if(challengeEvent?.type==='timeout')emit(g,'warning','Temps écoulé ! Réessaie pour battre ton record.');
  g.stats.lastSave+=dt;
 }
 export function interactionState(g){const p=g.player,t=missionTarget(g.mission),nearMission=t&&dist(p,t)<16,garage=byId('garage'),nearGarage=dist(p,garage)<15;
@@ -248,9 +255,10 @@ export function interact(g){if(!g.playing||g.paused)return {ok:false,reason:'par
  if(i.nearMission){if(!i.stopped){emit(g,'warning','Ralentis sous 11 km/h pour t’arrêter.');return {ok:false,reason:'Ralentis'}}
   const m=g.mission;if(m.stage==='pickup'){m.stage=m.via?'via':'drop';m.startedAt=g.clock;m.timer=0;emit(g,'pickup',m.kind==='colis'?'Colis chargé, destination indiquée.':`${m.client} est à bord. Bonne route !`);return {ok:true,type:'pickup'};}
   if(m.stage==='via'){m.stage='drop';emit(g,'info','Arrêt effectué. Direction la destination finale !');return {ok:true,type:'via'};}
-  if(m.stage==='drop'){let base=m.reward,late=m.kind==='express'?Math.max(0,m.timer-85)*8:0,damages=m.penalty||0;
+  if(m.stage==='drop'){let base=m.reward,late=m.kind==='express'?Math.max(0,m.timer-85)*8:m.kind==='vip'?Math.max(0,m.timer-115)*10:0,damages=m.penalty||0;
    const comfort=Math.max(0,Math.min(100,m.comfort??100));const multiplier=rideComfortPaymentMultiplier(m);
-   const payout=Math.max(250,Math.round((base*multiplier-late-damages)/50)*50);g.save.cash+=payout;g.save.rides++;g.save.finished++;g.save.stars=clamp(g.save.stars+(damages>0?-.08:comfort<60?-.05:comfort<85?0:.03),1,5);g.mission=newMission(g.save.rides);emit(g,'success',`Course terminée : +${payout.toLocaleString('fr-FR')} FC`);return {ok:true,type:'completed',payout};}
+   const vipPremium=m.kind==='vip'?(m.comfort>=88&&m.impacts===0&&m.timer<=115?650:0):0;
+   const payout=Math.max(250,Math.round((base*multiplier+vipPremium-late-damages)/50)*50);g.save.cash+=payout;g.save.rides++;g.save.finished++;g.save.stars=clamp(g.save.stars+(damages>0?-.08:comfort<60?-.05:comfort<85?0:.03),1,5);g.mission=newMission(g.save.rides);emit(g,'success',`Course terminée : +${payout.toLocaleString('fr-FR')} FC`);return {ok:true,type:'completed',payout};}
  }
  if(i.nearGarage){if(!i.stopped){emit(g,'warning','Freine pour entrer au garage.');return {ok:false,reason:'Ralentis'}}return {ok:true,type:'garage'};}
  emit(g,'info','Approche-toi du repère jaune pour interagir.');return {ok:false,reason:'Trop loin'};
@@ -272,7 +280,7 @@ export function validate(g){
  if(!(p.speed>=0&&p.speed<=35)||!(p.meters>=0))issues.push('invalid-player-motion');
  if(!(p.x>=-175&&p.x<=175&&p.z>=-175&&p.z<=175))issues.push('player-out-of-world');
  if(!t||[t.steer,t.vx,t.vz,t.wheelSpin,t.suspension].some(v=>typeof v!=='number'||!Number.isFinite(v)))issues.push('invalid-bike-telemetry');
- if(!byId(m.from)||!byId(m.to)||!['pickup','via','drop'].includes(m.stage)||!['taxi','express','colis','tour'].includes(m.kind)||
+ if(!byId(m.from)||!byId(m.to)||!['pickup','via','drop'].includes(m.stage)||!['taxi','express','colis','tour','vip'].includes(m.kind)||
     (m.stage==='via'&&!byId(m.via)))issues.push('invalid-mission');
  if(!(typeof m.reward==='number'&&Number.isFinite(m.reward)&&m.reward>=0&&m.reward<=1e9))issues.push('invalid-reward');
  for(const field of ['penalty','timer','comfort','impacts'])if(m[field]!==undefined&&(!Number.isFinite(m[field])||m[field]<0))issues.push('invalid-mission-'+field);
