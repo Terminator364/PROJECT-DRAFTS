@@ -1,7 +1,7 @@
 {
   "name": "kin-moto-les-premieres-courses",
   "private": true,
-  "version": "0.5.7-candidate-review",
+  "version": "0.5.7-traffic-review",
   "type": "module",
   "description": "Jeu de moto-taxi 3D autonome - sans dépendances runtime ni backend",
   "scripts": {
