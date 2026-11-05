@@ -1,6 +1,7 @@
 import {AdaptiveResolution} from './adaptive_resolution.js';
 import {clamp,lerp,keepOverStreet} from './math.js';
-import {makeWorld,makeBike,makeBikeWheel,makeCar,makeMarker,makeGarage} from './geom.js';
+import {makeWorld,makeBike,makeBikeWheel,makeBikeShadow,makeCar,makeMarker,makeGarage} from './geom.js';
+import {challengeTarget} from './challenge.js';
 import {missionTarget,byId} from './sim.js';
 const ID=()=>new Float32Array([1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1]);
 function perspective(fovy,aspect,near,far){const f=1/Math.tan(fovy/2),m=new Float32Array(16);m[0]=f/aspect;m[5]=f;m[10]=(far+near)/(near-far);m[11]=-1;m[14]=2*far*near/(near-far);return m;}
@@ -25,13 +26,13 @@ export class Renderer{
  constructor(canvas,opts={}){this.canvas=canvas;this.gl=canvas.getContext('webgl2',{antialias:false,alpha:true,depth:true,powerPreference:'low-power',preserveDrawingBuffer:false})||canvas.getContext('webgl',{antialias:false,alpha:true,depth:true,powerPreference:'low-power',preserveDrawingBuffer:false});if(!this.gl)throw new Error('WebGL indisponible sur ce navigateur / appareil.');
   this.quality=opts.quality||'eco';this.dynamic=new AdaptiveResolution({targetFps:opts.targetFps||30,minScale:opts.quality==='high'?.85:.68});this.camera={x:0,y:7.5,z:108},this.target={x:0,y:2,z:75},this.mode=0,this.vp=ID(),this.lastRender=0,this.fps=0,this.frames=0,this.seconds=0;
   const gl=this.gl;
-  const vs=`attribute vec3 aPos;attribute vec3 aNormal;attribute vec3 aColor;uniform mat4 uVP;uniform mat4 uModel;uniform vec3 uSun;uniform vec3 uCamera;uniform float uTint;varying vec3 vColor;varying float vFog;void main(){vec4 w=uModel*vec4(aPos,1.);gl_Position=uVP*w;vec3 n=normalize(mat3(uModel)*aNormal);float lit=max(dot(n,normalize(uSun)),0.);vColor=aColor*(0.54+lit*.51)*uTint;vFog=clamp((distance(w.xyz,uCamera)-92.)/260.,0.,1.);}`;
+  const vs=`attribute vec3 aPos;attribute vec3 aNormal;attribute vec3 aColor;uniform mat4 uVP;uniform mat4 uModel;uniform vec3 uSun;uniform vec3 uCamera;uniform float uTint;varying vec3 vColor;varying float vFog;void main(){vec4 w=uModel*vec4(aPos,1.);gl_Position=uVP*w;vec3 n=normalize(mat3(uModel)*aNormal);float lit=max(dot(n,normalize(uSun)),0.);vColor=aColor*(0.52+lit*.54+max(n.y,0.)*.10)*uTint;vFog=clamp((distance(w.xyz,uCamera)-92.)/260.,0.,1.);}`;
   const fs=`precision mediump float;varying vec3 vColor;varying float vFog;uniform vec3 uFog;void main(){vec3 rgb=mix(vColor,uFog,vFog*.57);gl_FragColor=vec4(pow(max(rgb,vec3(0.)),vec3(.92)),1.);}`;
   const shader=(type,src)=>{const s=gl.createShader(type);gl.shaderSource(s,src);gl.compileShader(s);if(!gl.getShaderParameter(s,gl.COMPILE_STATUS))throw new Error('Erreur WebGL shader: '+gl.getShaderInfoLog(s));return s;};
   this.program=gl.createProgram();gl.attachShader(this.program,shader(gl.VERTEX_SHADER,vs));gl.attachShader(this.program,shader(gl.FRAGMENT_SHADER,fs));gl.linkProgram(this.program);if(!gl.getProgramParameter(this.program,gl.LINK_STATUS))throw new Error('Erreur WebGL: '+gl.getProgramInfoLog(this.program));gl.useProgram(this.program);
   this.attr={pos:gl.getAttribLocation(this.program,'aPos'),normal:gl.getAttribLocation(this.program,'aNormal'),color:gl.getAttribLocation(this.program,'aColor')};this.uniform={vp:gl.getUniformLocation(this.program,'uVP'),model:gl.getUniformLocation(this.program,'uModel'),sun:gl.getUniformLocation(this.program,'uSun'),tint:gl.getUniformLocation(this.program,'uTint'),camera:gl.getUniformLocation(this.program,'uCamera'),fog:gl.getUniformLocation(this.program,'uFog')};
   gl.uniform3f(this.uniform.sun,.53,1.0,.25);gl.uniform3f(this.uniform.fog,.59,.72,.78);gl.enable(gl.DEPTH_TEST);gl.depthFunc(gl.LEQUAL);gl.disable(gl.CULL_FACE);gl.clearColor(0,0,0,0);
-  this.mesh={world:this.upload(makeWorld()),bike:this.upload(makeBike(false)),bikePassenger:this.upload(makeBike(true)),bikeWheel:this.upload(makeBikeWheel()),cars:Array.from({length:6},(_,i)=>this.upload(makeCar(i))),pickup:this.upload(makeMarker('pickup')),drop:this.upload(makeMarker('drop')),garageMarker:this.upload(makeMarker('garage')),garage:this.upload(makeGarage())};this.glVersion=typeof WebGL2RenderingContext!=='undefined'&&gl instanceof WebGL2RenderingContext?2:1;this.resize();
+  this.mesh={world:this.upload(makeWorld()),bike:this.upload(makeBike(false)),bikePassenger:this.upload(makeBike(true)),bikeWheel:this.upload(makeBikeWheel()),bikeShadow:this.upload(makeBikeShadow()),cars:Array.from({length:6},(_,i)=>this.upload(makeCar(i))),pickup:this.upload(makeMarker('pickup')),drop:this.upload(makeMarker('drop')),garageMarker:this.upload(makeMarker('garage')),garage:this.upload(makeGarage())};this.glVersion=typeof WebGL2RenderingContext!=='undefined'&&gl instanceof WebGL2RenderingContext?2:1;this.resize();
  }
  upload(g){const gl=this.gl,b=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,b);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array(g.a),gl.STATIC_DRAW);return {buffer:b,n:g.count,bytes:g.count*36};}
  resize(){const vw=Math.max(1,innerWidth),vh=Math.max(1,innerHeight);const base=this.quality==='eco'?.78:this.quality==='high'?1.35:1.0;const dpr=Math.min(devicePixelRatio||1,base,Math.sqrt((this.quality==='eco'?780000:1350000)/(vw*vh)))*this.dynamic.scale;const w=Math.max(1,Math.floor(vw*dpr)),h=Math.max(1,Math.floor(vh*dpr));if(this.canvas.width!==w||this.canvas.height!==h){this.canvas.width=w;this.canvas.height=h;this.gl.viewport(0,0,w,h);}this.proj=perspective(innerWidth<700?1.04:.89,w/h,.13,390);}
@@ -47,7 +48,7 @@ export class Renderer{
   this.vp=mul(this.proj,lookAt([this.camera.x,this.camera.y,this.camera.z],[this.target.x,this.target.y,this.target.z]));gl.viewport(0,0,this.canvas.width,this.canvas.height);gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);gl.useProgram(this.program);gl.uniformMatrix4fv(this.uniform.vp,false,this.vp);gl.uniform3f(this.uniform.camera,this.camera.x,this.camera.y,this.camera.z);
   this.draw(this.mesh.world,ID());this.draw(this.mesh.garage,model(27,0,76,-Math.PI/2));
   // active markers are drawn at source/destination, physical position near road edge
-  const q=missionTarget(g.mission);if(q)this.draw(g.mission.stage==='pickup'?this.mesh.pickup:this.mesh.drop,model(q.x,.2,q.z));this.draw(this.mesh.garageMarker,model(13,.05,80));
+  const q=challengeTarget(g)||missionTarget(g.mission);if(q)this.draw(g.challenge?.active?this.mesh.pickup:g.mission.stage==='pickup'?this.mesh.pickup:this.mesh.drop,model(q.x,.2,q.z));this.draw(this.mesh.garageMarker,model(13,.05,80));
   for(const car of g.cars){
     const playerDistance=Math.hypot(car.x-p.x,car.z-p.z);
     const cameraDistance=Math.hypot(car.x-this.camera.x,car.z-this.camera.z);
@@ -58,6 +59,7 @@ export class Renderer{
       this.draw(this.mesh.cars[car.kind%this.mesh.cars.length],model(car.x,0,car.z,Math.PI-(car.visualYaw??car.yaw)));
    }
   if(this.mode!==2){
+   this.draw(this.mesh.bikeShadow,model(p.x,.076,p.z,Math.PI-p.yaw));
    const base=bikeBodyModel(p);
    this.draw(g.mission.stage==='pickup'?this.mesh.bike:this.mesh.bikePassenger,base);
    const spin=p.bike?.wheelSpin||0,steer=p.bike?.steerAngle||0;

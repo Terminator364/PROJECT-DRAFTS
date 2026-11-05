@@ -4,9 +4,10 @@ import {IdleFrameGate,FixedStepScheduler,DevicePerformanceRecorder} from './adap
 import {findRoute} from './navigation.js';
 import {guideTo} from './route_guidance.js';
 import {rideComfortGrade} from './ride_quality.js';
+import {CHALLENGE_GATES,startChallenge,challengeTarget} from './challenge.js';
 import {VERSION,PLACES,SLICE_STORY,byId,missionTarget,makeGame,step,interactionState,interact,buy,validate,readSave,writeSave,snapshot,SAVE_KEY} from './sim.js';
 const $=id=>document.getElementById(id),FC=n=>Math.round(n).toLocaleString('fr-FR')+' FC';
-const STORAGE_SNAPSHOT='kinmoto_a2_lab_snapshot';
+const STORAGE_SNAPSHOT='kinmoto_a2_lab_snapshot'; // Preserve previous V0.5.7 career saves in V1.
 const QA_MODE=new URLSearchParams(location.search);const QA_AUTODRIVE=QA_MODE.get('autodrive');let qaDriveClock=0;
 let saved=null;try{saved=JSON.parse(localStorage.getItem(STORAGE_SNAPSHOT)||'null')}catch{}
 // A cached snapshot is untrusted: validate before allowing it to reach the HUD or controls.
@@ -23,14 +24,35 @@ function safeSave(){try{writeSave(game.save);localStorage.setItem(STORAGE_SNAPSH
 function initAudio(){if(muted||audioCtx)return;try{audioCtx=new(window.AudioContext||window.webkitAudioContext)();engineOsc=audioCtx.createOscillator();engineGain=audioCtx.createGain();engineOsc.type='sawtooth';engineOsc.frequency.value=52;engineGain.gain.value=0;engineOsc.connect(engineGain);engineGain.connect(audioCtx.destination);engineOsc.start()}catch{audioCtx=null;}}
 function ping(freq=660,duration=.17){if(muted)return;try{initAudio();const o=audioCtx.createOscillator(),g=audioCtx.createGain(),t=audioCtx.currentTime;o.type='triangle';o.frequency.setValueAtTime(freq,t);o.frequency.exponentialRampToValueAtTime(freq*.75,t+duration);g.gain.setValueAtTime(.068,t);g.gain.exponentialRampToValueAtTime(.001,t+duration);o.connect(g);g.connect(audioCtx.destination);o.start(t);o.stop(t+duration)}catch{}}
 function updateSound(){if(!audioCtx||!engineOsc)return;let vol=!muted&&game.playing&&!game.paused?.009+game.player.speed*.0015:0;let t=audioCtx.currentTime;engineGain.gain.setTargetAtTime(clamp(vol,0,.045),t,.06);engineOsc.frequency.setTargetAtTime(52+game.player.speed*5.3,t,.11)}
-function start(){if(!renderer){show('errorScreen');return;}initAudio();hide('menu');hide('helpScreen');hide('pauseScreen');hide('garageScreen');show('hud');game.playing=true;game.paused=false;game.controls={left:false,right:false,gas:false,brake:false};prev=performance.now();physicsClock.reset();toast(game.save.rides<2?'Bienvenue à Bandal ! Deux courses de quartier t’attendent.':'Bienvenue à Kinshasa ! Suis le repère jaune.','success');updateUI();}
-function pause(){if(!game.playing||game.paused)return;game.paused=true;releaseInputs();hide('hud');show('pauseScreen');safeSave();}
+function start(options={}){if(!renderer){show('errorScreen');return;}initAudio();hide('menu');hide('helpScreen');hide('pauseScreen');hide('garageScreen');show('hud');game.playing=true;game.paused=false;game.controls={left:false,right:false,gas:false,brake:false};prev=performance.now();physicsClock.reset();if(options?.silent!==true)toast(game.save.rides<2?'Bienvenue à Bandal ! Deux courses de quartier t’attendent.':'Bienvenue à Kinshasa ! Suis le repère jaune.','success');updateUI();}
+function pause(){if(!game.playing||game.paused)return;game.paused=true;releaseInputs();hide('hud');show('pauseScreen');$('challengeRestart').hidden=!game.challenge;safeSave();}
 function resume(){if(!game.playing)return;hide('pauseScreen');hide('garageScreen');show('hud');game.paused=false;prev=performance.now();physicsClock.reset();}
-function menu(){game.playing=false;game.paused=false;releaseInputs();safeSave();hide('hud');hide('pauseScreen');hide('garageScreen');show('menu');}
+function menu(){if(game.challenge)restoreCareerFromChallenge();game.playing=false;game.paused=false;releaseInputs();safeSave();hide('hud');hide('pauseScreen');hide('garageScreen');hide('challengeResult');show('menu');}
 function openGarage(origin){garageOrigin=origin;if(origin==='road'){game.paused=true;hide('hud');}else if(origin==='pause'){hide('pauseScreen');}else{hide('menu');}releaseInputs();refreshGarage();show('garageScreen');safeSave();}
 function closeGarage(){hide('garageScreen');if(garageOrigin==='road'){game.paused=false;show('hud');prev=performance.now();}else if(garageOrigin==='pause'){show('pauseScreen');}else{show('menu');}}
-function action(){const result=interact(game);if(result.ok){if(result.type==='garage'){openGarage('road');return;}ping(result.type==='completed'?880:660,result.type==='completed'?.35:.18);safeSave();}updateUI();}
+function action(){if(game.challenge?.active){toast('Passe sous les portes jaunes avant la fin du chrono !','warning');return;}const result=interact(game);if(result.ok){if(result.type==='garage'){openGarage('road');return;}ping(result.type==='completed'?880:660,result.type==='completed'?.35:.18);safeSave();}updateUI();}
 function purchase(item){const r=buy(game,item);toast(r.ok?'Achat effectué !':r.reason,r.ok?'success':'warning');if(r.ok){ping(690);safeSave();}refreshGarage();updateUI();}
+function restoreCareerFromChallenge(){
+ const c=game.challenge;if(!c)return;
+ const orig=c.returnPlayer;
+ if(orig){game.player.x=orig.x;game.player.z=orig.z;game.player.yaw=orig.yaw;game.player.speed=0;
+  game.player.lean=0;game.player.bike.vx=0;game.player.bike.vz=0;game.player.bike.lastSpeed=0;game.player.bike.groundSpeed=0;}
+ game.challenge=null;
+}
+function launchChallenge(){
+ if(!renderer){show('errorScreen');return;}
+ hide('challengeResult');if(game.paused){game.paused=false;hide('pauseScreen');}
+ start({silent:true});startChallenge(game);lastNotified=game.eventSeq||0;
+ toast('DÉFI WEWA · 7 portes · 90 secondes !','success');updateUI();
+}
+function showChallengeResult(){
+ const c=game.challenge;if(!c||c.shown||c.status==='running')return;
+ c.shown=true;game.paused=true;releaseInputs();hide('hud');hide('pauseScreen');show('challengeResult');
+ $('challengeResultTitle').textContent=c.status==='won'?'🏁 BRAVO, CHAMPION !':'⏱ TEMPS ÉCOULÉ';
+ $('challengeResultPoints').textContent=c.score+' POINTS · '+(c.stars?'★'.repeat(c.stars):'À RETENTER');
+ $('challengeResultDetails').textContent=c.status==='won'?`Les 7 portes sont franchies en ${c.elapsed.toFixed(1)} s. ${c.paid?'Nouveau record : +'+FC(c.paid)+' !':'Record personnel : '+game.save.highScore+' points.'}`:'La circulation continue : recommence et vise les 7 portes.';
+ safeSave();
+}
 function refreshGarage(){const s=game.save;let repair=Math.max(0,Math.ceil((100-s.health)*12/50)*50);$('garageCash').textContent=FC(s.cash);$('repairInfo').textContent=`État ${Math.round(s.health)} % · ${FC(repair)}`;$('engineInfo').textContent=`Niveau ${s.engine}/4 · ${FC(s.engine*2400)}`;$('brakeInfo').textContent=`Niveau ${s.brakes}/4 · ${FC(s.brakes*1800)}`;
  for(const [id,cost,disabled] of [['buyRepair',repair,repair===0],['buyEngine',s.engine*2400,s.engine>=4],['buyBrakes',s.brakes*1800,s.brakes>=4]]){$(id).disabled=disabled||cost>s.cash;$(id).textContent=disabled?'TERMINÉ':cost>s.cash?'MANQUE FC':'ACHETER';}}
 function drawMap(){const cv=$('map'),ctx=cv.getContext('2d'),w=cv.width,h=cv.height;ctx.clearRect(0,0,w,h);ctx.fillStyle='#214c50';ctx.fillRect(0,0,w,h);
@@ -38,17 +60,24 @@ function drawMap(){const cv=$('map'),ctx=cv.getContext('2d'),w=cv.width,h=cv.hei
  ctx.fillStyle='#9c9c84';for(const v of [-120,0,120]){ctx.fillRect(tx(v-9),0,18*w/380,h);ctx.fillRect(0,ty(v-9),w,18*h/380);}
  ctx.strokeStyle='#f0e3bc';ctx.lineWidth=1;ctx.setLineDash([3,6]);for(const v of [-120,0,120]){ctx.beginPath();ctx.moveTo(tx(v),0);ctx.lineTo(tx(v),h);ctx.stroke();ctx.beginPath();ctx.moveTo(0,ty(v));ctx.lineTo(w,ty(v));ctx.stroke()}ctx.setLineDash([]);
  for(const p of PLACES){ctx.fillStyle=p.id==='garage'?'#67ddcb':'#e9da9e';ctx.beginPath();ctx.arc(tx(p.x),ty(p.z),p.id==='garage'?4:2.8,0,Math.PI*2);ctx.fill();}
- const target=missionTarget(game.mission),px=tx(game.player.x),py=ty(game.player.z);ctx.strokeStyle='#ffd340';ctx.lineWidth=2.6;ctx.setLineDash([5,4]);ctx.beginPath();const route=findRoute(game.player,target).nodes;route.forEach((pt,i)=>{if(i===0)ctx.moveTo(tx(pt.x),ty(pt.z));else ctx.lineTo(tx(pt.x),ty(pt.z));});ctx.stroke();ctx.setLineDash([]);
+ const target=challengeTarget(game)||missionTarget(game.mission),px=tx(game.player.x),py=ty(game.player.z);ctx.strokeStyle='#ffd340';ctx.lineWidth=2.6;ctx.setLineDash([5,4]);ctx.beginPath();const route=findRoute(game.player,target).nodes;route.forEach((pt,i)=>{if(i===0)ctx.moveTo(tx(pt.x),ty(pt.z));else ctx.lineTo(tx(pt.x),ty(pt.z));});ctx.stroke();ctx.setLineDash([]);
  ctx.fillStyle='#ffd23c';ctx.beginPath();ctx.arc(tx(target.x),ty(target.z),7,0,Math.PI*2);ctx.fill();ctx.strokeStyle='#172637';ctx.lineWidth=2;ctx.stroke();
  ctx.save();ctx.translate(px,py);ctx.rotate(game.player.yaw);ctx.fillStyle='#fff';ctx.strokeStyle='#233445';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(0,-9);ctx.lineTo(6,7);ctx.lineTo(0,4);ctx.lineTo(-6,7);ctx.closePath();ctx.fill();ctx.stroke();ctx.restore();}
-function updateUI(){const p=game.player,s=game.save,m=game.mission,target=missionTarget(m),state=interactionState(game);
+function updateUI(){const p=game.player,s=game.save,m=game.mission,target=challengeTarget(game)||missionTarget(m),state=interactionState(game),challenge=game.challenge?.active?game.challenge:null;
  $('cash').textContent=FC(s.cash);$('speed').textContent=String(Math.round((p.bike?.groundSpeed??p.speed)*3.6)).padStart(2,'0');$('healthBar').style.width=clamp(s.health,0,100)+'%';$('healthNum').textContent=Math.round(s.health)+'%';$('rides').textContent=s.rides;$('stars').textContent=s.stars.toFixed(1);$('district').textContent=p.z>47?'BANDAL · ARRÊT WEWA':p.z>-35?'VICTOIRE · CENTRE':'MATONGE · QUARTIER';$('fpsMark').textContent=(renderer?.fps||'—')+' FPS · 3D';
  $('kindLabel').textContent=m.title;const pick=byId(m.from),drop=byId(m.to);$('missionFrom').textContent=pick.name;$('missionTo').textContent=drop.name;$('missionReward').textContent='+ '+FC(m.reward);
  $('comfortInfo').hidden=m.stage==='pickup';$('comfortValue').textContent=Math.round(m.comfort??100)+'% · '+rideComfortGrade(m);
  $('missionTitle').textContent=m.stage==='pickup'?(m.kind==='colis'?'Récupérer le colis':`Récupérer ${m.client}`):m.stage==='via'?'Arrêt touristique':m.kind==='colis'?'Livrer le colis':`Déposer ${m.client}`;
  $('missionDescription').textContent=m.stage==='pickup'&&m.ride<SLICE_STORY.length?SLICE_STORY[m.ride].description:m.stage==='pickup'?`Rejoins ${target.name} pour la prise en charge.`:m.stage==='via'?`Fais l'arrêt à ${target.name} puis poursuis.`:`Direction ${target.name} : conduis prudemment.`;
+ if(!challenge&&m.kind==='vip')$('missionDescription').textContent=m.stage==='pickup'?'Client VIP · conduite douce, confortable et ponctuelle pour gagner un bonus.':`Service VIP : confort ${Math.round(m.comfort)} % · ${Math.max(0,Math.ceil(115-m.timer))} s avant pénalité.`;
+ if(challenge){$('kindLabel').textContent='DÉFI MAÎTRISE';$('missionTitle').textContent=`PORTE ${challenge.index+1} / ${CHALLENGE_GATES.length}`;
+ $('missionDescription').textContent=target.name+' · Suis les repères pour battre ton record.';
+ $('missionFrom').textContent='WEWA BANDAL';$('missionTo').textContent='VICTOIRE';
+ $('missionReward').textContent=Math.max(0,Math.ceil(challenge.limit-challenge.elapsed))+' S · '+challenge.score+' PTS';
+ $('comfortInfo').hidden=true;}
+
  const nav=guideTo(p,target,p.yaw);$('missionDistance').textContent=nav.distance+' m';$('navText').textContent=nav.label;$('navMeters').textContent=nav.turnDistance+' m';$('navArrow').textContent=nav.kind==='right'?'↱':nav.kind==='left'?'↰':nav.kind==='arrive'?'◎':'↑';
- let label=state.nearMission?(m.stage==='pickup'?'✓ RÉCUPÉRER':m.stage==='via'?'✓ FAIRE L’ARRÊT':'✓ DÉPOSER'):state.nearGarage?'⚙ GARAGE':'';
+ let label=challenge?'':state.nearMission?(m.stage==='pickup'?'✓ RÉCUPÉRER':m.stage==='via'?'✓ FAIRE L’ARRÊT':'✓ DÉPOSER'):state.nearGarage?'⚙ GARAGE':'';
  if(label){show('action');$('action').textContent=state.stopped?label:'FREINE POUR T’ARRÊTER';hide('tip');}else{hide('action');show('tip');$('tip').textContent=`Mission : ${target.name} · ${nav.distance} m · E pour interagir`;}
  drawMap();const projected=renderer?.project(target.x,5.5,target.z),tag=$('targetLabel');if(projected&&projected.visible){show('targetLabel');tag.style.left=projected.x+'px';tag.style.top=projected.y+'px';tag.textContent=target.name+' · '+nav.distance+' m';}else hide('targetLabel');
 }
@@ -75,6 +104,8 @@ function installInputs(){const keys={ArrowUp:'gas',KeyW:'gas',ArrowDown:'brake',
  $('play').onclick=start;$('pause').onclick=pause;$('resume').onclick=resume;$('returnMenu').onclick=menu;$('action').onclick=action;
  $('openGarageMenu').onclick=()=>openGarage('menu');$('openGaragePause').onclick=()=>openGarage('pause');$('garageBack').onclick=closeGarage;
  $('buyRepair').onclick=()=>purchase('repair');$('buyEngine').onclick=()=>purchase('engine');$('buyBrakes').onclick=()=>purchase('brakes');
+ $('challengePlay').onclick=launchChallenge;$('challengeRestart').onclick=launchChallenge;
+ $('challengeAgain').onclick=launchChallenge;$('challengeBack').onclick=()=>{restoreCareerFromChallenge();menu();};
  $('helpButton').onclick=()=>{hide('menu');show('helpScreen')};$('helpBack').onclick=()=>{hide('helpScreen');show('menu')};$('saveButton').onclick=exportSave;$('exportTechReport').onclick=exportTechnicalReport;$('importSave').onchange=e=>importSave(e.target.files?.[0]);
  $('cameraToggle').onclick=()=>{if(renderer){renderer.mode=(renderer.mode+1)%3;toast(['Caméra arrière','Caméra haute','Vue guidon'][renderer.mode])}};
  $('quality').onchange=e=>{renderer?.setQuality(e.target.value);quality=e.target.value;try{localStorage.setItem('kinmoto_a2_lab_quality',quality)}catch{}};
@@ -92,6 +123,7 @@ function frame(now){const frameSeconds=Math.max(0,(now-prev)/1000);const delta=M
  }
  const isSimulating=game.playing&&!game.paused&&!document.hidden;
  physicsClock.advance(frameSeconds,fixed=>step(game,fixed),{active:isSimulating});
+ if(game.challenge&&game.challenge.status!=='running')showChallengeResult();
  try{const active=game.playing&&!game.paused;
   const shouldRender=idleFrameGate.shouldRender(now,{active,visible:!document.hidden});
   if(shouldRender)renderer?.render(game,active?frameSeconds:1/60,active);
@@ -104,7 +136,7 @@ function frame(now){const frameSeconds=Math.max(0,(now-prev)/1000);const delta=M
  uiClock+=delta;autoSaveClock+=delta;if(uiClock>.13){uiClock=0;if(game.playing&&!game.paused)updateUI();if(QA_AUTODRIVE){let t=game.player.bike||{};qaPeakSusp=Math.max(qaPeakSusp,Math.abs(t.suspension||0));qaPeakGrade=Math.max(qaPeakGrade,Math.abs(t.roadGrade||0));$('qaLive').hidden=false;$('qaLive').textContent=`QA:${QA_AUTODRIVE} t=${qaDriveClock.toFixed(1)} x=${game.player.x.toFixed(2)} z=${game.player.z.toFixed(2)} yaw=${game.player.yaw.toFixed(3)} kmh=${(game.player.speed*3.6).toFixed(1)} slip=${(t.lateralSlip||0).toFixed(2)} bump=${(t.frontHeight||0).toFixed(3)}/${(t.rearHeight||0).toFixed(3)} shockPeak=${qaPeakSusp.toFixed(3)} gradePeak=${qaPeakGrade.toFixed(3)}`;}let events=game.events.filter(event=>event.seq>lastNotified);for(const event of events){toast(event.message,event.type);if(event.type==='impact')ping(190,.26);else if(event.type==='success')ping(840,.2)}lastNotified=game.events.at(-1)?.seq||lastNotified;}
  if(autoSaveClock>9){autoSaveClock=0;if(game.playing)safeSave();}updateSound();requestAnimationFrame(frame);}
 function boot(){installInputs();try{renderer=new Renderer($('world'),{quality});}catch(e){console.warn(e);$('errorDetail').textContent=e.message;show('errorScreen');}
- window.KINMOTO_DIAGNOSTIC=()=>({version:VERSION,mode:renderer?'webgl'+renderer.glVersion:'unavailable',render:renderer?.stats()??null,player:{...game.player},mission:{...game.mission},cars:game.cars.map(c=>({x:c.x,z:c.z,yaw:c.yaw,speed:c.speed})),playing:game.playing,paused:game.paused,errors:validate(game),rides:game.save.rides,cash:game.save.cash,steps:game.stats.steps,collisionCount:game.collisions,physics:{ticks:physicsClock.ticks,droppedSeconds:physicsClock.droppedSeconds,maxCatchupSeconds:physicsClock.maxFrame}});
+ window.KINMOTO_DIAGNOSTIC=()=>({version:VERSION,challenge:game.challenge?{...game.challenge}:null,mode:renderer?'webgl'+renderer.glVersion:'unavailable',render:renderer?.stats()??null,player:{...game.player},mission:{...game.mission},cars:game.cars.map(c=>({x:c.x,z:c.z,yaw:c.yaw,speed:c.speed})),playing:game.playing,paused:game.paused,errors:validate(game),rides:game.save.rides,cash:game.save.cash,steps:game.stats.steps,collisionCount:game.collisions,physics:{ticks:physicsClock.ticks,droppedSeconds:physicsClock.droppedSeconds,maxCatchupSeconds:physicsClock.maxFrame}});
  if(location.search.includes('qa=1'))window.KINMOTO_QA={get:()=>game,step:(dt=.016)=>step(game,dt),interact:()=>interact(game),forcePosition:(x,z,yaw=0)=>{game.player.x=x;game.player.z=z;game.player.yaw=yaw;game.player.speed=0;},save:safeSave};
  requestAnimationFrame(frame);if(location.search.includes('qa=1')&&location.search.includes('autoplay=1'))setTimeout(start,350);if('serviceWorker' in navigator&&(location.protocol==='https:'||location.hostname==='localhost'||location.hostname==='127.0.0.1'))navigator.serviceWorker.register('./sw.js').catch(e=>console.warn('Cache hors ligne indisponible',e));}
 boot();

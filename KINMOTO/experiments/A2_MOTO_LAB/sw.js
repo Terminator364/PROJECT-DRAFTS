@@ -1,23 +1,22 @@
-// A2 *source-tree* offline cache; dist/sw.js is generated independently by build.py.
+// V1 source-tree offline cache; dist/sw.js is generated independently by build.py.
 // Never share the old V1 cache name with the experimental source laboratory.
-const CACHE='kin-moto-a2-source-v056-20261105';
+const CACHE='kin-moto-next-v1-source-20261105';
 const FILES=[
  './','./index.html','./style.css',
  './src/road_surface.js','./src/math.js','./src/navigation.js',
- './src/route_guidance.js','./src/ride_quality.js','./src/adaptive_resolution.js',
+ './src/route_guidance.js','./src/ride_quality.js','./src/adaptive_resolution.js','./src/challenge.js',
  './src/geom.js','./src/bike_physics.js','./src/collision.js',
  './src/sim.js','./src/render.js','./src/main.js',
- './manifest.webmanifest','./assets/icon.svg'
+ './manifest.webmanifest','./assets/icon.svg','./assets/icon-192.png','./assets/icon-512.png'
 ];
-// PNG icons are reconstructed by build.py; source repo stores their .base64 text.
-// Including non-existent PNG files here would make addAll reject the entire install.
+// PNG icons are part of the delivered package; pre-cache them only because they exist.
 self.addEventListener('install',event=>{
  event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(FILES)));
  // Do not force an update in the middle of an active mission.
 });
 self.addEventListener('activate',event=>{
  event.waitUntil(caches.keys().then(keys=>Promise.all(
-  keys.filter(key=>key.startsWith('kin-moto-a2-source-')&&key!==CACHE).map(key=>caches.delete(key))
+  keys.filter(key=>key.startsWith('kin-moto-next-v1-source-')&&key!==CACHE).map(key=>caches.delete(key))
  )));
 });
 self.addEventListener('fetch',event=>{

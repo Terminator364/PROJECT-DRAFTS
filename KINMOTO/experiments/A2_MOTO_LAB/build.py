@@ -1,7 +1,7 @@
 from pathlib import Path
 import re,shutil,zipfile,hashlib,json,base64
 ROOT=Path(__file__).parent
-SOURCES=['src/road_surface.js','src/math.js','src/navigation.js','src/route_guidance.js','src/ride_quality.js','src/adaptive_resolution.js','src/geom.js','src/bike_physics.js','src/collision.js','src/sim.js','src/render.js','src/main.js']
+SOURCES=['src/road_surface.js','src/math.js','src/navigation.js','src/route_guidance.js','src/ride_quality.js','src/adaptive_resolution.js','src/challenge.js','src/geom.js','src/bike_physics.js','src/collision.js','src/sim.js','src/render.js','src/main.js']
 # Binary icons are also committed as base64 text to allow entirely text-only GitHub
 # syncing through the connector. The generated PNGs are identical to the originals.
 for icon_size in (192,512):
@@ -22,6 +22,15 @@ html=(ROOT/'index.html').read_text().replace('<link rel="stylesheet" href="./sty
 dist=ROOT/'dist';dist.mkdir(exist_ok=True)
 (dist/'index.html').write_text(html)
 (dist/'KIN_MOTO_A2_LAB_JOUER.html').write_text(html)
+# Single-file transfer build: NO external stylesheet/script/favicon/manifest
+# references. file:// launch does not support service-worker installation, but
+# the game remains fully self-contained. A true HTTPS PWA uses dist/index.html.
+svg_b64=base64.b64encode((ROOT/'assets'/'icon.svg').read_bytes()).decode('ascii')
+standalone=html.replace('<link rel="manifest" href="./manifest.webmanifest"/>','')
+standalone=standalone.replace('<link rel="icon" type="image/svg+xml" href="./assets/icon.svg"/>',
+  '<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,'+svg_b64+'"/>')
+(dist/'KIN_MOTO_V1_FICHIER_UNIQUE.html').write_text(standalone)
+
 assets=dist/'assets';assets.mkdir(exist_ok=True)
 for f in (ROOT/'assets').iterdir():
     if f.suffix!='.base64': shutil.copy2(f,assets/f.name)
@@ -30,10 +39,10 @@ shutil.copy2(ROOT/'manifest.webmanifest',dist/'manifest.webmanifest')
 cache_hash=hashlib.sha256(html.encode('utf-8')).hexdigest()[:12]
 # Every build gets a content-derived cache key; navigations use network-first,
 # so an online player will not be locked on an obsolete cached game.
-sw=f"""const CACHE='kin-moto-a2-lab-{cache_hash}';
+sw=f"""const CACHE='kin-moto-next-v1-{cache_hash}';
 const FILES=['./','./index.html','./manifest.webmanifest','./assets/icon.svg','./assets/icon-192.png','./assets/icon-512.png'];
 self.addEventListener('install',e=>e.waitUntil(caches.open(CACHE).then(c=>c.addAll(FILES)).then(()=>self.skipWaiting())));
-self.addEventListener('activate',e=>e.waitUntil(Promise.all([caches.keys().then(keys=>Promise.all(keys.filter(k=>k.startsWith('kin-moto-a2-lab-')&&k!==CACHE).map(k=>caches.delete(k)))),self.clients.claim()])));
+self.addEventListener('activate',e=>e.waitUntil(Promise.all([caches.keys().then(keys=>Promise.all(keys.filter(k=>k.startsWith('kin-moto-next-v1-')&&k!==CACHE).map(k=>caches.delete(k)))),self.clients.claim()])));
 self.addEventListener('fetch',e=>{{
  const req=e.request,url=new URL(req.url);
  if(req.method!=='GET'||url.origin!==self.location.origin)return;

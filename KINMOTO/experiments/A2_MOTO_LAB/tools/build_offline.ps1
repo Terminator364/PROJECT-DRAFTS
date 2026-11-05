@@ -15,7 +15,7 @@ function ReadText([string]$relative) {
 function WriteText([string]$name,[string]$data) {
   [IO.File]::WriteAllText((Join-Path $dist $name), $data, $utf8)
 }
-$modules = @('src/road_surface.js','src/math.js','src/navigation.js','src/route_guidance.js','src/ride_quality.js','src/adaptive_resolution.js','src/geom.js','src/bike_physics.js','src/collision.js','src/sim.js','src/render.js','src/main.js')
+$modules = @('src/road_surface.js','src/math.js','src/navigation.js','src/route_guidance.js','src/ride_quality.js','src/adaptive_resolution.js','src/challenge.js','src/geom.js','src/bike_physics.js','src/collision.js','src/sim.js','src/render.js','src/main.js')
 $bundle = New-Object System.Collections.Generic.List[string]
 foreach($module in $modules) {
   $source = ReadText $module
@@ -32,6 +32,13 @@ $html = $html.Replace($cssNeedle, "<style>`n" + $css + "`n</style>")
 $html = $html.Replace($jsNeedle, "`n<script>`n" + [string]::Join("`n", $bundle) + "`n</script>`n")
 WriteText 'index.html' $html
 WriteText 'KIN_MOTO_A2_LAB_JOUER.html' $html
+# Self-contained file:// distribution alongside the installed HTTPS PWA build.
+$svg64 = [Convert]::ToBase64String([IO.File]::ReadAllBytes((Join-Path $root 'assets/icon.svg')))
+$oneFile = $html.Replace('<link rel="manifest" href="./manifest.webmanifest"/>','')
+$oneFile = $oneFile.Replace('<link rel="icon" type="image/svg+xml" href="./assets/icon.svg"/>',
+  '<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64:' + $svg64 + '"/>')
+WriteText 'KIN_MOTO_V1_FICHIER_UNIQUE.html' $oneFile
+
 foreach($size in @(192,512)) {
   $dest = Join-Path $assetsOut "icon-$size.png"
   $base64 = Join-Path $root "assets/icon-$size.png.base64"
@@ -50,10 +57,10 @@ try {
 } finally { $hash.Dispose() }
 # Substituting only the cache hash ensures updates invalidate obsolete offline caches.
 $template = @'
-const CACHE='kin-moto-a2-lab-__HASH__';
+const CACHE='kin-moto-next-v1-__HASH__';
 const FILES=['./','./index.html','./manifest.webmanifest','./assets/icon.svg','./assets/icon-192.png','./assets/icon-512.png'];
 self.addEventListener('install',e=>e.waitUntil(caches.open(CACHE).then(c=>c.addAll(FILES)).then(()=>self.skipWaiting())));
-self.addEventListener('activate',e=>e.waitUntil(Promise.all([caches.keys().then(keys=>Promise.all(keys.filter(k=>k.startsWith('kin-moto-a2-lab-')&&k!==CACHE).map(k=>caches.delete(k)))),self.clients.claim()])));
+self.addEventListener('activate',e=>e.waitUntil(Promise.all([caches.keys().then(keys=>Promise.all(keys.filter(k=>k.startsWith('kin-moto-next-v1-')&&k!==CACHE).map(k=>caches.delete(k)))),self.clients.claim()])));
 self.addEventListener('fetch',e=>{
  const req=e.request,url=new URL(req.url);
  if(req.method!=='GET'||url.origin!==self.location.origin)return;
