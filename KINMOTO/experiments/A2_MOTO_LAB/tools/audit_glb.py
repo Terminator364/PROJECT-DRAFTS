@@ -42,6 +42,19 @@ def inspect_glb(blob: bytes, filename: str = '<memory>') -> dict:
     buffers=doc.get('buffers',[]);views=doc.get('bufferViews',[]);accessors=doc.get('accessors',[])
     if not all(isinstance(x,list) for x in (buffers,views,accessors)):
         fail('Invalid glTF structural arrays');return result
+    for key in ('meshes','materials','images','nodes','animations'):
+        entries=doc.get(key,[])
+        if not isinstance(entries,list) or any(not isinstance(entry,dict) for entry in entries):
+            fail(f'Invalid {key} array entries')
+    for mesh in doc.get('meshes',[]):
+        if not isinstance(mesh,dict):continue
+        primitives=mesh.get('primitives',[])
+        if not isinstance(primitives,list):
+            fail('Invalid mesh primitives list');continue
+        for primitive in primitives:
+            if not isinstance(primitive,dict) or not isinstance(primitive.get('attributes',{}),dict):
+                fail('Invalid mesh primitive attributes')
+    if result['errors']:return result
     for i,b in enumerate(buffers):
         if not isinstance(b,dict) or not isinstance(b.get('byteLength'),int) or b['byteLength']<0:
             fail(f'Invalid buffer {i} length')
