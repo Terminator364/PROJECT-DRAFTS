@@ -17,6 +17,9 @@ def inspect_glb(blob: bytes, filename: str = '<memory>') -> dict:
     result={"filename":filename,"bytes":len(blob),"sha256":hashlib.sha256(blob).hexdigest(),"format":"glb2",
             "technical_status":"REJECTED","legal_status":"UNVERIFIED","errors":[],"warnings":[]}
     fail=result["errors"].append
+    # Reject oversized untrusted input before parsing JSON or allocating structures.
+    if len(blob)>MAX_FILE_BYTES:
+        fail(f'File budget exceeded: {len(blob)} > {MAX_FILE_BYTES}');return result
     if len(blob)<20 or blob[:4]!=b'glTF':
         fail('Not a glTF 2.0 binary file');return result
     magic,version,declared=struct.unpack_from('<4sII',blob,0)
@@ -26,15 +29,66 @@ def inspect_glb(blob: bytes, filename: str = '<memory>') -> dict:
     while pos<len(blob):
         if pos+8>len(blob):fail('Incomplete GLB chunk header');return result
         size,kind=struct.unpack_from('<II',blob,pos);pos+=8
+        if size%4:fail('GLB chunk length is not 4-byte aligned');return result
         if pos+size>len(blob):fail('GLB chunk exceeds file length');return result
         chunks.append((kind,blob[pos:pos+size]));pos+=size
     if not chunks or chunks[0][0]!=CHUNK_JSON:
         fail('First GLB chunk must contain JSON');return result
     try:doc=json.loads(chunks[0][1].rstrip(b'\0 \n\r\t').decode('utf-8'))
     except (ValueError,UnicodeDecodeError) as ex:fail('Invalid glTF JSON: '+str(ex));return result
-    if doc.get('asset',{}).get('version')!='2.0':
+    if not isinstance(doc,dict) or not isinstance(doc.get('asset'),dict) or doc['asset'].get('version')!='2.0':
         fail('Invalid glTF asset version');return result
     binary=next((c for k,c in chunks[1:] if k==CHUNK_BIN),b'')
+    buffers=doc.get('buffers',[]);views=doc.get('bufferViews',[]);accessors=doc.get('accessors',[])
+    if not all(isinstance(x,list) for x in (buffers,views,accessors)):
+        fail('Invalid glTF structural arrays');return result
+    for key in ('meshes','materials','images','nodes','animations'):
+        entries=doc.get(key,[])
+        if not isinstance(entries,list) or any(not isinstance(entry,dict) for entry in entries):
+            fail(f'Invalid {key} array entries')
+    for mesh in (doc.get('meshes',[]) if isinstance(doc.get('meshes',[]),list) else []):
+        if not isinstance(mesh,dict):continue
+        primitives=mesh.get('primitives',[])
+        if not isinstance(primitives,list):
+            fail('Invalid mesh primitives list');continue
+        for primitive in primitives:
+            if not isinstance(primitive,dict) or not isinstance(primitive.get('attributes',{}),dict):
+                fail('Invalid mesh primitive attributes')
+    if result['errors']:return result
+    for i,b in enumerate(buffers):
+        if not isinstance(b,dict) or not isinstance(b.get('byteLength'),int) or b['byteLength']<0:
+            fail(f'Invalid buffer {i} length')
+    for i,v in enumerate(views):
+        if not isinstance(v,dict):
+            fail(f'Invalid bufferView {i}');continue
+        bi=v.get('buffer',0);offset=v.get('byteOffset',0);size=v.get('byteLength')
+        if not all(isinstance(x,int) and x>=0 for x in (bi,offset,size)):
+            fail(f'Invalid bufferView {i} offset/length');continue
+        if bi>=len(buffers):
+            fail(f'Invalid bufferView {i} buffer reference');continue
+        if isinstance(buffers[bi],dict) and isinstance(buffers[bi].get('byteLength'),int) and offset+size>buffers[bi]['byteLength']:
+            fail(f'BufferView {i} exceeds declared buffer length')
+    for i,a in enumerate(accessors):
+        if not isinstance(a,dict):
+            fail(f'Invalid accessor {i}');continue
+        count=a.get('count')
+        if not isinstance(count,int) or count<0:
+            fail(f'Invalid accessor {i} count')
+        view=a.get('bufferView')
+        if view is not None and (not isinstance(view,int) or view<0 or view>=len(views)):
+            fail(f'Invalid accessor {i} bufferView reference')
+    if result['errors']:return result
+    # glTF 2.0 GLB embeds at most the first buffer; BIN padding is 0–3 zero bytes.
+    # Reject excess payload, otherwise malformed fixtures can appear technically valid.
+    if buffers and not buffers[0].get('uri'):
+        declared_size=buffers[0]['byteLength']
+        excess=len(binary)-declared_size
+        if excess<0:fail('Embedded buffer length exceeds BIN chunk')
+        if excess>3:fail('Excessive GLB BIN padding (>3 bytes)')
+        if excess>=0 and any(binary[declared_size:]):fail('GLB BIN padding contains non-zero bytes')
+    for extra in buffers[1:]:
+        if not extra.get('uri'):fail('Only buffer[0] may use the GLB BIN chunk')
+    if result['errors']:return result
     external=[]
     for b in doc.get('buffers',[]):
         if b.get('uri'):external.append('buffer:'+str(b['uri'])[:60])
@@ -43,7 +97,7 @@ def inspect_glb(blob: bytes, filename: str = '<memory>') -> dict:
         if image.get('uri'):external.append('image:'+str(image['uri'])[:60])
     if external:fail('External URLs or separate files forbidden for offline-first import: '+', '.join(external))
     triangles=0;verts=0;meshes=[];textured=False
-    acc=doc.get('accessors',[])
+    acc=accessors
     for mesh in doc.get('meshes',[]):
         tc=0
         for prim in mesh.get('primitives',[]):
@@ -51,10 +105,12 @@ def inspect_glb(blob: bytes, filename: str = '<memory>') -> dict:
                 result['warnings'].append('Primitive is not TRIANGLES; converter needed')
                 continue
             idx=prim.get('indices');attrib=prim.get('attributes',{}).get('POSITION');
-            if attrib is None or not isinstance(attrib,int) or attrib>=len(acc):
+            if attrib is None or not isinstance(attrib,int) or attrib<0 or attrib>=len(acc):
                 fail('Missing/invalid POSITION accessor');continue
+            if idx is not None and (not isinstance(idx,int) or idx<0 or idx>=len(acc)):
+                fail('Invalid triangle index accessor');continue
             verts+=acc[attrib].get('count',0)
-            count=acc[idx].get('count',0) if isinstance(idx,int) and 0<=idx<len(acc) else acc[attrib].get('count',0)
+            count=acc[idx].get('count',0) if idx is not None else acc[attrib].get('count',0)
             tc+=count//3;triangles+=count//3
             mi=prim.get('material')
             if mi is not None and 0<=mi<len(doc.get('materials',[])):
