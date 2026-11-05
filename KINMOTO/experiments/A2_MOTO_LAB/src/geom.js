@@ -242,8 +242,39 @@ export function makeCar(kind=0){let g=new Geo();let colors=['#f2db98','#74b7c0',
  for(const z of [-L*.34,L*.34])for(const x of [-W*.45,W*.45])g.wheel(x,.45,z,.47,.18,P.tire);
  g.box(0,.72,0,W,1.0,L,col);g.box(0,1.37,0,W*.84,bus?1.3:.77,L*.55,C('#6d9daa'));g.box(0,bus?2.12:1.73,0,W*.85,.17,L*.6,col);
  for(const side of [-1,1]){g.box(side*W*.43,1.37,0,.07,.55,L*.50,C('#527e90'));}
- for(const sx of [-.65,.65]){g.box(sx,.79,L/2+.01,.31,.18,.07,C('#f8efb4'));g.box(sx,.78,-L/2-.01,.31,.16,.07,C('#d45242'));}
- if(bus){g.box(0,.9,L*.2,W*.7,.3,.12,C('#f1d5a6'));}return g;
+ // Low-cost details make near traffic recognizably distinct vehicles, not cubes.
+ const glass=C('#406e7b'),trim=C('#283944'),light=C('#f6e6a6'),tail=C('#b83737');
+ g.box(0,1.72,bus?-.10:.07,W*.68,.22,bus?L*.66:L*.42,col);
+ for(const side of [-1,1]){
+  // Two doors, inset window glass, black mirrors, handles and wheel arch trim.
+  for(const z of [-L*.21,L*.21]){
+   g.box(side*(W*.49+.025),1.44,z,.038,.42,L*.20,glass);
+   g.box(side*(W*.505),.97,z+.08,.035,.033,.27,C('#d5d6cb'));
+  }
+  g.box(side*(W*.51),1.45,L*.22,.22,.14,.14,trim);
+  g.box(side*(W*.49),.66,0,.08,.10,L*.76,trim);
+  // Round visible tires with metal hubs and small center nut.
+  for(const z of [-L*.34,L*.34]){
+   g.ellipsoid(side*(W*.49+.035),.47,z,.045,.31,.31,C('#141f26'),10,4);
+   g.ellipsoid(side*(W*.50+.047),.47,z,.051,.16,.16,C('#adbac0'),10,4);
+  }
+ }
+ for(const sx of [-.65,.65]){
+  g.box(sx,.79,L/2+.025,.31,.18,.08,light);
+  g.box(sx,.78,-L/2-.025,.35,.16,.08,tail);
+ }
+ // Fine bumper shape and roofline. Traffic stays one indexed-free mesh per kind.
+ g.box(0,.53,L/2+.14,W*.94,.22,.22,trim);
+ g.box(0,.53,-L/2-.14,W*.94,.19,.20,trim);
+ if(bus){
+  g.box(0,.9,L*.2,W*.7,.3,.12,C('#f1d5a6'));
+  g.box(0,1.8,L*.19,W*.73,.28,.11,C('#f2ce6a'));
+  for(const z of [-L*.2,-L*.06,L*.10,L*.26])g.box(0,1.73,z,W*.8,.06,.035,C('#e4eeeb'));
+ }else if(kind%3===0){
+  g.box(0,1.96,0,.73,.27,.52,C('#f4c536'));
+  g.box(0,2.13,0,.55,.10,.35,C('#1a3d46'));
+ }
+ return g;
 }
 export function makeMarker(type='pickup'){const g=new Geo();let co=type==='garage'?C('#6ff0e4'):type==='drop'?C('#9bf2c3'):P.yellow;let small=type==='garage',radius=small?1.25:2.35,height=small?2.6:4.3;g.cy(0,.14,0,radius,.09,20,co);g.cy(0,.15,0,radius*.62,.09,20,P.line);g.cy(0,.25,0,.36,height,12,co,.36);g.cy(0,.25+height,0,.69,.65,12,co,.05);return g;}
 export function makeGarage(){const g=new Geo();g.box(0,2.7,0,15,5.4,12,C('#6f867e'));g.box(0,5.5,0,17,.55,14,C('#bb8c60'));g.box(0,2.2,6.05,10,4.4,.12,C('#354f5b'));g.box(0,4.65,6.2,11,.72,.20,P.yellow);g.box(-4.2,1.0,6.24,1.5,2,.16,P.metal);g.box(4.2,1.0,6.24,1.5,2,.16,P.metal);return g;}
