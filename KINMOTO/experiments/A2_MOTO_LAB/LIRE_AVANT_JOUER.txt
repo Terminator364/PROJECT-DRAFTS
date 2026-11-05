@@ -1,0 +1,22 @@
+KIN MOTO — A2/A3/A4 0.5.7 TRAFFIC REVIEW — PRÉVERSION PRIVÉE (05/11/2026)
+
+Cette version ne remplace pas la V1 officielle. Elle ajoute des manœuvres d'évitement
+au trafic et corrige les trajets de voitures qui coupaient les coins de bâtiments.
+
+POUR JOUER
+1. Windows : télécharger le fichier HTML et l'ouvrir dans Edge, Chrome ou Opera
+   depuis Téléchargements (ne pas utiliser l'aperçu de pièce jointe ChatGPT).
+2. Android : télécharger le fichier HTML et l'ouvrir dans un navigateur prenant
+   en charge WebGL ; les fichiers locaux sont parfois filtrés par une application.
+3. iPhone : un aperçu Quick Look/Telegram peut bloquer l'exécution du JavaScript.
+   L'iPhone réel n'a pas été testé ; ne pas promettre une compatibilité locale.
+4. En jeu : aller de l'arrêt wewa de Bandal à l'École des Arts pour la première
+   course, puis livrer le colis vers la Place Victoire. Le garage et la carrière
+   restent actifs. Pause → Rapport de performance (local) pour exporter les FPS.
+
+QA de laboratoire : 184 tests Node et 26 tests Python réussis ; S1–S5 scriptés ;
+WebGL2 logiciel en bureau et mobile émulé. Tests sur HP, Galaxy A21s et iPhone
+physiques EN ATTENTE. Gates A4 : NO-GO STABLE.
+
+Les captures WebGL2 et le rapport détaillé se trouvent dans les dossiers de QA.
+Zéro dépendance réseau ni licence de modèle tiers introduite dans ce correctif.
