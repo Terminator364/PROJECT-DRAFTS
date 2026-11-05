@@ -2,7 +2,7 @@ import {clamp,lerp,wrapAngle,hypot,dist,heading,angleOf,nearestRoad,keepOverStre
 import {advanceBike,createBikeTelemetry,BIKE_WHEEL_RADIUS} from './bike_physics.js';
 import {inspectBikeCar,closingSpeed} from './collision.js';
 import {observeRide,addRideDiscomfort,rideComfortPaymentMultiplier} from './ride_quality.js';
-export const VERSION='A2-LAB-0.5.6-DIAGNOSTIC-DRAFT';
+export const VERSION='A2A3-A4-0.5.7-CANDIDATE-REVIEW';
 export const PLACES=[
  {id:'victoire',name:'PLACE VICTOIRE',x:13,z:12,kind:'place'},
  {id:'matonge',name:'MATONGE',x:13,z:-73,kind:'place'},
