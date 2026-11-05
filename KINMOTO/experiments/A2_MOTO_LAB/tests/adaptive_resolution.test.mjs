@@ -24,9 +24,9 @@ test('isolated half-second foreground hitch remains excluded and does not lower 
 test('render loop forwards measured wall-clock frame duration, not physics cap',async()=>{
  const fs=await import('node:fs');
  const main=fs.readFileSync(new URL('../src/main.js',import.meta.url),'utf8');
- assert.match(main,/function frame\(now\)\{const frameSeconds=Math\.max\(0,\(now-prev\)\/1000\);const delta=Math\.min\(\.1,frameSeconds\)/);
+ assert.match(main,/function frame\(now\)\{const frameSeconds=Math\.max\(0,\(now-prev\)\/1000\);const delta=Math\.min\(\.5,frameSeconds\)/);
  assert.match(main,/renderer\?\.render\(game,active\?frameSeconds:1\/60,active\)/);
- assert.match(main,/step\(game,fixed\)/);
+ assert.match(main,/physicsClock\.advance\(frameSeconds,fixed=>step\(game,fixed\),\{active:isSimulating\}\)/);
 });
 
 test('sustained 3 FPS can recover GPU pixel budget',()=>{
