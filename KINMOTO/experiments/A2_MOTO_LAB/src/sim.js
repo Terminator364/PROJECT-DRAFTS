@@ -131,8 +131,16 @@ export function step(g,dt){const p=g.player,c=g.controls;if(!g.playing||g.paused
    inspectBikeCar(p,car,contact);
    if(contact.hit){
      const approach=closingSpeed(p,car,contact);
-     p.x=clamp(p.x+contact.normalX*contact.overlap,-175,175);
-     p.z=clamp(p.z+contact.normalZ*contact.overlap,-175,175);
+     // Avoid a one-frame multi-metre teleport if an imported or spawned state
+     // starts with the bike already inside a car. Resolve overlap across a
+     // bounded number of fixed physics ticks instead of moving the whole depth.
+     // The penetration correction is NOT propulsion and is excluded from wheel
+     // rotation, odometer and ride-distance telemetry.
+     const correction=Math.min(contact.overlap,.32);
+     p.x=clamp(p.x+contact.normalX*correction,-175,175);
+     p.z=clamp(p.z+contact.normalZ*correction,-175,175);
+     g.peakContactCorrection=Math.max(g.peakContactCorrection||0,correction);
+     g.contactCorrections=(g.contactCorrections||0)+1;
      if(p.damageCooldown<=0&&approach>1.2){
        car.stun=Math.max(car.stun||0,1.55);
        const severity=Math.min(18,3.5+approach*.88);
