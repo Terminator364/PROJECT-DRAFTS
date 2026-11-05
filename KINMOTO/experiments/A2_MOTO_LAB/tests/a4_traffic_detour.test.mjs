@@ -60,7 +60,7 @@ test('A4 hard impact still causes real collision damage (traffic is not intangib
 });
 test('A4 repeated 20-minute virtual stress does not leave cars trapped in bike',()=>{
  const g=makeGame();g.playing=true;
- let contacts=0,maxContactEpisode=0,episode=0,maxCarJump=0;
+ let contacts=0,maxContactEpisode=0,episode=0,maxCarJump=0,maxCarRoadDistance=0;
  const prev=g.cars.map(c=>({x:c.x,z:c.z}));
  for(let i=0;i<72000;i++){
   const t=i%960;g.controls.gas=t<580;g.controls.brake=t>=580&&t<720;
@@ -71,7 +71,7 @@ test('A4 repeated 20-minute virtual stress does not leave cars trapped in bike',
    const car=g.cars[j];
    const delta=Math.hypot(car.x-prev[j].x,car.z-prev[j].z);
    maxCarJump=Math.max(maxCarJump,delta);prev[j].x=car.x;prev[j].z=car.z;
-   assert.ok(nearestRoad(car).distance<=7.3,'traffic left safe road envelope');
+   maxCarRoadDistance=Math.max(maxCarRoadDistance,nearestRoad(car).distance);
    if(inspectBikeCar(g.player,car).hit)frameContact=true;
   }
   if(frameContact){contacts++;episode++;maxContactEpisode=Math.max(maxContactEpisode,episode);}
@@ -81,6 +81,7 @@ test('A4 repeated 20-minute virtual stress does not leave cars trapped in bike',
  assert.ok(contacts<2000,`too many persistent contact frames: ${contacts}`);
  assert.ok(maxContactEpisode<600,`persistent car/bike deadlock: ${maxContactEpisode} ticks`);
  assert.ok(maxCarJump<.40,`car jumped ${maxCarJump}m in one tick`);
+ assert.ok(maxCarRoadDistance<=7.3,`traffic left asphalt: ${maxCarRoadDistance}m`);
  assert.ok(g.player.meters>100,'aggressive stress did not exercise any motion');
 });
 test('A4 detour is deterministic under the same inputs and traffic states',()=>{
@@ -148,7 +149,7 @@ test('A4 car visual heading eases into the bypass without disturbing traffic col
 test('A4 stationary rider can remain in one traffic lane for 20 virtual minutes without AI deadlock',()=>{
  const g=makeGame();g.playing=true;
  const anchor=g.cars[0];g.player.x=anchor.x+.6;g.player.z=anchor.z-8;
- let hitFrames=0,maxJump=0,previous=g.cars.map(c=>({x:c.x,z:c.z}));
+ let hitFrames=0,maxJump=0,maxRoadDistance=0,previous=g.cars.map(c=>({x:c.x,z:c.z}));
  for(let i=0;i<72000;i++){
   step(g,1/60);
   for(let j=0;j<g.cars.length;j++){
@@ -156,7 +157,7 @@ test('A4 stationary rider can remain in one traffic lane for 20 virtual minutes 
    if(inspectBikeCar(g.player,car).hit)hitFrames++;
    maxJump=Math.max(maxJump,Math.hypot(car.x-previous[j].x,car.z-previous[j].z));
    previous[j].x=car.x;previous[j].z=car.z;
-   assert.ok(nearestRoad(car).distance<7.4);
+   maxRoadDistance=Math.max(maxRoadDistance,nearestRoad(car).distance);
   }
  }
  assert.equal(hitFrames,0);
@@ -164,5 +165,6 @@ test('A4 stationary rider can remain in one traffic lane for 20 virtual minutes 
  assert.equal(g.contactCorrections||0,0);
  assert.equal(g.player.meters,0);
  assert.ok(maxJump<.25);
+ assert.ok(maxRoadDistance<7.4);
  assert.deepEqual(validate(g),[]);
 });
