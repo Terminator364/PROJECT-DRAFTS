@@ -1,3 +1,32 @@
+# KINMOTO — 05/11/2026 — CLOCK + SAVE QA156 — REPRISE PRIORITAIRE
+
+**Branche active de laboratoire :** [PR #40 — sauvegardes corrigées](https://github.com/Terminator364/PROJECT-DRAFTS/pull/40), fille de [PR #39 — horloge physique](https://github.com/Terminator364/PROJECT-DRAFTS/pull/39), elle-même fille de PR #38. **Aucune version publique créée ou remplacée.**
+
+## Livrables contrôlés (ne pas redémarrer la recherche déjà achevée)
+
+- Source 0.5.6 FastFPS originale récupérée du paquet de conversation, corrigée et recoupée avec les SHA Git des fichiers de #39/#40.
+- **156/156 tests Node PASS**, **22/22 Python PASS**, `npm run check`, `python build.py`, `python tools/test_local_delivery.py` PASS.
+- HTML autonome reproductible **99 372 octets**, SHA-256 `49d0eb4fe5586a8d9b3830604b8a57c27fd1dd647df9e6b8c43cb5918aacba98`.
+- Archive privée de conversation `KINMOTO_A2_V056_CLOCK_SAVE_QA_20261105.zip`, **623 365 octets**, **78 fichiers**, SHA-256 `9aca6ebde3a5665feaeec5afdca03226099a2914231da87950512fccc22bb444`, manifeste SHA vérifié sur 77 fichiers.
+- **Validation après extraction neuve** : Node 156/156, Python 22/22, build HTML octet pour octet identique, HTTP local PASS.
+- Correctif horloge : 5 secondes de conduite synthétique à 2, 3, 5, 10, 30, 60 FPS donnent 5 secondes de simulation ; à 1 FPS le plafond protecteur ne simule que 2,5s. Les 16 véhicules de trafic restent déterministes entre 2, 5 et 60 FPS.
+- Correctif save : test navigateur WebGL2 logiciel du snapshot corrompu → fallback 9 000 FC ; import malformé → refus sans perdre la partie ; import valide → 12 345 FC restaurés, zéro exception JavaScript.
+- Vrai contexte WebGL2 **logiciel ANGLE/Vulkan SwiftShader** sous Chromium/Xvfb, bureau et mobile émulé : démarrage, gaz, pause, reprise PASS, pas de crash. Les FPS logiciels ne sont **pas** des mesures du GPU HP/Android.
+- Rapport : `experiments/A2_MOTO_LAB/docs/QA_CLOCK_SAVE_INTEGRATION_20261105.md` (sur la branche).
+
+## Prochain challenge technique — G2/G3/G4 et esthétique (non validés)
+
+1. **HP Windows réel** : ouvrir HTML autonome, jouer 15min, noter FPS, mémoire, chauffe, stabilité, commandes, caméra, transparence du HUD et bordures. Pas de quota Remote utilisé pour ce cycle.
+2. **Samsung Galaxy A21s réel** : même parcours S1–S5, tactile long, pauses/reprises, batterie/RAM; mode avion et relance après fermeture; aucune dépendance réseau autorisée.
+3. **iPhone Chrome et Safari réels** : fichier HTML ouvert hors aperçu Telegram, gyroscopie non requise, touch/pointer capture, sauvegarde; confirmer plutôt que supposer.
+4. **Qualité visuelle** : les captures SwiftShader confirment une vraie scène 3D mais un style low-poly non accepté pour V1. Étudier asset externe CC0, import de son vrai GLB binaire, hash, droits, animations, matériaux, puis benchmark A/B mémoire/draw calls.
+5. **A1-D** comparer une fois pour toutes les références open-source Neon/Costa (code et assets sous licences distinctes), documenter leur réutilisation *réelle* et leur coût.
+6. **Veto release :** aucune fusion main/STABLE, aucune publication V1, aucun Vercel/Actions hébergée ou coût sans accord explicite.
+
+**Code de reprise : KINMOTO|SYNC.** Autonomie pour les corrections réversibles de laboratoire, mais ne pas transformer des tests logiciels en preuves de qualité matérielle.
+
+---
+
 # CHECKPOINT A2 v0.5.6 RIDE + FASTFPS — 05/11/2026
 
 **PR prioritaire : [#38 — réaction accélérée bas FPS](https://github.com/Terminator364/PROJECT-DRAFTS/pull/38)**, branche `kinmoto/a2-fast-lowfps-recovery-20261105`. Fille de PR #37 (roues au sol et vrai WebGL2 logiciel), elle-même fille de PR #36. Tous ces travaux restent **DRAFT, NON STABLE, NON DÉPLOYÉS**.

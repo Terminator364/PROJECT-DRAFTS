@@ -3,8 +3,8 @@
   "project": "KINMOTO",
   "factory_version": "3.0",
   "state_date_utc": "2026-11-05",
-  "phase": "A2_V056_FASTFPS_REAL_WEBGL2_SOFTWARE_QA_COMPLETE",
-  "status": "DRAFT_PERF_REVIEW_NOT_STABLE",
+  "phase": "A2_V056_CLOCK_SAVE_QA_COMPLETE_REAL_DEVICE_PENDING",
+  "status": "A2_V056_CLOCK_SAVE_DRAFT_NO_STABLE",
   "incubator_repo": "Terminator364/PROJECT-DRAFTS",
   "incubator_subdir": "KINMOTO",
   "canonical_repo_url": "https://github.com/Terminator364/PROJECT-DRAFTS",
@@ -56,7 +56,7 @@
   ],
   "release_candidate": null,
   "public_urls_modified": false,
-  "next_action": "Branch PR #38: recette 15min vraie WebGL sur HP et Galaxy A21s, iPhone/Safari si disponible, tester accélération/pause/FPS/RAM/température, audit A1-D et vraie moto GLB CC0 puis veto utilisateur; ne pas publier STABLE.",
+  "next_action": "Reprendre PR #40: vrai essai HP/Galaxy A21s de 15min, FPS/RAM/chauffe/input, puis iPhone/Safari/Telegram; améliorer qualité visuelle depuis références open-source et vraie moto GLB CC0 uniquement après audit du binaire, licence et textures. Pas de main/STABLE ni hébergement sans accord.",
   "source_of_truth": "public GitHub files, no secrets; private binary backups in Drive",
   "public_release_status": "NO_NEW_RELEASE",
   "a0_qa": {
@@ -361,5 +361,46 @@
     "hosted_actions": "NOT_TRIGGERED",
     "remote": "NOT_TRIGGERED",
     "cost_fc": 0
+  },
+  "clock_save_cycle": {
+    "parent_clock_pr": 39,
+    "save_review_pr": 40,
+    "branch": "kinmoto/a2-safe-save-restore-20261105",
+    "fixes": [
+      "bounded_60Hz_physics_under_low_render_FPS",
+      "strict_import_and_corrupt_local_snapshot_fallback"
+    ],
+    "clock_synthetic_real_time": [
+      "60fps_5s",
+      "30fps_5s",
+      "10fps_5s",
+      "5fps_5s",
+      "3fps_5s",
+      "2fps_5s"
+    ],
+    "clock_hard_limit": "max_30_physics_steps_per_frame_max_0_5s;1fps_only_2_5s_simulated_per_5s_real",
+    "traffic_determinism": "PASS_2_5_60_RENDER_FPS_IDENTICAL_PLAYER_16_CARS",
+    "full_repo_node_tests": "PASS_156_OF_156_LOCAL_EXACT_SOURCES",
+    "full_repo_python_tests": "PASS_22_OF_22",
+    "browser_webgl2_software": "PASS_1280x800_AND_393x852_NO_JS_EXCEPTION",
+    "browser_save_tests": "PASS_CORRUPT_CACHE_FALLBACK_REJECT_BAD_IMPORT_ACCEPT_GOOD_IMPORT",
+    "build": "PASS_12_MODULES_HTML_99372_BYTES",
+    "local_http": "PASS_5_LOCAL_RESOURCES",
+    "artifact_zip": "KINMOTO_A2_V056_CLOCK_SAVE_QA_20261105.zip",
+    "artifact_zip_bytes": 623365,
+    "artifact_zip_entries": 78,
+    "artifact_zip_sha256": "9aca6ebde3a5665feaeec5afdca03226099a2914231da87950512fccc22bb444",
+    "artifact_html": "KINMOTO_A2_V056_CLOCK_SAVE_JOUER_LOCAL.html",
+    "artifact_html_sha256": "49d0eb4fe5586a8d9b3830604b8a57c27fd1dd647df9e6b8c43cb5918aacba98",
+    "fresh_package_extract_node_python_build_http": "PASS_156_NODE_22_PYTHON_HTML_IDENTICAL",
+    "physical_pc_gpu": "NOT_TESTED",
+    "physical_android_a21s": "NOT_TESTED",
+    "physical_iphone": "NOT_TESTED",
+    "quality_aesthetic": "NOT_APPROVED",
+    "external_GLB_legal_binary": "NOT_ACQUIRED",
+    "public_release": "NOT_TRIGGERED",
+    "github_actions": "NOT_TRIGGERED",
+    "remote": "NOT_TRIGGERED",
+    "additional_cost_fc": 0
   }
 }

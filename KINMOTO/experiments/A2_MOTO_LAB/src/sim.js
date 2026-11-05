@@ -2,7 +2,7 @@ import {clamp,lerp,wrapAngle,hypot,dist,heading,angleOf,nearestRoad,keepOverStre
 import {advanceBike,createBikeTelemetry,BIKE_WHEEL_RADIUS} from './bike_physics.js';
 import {inspectBikeCar,closingSpeed} from './collision.js';
 import {observeRide,addRideDiscomfort,rideComfortPaymentMultiplier} from './ride_quality.js';
-export const VERSION='A2-LAB-0.5.6-POWER-DRAFT';
+export const VERSION='A2-LAB-0.5.6-CLOCK-SAVE-DRAFT';
 export const PLACES=[
  {id:'victoire',name:'PLACE VICTOIRE',x:13,z:12,kind:'place'},
  {id:'matonge',name:'MATONGE',x:13,z:-73,kind:'place'},
@@ -18,7 +18,27 @@ const NAMES=['Maman Chantal','Papa Serge','Junior','Mado','Coach Patrick','Maman
 const KINDS=[{id:'taxi',name:'COURSE WEWA',mult:1,description:'Un passager attend sa course.'},{id:'express',name:'RENDEZ-VOUS',mult:1.22,description:'Un client souhaite arriver sans retard.'},{id:'colis',name:'LIVRAISON',mult:1.10,description:'Transport d’un colis, conduite souple.'},{id:'tour',name:'DÉCOUVERTE',mult:1.30,description:'Un trajet découverte avec un arrêt supplémentaire.'}];
 const DEFAULT_SAVE={schema:1,cash:3500,rides:0,engine:1,brakes:1,health:100,stars:4.5,finished:0,highScore:0};
 export const SAVE_KEY='kinmoto_a2_lab_career';
-export function readSave(storage){try{storage=storage||globalThis.localStorage;const o=JSON.parse(storage.getItem(SAVE_KEY)||'null');if(o&&o.schema===1&&Number.isFinite(o.cash)&&o.cash>=0){return {...DEFAULT_SAVE,...o,engine:clamp(o.engine||1,1,5),brakes:clamp(o.brakes||1,1,5),health:clamp(o.health??100,0,100),stars:clamp(o.stars??4.5,1,5)}}}catch{}return {...DEFAULT_SAVE};}
+export function readSave(storage){
+ try{
+  storage=storage||globalThis.localStorage;
+  const o=JSON.parse(storage.getItem(SAVE_KEY)||'null');
+  if(o&&o.schema===1&&Number.isFinite(o.cash)&&o.cash>=0){
+   const safe=(v,defaultValue,min,max,integer=false)=>
+     typeof v==='number'&&Number.isFinite(v)?clamp(integer?Math.floor(v):v,min,max):defaultValue;
+   // Never let a corrupt localStorage value break the HUD's numeric operations.
+   return {schema:1,
+    cash:safe(o.cash,DEFAULT_SAVE.cash,0,1e12,true),
+    rides:safe(o.rides,DEFAULT_SAVE.rides,0,1e7,true),
+    engine:safe(o.engine,DEFAULT_SAVE.engine,1,4,true),
+    brakes:safe(o.brakes,DEFAULT_SAVE.brakes,1,4,true),
+    health:safe(o.health,DEFAULT_SAVE.health,0,100),
+    stars:safe(o.stars,DEFAULT_SAVE.stars,1,5),
+    finished:safe(o.finished,DEFAULT_SAVE.finished,0,1e7,true),
+    highScore:safe(o.highScore,DEFAULT_SAVE.highScore,0,1e12,true)};
+  }
+ }catch{}
+ return {...DEFAULT_SAVE};
+}
 export function writeSave(data,storage){try{storage=storage||globalThis.localStorage;storage.setItem(SAVE_KEY,JSON.stringify(data));return true}catch{return false}}
 export function makeRoute(left,top,right,bottom){const l=left+4.6,r=right-4.6,t=top+4.6,b=bottom-4.6;
  const pts=[{x:l,z:b-15},{x:l,z:t+15},{x:l+3,z:t+7},{x:l+7,z:t+3},{x:l+15,z:t},{x:r-15,z:t},{x:r-7,z:t+3},{x:r-3,z:t+7},{x:r,z:t+15},{x:r,z:b-15},{x:r-3,z:b-7},{x:r-7,z:b-3},{x:r-15,z:b},{x:l+15,z:b},{x:l+7,z:b-3},{x:l+3,z:b-7}];let segments=[],length=0;for(let i=0;i<pts.length;i++){const a=pts[i],b=pts[(i+1)%pts.length],d=dist(a,b);segments.push({a,b,start:length,len:d});length+=d;}return {segments,length};}
@@ -154,4 +174,24 @@ export function interact(g){if(!g.playing||g.paused)return {ok:false,reason:'par
 export function buy(g,item){let costs={repair:Math.max(0,Math.ceil((100-g.save.health)*12/50)*50),engine:g.save.engine*2400,brakes:g.save.brakes*1800};let price=costs[item];if(price==null)return {ok:false,reason:'invalide'};
  if(item==='repair'&&price===0)return {ok:false,reason:'Moto en parfait état'};if(item!=='repair'&&g.save[item]>=4)return {ok:false,reason:'Niveau maximal'};
  if(g.save.cash<price)return {ok:false,reason:'Solde insuffisant'};g.save.cash-=price;if(item==='repair')g.save.health=100;else g.save[item]++;emit(g,'success',item==='repair'?'Moto réparée':`Amélioration ${item} installée`);return {ok:true,cost:price};}
-export function validate(g){const p=g.player;const issues=[];for(const x of [p.x,p.z,p.speed,p.yaw,g.save.cash,g.save.health])if(!Number.isFinite(x))issues.push('non-finite');if(g.save.cash<0)issues.push('negative-cash');if(p.speed<0)issues.push('reverse-speed');if(!missionTarget(g.mission))issues.push('invalid-mission-target');if(g.cars.some(x=>!Number.isFinite(x.x)||!Number.isFinite(x.z)))issues.push('invalid-traffic');return issues;}
+export function validate(g){
+ const issues=[];
+ if(!g||typeof g!=='object'||!g.player||!g.save||!g.mission||!Array.isArray(g.cars))return ['invalid-game'];
+ const p=g.player,s=g.save,m=g.mission,t=p.bike;
+ const numeric=[p.x,p.z,p.speed,p.yaw,p.meters,s.cash,s.health,s.stars,s.rides,s.finished,s.highScore,s.engine,s.brakes,m.reward];
+ if(numeric.some(v=>typeof v!=='number'||!Number.isFinite(v)))issues.push('non-finite');
+ if(!(s.cash>=0&&s.cash<=1e12))issues.push('invalid-cash');
+ if(!(s.health>=0&&s.health<=100))issues.push('invalid-health');
+ if(!(s.stars>=1&&s.stars<=5))issues.push('invalid-stars');
+ if(!Number.isSafeInteger(s.rides)||s.rides<0||s.rides>1e7||!Number.isSafeInteger(s.finished)||s.finished<0)issues.push('invalid-counters');
+ if(!Number.isInteger(s.engine)||s.engine<1||s.engine>4||!Number.isInteger(s.brakes)||s.brakes<1||s.brakes>4)issues.push('invalid-upgrades');
+ if(!(p.speed>=0&&p.speed<=35)||!(p.meters>=0))issues.push('invalid-player-motion');
+ if(!(p.x>=-175&&p.x<=175&&p.z>=-175&&p.z<=175))issues.push('player-out-of-world');
+ if(!t||[t.steer,t.vx,t.vz,t.wheelSpin,t.suspension].some(v=>typeof v!=='number'||!Number.isFinite(v)))issues.push('invalid-bike-telemetry');
+ if(!byId(m.from)||!byId(m.to)||!['pickup','via','drop'].includes(m.stage)||!['taxi','express','colis','tour'].includes(m.kind)||
+    (m.stage==='via'&&!byId(m.via)))issues.push('invalid-mission');
+ if(!(typeof m.reward==='number'&&Number.isFinite(m.reward)&&m.reward>=0&&m.reward<=1e9))issues.push('invalid-reward');
+ for(const field of ['penalty','timer','comfort','impacts'])if(m[field]!==undefined&&(!Number.isFinite(m[field])||m[field]<0))issues.push('invalid-mission-'+field);
+ if(g.cars.some(car=>!car||!Number.isFinite(car.x)||!Number.isFinite(car.z)||!Number.isFinite(car.speed)))issues.push('invalid-traffic');
+ return issues;
+}
