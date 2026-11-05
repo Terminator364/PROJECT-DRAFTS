@@ -48,3 +48,11 @@ Archive de recette locale : `KINMOTO_A2_V056_QA_LOCAL_20261105.zip`, SHA-256 `82
 6. Conserver le gel de toutes URLs publiques et le veto utilisateur sur STABLE/V1. Ne pas présenter 0.5.6 comme publiée.
 
 **Session consignée — statuts PASS/FAIL/BLOCKED/NOT_TESTED explicites, aucun travail après fin de tour promis.**
+
+## Annexe de contre-audit : modèles 3D et coût géométrique
+
+- [PR #34](https://github.com/Terminator364/PROJECT-DRAFTS/pull/34) **brouillon, non fusionnée** : durcissement `tools/audit_glb.py` (indices négatifs, limites de bufferViews, taille au début, tableaux/structures internes invalides). Prototype local Python : **17/17 tests synthétiques PASS** (7 historiques répliqués + 10 adverses). **La suite exacte GitHub et un vrai GLB externe sont NOT_TESTED.**
+- Analyse sur l'HTML autonome v0.5.5 : `makeWorld()` crée **139 296 sommets / 46 432 triangles**, soit environ **5 014 656 octets de tampon Float32 GPU** pour le monde seul (sans textures, buffers supplémentaires, navigateur ou GPU driver). Moto sans passager : 3 116 triangles ; avec passager : 3 608 triangles. Ce sont des volumes géométriques calculés, **pas** une mesure de RAM Android.
+- Microbenchmark GPS rectifié : le premier comparatif mélangeait moteur VM et module natif et a été rejeté. Reprise identique des deux versions via Node VM, 15 000 paires : ancien **1 733,89 ms** (115,59 µs/appel), nouveau **396,95 ms** (26,46 µs/appel). Valeurs uniquement Node/CPU, pas FPS ou latence tactile.
+- Archive ZIP de recette locale initiale vérifiée avec `ZipFile.testzip()`, ses 6 SHA-256 internes et contrôle de syntaxe JavaScript. SHA-256 archive inchangé : `829e76d0ab37aaa817d689a560c3bc416903177e86a7c9644fbd7cd6da989f50`.
+- Une évaluation A/B d'un vrai GLB texturé reste indispensable. Le candidat Road Sportbike annoncé 5 156 triangles sur sa page n'a pas été téléchargé ; 8 matériaux et rotations de roues peuvent accroître les draw calls. **Ne pas le promouvoir automatiquement au rang de modèle accepté.**
