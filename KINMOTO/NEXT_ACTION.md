@@ -1,3 +1,25 @@
+# CHECKPOINT A2 v0.5.6 RIDE + FASTFPS — 05/11/2026
+
+**PR prioritaire : [#38 — réaction accélérée bas FPS](https://github.com/Terminator364/PROJECT-DRAFTS/pull/38)**, branche `kinmoto/a2-fast-lowfps-recovery-20261105`. Fille de PR #37 (roues au sol et vrai WebGL2 logiciel), elle-même fille de PR #36. Tous ces travaux restent **DRAFT, NON STABLE, NON DÉPLOYÉS**.
+
+## Travaux achevés dans ce cycle
+- Moto coincée contre une bordure : 0,01m de trajet mais roues représentant 11,04m avant correctif ; rotation synchronisée sur l'odometre après correction et vitesse au sol séparée pour HUD. **4 tests nouveaux**.
+- Rendu 3D logiciel WebGL2 véritable (ANGLE/Vulkan SwiftShader avec Xvfb) : captures bureau 1280×800 et mobile émulé 393×852 ; déplacement clavier/tactile et pause/reprise fonctionnels, zéro exception JS dans passes réussies. **Cela n'est PAS un test du GPU Windows ou du Galaxy.**
+- Contre-audit adaptatif : malgré 1–5 FPS logiciels, l'ancienne politique gardait `adaptiveScale=1` sur les 15s demandées. Nouveau filtre : 6 images visibles consécutives à <=12FPS, délai minimum 1,6s ; pauses et retour d'arrière-plan filtrés, sans réinitialiser la qualité. Nouvelle preuve Node : 5FPS baisse dans moins de 3s **simulées**. Sous SwiftShader logiciel corrigé, un passage a montré `adaptiveScale=.84` (2 ajustements) à 15s demandées, mais sortie automatisée timeout ; **ne pas annoncer un gain de FPS prouvé**.
+- **131 tests Node / 131 PASS**, **22 Python / 22 PASS**, `npm run check` PASS, `python build.py` PASS (12 modules, HTML 95 612 octets), `python tools/test_local_delivery.py` PASS.
+- Paquet local de conversation `KINMOTO_A2_V056_RIDE_FASTFPS_WEBGL2_QA_20261105.zip`, 640 187 octets / 72 entrées, SHA-256 `19e96d8239d05ab39e9f0836afce417d0ab838fa4ca1cd4c19560775ed9e61ee`. Contrôle après extraction neuve : tests, HTTP, rebuild identiques ; HTML SHA-256 `e8b249e814c5ca7e336aad88638128ab14bad059c692874de14e799df693d96b`. Le ZIP est un artefact de conversation, non présumé stocké dans GitHub/Drive.
+
+## Prochaine mission concrète, portes fermées
+1. **G2-G4** : vraie QA de 15min sur HP Windows et Galaxy A21s avec FPS/RAM/thermique, vraie interface tactile, frôlements et suspensions, pause/reprise, réseau coupé. Faire suivre une recette iPhone/Safari réel.
+2. **Qualité V1** : comparer rendu low-poly actuel aux références, mototaxi/ville/ambiance ; ne pas le qualifier de produit final sur la seule base du logiciel SwiftShader.
+3. **Modèle moto CC0** : acquérir le vrai binaire Road Sportbike, hash, vérification licence par fichier, glTF textures/animations/roues, benchmark A/B sans addition de renderer clandestin. Binaire toujours **NOT_ACQUIRED**.
+4. Benchmark dynamique comparatif A1-D Neon/Costa : PENDING. Évaluer sans copier les assets à licences ambiguës.
+5. Aucun merge `main` ou nouvelle URL STABLE, aucune publication V1, aucune GitHub Actions hébergée, aucune dépense/Remote sans accord exprès de l'utilisateur.
+
+**Continuité :** `KINMOTO|SYNC` ; repartir de ce fichier, `PROJECT_STATE.json`, `experiments/A2_MOTO_LAB/docs/QA_FAST_LOW_FPS_20261105.md` et PR #38. Ne pas requalifier les tests *logiciels* de tests matériel Android.
+
+---
+
 # CHECKPOINT A2 v0.5.6 RIDE + VRAI WEBGL2 LOGICIEL — 05/11/2026
 
 **Reprise prioritaire : [PR #37 — Real wheel travel + WebGL2 software QA](https://github.com/Terminator364/PROJECT-DRAFTS/pull/37)**, branche `kinmoto/a2-real-wheel-travel-20261105` dérivée de PR #36. **AUCUNE sortie V1/STABLE, pas de fusion dans main.**
