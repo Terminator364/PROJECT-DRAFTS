@@ -3,7 +3,7 @@ import {AdaptiveResolution} from '../src/adaptive_resolution.js';
 function feed(c,frames,dt,visible=true){let changed=0;for(let i=0;i<frames;i++)changed+=c.observe(dt,{visible})?1:0;return changed;}
 test('sustained heavy GPU frames lower internal resolution',()=>{const r=new AdaptiveResolution({targetFps:30});feed(r,190,1/18);assert.ok(r.scale<=.84&&r.scale>=.68);});
 test('healthy performance raises resolution slowly without exceeding native cap',()=>{const r=new AdaptiveResolution({targetFps:30,initialScale:.68});feed(r,450,1/55);assert.ok(r.scale>.75&&r.scale<=1);});
-test('hidden frames and isolated over-600ms pauses do not trigger quality changes',()=>{const r=new AdaptiveResolution();feed(r,100,.3,false);feed(r,100,.7,true);assert.equal(r.scale,1);assert.equal(r.samples,0);});
+test('background frames and one visible 700ms pause do not degrade quality',()=>{const r=new AdaptiveResolution();feed(r,100,.3,false);r.observe(.7,{visible:true});feed(r,100,1/30);assert.equal(r.scale,1);assert.equal(r.updates,0);});
 test('normal 30fps retains native quality',()=>{const r=new AdaptiveResolution({targetFps:30});feed(r,600,1/30);assert.equal(r.scale,1);assert.equal(r.updates,0);});
 test('quality oscillations bounded, no thrashing every frame',()=>{const r=new AdaptiveResolution({targetFps:30});for(let i=0;i<1200;i++)r.observe(i%50<25?1/20:1/52);assert.ok(r.updates<70);assert.ok(r.scale>=.68&&r.scale<=1);});
 test('minimum scale respects quality preset and reset',()=>{const r=new AdaptiveResolution({targetFps:60,minScale:.85});feed(r,500,1/23);assert.ok(r.scale>=.85);r.reset();assert.equal(r.scale,1);assert.equal(r.samples,0);});
@@ -48,6 +48,26 @@ test('reset removes pending severe-frame streak',()=>{
  assert.equal(r.slowVisibleFrames,0);
  r.observe(.4);assert.equal(r.scale,1);
 });
-test('pauses longer than 600ms are not treated as GPU overload',()=>{
- const r=new AdaptiveResolution();feed(r,100,.7);assert.equal(r.samples,0);assert.equal(r.scale,1);
+test('extreme pauses over two seconds are excluded from GPU overload statistics',()=>{
+ const r=new AdaptiveResolution();feed(r,100,2.2);assert.equal(r.samples,0);assert.equal(r.scale,1);
+});
+
+test('visible sustained 5 FPS lowers quality within three simulated seconds',()=>{
+ const r=new AdaptiveResolution({targetFps:30});
+ feed(r,15,.2);assert.ok(r.scale<1,`adaptive quality remained ${r.scale}`);
+});
+test('isolated sub-2-second stall does not cause a quality downgrade',()=>{
+ const r=new AdaptiveResolution({targetFps:30});
+ feed(r,200,1/30);r.observe(.9);feed(r,80,1/30);
+ assert.equal(r.scale,1);
+});
+test('sustained 1.4 FPS visible GPU slowdown eventually lowers resolution',()=>{
+ const r=new AdaptiveResolution({targetFps:30});
+ feed(r,16,.7);assert.ok(r.scale<1,`adaptive quality remained ${r.scale}`);
+});
+test('resuming from background resets the emergency slow-frame run',()=>{
+ const r=new AdaptiveResolution({targetFps:30});
+ feed(r,5,.2);r.observe(.4,{visible:false});
+ assert.equal(r.sustainedSlowFrames,0);
+ feed(r,100,1/30);assert.equal(r.scale,1);
 });
