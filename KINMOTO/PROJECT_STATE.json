@@ -534,6 +534,22 @@
     "cost_fc": 0,
     "remote_desktop_calls": 0,
     "github_actions_hosted": 0,
-    "provenance": "experiments/A2_MOTO_LAB/docs/V1_OPTIMIZED_QA_20261105.md"
+    "provenance": "experiments/A2_MOTO_LAB/docs/V1_OPTIMIZED_QA_20261105.md",
+    "current_delivery": {
+      "html": "KIN_MOTO_V1_1_0_1_OPTIMISEE_PC_ANDROID_IOS.html",
+      "html_bytes": 126461,
+      "html_sha256": "3c7cf6d1001d5a71c5b3955446a767e2233c57ccd25c3f9f0ce5c8af772324d8",
+      "zip": "KIN_MOTO_V1_1_0_1_OPTIMISEE_SOURCES_QA_20261105.zip",
+      "zip_bytes": 2322619,
+      "zip_sha256": "e97f7a1b4e62a92490c5b96e42b495d16e7b9b98f5d35e252c6e60573d4196d4",
+      "zip_entries": 120,
+      "sha_manifest": "PASS_118_OF_118_AND_CRC",
+      "fresh_extract": "PASS_213_NODE_26_PYTHON_BUILD_HTTP_AUTOPILOT_IDENTICAL_HTML",
+      "strict_a4_gate_exit": 2,
+      "strict_a4_gate_decision": "NO_GO_STABLE",
+      "note": "Private deliverable from ChatGPT, not published to GitHub releases, Vercel or public STABLE."
+    },
+    "browser_rerun_20261105": "SWIFT_SHADER_WEBGL2_RETEST_TIMEOUT_NO_NEW_GPU_PASS",
+    "opera_connector": "OLD_V0_4_TAB_OPENED; CONTENT_READ_TIMEOUT; NO_NEW_V1_TEST_IN_OPERA"
   }
 }
