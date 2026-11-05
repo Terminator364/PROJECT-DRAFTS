@@ -2,8 +2,8 @@
   "schema_version": "1.0",
   "project": "KINMOTO",
   "factory_version": "3.0",
-  "state_date_utc": "2026-11-04",
-  "phase": "A2_LAB_V055_CLOUD_QA_A1_D_OPEN",
+  "state_date_utc": "2026-11-05",
+  "phase": "A1D_STATIC_SUBSYSTEM_BENCH_QA_COMPLETE_REAL_HARDWARE_PENDING",
   "status": "A2_V055_CUMULATIVE_QA_PASS_NO_RELEASE",
   "incubator_repo": "Terminator364/PROJECT-DRAFTS",
   "incubator_subdir": "KINMOTO",
@@ -11,7 +11,7 @@
   "canonical_repo_status": "PUBLIC_BY_OWNER_DESIGN",
   "stable_commit": null,
   "develop_commit": null,
-  "active_ticket": "A1-SOURCES-BENCHMARK",
+  "active_ticket": "A1-D-BENCHMARK-RUNTIME",
   "work_session_id": null,
   "quota_snapshot": {
     "known": false,
@@ -56,7 +56,7 @@
   ],
   "release_candidate": null,
   "public_urls_modified": false,
-  "next_action": "Poursuivre en cloud: acquisition directe d'assets CC0 vérifiables/benchmark du vrai modèle animé puis refonte visuelle/physique sur une piste étalon; joindre test Android+HP réel en lot final pour préserver quotas; ne pas déployer.",
+  "next_action": "Achever A1-D: exécuter les 3 jeux inchangés sur HP Opera+second navigateur et Galaxy A21s Chrome 15-20min en S1-S5; mesurer FPS/RAM/touch/caméra/3D; licences des GLB par fichier ; remplir scorecard 100 points ; élire moteur et obtenir GO; ensuite A2. Branche de preuve dédiée, aucune fusion main.",
   "source_of_truth": "public GitHub files, no secrets; private binary backups in Drive",
   "public_release_status": "NO_NEW_RELEASE",
   "a0_qa": {
@@ -217,5 +217,38 @@
     "policy": "CLOUD_FIRST_REMOTE_ONLY_AS_LAST_RESORT",
     "default_remote_calls_per_development_lot": 0,
     "policy_document": "docs/REMOTE_QUOTA_POLICY_20261104.md"
+  },
+  "a1d_20261105": {
+    "branch": "kinmoto/a1d-comparative-evidence-20261105",
+    "documentation": "docs/A1_RUNTIME_REPORT_20261105.md",
+    "scoring": "docs/A1_SCORECARD_20261105.json",
+    "legal": "docs/A1D_LICENSE_VETOS_20261105.md",
+    "gates": "tasks/A1D_NEXT_PHASE_GATE_20261105.md",
+    "project_status": "PARTIAL_A1_NO_ENGINE_SELECTED",
+    "source_zip_sha256": "576eb0442ba50c672ea0f5e61335fa8838e8981a2796d94b431abeed3e14ba0b",
+    "results": {
+      "kinmoto_S1_S5": "PASS_5_LOGIC_SCRIPTED",
+      "kinmoto_repeatability": "PASS_3_EXACT_RUNS",
+      "kinmoto_node": "PASS_165_165",
+      "python": "PASS_22_22",
+      "neon_math": "PASS_8_8_ONLY",
+      "costa_math": "PASS_8_8_ONLY",
+      "real_Hp": "NOT_TESTED",
+      "real_A21s": "NOT_TESTED",
+      "real_iPhone": "NOT_TESTED",
+      "webgl_software_retest": "INCONCLUSIVE_TIMEOUT"
+    },
+    "counter_audit": "initial_traffic_overlap_causes_1_56283m_displacement_in_single_tick_vs_0_19983m_odometer",
+    "scores": "ALL_NULL_NO_ELECTION",
+    "archive_name": "KINMOTO_A1D_BENCHMARK_CONTRADICTOIRE_20261105.zip",
+    "archive_bytes": 330821,
+    "archive_sha256": "706103f8761d71955431c4732a8223f41c2409927263f89002b3a116d7e01768",
+    "cold_archive": "98_MANIFEST_PASS_165_NODE_22_PY_8_NEON_8_COSTA_HTML_IDENTICAL",
+    "a2_gate": "BLOCKED_UNTIL_A1_DYNAMIC_HARDWARE_AND_OWNER_DECISION",
+    "public_release": "NO",
+    "cost_fc": 0,
+    "remote_desktop_calls": 0,
+    "github_actions_hosted_runs": 0,
+    "vercel_deploy_calls": 0
   }
 }
