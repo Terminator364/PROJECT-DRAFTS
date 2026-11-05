@@ -31,13 +31,20 @@ export class Renderer{
   const shader=(type,src)=>{const s=gl.createShader(type);gl.shaderSource(s,src);gl.compileShader(s);if(!gl.getShaderParameter(s,gl.COMPILE_STATUS))throw new Error('Erreur WebGL shader: '+gl.getShaderInfoLog(s));return s;};
   this.program=gl.createProgram();gl.attachShader(this.program,shader(gl.VERTEX_SHADER,vs));gl.attachShader(this.program,shader(gl.FRAGMENT_SHADER,fs));gl.linkProgram(this.program);if(!gl.getProgramParameter(this.program,gl.LINK_STATUS))throw new Error('Erreur WebGL: '+gl.getProgramInfoLog(this.program));gl.useProgram(this.program);
   this.attr={pos:gl.getAttribLocation(this.program,'aPos'),normal:gl.getAttribLocation(this.program,'aNormal'),color:gl.getAttribLocation(this.program,'aColor')};this.uniform={vp:gl.getUniformLocation(this.program,'uVP'),model:gl.getUniformLocation(this.program,'uModel'),sun:gl.getUniformLocation(this.program,'uSun'),tint:gl.getUniformLocation(this.program,'uTint'),camera:gl.getUniformLocation(this.program,'uCamera'),fog:gl.getUniformLocation(this.program,'uFog')};
-  gl.uniform3f(this.uniform.sun,.53,1.0,.25);gl.uniform3f(this.uniform.fog,.59,.72,.78);gl.enable(gl.DEPTH_TEST);gl.depthFunc(gl.LEQUAL);gl.disable(gl.CULL_FACE);gl.clearColor(0,0,0,0);
+  for(const idx of Object.values(this.attr))gl.enableVertexAttribArray(idx);gl.uniform3f(this.uniform.sun,.53,1.0,.25);gl.uniform3f(this.uniform.fog,.59,.72,.78);gl.enable(gl.DEPTH_TEST);gl.depthFunc(gl.LEQUAL);gl.disable(gl.CULL_FACE);gl.clearColor(0,0,0,0);
   this.mesh={world:this.upload(makeWorld()),bike:this.upload(makeBike(false)),bikePassenger:this.upload(makeBike(true)),bikeWheel:this.upload(makeBikeWheel()),bikeShadow:this.upload(makeBikeShadow()),cars:Array.from({length:6},(_,i)=>this.upload(makeCar(i))),pickup:this.upload(makeMarker('pickup')),drop:this.upload(makeMarker('drop')),garageMarker:this.upload(makeMarker('garage')),garage:this.upload(makeGarage())};this.glVersion=typeof WebGL2RenderingContext!=='undefined'&&gl instanceof WebGL2RenderingContext?2:1;this.resize();
  }
  upload(g){const gl=this.gl,b=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,b);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array(g.a),gl.STATIC_DRAW);return {buffer:b,n:g.count,bytes:g.count*36};}
- resize(){const vw=Math.max(1,innerWidth),vh=Math.max(1,innerHeight);const base=this.quality==='eco'?.78:this.quality==='high'?1.35:1.0;const dpr=Math.min(devicePixelRatio||1,base,Math.sqrt((this.quality==='eco'?780000:1350000)/(vw*vh)))*this.dynamic.scale;const w=Math.max(1,Math.floor(vw*dpr)),h=Math.max(1,Math.floor(vh*dpr));if(this.canvas.width!==w||this.canvas.height!==h){this.canvas.width=w;this.canvas.height=h;this.gl.viewport(0,0,w,h);}this.proj=perspective(innerWidth<700?1.04:.89,w/h,.13,390);}
+ resize(){const vw=Math.max(1,innerWidth),vh=Math.max(1,innerHeight);const base=this.quality==='eco'?.78:this.quality==='high'?1.35:1.0;const dpr=Math.min(devicePixelRatio||1,base,Math.sqrt((this.quality==='eco'?780000:1350000)/(vw*vh)))*this.dynamic.scale;const w=Math.max(1,Math.floor(vw*dpr)),h=Math.max(1,Math.floor(vh*dpr));
+ const changed=this.canvas.width!==w||this.canvas.height!==h;
+ if(changed){this.canvas.width=w;this.canvas.height=h;this.gl.viewport(0,0,w,h);}
+ if(changed||this._lastVW!==vw||this._lastVH!==vh||!this.proj){
+  this._lastVW=vw;this._lastVH=vh;
+  this.proj=perspective(vw<700?1.04:.89,w/h,.13,390);
+  this.projectionRebuilds=(this.projectionRebuilds||0)+1;
+ }}
  setQuality(level){this.quality=level;this.dynamic.minScale=level==='high'?.85:.68;this.dynamic.reset();this.resize();}
- draw(mesh,m,tint=1){const gl=this.gl,at=this.attr;gl.bindBuffer(gl.ARRAY_BUFFER,mesh.buffer);for(const idx of Object.values(at))gl.enableVertexAttribArray(idx);gl.vertexAttribPointer(at.pos,3,gl.FLOAT,false,36,0);gl.vertexAttribPointer(at.normal,3,gl.FLOAT,false,36,12);gl.vertexAttribPointer(at.color,3,gl.FLOAT,false,36,24);gl.uniformMatrix4fv(this.uniform.model,false,m);gl.uniform1f(this.uniform.tint,tint);gl.drawArrays(gl.TRIANGLES,0,mesh.n);}
+ draw(mesh,m,tint=1){const gl=this.gl,at=this.attr;gl.bindBuffer(gl.ARRAY_BUFFER,mesh.buffer);gl.vertexAttribPointer(at.pos,3,gl.FLOAT,false,36,0);gl.vertexAttribPointer(at.normal,3,gl.FLOAT,false,36,12);gl.vertexAttribPointer(at.color,3,gl.FLOAT,false,36,24);gl.uniformMatrix4fv(this.uniform.model,false,m);gl.uniform1f(this.uniform.tint,tint);gl.drawArrays(gl.TRIANGLES,0,mesh.n);}
  render(g,dt,active=true){if(!this.gl||this.lost)return;const foreground=typeof document==='undefined'||!document.hidden;this.dynamic.observe(dt,{visible:foreground&&active});this.resize();const gl=this.gl,p=g.player,h={x:Math.sin(p.yaw),z:-Math.cos(p.yaw)},distance=this.mode===0?12.8:this.mode===1?23.5:3.6,height=this.mode===0?7.9:this.mode===1?19.0:3.25;
   const desired={x:p.x-h.x*distance,y:height,z:p.z-h.z*distance},aim={x:p.x+h.x*(this.mode===1?9:13),y:this.mode===1?1.8:2.05,z:p.z+h.z*(this.mode===1?9:13)};
   // Camera collision: keep the chase camera on drivable streets, avoiding
@@ -61,7 +68,7 @@ export class Renderer{
   if(this.mode!==2){
    this.draw(this.mesh.bikeShadow,model(p.x,.076,p.z,Math.PI-p.yaw));
    const base=bikeBodyModel(p);
-   this.draw(g.mission.stage==='pickup'?this.mesh.bike:this.mesh.bikePassenger,base);
+   this.draw(g.challenge?this.mesh.bike:g.mission.stage==='pickup'?this.mesh.bike:this.mesh.bikePassenger,base);
    const spin=p.bike?.wheelSpin||0,steer=p.bike?.steerAngle||0;
    this.draw(this.mesh.bikeWheel,mul(base,localWheel(0,p.bike?.rearWheelY??.56,-1.10,spin,0)));
    this.draw(this.mesh.bikeWheel,mul(base,localWheel(0,p.bike?.frontWheelY??.56,1.08,spin,steer)));
@@ -70,6 +77,6 @@ export class Renderer{
   else {this.frames=0;this.seconds=0;}
  }
  project(x,y,z){const a=this.vp,v=[x,y,z,1],t=[0,0,0,0];for(let row=0;row<4;row++)for(let col=0;col<4;col++)t[row]+=a[col*4+row]*v[col];if(t[3]<=0)return null;let nx=t[0]/t[3],ny=t[1]/t[3];if(Math.abs(nx)>1.4||Math.abs(ny)>1.4)return null;return {x:(nx*.5+.5)*innerWidth,y:(1-(ny*.5+.5))*innerHeight,visible:Math.abs(nx)<1&&Math.abs(ny)<1};}
- stats(){return {glVersion:this.glVersion,quality:this.quality,fps:this.fps,adaptiveScale:this.dynamic.scale,adaptiveSteps:this.dynamic.updates,pixels:this.canvas.width*this.canvas.height,meshBytes:Object.values(this.mesh).flat().filter(x=>x?.bytes).reduce((s,x)=>s+x.bytes,0),worldVertices:this.mesh.world.n};}
+ stats(){return {glVersion:this.glVersion,quality:this.quality,fps:this.fps,adaptiveScale:this.dynamic.scale,adaptiveSteps:this.dynamic.updates,pixels:this.canvas.width*this.canvas.height,meshBytes:Object.values(this.mesh).flat().filter(x=>x?.bytes).reduce((s,x)=>s+x.bytes,0),worldVertices:this.mesh.world.n,projectionRebuilds:this.projectionRebuilds||0};}
  dispose(){const gl=this.gl;for(const m of Object.values(this.mesh).flat())if(m?.buffer)gl.deleteBuffer(m.buffer);if(this.program)gl.deleteProgram(this.program);}
 }
