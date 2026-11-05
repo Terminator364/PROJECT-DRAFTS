@@ -46,3 +46,12 @@ test('1,500 random routes: symmetry, Euclidean lower bound, determinism',()=>{
   assert.deepEqual(r,again);
  }
 });
+
+test('identical sidewalk destination is zero metres, not a detour to street center',()=>{
+ const p={x:13,z:157};const r=findRoute(p,p);
+ assert.equal(r.length,0);assert.equal(r.nodes.length,2);
+});
+test('pickup proximity shows one metre rather than 27 metres around a block',()=>{
+ const a={x:14,z:78},b={x:13,z:78},r=findRoute(a,b);
+ assert.equal(r.length,1);
+});
