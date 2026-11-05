@@ -111,7 +111,25 @@ function exportTechnicalReport(){
  setTimeout(()=>URL.revokeObjectURL(url),5000);
  toast(report.summary.samples<60?'Rapport exporté (session courte : vise 15 min).':'Rapport de performance exporté !','success');
 }
-function exportSave(){safeSave();const blob=new Blob([JSON.stringify(snapshot(game),null,2)],{type:'application/json'}),a=document.createElement('a'),url=URL.createObjectURL(blob);a.href=url;a.download='KIN_MOTO_V1_SAUVEGARDE.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),5000);toast('Sauvegarde exportée','success');}
+async function exportSave(){
+ const savedLocally=safeSave();
+ const content=JSON.stringify(snapshot(game),null,2),filename='KIN_MOTO_V1_SAUVEGARDE.json';
+ // Safari/iPhone and Android may support native Files/Telegram sharing; a
+ // downloadable JSON remains the offline fallback when sharing is unavailable.
+ if(navigator.share&&navigator.canShare&&typeof File!=='undefined'){
+  try{
+   const file=new File([content],filename,{type:'application/json'});
+   if(navigator.canShare({files:[file]})){
+    await navigator.share({files:[file],title:'KIN MOTO — Sauvegarde V1'});
+    toast('Sauvegarde partagée','success');return;
+   }
+  }catch(e){if(e?.name==='AbortError')return;}
+ }
+ const blob=new Blob([content],{type:'application/json'}),a=document.createElement('a'),url=URL.createObjectURL(blob);
+ a.href=url;a.download='KIN_MOTO_V1_SAUVEGARDE.json';a.click();
+ setTimeout(()=>URL.revokeObjectURL(url),5000);
+ toast(savedLocally?'Sauvegarde exportée':'Fichier exporté : conserve-le pour restaurer ta progression','success');
+}
 async function importSave(file){if(!file)return;try{if(file.size>250000)throw Error('Fichier trop volumineux');let obj=JSON.parse(await file.text());if(obj.schema!==1||!obj.save||!obj.player||!obj.mission||!byId(obj.mission.from)||!byId(obj.mission.to)||!Number.isFinite(obj.save.cash)||obj.save.cash<0)throw Error('Format de sauvegarde invalide');let restored=makeGame(obj);if(validate(restored).length)throw Error('Sauvegarde incohérente');game=restored;game.playing=true;game.paused=true;safeSave();refreshGarage();toast('Sauvegarde restaurée !','success');updateUI();}catch(e){toast('Import impossible : '+e.message,'impact');}finally{$('importSave').value='';}}
 function installInputs(){const keys={ArrowUp:'gas',KeyW:'gas',ArrowDown:'brake',KeyS:'brake',Space:'brake',ArrowLeft:'left',KeyA:'left',ArrowRight:'right',KeyD:'right'};
  document.addEventListener('keydown',e=>{if(keys[e.code]){if(game.playing&&!game.paused)game.controls[keys[e.code]]=true;e.preventDefault();}if(!e.repeat&&e.code==='KeyE'){if(game.playing&&!game.paused)onInteract();e.preventDefault();}if(!e.repeat&&(['Escape','KeyP'].includes(e.code))){if(game.playing){game.paused?resume():pause();}e.preventDefault();}if(!e.repeat&&e.code==='KeyC'){if(renderer){renderer.mode=(renderer.mode+1)%3;toast(['Caméra arrière','Caméra haute','Vue guidon'][renderer.mode]);}}});
@@ -154,7 +172,7 @@ function frame(now){const frameSeconds=Math.max(0,(now-prev)/1000);const delta=M
  uiClock+=delta;autoSaveClock+=delta;if(uiClock>.18){uiClock=0;if(game.playing&&!game.paused)updateUI();if(QA_AUTODRIVE){let t=game.player.bike||{};qaPeakSusp=Math.max(qaPeakSusp,Math.abs(t.suspension||0));qaPeakGrade=Math.max(qaPeakGrade,Math.abs(t.roadGrade||0));$('qaLive').hidden=false;$('qaLive').textContent=`QA:${QA_AUTODRIVE} t=${qaDriveClock.toFixed(1)} x=${game.player.x.toFixed(2)} z=${game.player.z.toFixed(2)} yaw=${game.player.yaw.toFixed(3)} kmh=${(game.player.speed*3.6).toFixed(1)} slip=${(t.lateralSlip||0).toFixed(2)} bump=${(t.frontHeight||0).toFixed(3)}/${(t.rearHeight||0).toFixed(3)} shockPeak=${qaPeakSusp.toFixed(3)} gradePeak=${qaPeakGrade.toFixed(3)}`;}let events=game.events.filter(event=>event.seq>lastNotified);for(const event of events){toast(event.message,event.type);if(event.type==='impact')ping(190,.26);else if(event.type==='success')ping(840,.2)}lastNotified=game.events.length?game.events[game.events.length-1].seq:lastNotified;}
  if(autoSaveClock>9){autoSaveClock=0;if(game.playing)safeSave();}updateSound();requestAnimationFrame(frame);}
 function boot(){installInputs();if(!persistentStorage)setTimeout(()=>toast('Stockage local indisponible ici : exporte régulièrement ta sauvegarde depuis Pause.','impact'),850);try{renderer=new Renderer($('world'),{quality});}catch(e){console.warn(e);$('errorDetail').textContent=e.message;show('errorScreen');}
- window.KINMOTO_DIAGNOSTIC=()=>({version:VERSION,challenge:game.challenge?{...game.challenge}:null,persistentStorage,mode:renderer?'webgl'+renderer.glVersion:'unavailable',render:renderer?.stats()??null,player:{...game.player},mission:{...game.mission},cars:game.cars.map(c=>({x:c.x,z:c.z,yaw:c.yaw,speed:c.speed})),playing:game.playing,paused:game.paused,errors:validate(game),rides:game.save.rides,cash:game.save.cash,steps:game.stats.steps,collisionCount:game.collisions,physics:{ticks:physicsClock.ticks,droppedSeconds:physicsClock.droppedSeconds,maxCatchupSeconds:physicsClock.maxFrame}});
+ window.KINMOTO_DIAGNOSTIC=()=>({version:VERSION,challenge:game.challenge?{...game.challenge}:null,persistentStorage,mode:renderer?'webgl'+renderer.glVersion:'unavailable',render:renderer?.stats()??null,player:{...game.player},mission:{...game.mission},cars:game.cars.map(c=>({x:c.x,z:c.z,yaw:c.yaw,speed:c.speed})),playing:game.playing,paused:game.paused,errors:validate(game),rides:game.save.rides,cash:game.save.cash,steps:game.stats.steps,collisionCount:game.collisions,ui:{minimapBackgroundBuilds:mapBackgroundBuilds},physics:{ticks:physicsClock.ticks,droppedSeconds:physicsClock.droppedSeconds,maxCatchupSeconds:physicsClock.maxFrame}});
  if(location.search.includes('qa=1'))window.KINMOTO_QA={get:()=>game,step:(dt=.016)=>step(game,dt),interact:()=>interact(game),forcePosition:(x,z,yaw=0)=>{game.player.x=x;game.player.z=z;game.player.yaw=yaw;game.player.speed=0;},save:safeSave};
  requestAnimationFrame(frame);if(location.search.includes('qa=1')&&location.search.includes('autoplay=1'))setTimeout(start,350);if('serviceWorker' in navigator&&(location.protocol==='https:'||location.hostname==='localhost'||location.hostname==='127.0.0.1'))navigator.serviceWorker.register('./sw.js').catch(e=>console.warn('Cache hors ligne indisponible',e));}
 boot();
