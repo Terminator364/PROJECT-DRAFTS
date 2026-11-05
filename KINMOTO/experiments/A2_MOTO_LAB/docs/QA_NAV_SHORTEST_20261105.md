@@ -21,7 +21,7 @@ Aucune expansion de ville, aucun changement de physique, aucun nouvel asset ni a
 
 ## Preuves de QA de ce lot
 
-- `node --test /mnt/data/kinmoto_lab_work/graph_src/tests/*.test.mjs` : **15/15 PASS** sur Node v22.16.0, à partir d'une extraction du bundle A2 et du module remplacé.
+- `node --test /mnt/data/kinmoto_lab_work/graph_src/tests/*.test.mjs` : **17/17 PASS** sur Node v22.16.0, à partir d'une extraction du bundle A2 et du module remplacé.
 - 1 500 couples pseudo-aléatoires : distances finies, symétrie, déterminisme et longueur jamais inférieure à la distance euclidienne.
 - 81 couples de destinations de la liste KIN MOTO : routes finies.
 - 250 routes vérifiées sur les segments intérieurs : pas de diagonale traversant les pâtés de maisons.
@@ -36,3 +36,7 @@ Ce patch GPS est isolé de la PR #30 (temps de frame), et ni l'un ni l'autre ne 
 ## Prochaine validation
 
 Récupérer la branche sur un environnement de tests complet, lancer `npm run check && npm test && python build.py`, puis filmer un trajet de 10 m et un parcours avec virage sur HP/Galaxy A21s. Mesurer les FPS et RAM réels. Aucun déploiement public, runner hébergé, achat ou appel Remote Desktop n'est requis pour la QA logique.
+
+## Contre-audit supplémentaire : dernier mètre avant le client
+
+Une limite de la première implémentation a été repérée : si le client et la moto sont à 1 m l'un de l'autre sur le trottoir, le tracé vers le centre de route pouvait annoncer environ 27 m. L'ajout d'un trajet direct pour les destinations à moins de 16 m (rayon d'interaction du jeu) résout ce cas sans détour. Le point exactement identique renvoie 0 m. Deux tests supplémentaires : **17/17 PASS** au total sur le banc ciblé. Ce correctif ne change pas la physique ni la zone d'interaction.
