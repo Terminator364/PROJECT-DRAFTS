@@ -83,3 +83,45 @@ export class FixedStepScheduler {
  }
  reset(){this.accumulator=0;}
 }
+
+// Offline-only QA sample ring: no network, device identifiers, or career details.
+// Sampling is low frequency so measurement does not itself burden a weak device.
+export class DevicePerformanceRecorder {
+ constructor({intervalMs=1000,maxSamples=900}={}){
+  if(!Number.isFinite(intervalMs)||intervalMs<250||!Number.isInteger(maxSamples)||maxSamples<1)
+   throw Error('Invalid performance recorder budget');
+  this.intervalMs=intervalMs;this.maxSamples=maxSamples;
+  this.samples=[];this.startedMs=null;this.lastSampleMs=null;
+ }
+ shouldSample(now,active=true){
+  return !!active&&Number.isFinite(now)&&
+   (this.lastSampleMs===null||now<this.lastSampleMs||now-this.lastSampleMs>=this.intervalMs);
+ }
+ record(now,values,active=true){
+  if(!this.shouldSample(now,active))return false;
+  if(this.startedMs===null||now<this.lastSampleMs)this.startedMs=now;
+  this.lastSampleMs=now;
+  const safe=(value,upper=1e15)=>typeof value==='number'&&Number.isFinite(value)&&value>=0&&value<=upper?
+   Math.round(value*1000)/1000:null;
+  this.samples.push({elapsed_ms:Math.max(0,Math.round(now-this.startedMs)),
+   fps:safe(values?.fps,500),renderScale:safe(values?.renderScale,2),
+   renderPixels:safe(values?.renderPixels,10e7),
+   simSeconds:safe(values?.simSeconds),droppedSeconds:safe(values?.droppedSeconds),
+   jsHeapBytes:safe(values?.jsHeapBytes)});
+  if(this.samples.length>this.maxSamples)this.samples.shift();
+  return true;
+ }
+ report(meta={}){
+  const fps=this.samples.map(s=>s.fps).filter(v=>v!==null&&v>0).sort((a,b)=>a-b);
+  const avg=fps.length?Math.round(fps.reduce((a,b)=>a+b,0)*10/fps.length)/10:null;
+  const last=this.samples.at(-1),first=this.samples[0];
+  const minScale=this.samples.map(s=>s.renderScale).filter(x=>x!==null).reduce((a,b)=>Math.min(a,b),Infinity);
+  return {schema:1,type:'KINMOTO_LOCAL_DEVICE_DIAGNOSTIC',
+   privacy:'Local only; no GPS, account ID, wallet, passenger, location, or network transfer.',
+   meta,summary:{samples:this.samples.length,validFpsSamples:fps.length,
+    avgFps:avg,minFps:fps[0]??null,p10Fps:fps.length?fps[Math.floor((fps.length-1)*.1)]:null,
+    maxFps:fps.at(-1)??null,minRenderScale:Number.isFinite(minScale)?minScale:null,
+    sampleWindowSeconds:last&&first?Math.round((last.elapsed_ms-first.elapsed_ms)/1000*10)/10:0,
+    droppedSimSeconds:last?.droppedSeconds??null},samples:this.samples.map(s=>({...s}))};
+ }
+}
