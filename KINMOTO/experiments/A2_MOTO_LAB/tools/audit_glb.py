@@ -46,7 +46,7 @@ def inspect_glb(blob: bytes, filename: str = '<memory>') -> dict:
         entries=doc.get(key,[])
         if not isinstance(entries,list) or any(not isinstance(entry,dict) for entry in entries):
             fail(f'Invalid {key} array entries')
-    for mesh in doc.get('meshes',[]):
+    for mesh in (doc.get('meshes',[]) if isinstance(doc.get('meshes',[]),list) else []):
         if not isinstance(mesh,dict):continue
         primitives=mesh.get('primitives',[])
         if not isinstance(primitives,list):
