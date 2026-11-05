@@ -87,6 +87,15 @@ export function makeWorld(){const g=new Geo();g.box(0,-.24,0,390,.34,390,C('#879
    if((s*13)%11===0){stall(g,cx,cz,s);palm(g,cx+dx*.28,cz+dz*.26,.75);}else if((s*7)%19===0){palm(g,cx,cz,1.05);bench(g,cx+2,cz-2);}else{building(g,cx,cz,dx*.70,dz*.69,3.6+rr()*8.6,s);}
  }
  }
+ // The hand-authored starter neighborhood: a WEWA stop with a recognizable
+ // shelter, yellow roof and motorcycle waiting bays, all merged into the world
+ // geometry's existing single draw call (zero added runtime mesh objects).
+ g.box(-11.2,1.85,85,3.2,.18,5.3,P.yellow);
+ for(const z of [82.6,87.4])for(const x of [-12.6,-9.8])g.box(x,1.0,z,.13,2.0,.13,P.metal);
+ g.box(-11.3,.44,85,2.7,.20,1.0,C('#a87f50'));
+ g.box(-8.8,1.55,82.2,.16,3.1,.16,P.dark);
+ g.box(-8.8,2.92,82.25,.20,.52,.6,P.yellow);
+ for(const x of [-7.5,-3.0])g.box(x,.070,87.3,1.6,.024,.19,P.line);
  // corner vegetation, street infrastructure and market activity
  let n=0;
  for(const x of streets)for(const z of streets){for(const sx of [-1,1])for(const sz of [-1,1]){
