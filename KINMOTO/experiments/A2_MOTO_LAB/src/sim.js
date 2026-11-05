@@ -2,7 +2,7 @@ import {clamp,lerp,wrapAngle,hypot,dist,heading,angleOf,nearestRoad,keepOverStre
 import {advanceBike,createBikeTelemetry,BIKE_WHEEL_RADIUS} from './bike_physics.js';
 import {inspectBikeCar,closingSpeed} from './collision.js';
 import {observeRide,addRideDiscomfort,rideComfortPaymentMultiplier} from './ride_quality.js';
-export const VERSION='A2A3-A4-0.5.7-CANDIDATE-REVIEW';
+export const VERSION='A2A3-A4-0.5.7-TRAFFIC-REVIEW';
 export const PLACES=[
  {id:'victoire',name:'PLACE VICTOIRE',x:13,z:12,kind:'place'},
  {id:'matonge',name:'MATONGE',x:13,z:-73,kind:'place'},
@@ -48,9 +48,31 @@ export function readSave(storage){
 }
 export function writeSave(data,storage){try{storage=storage||globalThis.localStorage;storage.setItem(SAVE_KEY,JSON.stringify(data));return true}catch{return false}}
 export function makeRoute(left,top,right,bottom){const l=left+4.6,r=right-4.6,t=top+4.6,b=bottom-4.6;
- const pts=[{x:l,z:b-15},{x:l,z:t+15},{x:l+3,z:t+7},{x:l+7,z:t+3},{x:l+15,z:t},{x:r-15,z:t},{x:r-7,z:t+3},{x:r-3,z:t+7},{x:r,z:t+15},{x:r,z:b-15},{x:r-3,z:b-7},{x:r-7,z:b-3},{x:r-15,z:b},{x:l+15,z:b},{x:l+7,z:b-3},{x:l+3,z:b-7}];let segments=[],length=0;for(let i=0;i<pts.length;i++){const a=pts[i],b=pts[(i+1)%pts.length],d=dist(a,b);segments.push({a,b,start:length,len:d});length+=d;}return {segments,length};}
+ // Corner trajectories must stay inside the asphalt CROSS, not cut across
+ // building blocks at diagonals (old 3m/7m corner reached 9.6m from roads).
+ // Intermediate points keep the route <= 6.2m from an intersection road axis.
+ const pts=[{x:l,z:b-15},
+ {x:l,z:t+15},{x:l,z:t+6},{x:l+1.5,z:t+1.5},{x:l+6,z:t},{x:l+15,z:t},
+ {x:r-15,z:t},{x:r-6,z:t},{x:r-1.5,z:t+1.5},{x:r,z:t+6},{x:r,z:t+15},
+ {x:r,z:b-15},{x:r,z:b-6},{x:r-1.5,z:b-1.5},{x:r-6,z:b},{x:r-15,z:b},
+ {x:l+15,z:b},{x:l+6,z:b},{x:l+1.5,z:b-1.5},{x:l,z:b-6}];let segments=[],length=0;for(let i=0;i<pts.length;i++){const a=pts[i],b=pts[(i+1)%pts.length],d=dist(a,b);segments.push({a,b,start:length,len:d});length+=d;}return {segments,length};}
 const LOOPS=[makeRoute(-120,-120,0,0),makeRoute(0,-120,120,0),makeRoute(-120,0,0,120),makeRoute(0,0,120,120)];
 export function sampleRoute(route,m){m=((m%route.length)+route.length)%route.length;for(const s of route.segments){if(m<=s.start+s.len){let t=(m-s.start)/Math.max(.00001,s.len);return {x:lerp(s.a.x,s.b.x,t),z:lerp(s.a.z,s.b.z,t),yaw:angleOf(s.b.x-s.a.x,s.b.z-s.a.z)};}}const s=route.segments[0];return {...s.a,yaw:angleOf(s.b.x-s.a.x,s.b.z-s.a.z)};}
+// Traffic is strictly forward-moving: cache the current route segment instead
+// of scanning all 20 segments for every car on all 60 simulation ticks.
+// If a test or recovery changes u backwards, the cached pointer also rewinds.
+function sampleTrafficRoute(route,u,car){
+ const segments=route.segments;
+ let i=car.routeSegmentIndex||0;
+ if(u<segments[i].start)i=0;
+ while(i+1<segments.length&&u>segments[i].start+segments[i].len)i++;
+ const seg=segments[i],t=clamp((u-seg.start)/Math.max(.00001,seg.len),0,1);
+ car.routeSegmentIndex=i;
+ const out=car.routeSample||(car.routeSample={x:0,z:0,yaw:0});
+ out.x=lerp(seg.a.x,seg.b.x,t);out.z=lerp(seg.a.z,seg.b.z,t);
+ out.yaw=angleOf(seg.b.x-seg.a.x,seg.b.z-seg.a.z);
+ return out;
+}
 function newMission(ride=0){
  if(ride<SLICE_STORY.length){const a=SLICE_STORY[ride];return {ride,kind:a.kind,title:a.title,from:a.from,to:a.to,via:null,stage:'pickup',client:a.client,reward:a.reward,penalty:0,comfort:100,impacts:0,startedAt:0,timer:0};}
  const r=rand(7946+ride*773),options=PLACES.filter(p=>p.kind!=='garage'&&p.kind!=='slice');const from=options[(ride*3+1)%options.length];let to=options[(ride*5+4)%options.length];if(from.id===to.id)to=options[(options.indexOf(to)+3)%options.length];const kind=KINDS[ride%KINDS.length],length=Math.abs(from.x-to.x)+Math.abs(from.z-to.z),reward=Math.round((750+length*10)*kind.mult/50)*50;
@@ -124,14 +146,59 @@ export function step(g,dt){const p=g.player,c=g.controls;if(!g.playing||g.paused
  observeRide(g.mission,p.bike,p.speed,dt);
  // Four real-road loops, spatial sensing, deterministic intersection priority.
  for(const car of g.cars){
+  const oldCarX=car.x,oldCarZ=car.z;
   car.stun=Math.max(0,(car.stun||0)-dt);
   let v=trafficTargetSpeed(car,g.cars);
   const path=LOOPS[car.loop];
- // defensive braking around stopped player, never reverse
- const relative={x:p.x-car.x,z:p.z-car.z};const along=relative.x*Math.sin(car.yaw)-relative.z*Math.cos(car.yaw);
- if(along>0&&along<12&&Math.hypot(relative.x,relative.z)<8&&p.speed<car.speed+3)v=Math.min(v,Math.max(0,(along-3)*1.0));
- car.braking=v<car.speed-.15;car.speed=lerp(car.speed,v,dt*(v<car.speed?3.5:1.2));car.u=(car.u+car.speed*dt)%path.length;
- const pos=sampleRoute(path,car.u);car.x=pos.x;car.z=pos.z;car.yaw=pos.yaw;
+ // The traffic must yield to a slow bike without freezing indefinitely:
+ // when a lane is blocked ahead, change lateral lane bias gradually toward
+ // the *opposite* side of the rider, only if the target stays on asphalt.
+ const relX=p.x-car.x,relZ=p.z-car.z,fx=Math.sin(car.yaw),fz=-Math.cos(car.yaw);
+ const along=relX*fx+relZ*fz,side=relX*Math.cos(car.yaw)+relZ*Math.sin(car.yaw);
+ const blocking=along>0&&along<13&&Math.abs(side)<2.75&&p.speed<car.preferred+2;
+ if(blocking){
+   if(!(car.avoidUntil>g.clock)){
+     const desired=side>=0?-2.9:2.9;
+     const here=sampleTrafficRoute(path,car.u,car);
+     const sx=Math.cos(here.yaw),sz=Math.sin(here.yaw);
+     const candidate={x:here.x+sx*desired,z:here.z+sz*desired};
+     // Never initiate an overtake into a neighboring kinematic vehicle.
+     const laneClear=g.cars.every(other=>other===car||Math.hypot(other.x-candidate.x,other.z-candidate.z)>5.0);
+     if(nearestRoad(candidate).distance<=7.1&&laneClear){car.avoidTarget=desired;car.avoidUntil=g.clock+3.5;}
+   }
+   // Brake until the remaining nose gap is safe, then proceed past the rider.
+   if(Math.abs(side)<2.4)v=Math.min(v,Math.max(0,(along-3.8)*1.0));
+ }
+ if(!(car.avoidUntil>g.clock))car.avoidTarget=0;
+ car.braking=v<car.speed-.15;
+ car.speed=lerp(car.speed,v,dt*(v<car.speed?3.5:1.2));car.u=(car.u+car.speed*dt)%path.length;
+ const pos=sampleTrafficRoute(path,car.u,car);
+ const bias=car.avoidTarget||0;
+ // The normal case is a car following its original lane. Do not run the
+ // sidestep vector math or road query for all 16 cars on every 60Hz tick.
+ if(bias||car.avoidDX||car.avoidDZ){
+   const sideX=Math.cos(pos.yaw),sideZ=Math.sin(pos.yaw);
+   // Smooth *world-space* displacement so a sudden corner heading does not
+   // teleport a biased car sideways by metres in one frame.
+   let dx=sideX*bias-(car.avoidDX||0),dz=sideZ*bias-(car.avoidDZ||0);
+   const shift=Math.hypot(dx,dz),maxShift=3.1*dt;
+   if(shift>maxShift){dx*=maxShift/shift;dz*=maxShift/shift;}
+   const avoidDX=(car.avoidDX||0)+dx,avoidDZ=(car.avoidDZ||0)+dz;
+   const candidate={x:pos.x+avoidDX,z:pos.z+avoidDZ};
+   if(nearestRoad(candidate).distance<=7.2){car.avoidDX=avoidDX;car.avoidDZ=avoidDZ;}
+   car.x=pos.x+(car.avoidDX||0);car.z=pos.z+(car.avoidDZ||0);
+ }else{car.x=pos.x;car.z=pos.z;}
+ car.yaw=pos.yaw;
+ // The visual chassis should steer into a lane change instead of sliding
+ // sideways while the collider continues to follow its road-aligned route.
+ // Avoid a global atan2 every frame for the 15 unaffected vehicles.
+ if((bias||car.avoidDX||car.avoidDZ)&&car.speed>1&&dt>0){
+   const vx=car.x-oldCarX,vz=car.z-oldCarZ;
+   if(Math.hypot(vx,vz)>.025){
+     const yawDelta=wrapAngle(angleOf(vx,vz)-car.yaw);
+     car.visualYaw=car.yaw+clamp(yawDelta,-.30,.30);
+   }else car.visualYaw=car.yaw;
+ }else car.visualYaw=car.yaw;
  }
  // Oriented box/car vs disc/bike contact: a parallel overtake must not
  // trigger a collision simply because the two vehicle centers are <3.1m.
