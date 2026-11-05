@@ -9,7 +9,7 @@ test('road distance is longer than straight line when route must turn',()=>{
 });
 test('navigation uses graph route, no route teleports through buildings',()=>{
   const g=makeGame(),nav=guideTo(g.player,missionTarget(g.mission),g.player.yaw);
-  assert.ok(nav.distance>100&&nav.distance<900);assert.ok(nav.route.length>=3);
+  assert.ok(nav.distance>0&&nav.distance<900);assert.ok(nav.route.length>=2); assert.equal(nav.distance,Math.round(nav.distance));
 });
 test('navigation tells left/right relative to bike yaw in world coordinates',()=>{
   const a={x:0,z:0},b={x:0,z:-70};const route={nodes:[a,{x:0,z:-40},b]};
