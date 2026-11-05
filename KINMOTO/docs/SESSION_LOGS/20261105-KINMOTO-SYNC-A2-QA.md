@@ -56,3 +56,13 @@ Archive de recette locale : `KINMOTO_A2_V056_QA_LOCAL_20261105.zip`, SHA-256 `82
 - Microbenchmark GPS rectifié : le premier comparatif mélangeait moteur VM et module natif et a été rejeté. Reprise identique des deux versions via Node VM, 15 000 paires : ancien **1 733,89 ms** (115,59 µs/appel), nouveau **396,95 ms** (26,46 µs/appel). Valeurs uniquement Node/CPU, pas FPS ou latence tactile.
 - Archive ZIP de recette locale initiale vérifiée avec `ZipFile.testzip()`, ses 6 SHA-256 internes et contrôle de syntaxe JavaScript. SHA-256 archive inchangé : `829e76d0ab37aaa817d689a560c3bc416903177e86a7c9644fbd7cd6da989f50`.
 - Une évaluation A/B d'un vrai GLB texturé reste indispensable. Le candidat Road Sportbike annoncé 5 156 triangles sur sa page n'a pas été téléchargé ; 8 matériaux et rotations de roues peuvent accroître les draw calls. **Ne pas le promouvoir automatiquement au rang de modèle accepté.**
+
+## Reprise assemblée en branche d'intégration (05/11)
+
+**Branche source candidate sans promotion STABLE :** `kinmoto/integration-a2-v056-review-20261105`. Parent de référence `main` : `d5d6796ceabef8de853883925f41d0861d679948`. Git tree agrégée : `840cff6f7f1f211d38d6be2a3f29f0ac24f95e5d`. Commit initial d'intégration : `c387ac64c657b302ba677019599ebb1bd579fa43`.
+
+Les **16 fichiers** concernés (code, tests et documentation des PR #30–34) ont été comparés aux SHA de blobs Git des branches sources. **16/16 concordances PASS**. Aucune donnée étrangère à `KINMOTO/` intégrée.
+
+`PROJECT_STATE.json` sur cette seule branche enregistre `DRAFT_INTEGRATION_NOT_RELEASED` et `qa_full_repo=NOT_TESTED` ; `NEXT_ACTION.md` spécifie la suite locale Node/Python/WebGL. La branche `main` conserve l'ancienne V0.5.5 canonique et le gel du déploiement. Ce checkpoint est vérifiable même sans l'artefact ZIP du chat.
+
+**Ne pas confondre égalité de blobs, QA Node isolée et recette Android réelle.**
