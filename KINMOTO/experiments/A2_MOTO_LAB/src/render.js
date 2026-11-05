@@ -55,7 +55,7 @@ export class Renderer{
     // Standard third-person camera occlusion mitigation: hide a traffic mesh if
     // it would engulf the camera. The car remains active and collidable in sim.
     if(playerDistance<190 && !(behind && cameraDistance<11))
-      this.draw(this.mesh.cars[car.kind%this.mesh.cars.length],model(car.x,0,car.z,Math.PI-car.yaw));
+      this.draw(this.mesh.cars[car.kind%this.mesh.cars.length],model(car.x,0,car.z,Math.PI-(car.visualYaw??car.yaw)));
    }
   if(this.mode!==2){
    const base=bikeBodyModel(p);
