@@ -21,3 +21,6 @@ Standard GitHub-hosted runners sur dépôt public : utilisation gratuite selon G
 2. Intégration de cas de test déclassifiés avec rapport de correspondance contre la source privée.
 3. Qualification locale Windows/HP et vérification cryptographique indépendante.
 4. Canary V2 réel avec rollback et arrêt des opérations risquées en cas d'incohérence.
+
+## Première validation
+Le workflow est limité à la branche expérimentale publique. Son résultat doit être observé dans GitHub Actions avant toute affirmation de réussite.
