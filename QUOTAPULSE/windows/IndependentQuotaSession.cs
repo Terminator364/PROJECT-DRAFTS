@@ -11,6 +11,7 @@ namespace QuotaPulse {
  public sealed class IndependentQuotaSession : IDisposable {
    const string UsageUrl="https://mcp.desktopcommander.app/usage";
    readonly Form owner;
+   readonly bool allowLogin;
    Form login;
    WebView2 browser;
    Timer pulse;
@@ -22,7 +23,7 @@ namespace QuotaPulse {
    string profilePath;
    string diagnosticPath;
 
-   public IndependentQuotaSession(Form ownerForm){owner=ownerForm;}
+   public IndependentQuotaSession(Form ownerForm,bool interactiveLogin){owner=ownerForm;allowLogin=interactiveLogin;}
    void Log(string message) {
      try {
        string dir=Path.Combine(Path.GetDirectoryName(typeof(IndependentQuotaSession).Assembly.Location),"diagnostics");
@@ -34,7 +35,7 @@ namespace QuotaPulse {
      }catch{}
    }
    public Task<Quota> ReadAsync(){
-     pending=new TaskCompletionSource<Quota>();
+     pending=new TaskCompletionSource<Quota>(TaskCreationOptions.RunContinuationsAsynchronously);
      began=DateTime.UtcNow;
      Log("START");
      Initialize();
@@ -146,6 +147,17 @@ namespace QuotaPulse {
        string body=new JavaScriptSerializer().Deserialize<string>(encoded)??"";
        bool isLogin=LoginPage(url,body);
        if(isLogin){
+         // The marker is only a hint. Expired provider cookies take precedence.
+         try {
+           string marker=Path.Combine(profilePath,"quotapulse-auth-ok.flag");
+           if(File.Exists(marker))File.Delete(marker);
+         }catch{}
+         if(!allowLogin){
+           Log("AUTH_REQUIRED_SILENT_ABORT");
+           pending.TrySetResult(null);
+           Dispose();
+           return;
+         }
          if(!enteredAuth)Log("AUTH_REQUIRED");
          enteredAuth=true;
          ShowLogin("Termine l'identification. Aucun délai imposé.");
