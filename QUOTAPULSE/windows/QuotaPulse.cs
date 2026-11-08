@@ -87,11 +87,11 @@ namespace QuotaPulse {
   }
   public static Quota Read(){return Parse(GetNames());}
   public static string CleanReset(string raw) {
-    if(String.IsNullOrWhiteSpace(raw))return "Ã€ confirmer";
+    if(String.IsNullOrWhiteSpace(raw))return "\u00c0 confirmer";
     string t=raw.Replace('\u00a0',' ').Replace('\u202f',' ');
     Match day=Regex.Match(t,@"(?i)\b(\d{1,2})\s+([\p{L}]{3,12}\.?)");
     if(day.Success)return day.Groups[1].Value+" "+day.Groups[2].Value;
-    return "Ã€ confirmer";
+    return "\u00c0 confirmer";
   }  public static Quota ParseWeb(string raw){
    if(String.IsNullOrWhiteSpace(raw))throw new InvalidOperationException("Compteur absent");
    string t=Regex.Replace(raw.Replace('\u00a0',' ').Replace('\u202f',' ').Replace('\u2009',' '),@"\s+"," ");
@@ -207,7 +207,7 @@ namespace QuotaPulse {
    if(status.Length>55)status=status.Substring(0,52)+"...";
    Txt(g,status,9,muted,25,387);
    Txt(g,"Session autonome / 0 service permanent",8,muted,25,409);
-  }async void RefreshData(){
+  }async void RefreshData(bool userInitiated=false){
    if(busy)return;
    busy=true;notice="Lecture du compte";Invalidate();
    var stopwatch=Stopwatch.StartNew();
@@ -221,7 +221,7 @@ namespace QuotaPulse {
        catch(Exception){q=null;}
      }
      if(q==null){
-       using(var session=new IndependentQuotaSession(this)){
+       using(var session=new IndependentQuotaSession(this,userInitiated)){
          q=await session.ReadAsync();
          independent=q!=null;
        }
@@ -229,14 +229,14 @@ namespace QuotaPulse {
      if(q!=null){
        long previous=data==null?-1:data.Used;
        Reader.Save(q);data=q;
-       string delta=previous<0?"Premier relevÃ©":q.Used>=previous?"+"+(q.Used-previous)+" appels":"Nouveau cycle";
+       string delta=previous<0?"Premier relev\u00e9":q.Used>=previous?"+"+(q.Used-previous)+" appels":"Nouveau cycle";
        notice=delta+" / "+stopwatch.Elapsed.TotalSeconds.ToString("0.0",CultureInfo.GetCultureInfo("fr-FR"))+" s";
        if(independent){
          string profile=Path.Combine(Path.GetDirectoryName(typeof(Window).Assembly.Location),"WebProfile");
          Directory.CreateDirectory(profile);
          File.WriteAllText(Path.Combine(profile,"quotapulse-auth-ok.flag"),DateTime.UtcNow.ToString("o"));
        }
-     }else notice="RelevÃ© conservÃ©; connexion nÃ©cessaire";
+     }else notice="Relev\u00e9 conserv\u00e9; connexion n\u00e9cessaire";
    }catch(Exception ex){notice="Erreur de lecture: "+ex.GetType().Name;}
    finally{busy=false;if(!IsDisposed)Invalidate();}
   }  protected override void OnFormClosed(FormClosedEventArgs e){
@@ -248,7 +248,7 @@ namespace QuotaPulse {
    base.OnMouseDown(e);
    if(closeBox.Contains(e.Location)){Close();return;}
    if(minBox.Contains(e.Location)){WindowState=FormWindowState.Minimized;return;}
-   if(refreshBox.Contains(e.Location)){RefreshData();return;}
+   if(refreshBox.Contains(e.Location)){RefreshData(true);return;}
    if(e.Y<67){ReleaseCapture();SendMessage(this.Handle,0xA1,2,0);}
   }
  }
