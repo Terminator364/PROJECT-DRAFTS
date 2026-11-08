@@ -86,6 +86,31 @@ namespace QuotaPulse {
    return list;
   }
   public static Quota Read(){return Parse(GetNames());}
+  public static string CleanReset(string raw) {
+    if(String.IsNullOrWhiteSpace(raw))return "Ã€ confirmer";
+    string t=raw.Replace('\u00a0',' ').Replace('\u202f',' ');
+    Match day=Regex.Match(t,@"(?i)\b(\d{1,2})\s+([\p{L}]{3,12}\.?)");
+    if(day.Success)return day.Groups[1].Value+" "+day.Groups[2].Value;
+    return "Ã€ confirmer";
+  }  public static Quota ParseWeb(string raw){
+   if(String.IsNullOrWhiteSpace(raw))throw new InvalidOperationException("Compteur absent");
+   string t=Regex.Replace(raw.Replace('\u00a0',' ').Replace('\u202f',' ').Replace('\u2009',' '),@"\s+"," ");
+   int start=t.IndexOf("Tool calls this month",StringComparison.OrdinalIgnoreCase);
+   if(start<0)throw new InvalidOperationException("Compteur absent");
+   string scoped=t.Substring(start,Math.Min(250,t.Length-start));
+   string n=@"(\d{1,3}(?: \d{3})+|\d+)";
+   Match m=Regex.Match(scoped,@"(?<!\d)"+n+@"\s*(?:/|of|sur)\s*"+n+@"(?!\d)",RegexOptions.IgnoreCase);
+   if(!m.Success)throw new InvalidOperationException("Chiffres non disponibles");
+   long used=Num(m.Groups[1].Value),limit=Num(m.Groups[2].Value);
+   if(used<0||limit<=0||used>limit||limit>1000000000)throw new InvalidOperationException("Chiffres incohérents");
+   long left=limit-used;
+   Match remain=Regex.Match(t,n+@"\s*(?:tool calls left|appels restants)",RegexOptions.IgnoreCase);
+   if(remain.Success && Num(remain.Groups[1].Value)!=left)throw new InvalidOperationException("Appels restants incohérents");
+   Match av=Regex.Match(t,@"Daily average\s*"+n,RegexOptions.IgnoreCase);
+   int average=av.Success?(int)Math.Min(1000000,Num(av.Groups[1].Value)):0;
+   Match re=Regex.Match(t,@"Resets on\s*(\d{1,2}\s+[\p{L}]{3,12}\.?)",RegexOptions.IgnoreCase);
+   string reset=CleanReset(re.Success?re.Groups[1].Value:"");   return new Quota{Used=used,Limit=limit,Left=left,Avg=average,Reset=reset,Seen=DateTime.Now,Status="Synchronisé"};
+  }
   public static void Save(Quota q) {
    Directory.CreateDirectory(Path.GetDirectoryName(Store));
    File.WriteAllLines(Store,new[]{q.Used.ToString(),q.Limit.ToString(),q.Avg.ToString(),q.Reset,q.Seen.ToString("o")},Encoding.UTF8);
@@ -94,7 +119,7 @@ namespace QuotaPulse {
    try{
     string[] v=File.ReadAllLines(Store,Encoding.UTF8);
     long used=long.Parse(v[0]),limit=long.Parse(v[1]);if(used<0||limit<=0||used>limit)return null;
-    return new Quota{Used=used,Limit=limit,Left=limit-used,Avg=int.Parse(v[2]),Reset=v[3],Seen=DateTime.Parse(v[4],null,DateTimeStyles.RoundtripKind),Status="Dernier relevé"};
+    return new Quota{Used=used,Limit=limit,Left=limit-used,Avg=int.Parse(v[2]),Reset=CleanReset(v[3]),Seen=DateTime.Parse(v[4],null,DateTimeStyles.RoundtripKind),Status="Dernier relevé"};
    }catch{return null;}
   }
   public static string Json(Quota q){
@@ -107,20 +132,27 @@ namespace QuotaPulse {
    a[a.IndexOf("2\u202F189")]="2\u202F188";
    bool failed=false;try{Parse(a);}catch{failed=true;}
    if(!failed)throw new Exception("CONSISTENCY_TEST_FAILED");
-   Console.WriteLine("TEST_PASS=2;USED=7811;LIMIT=10000;LEFT=2189;AVG=976;RESET=1 déc.");
+   Quota q2=ParseWeb("Tool calls this month 7 811 / 10 000 78% used Resets on 1 déc., in 23 days Daily average 976 2 189 tool calls left this month");
+   if(q2.Left!=2189||q2.Limit!=10000||q2.Avg!=976)throw new Exception("WEB_TEST_FAILED");
+   Console.WriteLine("TEST_PASS=3;USED=7811;LIMIT=10000;LEFT=2189;AVG=976;RESET=1 déc.");
   }
  }
  public sealed class Window:Form {
-  Quota data; bool busy=false; string notice="Dernier relevé"; Rectangle closeBox=new Rectangle(377,14,28,30),minBox=new Rectangle(348,14,28,30),refreshBox=new Rectangle(22,409,376,45);
+  Quota data; bool busy=false; string notice="Dernier relevé"; Bitmap brandLogo; System.Windows.Forms.Timer autoRefresh; Rectangle closeBox=new Rectangle(370,10,27,28),minBox=new Rectangle(340,10,27,28),refreshBox=new Rectangle(22,329,366,44);
   Color bg=Color.FromArgb(10,16,33),card=Color.FromArgb(25,36,64),muted=Color.FromArgb(155,171,197),mint=Color.FromArgb(38,224,177),white=Color.White;
   [DllImport("user32.dll")] static extern bool ReleaseCapture();
   [DllImport("user32.dll")] static extern IntPtr SendMessage(IntPtr h,int m,int w,int l);
-  public Window(){
-   this.FormBorderStyle=FormBorderStyle.None;this.StartPosition=FormStartPosition.CenterScreen;this.ClientSize=new Size(420,478);
-   this.BackColor=bg;this.DoubleBuffered=true;this.Font=new Font("Segoe UI",10f);this.Icon=SystemIcons.Application;this.ShowInTaskbar=true;
+  public Window(bool previewOnly=false){
+   this.FormBorderStyle=FormBorderStyle.None;this.StartPosition=FormStartPosition.CenterScreen;this.ClientSize=new Size(410,435);
+   this.BackColor=bg;this.DoubleBuffered=true;this.Font=new Font("Segoe UI",10f);this.ShowInTaskbar=true;
+   try{string logoPath=Path.Combine(Path.GetDirectoryName(typeof(Window).Assembly.Location),"logo.png");if(File.Exists(logoPath))brandLogo=new Bitmap(logoPath);}catch{}
+   try{string icoPath=Path.Combine(Path.GetDirectoryName(typeof(Window).Assembly.Location),"logo.ico");if(File.Exists(icoPath))this.Icon=new Icon(icoPath);}catch{}
    this.Text="QuotaPulse";this.AutoScaleMode=AutoScaleMode.None;this.MinimumSize=this.MaximumSize=this.Size;
    data=Reader.Load();
-   this.Shown+=(s,e)=>{if(IsEdgeVisible())RefreshData();else{notice=data==null?"Ouvrir Edge, puis Actualiser":"Relevé enregistré • actualisation manuelle";Invalidate();}};
+   this.Shown+=(s,e)=>{if(previewOnly){notice="Apercu graphique";Invalidate();}else if(File.Exists(Path.Combine(Path.GetDirectoryName(typeof(Window).Assembly.Location),"WebProfile","quotapulse-auth-ok.flag")))RefreshData();else{notice=data==null?"Actualiser pour se connecter":"Dernier relevé · Actualiser pour connecter";Invalidate();}};
+   autoRefresh=new System.Windows.Forms.Timer{Interval=20*60*1000};
+   autoRefresh.Tick+=(s,e)=>{if(this.Visible&&!busy&&File.Exists(Path.Combine(Path.GetDirectoryName(typeof(Window).Assembly.Location),"WebProfile","quotapulse-auth-ok.flag")))RefreshData();};
+   autoRefresh.Start();
   }
   static bool IsEdgeVisible(){
    try {return Process.GetProcessesByName("msedge").Any(p=>p.MainWindowHandle!=IntPtr.Zero&&p.MainWindowTitle.Contains("Desktop Commander"));}catch{return false;}
@@ -138,43 +170,58 @@ namespace QuotaPulse {
    using(StringFormat sf=new StringFormat{Alignment=StringAlignment.Center,LineAlignment=StringAlignment.Center}){g.DrawString(value,f,b,area,sf);}
   }
   protected override void OnPaint(PaintEventArgs e){
-   base.OnPaint(e);Graphics g=e.Graphics;g.SmoothingMode=SmoothingMode.AntiAlias;g.Clear(bg);
-   Panel(g,new Rectangle(22,18,34,34),11,Color.FromArgb(35,111,138));
-   Center(g,"Q",17,white,new RectangleF(22,18,34,34),FontStyle.Bold);
-   Txt(g,"QuotaPulse",20,white,66,17,FontStyle.Bold);
-   Txt(g,"—",16,muted,348,13);Txt(g,"×",18,muted,381,10);
-   Txt(g,"Desktop Commander  •  quota mensuel",9,muted,24,62);
-   Panel(g,new Rectangle(22,91,376,184),20,card);
-   Txt(g,"APPELS RESTANTS",10,muted,42,110,FontStyle.Bold);
-   string big=data==null?"—":data.Left.ToString("N0",CultureInfo.GetCultureInfo("fr-FR"));
-   Txt(g,big,40,white,38,130,FontStyle.Bold);
-   Txt(g,data==null?"Aucune mesure":("sur "+data.Limit.ToString("N0",CultureInfo.GetCultureInfo("fr-FR"))+" appels"),10,muted,43,210);
+   base.OnPaint(e);
+   Graphics g=e.Graphics;g.SmoothingMode=SmoothingMode.AntiAlias;g.Clear(bg);
+   if(brandLogo!=null)g.DrawImage(brandLogo,new Rectangle(22,16,43,43));
+   Txt(g,"QuotaPulse",18,white,74,17,FontStyle.Bold);
+   Txt(g,"Desktop Commander",9,muted,76,50);
+   Txt(g,"\u2014",15,muted,344,10);Txt(g,"\u00D7",16,muted,374,7);
+   Rectangle hero=new Rectangle(22,84,366,153);
+   using(GraphicsPath path=Round(hero,19))
+   using(LinearGradientBrush brush=new LinearGradientBrush(hero,Color.FromArgb(28,58,107),Color.FromArgb(21,29,69),LinearGradientMode.ForwardDiagonal)){
+     g.FillPath(brush,path);
+   }
+   Txt(g,"APPELS RESTANTS",10,muted,41,102,FontStyle.Bold);
+   if(data!=null){
+     float r=(float)data.Left/data.Limit;
+     Txt(g,(r*100).ToString("0.00",CultureInfo.GetCultureInfo("fr-FR"))+" %",11,mint,304,103,FontStyle.Bold);
+   }
+   Txt(g,data==null?"\u2014":data.Left.ToString("N0",CultureInfo.GetCultureInfo("fr-FR")),34,white,38,126,FontStyle.Bold);
+   Txt(g,data==null?"Aucun releve":"sur "+data.Limit.ToString("N0",CultureInfo.GetCultureInfo("fr-FR"))+" appels",9,muted,41,192);
+   Panel(g,new Rectangle(41,214,326,8),4,Color.FromArgb(64,82,110));
    float pct=data==null?0f:(float)data.Left/data.Limit;
-   Panel(g,new Rectangle(43,234,334,11),6,Color.FromArgb(57,67,96));
-   if(pct>0){Panel(g,new Rectangle(43,234,Math.Max(8,(int)(334*pct)),11),6,pct<.1f?Color.FromArgb(251,145,95):mint);}
-   Txt(g,data==null?"NON SYNCHRONISÉ":(pct*100f).ToString("0.0",CultureInfo.GetCultureInfo("fr-FR"))+" % disponibles",9,pct<.1f?Color.FromArgb(251,145,95):mint,43,251,FontStyle.Bold);
-   Panel(g,new Rectangle(22,289,181,81),15,card);Panel(g,new Rectangle(217,289,181,81),15,card);
-   Txt(g,"CONSOMMÉS",9,muted,39,305,FontStyle.Bold);
-   Txt(g,data==null?"—":data.Used.ToString("N0",CultureInfo.GetCultureInfo("fr-FR")),22,white,38,327,FontStyle.Bold);
-   Txt(g,"RENOUVELLEMENT",9,muted,235,305,FontStyle.Bold);
-   Txt(g,data==null?"—":data.Reset,16,white,234,332,FontStyle.Bold);
-   string status=busy?"Actualisation en cours…":notice;
-   if(!busy&&data!=null)status+="  ·  "+data.Seen.ToString("dd/MM HH:mm");
-   Txt(g,status.Length>66?status.Substring(0,63)+"…":status,9,muted,24,382);
-   Panel(g,refreshBox,13,busy?Color.FromArgb(52,101,112):mint);
-   Center(g,busy?"LECTURE DU COMPTE…":"↻  ACTUALISER",12,busy?muted:bg,refreshBox,FontStyle.Bold);
-   Txt(g,"Sans service de fond • 0 appel MCP",8,muted,82,461);
-  }
-  void RefreshData(){
-   if(busy)return;busy=true;notice="Lecture du quota";Invalidate();
-   Task.Run(()=>{
-    try{
-     Quota q=Reader.Read();Reader.Save(q);
-     if(!IsDisposed)BeginInvoke((Action)(()=>{data=q;notice="Synchronisé";busy=false;Invalidate();}));
-    }catch(Exception ex){
-     if(!IsDisposed)BeginInvoke((Action)(()=>{notice=ex.Message;busy=false;Invalidate();}));
+   if(pct>0)Panel(g,new Rectangle(41,214,Math.Max(8,(int)(326*pct)),8),4,pct<.10f?Color.FromArgb(255,156,94):mint);
+   Panel(g,new Rectangle(22,249,116,69),14,card);
+   Panel(g,new Rectangle(147,249,116,69),14,card);
+   Panel(g,new Rectangle(272,249,116,69),14,card);
+   Txt(g,"UTILIS\u00C9S",9,muted,35,260,FontStyle.Bold);
+   Txt(g,data==null?"\u2014":data.Used.ToString("N0",CultureInfo.GetCultureInfo("fr-FR")),17,white,34,279,FontStyle.Bold);
+   Txt(g,"PLAFOND",9,muted,160,260,FontStyle.Bold);
+   Txt(g,data==null?"\u2014":data.Limit.ToString("N0",CultureInfo.GetCultureInfo("fr-FR")),17,white,159,279,FontStyle.Bold);
+   Txt(g,"RENOUVELLE",8,muted,282,260,FontStyle.Bold);
+   Txt(g,data==null?"\u2014":Reader.CleanReset(data.Reset),16,white,282,280,FontStyle.Bold);
+   Panel(g,refreshBox,13,busy?Color.FromArgb(50,92,104):mint);
+   Center(g,busy?"LECTURE EN COURS...":"ACTUALISER",12,busy?muted:bg,refreshBox,FontStyle.Bold);
+   string status=busy?"Lecture en cours":notice;
+   if(!busy&&data!=null)status+=" / "+data.Seen.ToString("dd/MM HH:mm");
+   if(status.Length>55)status=status.Substring(0,52)+"...";
+   Txt(g,status,9,muted,25,387);
+   Txt(g,"Session autonome / 0 service permanent",8,muted,25,409);
+  }async void RefreshData(){
+   if(busy)return;busy=true;notice="Connexion au compte";Invalidate();
+   try{
+    using(var session=new IndependentQuotaSession(this)){
+     Quota q=await session.ReadAsync();
+     if(q!=null){long previous=data==null?-1:data.Used;Reader.Save(q);data=q;notice=previous<0?"Premier relevé":q.Used>=previous?"+"+(q.Used-previous)+" appels depuis relevé":"Nouveau cycle";string profile=Path.Combine(Path.GetDirectoryName(typeof(Window).Assembly.Location),"WebProfile");Directory.CreateDirectory(profile);File.WriteAllText(Path.Combine(profile,"quotapulse-auth-ok.flag"),DateTime.UtcNow.ToString("o"));}
+     else notice="Dernier relevé conservé";
     }
-   });
+   }catch(Exception ex){notice="Erreur "+ex.GetType().Name;}
+   finally{busy=false;if(!IsDisposed)Invalidate();}
+  }
+  protected override void OnFormClosed(FormClosedEventArgs e){
+   if(autoRefresh!=null){autoRefresh.Stop();autoRefresh.Dispose();}
+   if(brandLogo!=null)brandLogo.Dispose();
+   base.OnFormClosed(e);
   }
   protected override void OnMouseDown(MouseEventArgs e){
    base.OnMouseDown(e);
@@ -190,9 +237,9 @@ namespace QuotaPulse {
    try{SetProcessDPIAware();}catch{}
    try{
     if(args.Length>0&&args[0]=="--self-test"){Reader.Test();return;}
-    if(args.Length>0&&args[0]=="--probe"){Quota q=Reader.Read();Reader.Save(q);string result=Reader.Json(q);File.WriteAllText(@"%LOCALAPPDATA%\QuotaPulse\probe-result.json",result,Encoding.UTF8);Console.WriteLine(result);return;}
+    if(args.Length>0&&args[0]=="--probe"){Console.WriteLine("INDEPENDENT_WEBVIEW2_REQUIRES_INTERACTIVE_LOGIN");return;}
    }catch(Exception e){Console.Error.WriteLine("QUOTAPULSE_ERROR="+e.Message);Environment.ExitCode=2;return;}
-   Application.EnableVisualStyles();Application.SetCompatibleTextRenderingDefault(false);Application.Run(new Window());
+   Application.EnableVisualStyles();Application.SetCompatibleTextRenderingDefault(false);Application.Run(new Window(args.Length>0 && args[0]=="--preview"));
   }
  }
 }
