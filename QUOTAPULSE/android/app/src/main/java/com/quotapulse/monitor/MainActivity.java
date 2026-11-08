@@ -66,6 +66,16 @@ public final class MainActivity extends Activity {
     getWindow().setStatusBarColor(BG);getWindow().setNavigationBarColor(BG);
     getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
     prefs=getSharedPreferences("local-quota",MODE_PRIVATE);
+    // Transient screenshot-only fixture. Never used in release builds or on a user's phone.
+    if(getIntent()!=null&&getIntent().getBooleanExtra("qp_visual_fixture",false)&&
+       (getApplicationInfo().flags&android.content.pm.ApplicationInfo.FLAG_DEBUGGABLE)!=0){
+      long fixtureAt=System.currentTimeMillis();
+      prefs.edit().putLong("used",7812).putLong("limit",10000).putInt("average",977)
+        .putString("reset","1 déc. Upgrade to Pro BL").putLong("updated",fixtureAt)
+        .putString("last_change","+2 appels depuis le dernier relevé")
+        .putString("usage_history",(fixtureAt-180000)+",7809,10000;"+(fixtureAt-120000)+",7810,10000;"+(fixtureAt-60000)+",7811,10000;"+fixtureAt+",7812,10000;")
+        .putBoolean("session_success",false).apply();
+    }
     long u=prefs.getLong("used",-1),lim=prefs.getLong("limit",0);
     if(u>=0&&lim>0&&u<=lim){
       last=new QuotaParser.Data(u,lim,lim-u,prefs.getInt("average",0),prefs.getString("reset","À confirmer"));
