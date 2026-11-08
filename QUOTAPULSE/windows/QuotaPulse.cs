@@ -149,9 +149,9 @@ namespace QuotaPulse {
    try{string icoPath=Path.Combine(Path.GetDirectoryName(typeof(Window).Assembly.Location),"logo.ico");if(File.Exists(icoPath))this.Icon=new Icon(icoPath);}catch{}
    this.Text="QuotaPulse";this.AutoScaleMode=AutoScaleMode.None;this.MinimumSize=this.MaximumSize=this.Size;
    data=Reader.Load();
-   this.Shown+=(s,e)=>{if(previewOnly){notice="Apercu graphique";Invalidate();}else if(File.Exists(Path.Combine(Path.GetDirectoryName(typeof(Window).Assembly.Location),"WebProfile","quotapulse-auth-ok.flag")))RefreshData();else{notice=data==null?"Actualiser pour se connecter":"Dernier relevé · Actualiser pour connecter";Invalidate();}};
+   this.Shown+=(s,e)=>{if(previewOnly){notice="Apercu graphique";Invalidate();}else if(IsEdgeVisible()||File.Exists(Path.Combine(Path.GetDirectoryName(typeof(Window).Assembly.Location),"WebProfile","quotapulse-auth-ok.flag")))RefreshData();else{notice=data==null?"Actualiser pour se connecter":"Dernier relevé · Actualiser pour connecter";Invalidate();}};
    autoRefresh=new System.Windows.Forms.Timer{Interval=20*60*1000};
-   autoRefresh.Tick+=(s,e)=>{if(this.Visible&&!busy&&File.Exists(Path.Combine(Path.GetDirectoryName(typeof(Window).Assembly.Location),"WebProfile","quotapulse-auth-ok.flag")))RefreshData();};
+   autoRefresh.Tick+=(s,e)=>{if(this.Visible&&!busy&&(IsEdgeVisible()||File.Exists(Path.Combine(Path.GetDirectoryName(typeof(Window).Assembly.Location),"WebProfile","quotapulse-auth-ok.flag"))))RefreshData();};
    autoRefresh.Start();
   }
   static bool IsEdgeVisible(){
@@ -208,17 +208,38 @@ namespace QuotaPulse {
    Txt(g,status,9,muted,25,387);
    Txt(g,"Session autonome / 0 service permanent",8,muted,25,409);
   }async void RefreshData(){
-   if(busy)return;busy=true;notice="Connexion au compte";Invalidate();
+   if(busy)return;
+   busy=true;notice="Lecture du compte";Invalidate();
+   var stopwatch=Stopwatch.StartNew();
    try{
-    using(var session=new IndependentQuotaSession(this)){
-     Quota q=await session.ReadAsync();
-     if(q!=null){long previous=data==null?-1:data.Used;Reader.Save(q);data=q;notice=previous<0?"Premier relevé":q.Used>=previous?"+"+(q.Used-previous)+" appels depuis relevé":"Nouveau cycle";string profile=Path.Combine(Path.GetDirectoryName(typeof(Window).Assembly.Location),"WebProfile");Directory.CreateDirectory(profile);File.WriteAllText(Path.Combine(profile,"quotapulse-auth-ok.flag"),DateTime.UtcNow.ToString("o"));}
-     else notice="Dernier relevé conservé";
-    }
-   }catch(Exception ex){notice="Erreur "+ex.GetType().Name;}
+     Quota q=null;
+     bool independent=false;
+     // Use the already-authenticated Edge tab as a fast optional shortcut.
+     // It is NOT required: WebView2 is the independent path when Edge is closed.
+     if(IsEdgeVisible()){
+       try{q=await Task.Run(()=>Reader.Read());}
+       catch(Exception){q=null;}
+     }
+     if(q==null){
+       using(var session=new IndependentQuotaSession(this)){
+         q=await session.ReadAsync();
+         independent=q!=null;
+       }
+     }
+     if(q!=null){
+       long previous=data==null?-1:data.Used;
+       Reader.Save(q);data=q;
+       string delta=previous<0?"Premier relevÃ©":q.Used>=previous?"+"+(q.Used-previous)+" appels":"Nouveau cycle";
+       notice=delta+" / "+stopwatch.Elapsed.TotalSeconds.ToString("0.0",CultureInfo.GetCultureInfo("fr-FR"))+" s";
+       if(independent){
+         string profile=Path.Combine(Path.GetDirectoryName(typeof(Window).Assembly.Location),"WebProfile");
+         Directory.CreateDirectory(profile);
+         File.WriteAllText(Path.Combine(profile,"quotapulse-auth-ok.flag"),DateTime.UtcNow.ToString("o"));
+       }
+     }else notice="RelevÃ© conservÃ©; connexion nÃ©cessaire";
+   }catch(Exception ex){notice="Erreur de lecture: "+ex.GetType().Name;}
    finally{busy=false;if(!IsDisposed)Invalidate();}
-  }
-  protected override void OnFormClosed(FormClosedEventArgs e){
+  }  protected override void OnFormClosed(FormClosedEventArgs e){
    if(autoRefresh!=null){autoRefresh.Stop();autoRefresh.Dispose();}
    if(brandLogo!=null)brandLogo.Dispose();
    base.OnFormClosed(e);
