@@ -1,0 +1,63 @@
+name: QuotaPulse 0.6 one-shot unsigned APK for offline signing
+on:
+  push:
+    branches: [quotapulse-v06-unsigned-20261108]
+    paths: [.github/workflows/quotapulse-v06-unsigned-once.yml]
+permissions:
+  contents: write
+jobs:
+  unsigned:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.13'
+      - name: Install Android SDK 35 for compilation only
+        shell: bash
+        run: |
+          set -euo pipefail
+          S="$(find "$ANDROID_HOME/cmdline-tools" -path '*/bin/sdkmanager' -type f | sort -V | tail -1)"
+          "$S" --install "platforms;android-35" "build-tools;35.0.0"
+      - name: Disable production signing for public runner
+        shell: bash
+        run: |
+          set -euo pipefail
+          sed -i '/signingConfig signingConfigs.stable/d' QUOTAPULSE/android/app/build.gradle
+          if grep -q 'signingConfig signingConfigs.stable' QUOTAPULSE/android/app/build.gradle; then exit 18; fi
+      - name: Unit tests and unsigned release build
+        run: gradle --no-daemon --console=plain -p QUOTAPULSE/android clean testDebugUnitTest assembleRelease
+      - name: Check unsigned file and exact application identity
+        shell: bash
+        run: |
+          set -euo pipefail
+          f=QUOTAPULSE/android/app/build/outputs/apk/release/app-release-unsigned.apk
+          test -s "$f"
+          "$ANDROID_HOME/build-tools/35.0.0/aapt" dump badging "$f" | grep "^package: name='com.quotapulse.monitor.stable' versionCode='6' versionName='0.6.0-beta'"
+          if "$ANDROID_HOME/build-tools/35.0.0/apksigner" verify "$f"; then
+            echo "ERROR: public signing input must not have a signature"
+            exit 25
+          fi
+          sha256sum "$f"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: QuotaPulse-0.6-unsigned-for-LOCAL-signing
+          path: QUOTAPULSE/android/app/build/outputs/apk/release/app-release-unsigned.apk
+          retention-days: 3
+      - name: Release unsigned INPUT only
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          tag=quotapulse-v0.6.0-unsigned
+          f=QUOTAPULSE/android/app/build/outputs/apk/release/app-release-unsigned.apk
+          if ! gh release view "$tag" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+            gh release create "$tag" --target "$GITHUB_SHA" --repo "$GITHUB_REPOSITORY" --prerelease --title "QuotaPulse 0.6 UNSIGNED build input (not installable)" --notes "For offline signing only; not installable, not an update. Private original signing key stays outside public GitHub."
+          fi
+          gh release upload "$tag" "$f" --repo "$GITHUB_REPOSITORY" --clobber
