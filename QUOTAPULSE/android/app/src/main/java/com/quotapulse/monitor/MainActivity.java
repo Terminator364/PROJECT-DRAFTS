@@ -45,7 +45,7 @@ public final class MainActivity extends Activity {
   private UsageChartView activityChart;
   private FrameLayout accountSheet;
   private LinearLayout activityCard;
-  private boolean automaticRefresh=false;
+  private boolean automaticRefresh=false, currentSessionSynced=false, autoAbortPending=false;
   private long readingStartedAt=0;
   private ProgressBar meter;
   private QuotaParser.Data last;
@@ -184,7 +184,7 @@ public final class MainActivity extends Activity {
     change.setText(prefs.getString("last_change","Premier relevé enregistré"));
     activityChart.setReadings(UsageHistory.parse(prefs.getString("usage_history","")));
     timestamp.setText("Relevé "+DateFormat.getDateTimeInstance(DateFormat.SHORT,DateFormat.SHORT,Locale.FRANCE).format(new Date(lastAt)));
-    if(!busy)state.setText("●  RELEVÉ CONSERVÉ");
+    if(!busy)state.setText(currentSessionSynced?"●  SYNCHRONISÉ":"●  RELEVÉ CONSERVÉ");
   }
   private void save(QuotaParser.Data d){
     long now=System.currentTimeMillis();
@@ -192,7 +192,7 @@ public final class MainActivity extends Activity {
     UsageHistory.Update update=UsageHistory.record(prefs.getString("usage_history",""),
       lastAt,oldUsed,oldLimit,now,d.used,d.limit);
     long duration=Math.max(0,now-readingStartedAt);
-    last=d;lastAt=now;
+    last=d;lastAt=now;currentSessionSynced=true;
     prefs.edit().putLong("used",d.used).putLong("limit",d.limit).putInt("average",d.dailyAverage)
       .putString("reset",QuotaParser.cleanReset(d.reset)).putLong("updated",lastAt)
       .putString("usage_history",update.serialized)
@@ -217,7 +217,7 @@ public final class MainActivity extends Activity {
     browser.setWebChromeClient(new WebChromeClient());
     browser.setWebViewClient(new WebViewClient(){
       @Override public void onPageStarted(WebView v,String url,android.graphics.Bitmap icon){
-        if(busy&&LoginPolicy.isAuthenticationUrl(url))showBrowser();
+        if(busy&&LoginPolicy.isAuthenticationUrl(url))handler.post(()->{if(busy&&browser==v)showBrowser();});
       }
       @Override public void onPageFinished(WebView v,String url){
         if(!busy)return;CookieManager.getInstance().flush();
@@ -227,8 +227,12 @@ public final class MainActivity extends Activity {
       @Override public void onReceivedError(WebView v,WebResourceRequest req,WebResourceError err){
         if(busy&&req.isForMainFrame()){
           if(automaticRefresh){
-            message.setText("Réseau indisponible. Dernier relevé conservé.");
-            closeBrowser();automaticRefresh=false;render();
+            automaticRefresh=false;
+            handler.post(()->{
+              if(!busy)return;
+              message.setText("Réseau indisponible. Dernier relevé conservé.");
+              closeBrowser();render();
+            });
           }else{
             showBrowser();
             message.setText("Réseau indisponible. Tu peux réessayer sans perdre ton relevé.");
@@ -264,9 +268,18 @@ public final class MainActivity extends Activity {
     if(automaticRefresh) {
       // An actual provider login redirect invalidates the success hint, not the cookies.
       // This prevents reattempting authentication on every app launch.
+      automaticRefresh=false;
       prefs.edit().putBoolean("session_success",false).apply();
-      message.setText("Session expirée. Compte → Se connecter si nécessaire.");
-      closeBrowser();automaticRefresh=false;render();return;
+      if(!autoAbortPending){
+        autoAbortPending=true;
+        handler.post(()->{
+          autoAbortPending=false;
+          if(!busy)return;
+          message.setText("Session expirée. Dernier relevé conservé. Compte → Se reconnecter.");
+          closeBrowser();render();
+        });
+      }
+      return;
     }
     modal.setVisibility(View.VISIBLE);loginVisible=true;
     if(accountHint!=null)accountHint.setText("Connexion officielle : aucune fermeture automatique pendant la saisie.");
@@ -297,6 +310,7 @@ public final class MainActivity extends Activity {
     });
   }
   private void closeBrowser(){
+    automaticRefresh=false;autoAbortPending=false;
     busy=false;evaluating=false;handler.removeCallbacks(scan);
     if(browser!=null){
       WebView old=browser;browser=null;try{
