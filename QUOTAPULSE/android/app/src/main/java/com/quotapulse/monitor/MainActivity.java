@@ -57,7 +57,7 @@ public final class MainActivity extends Activity {
     @Override public void run() {
       if(!busy || browser==null)return;
       readPage();
-      if(busy&&browser!=null)handler.postDelayed(this,loginVisible?2600:550);
+      if(busy&&browser!=null)handler.postDelayed(this,loginVisible?5000:1500);
     }
   };
 
@@ -72,10 +72,23 @@ public final class MainActivity extends Activity {
       lastAt=prefs.getLong("updated",0);
     }
     drawScreen();render();
-    // Show cached figures instantly. A saved browser session is reused, never reset.
-    if(prefs.getBoolean("session_success",false))handler.postDelayed(()->{
-      automaticRefresh=true;refresh(false);
-    },550);
+    // Cached figures appear immediately. The foreground-only refresh is throttled.
+    // Provider cookies remain in Android WebView; this only checks the last known state.
+  }
+  @Override protected void onResume(){
+    super.onResume();
+    if(prefs==null||busy)return;
+    long now=System.currentTimeMillis();
+    long ago=now-lastAt, sinceAttempt=now-prefs.getLong("last_auto_attempt",0);
+    if(prefs.getBoolean("session_success",false) && ago>=20L*60*1000
+        && sinceAttempt>=20L*60*1000) {
+      prefs.edit().putLong("last_auto_attempt",now).apply();
+      handler.postDelayed(()->{
+        if(!isFinishing()&&!busy&&prefs.getBoolean("session_success",false)){
+          automaticRefresh=true;refresh(false);
+        }
+      },600);
+    }
   }
   private int dp(float n){return Math.round(n*getResources().getDisplayMetrics().density);}
   private LinearLayout vertical(){LinearLayout l=new LinearLayout(this);l.setOrientation(1);return l;}
@@ -213,8 +226,14 @@ public final class MainActivity extends Activity {
       }
       @Override public void onReceivedError(WebView v,WebResourceRequest req,WebResourceError err){
         if(busy&&req.isForMainFrame()){
-          showBrowser();message.setText("Réseau indisponible. Tu peux réessayer sans perdre ton relevé.");
-          if(accountHint!=null)accountHint.setText("Chargement interrompu. Appuie sur ↻ pour réessayer.");
+          if(automaticRefresh){
+            message.setText("Réseau indisponible. Dernier relevé conservé.");
+            closeBrowser();automaticRefresh=false;render();
+          }else{
+            showBrowser();
+            message.setText("Réseau indisponible. Tu peux réessayer sans perdre ton relevé.");
+            if(accountHint!=null)accountHint.setText("Chargement interrompu. Appuie sur ↻ pour réessayer.");
+          }
         }
       }
     });
@@ -238,13 +257,15 @@ public final class MainActivity extends Activity {
     modal.addView(overlay,new FrameLayout.LayoutParams(-1,-1));
     modal.setVisibility(showAccount?View.VISIBLE:View.INVISIBLE);
     root.addView(modal,new FrameLayout.LayoutParams(-1,-1));
-    browser.loadUrl(URL);handler.removeCallbacks(scan);handler.postDelayed(scan,600);
+    browser.loadUrl(URL);handler.removeCallbacks(scan);handler.postDelayed(scan,1000);
   }
   private void showBrowser(){
     if(modal==null)return;
     if(automaticRefresh) {
-      // Never unexpectedly ask for OTP on startup: provider may have expired the old session.
-      message.setText("Session à renouveler. Ouvre Compte uniquement si nécessaire.");
+      // An actual provider login redirect invalidates the success hint, not the cookies.
+      // This prevents reattempting authentication on every app launch.
+      prefs.edit().putBoolean("session_success",false).apply();
+      message.setText("Session expirée. Compte → Se connecter si nécessaire.");
       closeBrowser();automaticRefresh=false;render();return;
     }
     modal.setVisibility(View.VISIBLE);loginVisible=true;
@@ -266,7 +287,7 @@ public final class MainActivity extends Activity {
       if(!redirected&&LoginPolicy.canNavigateToUsage(url,page)){
         redirected=true;active.loadUrl(URL);return;
       }
-      if(System.currentTimeMillis()-startedAt>14000 && !loginVisible) {
+      if(System.currentTimeMillis()-startedAt>18000 && !loginVisible) {
         message.setText("Lecture lente : dernier relevé conservé. Actualise quand le réseau est meilleur.");
         closeBrowser();automaticRefresh=false;render();
         return;
