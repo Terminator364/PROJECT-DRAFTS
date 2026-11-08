@@ -79,9 +79,9 @@ public final class MainActivity extends Activity {
     super.onResume();
     if(prefs==null||busy)return;
     long now=System.currentTimeMillis();
-    long ago=now-lastAt, sinceAttempt=now-prefs.getLong("last_auto_attempt",0);
-    if(prefs.getBoolean("session_success",false) && ago>=20L*60*1000
-        && sinceAttempt>=20L*60*1000) {
+    if(SyncPolicy.shouldAutoRefresh(
+        prefs.getBoolean("session_success",false),busy,lastAt,
+        prefs.getLong("last_auto_attempt",0),now)) {
       prefs.edit().putLong("last_auto_attempt",now).apply();
       handler.postDelayed(()->{
         if(!isFinishing()&&!busy&&prefs.getBoolean("session_success",false)){
