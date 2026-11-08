@@ -1,0 +1,62 @@
+name: QuotaPulse One-shot unsigned Android QA
+on:
+  push:
+    branches: [quotapulse-once-unsigned-20261108]
+    paths: [.github/workflows/qp-unsigned-one-shot-20261108.yml]
+permissions:
+  contents: write
+jobs:
+  build_and_validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - name: Install Android platform and build-tools
+        shell: bash
+        run: |
+          set -euo pipefail
+          SDKMANAGER="$(find "$ANDROID_HOME/cmdline-tools" -path "*/bin/sdkmanager" -type f | sort -V | tail -n 1)"
+          test -x "$SDKMANAGER"
+          "$SDKMANAGER" --install "platforms;android-35" "build-tools;35.0.0"
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.13'
+      - name: Compile, run unit tests, and build UNSIGNED release APK
+        shell: bash
+        run: |
+          set -euo pipefail
+          gradle --no-daemon --console=plain -p QUOTAPULSE/android -PqpUnsignedRelease=true clean testDebugUnitTest assembleRelease
+      - name: Check unsigned release artifact, no secret signing
+        shell: bash
+        run: |
+          set -euo pipefail
+          f="QUOTAPULSE/android/app/build/outputs/apk/release/app-release-unsigned.apk"
+          test -s "$f"
+          sha256sum "$f"
+          ls -lh "$f"
+          if "$ANDROID_HOME/build-tools/35.0.0/apksigner" verify "$f"; then
+            echo "ERROR: public staging APK should not be signed" >&2
+            exit 1
+          fi
+          echo "UNSIGNED_STAGING_VALIDATED"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: QuotaPulse-v0.5.0-UNSIGNED-NOT-FOR-INSTALL
+          path: QUOTAPULSE/android/app/build/outputs/apk/release/app-release-unsigned.apk
+          retention-days: 7
+      - name: Publish staging prerelease for secure offline signing on the HP
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          f="QUOTAPULSE/android/app/build/outputs/apk/release/app-release-unsigned.apk"
+          tag="quotapulse-v0.5.0-unsigned-staging"
+          if ! gh release view "$tag" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+            gh release create "$tag" --target "$GITHUB_SHA" --repo "$GITHUB_REPOSITORY" --prerelease --title "QuotaPulse 0.5.0 unsigned - DO NOT INSTALL" --notes "Unsigned artifact for offline signing only. Not an installable Android APK. Existing private release keystore must be used on the owner's PC."
+          fi
+          gh release upload "$tag" "$f#QuotaPulse-v0.5.0-UNSIGNED.apk" --repo "$GITHUB_REPOSITORY" --clobber
