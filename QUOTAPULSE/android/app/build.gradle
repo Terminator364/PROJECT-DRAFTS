@@ -25,7 +25,7 @@ android {
     buildTypes {
         release {
             minifyEnabled false
-            signingConfig signingConfigs.stable
+            // One-time unsigned release for local private signing; do not merge this override into main.
         }
         debug { debuggable true }
     }
