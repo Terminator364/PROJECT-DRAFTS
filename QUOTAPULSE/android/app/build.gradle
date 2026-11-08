@@ -25,7 +25,11 @@ android {
     buildTypes {
         release {
             minifyEnabled false
-            signingConfig signingConfigs.stable
+            // Public runner builds an unsigned APK. Production signing happens only offline
+            // with the existing private QuotaPulse keystore (never stored in this repo).
+            if (!project.hasProperty('qpUnsignedRelease')) {
+                signingConfig signingConfigs.stable
+            }
         }
         debug { debuggable true }
     }
