@@ -9,13 +9,14 @@ Never send the signing certificate or password to PROJECT-DRAFTS.
 param(
  [Parameter(Mandatory=$true)][string]$UnsignedApk,
  [Parameter(Mandatory=$true)][string]$BuildToolsDir,
- [string]$OutputApk = "$env:USERPROFILE\Downloads\QuotaPulse-Android-v0.5.0-beta-update.apk"
+ [string]$OutputApk = "$env:USERPROFILE\Downloads\QuotaPulse-Android-v0.6.0-beta-update.apk"
 )
 $ErrorActionPreference='Stop'
 Set-StrictMode -Version Latest
 function RequireFile([string]$path){
  if(!(Test-Path -LiteralPath $path -PathType Leaf)){throw "Missing required file: $path"}
 }
+if(Test-Path -LiteralPath $OutputApk){throw "Output already exists: $OutputApk"}
 $gh=Get-Command gh -ErrorAction SilentlyContinue
 if(!$gh){throw "GitHub CLI (gh) unavailable. Authenticate locally once and rerun."}
 $align=Join-Path $BuildToolsDir 'zipalign.exe'
@@ -48,8 +49,15 @@ try{
              '--v3-signing-enabled','true','--out',$OutputApk,$aligned)
  & $sign @signArgs
  if($LASTEXITCODE -ne 0){throw 'Production signing failed'}
- & $sign verify --verbose --print-certs $OutputApk
+ $certificateDetails=(& $sign verify --verbose --print-certs $OutputApk | Out-String)
  if($LASTEXITCODE -ne 0){throw 'APK signature verification failed'}
+ $expectedCert='66c8f8d474e78dcdb2d93ff6060a36915796cf058bd4d03c569f144db4c9f50a'
+ $actualMatch=[regex]::Match($certificateDetails,'Signer #1 certificate SHA-256 digest:\s*([0-9a-fA-F]{64})')
+ if(!$actualMatch.Success -or $actualMatch.Groups[1].Value.ToLowerInvariant() -ne $expectedCert){
+   Remove-Item -LiteralPath $OutputApk -Force -ErrorAction SilentlyContinue
+   throw 'The signed certificate differs from the installed QuotaPulse v0.3 production certificate'
+ }
+ Write-Output 'EXISTING_PRODUCTION_CERTIFICATE_MATCH=TRUE'
  Write-Output ('SIGNED_UPDATE='+$OutputApk)
  Write-Output ('SIGNED_SHA256='+(Get-FileHash -LiteralPath $OutputApk -Algorithm SHA256).Hash)
  Write-Output ('SIGNED_BYTES='+(Get-Item -LiteralPath $OutputApk).Length)
