@@ -21,5 +21,16 @@
     "material_fix_since_failure",
     "smallest_targeted_job",
     "value_exceeds_actions_cost"
-  ]
+  ],
+  "owner_exception_20261108": {
+    "description": "PCRC V2 tests in PROJECT-DRAFTS public isolated lane",
+    "branch": "pcrc-v2-public-ci-isolated-20261108",
+    "allowed_workflow": ".github/workflows/pcrc-v2-public-contract-ci.yml",
+    "ordinary_public_runner_allowed": true,
+    "private_repo_minutes_target": 0,
+    "private_sources_and_secrets_allowed": false,
+    "automatic_schedule_allowed": false,
+    "large_paid_runners_allowed": false,
+    "github_public_usage_limits_still_apply": true
+  }
 }
