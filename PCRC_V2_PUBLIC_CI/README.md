@@ -24,3 +24,12 @@ Standard GitHub-hosted runners sur dépôt public : utilisation gratuite selon G
 
 ## Première validation
 Le workflow est limité à la branche expérimentale publique. Son résultat doit être observé dans GitHub Actions avant toute affirmation de réussite.
+
+
+## Preuve croisée et contre-audit de publication — 2026-11-08
+
+- Les versions privée/publique du module `resource_policy.py` ont le **même Git blob SHA** : `1be962c532183ee45d0873a99d5716f4557048c8`.
+- Les versions privée/publique de ses 12 tests ont le **même Git blob SHA** : `f137e2490ff34b7e9b49188fd7249007e728cad4`.
+- Ces 12 tests ont aussi passé sur le HP Windows dans le laboratoire privé, sortie 0. La CI publique ne reçoit aucune adresse HP et n'exécute aucune action Windows distante.
+- Revue de la PR #48 : neuf chemins modifiés, aucun fichier de base de données, aucun fichier de secrets ni copie complète de l'application privée ; la recherche de marqueurs courants de clés d'accès dans le patch n'a trouvé aucune correspondance. Ce contrôle est **partiel**, non une preuve absolue d'absence d'information sensible.
+- Le banc n'est **pas** un pipeline de publication ou de signature de release. Le Core privé n'est pas installé ici.
