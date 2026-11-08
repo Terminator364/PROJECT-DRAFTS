@@ -39,7 +39,7 @@ jobs:
           ram-size: 2048M
           emulator-options: -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim
           script: |
-            set -euo pipefail
+            set -eu
             mkdir -p /tmp/quotapulse-visuals
             PKG=com.quotapulse.monitor.stable
             adb install -r QUOTAPULSE/android/app/build/outputs/apk/debug/app-debug.apk
