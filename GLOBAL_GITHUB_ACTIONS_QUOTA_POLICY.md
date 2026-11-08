@@ -37,3 +37,11 @@ P2PCR95: local build/test until a GitHub Actions run is materially worth the quo
 PhoneMouse: inherit this rule.
 ChatGPT-PC: inherit this rule.
 PROJECT-DRAFTS and future repositories: inherit this rule by default.
+
+## PCRC V2 — Owner-authorized public-lane exception (2026-11-08)
+
+The previous 0-minute planning allocation remains in effect for private GitHub-hosted Actions. For PCRC V2 only, the owner authorized using standard free GitHub-hosted runners in **public** `PROJECT-DRAFTS` on the isolated branch and path-filtered workflow described in root `AGENTS.md`.
+
+This exception does not grant permission to publish private Core code, secrets, databases, site configs, signatures, release keys, HP logs or private source archives. Public test passes are never equivalent to installed private-Core certification. No self-hosted runner or cross-repository token is supplied.
+
+Public standard-runners are free for eligible public repository workflows but still subject to GitHub usage limits; expensive larger runners, abuse, runaway workflows and unbounded artifact storage are prohibited.

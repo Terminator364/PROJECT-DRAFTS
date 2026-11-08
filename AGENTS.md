@@ -51,3 +51,28 @@ If any answer is NO, do not dispatch the workflow.
 
 ## Current emergency state
 As of 2026-09-18, the account reached 100% of its included GitHub Actions minutes for the billing cycle. Until capacity resets or the owner explicitly changes the policy, treat GitHub-hosted Actions as effectively unavailable except for an owner-authorized critical checkpoint.
+
+## Owner exception — PCRC V2 public CI routing, 2026-11-08
+
+The owner explicitly authorized a **public, non-sensitive GitHub Actions test lane**
+in `Terminator364/PROJECT-DRAFTS`, branch
+`pcrc-v2-public-ci-isolated-20261108`, while keeping `ChatGPT-PC` **private**.
+
+- On `ChatGPT-PC`, keep GitHub-hosted private Actions at **0 minutes
+  by default** until quota capacity is established; perform real private-code
+  testing in the authorized isolated HP LAB or via local tests.
+- On `PROJECT-DRAFTS`, the isolated PCRC public CI workflow may run on
+  ordinary GitHub-hosted `ubuntu-latest`/`windows-latest` runners after
+  security review, without private-repository checkout or private access token.
+- This narrow explicit owner exception overrides the old `0 minute` public
+  planning allocation for **this public test lane only**. Other projects
+  retain the ultra-low-budget policy.
+- Never transfer private sources, secrets, credentials, hostnames, DBs, logs,
+  signed release materials or owner-identifying operational data to public CI.
+- Public CI can certify a shared declassified component only after matching
+  source/test blob SHA values against the privately maintained counterpart.
+  It cannot certify an unexported private Core or live HP effects.
+- Ordinary public runners are not automatically unlimited in compute,
+  concurrency, fair-use rules, or storage; larger runners may incur charges.
+- Keep all automation scoped to the isolated workflow paths; no scheduled jobs,
+  arbitrary private runner use, deployments or published artifacts.

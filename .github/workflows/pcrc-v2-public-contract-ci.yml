@@ -1,0 +1,31 @@
+name: PCRC V2 public isolated contract CI
+on:
+  push:
+    branches: [pcrc-v2-public-ci-isolated-20261108]
+    paths:
+      - 'PCRC_V2_PUBLIC_CI/**'
+      - '.github/workflows/pcrc-v2-public-contract-ci.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: pcrc-v2-public-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  public-contract:
+    name: public model on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 5
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    steps:
+      - name: Checkout only public repository
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Run isolated standard-library tests
+        working-directory: PCRC_V2_PUBLIC_CI
+        shell: bash
+        run: python -m unittest discover -s . -p 'test_*.py' -v
