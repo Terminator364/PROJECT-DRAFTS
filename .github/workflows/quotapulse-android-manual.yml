@@ -1,0 +1,38 @@
+name: QuotaPulse Android — manual QA checkpoint
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  build_and_test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - name: Install Android SDK
+        shell: bash
+        run: |
+          set -euo pipefail
+          SDKMANAGER="$(find "$ANDROID_HOME/cmdline-tools" -path "*/bin/sdkmanager" -type f | sort -V | tail -n 1)"
+          "$SDKMANAGER" --install "platforms;android-35" "build-tools;35.0.0"
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.13'
+      - name: Compile and test Android without private signing
+        run: gradle --no-daemon --console=plain -p QUOTAPULSE/android clean testDebugUnitTest assembleDebug
+      - name: Verify APK
+        shell: bash
+        run: |
+          f=QUOTAPULSE/android/app/build/outputs/apk/debug/app-debug.apk
+          test -s "$f"
+          "$ANDROID_HOME/build-tools/35.0.0/apksigner" verify "$f"
+          sha256sum "$f"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: QuotaPulse-Android-QA-NOT-UPDATE
+          path: QUOTAPULSE/android/app/build/outputs/apk/debug/app-debug.apk
+          retention-days: 2
