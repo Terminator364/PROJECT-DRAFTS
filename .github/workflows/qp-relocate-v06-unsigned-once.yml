@@ -1,0 +1,29 @@
+name: QuotaPulse one-shot staging version reconciliation
+on:
+  push:
+    branches: [quotapulse-once-unsigned-20261108]
+    paths: [.github/workflows/qp-relocate-v06-unsigned-once.yml]
+permissions:
+  contents: write
+jobs:
+  reconcile:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Verify unsigned 0.6 APK and correct staging release name
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p "$RUNNER_TEMP/qp-unsigned"
+          gh release download "quotapulse-v0.5.0-unsigned-staging" --repo "$GITHUB_REPOSITORY" --pattern "app-release-unsigned.apk" --dir "$RUNNER_TEMP/qp-unsigned"
+          cd "$RUNNER_TEMP/qp-unsigned"
+          echo "ead2ab3b856527312c81c427f6cc7ae7a54c548104111c3bbe8298c2303d9154  app-release-unsigned.apk" | sha256sum -c -
+          tag="quotapulse-v0.6.0-unsigned-staging"
+          if ! gh release view "$tag" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+            gh release create "$tag" --target "565473f79f4cf76411b44a57baeeec8df0b2e43a" --repo "$GITHUB_REPOSITORY" --prerelease --title "QuotaPulse 0.6.0 UNSIGNED - ONLY for offline signing" --notes "Verified v0.6.0 release APK without any signature. NOT INSTALLABLE. SHA256 ead2ab3b856527312c81c427f6cc7ae7a54c548104111c3bbe8298c2303d9154. Sign on the owner's HP with existing private keystore and compare certificate SHA256 before deploying."
+          fi
+          gh release upload "$tag" "app-release-unsigned.apk#QuotaPulse-v0.6.0-UNSIGNED.apk" --repo "$GITHUB_REPOSITORY" --clobber
+          gh release delete "quotapulse-v0.5.0-unsigned-staging" --repo "$GITHUB_REPOSITORY" --yes --cleanup-tag
+          echo "RECONCILE_OK_$tag"
