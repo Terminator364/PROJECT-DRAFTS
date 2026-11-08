@@ -1,0 +1,59 @@
+name: QuotaPulse public one-time QA build
+on:
+  push:
+    branches: [quotapulse-validation-20261108]
+    paths: [.github/workflows/quotapulse-once-20261108.yml]
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  android_qa:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - name: Install targeted Android SDK
+        shell: bash
+        run: |
+          set -euo pipefail
+          SDKMANAGER="$(find "$ANDROID_HOME/cmdline-tools" -path "*/bin/sdkmanager" -type f | sort -V | tail -n 1)"
+          test -x "$SDKMANAGER"
+          "$SDKMANAGER" --install "platforms;android-35" "build-tools;35.0.0"
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.13'
+      - name: Pure-Java tests and Android package compile (no private keys)
+        shell: bash
+        run: |
+          set -euo pipefail
+          gradle --no-daemon --console=plain -p QUOTAPULSE/android clean testDebugUnitTest assembleDebug
+      - name: Verify QA APK and log checksum
+        shell: bash
+        run: |
+          set -euo pipefail
+          f="QUOTAPULSE/android/app/build/outputs/apk/debug/app-debug.apk"
+          test -s "$f"
+          "$ANDROID_HOME/build-tools/35.0.0/apksigner" verify --print-certs "$f"
+          sha256sum "$f"
+          ls -lh "$f"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: QuotaPulse-0.5.0-QA-NOT-FOR-UPGRADE
+          path: QUOTAPULSE/android/app/build/outputs/apk/debug/app-debug.apk
+          retention-days: 2
+      - name: Release QA APK without secrets (not compatible with installed release signing)
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          tag="quotapulse-v0.5.0-qa"
+          f="QUOTAPULSE/android/app/build/outputs/apk/debug/app-debug.apk"
+          if ! gh release view "$tag" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+            gh release create "$tag" --target "$GITHUB_SHA" --repo "$GITHUB_REPOSITORY" --prerelease --title "QuotaPulse 0.5.0 QA - NOT FOR IN-PLACE UPGRADE" --notes "Debug-signature QA only; does not replace the existing privately signed Android version. No private credentials included."
+          fi
+          gh release upload "$tag" "$f#QuotaPulse-0.5.0-QA-debug.apk" --repo "$GITHUB_REPOSITORY" --clobber
