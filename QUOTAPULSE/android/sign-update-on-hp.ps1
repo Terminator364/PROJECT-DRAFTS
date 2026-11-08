@@ -24,6 +24,10 @@ $sign=Join-Path $BuildToolsDir 'apksigner.bat'
 RequireFile $UnsignedApk
 RequireFile $align
 RequireFile $sign
+$expectedUnsigned='ead2ab3b856527312c81c427f6cc7ae7a54c548104111c3bbe8298c2303d9154'
+if((Get-FileHash -LiteralPath $UnsignedApk -Algorithm SHA256).Hash.ToLowerInvariant() -ne $expectedUnsigned){
+ throw 'Unsigned input does not match the independently verified 0.6 Android release'
+}
 if($UnsignedApk -eq $OutputApk){throw 'Input and output paths must differ'}
 $stage=Join-Path ([IO.Path]::GetTempPath()) ('qp-sign-'+[guid]::NewGuid().ToString('N'))
 $aligned=Join-Path $stage 'app-aligned.apk'
