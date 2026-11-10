@@ -52,11 +52,16 @@ function parseCurrent(raw){
   return {ssid,band};
 }
 function preference(item){
-  if(!/starlink/i.test(item.ssid))return 3;
-  const name=item.ssid.toLowerCase().replace(/[,\s_-]/g,'');
-  if(/(?:5g|5ghz)/.test(name)||item.bands.includes('5 GHz'))return 0;
-  if(/(?:24g|2\.4g|24ghz|2g)/.test(name)||item.bands.includes('2,4 GHz'))return 1;
-  return 2;
+  const name=String(item.ssid||'').toLowerCase().replace(',','.');
+  if(!name.includes('starlink'))return 9;
+  // A 2.4-labelled extender can broadcast on 5 GHz. Its radio band alone
+  // must NEVER promote it above an explicitly named primary Starlink network.
+  if(/(?:^|[\\s_-])ext(?:$|[\\s_-])|extender/.test(name))return 6;
+  if(/(?:^|[\\s_-])5\\s*(?:ghz|g)(?:$|[\\s_-])/.test(name))return 0;
+  if(/(?:^|[\\s_-])2\\.?4\\s*(?:ghz|g)(?:$|[\\s_-])/.test(name))return 1;
+  if(item.bands.length===1 && item.bands.includes('5 GHz'))return 2;
+  if(item.bands.length===1 && item.bands.includes('2,4 GHz'))return 3;
+  return 4;
 }
 function assemble({networks,profiles,current}){
   const known=profiles instanceof Set?profiles:new Set(profiles);
@@ -99,7 +104,12 @@ function createWifiManager({run}={}){
     }catch(e){return {state:'CONNECT_FAILED',reason:'WINDOWS_REJECTED_CONNECTION'}}
     finally{switching=false}
   }
-  function best(info){return info.networks.filter(x=>x.saved).sort((a,b)=>a.priority-b.priority||b.signal-a.signal)[0]||null}
+  function best(info){
+    // Only the two explicitly named PRIMARY Starlink bands are automatic.
+    // Never auto-switch to an extender or another person's network.
+    return info.networks.filter(x=>x.saved&&x.priority<=1&&x.signal>=35)
+      .sort((a,b)=>a.priority-b.priority||b.signal-a.signal)[0]||null;
+  }
   return {list,connect,best};
 }
 module.exports={createWifiManager,parseNetworks,parseProfiles,parseCurrent,preference,assemble,getBand,safeName};
