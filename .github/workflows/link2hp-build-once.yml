@@ -24,7 +24,9 @@ jobs:
       - name: SDK Android 35
         run: |
           echo "sdk.dir=$ANDROID_HOME" > LINK2HP/android/local.properties
-          sdkmanager --install 'platforms;android-35' 'build-tools;35.0.0'
+          SDKMGR=$(find "$ANDROID_HOME/cmdline-tools" -type f -name sdkmanager | head -n 1)
+          test -n "$SDKMGR" || { echo 'sdkmanager introuvable'; exit 1; }
+          "$SDKMGR" --install 'platforms;android-35' 'build-tools;35.0.0'
       - name: Compilation APK Android
         working-directory: LINK2HP/android
         run: gradle --no-daemon --console=plain --stacktrace :app:assembleDebug
