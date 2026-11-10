@@ -23,3 +23,29 @@ test('reject commands and invisible networks',async()=>{
   assert.equal((await wifi.connect('123-nonexistent')).state,'NETWORK_NOT_VISIBLE');
   assert.equal(parseCurrent('SSID : Starlink_5G\nBand : 5 GHz').band,'5 GHz');
 });
+
+test('main Starlink SSIDs beat an extender broadcasting on 5 GHz',()=>{
+  const {preference}=require('./wifi.cjs');
+  const ext={ssid:'Starlink_Test 2.4g-EXT',bands:['5 GHz','2,4 GHz'],signal:85};
+  const primary5={ssid:'Starlink_Test 5g',bands:['5 GHz'],signal:70};
+  const primary24={ssid:'Starlink_Test 2.4g',bands:['2,4 GHz'],signal:75};
+  assert.equal(preference(primary5),0);
+  assert.equal(preference(primary24),1);
+  assert.ok(preference(ext)>1);
+  const wifi=createWifiManager();
+  assert.equal(wifi.best({networks:[ext,primary5,primary24].map(x=>({...x,saved:true,priority:preference(x)}))}).ssid,primary5.ssid);
+});
+test('when primary Starlink is invisible, keep the current extender (no automatic roaming)',()=>{
+  const {preference}=require('./wifi.cjs');
+  const ext={ssid:'Starlink_Test 2.4g-EXT',bands:['5 GHz'],signal:90,saved:true};
+  const other={ssid:'Campus_WiFi',bands:['5 GHz'],signal:95,saved:true};
+  const wifi=createWifiManager();
+  assert.equal(wifi.best({networks:[ext,other].map(x=>({...x,priority:preference(x)}))}),null);
+});
+test('weak primary 5 GHz yields to viable primary 2.4 GHz',()=>{
+  const {preference}=require('./wifi.cjs');
+  const a={ssid:'Starlink_Test 5g',bands:['5 GHz'],signal:18,saved:true};
+  const b={ssid:'Starlink_Test 2.4g',bands:['2,4 GHz'],signal:70,saved:true};
+  const wifi=createWifiManager();
+  assert.equal(wifi.best({networks:[a,b].map(x=>({...x,priority:preference(x)}))}).ssid,b.ssid);
+});
