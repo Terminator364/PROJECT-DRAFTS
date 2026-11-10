@@ -4,6 +4,8 @@ const fs=require('node:fs'),path=require('node:path'),os=require('node:os'),http
 const crypto=require('node:crypto'),dns=require('node:dns'),net=require('node:net'),{spawn}=require('node:child_process');
 const {DatabaseSync}=require('node:sqlite');
 const {classify, isPublicIPv4, secureGet, parseCandidates}=require('./network.cjs');
+const {createPairing,createDiscovery}=require('./pairing.cjs');
+const {createWifiManager}=require('./wifi.cjs');
 const ROOT=path.resolve(process.env.LOCALAPPDATA||path.join(os.homedir(),'AppData','Local'),'LINK2HP');
 const CFG=process.env.LINK2HP_CONFIG||path.join(ROOT,'config.json');
 const uuid=/^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
@@ -30,6 +32,24 @@ function createApp(config,opts={}){
  fs.mkdirSync(config.downloadDir,{recursive:true});
  const get=db.prepare('SELECT * FROM tasks WHERE id=?');
  const find=db.prepare('SELECT * FROM tasks WHERE fingerprint=?');
+ const pairing=createPairing({certificatePin:config.certPin,port:config.port||17642,config,writeConfig:c=>{const tmp=CFG+'.next';fs.writeFileSync(tmp,JSON.stringify(c,null,2),{mode:0o600});fs.renameSync(tmp,CFG)}});
+ const discovery=createDiscovery({pin:config.certPin,port:config.port||17642});
+ const wifi=createWifiManager(opts.wifiOptions||{});
+ let lastWifiAttempt=0;
+ let wifiTimer=null;
+ let wifiStartupTimer=null;
+ async function preferHpWifi(){
+   // Switch only when idle; prioritize known Starlink 5 GHz, else 2.4 GHz.
+   // Back off to avoid network flapping when the access point is failing.
+   if(busy||closed||Date.now()-lastWifiAttempt<300000)return;
+   try{const state=await wifi.list();if(!state.available)return;
+     const best=wifi.best(state);
+     if(best && best.priority<3 && !best.current){
+       lastWifiAttempt=Date.now();await wifi.connect(best.ssid);
+     }
+   }catch(e){console.error('LINK2HP_WIFI_PREFERENCE_ERROR',e.message)}
+ }
+ const csrf=crypto.randomBytes(24).toString('hex');
  const latest=db.prepare('SELECT * FROM tasks ORDER BY created DESC LIMIT 50');
  const insert=db.prepare('INSERT INTO tasks(id,fingerprint,kind,payload,state,created,updated) VALUES(?,?,?,?,?,?,?)');
  const update=db.prepare('UPDATE tasks SET state=?,reason=?,progress=?,candidates=?,output=?,updated=? WHERE id=?');
@@ -96,10 +116,33 @@ function createApp(config,opts={}){
    }catch{state(id,'FAILED','QBITTORRENT_LAUNCH_FAILED')}
  }
  function reply(res,code,obj){res.writeHead(code,{'Content-Type':'application/json; charset=utf-8','Cache-Control':'no-store','X-Content-Type-Options':'nosniff'});res.end(JSON.stringify(obj))}
- function authorized(req){const got=req.headers.authorization||'',expected='Bearer '+config.token;if(got.length!==expected.length)return false;return crypto.timingSafeEqual(Buffer.from(got),Buffer.from(expected))}
+ function authorized(req){const got=req.headers.authorization||'';return got.startsWith('Bearer ')&&pairing.authorized(got.slice(7))}
  function remote(req,res){
+  const route=new URL(req.url,'https://link2hp.local');
+  if(req.method==='POST'&&route.pathname==='/api/pair/init')return parseBody(req,res,2048,body=>{try{reply(res,200,pairing.begin({socket:req.socket,body}))}catch(e){reply(res,403,{error:e.message})}});
+  if(req.method==='GET'&&route.pathname==='/api/pair/status')return reply(res,200,pairing.poll(req,route.searchParams.get('id'),route.searchParams.get('device_id')));
   if(!authorized(req))return reply(res,401,{error:'NON_APPAIRE'});
   let u;try{u=new URL(req.url,'https://link2hp.local')}catch{return reply(res,400,{error:'URL_INVALIDE'})}
+  if(req.method==='GET'&&u.pathname==='/api/wifi/networks'){
+    wifi.list().then(x=>reply(res,200,x)).catch(()=>reply(res,503,{available:false,reason:'WIFI_SCAN_FAILED',networks:[]}));return;
+  }
+  if(req.method==='POST'&&u.pathname==='/api/wifi/connect'){
+    return parseBody(req,res,512,body=>{
+      const ssid=body?.ssid;
+      if(typeof ssid!=='string'||ssid.length<1||ssid.length>128||/[\x00-\x1f]/.test(ssid))return reply(res,422,{state:'INVALID_SSID'});
+      wifi.list().then(info=>{
+        if(!info.available)return reply(res,503,{state:'WINDOWS_WIFI_UNAVAILABLE'});
+        const selected=info.networks.find(x=>x.ssid===ssid);
+        if(!selected)return reply(res,404,{state:'NETWORK_NOT_VISIBLE'});
+        if(!selected.saved)return reply(res,409,{state:'CONFIGURE_ON_HP'});
+        if(selected.current)return reply(res,200,{state:'ALREADY_CONNECTED',ssid});
+        // Acknowledge BEFORE switching: the TCP connection may vanish instantly.
+        reply(res,202,{state:'SWITCH_PENDING',ssid,notice:'LINK_MAY_DROP'});
+        lastWifiAttempt=Date.now();
+        setTimeout(()=>wifi.connect(ssid).catch(e=>console.error('LINK2HP_WIFI_SWITCH_FAILED',e.message)),700).unref();
+      }).catch(()=>reply(res,503,{state:'WIFI_SCAN_FAILED'}));
+    });
+  }
   if(req.method==='GET'&&u.pathname==='/api/health')return reply(res,200,{status:'ONLINE',version:'1.0.0',queue:latest.all().filter(x=>x.state==='QUEUED').length});
   if(req.method==='GET'&&u.pathname==='/api/tasks')return reply(res,200,{tasks:latest.all().map(statusRow)});
   if(req.method==='GET'&&u.pathname.startsWith('/api/tasks/'))return reply(res,200,{task:statusRow(get.get(u.pathname.split('/')[3]))});
@@ -130,21 +173,36 @@ function createApp(config,opts={}){
     db.prepare('UPDATE tasks SET kind=?,payload=?,fingerprint=? WHERE id=?').run(c.kind,c.canonical,hash(c.kind+'\n'+c.canonical),id);
     reply(res,200,{task:statusRow(get.get(id))});queue();
  })}
- function localDashboard(req,res){if(req.method!=='GET'){res.writeHead(405);res.end();return}
-   if(req.url==='/qrcode.js'){const file=path.join(__dirname,'qrcode.js');if(!fs.existsSync(file)){res.writeHead(404);res.end();return}res.writeHead(200,{'Content-Type':'text/javascript; charset=utf-8','Cache-Control':'public,max-age=3600'});fs.createReadStream(file).pipe(res);return}
-   const iface=os.networkInterfaces();const ips=[];for(const v of Object.values(iface))for(const x of v||[])if(x.family==='IPv4'&&!x.internal&&/^(10\.|192\.168\.|172\.(1[6-9]|2\d|3[01])\.)/.test(x.address))ips.push(x.address);
-   const code=ips.length?`L2H1|${ips[0]}|${config.port||17642}|${config.token}|${config.certPin}`:'Aucune adresse Wi-Fi privée détectée';
-   const rows=latest.all().map(x=>'<tr><td>'+x.kind+'</td><td>'+x.state+'</td><td>'+x.progress+'%</td></tr>').join('');
-   const html=`<!doctype html><html lang="fr"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>LINK2HP</title><style>body{font:16px system-ui;margin:auto;max-width:720px;padding:30px;background:#f6f7fb;color:#142039}main{background:white;padding:26px;border-radius:18px;box-shadow:0 4px 24px #0001}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#e9f0f7;padding:14px;border-radius:10px}table{width:100%}td{padding:9px;border-bottom:1px solid #ddd}small{color:#555}</style><main><h1>LINK2HP</h1><p>Agent Windows actif · HTTPS LAN · sans abonnement</p><h3>Appairer votre téléphone (première utilisation)</h3><p>Sur Android : LINK2HP → Appairage → coller ou saisir ce code. Ne jamais publier ce code.</p><div id="qrcode" style="margin:14px 0"></div><pre id="pair">${code}</pre><button onclick="navigator.clipboard.writeText(document.getElementById('pair').textContent)">Copier le code</button><p><small>Le code contient une clé privée d'accès à cet appareil. Le transférer seulement sur votre propre téléphone.</small></p><h3>Demandes récentes</h3><table>${rows||'<tr><td>Pas de tâche</td></tr>'}</table><p>Les téléchargements directs sont enregistrés dans le dossier LINK2HP. Les liens magnet sont transmis à qBittorrent et peuvent demander sa confirmation.</p></main><script src="/qrcode.js"></script><script>try{const qr=qrcode(0,"M");qr.addData(document.getElementById("pair").textContent);qr.make();document.getElementById("qrcode").innerHTML=qr.createSvgTag({cellSize:4,margin:4});}catch(e){document.getElementById("qrcode").textContent="Code texte disponible ci-dessous"}</script></html>`;
-   res.writeHead(200,{'Content-Type':'text/html; charset=utf-8','Cache-Control':'no-store','X-Frame-Options':'DENY'});res.end(html);
+ function localDashboard(req,res){
+  const u=new URL(req.url,'http://127.0.0.1:17643');
+  // Browser-origin and CSRF token mandatory for state changes.
+  if(req.method==='POST'&&u.pathname==='/approve'){
+    const origin=req.headers.origin||'';
+    if(origin!=='http://127.0.0.1:17643'||u.searchParams.get('csrf')!==csrf){res.writeHead(403);res.end('Accès refusé');return}
+    const id=u.searchParams.get('id');pairing.approve(id);
+    res.writeHead(303,{'Location':'/'});res.end();return;
+  }
+  if(req.method!=='GET'){res.writeHead(405);res.end();return}
+  if(u.pathname==='/api/status')return reply(res,200,{online:true,pending:pairing.list().length,devices:(config.devices||[]).map(x=>x.label),tasks:latest.all().map(statusRow)});
+  if(u.pathname!=='/'){res.writeHead(404);res.end();return}
+  const escape=s=>String(s).replace(/[&<>'"\u0000-\u001f]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]||''));
+  const waiting=pairing.list().map(x=>`<div class="peer"><strong>${escape(x.label)}</strong><div class="muted">Demande depuis ${escape(x.address.replace('::ffff:',''))}</div><form method="POST" action="/approve?id=${encodeURIComponent(x.id)}&csrf=${csrf}"><button type="submit">Autoriser ce téléphone</button></form></div>`).join('');
+  const devices=(config.devices||[]).map(x=>`<li>${escape(x.label)}</li>`).join('')||'<li>Aucun téléphone connecté</li>';
+  const rows=latest.all().map(x=>`<tr><td>${escape(x.kind)}</td><td>${escape(x.state)}</td><td>${x.progress}%</td></tr>`).join('');
+  const html=`<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="refresh" content="6"><title>LINK2HP</title><style>*{box-sizing:border-box}body{font-family:system-ui,sans-serif;background:#f4f7fb;color:#18243a;max-width:800px;margin:0 auto;padding:20px}main{background:#fff;border-radius:18px;padding:24px;box-shadow:0 4px 24px #23304712}h1{margin:0;font-size:30px}h2{font-size:19px;margin:24px 0 9px}.badge{display:inline-block;background:#e4f8ef;color:#05643c;border-radius:50px;padding:7px 12px;font-weight:700}.muted{color:#526379}.peer{padding:14px;background:#f2f7ff;border:1px solid #bdd7fd;border-radius:12px;margin:8px 0}button{background:#0765d5;color:white;padding:12px 18px;border:0;border-radius:10px;font-size:16px;font-weight:700;cursor:pointer}table{border-collapse:collapse;width:100%;font-size:14px}td{padding:10px;border-bottom:1px solid #edf1f5}small{color:#526379}</style></head><body><main><h1>LINK2HP</h1><p><span class="badge">● Agent HP actif</span></p><p>Le téléphone détecte automatiquement cet ordinateur sur le même Wi-Fi / point d'accès. Aucun code à copier.</p><h2>Autoriser un téléphone</h2>${waiting||'<p class="muted">Ouvre LINK2HP sur Android et touche « Rechercher mon HP ». La demande apparaîtra ici automatiquement.</p>'}<h2>Téléphones associés</h2><ul>${devices}</ul><h2>Activité récente</h2><table>${rows||'<tr><td>Aucune demande</td></tr>'}</table><p><small>Communication HTTPS locale uniquement. Une autorisation est nécessaire seulement lors du premier appairage. Rafraîchissement automatique toutes les 6 secondes.</small></p></main></body></html>`;
+  res.writeHead(200,{'Content-Type':'text/html; charset=utf-8','Cache-Control':'no-store','X-Frame-Options':'DENY','Content-Security-Policy':"default-src 'none';style-src 'unsafe-inline';form-action 'self';base-uri 'none'"});res.end(html);
  }
  const remoteServer=https.createServer({pfx:fs.readFileSync(config.pfxPath),passphrase:config.pfxPassword,minVersion:'TLSv1.2'},remote);
  const dashboard=http.createServer(localDashboard);
  return {db,remoteServer,dashboard,start:async()=>{
    await new Promise((resolve,reject)=>remoteServer.once('error',reject).listen(config.port||17642,'0.0.0.0',resolve));
    await new Promise((resolve,reject)=>dashboard.once('error',reject).listen(17643,'127.0.0.1',resolve));
-   queue();return {https:remoteServer.address(),dashboard:dashboard.address()};
- },close:async()=>{closed=true;await new Promise(r=>remoteServer.close(r));await new Promise(r=>dashboard.close(r));db.close()},getState:id=>statusRow(get.get(id))};
+   try{await discovery.start()}catch(e){console.error('LINK2HP_DISCOVERY_ERROR',e.message)}
+   queue();
+   wifiStartupTimer=setTimeout(()=>preferHpWifi(),20000);wifiStartupTimer.unref();
+   wifiTimer=setInterval(()=>preferHpWifi(),600000);wifiTimer.unref();
+   return {https:remoteServer.address(),dashboard:dashboard.address()};
+ },close:async()=>{closed=true;clearInterval(wifiTimer);clearTimeout(wifiStartupTimer);await new Promise(r=>remoteServer.close(r));await new Promise(r=>dashboard.close(r));try{await discovery.close()}catch{}db.close()},getState:id=>statusRow(get.get(id))};
 }
 async function downloadFile(url,destination,{maxBytes,onProgress}){
  // fetch via controlled DNS and redirects, chunks streamed to disk.

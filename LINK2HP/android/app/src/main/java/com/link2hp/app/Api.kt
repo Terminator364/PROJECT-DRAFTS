@@ -2,92 +2,181 @@ package com.link2hp.app
 
 import android.content.Context
 import android.net.ConnectivityManager
+import android.os.Build
 import org.json.JSONObject
+import java.net.DatagramPacket
+import java.net.DatagramSocket
+import java.net.Inet4Address
+import java.net.InetAddress
+import java.net.NetworkInterface
+import java.net.SocketTimeoutException
 import java.net.URL
 import java.security.MessageDigest
 import java.security.SecureRandom
 import java.security.cert.X509Certificate
+import java.util.UUID
 import javax.net.ssl.HttpsURLConnection
 import javax.net.ssl.SSLContext
 import javax.net.ssl.TrustManager
 import javax.net.ssl.X509TrustManager
 
 internal data class PairData(val host:String,val port:Int,val token:String,val pin:String) {
+    fun serialized():String="L2H1|$host|$port|$token|$pin"
     companion object {
         fun parse(raw:String):PairData {
             val p=raw.trim().split('|')
-            require(p.size==5 && p[0]=="L2H1") {"Code d'appairage invalide"}
-            require(p[1].matches(Regex("[0-9]{1,3}(\\.[0-9]{1,3}){3}"))){"Adresse invalide"}
-            val address=p[1].split('.').map{it.toInt()}
-            require(address.all{it in 0..255}){"Adresse invalide"}
-            require(address[0]==10 || (address[0]==192 && address[1]==168) || (address[0]==172 && address[1] in 16..31)){"Adresse réseau local requise"}
-            val port=p[2].toIntOrNull()?:throw IllegalArgumentException("Port invalide")
-            require(port in 1024..65535){"Port invalide"}
-            require(p[3].matches(Regex("[a-fA-F0-9]{64}")) && p[4].matches(Regex("[a-fA-F0-9]{64}"))){"Clé invalide"}
+            require(p.size==5 && p[0]=="L2H1") {"Association non reconnue"}
+            val parts=p[1].split('.').mapNotNull{it.toIntOrNull()}
+            require(parts.size==4 && parts.all{it in 0..255}) {"Adresse invalide"}
+            require(parts[0]==10||(parts[0]==192&&parts[1]==168)||(parts[0]==172&&parts[1] in 16..31)) {"Réseau local uniquement"}
+            val port=p[2].toIntOrNull() ?: throw IllegalArgumentException("Port invalide")
+            require(port in 1024..65535 && p[3].matches(Regex("[a-fA-F0-9]{64}")) && p[4].matches(Regex("[a-fA-F0-9]{64}"))) {"Identifiants invalides"}
             return PairData(p[1],port,p[3].lowercase(),p[4].lowercase())
         }
     }
 }
 internal object Api {
-    private fun connection(pair:PairData,path:String,method:String):HttpsURLConnection {
+    private fun privateHost(host:String):Boolean {
+        val x=host.split('.').mapNotNull{it.toIntOrNull()}
+        return x.size==4&&x.all{it in 0..255}&&(x[0]==10||(x[0]==192&&x[1]==168)||(x[0]==172&&x[1] in 16..31))
+    }
+    private fun connection(pair:PairData,path:String,method:String,auth:Boolean=true):HttpsURLConnection {
+        require(privateHost(pair.host)) {"Hôte local requis"}
         val trust=object:X509TrustManager {
             override fun getAcceptedIssuers():Array<X509Certificate> = emptyArray()
-            override fun checkClientTrusted(chain:Array<X509Certificate>,authType:String) {throw java.security.cert.CertificateException("client not supported")}
+            override fun checkClientTrusted(chain:Array<X509Certificate>,authType:String) {throw java.security.cert.CertificateException("Client not supported")}
             override fun checkServerTrusted(chain:Array<X509Certificate>,authType:String) {
-                if(chain.isEmpty())throw java.security.cert.CertificateException("empty certificate")
-                val digest=MessageDigest.getInstance("SHA-256").digest(chain[0].encoded)
-                    .joinToString(""){"%02x".format(it)}
-                if(digest!=pair.pin)throw java.security.cert.CertificateException("empreinte TLS différente")
+                if(chain.isEmpty())throw java.security.cert.CertificateException("No server certificate")
+                val digest=MessageDigest.getInstance("SHA-256").digest(chain[0].encoded).joinToString(""){ "%02x".format(it) }
+                if(digest!=pair.pin)throw java.security.cert.CertificateException("Le certificat du HP a changé")
                 chain[0].checkValidity()
             }
         }
         val ssl=SSLContext.getInstance("TLS").apply{init(null,arrayOf<TrustManager>(trust),SecureRandom())}
-        val c=(URL("https://${pair.host}:${pair.port}$path").openConnection() as HttpsURLConnection)
+        val c=URL("https://${pair.host}:${pair.port}$path").openConnection() as HttpsURLConnection
         c.sslSocketFactory=ssl.socketFactory
-        // Peer certificate SHA-256 pin above fully authenticates the exact server instance.
+        // Identity is independently pinned to the exact self-signed certificate (SHA-256).
         c.hostnameVerifier=javax.net.ssl.HostnameVerifier{_,_->true}
-        c.requestMethod=method;c.connectTimeout=6500;c.readTimeout=15000
-        c.instanceFollowRedirects=false
-        c.setRequestProperty("Authorization","Bearer ${pair.token}")
+        c.requestMethod=method;c.connectTimeout=4500;c.readTimeout=9500;c.instanceFollowRedirects=false
+        if(auth)c.setRequestProperty("Authorization","Bearer ${pair.token}")
         c.setRequestProperty("Accept","application/json")
         return c
     }
-    fun send(pair:PairData,item:Item):String {
-        val conn=connection(pair,"/api/submit","POST")
-        conn.doOutput=true;conn.setRequestProperty("Content-Type","application/json; charset=utf-8")
-        val data=JSONObject().put("request_id",item.id).put("kind",item.kind).put("payload",item.payload).toString()
-        conn.outputStream.use{it.write(data.toByteArray(Charsets.UTF_8))}
+    private fun json(conn:HttpsURLConnection,body:JSONObject?=null):JSONObject {
+        if(body!=null){conn.doOutput=true;conn.setRequestProperty("Content-Type","application/json; charset=utf-8");conn.outputStream.use{it.write(body.toString().toByteArray(Charsets.UTF_8))}}
         try {
-            val code=conn.responseCode
-            val body=(if(code in 200..299)conn.inputStream else conn.errorStream)?.bufferedReader()?.use{it.readText()} ?: "{}"
-            if(code !in 200..299)throw IllegalStateException("HTTP $code")
-            return JSONObject(body).getJSONObject("task").getString("state")
-        }finally {conn.disconnect()}
-    }
-    fun task(pair:PairData,id:String):String {
-        val conn=connection(pair,"/api/tasks/$id","GET")
-        try {
-            val raw=conn.inputStream.bufferedReader().use{it.readText()}
-            return JSONObject(raw).getJSONObject("task").getString("state")
+            val status=conn.responseCode
+            val stream=if(status in 200..299)conn.inputStream else conn.errorStream
+            val raw=stream?.bufferedReader()?.use{it.readText()} ?: "{}"
+            if(status !in 200..299)throw IllegalStateException("HP : erreur $status")
+            return JSONObject(raw)
         }finally{conn.disconnect()}
     }
-    fun process(ctx:Context,refresh:Boolean=false):Boolean {
-        val store=Store(ctx)
-        val p=store.pair() ?: return false
-        val pair=PairData.parse(p)
-        val net=ctx.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        if(net.activeNetwork==null||(!store.allowMetered()&&net.isActiveNetworkMetered))return false
-        var retry=false
-        for(item in store.rows(false)) {
-            if(item.state!="QUEUED_PHONE" && !(refresh && item.state !in setOf("COMPLETED","FAILED")))continue
-            try{
-                val state=if(item.state=="QUEUED_PHONE")send(pair,item) else task(pair,item.id)
-                store.update(item.id,state)
-            }catch(e:Exception) {
-                retry=true
-                if(item.state=="QUEUED_PHONE")store.update(item.id,"QUEUED_PHONE","PC inaccessible, en attente")
+    fun discover(ctx:Context):PairData? {
+        // Les sondes LAN doivent emprunter le Wi-Fi même si les données mobiles
+        // sont la route Internet par défaut (Wi-Fi sans Internet, portail captif).
+        val cm=ctx.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val wifiNetwork=cm.allNetworks.firstOrNull { network ->
+            cm.getNetworkCapabilities(network)?.hasTransport(android.net.NetworkCapabilities.TRANSPORT_WIFI)==true
+        } ?: return null
+        val targets=linkedSetOf<String>("255.255.255.255")
+        NetworkInterface.getNetworkInterfaces()?.toList()?.filter{it.isUp&&!it.isLoopback}?.forEach { iface ->
+            iface.interfaceAddresses?.forEach { address ->
+                if(address.address is Inet4Address && address.broadcast!=null)targets.add(address.broadcast.hostAddress?:return@forEach)
             }
         }
-        return retry
+        if(targets.isEmpty())return null
+        DatagramSocket().use{sock->
+            wifiNetwork.bindSocket(sock)
+            sock.broadcast=true;sock.soTimeout=950
+            val msg="LINK2HP_DISCOVER_V2".toByteArray(Charsets.UTF_8)
+            repeat(3) {
+                for(host in targets)try{sock.send(DatagramPacket(msg,msg.size,InetAddress.getByName(host),17644))}catch(_:Exception){}
+                repeat(3) {
+                    try {
+                        val buffer=ByteArray(1024);val answer=DatagramPacket(buffer,buffer.size);sock.receive(answer)
+                        val ip=answer.address.hostAddress?:return@repeat
+                        if(!privateHost(ip))return@repeat
+                        val o=JSONObject(String(answer.data,answer.offset,answer.length,Charsets.UTF_8))
+                        if(o.optString("magic")!="LINK2HP_HERE_V2")return@repeat
+                        val port=o.optInt("port");val pin=o.optString("pin")
+                        if(port !in 1024..65535||!pin.matches(Regex("[a-fA-F0-9]{64}")))return@repeat
+                        return PairData(ip,port,"",pin.lowercase())
+                    }catch(_:SocketTimeoutException){}catch(_:Exception){}
+                }
+            }
+        }
+        return null
+    }
+    fun pair(ctx:Context,progress:(String)->Unit):PairData {
+        progress("Recherche du HP sur le réseau local…")
+        val candidate=discover(ctx)?:throw IllegalStateException("HP introuvable. Vérifie que le téléphone et le HP sont sur le réseau Starlink accessible.")
+        val preferences=ctx.getSharedPreferences("link2hp",Context.MODE_PRIVATE)
+        var id=preferences.getString("device_id",null)
+        if(id==null){id=UUID.randomUUID().toString();preferences.edit().putString("device_id",id).apply()}
+        val name=(Build.MANUFACTURER+" "+Build.MODEL).take(48)
+        val initial=json(connection(candidate,"/api/pair/init","POST",false),JSONObject().put("device_id",id).put("label",name))
+        val pairId=initial.getString("pair_id")
+        progress("Sur ton HP, clique « Autoriser ce téléphone ». Aucun code à copier.")
+        repeat(50){
+            Thread.sleep(1800)
+            val status=json(connection(candidate,"/api/pair/status?id=$pairId&device_id=$id","GET",false))
+            when(status.optString("state")) {
+                "APPROVED" -> {
+                    val token=status.getString("token")
+                    val pair=PairData(candidate.host,candidate.port,token,candidate.pin)
+                    PairData.parse(pair.serialized())
+                    Store(ctx).savePair(pair.serialized())
+                    return pair
+                }
+                "EXPIRED" -> throw IllegalStateException("Autorisation expirée. Relancer la recherche.")
+            }
+        }
+        throw IllegalStateException("Autorisation non reçue sur le HP.")
+    }
+    fun hpNetworks(pair:PairData):JSONObject =
+        json(connection(pair,"/api/wifi/networks","GET"))
+    fun hpSwitchNetwork(pair:PairData,ssid:String):JSONObject =
+        json(connection(pair,"/api/wifi/connect","POST"), JSONObject().put("ssid",ssid))
+
+    fun send(pair:PairData,item:Item):String {
+        val body=JSONObject().put("request_id",item.id).put("kind",item.kind).put("payload",item.payload)
+        return json(connection(pair,"/api/submit","POST"),body).getJSONObject("task").getString("state")
+    }
+    fun task(pair:PairData,id:String):String =json(connection(pair,"/api/tasks/$id","GET")).getJSONObject("task").getString("state")
+    fun process(ctx:Context,refresh:Boolean=false):Boolean {
+        val store=Store(ctx)
+        var pair=store.pair()?.let{PairData.parse(it)}?:return false
+        val net=ctx.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val wifi=net.allNetworks.firstOrNull{net.getNetworkCapabilities(it)?.hasTransport(android.net.NetworkCapabilities.TRANSPORT_WIFI)==true}
+        if(wifi==null)return true
+        // La présence d'un Wi-Fi local est suffisante, même sans Internet.
+        // "Réseau mesuré" ne doit pas bloquer la communication LAN autorisée.
+        var needsRetry=false
+        for(item in store.rows(false)){
+            if(item.state!="QUEUED_PHONE" && !(refresh && item.state !in setOf("COMPLETED","FAILED")))continue
+            try {
+                val status=if(item.state=="QUEUED_PHONE")send(pair,item) else task(pair,item.id)
+                store.update(item.id,status)
+            }catch(_:Exception){
+                // L'adresse DHCP du HP peut changer après une bascule 5 GHz/2,4 GHz.
+                // Ne réassocier qu'au même certificat TLS; ne jamais accepter un autre HP.
+                try{
+                    val found=discover(ctx)
+                    if(found!=null && found.pin==pair.pin){
+                        val refreshed=pair.copy(host=found.host,port=found.port)
+                        PairData.parse(refreshed.serialized())
+                        store.savePair(refreshed.serialized())
+                        pair=refreshed
+                        val state=if(item.state=="QUEUED_PHONE")send(pair,item) else task(pair,item.id)
+                        store.update(item.id,state)
+                        continue
+                    }
+                }catch(_:Exception){}
+                needsRetry=true
+                if(item.state=="QUEUED_PHONE")store.update(item.id,"QUEUED_PHONE","HP momentanément indisponible")
+            }
+        }
+        return needsRetry
     }
 }

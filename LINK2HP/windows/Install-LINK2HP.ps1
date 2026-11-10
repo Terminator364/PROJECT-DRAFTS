@@ -11,7 +11,7 @@ if(-not(Test-Path $node)) {
     if(-not(Test-Path $node)) {throw 'Node.js 24 absent. Placer node.exe (Node.js 24 x64) dans ce dossier avant installation.'}
 }
 Copy-Item $node (Join-Path $app 'node.exe') -Force
-Copy-Item (Join-Path $src 'agent.cjs'),(Join-Path $src 'network.cjs') -Destination $app -Force
+Copy-Item (Join-Path $src 'agent.cjs'),(Join-Path $src 'network.cjs'),(Join-Path $src 'pairing.cjs'),(Join-Path $src 'wifi.cjs') -Destination $app -Force
 # Generate a distinct pairing token and self-signed TLS certificate on this PC only.
 $configFile=Join-Path $dir 'config.json'
 if(!(Test-Path $configFile)) {
@@ -63,10 +63,19 @@ if($desktop -and (Test-Path $desktop)){
     $sc=$ws.CreateShortcut((Join-Path $desktop 'LINK2HP.lnk'))
     $sc.TargetPath=$wscript;$sc.Arguments='"'+$open+'"';$sc.WorkingDirectory=$app;$sc.Description='Ouvrir LINK2HP';$sc.Save()
 }
+# User-scoped install. LAN firewall rules require administrative elevation and are not changed silently.
+# If installing as Administrator, only allow local subnet for the two dedicated ports.
+$admin=([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
+if($admin){
+  foreach($portRule in @(@('LINK2HP TCP privé',17642,'TCP'),@('LINK2HP UDP découverte',17644,'UDP'))){
+    $rule=Get-NetFirewallRule -DisplayName $portRule[0] -ErrorAction SilentlyContinue
+    if(!$rule){New-NetFirewallRule -DisplayName $portRule[0] -Direction Inbound -Action Allow -Enabled True -Profile Private -RemoteAddress LocalSubnet -LocalPort $portRule[1] -Protocol $portRule[2] | Out-Null}
+  }
+}
 # Idempotent process launch check, no PowerShell window remains running.
 $existing=Get-CimInstance Win32_Process -Filter "name='node.exe'" -ErrorAction SilentlyContinue | Where-Object {$_.CommandLine -like '*LINK2HP*agent.cjs*'}
 if(!$existing){Start-Process -FilePath $wscript -ArgumentList ('"'+$agent+'"') -WindowStyle Hidden}
-Write-Output 'LINK2HP_INSTALL_OK'
+Write-Output 'LINK2HP_INSTALL_V2_OK'
 Write-Output ('Dossier logiciel : '+$app)
 Write-Output 'Interface : http://127.0.0.1:17643'
-Write-Output 'Connexion du téléphone : depuis le même Wi-Fi. Le pare-feu peut nécessiter une autorisation administrateur pour le port 17642 (réseau privé/local).'
+Write-Output 'Connexion automatique : meme Wi-Fi et validation un clic dans le tableau de bord. Pare-feu privé UDP 17644 + TCP 17642.'

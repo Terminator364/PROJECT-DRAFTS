@@ -1,15 +1,9 @@
-# LINK2HP — Android + Windows HP
+# LINK2HP — Android + Windows HP (développement v1.1)
 
-Deux produits légers pour envoyer un lien depuis la feuille **Partager** d'Android à l'ordinateur HP, via Wi-Fi local. Pas de cloud, abonnement, publicité ou dépendance à ChatGPT/PCRC pour fonctionner une fois installé.
+Deux produits distincts : **téléphone = envoi des liens** ; **HP = réseau + téléchargement**. L'interface Android est conçue pour se limiter à partager/coller → envoyer, avec appairage par validation unique sur le HP. La connexion locale HTTPS est authentifiée et l'identité du HP est vérifiée par empreinte TLS.
 
-## Windows
-`windows/`: agent autonome sous Node.js 24, HTTPS LAN certifié par une empreinte SHA-256 unique par installation, jeton 256 bits, tableau de bord local `http://127.0.0.1:17643`, file persistante SQLite. Les fichiers directs autorisés sont téléchargés vers le dossier dédié et les magnet/.torrent sont ouverts par qBittorrent.
+Le HP effectue le scan Wi-Fi, privilégie Starlink 5 GHz puis 2,4 GHz, et peut recevoir un ordre authentifié de connexion à un autre réseau Wi-Fi déjà sauvegardé dans Windows. L'application affiche les réseaux détectés par le HP, pas une simple liste Wi-Fi du téléphone. Si les appareils ne sont plus joignables, aucun faux pilotage distant n'est prétendu.
 
-## Android
-`android/`: Kotlin natif (sans framework lourd), file d'attente chiffrée Android Keystore, partage depuis Opera/Chrome, import de `.torrent`, reprise JobScheduler et historique. Le premier appairage demande un code unique présent dans l'interface Windows ; ensuite le transfert se fait en un geste.
+**Preuves disponibles** : tests unitaires locaux Windows de classification, SQLite et politiques Wi-Fi, compilation APK GitHub à confirmer pour cette version. Tests réels téléphone ↔ HP, téléchargement public réel et auto-mise à jour signée durable non acquis tant que des reçus ne les démontrent pas. Ne pas confondre code produit et release qualifiée.
 
-## Sécurité et limites
-Ne jamais publier le code d'appairage ni le certificat privé. Le service HTTPS refuse les commandes sans jeton et cert pin; téléchargement de pages HTML limité aux liens directs publics identifiables ; aucun contournement DRM, compte privé, captcha ou téléchargement d'exécutables. qBittorrent peut demander confirmation ; le logiciel indique alors « transmis » et non « terminé ». Aucun serveur public Internet n'est ouvert.
-
-## Compilation ponctuelle sur GitHub
-Le workflow `.github/workflows/link2hp-build-once.yml` est limité à la branche dédiée et se déclenche une seule fois lors de l'ajout du workflow ; workflow_dispatch reste disponible. Il publie l'APK debug dans les artefacts GitHub Actions. Sans déclencheur général push/PR/schedule. Les sources ne contiennent aucun secret privé.
+Voir `windows/README.md` et `android/README.md`. Dépôt de développement public : ne jamais y publier secrets, mots de passe Wi-Fi, tokens ou clé de signature APK.

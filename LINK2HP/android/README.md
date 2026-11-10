@@ -1,15 +1,14 @@
-# LINK2HP Android 1.0
+# LINK2HP Android 1.1 — transfert et choix du Wi-Fi du HP
 
-Application Android native Kotlin sans services cloud. Compatible API 26+ ; interface française. Utilisation : dans Opera/Chrome, sélectionner **Partager → LINK2HP**. Le téléphone conserve le lien localement (SQLite + Android Keystore) puis le transmet au HP dès qu'il peut le joindre. Un `JobScheduler` réessaie selon la politique réseau choisie.
+LINK2HP sert à envoyer un lien/magnet depuis Android vers l'ordinateur HP. **Seul le HP effectue les téléchargements.** Aucune connexion de cloud n'est nécessaire pour transférer des liens sur le réseau local.
 
-## Appairage initial
-1. Installer le logiciel Windows LINK2HP, ouvrir son interface et copier le code `L2H1|IP|PORT|JETON|EMPREINTE` indiqué.
-2. Dans l'APK, coller/saisir ce code (une seule fois). Ne jamais publier ce code : c'est la clé d'accès à votre PC.
-3. Connecter les deux appareils au même Wi-Fi. Par défaut, les réseaux mesurés sont bloqués. Si vous utilisez le point d'accès du téléphone, activer la case « Autoriser réseau mesuré / point d'accès mobile ».
+- Partager dans Opera/Chrome → LINK2HP, ou coller un lien.
+- Appairage sans code recopié : rechercher le HP sur le Wi-Fi, puis cliquer une fois « Autoriser ce téléphone » dans l'interface Windows sur le HP. La relation est sauvegardée de façon chiffrée dans Android Keystore.
+- Sous « Réseau de mon HP », ouvrir la liste des **réseaux vus par l'ordinateur**. Les profils déjà enregistrés sont sélectionnables. Un réseau inédit doit d'abord être configuré dans Windows, sans envoyer de mot de passe à l'application.
+- LINK2HP Windows choisit en priorité le Starlink 5 GHz visible et déjà configuré, puis le Starlink 2,4 GHz. Si un seul SSID couvre les deux bandes, Windows/la carte réseau contrôle le choix de bande.
+- La bascule peut couper temporairement la liaison locale. Android tente de retrouver le HP authentifié sur le nouveau sous-réseau. Si le téléphone n'est pas sur un réseau qui peut joindre le HP, l'application l'indique : une liaison externe préalablement configurée serait nécessaire pour une commande à distance.
+- Réseau Wi-Fi du téléphone : Android garde la maîtrise du changement, et présente si besoin le panneau Wi-Fi système.
 
-Le certificat TLS de ce PC est **épinglé par SHA-256** et la connexion échoue si l'empreinte diffère ; HTTPS sans authentification ne suffit pas. Aucune télécommande/shell sur le HP, seulement des demandes de transfert filtrées.
+## Build et mises à jour
 
-## Compilation
-Gradle 8.7, Android Gradle Plugin 8.6.1, Kotlin 2.0.21, JDK17, SDK Android 35. Dans `android/` : `gradle :app:assembleDebug`. Le fichier généré se trouve dans `app/build/outputs/apk/debug/app-debug.apk`. Le dépôt PROJECT-DRAFTS fournit un workflow de compilation isolé, ponctuel et explicitement ciblé.
-
-L'APK debug est signée avec une clé de debug générée par le runner et est destinée à une première installation. Une clé de release persistante privée devra être mise en place pour les mises à jour ultérieures.
+Projet Kotlin natif, SDK 35, JDK 17, Gradle 8.7. `gradle :app:assembleDebug` produit un APK de développement. **Attention** : la signature debug générée par un runner GitHub Actions peut varier, et ne permet pas de garantir une mise à jour au-dessus de l'ancienne version. Pour les mises à jour durables sans perte de données, utiliser une clé de signature privée stable, hors dépôt public, ainsi qu'un mécanisme de distribution validé. L'auto-mise à jour complète n'est pas encore qualifiée ; ne pas la présenter comme opérationnelle.

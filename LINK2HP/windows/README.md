@@ -1,25 +1,13 @@
-# LINK2HP Windows 1.0
+# LINK2HP Windows 1.1 — agent de téléchargement du HP
 
-Une application autonome Windows légère. Aucune dépendance opérationnelle à ChatGPT/PCRC : l'installation copie `node.exe` dans `%LOCALAPPDATA%\LINK2HP\app`.
+L'agent Node.js 24 fonctionne localement sous le compte HP. Le HP télécharge lui-même les liens directs publics autorisés; les magnets/torrents sont délégués à qBittorrent avec statut de passation (pas de téléchargement déclaré fini sans preuve). Tableau de bord : `http://127.0.0.1:17643`. HTTPS local authentifié : port 17642. Découverte Wi-Fi : UDP 17644. Aucun secret/certificat privé dans le dépôt public.
 
-## Installation sur HP
-1. Décompresser le ZIP dans un dossier du HP.
-2. Clic droit sur `Install-LINK2HP.ps1` → Exécuter avec PowerShell (ou depuis une console PowerShell utilisateur avec `powershell -NoProfile -ExecutionPolicy Bypass -File .\Install-LINK2HP.ps1`).
-3. Ouvrir le raccourci « LINK2HP » sur le Bureau; l'interface locale s'affiche sur `http://127.0.0.1:17643`.
-4. Copier le code d'appairage dans l'application Android une seule fois. Les deux appareils doivent être sur le même Wi-Fi. Ne pas envoyer le code sur un site public.
-5. Si le Windows Firewall bloque le port 17642, autoriser uniquement TCP 17642 depuis le réseau local via une règle de pare-feu *LocalSubnet* (autorisation administrateur requise).
+## Choix intelligent du Wi-Fi du HP
 
-**Important :** le mode Android→HP utilise HTTPS avec un certificat auto-signé et une empreinte de certificat épinglée sur Android. Le serveur rejette les commandes sans le jeton personnel. Aucun port Internet, compte cloud ou mot de passe Windows transmis.
+`wifi.cjs` interroge **Windows** (`netsh wlan show networks mode=bssid`, `show profiles`, `show interfaces`) sans exporter les mots de passe. L'API authentifiée `GET /api/wifi/networks` donne au téléphone les SSID visibles par le HP, les bandes détectées, la disponibilité d'un profil enregistré et le réseau actif. `POST /api/wifi/connect` connecte uniquement à un profil Wi-Fi déjà connu de Windows, à la suite d'un choix explicite sur le téléphone. Une bascule interrompt parfois temporairement le canal de contrôle ; la réponse HTTP est envoyée avant la demande `netsh`.
 
-Les téléchargements HTTP simples sont stockés dans `%LOCALAPPDATA%\LINK2HP\Downloads`. Les magnets et .torrent sont transmis au qBittorrent installé ; l'acceptation finale par qBittorrent doit être confirmée dans son interface (la version initiale n'active pas sa WebUI ni ne touche à ses téléchargements).
+Au démarrage et toutes les 10 min (hors téléchargement actif), la politique privilégie le Starlink 5 GHz sauvegardé et visible; sinon le Starlink 2,4 GHz. Une temporisation de 5 min empêche les bascules en boucle. Sans profil enregistré, une configuration manuelle initiale sur le HP est nécessaire. Sans liaison de contrôle préexistante, un téléphone sur un autre réseau ne peut pas commander le changement Wi-Fi du HP. Aucun contournement de Windows, des mots de passe ou de restrictions de pare-feu.
 
-Statuts : QUEUED, ANALYSING, WAIT_SELECTION, RUNNING, COMPLETED, HANDED_TO_QBITTORRENT, FAILED. Ne jamais confondre « remis au moteur » et « terminé ».
+## Installation
 
-## Tests
-`node --test agent.test.cjs`
-
-## Limitations connues
-- Première association nécessite la copie du code manuel depuis le HP; pas encore de caméra QR intégrée.
-- Si le poste est éteint, l'application Android conserve la demande; elle la retransmet lors d'une connexion Wi-Fi disponible.
-- L'agent HTTP ne télécharge pas de pages protégées, DRM, captchas ou exécutables.
-- Un antivirus ou Windows Firewall peut bloquer la première écoute de l'agent; il faut autoriser sur le réseau local uniquement.
+Exécuter `Install-LINK2HP.ps1` sur le HP. Les fichiers `wifi.cjs`, `pairing.cjs`, `agent.cjs`, `network.cjs` sont copiés vers `%LOCALAPPDATA%\LINK2HP\app`. Après mise à jour de l'agent, le processus Node doit être relancé pour charger le nouveau code. La configuration et la base de tâches restent dans `%LOCALAPPDATA%\LINK2HP`. Le setup ne doit pas être exécuté sans contre-vérifier pare-feu et statut du processus. Le script de désinstallation est fourni.
