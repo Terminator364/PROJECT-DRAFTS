@@ -12,6 +12,14 @@ function classify(raw){if(typeof raw!=='string'||!raw.trim()||raw.length>4096)th
  const host=url.hostname.toLowerCase().replace(/^\[|\]$/g,'');if(!host.includes('.')||banned.some(s=>host.endsWith(s))||net.isIP(host)===6||net.isIP(host)===4&&!isPublicIPv4(host))throw Error('UNSAFE_HOST');
  url.hash='';return{kind:/\.torrent$/i.test(url.pathname)?'torrent_url':'url',canonical:url.toString()};
 }
+// Node 20+ may request all addresses via automatic family selection.
+function pinnedLookup(ip){
+ return (_hostname,options,callback)=>{
+  if(typeof options==='function'){callback=options;options={}}
+  if(options&&options.all){callback(null,[{address:ip,family:4}]);return}
+  callback(null,ip,4);
+ }
+}
 async function secureGet(url,{maxBytes=1024*1024,timeoutMs=15000,maxRedirects=4,onChunk=null,streamOnly=false,probeOnly=false}={}){
  let current=classify(url).canonical;if(current.startsWith('magnet:'))throw Error('NOT_HTTP');
  for(let count=0;count<=maxRedirects;count++){
@@ -20,7 +28,7 @@ async function secureGet(url,{maxBytes=1024*1024,timeoutMs=15000,maxRedirects=4,
   else{const addresses=await dns.lookup(h,{family:4,all:true});if(!addresses.length||addresses.some(a=>!isPublicIPv4(a.address)))throw Error('UNSAFE_DNS');ip=addresses[0].address}
   const transport=parsed.protocol==='https:'?https:http;
   const out=await new Promise((resolve,reject)=>{
-   const req=transport.get(current,{timeout:timeoutMs,lookup:(_h,_opt,cb)=>cb(null,ip,4),headers:{'User-Agent':'LINK2HP/1.0','Accept':'*/*','Accept-Encoding':'identity'},maxHeaderSize:16384},res=>{
+   const req=transport.get(current,{timeout:timeoutMs,lookup:pinnedLookup(ip),headers:{'User-Agent':'LINK2HP/1.0','Accept':'*/*','Accept-Encoding':'identity'},maxHeaderSize:16384},res=>{
     const code=res.statusCode||0;
     if([301,302,303,307,308].includes(code)){res.resume();return resolve({redirect:res.headers.location||''})}
     if(code<200||code>=300){res.resume();return reject(Error('HTTP_'+code))}
@@ -41,4 +49,4 @@ function parseCandidates(html,base){const out=[],seen=new Set();const re=/href\s
  if(seen.has(link))continue;seen.add(link);out.push({url:link.length>512?link.slice(0,512):link,label:item.kind==='magnet'?'Magnet':new URL(link).hostname.slice(0,70),kind:item.kind});
  }return out;
 }
-module.exports={classify,isPublicIPv4,secureGet,parseCandidates};
+module.exports={classify,isPublicIPv4,secureGet,parseCandidates,pinnedLookup};
