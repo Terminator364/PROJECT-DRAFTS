@@ -54,11 +54,11 @@ function parseCurrent(raw){
 function preference(item){
   const name=String(item.ssid||'').toLowerCase().replace(',','.');
   if(!name.includes('starlink'))return 9;
-  // A 2.4-labelled extender can broadcast on 5 GHz. Its radio band alone
-  // must NEVER promote it above an explicitly named primary Starlink network.
-  if(/(?:^|[\\s_-])ext(?:$|[\\s_-])|extender/.test(name))return 6;
-  if(/(?:^|[\\s_-])5\\s*(?:ghz|g)(?:$|[\\s_-])/.test(name))return 0;
-  if(/(?:^|[\\s_-])2\\.?4\\s*(?:ghz|g)(?:$|[\\s_-])/.test(name))return 1;
+  // A 2.4-labelled extender can broadcast on 5 GHz: prefer primary SSID,
+  // not the actual frequency of an unrelated extender.
+  if(/(?:^|[\s_-])ext(?:$|[\s_-])|extender/.test(name))return 6;
+  if(/(?:^|[\s_-])5\s*(?:ghz|g)(?:$|[\s_-])/.test(name))return 0;
+  if(/(?:^|[\s_-])2\.?4\s*(?:ghz|g)(?:$|[\s_-])/.test(name))return 1;
   if(item.bands.length===1 && item.bands.includes('5 GHz'))return 2;
   if(item.bands.length===1 && item.bands.includes('2,4 GHz'))return 3;
   return 4;
