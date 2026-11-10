@@ -18,8 +18,8 @@ test('SQLite WAL durable across restart',()=>{
  try{let db=createStore(p);db.prepare('INSERT INTO tasks(id,fingerprint,kind,payload,state,created,updated) VALUES(?,?,?,?,?,?,?)').run(crypto.randomUUID(),'x','url','https://example.org/a.iso','QUEUED','now','now');db.close();db=createStore(p);assert.equal(db.prepare('SELECT count(*) as n FROM tasks').get().n,1);db.close()}finally{fs.rmSync(dir,{recursive:true,force:true})}
 });
 
-test('Pinned DNS lookup handles Node 24 all:true and single address',()=>{
+test('Pinned DNS lookup supports Node 24 all:true and legacy single-address',()=>{
  const fn=pinnedLookup('8.8.8.8');
- fn('example.org',{all:true},(e,v)=>{assert.ifError(e);assert.deepEqual(v,[{address:'8.8.8.8',family:4}])});
- fn('example.org',{all:false},(e,a,f)=>{assert.ifError(e);assert.equal(a,'8.8.8.8');assert.equal(f,4)});
+ fn('example.org',{all:true},(err,values)=>{assert.ifError(err);assert.deepEqual(values,[{address:'8.8.8.8',family:4}])});
+ fn('example.org',{all:false},(err,addr,family)=>{assert.ifError(err);assert.equal(addr,'8.8.8.8');assert.equal(family,4)});
 });

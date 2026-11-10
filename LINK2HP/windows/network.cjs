@@ -12,12 +12,13 @@ function classify(raw){if(typeof raw!=='string'||!raw.trim()||raw.length>4096)th
  const host=url.hostname.toLowerCase().replace(/^\[|\]$/g,'');if(!host.includes('.')||banned.some(s=>host.endsWith(s))||net.isIP(host)===6||net.isIP(host)===4&&!isPublicIPv4(host))throw Error('UNSAFE_HOST');
  url.hash='';return{kind:/\.torrent$/i.test(url.pathname)?'torrent_url':'url',canonical:url.toString()};
 }
-// Node 20+ may request all addresses via automatic family selection.
+// Node 20+ may request dns.lookup({all:true}) via autoSelectFamily.
+// Always pin the resolved public address for the entire connection.
 function pinnedLookup(ip){
  return (_hostname,options,callback)=>{
-  if(typeof options==='function'){callback=options;options={}}
-  if(options&&options.all){callback(null,[{address:ip,family:4}]);return}
-  callback(null,ip,4);
+   if(typeof options==='function'){callback=options;options={}}
+   if(options&&options.all){callback(null,[{address:ip,family:4}]);return}
+   callback(null,ip,4);
  }
 }
 async function secureGet(url,{maxBytes=1024*1024,timeoutMs=15000,maxRedirects=4,onChunk=null,streamOnly=false,probeOnly=false}={}){

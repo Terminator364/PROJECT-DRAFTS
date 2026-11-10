@@ -134,6 +134,9 @@ internal object Api {
         }
         throw IllegalStateException("Autorisation non reçue sur le HP.")
     }
+    fun health(pair:PairData):JSONObject =
+        json(connection(pair,"/api/health","GET"))
+
     fun hpNetworks(pair:PairData):JSONObject =
         json(connection(pair,"/api/wifi/networks","GET"))
     fun hpSwitchNetwork(pair:PairData,ssid:String):JSONObject =

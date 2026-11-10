@@ -44,7 +44,8 @@ function createApp(config,opts={}){
    if(busy||closed||Date.now()-lastWifiAttempt<300000)return;
    try{const state=await wifi.list();if(!state.available)return;
      const best=wifi.best(state);
-     // Do not disrupt a working 5-GHz radio merely because the SSID says '2.4g'.
+     // Do not disrupt a functioning Starlink 5-GHz connection just because
+     // the SSID name contains '2.4g' (real HP extender can do exactly this).
      const current=state.networks.find(n=>n.current);
      if(current && current.priority===0 && state.current_band==='5 GHz')return;
      if(best && best.priority<3 && !best.current){
