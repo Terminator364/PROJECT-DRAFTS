@@ -1,6 +1,6 @@
 'use strict';
 const test=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),os=require('node:os'),path=require('node:path'),crypto=require('node:crypto');
-const {classify,isPublicIPv4,parseCandidates}=require('./network.cjs');
+const {classify,isPublicIPv4,parseCandidates,pinnedLookup}=require('./network.cjs');
 const {createStore}=require('./agent.cjs');
 test('Reject unsafe URLs, schemes, local and reserved addresses',()=>{
  for(const url of ['javascript:alert(1)','file:///etc/passwd','http://localhost/','http://10.0.0.1/','http://127.0.0.1/','http://169.254.169.254/','http://192.168.1.1/','http://[::1]/','https://user:pass@example.org/','magnet:?xt=bad'])assert.throws(()=>classify(url),undefined,url);
@@ -16,4 +16,10 @@ test('Accept URL and magnet and extract explicit safe links from HTML',()=>{
 test('SQLite WAL durable across restart',()=>{
  const dir=fs.mkdtempSync(path.join(os.tmpdir(),'l2h-test-'));const p=path.join(dir,'state.sqlite');
  try{let db=createStore(p);db.prepare('INSERT INTO tasks(id,fingerprint,kind,payload,state,created,updated) VALUES(?,?,?,?,?,?,?)').run(crypto.randomUUID(),'x','url','https://example.org/a.iso','QUEUED','now','now');db.close();db=createStore(p);assert.equal(db.prepare('SELECT count(*) as n FROM tasks').get().n,1);db.close()}finally{fs.rmSync(dir,{recursive:true,force:true})}
+});
+
+test('Pinned DNS lookup handles Node 24 all:true and single address',()=>{
+ const fn=pinnedLookup('8.8.8.8');
+ fn('example.org',{all:true},(e,v)=>{assert.ifError(e);assert.deepEqual(v,[{address:'8.8.8.8',family:4}])});
+ fn('example.org',{all:false},(e,a,f)=>{assert.ifError(e);assert.equal(a,'8.8.8.8');assert.equal(f,4)});
 });
