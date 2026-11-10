@@ -78,8 +78,9 @@ function createWifiManager({run}={}){
     try{results=await Promise.all([
       exec(['show','networks','mode=bssid']),exec(['show','profiles']),exec(['show','interfaces'])
     ])}catch(e){return {available:false,reason:'WINDOWS_WIFI_UNAVAILABLE',networks:[],current:null}}
-    const networks=assemble({networks:parseNetworks(results[0]),profiles:parseProfiles(results[1]),current:parseCurrent(results[2])});
-    return {available:true,host:os.hostname().slice(0,60),current:parseCurrent(results[2]).ssid,networks};
+    const current=parseCurrent(results[2]);
+    const networks=assemble({networks:parseNetworks(results[0]),profiles:parseProfiles(results[1]),current});
+    return {available:true,host:os.hostname().slice(0,60),current:current.ssid,current_band:current.band,networks};
   }
   async function connect(ssid){
     if(switching)return {state:'BUSY'};
