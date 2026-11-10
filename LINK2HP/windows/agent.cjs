@@ -44,6 +44,9 @@ function createApp(config,opts={}){
    if(busy||closed||Date.now()-lastWifiAttempt<300000)return;
    try{const state=await wifi.list();if(!state.available)return;
      const best=wifi.best(state);
+     // Do not disrupt a working 5-GHz radio merely because the SSID says '2.4g'.
+     const current=state.networks.find(n=>n.current);
+     if(current && current.priority===0 && state.current_band==='5 GHz')return;
      if(best && best.priority<3 && !best.current){
        lastWifiAttempt=Date.now();await wifi.connect(best.ssid);
      }
