@@ -1,0 +1,35 @@
+name: LINK2HP Android - APK compile ponctuelle
+on:
+  workflow_dispatch:
+  # Déclenchement UNE FOIS lors de l'ajout de CE workflow sur la branche dédiée.
+  # Les push habituels du projet ne lancent pas de CI.
+  push:
+    branches: ["link2hp/complete-v1-20261110"]
+    paths: [".github/workflows/link2hp-build-once.yml"]
+permissions:
+  contents: read
+jobs:
+  apk:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: android-actions/setup-android@v3
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.7'
+      - name: SDK Android 35
+        run: sdkmanager --install 'platforms;android-35' 'build-tools;35.0.0'
+      - name: Compilation APK Android
+        working-directory: LINK2HP/android
+        run: gradle --no-daemon --console=plain --stacktrace :app:assembleDebug
+      - uses: actions/upload-artifact@v4
+        with:
+          name: LINK2HP-Android-debug-APK
+          path: LINK2HP/android/app/build/outputs/apk/debug/app-debug.apk
+          if-no-files-found: error
+          retention-days: 14
