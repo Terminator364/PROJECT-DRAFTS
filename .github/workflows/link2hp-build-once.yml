@@ -1,7 +1,7 @@
 name: LINK2HP Android - APK compile ponctuelle
 on:
   workflow_dispatch:
-  # Checkpoint ponctuel Android v1.1 du 10-11-2026 : scan et sélection Wi-Fi du HP.
+  # Checkpoint corrigé Android v1.1 du 10-11-2026 : scan et sélection Wi-Fi du HP.
   # Les push habituels du projet ne lancent pas de CI.
   push:
     branches: ["link2hp/complete-v1-20261110"]
