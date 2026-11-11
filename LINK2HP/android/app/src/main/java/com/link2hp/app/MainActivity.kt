@@ -207,7 +207,7 @@ class MainActivity : Activity() {
             } catch (e: Exception) {
                 val wifi = WifiCoordinator.wifiConnected(this)
                 render("HP introuvable", if (!wifi) {
-                    "Active le Wi-Fi. Les demandes restent enregistrées sur le téléphone."
+                    "Pour la première association, utilise le Wi-Fi de la maison. Ensuite le téléphone pourra être sur les données mobiles via Tailscale."
                 } else {
                     "Le HP ne répond pas sur ce Wi-Fi. La recherche directe a aussi été tentée. Aucun code à copier."
                 }, false)
@@ -224,26 +224,18 @@ class MainActivity : Activity() {
         val saved = store.pair()
         if (saved == null) { startPair(); return }
         healthRunning = true
-        render("Vérification de la connexion…", "Recherche du HP sur ton réseau local.", true)
+        render("Vérification de la connexion…", "Wi-Fi local ou liaison privée Tailscale.", true)
         io.execute {
             try {
-                var pair = PairData.parse(saved)
-                var healthy = try { Api.health(pair); true } catch (_: Exception) { false }
-                if (!healthy) {
-                    val found = Api.discover(this)
-                    if (found != null && found.pin == pair.pin) {
-                        pair = pair.copy(host = found.host, port = found.port)
-                        store.savePair(pair.serialized())
-                        Api.health(pair); healthy = true
-                    }
-                }
-                if (!healthy) throw IllegalStateException("Le HP ne répond pas")
-                render("HP connecté", "L'ordinateur est joignable. Les liens sont transmis automatiquement.", false, true)
+                val endpoint = Api.active(this, PairData.parse(saved))
+                val distant = endpoint.port == 17645
+                render("HP connecté", if (distant) "Connexion privée à distance. Le HP télécharge avec son propre Internet."
+                    else "Connexion locale établie. Le HP utilise son propre Wi-Fi.", false, true)
                 val again = Api.process(this, refresh)
                 if (again) RetryJob.schedule(this)
             } catch (_: Exception) {
                 RetryJob.schedule(this)
-                render("HP hors ligne", "Le lien est conservé. Vérifie que LINK2HP fonctionne sur le HP et que les deux Wi-Fi communiquent.", false)
+                render("HP hors ligne", "Tes liens restent enregistrés. À distance, active Tailscale sur le téléphone une fois configuré.", false)
             } finally {
                 runOnUiThread { healthRunning = false; pairButton.isEnabled = true
                     pairButton.text = if (linked) "Vérifier la connexion" else "Réessayer la connexion"
@@ -312,6 +304,17 @@ class MainActivity : Activity() {
                 else -> "Traitement : ${item.state}"
             }
             add(history, text("● ${if (item.kind == "torrent_file") "Torrent" else "Lien"} — $label", 13f, false, muted), 9)
+            if(item.reason.isNotBlank() && item.state in setOf("FAILED","WAIT_SELECTION")) {
+                val explanation = when(item.reason) {
+                    "HTTP_403" -> "Le site refuse cette requête."
+                    "QBITTORRENT_NOT_INSTALLED" -> "Moteur qBittorrent absent sur le HP."
+                    "QBITTORRENT_LAUNCH_FAILED" -> "qBittorrent n'a pas démarré sur le HP."
+                    "AUCUN_LIEN_DIRECT_PUBLIC" -> "Aucun lien torrent ou fichier exploitable trouvé sur cette page."
+                    "ERR_INVALID_IP_ADDRESS" -> "Défaut réseau du logiciel HP : une correction est disponible."
+                    else -> "Détail : " + item.reason.take(100)
+                }
+                add(history, text(explanation, 12f, false, muted), 3)
+            }
         }
     }
     private fun updateNetworkInfo() {
@@ -367,7 +370,7 @@ class MainActivity : Activity() {
     private fun watchWifi() {
         try {
             val cm = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-            val request = NetworkRequest.Builder().addTransportType(NetworkCapabilities.TRANSPORT_WIFI).build()
+            val request = NetworkRequest.Builder().addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET).build()
             val cb = object : ConnectivityManager.NetworkCallback() {
                 override fun onAvailable(network: android.net.Network) {
                     runOnUiThread {
