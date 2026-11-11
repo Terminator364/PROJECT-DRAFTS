@@ -157,9 +157,10 @@ internal object Api {
     fun hpSwitchNetwork(pair:PairData,ssid:String):JSONObject =
         json(connection(pair,"/api/wifi/connect","POST"), JSONObject().put("ssid",ssid))
 
-    fun send(pair:PairData,item:Item):String {
+    fun send(pair:PairData,item:Item):Pair<String,String> {
         val body=JSONObject().put("request_id",item.id).put("kind",item.kind).put("payload",item.payload)
-        return json(connection(pair,"/api/submit","POST"),body).getJSONObject("task").getString("state")
+        val task=json(connection(pair,"/api/submit","POST"),body).getJSONObject("task")
+        return task.getString("state") to task.optString("reason","")
     }
     fun task(pair:PairData,id:String):String =json(connection(pair,"/api/tasks/$id","GET")).getJSONObject("task").getString("state")
     fun process(ctx:Context,refresh:Boolean=false):Boolean {
@@ -171,13 +172,13 @@ internal object Api {
             if(item.state!="QUEUED_PHONE" && !(refresh && item.state!="COMPLETED"))continue
             try{
                 // Re-submission is idempotent; user refresh can retry an earlier FAILED job.
-                val state=send(endpoint,item)
-                store.update(item.id,state)
+                val result=send(endpoint,item)
+                store.update(item.id,result.first,result.second)
             }catch(_:Exception){
                 try{
                     endpoint=active(ctx,PairData.parse(store.pair()?:pair.serialized()))
-                    val state=send(endpoint,item)
-                    store.update(item.id,state)
+                    val result=send(endpoint,item)
+                    store.update(item.id,result.first,result.second)
                     continue
                 }catch(_:Exception){}
                 needsRetry=true
