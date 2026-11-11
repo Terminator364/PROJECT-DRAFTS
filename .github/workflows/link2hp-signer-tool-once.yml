@@ -1,0 +1,29 @@
+name: LINK2HP one-time Android signer bootstrap
+on:
+  workflow_dispatch:
+  push:
+    branches: ["link2hp/v14-torrent-remote-20261111"]
+    paths: [".github/workflows/link2hp-signer-tool-once.yml"]
+permissions:
+  contents: read
+jobs:
+  toolkit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: android-actions/setup-android@v3
+      - name: Official Android signing tool
+        run: |
+          sdkmanager --install 'build-tools;35.0.0'
+          test -s "$ANDROID_HOME/build-tools/35.0.0/lib/apksigner.jar"
+          java -jar "$ANDROID_HOME/build-tools/35.0.0/lib/apksigner.jar" version
+      - uses: actions/upload-artifact@v4
+        with:
+          name: LINK2HP-official-apksigner-jar
+          path: ${{ env.ANDROID_HOME }}/build-tools/35.0.0/lib/apksigner.jar
+          if-no-files-found: error
+          retention-days: 1
