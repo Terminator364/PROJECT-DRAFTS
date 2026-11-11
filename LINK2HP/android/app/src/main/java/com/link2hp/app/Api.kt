@@ -20,18 +20,26 @@ import javax.net.ssl.SSLContext
 import javax.net.ssl.TrustManager
 import javax.net.ssl.X509TrustManager
 
-internal data class PairData(val host:String,val port:Int,val token:String,val pin:String) {
-    fun serialized():String="L2H1|$host|$port|$token|$pin"
+internal data class PairData(val host:String,val port:Int,val token:String,val pin:String,val remoteHost:String="") {
+    fun serialized():String="L2H2|$host|$port|$token|$pin|" + (if(remoteHost.isEmpty()) "-" else remoteHost)
     companion object {
+        fun lanAddress(host:String):Boolean {
+            val a=host.split('.').mapNotNull{it.toIntOrNull()}
+            return a.size==4&&a.all{it in 0..255}&&(a[0]==10||(a[0]==192&&a[1]==168)||(a[0]==172&&a[1] in 16..31))
+        }
+        fun tailAddress(host:String):Boolean {
+            val a=host.split('.').mapNotNull{it.toIntOrNull()}
+            return a.size==4&&a.all{it in 0..255}&&a[0]==100&&a[1] in 64..127
+        }
         fun parse(raw:String):PairData {
             val p=raw.trim().split('|')
-            require(p.size==5 && p[0]=="L2H1") {"Association non reconnue"}
-            val parts=p[1].split('.').mapNotNull{it.toIntOrNull()}
-            require(parts.size==4 && parts.all{it in 0..255}) {"Adresse invalide"}
-            require(parts[0]==10||(parts[0]==192&&parts[1]==168)||(parts[0]==172&&parts[1] in 16..31)) {"Réseau local uniquement"}
-            val port=p[2].toIntOrNull() ?: throw IllegalArgumentException("Port invalide")
-            require(port in 1024..65535 && p[3].matches(Regex("[a-fA-F0-9]{64}")) && p[4].matches(Regex("[a-fA-F0-9]{64}"))) {"Identifiants invalides"}
-            return PairData(p[1],port,p[3].lowercase(),p[4].lowercase())
+            require((p.size==5&&p[0]=="L2H1")||(p.size==6&&p[0]=="L2H2")) {"Association non reconnue"}
+            val port=p[2].toIntOrNull()?:throw IllegalArgumentException("Port invalide")
+            require((lanAddress(p[1])&&port in 1024..65535)||(tailAddress(p[1])&&port==17645)) {"Adresse du HP invalide"}
+            require(p[3].matches(Regex("[a-fA-F0-9]{64}"))&&p[4].matches(Regex("[a-fA-F0-9]{64}"))) {"Identifiants invalides"}
+            val remote=if(p.size==6&&p[5]!="-")p[5] else ""
+            require(remote.isEmpty()||tailAddress(remote)) {"Adresse distante non reconnue"}
+            return PairData(p[1],port,p[3].lowercase(),p[4].lowercase(),remote)
         }
     }
 }
@@ -41,7 +49,7 @@ internal object Api {
         return x.size==4&&x.all{it in 0..255}&&(x[0]==10||(x[0]==192&&x[1]==168)||(x[0]==172&&x[1] in 16..31))
     }
     private fun connection(pair:PairData,path:String,method:String,auth:Boolean=true):HttpsURLConnection {
-        require(privateHost(pair.host)) {"Hôte local requis"}
+        require(privateHost(pair.host) || (PairData.tailAddress(pair.host) && pair.port==17645 && auth && pair.token.length==64)) {"Hôte autorisé requis"}
         val trust=object:X509TrustManager {
             override fun getAcceptedIssuers():Array<X509Certificate> = emptyArray()
             override fun checkClientTrusted(chain:Array<X509Certificate>,authType:String) {throw java.security.cert.CertificateException("Client not supported")}
@@ -72,6 +80,47 @@ internal object Api {
             return JSONObject(raw)
         }finally{conn.disconnect()}
     }
+    private fun updatedRemote(ctx:Context,pair:PairData,health:JSONObject):PairData {
+        val endpoint=health.optJSONObject("remote")
+        val address=endpoint?.optString("host").orEmpty()
+        val port=endpoint?.optInt("port",0)?:0
+        if(port==17645 && PairData.tailAddress(address) && address!=pair.remoteHost) {
+            val updated=pair.copy(remoteHost=address)
+            Store(ctx).savePair(updated.serialized())
+            return updated
+        }
+        return pair
+    }
+    private fun remote(pair:PairData):PairData? =
+        pair.remoteHost.takeIf{PairData.tailAddress(it)}?.let{pair.copy(host=it,port=17645)}
+    fun active(ctx:Context,stored:PairData):PairData {
+        val cm=ctx.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val vpn=cm.allNetworks.any{cm.getNetworkCapabilities(it)?.hasTransport(android.net.NetworkCapabilities.TRANSPORT_VPN)==true}
+        val candidates=mutableListOf<PairData>()
+        val remoteEndpoint=remote(stored)
+        if(vpn&&remoteEndpoint!=null)candidates.add(remoteEndpoint)
+        candidates.add(stored)
+        if(!vpn&&remoteEndpoint!=null)candidates.add(remoteEndpoint)
+        for(candidate in candidates) {
+            try{
+                val h=health(candidate)
+                if(h.optString("status")!="ONLINE")continue
+                val refreshed=updatedRemote(ctx,stored,h)
+                return candidate.copy(remoteHost=refreshed.remoteHost)
+            }catch(_:Exception){}
+        }
+        val found=discover(ctx)
+        if(found!=null && found.pin==stored.pin){
+            val newLocal=stored.copy(host=found.host,port=found.port)
+            val health=health(newLocal)
+            if(health.optString("status")=="ONLINE"){
+                val updated=updatedRemote(ctx,newLocal,health)
+                Store(ctx).savePair(updated.serialized())
+                return updated
+            }
+        }
+        throw IllegalStateException("HP indisponible : Wi-Fi local ou Tailscale non joignable")
+    }
     fun discover(ctx:Context,progress:((String)->Unit)?=null):PairData? = LanDiscovery.find(ctx,progress)
 
     fun pair(ctx:Context,progress:(String)->Unit):PairData {
@@ -93,7 +142,7 @@ internal object Api {
                     val pair=PairData(candidate.host,candidate.port,token,candidate.pin)
                     PairData.parse(pair.serialized())
                     Store(ctx).savePair(pair.serialized())
-                    return pair
+                    return try{active(ctx,pair)}catch(_:Exception){pair}
                 }
                 "EXPIRED" -> throw IllegalStateException("Autorisation expirée. Relancer la recherche.")
             }
@@ -115,32 +164,21 @@ internal object Api {
     fun task(pair:PairData,id:String):String =json(connection(pair,"/api/tasks/$id","GET")).getJSONObject("task").getString("state")
     fun process(ctx:Context,refresh:Boolean=false):Boolean {
         val store=Store(ctx)
-        var pair=store.pair()?.let{PairData.parse(it)}?:return false
-        val net=ctx.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        val wifi=net.allNetworks.firstOrNull{net.getNetworkCapabilities(it)?.hasTransport(android.net.NetworkCapabilities.TRANSPORT_WIFI)==true}
-        if(wifi==null)return true
-        // La présence d'un Wi-Fi local est suffisante, même sans Internet.
-        // "Réseau mesuré" ne doit pas bloquer la communication LAN autorisée.
+        val pair=store.pair()?.let{PairData.parse(it)}?:return false
+        var endpoint=try{active(ctx,pair)}catch(_:Exception){return true}
         var needsRetry=false
         for(item in store.rows(false)){
-            if(item.state!="QUEUED_PHONE" && !(refresh && item.state !in setOf("COMPLETED","FAILED")))continue
-            try {
-                val status=if(item.state=="QUEUED_PHONE")send(pair,item) else task(pair,item.id)
-                store.update(item.id,status)
+            if(item.state!="QUEUED_PHONE" && !(refresh && item.state!="COMPLETED"))continue
+            try{
+                // Re-submission is idempotent; user refresh can retry an earlier FAILED job.
+                val state=send(endpoint,item)
+                store.update(item.id,state)
             }catch(_:Exception){
-                // L'adresse DHCP du HP peut changer après une bascule 5 GHz/2,4 GHz.
-                // Ne réassocier qu'au même certificat TLS; ne jamais accepter un autre HP.
                 try{
-                    val found=discover(ctx)
-                    if(found!=null && found.pin==pair.pin){
-                        val refreshed=pair.copy(host=found.host,port=found.port)
-                        PairData.parse(refreshed.serialized())
-                        store.savePair(refreshed.serialized())
-                        pair=refreshed
-                        val state=if(item.state=="QUEUED_PHONE")send(pair,item) else task(pair,item.id)
-                        store.update(item.id,state)
-                        continue
-                    }
+                    endpoint=active(ctx,PairData.parse(store.pair()?:pair.serialized()))
+                    val state=send(endpoint,item)
+                    store.update(item.id,state)
+                    continue
                 }catch(_:Exception){}
                 needsRetry=true
                 if(item.state=="QUEUED_PHONE")store.update(item.id,"QUEUED_PHONE","HP momentanément indisponible")
