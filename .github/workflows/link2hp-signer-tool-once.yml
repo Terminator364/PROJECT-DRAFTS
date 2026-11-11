@@ -15,10 +15,11 @@ jobs:
         with:
           distribution: temurin
           java-version: '17'
-      - uses: android-actions/setup-android@v3
       - name: Official Android signing tool
         run: |
-          sdkmanager --install 'build-tools;35.0.0'
+          if [ ! -s "$ANDROID_HOME/build-tools/35.0.0/lib/apksigner.jar" ]; then
+            "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --install 'build-tools;35.0.0'
+          fi
           test -s "$ANDROID_HOME/build-tools/35.0.0/lib/apksigner.jar"
           java -jar "$ANDROID_HOME/build-tools/35.0.0/lib/apksigner.jar" version
       - uses: actions/upload-artifact@v4
