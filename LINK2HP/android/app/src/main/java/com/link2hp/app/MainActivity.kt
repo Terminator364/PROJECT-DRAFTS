@@ -163,7 +163,7 @@ class MainActivity : Activity() {
             options.text = if (advanced.visibility == View.VISIBLE) "Masquer les options réseau" else "Options réseau (facultatif)"
             if (advanced.visibility == View.VISIBLE) updateNetworkInfo()
         }
-        val scrolling = ScrollView(this).apply { isFillViewport = true; clipToPadding = false; addView(page) }
+        val scrolling = ScrollView(this).apply { isFillViewport = true; clipToPadding = true; addView(page) }
         // Android 15/16 enforce edge-to-edge for apps targeting API 35.
         // Honor the actual status/navigation bar insets on all screen densities.
         if (Build.VERSION.SDK_INT >= 30) {
@@ -197,7 +197,7 @@ class MainActivity : Activity() {
         if (pairRunning) { feedback("Recherche déjà en cours"); return }
         if (store.pair() != null) { retry(true); return }
         pairRunning = true
-        render("Recherche du HP…", "Tu peux rester sur ton Wi-Fi 2,4 GHz. Aucun code à copier.", true)
+        render("Recherche du HP…", "Recherche locale et directe. Garde ton Wi-Fi habituel.", true)
         io.execute {
             try {
                 Api.pair(this) { msg -> render("Association en cours…", msg, true) }
@@ -209,7 +209,7 @@ class MainActivity : Activity() {
                 render("HP introuvable", if (!wifi) {
                     "Active le Wi-Fi. Les demandes restent enregistrées sur le téléphone."
                 } else {
-                    "Vérifie que LINK2HP est ouvert sur le HP. Le 2,4 GHz fonctionne si les appareils sont sur le même réseau local."
+                    "Le HP ne répond pas sur ce Wi-Fi. La recherche directe a aussi été tentée. Aucun code à copier."
                 }, false)
             } finally {
                 runOnUiThread { pairRunning = false; pairButton.isEnabled = true
