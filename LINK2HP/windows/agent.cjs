@@ -127,11 +127,19 @@ function createApp(config,opts={}){
  function handoff(id,magnetOrPath){
    const q=config.qbittorrentExe||'C:\\Program Files\\qBittorrent\\qbittorrent.exe';
    if(!fs.existsSync(q)){state(id,'FAILED','QBITTORRENT_NOT_INSTALLED');return}
+   const cli=['--no-splash','--skip-dialog=true','--save-path='+config.downloadDir,magnetOrPath];
+   let started=false,finished=false;
    try{
-    const child=spawn(q,[magnetOrPath],{detached:true,stdio:'ignore',windowsHide:true});
-    child.on('error',()=>state(id,'FAILED','QBITTORRENT_LAUNCH_FAILED'));
-    child.unref();state(id,'HANDED_TO_QBITTORRENT','ACCEPTANCE_UNVERIFIED');
-   }catch{state(id,'FAILED','QBITTORRENT_LAUNCH_FAILED')}
+     const child=spawn(q,cli,{detached:true,stdio:'ignore',windowsHide:false});
+     child.once('error',()=>{if(!finished){finished=true;state(id,'FAILED','QBITTORRENT_LAUNCH_FAILED')}});
+     child.once('spawn',()=>{
+       started=true;
+       // A running GUI and process creation is not proof of torrent completion.
+       // The app reports handoff, never COMPLETED, until a verified WebUI readback.
+       if(!finished){finished=true;state(id,'HANDED_TO_QBITTORRENT','CONFIRMATION_PENDANTE_DANS_QBITTORRENT')}
+     });
+     child.unref();
+   }catch(e){if(!finished)state(id,'FAILED','QBITTORRENT_LAUNCH_FAILED')}
  }
  function reply(res,code,obj){res.writeHead(code,{'Content-Type':'application/json; charset=utf-8','Cache-Control':'no-store','X-Content-Type-Options':'nosniff'});res.end(JSON.stringify(obj))}
  function authorized(req){const got=req.headers.authorization||'';return got.startsWith('Bearer ')&&pairing.authorized(got.slice(7))}
