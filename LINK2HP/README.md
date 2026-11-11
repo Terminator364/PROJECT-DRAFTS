@@ -1,4 +1,4 @@
-# LINK2HP — V1.2, ergonomie minimale Android
+# LINK2HP — V1.3, connexion locale renforcée
 
 ## Fonctionnement attendu
 
@@ -23,3 +23,15 @@
 - Les tests du récepteur Windows et un build GitHub ne remplacent pas une validation réelle sur téléphone + HP.
 
 Sources publiques sans secrets dans `Terminator364/PROJECT-DRAFTS` ; service Windows installé sur le HP conserve secrets et certificats **localement**.
+
+## Correctif v1.3 — 11 novembre 2026
+
+- Capture réelle du tableau de bord Windows sous Edge par profil de navigation isolé : agent actif, mais zéro téléphone encore associé avant le test Android.
+- Lancement du tableau de bord HP corrigé en fenêtre Edge dédiée (sans écran de bienvenue du navigateur).
+- Découverte Android en trois étapes : diffusion UDP, sondes UDP directement sur les adresses IPv4 du réseau local du téléphone, puis détection HTTPS sur le port 17642 avec empreinte SHA-256 immédiatement vérifiée. Cette dernière recherche est limitée au sous-réseau local privé /24, avec délais et concurrents bornés.
+- API Windows `GET /api/discovery` disponible **uniquement** depuis une adresse LAN privée : identité publique du service et empreinte de son certificat, sans jeton ni mot de passe. Appairage final toujours soumis à un clic sur le HP.
+- Sur le HP, le lanceur de fond fixe le vrai répertoire de configuration Windows, y compris lorsque PCRC utilise son profil de commandes isolé.
+- Test Windows réel : connexion HTTPS depuis l'adresse LAN du HP, `HTTP 200`, réponse d'identité correcte sans secrets (`LAN_TLS_DISCOVERY_PASS=true`). Dashboard relancé : `HTTP 200`.
+- GitHub Actions compilation Android : [run #42983673353](https://github.com/Terminator364/PROJECT-DRAFTS/actions/runs/42983673353), **success** ; APK debug v1.3.0, SHA256 `f636eb8948c2b529007b3d63c7ae72ec62e4ab6280f115c526ef2058a852ad32`.
+
+**Attention :** une recherche de l'ordinateur via réseau commun n'est pas un accès Internet à distance. La prise en charge des données mobiles et des réseaux extérieurs avec Tailscale est à développer et valider. La signature de développement GitHub de v1.3 diffère des anciennes versions : désinstallation de v1.2 potentiellement nécessaire, avec risque de perdre les liens stockés. Ne pas qualifier l'appairage réel sur téléphone avant essai effectif.
