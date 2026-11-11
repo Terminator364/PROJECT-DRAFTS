@@ -1,10 +1,10 @@
-name: LINK2HP Android 1.3 - connexion LAN renforcée
+name: LINK2HP Android 1.4 - Tailscale et correction torrent
 on:
   workflow_dispatch:
   # Checkpoint corrigé Android v1.1 du 10-11-2026 : scan et sélection Wi-Fi du HP.
   # Les push habituels du projet ne lancent pas de CI.
   push:
-    branches: ["link2hp/v13-connectivity-20261111"]
+    branches: ["link2hp/v14-torrent-remote-20261111"]
     paths: [".github/workflows/link2hp-build-once.yml"]
 permissions:
   contents: read
@@ -32,7 +32,7 @@ jobs:
         run: gradle --no-daemon --console=plain --stacktrace :app:assembleDebug
       - uses: actions/upload-artifact@v4
         with:
-          name: LINK2HP-Android-v1.3-debug-APK
+          name: LINK2HP-Android-v1.4-debug-APK
           path: LINK2HP/android/app/build/outputs/apk/debug/app-debug.apk
           if-no-files-found: error
           retention-days: 14
