@@ -1,4 +1,4 @@
-# LINK2HP — V1.3, connexion locale renforcée
+# LINK2HP — V1.4, téléphone indépendant et correction torrent
 
 ## Fonctionnement attendu
 
@@ -35,3 +35,15 @@ Sources publiques sans secrets dans `Terminator364/PROJECT-DRAFTS` ; service Win
 - GitHub Actions compilation Android : [run #42983673353](https://github.com/Terminator364/PROJECT-DRAFTS/actions/runs/42983673353), **success** ; APK debug v1.3.0, SHA256 `f636eb8948c2b529007b3d63c7ae72ec62e4ab6280f115c526ef2058a852ad32`.
 
 **Attention :** une recherche de l'ordinateur via réseau commun n'est pas un accès Internet à distance. La prise en charge des données mobiles et des réseaux extérieurs avec Tailscale est à développer et valider. La signature de développement GitHub de v1.3 diffère des anciennes versions : désinstallation de v1.2 potentiellement nécessaire, avec risque de perdre les liens stockés. Ne pas qualifier l'appairage réel sur téléphone avant essai effectif.
+
+## Version 1.4 — correctif Windows et réseau distant
+
+- **Téléphone** : soumet uniquement le lien. Il peut être sur son propre Wi-Fi ou ses données mobiles. Hors réseau local, une connexion privée **Tailscale Android active dans le même tailnet que le HP** est indispensable. Aucun changement du Wi-Fi du téléphone n'est imposé.
+- **HP** : agent de téléchargement Windows, priorité Starlink principal 5 GHz puis 2,4 GHz lorsque visibles et utilisables. Récepteur HTTPS authentifié sur le LAN et par Tailscale Serve privé TCP 17645 ; certificat pin SHA-256 et jeton de l'appareil existant.
+- **Pages torrent** : une page HTML présentant un seul magnet valide est automatiquement transmise à qBittorrent. Le transfert au client torrent n'est pas assimilé à un téléchargement terminé.
+- **Erreur `ERR_INVALID_IP_ADDRESS`** : cause identifiée et corrigée dans le `network.cjs` réellement installé sur le HP. Exemple public RFC 1149 téléchargé intégralement : 3 215 octets, état `COMPLETED`.
+- **Signature Android** : première APK **RELEASE** signée avec un certificat permanent RSA-3072, vérifiée v2/v3. Prochaines versions : signer avec **la même clé privée**. Anciennes APK DEBUG d'autres certificats : une dernière désinstallation et une nouvelle association sur le HP peuvent être nécessaires pour cette migration.
+- **Mises à jour** : signature stable mise en place ; vérification/installation automatique d'APK Android toujours non implémentée. Une installation hors Play Store peut requérir confirmation Android. Ne pas prétendre à une installation silencieuse.
+- **Vérifications et limites** : [rapport technique du 11 novembre 2026](ENGINEERING/VERIFICATION_V1_4_20261111.md). La liaison Android réelle sur les données mobiles, ainsi que la progression d'un véritable torrent jusqu'à 100 %, restent à valider.
+
+**Procédure initiale** : installer l'APK RELEASE ; associer une fois le téléphone depuis le réseau local (bouton sur le HP). Activer Tailscale sur le téléphone dans le même tailnet pour la connexion à distance. Ensuite, le téléphone peut changer de réseau indépendamment ; le HP garde le Wi-Fi de son choix et télécharge.
