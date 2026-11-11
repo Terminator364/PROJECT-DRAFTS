@@ -4,7 +4,7 @@ const fs=require('node:fs'),path=require('node:path'),os=require('node:os'),http
 const crypto=require('node:crypto'),dns=require('node:dns'),net=require('node:net'),{spawn}=require('node:child_process');
 const {DatabaseSync}=require('node:sqlite');
 const {classify, isPublicIPv4, secureGet, parseCandidates}=require('./network.cjs');
-const {createPairing,createDiscovery}=require('./pairing.cjs');
+const {createPairing,createDiscovery,privateIPv4}=require('./pairing.cjs');
 const {createWifiManager}=require('./wifi.cjs');
 const ROOT=path.resolve(process.env.LOCALAPPDATA||path.join(os.homedir(),'AppData','Local'),'LINK2HP');
 const CFG=process.env.LINK2HP_CONFIG||path.join(ROOT,'config.json');
@@ -123,6 +123,12 @@ function createApp(config,opts={}){
  function authorized(req){const got=req.headers.authorization||'';return got.startsWith('Bearer ')&&pairing.authorized(got.slice(7))}
  function remote(req,res){
   const route=new URL(req.url,'https://link2hp.local');
+  if(req.method==='GET'&&route.pathname==='/api/discovery'){
+    // Local-network identity hint. Public certificate digest only; no token or secret.
+    // A remote user cannot pair without explicit HP-side approval.
+    if(!privateIPv4(req.socket.remoteAddress))return reply(res,403,{error:'LOCAL_ONLY'});
+    return reply(res,200,{magic:'LINK2HP_HERE_V2',name:os.hostname().slice(0,48),port:config.port||17642,pin:config.certPin});
+  }
   if(req.method==='POST'&&route.pathname==='/api/pair/init')return parseBody(req,res,2048,body=>{try{reply(res,200,pairing.begin({socket:req.socket,body}))}catch(e){reply(res,403,{error:e.message})}});
   if(req.method==='GET'&&route.pathname==='/api/pair/status')return reply(res,200,pairing.poll(req,route.searchParams.get('id'),route.searchParams.get('device_id')));
   if(!authorized(req))return reply(res,401,{error:'NON_APPAIRE'});
