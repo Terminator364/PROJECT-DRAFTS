@@ -72,45 +72,11 @@ internal object Api {
             return JSONObject(raw)
         }finally{conn.disconnect()}
     }
-    fun discover(ctx:Context):PairData? {
-        // Les sondes LAN doivent emprunter le Wi-Fi même si les données mobiles
-        // sont la route Internet par défaut (Wi-Fi sans Internet, portail captif).
-        val cm=ctx.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        val wifiNetwork=cm.allNetworks.firstOrNull { network ->
-            cm.getNetworkCapabilities(network)?.hasTransport(android.net.NetworkCapabilities.TRANSPORT_WIFI)==true
-        } ?: return null
-        val targets=linkedSetOf<String>("255.255.255.255")
-        NetworkInterface.getNetworkInterfaces()?.toList()?.filter{it.isUp&&!it.isLoopback}?.forEach { iface ->
-            iface.interfaceAddresses?.forEach { address ->
-                if(address.address is Inet4Address && address.broadcast!=null)targets.add(address.broadcast.hostAddress?:return@forEach)
-            }
-        }
-        if(targets.isEmpty())return null
-        DatagramSocket().use{sock->
-            wifiNetwork.bindSocket(sock)
-            sock.broadcast=true;sock.soTimeout=950
-            val msg="LINK2HP_DISCOVER_V2".toByteArray(Charsets.UTF_8)
-            repeat(3) {
-                for(host in targets)try{sock.send(DatagramPacket(msg,msg.size,InetAddress.getByName(host),17644))}catch(_:Exception){}
-                repeat(3) {
-                    try {
-                        val buffer=ByteArray(1024);val answer=DatagramPacket(buffer,buffer.size);sock.receive(answer)
-                        val ip=answer.address.hostAddress?:return@repeat
-                        if(!privateHost(ip))return@repeat
-                        val o=JSONObject(String(answer.data,answer.offset,answer.length,Charsets.UTF_8))
-                        if(o.optString("magic")!="LINK2HP_HERE_V2")return@repeat
-                        val port=o.optInt("port");val pin=o.optString("pin")
-                        if(port !in 1024..65535||!pin.matches(Regex("[a-fA-F0-9]{64}")))return@repeat
-                        return PairData(ip,port,"",pin.lowercase())
-                    }catch(_:SocketTimeoutException){}catch(_:Exception){}
-                }
-            }
-        }
-        return null
-    }
+    fun discover(ctx:Context,progress:((String)->Unit)?=null):PairData? = LanDiscovery.find(ctx,progress)
+
     fun pair(ctx:Context,progress:(String)->Unit):PairData {
         progress("Recherche du HP sur le réseau local…")
-        val candidate=discover(ctx)?:throw IllegalStateException("HP introuvable. Vérifie que le téléphone et le HP sont sur le réseau Starlink accessible.")
+        val candidate=discover(ctx,progress)?:throw IllegalStateException("HP introuvable sur ce réseau. Tu peux laisser ton téléphone sur le Wi-Fi 2,4 GHz.")
         val preferences=ctx.getSharedPreferences("link2hp",Context.MODE_PRIVATE)
         var id=preferences.getString("device_id",null)
         if(id==null){id=UUID.randomUUID().toString();preferences.edit().putString("device_id",id).apply()}
