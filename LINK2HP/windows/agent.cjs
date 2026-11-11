@@ -10,6 +10,17 @@ const ROOT=path.resolve(process.env.LOCALAPPDATA||path.join(os.homedir(),'AppDat
 const CFG=process.env.LINK2HP_CONFIG||path.join(ROOT,'config.json');
 const uuid=/^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 const hash=s=>crypto.createHash('sha256').update(s).digest('hex');
+function tailnetEndpoint(){
+  for(const [name,addresses] of Object.entries(os.networkInterfaces())){
+    if(!/tailscale/i.test(name))continue;
+    for(const item of addresses||[]){
+      if(item?.family!=='IPv4')continue;
+      const x=item.address.split('.').map(Number);
+      if(x[0]===100&&x[1]>=64&&x[1]<=127)return {host:item.address,port:17645};
+    }
+  }
+  return null;
+}
 function readConfig(){
  const config=JSON.parse(fs.readFileSync(CFG,'utf8'));
  for(const k of ['token','pfxPassword','pfxPath','downloadDir'])if(!config[k])throw Error('CONFIG_MISSING_'+k);
@@ -78,6 +89,9 @@ function createApp(config,opts={}){
   const mime=(response.headers['content-type']||'').split(';')[0].toLowerCase();
   if(mime.includes('text/html')||response.body.subarray(0,64).toString().match(/<!doctype html|<html/i)){
     const candidates=parseCandidates(response.body.toString('utf8'),response.finalUrl);
+    // A page with exactly one valid magnet does not need a manual picker.
+    // The HP still verifies qBittorrent acceptance separately.
+    if(candidates.length===1 && candidates[0].kind==='magnet')return handoff(id,candidates[0].url);
     state(id,'WAIT_SELECTION',candidates.length?'CHOIX_NECESSAIRE':'AUCUN_LIEN_DIRECT_PUBLIC',0,candidates);return;
   }
   if(!isAllowedFile(response.finalUrl,mime)){
@@ -153,7 +167,7 @@ function createApp(config,opts={}){
       }).catch(()=>reply(res,503,{state:'WIFI_SCAN_FAILED'}));
     });
   }
-  if(req.method==='GET'&&u.pathname==='/api/health')return reply(res,200,{status:'ONLINE',version:'1.0.0',queue:latest.all().filter(x=>x.state==='QUEUED').length});
+  if(req.method==='GET'&&u.pathname==='/api/health')return reply(res,200,{status:'ONLINE',version:'1.4.0',queue:latest.all().filter(x=>x.state==='QUEUED').length,remote:tailnetEndpoint()});
   if(req.method==='GET'&&u.pathname==='/api/tasks')return reply(res,200,{tasks:latest.all().map(statusRow)});
   if(req.method==='GET'&&u.pathname.startsWith('/api/tasks/'))return reply(res,200,{task:statusRow(get.get(u.pathname.split('/')[3]))});
   if(req.method==='POST'&&u.pathname==='/api/submit')return receive(req,res);
@@ -173,7 +187,14 @@ function createApp(config,opts={}){
       try{const c=classify(body.payload);kind=c.kind;payload=c.canonical}catch(e){return reply(res,422,{error:e.message})}
    }
    const fingerprint=hash(kind+'\n'+payload);const existing=get.get(body.request_id)||find.get(fingerprint);
-   if(existing){if(existing.id===body.request_id&&existing.fingerprint!==fingerprint)return reply(res,409,{error:'CONFLIT_ID'});return reply(res,200,{duplicate:true,task:statusRow(existing)})}
+   if(existing){
+     if(existing.id===body.request_id&&existing.fingerprint!==fingerprint)return reply(res,409,{error:'CONFLIT_ID'});
+     if(existing.state==='FAILED'){
+       state(existing.id,'QUEUED','RETRY_REQUESTED');
+       reply(res,200,{duplicate:true,retried:true,task:statusRow(get.get(existing.id))});queue();return;
+     }
+     return reply(res,200,{duplicate:true,task:statusRow(existing)});
+   }
    const now=iso();insert.run(body.request_id,fingerprint,kind,payload,'QUEUED',now,now);const row=get.get(body.request_id);reply(res,201,{duplicate:false,task:statusRow(row)});queue();
   })}
  function choose(req,res,id){parseBody(req,res,1024,b=>{
