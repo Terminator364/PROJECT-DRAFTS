@@ -49,7 +49,16 @@ $cmd='"'+(Join-Path $app 'node.exe')+'" "'+(Join-Path $app 'agent.cjs')+'"'
 $script='Set sh=CreateObject("WScript.Shell")' + "`r`n" + 'sh.Run "'+$cmd.Replace('"','""')+'",0,False'
 [IO.File]::WriteAllText($agent,$script,[Text.Encoding]::ASCII)
 $open=Join-Path $app 'LINK2HP-Ouvrir.vbs'
-[IO.File]::WriteAllText($open,'Set sh=CreateObject("WScript.Shell")' + "`r`n" + 'sh.Run "http://127.0.0.1:17643",1,False',[Text.Encoding]::ASCII)
+$edgeCandidates=@('C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe','C:\Program Files\Microsoft\Edge\Application\msedge.exe')
+$edgeBrowser=$edgeCandidates | Where-Object {Test-Path $_} | Select-Object -First 1
+if($edgeBrowser){
+    # Dedicated app window: avoids Edge's first-run screen and unrelated tabs.
+    $cmdline='"'+$edgeBrowser+'" --no-first-run --no-default-browser-check --user-data-dir="'+(Join-Path $dir 'edge-profile')+'" --app=http://127.0.0.1:17643/'
+    $vbs='Set sh=CreateObject("WScript.Shell")'+[Environment]::NewLine+'sh.Run "'+$cmdline.Replace('"','""')+'", 1, False'
+}else{
+    $vbs='Set sh=CreateObject("WScript.Shell")'+[Environment]::NewLine+'sh.Run "http://127.0.0.1:17643", 1, False'
+}
+[IO.File]::WriteAllText($open,$vbs,[Text.Encoding]::ASCII)
 if(!$NoAutostart){
     $startup=[Environment]::GetFolderPath('Startup')
     $shortcut=Join-Path $startup 'LINK2HP.lnk'
