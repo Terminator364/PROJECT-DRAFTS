@@ -19,9 +19,8 @@ class RetryJob:JobService(){
     companion object {
         fun schedule(ctx:Context){
             val scheduler=ctx.getSystemService(Context.JOB_SCHEDULER_SERVICE) as JobScheduler
-            val unmetered=!Store(ctx).allowMetered()
             val request=JobInfo.Builder(93210,ComponentName(ctx,RetryJob::class.java))
-                .setRequiredNetworkType(if(unmetered)JobInfo.NETWORK_TYPE_UNMETERED else JobInfo.NETWORK_TYPE_ANY)
+                .setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)
                 .setBackoffCriteria(30_000,JobInfo.BACKOFF_POLICY_EXPONENTIAL)
                 .setPersisted(true)
                 .build()
