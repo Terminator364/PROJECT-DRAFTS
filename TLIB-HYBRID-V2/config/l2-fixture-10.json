@@ -1,0 +1,203 @@
+[
+  {
+    "full_name": "sindresorhus/awesome",
+    "summary": "Répertoire maître de listes thématiques « awesome ». Il sert surtout de point de départ pour découvrir rapidement des collections spécialisées de ressources et d’outils.",
+    "capabilities": [
+      "découverte de listes thématiques",
+      "orientation vers des ressources spécialisées",
+      "navigation par domaines"
+    ],
+    "use_cases": [
+      "élargir le catalogue TLIB",
+      "trouver des sources de qualité par thème",
+      "amorcer de nouvelles campagnes L0"
+    ],
+    "limitations": [
+      "ce n’est pas un outil exécutable",
+      "la qualité varie selon les listes reliées",
+      "nécessite un second niveau d’analyse pour qualifier chaque ressource"
+    ],
+    "confidence": 0.98,
+    "source": "assistant-canary-from-l1-metadata"
+  },
+  {
+    "full_name": "sindresorhus/awesome-nodejs",
+    "summary": "Collection curatée de paquets, outils et ressources Node.js. Utile pour repérer rapidement des bibliothèques et solutions liées à l’écosystème Node.",
+    "capabilities": [
+      "catalogue Node.js",
+      "découverte de bibliothèques",
+      "ressources de développement"
+    ],
+    "use_cases": [
+      "chercher des dépendances Node.js",
+      "trouver des outils serveur ou CLI",
+      "alimenter des catégories JavaScript/Node de TLIB"
+    ],
+    "limitations": [
+      "liste de ressources, pas une bibliothèque unique",
+      "une vérification projet par projet reste nécessaire"
+    ],
+    "confidence": 0.98,
+    "source": "assistant-canary-from-l1-metadata"
+  },
+  {
+    "full_name": "bcoe/awesome-cross-platform-nodejs",
+    "summary": "Liste spécialisée dans les outils pour écrire du code Node.js multi-plateforme. Intéressante pour les projets qui doivent fonctionner sur Windows, Linux et macOS.",
+    "capabilities": [
+      "outils Node.js multiplateformes",
+      "compatibilité inter-OS",
+      "ressources développeur"
+    ],
+    "use_cases": [
+      "projets Windows + Linux",
+      "CLI portables",
+      "réduire les différences entre plateformes"
+    ],
+    "limitations": [
+      "périmètre étroit",
+      "les projets listés doivent être vérifiés individuellement"
+    ],
+    "confidence": 0.97,
+    "source": "assistant-canary-from-l1-metadata"
+  },
+  {
+    "full_name": "dypsilon/frontend-dev-bookmarks",
+    "summary": "Collection manuellement curatée de ressources pour le développement frontend web.",
+    "capabilities": [
+      "références frontend",
+      "outils web",
+      "ressources d’apprentissage"
+    ],
+    "use_cases": [
+      "explorer le développement frontend",
+      "repérer des outils UI/web",
+      "documenter une pile frontend"
+    ],
+    "limitations": [
+      "certaines ressources peuvent vieillir",
+      "ce dépôt agrège des liens plutôt que fournir une solution unique"
+    ],
+    "confidence": 0.97,
+    "source": "assistant-canary-from-l1-metadata"
+  },
+  {
+    "full_name": "vsouza/awesome-ios",
+    "summary": "Catalogue curaté de l’écosystème iOS couvrant notamment Swift, Objective-C, bibliothèques et projets associés.",
+    "capabilities": [
+      "découverte iOS",
+      "ressources Swift",
+      "bibliothèques mobiles Apple"
+    ],
+    "use_cases": [
+      "recherche d’outils iOS",
+      "veille Swift",
+      "construction de catégories mobiles TLIB"
+    ],
+    "limitations": [
+      "orienté plateformes Apple",
+      "nécessite une qualification projet par projet"
+    ],
+    "confidence": 0.98,
+    "source": "assistant-canary-from-l1-metadata"
+  },
+  {
+    "full_name": "JStumpp/awesome-android",
+    "summary": "Liste curatée de paquets et ressources Android. C’est une source de découverte pour bibliothèques, frameworks et outils Android.",
+    "capabilities": [
+      "découverte Android",
+      "catalogue de bibliothèques",
+      "ressources mobiles"
+    ],
+    "use_cases": [
+      "chercher des composants Android",
+      "alimenter une catégorie Android TLIB",
+      "repérer des alternatives open source"
+    ],
+    "limitations": [
+      "ce n’est pas une application installable unique",
+      "activité et qualité doivent être vérifiées pour chaque projet"
+    ],
+    "confidence": 0.98,
+    "source": "assistant-canary-from-l1-metadata"
+  },
+  {
+    "full_name": "weblancaster/awesome-IoT-hybrid",
+    "summary": "Collection orientée IoT et applications hybrides, regroupant frameworks, outils, ressources et contenus techniques.",
+    "capabilities": [
+      "ressources IoT",
+      "frameworks hybrides",
+      "outils multi-environnements"
+    ],
+    "use_cases": [
+      "explorer l’IoT",
+      "projets hybrides mobile/web",
+      "repérer des frameworks spécialisés"
+    ],
+    "limitations": [
+      "collection hétérogène",
+      "certaines entrées peuvent être anciennes ou peu maintenues"
+    ],
+    "confidence": 0.95,
+    "source": "assistant-canary-from-l1-metadata"
+  },
+  {
+    "full_name": "sindresorhus/awesome-electron",
+    "summary": "Collection de ressources pour créer des applications de bureau avec Electron.",
+    "capabilities": [
+      "ressources Electron",
+      "outils desktop JavaScript",
+      "bibliothèques pour applications PC"
+    ],
+    "use_cases": [
+      "applications desktop multiplateformes",
+      "outils UI Electron",
+      "projets Node.js + interface bureau"
+    ],
+    "limitations": [
+      "Electron peut être lourd en RAM selon le projet",
+      "la liste doit être filtrée selon les contraintes matérielles"
+    ],
+    "confidence": 0.99,
+    "source": "assistant-canary-from-l1-metadata"
+  },
+  {
+    "full_name": "busterc/awesome-cordova",
+    "summary": "Liste de bibliothèques et ressources autour de Cordova et des applications mobiles hybrides.",
+    "capabilities": [
+      "ressources Cordova",
+      "développement hybride",
+      "plugins et bibliothèques mobiles"
+    ],
+    "use_cases": [
+      "applications hybrides",
+      "exploration de plugins Cordova",
+      "maintenance de projets historiques"
+    ],
+    "limitations": [
+      "écosystème moins central qu’auparavant",
+      "vérifier l’activité récente avant adoption"
+    ],
+    "confidence": 0.96,
+    "source": "assistant-canary-from-l1-metadata"
+  },
+  {
+    "full_name": "jondot/awesome-react-native",
+    "summary": "Collection de composants, outils, actualités et ressources d’apprentissage autour de React Native.",
+    "capabilities": [
+      "composants React Native",
+      "outils mobiles JavaScript",
+      "ressources d’apprentissage"
+    ],
+    "use_cases": [
+      "applications Android/iOS React Native",
+      "recherche de composants",
+      "veille écosystème React Native"
+    ],
+    "limitations": [
+      "les composants listés ont des niveaux de maintenance variables",
+      "une vérification de compatibilité version par version reste nécessaire"
+    ],
+    "confidence": 0.99,
+    "source": "assistant-canary-from-l1-metadata"
+  }
+]

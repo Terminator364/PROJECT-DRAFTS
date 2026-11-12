@@ -1,0 +1,228 @@
+[
+  {
+    "id": 40815285,
+    "node_id": "MDEwOlJlcG9zaXRvcnk0MDgxNTI4NQ==",
+    "full_name": "Friz-zy/awesome-linux-containers",
+    "description": "A curated list of awesome Linux Containers frameworks, libraries and software",
+    "archived": false,
+    "fork": false,
+    "stargazers_count": 2102,
+    "language": "",
+    "license": {
+      "spdx_id": "Apache-2.0",
+      "name": "Apache License 2.0"
+    },
+    "topics": [
+      "awesome",
+      "best-practices",
+      "containers",
+      "linux-containers"
+    ],
+    "updated_at": "2026-09-21T05:03:15Z",
+    "pushed_at": "2024-04-09T19:01:27Z",
+    "default_branch": "master",
+    "size": 165,
+    "open_issues_count": 11
+  },
+  {
+    "description": "",
+    "archived": false,
+    "fork": false,
+    "stargazers_count": 0,
+    "language": "",
+    "license": null,
+    "topics": [],
+    "updated_at": "",
+    "pushed_at": "",
+    "default_branch": "",
+    "size": 0,
+    "open_issues_count": 0
+  },
+  {
+    "id": 193599853,
+    "node_id": "MDEwOlJlcG9zaXRvcnkxOTM1OTk4NTM=",
+    "full_name": "PandaFoss/Awesome-Arch",
+    "description": ":sunglasses: A complete list of Arch-based projects",
+    "archived": false,
+    "fork": false,
+    "stargazers_count": 594,
+    "language": "HTML",
+    "license": {
+      "spdx_id": "CC0-1.0",
+      "name": "Creative Commons Zero v1.0 Universal"
+    },
+    "topics": [
+      "arch-linux",
+      "awesome",
+      "awesome-list",
+      "list"
+    ],
+    "updated_at": "2026-09-26T14:08:48Z",
+    "pushed_at": "2026-07-11T04:57:29Z",
+    "default_branch": "master",
+    "size": 1500,
+    "open_issues_count": 4
+  },
+  {
+    "id": 284008546,
+    "node_id": "MDEwOlJlcG9zaXRvcnkyODQwMDg1NDY=",
+    "full_name": "AppImageCommunity/awesome-appimage",
+    "description": "Lovingly crafted AppImage tools and resources ",
+    "archived": false,
+    "fork": false,
+    "stargazers_count": 605,
+    "language": "",
+    "license": {
+      "spdx_id": "CC0-1.0",
+      "name": "Creative Commons Zero v1.0 Universal"
+    },
+    "topics": [
+      "appimage",
+      "awesome",
+      "awesome-list",
+      "linux",
+      "package-creation"
+    ],
+    "updated_at": "2026-09-26T09:40:25Z",
+    "pushed_at": "2025-12-07T12:00:44Z",
+    "default_branch": "main",
+    "size": 444,
+    "open_issues_count": 11
+  },
+  {
+    "id": 1039289611,
+    "node_id": "R_kgDOPfJNCw",
+    "full_name": "aorumbayev/awesome-omarchy",
+    "description": "⚡A curated list of awesome omarchy resources",
+    "archived": false,
+    "fork": false,
+    "stargazers_count": 582,
+    "language": "HTML",
+    "license": {
+      "spdx_id": "CC0-1.0",
+      "name": "Creative Commons Zero v1.0 Universal"
+    },
+    "topics": [
+      "archlinux",
+      "awesome",
+      "awesome-list",
+      "awesome-omarchy",
+      "dotfiles",
+      "hyprland",
+      "hyprland-config",
+      "omarchy",
+      "omarchy-theme",
+      "rice",
+      "walker",
+      "waybar",
+      "wayland"
+    ],
+    "updated_at": "2026-09-27T12:05:03Z",
+    "pushed_at": "2026-09-25T08:49:41Z",
+    "default_branch": "main",
+    "size": 9778,
+    "open_issues_count": 6
+  },
+  {
+    "id": 30559599,
+    "node_id": "MDEwOlJlcG9zaXRvcnkzMDU1OTU5OQ==",
+    "full_name": "agarrharr/awesome-macos-screensavers",
+    "description": "🍎 🖥 🎆 A curated list of screensavers for Mac OS X",
+    "archived": false,
+    "fork": false,
+    "stargazers_count": 4418,
+    "language": "",
+    "license": null,
+    "topics": [
+      "awesome",
+      "awesome-list",
+      "list",
+      "screensavers"
+    ],
+    "updated_at": "2026-09-27T08:33:59Z",
+    "pushed_at": "2025-10-27T22:06:19Z",
+    "default_branch": "master",
+    "size": 23303,
+    "open_issues_count": 8
+  },
+  {
+    "id": 63539055,
+    "node_id": "MDEwOlJlcG9zaXRvcnk2MzUzOTA1NQ==",
+    "full_name": "jaywcjlove/awesome-mac",
+    "description": " This project is dedicated to collecting high-quality macOS software and organizing them systematically by different categories for easy search and use.",
+    "archived": false,
+    "fork": false,
+    "stargazers_count": 114986,
+    "language": "Swift",
+    "license": {
+      "spdx_id": "CC0-1.0",
+      "name": "Creative Commons Zero v1.0 Universal"
+    },
+    "topics": [
+      "app",
+      "apple",
+      "application",
+      "apps",
+      "awesome",
+      "awesome-list",
+      "awesome-mac",
+      "desktop-app",
+      "desktop-application",
+      "desktop-apps",
+      "list",
+      "mac",
+      "mac-osx",
+      "macos",
+      "macos-app",
+      "macos-apps",
+      "macosx",
+      "software",
+      "swift",
+      "swiftui"
+    ],
+    "updated_at": "2026-09-27T14:28:44Z",
+    "pushed_at": "2026-09-27T02:30:08Z",
+    "default_branch": "master",
+    "size": 65279,
+    "open_issues_count": 1010
+  },
+  {
+    "id": 109343098,
+    "node_id": "MDEwOlJlcG9zaXRvcnkxMDkzNDMwOTg=",
+    "full_name": "serhii-londar/open-source-mac-os-apps",
+    "description": "🚀 Awesome list of open source applications for macOS. https://t.me/s/opensourcemacosapps",
+    "archived": false,
+    "fork": false,
+    "stargazers_count": 50585,
+    "language": "",
+    "license": {
+      "spdx_id": "CC0-1.0",
+      "name": "Creative Commons Zero v1.0 Universal"
+    },
+    "topics": [
+      "applications",
+      "apps",
+      "awesome",
+      "awesome-list",
+      "c",
+      "c-plus-plus",
+      "hacktoberfest",
+      "javascript",
+      "mac",
+      "macos",
+      "macos-application",
+      "macosx",
+      "objective-c",
+      "open-source",
+      "opensource",
+      "python",
+      "ruby",
+      "swift"
+    ],
+    "updated_at": "2026-09-27T14:11:36Z",
+    "pushed_at": "2026-09-10T08:05:13Z",
+    "default_branch": "master",
+    "size": 6174,
+    "open_issues_count": 310
+  }
+]

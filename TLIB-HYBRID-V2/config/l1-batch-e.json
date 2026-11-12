@@ -1,0 +1,238 @@
+[
+  {
+    "id": 70810952,
+    "node_id": "MDEwOlJlcG9zaXRvcnk3MDgxMDk1Mg==",
+    "full_name": "vitalets/awesome-smart-tv",
+    "description": ":zap:A curated list of awesome resources for building Smart TV apps",
+    "archived": false,
+    "fork": false,
+    "stargazers_count": 1425,
+    "language": "",
+    "license": null,
+    "topics": [
+      "android-tv",
+      "apple-tv",
+      "awesome",
+      "awesome-list",
+      "chromecast",
+      "samsung-smart-tv",
+      "smart-tv",
+      "smarttv",
+      "tizen",
+      "webos-tv"
+    ],
+    "updated_at": "2026-09-27T07:26:13Z",
+    "pushed_at": "2026-09-22T16:58:18Z",
+    "default_branch": "master",
+    "size": 93,
+    "open_issues_count": 3
+  },
+  {
+    "id": 202122968,
+    "node_id": "MDEwOlJlcG9zaXRvcnkyMDIxMjI5Njg=",
+    "full_name": "ravirupareliya/awesome-actions-on-google",
+    "description": "A collection of useful things regarding Actions on Google.",
+    "archived": false,
+    "fork": false,
+    "stargazers_count": 115,
+    "language": "",
+    "license": {
+      "spdx_id": "CC0-1.0",
+      "name": "Creative Commons Zero v1.0 Universal"
+    },
+    "topics": [
+      "actions-on-google",
+      "actions-on-google-nodejs",
+      "actionsongoogle",
+      "aog",
+      "awesome",
+      "awesome-list",
+      "google-assistant",
+      "hacktoberfest"
+    ],
+    "updated_at": "2026-09-01T00:27:24Z",
+    "pushed_at": "2020-10-31T16:47:09Z",
+    "default_branch": "master",
+    "size": 129,
+    "open_issues_count": 2
+  },
+  {
+    "id": 115279038,
+    "node_id": "MDEwOlJlcG9zaXRvcnkxMTUyNzkwMzg=",
+    "full_name": "agucova/awesome-esp",
+    "description": "📶 A curated list of awesome ESP8266/32 projects and code",
+    "archived": false,
+    "fork": false,
+    "stargazers_count": 2714,
+    "language": "",
+    "license": {
+      "spdx_id": "CC0-1.0",
+      "name": "Creative Commons Zero v1.0 Universal"
+    },
+    "topics": [
+      "arduino",
+      "awesome",
+      "awesome-list",
+      "awesome-lists",
+      "esp",
+      "esp32",
+      "esp8266",
+      "espressif",
+      "iot",
+      "micropython",
+      "nodemcu"
+    ],
+    "updated_at": "2026-09-27T14:08:03Z",
+    "pushed_at": "2026-05-09T14:45:25Z",
+    "default_branch": "main",
+    "size": 141,
+    "open_issues_count": 27
+  },
+  {
+    "id": 163803160,
+    "node_id": "MDEwOlJlcG9zaXRvcnkxNjM4MDMxNjA=",
+    "full_name": "denolib/awesome-deno",
+    "description": "Curated list of awesome things related to Deno",
+    "archived": false,
+    "fork": false,
+    "stargazers_count": 4410,
+    "language": "",
+    "license": {
+      "spdx_id": "CC0-1.0",
+      "name": "Creative Commons Zero v1.0 Universal"
+    },
+    "topics": [
+      "awesome",
+      "awesome-list",
+      "deno"
+    ],
+    "updated_at": "2026-09-25T07:18:32Z",
+    "pushed_at": "2026-09-14T00:34:08Z",
+    "default_branch": "main",
+    "size": 1465,
+    "open_issues_count": 3
+  },
+  {
+    "id": 194946088,
+    "node_id": "MDEwOlJlcG9zaXRvcnkxOTQ5NDYwODg=",
+    "full_name": "balintkissdev/awesome-dos",
+    "description": "Curated list of references for development of DOS applications.",
+    "archived": false,
+    "fork": false,
+    "stargazers_count": 638,
+    "language": "",
+    "license": {
+      "spdx_id": "CC0-1.0",
+      "name": "Creative Commons Zero v1.0 Universal"
+    },
+    "topics": [
+      "awesome",
+      "awesome-list",
+      "dos",
+      "lists",
+      "ms-dos",
+      "resources",
+      "retrogaming",
+      "retroprogramming"
+    ],
+    "updated_at": "2026-09-22T20:11:50Z",
+    "pushed_at": "2026-09-20T15:45:54Z",
+    "default_branch": "main",
+    "size": 102,
+    "open_issues_count": 1
+  },
+  {
+    "id": 186849419,
+    "node_id": "MDEwOlJlcG9zaXRvcnkxODY4NDk0MTk=",
+    "full_name": "nix-community/awesome-nix",
+    "description": "😎 A curated list of the best resources in the Nix community [maintainer=@cyntheticfox]",
+    "archived": false,
+    "fork": false,
+    "stargazers_count": 5465,
+    "language": "",
+    "license": {
+      "spdx_id": "CC0-1.0",
+      "name": "Creative Commons Zero v1.0 Universal"
+    },
+    "topics": [
+      "awesome",
+      "awesome-list",
+      "lists",
+      "nix",
+      "nixos"
+    ],
+    "updated_at": "2026-09-27T08:09:44Z",
+    "pushed_at": "2026-07-23T17:30:40Z",
+    "default_branch": "main",
+    "size": 393,
+    "open_issues_count": 24
+  },
+  {
+    "id": 388887753,
+    "node_id": "MDEwOlJlcG9zaXRvcnkzODg4ODc3NTM=",
+    "full_name": "stn1slv/awesome-integration",
+    "description": "A curated list of awesome system integration software and resources.",
+    "archived": false,
+    "fork": false,
+    "stargazers_count": 564,
+    "language": "Markdown",
+    "license": {
+      "spdx_id": "CC0-1.0",
+      "name": "Creative Commons Zero v1.0 Universal"
+    },
+    "topics": [
+      "api",
+      "api-design",
+      "apim",
+      "apimanagement",
+      "awesome",
+      "awesome-list",
+      "bpm",
+      "esb",
+      "etl",
+      "ipaas",
+      "json",
+      "markdown",
+      "messaging",
+      "mq",
+      "mulesoft",
+      "openapi",
+      "rest-api",
+      "testing",
+      "workflow"
+    ],
+    "updated_at": "2026-09-26T08:38:51Z",
+    "pushed_at": "2026-09-26T13:42:43Z",
+    "default_branch": "main",
+    "size": 728,
+    "open_issues_count": 2
+  },
+  {
+    "id": 422856484,
+    "node_id": "R_kgDOGTRHJA",
+    "full_name": "naimo84/awesome-nodered",
+    "description": "A collection of interesting nodes and resources for Node-RED",
+    "archived": false,
+    "fork": false,
+    "stargazers_count": 550,
+    "language": "",
+    "license": {
+      "spdx_id": "CC0-1.0",
+      "name": "Creative Commons Zero v1.0 Universal"
+    },
+    "topics": [
+      "awesome",
+      "awesome-list",
+      "community",
+      "hacktoberfest",
+      "node-red",
+      "node-red-contrib",
+      "nodered"
+    ],
+    "updated_at": "2026-09-24T04:57:49Z",
+    "pushed_at": "2023-02-23T06:12:18Z",
+    "default_branch": "main",
+    "size": 48,
+    "open_issues_count": 1
+  }
+]
