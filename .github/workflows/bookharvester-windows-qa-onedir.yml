@@ -1,0 +1,76 @@
+name: BookHarvester QA - Windows onedir portable
+on:
+  push:
+    branches: [feat/bookharvester-qa-onedir-20261012]
+    paths:
+      - '.github/workflows/bookharvester-windows-qa-onedir.yml'
+      - 'experiments/Install-Portable-onedir.ps1'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  windows-portable:
+    runs-on: windows-latest
+    timeout-minutes: 9
+    defaults:
+      run:
+        working-directory: experiments/blessing-bookharvester
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify and unpack exact V1.1 source from previous QA
+        shell: pwsh
+        working-directory: .
+        run: |
+          $hash=(Get-FileHash -Algorithm SHA256 'experiments/Blessing-BookHarvester-Sources-V1.1.zip').Hash.ToLowerInvariant()
+          if ($hash -ne '97067accc040c02aa6d3feef17ccfa9a8ae25be946b973c8ed2f4c0c1f105ddb') { throw 'Source mismatch' }
+          New-Item -ItemType Directory -Path 'experiments/blessing-bookharvester' -Force | Out-Null
+          Expand-Archive -LiteralPath 'experiments/Blessing-BookHarvester-Sources-V1.1.zip' -DestinationPath 'experiments/blessing-bookharvester' -Force
+          Copy-Item -LiteralPath 'experiments/Install-Portable-onedir.ps1' -Destination 'experiments/blessing-bookharvester/Install-Portable.ps1' -Force
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Run all 23 synthetic and extraction QA tests
+        run: |
+          python -m pip install -r requirements-qa.txt
+          python -m pytest -q tests --junitxml=qa-report.xml
+      - name: Build portable folder (no unpack at each launch)
+        run: pyinstaller --clean --noconfirm --onedir --windowed --name BlessingBookHarvester bookharvester.py
+      - name: Smoke-test exe with bounded wait
+        shell: pwsh
+        run: |
+          $ErrorActionPreference='Stop'
+          $exe=Resolve-Path '.\dist\BlessingBookHarvester\BlessingBookHarvester.exe'
+          $report=Join-Path $PWD 'exe-check.json'
+          $p=Start-Process -FilePath $exe -ArgumentList @('--self-test','--self-test-report',('"' + $report + '"')) -PassThru
+          if (-not $p.WaitForExit(45000)) { try { $p.Kill() } catch {} ; throw 'Timeout: EXE did not exit after 45s' }
+          if ($p.ExitCode -ne 0 -or !(Test-Path $report)) { throw "Runtime failure $($p.ExitCode)" }
+          $j=Get-Content -Raw -LiteralPath $report | ConvertFrom-Json
+          if ($j.ok -ne $true) { throw 'Runtime self test failed' }
+      - name: Validate portable installer and shortcut
+        shell: pwsh
+        run: |
+          Copy-Item '.\dist\BlessingBookHarvester' '.\BookHarvesterApp' -Recurse
+          & powershell.exe -NoProfile -ExecutionPolicy Bypass -File '.\Install-Portable.ps1'
+          if ($LASTEXITCODE -ne 0) { throw 'Installer failed' }
+          $lnk=Join-Path ([Environment]::GetFolderPath('Desktop')) 'Blessing BookHarvester.lnk'
+          if (!(Test-Path $lnk)) { throw 'No desktop shortcut' }
+          $target=(New-Object -ComObject WScript.Shell).CreateShortcut($lnk).TargetPath
+          if (!(Test-Path -LiteralPath $target)) { throw 'Broken shortcut target' }
+      - name: Prepare signed-by-SHA release archive
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory '.\release' -Force | Out-Null
+          Copy-Item '.\BookHarvesterApp' '.\release\BookHarvesterApp' -Recurse
+          Copy-Item '.\Install-Portable.ps1', '.\Install-Portable.bat' '.\release'
+          Set-Content '.\release\README-FIRST.txt' 'Double-click Install-Portable.bat; no Python needed. Supported sources and chapter access vary. No anti-bot bypass.'
+          Get-FileHash '.\release\BookHarvesterApp\BlessingBookHarvester.exe' -Algorithm SHA256 | Format-List | Out-File '.\release\SHA256.txt'
+          Compress-Archive -Path '.\release\*' -DestinationPath '.\Blessing-BookHarvester-Windows-Onedir-V1.1.1.zip' -CompressionLevel Optimal -Force
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: Blessing-BookHarvester-Windows-Onedir-V1.1.1
+          path: |
+            experiments/blessing-bookharvester/Blessing-BookHarvester-Windows-Onedir-V1.1.1.zip
+            experiments/blessing-bookharvester/qa-report.xml
+            experiments/blessing-bookharvester/exe-check.json
+          retention-days: 7
