@@ -1,0 +1,32 @@
+name: PCRC V3 public GO3 synthetic contract CI
+on:
+  push:
+    branches: [pcrc-v3-public-ci-isolated-20261112]
+    paths:
+      - 'PCRC_V3_PUBLIC_CI/**'
+      - '.github/workflows/pcrc-v3-public-go3-contracts.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pcrc-v3-public-go3-20261112
+  cancel-in-progress: true
+
+jobs:
+  public-contracts:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout public repository only
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Public synthetic contracts, no private dependencies
+        working-directory: PCRC_V3_PUBLIC_CI
+        run: python -B -m unittest discover -s . -p 'test_*.py' -v
