@@ -1,0 +1,38 @@
+name: BookHarvester V1.3 - 3 complete public-domain books A-to-Z
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  three-books-real-text:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    defaults:
+      run:
+        working-directory: experiments/bookharvester-v13
+    steps:
+      - uses: actions/checkout@v4
+      - name: Extract tested sources and verify SHA256
+        shell: bash
+        working-directory: .
+        run: |
+          echo "241f9b51776e14de5d8cd401a726fae1fefef71d93b84d76c59132cdbcce06c6  experiments/BookHarvester-V13-3Books-QA-Sources.zip" | sha256sum -c -
+          mkdir -p experiments/bookharvester-v13
+          unzip -q experiments/BookHarvester-V13-3Books-QA-Sources.zip -d experiments/bookharvester-v13
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install minimal QA dependencies
+        run: python -m pip install -r requirements-qa.txt
+      - name: Run 23 core engine QA tests (browser-specific suite certified separately on Windows Edge)
+        run: python -m pytest -q tests/test_bookharvester.py tests/test_qa_extended.py
+      - name: Actual 3 Gutenberg text downloads, 9 random real-text chapters, 77 complete chapters with simulated per-page retrieval
+        run: python three_books_realtext_e2e.py --root qa-three-books
+      - name: Publish only metadata and never public-domain book text
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: bookharvester-v13-three-books-qa-metadata
+          path: experiments/bookharvester-v13/qa-three-books/qa-report.json
+          if-no-files-found: warn
+          retention-days: 5
