@@ -32,3 +32,6 @@ A new repository is compliant when:
 - no automatic GitHub-hosted workflow exists by default;
 - Actions usage is expected to remain at zero during ordinary development;
 - remote Actions are reserved for indispensable release/build/platform-specific checkpoints.
+
+## Production universelle — entrée obligatoire (26 novembre 2026)
+Pour toute création, reprise, audit, migration, correction, mise à jour ou livraison de projet technique du propriétaire, lire d'abord [README_PRODUCTION_UNIVERSELLE.md](https://github.com/Terminator364/PROJECT-DRAFTS/blob/main/README_PRODUCTION_UNIVERSELLE.md) dans la branche par défaut de PROJECT-DRAFTS, puis les règles et l'état du projet concerné. Cette référence unique formalise GitHub-first, la continuité, le circuit privé/public, les ressources gratuites, les migrations vérifiées et la promotion après GO applicable. Elle complète les politiques CI et les protections particulières existantes. Ne pas recréer le projet ni redemander une décision déjà documentée. En cas d'accès impossible, signaler la lacune et ne pas prétendre avoir lu la règle.
