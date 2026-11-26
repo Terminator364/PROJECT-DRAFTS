@@ -1,12 +1,12 @@
-# SENTINEL — Incubation GitHub
+# SENTINEL — incubation GitHub
 
-Le développement et la revue des changements passent par GitHub. Le laboratoire Windows et PCRC servent aux mesures, essais matériels, déploiement contrôlé et vérification finale. Aucun déploiement automatique.
+Développement et revue dans GitHub; PCRC et le laboratoire Windows pour les validations matérielles et le déploiement contrôlé. L'incubation publique ne remplace pas encore la source privée de production.
 
-## Autorités documentaires
-Lire README.md, DIRECTION.md puis MEMOIRE_MAITRE.md avant toute intervention. Tout changement doit être versionné, testé et associé à une preuve. Un seul exécuteur de production.
-
-## Huit familles canoniques
-ARCHITECTURE, GOUVERNANCE, SYSTEME, MODULES, OUTILS, MEMOIRE, ARCHIVES, PROJETS. Aucun neuvième dossier racine. Les familles sans fichiers ne sont pas encore matérialisées dans Git.
+## Architecture constatée
+ARCHITECTURE, ARCHIVES, BACKUPS, GOUVERNANCE, MEMOIRE, MODULES, OUTILS, PROJETS, SYSTEME, WATCHER. Lire DIRECTION.md et MEMOIRE_MAITRE.md avant intervention.
 
 ## Sécurité
-Ce dépôt est public. Seuls les éléments explicitement non sensibles et génériques y sont admis. Ne pas transférer les sources privées existantes, historiques de télémétrie, configurations utilisateur, clés, identifiants ou binaires personnels. La migration complète vers un dépôt dédié privé est distincte. Hériter de AGENTS.md et CI_BUDGET_POLICY.json à la racine du dépôt. Zéro workflow automatique, zéro minute hébergée par défaut.
+PROJECT-DRAFTS est public. Seuls les modèles génériques, tests synthétiques et inventaires non sensibles sont admissibles. Les sources privées, binaires, journaux, identifiants, configurations et sauvegardes personnelles restent hors du dépôt public. Aucun déploiement ni workflow automatique; AGENTS.md et CI_BUDGET_POLICY.json du dépôt s'appliquent.
+
+## Migration
+Voir ARCHIVES/INVENTAIRE_VERSIONS.md. Le catalogue n'est pas une copie des versions. Le transfert intégral privé nécessite une destination privée et un contrôle d'intégrité. Ne pas détruire ni remplacer les originaux.
